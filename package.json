@@ -2,6 +2,24 @@
   "name": "groov",
   "version": "0.0.1",
   "private": true,
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn build"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 140,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "parser": "typescript"
+  },
   "scripts": {
     "lint": "yarn tslint",
     "tslint": "tslint 'src/**/*.ts?(x)'",
