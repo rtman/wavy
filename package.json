@@ -1,0 +1,58 @@
+{
+  "name": "groov",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "lint": "yarn tslint",
+    "tslint": "tslint 'src/**/*.ts?(x)'",
+    "tslintfix": "tslint 'src/**/*.ts?(x)' --fix",
+    "build": "yarn tsc --build tsconfig.build.json",
+    "build:env": "sh ./scripts/build-env.sh",
+    "install:gems": "(cd ios; bundle check || bundle install; cd -)",
+    "install:hacks": "yarn patch-package",
+    "install:pods": "diff ios/Podfile.lock ios/Pods/Manifest.lock || (cd ios; bundle exec pod install; cd -)",
+    "install:jetify": "jetify",
+    "link": "react-native link",
+    "bump:patch": "cd ios; fastlane bump_version && fastlane tag_version; cd -; cd android; fastlane bump_version && fastlane tag_version; cd -",
+    "bump:minor": "cd ios; fastlane bump_minor_version && fastlane tag_version; cd -; cd android; fastlane bump_minor_version && fastlane tag_version; cd -",
+    "start:fresh": "yarn start --reset-cache",
+    "start": "yarn build:env && react-native start",
+    "clean:metro": "watchman watch-del-all && yarn trash $TMPDIR/{react,metro,haste}*",
+    "clean": "yarn run clean:metro && yarn trash ./ios/Pods ./ios/build ./android/build ./android/app/build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:e2e": "yarn build:e2e:ios && yarn test:e2e:ios",
+    "android": "react-native run-android --appIdSuffix=development",
+    "ios": "react-native run-ios --scheme=groov-development"
+  },
+  "dependencies": {
+    "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/auth": "^6.2.0",
+    "@react-native-firebase/firestore": "^6.2.0",
+    "@react-native-firebase/storage": "^6.2.0",
+    "@react-navigation/core": "^5.0.0-alpha.26",
+    "@react-navigation/native": "^5.0.0-alpha.16",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
+    "react-native-styled-components": "^2.1.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.1.3",
+    "reselect": "^4.0.0",
+    "zustand": "^2.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/runtime": "^7.7.5",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.7.2",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
