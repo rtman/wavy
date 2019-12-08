@@ -16,14 +16,14 @@
     "bump:patch": "cd ios; fastlane bump_version && fastlane tag_version; cd -; cd android; fastlane bump_version && fastlane tag_version; cd -",
     "bump:minor": "cd ios; fastlane bump_minor_version && fastlane tag_version; cd -; cd android; fastlane bump_minor_version && fastlane tag_version; cd -",
     "start:fresh": "yarn start --reset-cache",
-    "start": "yarn build:env && react-native start",
+    "start": "react-native start",
     "clean:metro": "watchman watch-del-all && yarn trash $TMPDIR/{react,metro,haste}*",
     "clean": "yarn run clean:metro && yarn trash ./ios/Pods ./ios/build ./android/build ./android/app/build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:e2e": "yarn build:e2e:ios && yarn test:e2e:ios",
-    "android": "react-native run-android --appIdSuffix=development",
-    "ios": "react-native run-ios --scheme=groov-development"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
   },
   "dependencies": {
     "@react-native-firebase/app": "^6.2.0",
