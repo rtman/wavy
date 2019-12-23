@@ -1,5 +1,7 @@
 {
   "name": "postgresql",
   "private": true,
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
 }
