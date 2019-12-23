@@ -6,6 +6,12 @@ export default gql`
     song(id: ID!): Song!
   }
 
+  extend type Mutation {
+    createNewSong(text: String!): Song!
+    deleteSong(id: ID!): Boolean!
+    updateSong(id: ID!, title: String!): Song!
+  }
+
   type Song {
     id: ID!
     title: String!
