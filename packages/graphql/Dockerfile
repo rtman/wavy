@@ -1,7 +1,7 @@
 FROM node:10
 
-WORKDIR /app
+WORKDIR /graphql
 COPY ./package.json ./
 RUN yarn install
 COPY . .
-CMD [ "npm", "start" ] 
+CMD [ "yarn", "run", "start" ] 
