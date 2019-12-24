@@ -2,24 +2,6 @@
   "name": "groov",
   "version": "0.0.1",
   "private": true,
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "tslint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && yarn build"
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "printWidth": 140,
-    "semi": true,
-    "bracketSpacing": true,
-    "arrowParens": "always",
-    "parser": "typescript"
-  },
   "scripts": {
     "lint": "yarn tslint",
     "tslint": "tslint 'src/**/*.ts?(x)'",
@@ -68,15 +50,8 @@
     "@types/react-native": "^0.60.24",
     "@types/styled-components": "^4.4.0",
     "babel-jest": "^24.9.0",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
-    "husky": "^3.1.0",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.5.0",
     "metro-react-native-babel-preset": "^0.57.0",
-    "prettier": "^1.19.1",
     "react-test-renderer": "16.9.0",
-    "typescript": "^3.7.4",
     "typescript-styled-plugin": "^0.15.0"
   },
   "jest": {

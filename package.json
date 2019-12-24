@@ -1,10 +1,33 @@
 {
   "name": "groov",
+  "version": "0.0.1",
   "private": true,
+  "workspaces": [ "packages/*"],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn build"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 140,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "parser": "typescript"
+  },
   "devDependencies": {
     "lerna": "^3.19.0"
   },
   "scripts": {
     "postgres": "psql -h localhost -p 5433 -d groov -U groov"
+  },
+  "dependencies": {
+    "typescript": "^3.7.4"
   }
 }

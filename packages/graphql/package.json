@@ -1,19 +1,34 @@
 {
   "name": "graphql",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "apollo-server": "^2.9.14",
     "apollo-server-express": "^2.9.14",
     "cors": "^2.8.5",
+    "dotenv-config": "^0.1.1",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "nodemon": "^2.0.2",
-    "sequelize": "^5.21.3"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.21.3",
+    "sequelize-typescript": "^1.1.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.ts"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
+    "@types/node": "^13.1.0",
+    "@types/validator": "^12.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1"
   }
 }

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "es2015",
+      "target": "es6",
       "module": "commonjs",
       "jsx": "react",
       "noEmit": true,
@@ -11,6 +11,7 @@
       "strict": true,
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
       "baseUrl": "./src",
       "noUnusedLocals": true,
       "suppressImplicitAnyIndexErrors": true,
