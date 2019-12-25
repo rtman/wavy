@@ -1,4 +1,5 @@
 import songsSchema from './songs';
+import { gql } from 'apollo-server-express';
 
 const linkSchema = gql`
   type Query {

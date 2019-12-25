@@ -3,12 +3,16 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import 'dotenv/config';
 import { sequelize } from './models';
+import Schema from './schema';
 
 const app = express();
 
 app.use(cors());
 
-const server = new ApolloServer({});
+const server = new ApolloServer({
+  schema: Schema,
+  playground: true
+});
 
 server.applyMiddleware({
   app,

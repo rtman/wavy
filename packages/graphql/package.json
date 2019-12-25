@@ -10,7 +10,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
-    "nodemon": "^2.0.2",
+    "pg": "^7.15.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.3",
     "sequelize-typescript": "^1.1.0",
@@ -18,7 +18,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "nodemon src/index.ts"
+    "start": "nodemon ./src/index.ts"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
@@ -31,6 +31,7 @@
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   }
 }
