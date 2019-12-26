@@ -1,31 +1,22 @@
-import cors from 'cors';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import 'dotenv/config';
-import { sequelize } from './models';
-import Schema from './schema';
+import depthLimit from 'graphql-depth-limit';
+import { createServer } from 'http';
+import compression from 'compression';
+import cors from 'cors';
+import { typeDefs } from './schema/books';
+import { resolvers } from './resolverMap';
 
 const app = express();
-
-app.use(cors());
-
 const server = new ApolloServer({
-  schema: Schema,
-  playground: true
+  typeDefs,
+  resolvers,
+  validationRules: [depthLimit(7)]
 });
 
-server.applyMiddleware({
-  app,
-  path: '/graphql'
-});
+app.use('*', cors());
+app.use(compression());
+server.applyMiddleware({ app, path: '/graphql' });
 
-sequelize.sync().then(async () => {
-  app.listen(
-    {
-      port: 8000 // you could change this to process.env.PORT if you wish
-    },
-    () => {
-      console.log('Apollo Server on http://localhost:8000/graphql');
-    }
-  );
-});
+const httpServer = createServer(app);
+httpServer.listen({ port: 3000 }, (): void => console.log(`\n🚀      GraphQL is now running on http://localhost:3000/graphql`));

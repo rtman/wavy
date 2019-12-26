@@ -1,6 +1,6 @@
 const songs = (sequelize, DataTypes) => {
   const Songs = sequelize.define('songs', {
-    title: DataTypes.STRING,
+    title: DataTypes.STRING
   });
   return Songs;
 };
