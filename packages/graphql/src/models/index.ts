@@ -25,5 +25,13 @@ export const books = [
   {
     title: 'Jurassic Park',
     author: 'Michael Crichton'
+  },
+  {
+    title: 'Harry Potter and the Prisoner of Azkabhan',
+    author: 'J.K. Rowling'
+  },
+  {
+    title: 'A Game of thrones',
+    author: 'George R.R. Martin'
   }
 ];

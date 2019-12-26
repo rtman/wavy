@@ -21,7 +21,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "node 'dist/index.ts'",
+    "start": "node 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
     "build": "tsc -p . && ncp src/schema dist/schema",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql"
