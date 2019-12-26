@@ -17,21 +17,21 @@
 // export { sequelize };
 // export default models;
 
-export const books = [
+export const songs = [
   {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling'
+    title: 'The Bells',
+    artist: 'Jeff Mills'
   },
   {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton'
+    title: 'I got that feelin',
+    artist: 'Dreamer G'
   },
   {
-    title: 'Harry Potter and the Prisoner of Azkabhan',
-    author: 'J.K. Rowling'
+    title: 'Kind of Blue',
+    artist: 'Miles Davis'
   },
   {
-    title: 'A Game of thrones',
-    author: 'George R.R. Martin'
+    title: 'Only the lonely',
+    artist: 'Roy Orbison'
   }
 ];

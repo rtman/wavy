@@ -1,9 +1,9 @@
 // resolverMap.ts
 import { IResolvers } from 'graphql-tools';
-import { books } from './models';
+import { songs } from './models';
 
 export const resolvers: IResolvers = {
   Query: {
-    books: () => books
+    songs: () => songs
   }
 };
