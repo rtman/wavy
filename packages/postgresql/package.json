@@ -2,6 +2,10 @@
   "name": "postgresql",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "migrate": "sequelize db:migrate", 
+    "seed": "sequelize db:seed"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
