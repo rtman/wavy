@@ -25,7 +25,7 @@
     "lerna": "^3.19.0"
   },
   "scripts": {
-    "postgres": "psql -h localhost -p 5433 -d groov -U groov"
+    "postgres": "docker exec -it postgresql bash"
   },
   "dependencies": {
     "typescript": "^3.7.4"
