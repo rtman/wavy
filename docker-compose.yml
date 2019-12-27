@@ -12,6 +12,14 @@ services:
     ports:
       - '5433:5432'
 
+  migration:
+    container_name: migration
+    build: ./packages/migration 
+    links:
+      - postgresql
+    depends_on:
+      - postgresql
+
   graphql:
     container_name: graphql
     restart: always

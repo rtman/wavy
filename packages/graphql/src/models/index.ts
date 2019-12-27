@@ -5,7 +5,7 @@
 // });
 
 // const models = {
-//   Songs: sequelize.import('./songs')
+//   Song: sequelize.import('./song')
 // };
 
 // Object.keys(models).forEach((key) => {

@@ -1,5 +1,5 @@
 {
-  "name": "postgresql",
+  "name": "migration",
   "version": "0.0.1",
   "private": true,
   "scripts": {
