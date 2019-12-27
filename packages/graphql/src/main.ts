@@ -1,11 +1,11 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import { typeDefs } from './schema/songs';
+import { resolvers } from './resolverMap';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import { typeDefs } from './schema/songs';
-import { resolvers } from './resolverMap';
 
 const app = express();
 const server = new ApolloServer({
