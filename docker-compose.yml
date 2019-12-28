@@ -24,6 +24,11 @@ services:
     container_name: graphql
     restart: always
     build: ./packages/graphql
+    environment:
+      - DATABASE_URL=postgresql
+      - DATABASE_USER=groov
+      - DATABASE_PASSWORD=groov
+      - DATABASE_DB=groov
     ports:
       - '3000:3000'
     depends_on:
