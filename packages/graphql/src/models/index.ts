@@ -1,20 +1,21 @@
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-let sequelize;
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+// let sequelize;
+// if (process.env.DATABASE_URL) {
+//   sequelize = new Sequelize(process.env.DATABASE_URL, {
+//     dialect: 'postgres'
+//   });
+// } else {
+const sequelize = new Sequelize(
+  process.env.TEST_DATABASE || process.env.DATABASE_DB,
+  process.env.DATABASE_USER,
+  process.env.DATABASE_PASSWORD,
+  {
+    host: 'postgresql',
     dialect: 'postgres'
-  });
-} else {
-  sequelize = new Sequelize(
-    process.env.TEST_DATABASE || process.env.DATABASE_DB,
-    process.env.DATABASE_USER,
-    process.env.DATABASE_PASSWORD,
-    {
-      dialect: 'postgres'
-    }
-  );
-}
+  }
+);
+// }
 
 const models = {
   Song: sequelize.import('./song')

@@ -14,5 +14,6 @@ export default gql`
   # case, the "books" query returns an array of zero or more Books (defined above).
   extend type Query {
     songs: [Song]
+    song(id: ID!): Song
   }
 `;

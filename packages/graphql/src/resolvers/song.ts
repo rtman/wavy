@@ -7,7 +7,6 @@ export default {
     songs: async (parent, args, { models }) => {
       return await models.Song.findAll();
     },
-
     song: async (parent, { id }, { models }) => {
       return await models.Song.findById(id);
     }
