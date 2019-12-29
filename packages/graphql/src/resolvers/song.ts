@@ -15,7 +15,7 @@ export default {
       console.log('resolvers song id', id);
       console.log('resolvers song models', models);
 
-      return await models.Song.findById(id);
+      return await models.Song.findByPk(id);
     }
   }
   // Mutation: {
