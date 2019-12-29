@@ -5,9 +5,16 @@
 export default {
   Query: {
     songs: async (parent, args, { models }) => {
+      console.log('resolvers songs parent', parent);
+      console.log('resolvers songs args', args);
+      console.log('resolvers songs models', models);
       return await models.Song.findAll();
     },
     song: async (parent, { id }, { models }) => {
+      console.log('resolvers song parent', parent);
+      console.log('resolvers song id', id);
+      console.log('resolvers song models', models);
+
       return await models.Song.findById(id);
     }
   }

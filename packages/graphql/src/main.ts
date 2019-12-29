@@ -24,6 +24,15 @@ const server = new ApolloServer({
       message
     };
   },
+  context: async ({ req, connection }) => {
+    // console.log('Apollo server req', req);s
+    // console.log('Apollo server connection', connection);
+    if (req) {
+      return {
+        models
+      };
+    }
+  },
   validationRules: [depthLimit(7)]
 });
 const port = 3000;
@@ -37,6 +46,5 @@ const httpServer = createServer(app);
 sequelize.sync().then(async () => {
   httpServer.listen({ port }, () => {
     console.log(`\n🚀      GraphQL is now running on http://localhost:${port}/graphql`);
-    console.log(`Apollo Server on http://localhost:${port}/graphql`);
   });
 });

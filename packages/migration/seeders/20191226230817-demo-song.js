@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      'Songs',
+      'songs',
       [
         {
           title: 'The Bells',
@@ -35,6 +35,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Songs', null, {});
+    return queryInterface.bulkDelete('songs', null, {});
   }
 };
