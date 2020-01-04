@@ -34,7 +34,7 @@ services:
     depends_on:
       - postgresql
 
-#https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
     container_name: es01
@@ -54,8 +54,8 @@ services:
       - data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-    networks:
-      - elastic
+    # networks:
+    #   - elastic
 
   # es02:
   #   image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
@@ -84,6 +84,6 @@ volumes:
   # data03:
   #   driver: local
 
-networks:
-  elastic:
-    driver: bridge
+# networks:
+#   elastic:
+#     driver: bridge
