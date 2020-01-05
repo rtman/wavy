@@ -1,3 +1,4 @@
+# zombodb requires postgresql 10/11
 FROM postgres:11.6-alpine as intermediate
 
 # ENV ZOMBODB_VERSION 4.0.0

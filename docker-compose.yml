@@ -36,14 +36,16 @@ services:
 
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    # zombodb requires elasticsearch 5/6
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
     container_name: es01
     environment:
       - node.name=es01
       - cluster.name=es-docker-cluster
       # - discovery.seed_hosts=es02,es03
       # - cluster.initial_master_nodes=es01,es02,es03
-      - cluster.initial_master_nodes=es01
+      #  es 7+ setting below
+      # - cluster.initial_master_nodes=es01 
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -58,7 +60,7 @@ services:
     #   - elastic
 
   # es02:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
   #   container_name: es02
   #   environment:
   #     - node.name=es02
