@@ -5,4 +5,4 @@ COPY ./package.json ./
 RUN yarn global add nodemon ts-node
 RUN yarn install
 COPY . .
-CMD [ "yarn", "run", "start:dev" ] 
+CMD [ "yarn", "run", "start" ] 
