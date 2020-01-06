@@ -1,28 +1,29 @@
 // import jwt from 'jsonwebtoken';
 // import { combineResolvers } from 'graphql-resolvers';
 // import { AuthenticationError, UserInputError } from 'apollo-server';
+import {} from 'graphql';
 
 export default {
   Query: {
-    songs: async (parent, args, { models }) => {
+    songs: async (_parent: any, _args: any, { models }: any) => {
       return await models.Song.findAll();
     },
-    song: async (parent, { id }, { models }) => {
+    song: async (_parent: any, { id }: any, { models }: any) => {
       return await models.Song.findByPk(id);
     }
   },
   Mutation: {
-    createNewSong: async (parent, { title, artist }, { models }) => {
+    createNewSong: async (_parent: any, { title, artist }: any, { models }: any) => {
       return await models.Song.create({
         title,
         artist
       });
     },
-    updateSongTitle: async (parent, { id, title }, { models }) => {
+    updateSongTitle: async (_parent: any, { id, title }: any, { models }: any) => {
       const song = await models.Song.findByPk(id);
       return await song.update({ title });
     },
-    deleteSong: async (parent, { id }, { models }) => {
+    deleteSong: async (_parent: any, { id }: any, { models }: any) => {
       return await models.Song.destroy({
         where: { id }
       });

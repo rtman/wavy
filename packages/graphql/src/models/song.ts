@@ -1,4 +1,4 @@
-const song = (sequelize, DataTypes) => {
+const song = (sequelize: any, DataTypes: any) => {
   const Song = sequelize.define('song', {
     title: DataTypes.STRING,
     artist: DataTypes.STRING

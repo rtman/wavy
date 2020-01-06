@@ -5,12 +5,12 @@
   "workspaces": [ "packages/*"],
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint"
+      "prettier","eslint"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn build"
+      "pre-commit": "lint-staged && yarn tsc --build tsconfig.build.json"
     }
   },
   "prettier": {

@@ -7,9 +7,10 @@ import { Sequelize } from 'sequelize';
 //   });
 // } else {
 const sequelize = new Sequelize(
-  process.env.TEST_DATABASE || process.env.DATABASE_DB,
-  process.env.DATABASE_USER,
-  process.env.DATABASE_PASSWORD,
+  // process.env.TEST_DATABASE || process.env.DATABASE_DB,
+  process.env.DATABASE_DB!,
+  process.env.DATABASE_USER!,
+  process.env.DATABASE_PASSWORD!,
   {
     host: 'postgresql',
     dialect: 'postgres'

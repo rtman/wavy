@@ -24,7 +24,9 @@ const server = new ApolloServer({
       message
     };
   },
-  context: async ({ req, connection }) => {
+  context: async ({ req }) => {
+    // context: async ({ req, connection }) => {
+
     // console.log('Apollo server req', req);s
     // console.log('Apollo server connection', connection);
     if (req) {
@@ -32,6 +34,9 @@ const server = new ApolloServer({
         models
       };
     }
+
+    // if (connection) {
+    // }
   },
   validationRules: [depthLimit(7)]
 });
