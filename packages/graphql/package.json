@@ -24,7 +24,8 @@
     "start": "ts-node src/index.ts",
     "build": "",
     "start:dev": "npm run build:dev",
-    "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql"
+    "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
+    "generate": "yarn graphql-codegen"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",

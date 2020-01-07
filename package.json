@@ -2,10 +2,15 @@
   "name": "groov",
   "version": "0.0.1",
   "private": true,
-  "workspaces": [ "packages/*"],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier","eslint"
+      "prettier",
+      "eslint"
     ]
   },
   "husky": {
@@ -22,12 +27,15 @@
     "parser": "typescript"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.10.0",
+    "@graphql-codegen/typescript": "^1.10.0",
     "lerna": "^3.19.0"
   },
   "scripts": {
     "postgres": "docker exec -it postgresql bash"
   },
   "dependencies": {
+    "graphql": "^14.5.8",
     "typescript": "^3.7.4"
   }
 }
