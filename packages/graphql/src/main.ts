@@ -7,13 +7,14 @@ import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
+import { Resolvers } from './types';
 
 const app = express();
 const server = new ApolloServer({
   introspection: true,
   playground: true,
   typeDefs: schema,
-  resolvers: resolvers as any,
+  resolvers: resolvers as Resolvers,
   formatError: (error) => {
     // remove the internal sequelize error message
     // leave only the important validation error
