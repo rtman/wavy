@@ -29,6 +29,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^1.10.0",
     "@graphql-codegen/typescript": "^1.10.0",
+    "@graphql-codegen/typescript-resolvers": "^1.11.0",
     "lerna": "^3.19.0"
   },
   "scripts": {

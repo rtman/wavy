@@ -3,36 +3,44 @@
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
 import {
-  QuerySongArgs,
   Song,
-  MutationCreateNewSongArgs,
-  MutationUpdateSongTitleArgs,
-  MutationDeleteSongArgs,
+  MutationResolvers,
   Scalars,
+  QueryResolvers,
   Query
+  // SubscriptionResolvers
 } from '../types';
 
-export default {
+interface Resolvers {
+  Query: QueryResolvers;
+  Mutation: MutationResolvers;
+}
+
+export const songResolvers: Resolvers = {
   Query: {
-    songs: async (_parent: any, _args: undefined, { models }: any): Promise<Query['songs']> => {
-      return await models.Song.findAll();
+    songs: async (_parent, _args, ctx): Promise<Query['songs']> => {
+      return await ctx.models.Song.findAll();
     },
-    song: async (_parent: any, { id }: QuerySongArgs, { models }: any): Promise<Query['song']> => {
-      return await models.Song.findByPk(id);
+    song: async (_parent, args, ctx): Promise<Query['song']> => {
+      const { id } = args;
+      return await ctx.models.Song.findByPk(id);
     }
   },
   Mutation: {
-    createNewSong: async (_parent: any, { title, artist }: MutationCreateNewSongArgs, { models }: any): Promise<Song> => {
-      return await models.Song.create({
+    createNewSong: async (_parent, args, ctx): Promise<Song> => {
+      const { artist, title } = args;
+      return await ctx.models.Song.create({
         title,
         artist
       });
     },
-    updateSongTitle: async (_parent: any, { id, title }: MutationUpdateSongTitleArgs, { models }: any): Promise<Song> => {
-      const song = await models.Song.findByPk(id);
+    updateSongTitle: async (_parent, args, ctx): Promise<Song> => {
+      const { title, id } = args;
+      const song = await ctx.models.Song.findByPk(id);
       return await song.update({ title });
     },
-    deleteSong: async (_parent: any, { id }: MutationDeleteSongArgs, { models }: any): Promise<Scalars['Boolean']> => {
+    deleteSong: async (_parent, args, { models }): Promise<Scalars['Boolean']> => {
+      const { id } = args;
       return await models.Song.destroy({
         where: { id }
       });

@@ -1,6 +1,6 @@
 // import { GraphQLDateTime } from 'graphql-iso-date';
 
-import songResolvers from './song';
+import { songResolvers } from './song';
 // import messageResolvers from './message';
 
 // const customScalarResolver = {
