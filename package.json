@@ -7,10 +7,12 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/@react-native-community", 
-      "**/@react-native-community/**", 
+      "**/@react-native-community",
+      "**/@react-native-community/**",
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**",
+      "**/react-native-track-player/",
+      "**/react-native-track-player/**"
     ]
   },
   "lint-staged": {
@@ -43,6 +45,7 @@
   },
   "dependencies": {
     "graphql": "^14.5.8",
+    "patch-package": "^6.2.0",
     "typescript": "^3.7.4"
   }
 }
