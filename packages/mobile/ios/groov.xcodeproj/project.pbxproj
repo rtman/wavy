@@ -20,6 +20,8 @@
 		904259F9C82D5DE1AA4EFC93 /* libPods-groov-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA7C73C9F432E3ED95C4DE /* libPods-groov-tvOS.a */; };
 		9643308AE83213914F9AE1A5 /* libPods-groov.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23E544288DC289E0D94E6BD3 /* libPods-groov.a */; };
 		A53A9662F22A90F482A7E7F3 /* libPods-groovTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 701B60DD52BBAE6D51EEACFE /* libPods-groovTests.a */; };
+		E22F67E023C84F5900F7AC2F /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E22F67DF23C84EBA00F7AC2F /* libRNTrackPlayer.a */; };
+		E22F67E523C8554900F7AC2F /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F67E423C8554900F7AC2F /* dummy.swift */; };
 		E2AA7DBA239C8F8E00826C56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2AA7DB9239C8F8E00826C56 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "groov-tvOS";
+		};
+		E22F67DE23C84EBA00F7AC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E22F67DA23C84EBA00F7AC2F /* RNTrackPlayer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B0E28291F07D76F00B71D2A;
+			remoteInfo = RNTrackPlayer;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -65,6 +74,9 @@
 		CA9A0B41E5F2480BCAEA8EB3 /* Pods-groovTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-groovTests.debug.xcconfig"; path = "Target Support Files/Pods-groovTests/Pods-groovTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D5BA3066F40B87C51D742C4A /* Pods-groov-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-groov-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-groov-tvOSTests/Pods-groov-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB74F77193ED1B346B43AC1B /* Pods-groov-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-groov-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-groov-tvOS/Pods-groov-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E22F67DA23C84EBA00F7AC2F /* RNTrackPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNTrackPlayer.xcodeproj; path = "../../../node_modules/react-native-track-player/ios/RNTrackPlayer.xcodeproj"; sourceTree = "<group>"; };
+		E22F67E223C8554800F7AC2F /* groov-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "groov-Bridging-Header.h"; sourceTree = "<group>"; };
+		E22F67E423C8554900F7AC2F /* dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = dummy.swift; path = groov/dummy.swift; sourceTree = "<group>"; };
 		E2AA7DB9239C8F8E00826C56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "groov/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -85,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9643308AE83213914F9AE1A5 /* libPods-groov.a in Frameworks */,
+				E22F67E023C84F5900F7AC2F /* libRNTrackPlayer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +140,7 @@
 		13B07FAE1A68108700A75B9A /* groov */ = {
 			isa = PBXGroup;
 			children = (
+				E22F67E423C8554900F7AC2F /* dummy.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -134,6 +148,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				E22F67E223C8554800F7AC2F /* groov-Bridging-Header.h */,
 			);
 			name = groov;
 			sourceTree = "<group>";
@@ -154,6 +169,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E22F67DA23C84EBA00F7AC2F /* RNTrackPlayer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -198,6 +214,14 @@
 				70F0CC69523749ECC078EB76 /* Pods-groovTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E22F67DB23C84EBA00F7AC2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E22F67DF23C84EBA00F7AC2F /* libRNTrackPlayer.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +320,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -319,6 +346,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E22F67DB23C84EBA00F7AC2F /* Products */;
+					ProjectRef = E22F67DA23C84EBA00F7AC2F /* RNTrackPlayer.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* groov */,
@@ -328,6 +361,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E22F67DF23C84EBA00F7AC2F /* libRNTrackPlayer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNTrackPlayer.a;
+			remoteRef = E22F67DE23C84EBA00F7AC2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -563,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				E22F67E523C8554900F7AC2F /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,6 +660,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA9A0B41E5F2480BCAEA8EB3 /* Pods-groovTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -639,6 +684,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 70F0CC69523749ECC078EB76 /* Pods-groovTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = groovTests/Info.plist;
@@ -660,6 +706,7 @@
 			baseConfigurationReference = 14B4D4D8BB67566EEF2AF7ED /* Pods-groov.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = groov/Info.plist;
@@ -671,6 +718,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = groov;
+				SWIFT_OBJC_BRIDGING_HEADER = "groov-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -680,6 +730,7 @@
 			baseConfigurationReference = 17A9D1D6988054FDDDD76C17 /* Pods-groov.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = groov/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -690,6 +741,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = groov;
+				SWIFT_OBJC_BRIDGING_HEADER = "groov-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
