@@ -216,7 +216,7 @@ PODS:
     - GoogleUtilities/Logger (~> 6.2)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.1.0)
-  - FirebaseFirestore (1.8.0):
+  - FirebaseFirestore (1.8.1):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
     - abseil/memory (= 0.20190808)
@@ -544,10 +544,10 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
-  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
-  - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
-  - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
+  - "RNFBApp (from `../../../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../../../node_modules/@react-native-firebase/auth`)"
+  - "RNFBFirestore (from `../../../node_modules/@react-native-firebase/firestore`)"
+  - "RNFBStorage (from `../../../node_modules/@react-native-firebase/storage`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -625,13 +625,13 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNFBApp:
-    :path: "../node_modules/@react-native-firebase/app"
+    :path: "../../../node_modules/@react-native-firebase/app"
   RNFBAuth:
-    :path: "../node_modules/@react-native-firebase/auth"
+    :path: "../../../node_modules/@react-native-firebase/auth"
   RNFBFirestore:
-    :path: "../node_modules/@react-native-firebase/firestore"
+    :path: "../../../node_modules/@react-native-firebase/firestore"
   RNFBStorage:
-    :path: "../node_modules/@react-native-firebase/storage"
+    :path: "../../../node_modules/@react-native-firebase/storage"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -649,7 +649,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 307ea2508df730c5865334e41965bd9ea344b0e5
   FirebaseCoreDiagnostics: 511f4f3ed7d440bb69127e8b97c2bc8befae639e
   FirebaseCoreDiagnosticsInterop: e9b1b023157e3a2fc6418b5cb601e79b9af7b3a0
-  FirebaseFirestore: 7acd8c85ce6b8955cedc0b9be17d456473605a93
+  FirebaseFirestore: 2e92e977280d63ecbf3fd58bdbfaf9145abb880f
   FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
   FirebaseStorage: 046abe9ac4e2a1a0e47d72f536490ffa50896632
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51

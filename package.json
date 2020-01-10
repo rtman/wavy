@@ -5,6 +5,12 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "**/@react-native-community", 
+      "**/@react-native-community/**", 
+      "**/react-native",
+      "**/react-native/**"
     ]
   },
   "lint-staged": {

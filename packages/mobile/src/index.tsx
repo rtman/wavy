@@ -1,12 +1,10 @@
 import React, { ReactNode } from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, View, Text } from 'react-native';
 
 export const App = (): ReactNode => {
   return (
-    <>
-      <View>
-        <Text>"Test"</Text>
-      </View>
-    </>
+    <SafeAreaView>
+      <Text>TestING</Text>
+    </SafeAreaView>
   );
 };
