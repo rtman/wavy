@@ -7,12 +7,6 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/@react-native-community",
-      "**/@react-native-community/**",
-      "**/react-native",
-      "**/react-native/**",
-      "**/react-native-track-player/",
-      "**/react-native-track-player/**"
     ]
   },
   "lint-staged": {
@@ -41,7 +35,8 @@
     "lerna": "^3.19.0"
   },
   "scripts": {
-    "postgres": "docker exec -it postgresql bash"
+    "postgres": "docker exec -it postgresql bash",
+    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules && rm yarn.lock"
   },
   "dependencies": {
     "graphql": "^14.5.8",

@@ -1,7 +1,13 @@
 {
   "name": "groov",
   "version": "0.0.1",
-  "private": true,
+  "private": true,  
+  "workspaces": {
+    "nohoist": [
+      "*react-native*",
+      "*react-native*/**"
+    ]
+  },
   "scripts": {
     "lint": "yarn tslint",
     "tslint": "tslint 'src/**/*.ts?(x)'",

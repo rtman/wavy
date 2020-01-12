@@ -461,7 +461,7 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
-  - react-native-track-player (2.0.0-rc13):
+  - react-native-track-player (2.0.0-rc9):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -535,7 +535,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-track-player (from `../../../node_modules/react-native-track-player`)
+  - react-native-track-player (from `../node_modules/react-native-track-player`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -547,10 +547,10 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNFBApp (from `../../../node_modules/@react-native-firebase/app`)"
-  - "RNFBAuth (from `../../../node_modules/@react-native-firebase/auth`)"
-  - "RNFBFirestore (from `../../../node_modules/@react-native-firebase/firestore`)"
-  - "RNFBStorage (from `../../../node_modules/@react-native-firebase/storage`)"
+  - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
+  - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+  - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -608,7 +608,7 @@ EXTERNAL SOURCES:
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-track-player:
-    :path: "../../../node_modules/react-native-track-player"
+    :path: "../node_modules/react-native-track-player"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -630,13 +630,13 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNFBApp:
-    :path: "../../../node_modules/@react-native-firebase/app"
+    :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
-    :path: "../../../node_modules/@react-native-firebase/auth"
+    :path: "../node_modules/@react-native-firebase/auth"
   RNFBFirestore:
-    :path: "../../../node_modules/@react-native-firebase/firestore"
+    :path: "../node_modules/@react-native-firebase/firestore"
   RNFBStorage:
-    :path: "../../../node_modules/@react-native-firebase/storage"
+    :path: "../node_modules/@react-native-firebase/storage"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -677,7 +677,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-track-player: bb3a3f8251cfe7f4cbc5746e5a67d0951a4a5e39
+  react-native-track-player: 36e250a77705e5edc34b12020fd526511070971f
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
