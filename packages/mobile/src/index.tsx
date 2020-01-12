@@ -84,15 +84,6 @@ export const App = (): ReactNode => {
     };
   }, []);
 
-  useEffect(() => {
-    const onStateChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
-      const track = await TrackPlayer.getTrack(data.nextTrack);
-    });
-    return () => {
-      onStateChange.remove();
-    };
-  }, []);
-
   const renderQueue = () => {
     return trackQueue.map((track) => {
       const handleOnPress = async () => {
