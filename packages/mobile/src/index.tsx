@@ -1,12 +1,22 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { SafeAreaView, Text, Image, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
 import TrackPlayer from 'react-native-track-player';
 
 export const App = (): ReactNode => {
   const trackQueue = [];
+  const [trackTitle, setTrackTitle] = useState('');
+  const [trackArtwork, setTrackArtwork] = useState('');
+  const [trackArtist, setTrackArtist] = useState('');
+  const [loading, setLoading] = useState(false);
+
   React.useEffect(() => {
-    const playTrack = async () => {
+    // this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
+
+    //   const track = await TrackPlayer.getTrack(data.nextTrack);
+
+    // });
+    const queueTracks = async () => {
       //  TrackPlayer.setupPlayer().then(() => {
       //   // The player is ready to be used
       // });
@@ -64,9 +74,37 @@ export const App = (): ReactNode => {
       // });
 
       await TrackPlayer.add(tracks);
-      const trackQueue = await TrackPlayer.getQueue();
+      // const trackQueue = await TrackPlayer.getQueue();
     };
-    playTrack();
+    queueTracks();
+  }, []);
+
+  React.useEffect(() => {
+    const getTrack = async () => {
+      try {
+        setLoading(true);
+        const id = await TrackPlayer.getCurrentTrack();
+        const track = await TrackPlayer.getTrack(id);
+        // const response = await fetch(
+        //   `https://www.googleapis.com/books/v1/volumes?q=${searchBook}`
+        // );
+
+        // const json = await response.json();
+        // console.log(json);
+        console.log('getTrack.track', track);
+        setTrackTitle(track.title);
+        setTrackArtwork(track.artwork);
+        setTrackArtist(track.artist);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    // if (searchBook !== "") {
+    //   fetchBookList();
+    // }
+    getTrack();
   }, []);
 
   const getCurrentTrack = async () => {
@@ -86,29 +124,19 @@ export const App = (): ReactNode => {
     return queue;
   };
 
-  const trackList = null;
-  React.useEffect(() => {
-    if (trackQueue.length > 0) {
-      const trackList = trackQueue.map((track) => {
-        <Text>
-          `${track.artist} - ${track.title}`
-        </Text>;
-      });
-    }
-  }, [trackQueue]);
-
-  console.warn('trackList', trackList);
+  console.log('trackArtist', trackArtist);
+  console.log('trackTitle', trackTitle);
+  console.log('trackArtwork', trackArtwork);
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
       <Image
         style={{ height: 300, width: 300 }}
         source={{
-          uri:
-            'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9'
+          uri: loading ? 'loading' : trackArtwork
         }}
       />
-      {trackList}
+      <Text>{loading ? 'loading' : trackTitle}</Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%' }}>
         <TouchableOpacity onPress={() => TrackPlayer.skipToPrevious()}>
           <Text>Previous</Text>
@@ -119,7 +147,11 @@ export const App = (): ReactNode => {
         <TouchableOpacity onPress={() => TrackPlayer.pause()}>
           <Text>Pause</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => TrackPlayer.skipToNext()}>
+        <TouchableOpacity
+          onPress={() => {
+            TrackPlayer.skipToNext();
+          }}
+        >
           <Text>Next</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => TrackPlayer.reset()}>
