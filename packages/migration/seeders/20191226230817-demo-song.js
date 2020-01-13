@@ -6,26 +6,24 @@ module.exports = {
       'songs',
       [
         {
-          title: 'The Bells',
-          artist: 'Jeff Mills',
+          url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3',
+          title: 'Gold Coast (House Mix)',
+          artist: 'András',
+          album: 'Untitled',
+          genre: 'House',
+          date: '2014-05-20T07:00:00+00:00', // RFC 3339
+          artwork: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          title: 'Firestarter',
-          artist: 'The Prodigy',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          title: 'Baby likes to ride',
-          artist: 'Frankie Knuckles',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          title: 'Kinda blue',
-          artist: 'Miles Davis',
+          url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit Point.mp3',
+          title: 'Exit Point',
+          artist: 'Raf Reza',
+          album: 'Moods from the Multiverse',
+          genre: 'Space',
+          date: '2014-05-20T07:00:00+00:00', // RFC 3339
+          artwork: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
           createdAt: new Date(),
           updatedAt: new Date()
         }

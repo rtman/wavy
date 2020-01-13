@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import {gql} from 'apollo-server-express';
 
 export default gql`
   extend type Query {
@@ -7,7 +7,15 @@ export default gql`
   }
 
   extend type Mutation {
-    createNewSong(title: String!, artist: String!): Song!
+    createNewSong(
+      title: String!
+      artist: String!
+      album: String!
+      genre: String!
+      url: String!
+      artwork: String!
+      date: Date!
+    ): Song!
     updateSongTitle(id: ID!, title: String!): Song!
     deleteSong(id: ID!): Boolean!
   }
@@ -15,6 +23,11 @@ export default gql`
   type Song {
     title: String
     artist: String
+    album: String
+    genre: String
+    url: String
+    artwork: String
+    date: Date
     id: ID
     createdAt: Date
     updatedAt: Date

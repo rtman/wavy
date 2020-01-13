@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import { SafeAreaView, Text, Image, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
-import TrackPlayer, { usePlaybackState, useTrackPlayerEvents } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, State } from 'react-native-track-player';
 import storage from '@react-native-firebase/storage';
 
 export const App = (): ReactNode => {
@@ -24,7 +24,7 @@ export const App = (): ReactNode => {
 
   const initTracks = [
     {
-      id: 'andra-gold-coast-house-mix', // Must be a string, required
+      id: 'andras-gold-coast-house-mix', // Must be a string, required
       url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3', // Load media from the network
       // url: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=fb720a49-a656-47fc-9ab0-340924f48424',
       // url: require('./avaritia.ogg'), // Load media from the app bundle
@@ -135,10 +135,10 @@ export const App = (): ReactNode => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            playbackState === 'playing' ? TrackPlayer.pause() : TrackPlayer.play();
+            playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
           }}
         >
-          <Text>{playbackState === 'playing' ? 'Pause' : 'Play'}</Text>
+          <Text>{playbackState === State.Playing ? 'Pause' : 'Play'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

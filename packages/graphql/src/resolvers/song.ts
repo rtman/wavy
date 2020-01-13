@@ -7,7 +7,7 @@ import {
   MutationResolvers,
   Scalars,
   QueryResolvers,
-  Query
+  Query,
   // SubscriptionResolvers
 } from '../types';
 
@@ -22,28 +22,37 @@ export const songResolvers: Resolvers = {
       return await ctx.models.Song.findAll();
     },
     song: async (_parent, args, ctx): Promise<Query['song']> => {
-      const { id } = args;
+      const {id} = args;
       return await ctx.models.Song.findByPk(id);
-    }
+    },
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Song> => {
-      const { artist, title } = args;
+      const {title, artist, album, genre, url, artwork, date} = args;
       return await ctx.models.Song.create({
         title,
-        artist
+        artist,
+        album,
+        genre,
+        url,
+        artwork,
+        date,
       });
     },
     updateSongTitle: async (_parent, args, ctx): Promise<Song> => {
-      const { title, id } = args;
+      const {title, id} = args;
       const song = await ctx.models.Song.findByPk(id);
-      return await song.update({ title });
+      return await song.update({title});
     },
-    deleteSong: async (_parent, args, { models }): Promise<Scalars['Boolean']> => {
-      const { id } = args;
+    deleteSong: async (
+      _parent,
+      args,
+      {models},
+    ): Promise<Scalars['Boolean']> => {
+      const {id} = args;
       return await models.Song.destroy({
-        where: { id }
+        where: {id},
       });
-    }
-  }
+    },
+  },
 };

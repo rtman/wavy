@@ -14,6 +14,22 @@ module.exports = {
       artist: {
         type: Sequelize.TEXT
       },
+      url: {
+        type: Sequelize.TEXT
+      },
+      album: {
+        type: Sequelize.TEXT
+      },
+      genre: {
+        type: Sequelize.TEXT
+      },
+      artwork: {
+        type: Sequelize.TEXT
+      },
+      date: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
