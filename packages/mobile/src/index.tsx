@@ -2,6 +2,7 @@ import React, { ReactNode, useState, useEffect } from 'react';
 import { SafeAreaView, Text, Image, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
 import TrackPlayer, { usePlaybackState, useTrackPlayerEvents } from 'react-native-track-player';
+import storage from '@react-native-firebase/storage';
 
 export const App = (): ReactNode => {
   const [trackQueue, setQueue] = useState([]);
@@ -24,9 +25,8 @@ export const App = (): ReactNode => {
   const initTracks = [
     {
       id: 'andra-gold-coast-house-mix', // Must be a string, required
-      // url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3', // Load media from the network
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=fb720a49-a656-47fc-9ab0-340924f48424',
+      url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3', // Load media from the network
+      // url: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=fb720a49-a656-47fc-9ab0-340924f48424',
       // url: require('./avaritia.ogg'), // Load media from the app bundle
       // url: 'file:///storage/sdcard0/Music/avaritia.wav' // Load media from the file system
       title: 'Gold Coast (House Mix)',
@@ -34,22 +34,20 @@ export const App = (): ReactNode => {
       album: 'Untitled',
       genre: 'House',
       date: '2014-05-20T07:00:00+00:00', // RFC 3339
-      artwork:
-        'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9'
+      artwork: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg'
+      // artwork: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9'
     },
     {
       id: 'raf-reza-exit-point', // Must be a string, required
-      // url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3', // Load media from the network
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/B2_Exit%20Point.mp3?alt=media&token=b7dab356-8989-4251-a4a3-2b7302354595',
+      url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit Point.mp3', // Load media from the network
+      // url: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/B2_Exit%20Point.mp3?alt=media&token=b7dab356-8989-4251-a4a3-2b7302354595',
       title: 'Exit Point',
       artist: 'Raf Reza',
       album: 'Moods from the Multiverse',
       genre: 'Space',
       date: '2014-05-20T07:00:00+00:00', // RFC 3339
-      // artwork: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg' // Load artwork from the network
-      artwork:
-        'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5'
+      artwork: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png' // Load artwork from the network
+      // artwork: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5'
     }
   ];
 
@@ -58,11 +56,29 @@ export const App = (): ReactNode => {
       console.log('loadTrackQueue hook');
       await TrackPlayer.setupPlayer();
 
+      const getHttpUrl = async (googleStorageUri: string) => {
+        const fileRef = storage().refFromURL(googleStorageUri);
+        const url = await fileRef.getDownloadURL();
+        return url;
+      };
+
+      const trackUrlPromises = initTracks.map((track) => getHttpUrl(track.url));
+      const artworkUrlPromises = initTracks.map((track) => getHttpUrl(track.artwork));
+      const trackUrls = await Promise.all(trackUrlPromises);
+      const artworkUrls = await Promise.all(artworkUrlPromises);
+
+      for (let i = 0; i < initTracks.length; i++) {
+        initTracks[i].url = trackUrls[i];
+        initTracks[i].artwork = artworkUrls[i];
+      }
+
       await TrackPlayer.add(initTracks);
-      const trackQueue = await TrackPlayer.getQueue();
-      setQueue(trackQueue);
+      const queue = await TrackPlayer.getQueue();
+      setQueue(queue);
     };
+
     loadTrackQueue();
+
     return () => {
       // seems necessary to stop from loading duplicate info in the queue on remount (save + fast refresh)
       TrackPlayer.reset();
