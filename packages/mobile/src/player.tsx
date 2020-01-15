@@ -79,7 +79,6 @@ export const Player = () => {
         return url;
       };
 
-      console.log('data', data);
       if (!data) {
         return;
       }
@@ -90,19 +89,25 @@ export const Player = () => {
       const trackUrls = await Promise.all(trackUrlPromises);
       const artworkUrls = await Promise.all(artworkUrlPromises);
 
-      for (let i = 0; i < data.length; i++) {
-        songs[i].url = trackUrls[i];
-        songs[i].artwork = artworkUrls[i];
+      const resolvedSongs = [];
+      for (let i = 0; i < songs.length; i++) {
+        let { __typename, ...song } = songs[i];
+        song.id = `${song.artist}-${song.title}`;
+        song.url = trackUrls[i];
+        song.artwork = artworkUrls[i];
+        resolvedSongs.push(song);
       }
 
-      await TrackPlayer.add(songs);
+      console.log('resolvedSongs', resolvedSongs);
+
+      await TrackPlayer.add(resolvedSongs);
       const queue = await TrackPlayer.getQueue();
       setQueue(queue);
     };
 
-    if (!loading) {
-      loadTrackQueue();
-    }
+    // if (!loading) {
+    loadTrackQueue();
+    // }
 
     return () => {
       // seems necessary to stop from loading duplicate info in the queue on remount (save + fast refresh)

@@ -5,8 +5,7 @@ import ApolloClient from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
 
 const client = new ApolloClient({
-  // uri: 'https://graphql:3000/'
-  link: createHttpLink({ uri: 'http://localhost:3000/graphql' })
+  uri: 'http://localhost:3000/graphql'
 });
 
 export const App = () => {
