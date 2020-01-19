@@ -1,0 +1,198 @@
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+// import StyledComponets from 'styled-components';
+import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player';
+import storage from '@react-native-firebase/storage';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+import * as components from 'components';
+
+const SONGS = gql`
+  {
+    songs {
+      title
+      artist
+      album
+      genre
+      url
+      artwork
+      date
+    }
+  }
+`;
+
+export const Home = () => {
+  const [trackQueue, setQueue] = useState([]);
+  const [trackTitle, setTrackTitle] = useState('');
+  const [trackArtwork, setTrackArtwork] = useState('');
+  const [trackArtist, setTrackArtist] = useState('');
+  // const [loading, setLoading] = useState(false);
+  const playbackState = usePlaybackState();
+  const { loading, error, data } = useQuery(SONGS);
+  // useTrackPlayerEvents(['playback-track-changed'], async (event) => {
+  //   console.log('useTrackPlayerEvents - event', event);
+  //   if (event.type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
+  //     console.log('track changed hook');
+  //     const track = await TrackPlayer.getTrack(event.nextTrack);
+  //     setTrackTitle(track.title);
+  //     setTrackArtist(track.artist);
+  //     setTrackArtwork(track.artwork);
+  //   }
+  // });
+
+  // const initTracks = [
+  //   {
+  //     id: 'andras-gold-coast-house-mix', // Must be a string, required
+  //     url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3', // Load media from the network
+  //     // url: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=fb720a49-a656-47fc-9ab0-340924f48424',
+  //     // url: require('./avaritia.ogg'), // Load media from the app bundle
+  //     // url: 'file:///storage/sdcard0/Music/avaritia.wav' // Load media from the file system
+  //     title: 'Gold Coast (House Mix)',
+  //     artist: 'András',
+  //     album: 'Untitled',
+  //     genre: 'House',
+  //     date: '2014-05-20T07:00:00+00:00', // RFC 3339
+  //     artwork: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg'
+  //     // artwork: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9'
+  //   },
+  //   {
+  //     id: 'raf-reza-exit-point', // Must be a string, required
+  //     url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit Point.mp3', // Load media from the network
+  //     // url: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/B2_Exit%20Point.mp3?alt=media&token=b7dab356-8989-4251-a4a3-2b7302354595',
+  //     title: 'Exit Point',
+  //     artist: 'Raf Reza',
+  //     album: 'Moods from the Multiverse',
+  //     genre: 'Space',
+  //     date: '2014-05-20T07:00:00+00:00', // RFC 3339
+  //     artwork: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png' // Load artwork from the network
+  //     // artwork: 'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5'
+  //   }
+  // ];
+
+  useEffect(() => {
+    const loadTrackQueue = async () => {
+      console.log('loadTrackQueue hook');
+      await TrackPlayer.setupPlayer();
+
+      const getHttpUrl = async (googleStorageUri: string) => {
+        const fileRef = storage().refFromURL(googleStorageUri);
+        const url = await fileRef.getDownloadURL();
+        return url;
+      };
+
+      if (!data) {
+        return;
+      }
+      const { songs } = data;
+
+      const trackUrlPromises = songs.map((track: Track) => getHttpUrl(track.url));
+      const artworkUrlPromises = songs.map((track: Track) => getHttpUrl(track.artwork));
+      const trackUrls = await Promise.all(trackUrlPromises);
+      const artworkUrls = await Promise.all(artworkUrlPromises);
+
+      const resolvedSongs = [];
+      for (let i = 0; i < songs.length; i++) {
+        let { __typename, ...song } = songs[i];
+        song.id = `${song.artist}-${song.title}`;
+        song.url = trackUrls[i];
+        song.artwork = artworkUrls[i];
+        resolvedSongs.push(song);
+      }
+
+      console.log('resolvedSongs', resolvedSongs);
+
+      await TrackPlayer.add(resolvedSongs);
+      const queue = await TrackPlayer.getQueue();
+      setQueue(queue);
+    };
+
+    // if (!loading) {
+    loadTrackQueue();
+    // }
+
+    return () => {
+      // seems necessary to stop from loading duplicate info in the queue on remount (save + fast refresh)
+      TrackPlayer.reset();
+      setQueue([]);
+    };
+  }, [data]);
+
+  useEffect(() => {
+    const onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
+      console.log('onTrackChange hook');
+
+      const track = await TrackPlayer.getTrack(data.nextTrack);
+      setTrackArtist(track.artist);
+      setTrackTitle(track.title);
+      setTrackArtwork(track.artwork);
+    });
+    return () => {
+      onTrackChange.remove();
+    };
+  }, []);
+
+  const renderQueue = () => {
+    return trackQueue.map((track: Track) => {
+      const handleOnPress = async () => {
+        await TrackPlayer.pause();
+        await TrackPlayer.skip(track.id);
+        TrackPlayer.play();
+      };
+      return (
+        <TouchableOpacity onPress={handleOnPress}>
+          <Text>
+            {track.artist} - {track.title}
+          </Text>
+        </TouchableOpacity>
+      );
+    });
+  };
+
+  console.log('playbackState', playbackState);
+  console.log('graphql error', error);
+
+  const skipToNext = async () => {
+    try {
+      await TrackPlayer.skipToNext();
+    } catch (_) {}
+  };
+
+  const skipToPrevious = async () => {
+    try {
+      await TrackPlayer.skipToPrevious();
+    } catch (_) {}
+  };
+
+  const togglePlayBack = async () => {
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (currentTrack == null) {
+      await TrackPlayer.reset();
+      //   await TrackPlayer.add(playlistData);
+      //   await TrackPlayer.add({
+      //     id: 'local-track',
+      //     url: localTrack,
+      //     title: 'Pure (Demo)',
+      //     artist: 'David Chavez',
+      //     artwork: 'https://picsum.photos/200'
+      //   });
+      //   await TrackPlayer.play();
+      console.log('togglePlayback currentTrack is null');
+    } else {
+      console.log('togglePlayback.Play');
+      console.log('togglePlayback.playbackState', playbackState);
+      if (playbackState === State.Paused || playbackState === State.Ready) {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+      <View>{loading ? <Text>'loading'</Text> : renderQueue()}</View>
+      <components.Player onNext={skipToNext} onPrevious={skipToPrevious} onTogglePlayback={togglePlayBack} />
+      <Text>{error ? error.message : null}</Text>
+    </SafeAreaView>
+  );
+};

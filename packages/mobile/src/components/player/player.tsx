@@ -8,6 +8,7 @@ export const Player = (props: PlayerProps) => {
   const [trackTitle, setTrackTitle] = useState('');
   const [trackArtwork, setTrackArtwork] = useState('');
   const [trackArtist, setTrackArtist] = useState('');
+
   useTrackPlayerEvents(['playback-track-changed'], async (event: any) => {
     if (event.type === Event.PlaybackTrackChanged) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
@@ -19,7 +20,7 @@ export const Player = (props: PlayerProps) => {
 
   const { onNext, onPrevious, onTogglePlayback } = props;
 
-  var middleButtonText = 'Play';
+  let middleButtonText = 'Play';
 
   if (playbackState === State.Playing || playbackState === State.Buffering) {
     middleButtonText = 'Pause';

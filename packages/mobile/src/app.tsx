@@ -1,5 +1,5 @@
 import React from 'react';
-import { Player } from 'components';
+import * as screens from 'screens';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 // import { createHttpLink } from 'apollo-link-http';
@@ -11,7 +11,7 @@ const client = new ApolloClient({
 export const App = () => {
   return (
     <ApolloProvider client={client}>
-      <Player />
+      <screens.Home />
     </ApolloProvider>
   );
 };
