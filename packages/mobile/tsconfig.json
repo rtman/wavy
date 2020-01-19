@@ -1,13 +1,32 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "es6",
+    "target": "es2015",
     "module": "commonjs",
-    "esModuleInterop": true,
+    "jsx": "react",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "baseUrl": "./src",
+    "noUnusedLocals": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modues"]
+  "exclude": [
+    "node_modules"
+  ]
 }

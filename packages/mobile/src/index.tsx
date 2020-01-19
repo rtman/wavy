@@ -1,8 +1,8 @@
 import React from 'react';
-import { Player } from './player';
+import { Player } from 'components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-import { createHttpLink } from 'apollo-link-http';
+// import { createHttpLink } from 'apollo-link-http';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'

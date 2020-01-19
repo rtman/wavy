@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, Image, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
-import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, State } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player';
 import storage from '@react-native-firebase/storage';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
