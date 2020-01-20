@@ -26,6 +26,9 @@ module.exports = {
       artwork: {
         type: Sequelize.TEXT
       },
+      duration: {
+        type: Sequelize.INTEGER
+      },
       date: {
         allowNull: false,
         type: Sequelize.DATE

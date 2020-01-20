@@ -15,6 +15,7 @@ const SONGS = gql`
       album
       genre
       url
+      duration
       artwork
       date
     }

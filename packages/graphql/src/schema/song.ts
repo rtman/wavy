@@ -14,6 +14,7 @@ export default gql`
       genre: String!
       url: String!
       artwork: String!
+      duration: Int!
       date: Date!
     ): Song!
     updateSongTitle(id: ID!, title: String!): Song!
@@ -27,6 +28,7 @@ export default gql`
     genre: String
     url: String
     artwork: String
+    duration: Int
     date: Date
     id: ID
     createdAt: Date

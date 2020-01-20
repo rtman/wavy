@@ -9,7 +9,8 @@ interface SongModel extends Sequelize.Model {
   readonly genre: Song['genre'];
   readonly url: Song['url'];
   readonly artwork: Song['artwork'];
-  readonly darte: Song['date'];
+  readonly duration: Song['duration'];
+  readonly date: Song['date'];
 }
 
 // Need to declare the static model so `findOne` etc. use correct types.
@@ -28,6 +29,7 @@ const song = (
     genre: DataTypes.STRING,
     url: DataTypes.STRING,
     artwork: DataTypes.STRING,
+    duration: DataTypes.INTEGER,
     date: DataTypes.DATE,
   }) as SongModelStatic;
 

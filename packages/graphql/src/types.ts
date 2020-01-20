@@ -35,6 +35,7 @@ export type MutationCreateNewSongArgs = {
   genre: Scalars['String'],
   url: Scalars['String'],
   artwork: Scalars['String'],
+  duration: Scalars['Int'],
   date: Scalars['Date']
 };
 
@@ -69,6 +70,7 @@ export type Song = {
   genre?: Maybe<Scalars['String']>,
   url?: Maybe<Scalars['String']>,
   artwork?: Maybe<Scalars['String']>,
+  duration?: Maybe<Scalars['Int']>,
   date?: Maybe<Scalars['Date']>,
   id?: Maybe<Scalars['ID']>,
   createdAt?: Maybe<Scalars['Date']>,
@@ -156,13 +158,13 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Song: ResolverTypeWrapper<Song>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
   Date: ResolverTypeWrapper<Scalars['Date']>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Mutation: ResolverTypeWrapper<{}>,
   Subscription: ResolverTypeWrapper<{}>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -171,13 +173,13 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'],
   Song: Song,
   String: Scalars['String'],
+  Int: Scalars['Int'],
   Date: Scalars['Date'],
   ID: Scalars['ID'],
   Mutation: {},
   Subscription: {},
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
-  Int: Scalars['Int'],
 };
 
 export type CacheControlDirectiveResolver<Result, Parent, ContextType = any, Args = {   maxAge?: Maybe<Maybe<Scalars['Int']>>,
@@ -189,7 +191,7 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  createNewSong?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationCreateNewSongArgs, 'title' | 'artist' | 'album' | 'genre' | 'url' | 'artwork' | 'date'>>,
+  createNewSong?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationCreateNewSongArgs, 'title' | 'artist' | 'album' | 'genre' | 'url' | 'artwork' | 'duration' | 'date'>>,
   updateSongTitle?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationUpdateSongTitleArgs, 'id' | 'title'>>,
   deleteSong?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteSongArgs, 'id'>>,
 };
@@ -207,6 +209,7 @@ export type SongResolvers<ContextType = any, ParentType extends ResolversParentT
   genre?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   artwork?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,

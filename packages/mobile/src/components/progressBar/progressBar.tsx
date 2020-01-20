@@ -1,16 +1,28 @@
-import React from 'react';
-import { useTrackPlayerProgress } from 'react-native-track-player';
+import React, { useEffect, useState } from 'react';
+import TrackPlayer from 'react-native-track-player';
 import { StyleSheet, View } from 'react-native';
 
-export const ProgressBar = () => {
-  const progress = useTrackPlayerProgress();
+export const ProgressBar = (props: any) => {
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      let position_ = await TrackPlayer.getPosition();
+      setPosition(position_);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  console.log('progressBar.position', position);
+  console.log('progressBar.props.duration', props.duration);
 
   return (
     <View style={styles.progress}>
-      <View style={{ flex: progress.position, backgroundColor: 'red' }} />
+      <View style={{ flex: position, backgroundColor: 'red' }} />
       <View
         style={{
-          flex: progress.duration - progress.position,
+          flex: props.duration - position,
           backgroundColor: 'grey'
         }}
       />

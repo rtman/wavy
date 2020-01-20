@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TrackPlayer, { Event, State, usePlaybackState, useTrackPlayerEvents } from 'react-native-track-player';
+import TrackPlayer, { Event, State, usePlaybackState, useTrackPlayerEvents, useTrackPlayerProgress } from 'react-native-track-player';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as components from 'components';
 
@@ -8,6 +8,7 @@ export const Player = (props: PlayerProps) => {
   const [trackTitle, setTrackTitle] = useState('');
   const [trackArtwork, setTrackArtwork] = useState('');
   const [trackArtist, setTrackArtist] = useState('');
+  const [trackDuration, setTrackDuration] = useState(0);
 
   useTrackPlayerEvents(['playback-track-changed'], async (event: any) => {
     if (event.type === Event.PlaybackTrackChanged) {
@@ -15,6 +16,7 @@ export const Player = (props: PlayerProps) => {
       setTrackTitle(track.title);
       setTrackArtist(track.artist);
       setTrackArtwork(track.artwork);
+      setTrackDuration(track.duration);
     }
   });
 
@@ -29,7 +31,7 @@ export const Player = (props: PlayerProps) => {
   return (
     <View style={styles.card}>
       <Image style={styles.cover} source={{ uri: trackArtwork }} />
-      <components.ProgressBar />
+      <components.ProgressBar duration={trackDuration} />
       <Text style={styles.title}>{trackTitle}</Text>
       <Text style={styles.artist}>{trackArtist}</Text>
       <View style={styles.controls}>
