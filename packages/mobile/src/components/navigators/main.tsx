@@ -1,0 +1,25 @@
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import * as screens from 'screens';
+
+const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
+
+export const NavigationStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Profile" component={screens.Search} />
+      <Stack.Screen name="Settings" component={screens.Artist} />
+    </Stack.Navigator>
+  );
+};
+
+export const NavigationTabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={screens.Home} />
+      <Tab.Screen name="NavigationStack" component={NavigationStack} />
+    </Tab.Navigator>
+  );
+};

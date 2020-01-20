@@ -9,5 +9,10 @@ module.exports = {
         root: ['./src']
       }
     ]
-  ]
+  ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel']
+    }
+  }
 };
