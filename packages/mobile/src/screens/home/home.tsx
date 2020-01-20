@@ -27,16 +27,6 @@ export const Home = () => {
   // const [loading, setLoading] = useState(false);
   const playbackState = usePlaybackState();
   const { loading, error, data } = useQuery(SONGS);
-  // useTrackPlayerEvents(['playback-track-changed'], async (event) => {
-  //   console.log('useTrackPlayerEvents - event', event);
-  //   if (event.type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
-  //     console.log('track changed hook');
-  //     const track = await TrackPlayer.getTrack(event.nextTrack);
-  //     setTrackTitle(track.title);
-  //     setTrackArtist(track.artist);
-  //     setTrackArtwork(track.artwork);
-  //   }
-  // });
 
   useEffect(() => {
     const loadTrackQueue = async () => {
