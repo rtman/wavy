@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TrackPlayer, { Event, State, usePlaybackState, useTrackPlayerEvents, useTrackPlayerProgress } from 'react-native-track-player';
+import TrackPlayer, { Event, State, usePlaybackState, useTrackPlayerEvents } from 'react-native-track-player';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as components from 'components';
 
@@ -10,7 +10,7 @@ export const Player = (props: PlayerProps) => {
   const [trackArtist, setTrackArtist] = useState('');
   const [trackDuration, setTrackDuration] = useState(0);
 
-  useTrackPlayerEvents(['playback-track-changed'], async (event: any) => {
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event: any) => {
     if (event.type === Event.PlaybackTrackChanged) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
       setTrackTitle(track.title);

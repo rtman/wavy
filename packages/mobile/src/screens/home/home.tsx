@@ -23,7 +23,7 @@ const SONGS = gql`
 `;
 
 export const Home = () => {
-  const [trackQueue, setQueue] = useState([]);
+  const [trackQueue, setQueue] = useState<Track[]>([]);
   // const [loading, setLoading] = useState(false);
   const playbackState = usePlaybackState();
   const { loading, error, data } = useQuery(SONGS);
@@ -113,13 +113,6 @@ export const Home = () => {
     if (currentTrack == null) {
       await TrackPlayer.reset();
       //   await TrackPlayer.add(playlistData);
-      //   await TrackPlayer.add({
-      //     id: 'local-track',
-      //     url: localTrack,
-      //     title: 'Pure (Demo)',
-      //     artist: 'David Chavez',
-      //     artwork: 'https://picsum.photos/200'
-      //   });
       //   await TrackPlayer.play();
       console.log('togglePlayback currentTrack is null');
     } else {

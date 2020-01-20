@@ -6,7 +6,7 @@ interface Track {
   genre: string[];
   artwork: string;
   url: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   date: Date;
 }
