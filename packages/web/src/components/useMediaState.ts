@@ -1,0 +1,53 @@
+import { useEffect, useState } from 'react';
+
+export const useMediaState = (audio: HTMLAudioElement) => {
+  const [currentState, setCurrentState] = useState<HTMLElementEventMap | null>(null);
+
+  const events = [
+    'abort',
+    'canplay',
+    'canplaythrough',
+    'durationchange',
+    'emptied',
+    'encrypted',
+    'ended',
+    'error',
+    'interruptbegin',
+    'interruptend',
+    'loadeddata',
+    'loadedmetadata',
+    'loadstart',
+    'mozaudioavailable',
+    'pause',
+    'play',
+    'playing',
+    'progress',
+    'ratechange',
+    'seeked',
+    'seeking',
+    'stalled',
+    'suspend',
+    'timeupdate',
+    'volumechange',
+    'waiting'
+  ];
+
+  const addListenerMulti = (el: HTMLAudioElement, eventArray: string[], fn: (event: any) => void) => {
+    eventArray.forEach((event) => el.addEventListener(event, fn, false));
+  };
+
+  const removeListenerMulti = (el: HTMLAudioElement, eventArray: string[], fn: (event: any) => void) => {
+    eventArray.forEach((event) => el.removeEventListener(event, fn, false));
+  };
+
+  useEffect(() => {
+    const callback = (event: any) => {
+      setCurrentState(event.type);
+    };
+    addListenerMulti(audio, events, callback);
+
+    return () => removeListenerMulti(audio, events, callback);
+  });
+
+  return currentState;
+};

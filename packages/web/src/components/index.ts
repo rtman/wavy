@@ -5,3 +5,4 @@ export { Title } from './title';
 export { SubTitle } from './subTitle';
 export { ColumnContainer } from './columnContainer';
 export { ErrorMessage } from './errorMessage';
+export { useMediaState } from './useMediaState';
