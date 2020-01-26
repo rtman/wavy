@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+      "target": "es2015",
+      "module": "esnext",
+      "jsx": "react",
+      "noEmit": true,
+      "resolveJsonModule": true,
+      "moduleResolution": "node",
+      "strictPropertyInitialization": false,
+      "skipLibCheck": true,
+      "strict": true,
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "baseUrl": "./src",
+      "noUnusedLocals": false,
+      "suppressImplicitAnyIndexErrors": true,
+      "noUnusedParameters": false,
+      "esModuleInterop": true,
+      "lib": [
+        "es2017",
+        "dom"
+      ],
+      "plugins": [
+        {
+          "name": "typescript-styled-plugin"
+        }
+      ],
+      "allowJs": false,
+      "forceConsistentCasingInFileNames": true,
+      "isolatedModules": true
+    },
+    "exclude": [
+      "node_modules"
+    ],
+    "include": [
+      "src"
+    ]
+  }
+  
