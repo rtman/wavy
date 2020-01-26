@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-scripts/config/webpack.config.js b/node_modules/react-scripts/config/webpack.config.js
+index d34d06f..27bbb33 100644
+--- a/node_modules/react-scripts/config/webpack.config.js
++++ b/node_modules/react-scripts/config/webpack.config.js
+@@ -312,6 +312,7 @@ module.exports = function(webpackEnv) {
+           'scheduler/tracing': 'scheduler/tracing-profiling',
+         }),
+         ...(modules.webpackAliases || {}),
++        react: path.resolve('./node_modules/react')
+       },
+       plugins: [
+         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

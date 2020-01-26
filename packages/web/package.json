@@ -4,14 +4,8 @@
   "private": true,
   "workspaces": {
     "nohoist": [
-      "*react*",
-      "*react*/**",
-      "*connected-react-router*",
-      "*connected-react-router*/**",
-      "*react-dom*",
-      "*react-dom*/**",
-      "*react-router-dom*",
-      "*react-router-dom*/**"
+      "*react-scripts*",
+      "*react-scripts*/**"
     ]
   },
   "dependencies": {
@@ -45,7 +39,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:ts": "yarn tsc --build tsconfig.build.json",
-    "tslintfix": "tslint 'src/**/*.ts?(x)' --fix"
+    "tslintfix": "tslint 'src/**/*.ts?(x)' --fix",
+    "postinstall": "patch-package"
   },
   "eslintConfig": {
     "extends": "react-app"
