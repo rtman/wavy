@@ -3,7 +3,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'jest', 'prettier'],
   extends: [
-    'react-app',
     '@react-native-community',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
