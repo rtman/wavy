@@ -1,10 +1,12 @@
-export { commonSettings } from './common';
-// import { betaSettings } fom './beta';
 import { developmentSettings } from './development';
 import { productionSettings } from './production';
 
+export { commonSettings } from './common';
+// import { betaSettings } fom './beta';
+
 const settings: BuildFlavorsObject = {
-  common: commonSettings,
+  // commonSettings value doesnt work for some reason
+  common: {},
   //   beta: betaSettings,
   development: developmentSettings,
   production: productionSettings

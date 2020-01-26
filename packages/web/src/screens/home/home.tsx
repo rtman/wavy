@@ -5,7 +5,7 @@ import React from 'react';
 // import { createStructuredSelector } from 'reselect';
 // import * as state from 'state';
 
-export const EmailAndPassword = () => {
+export const Home = () => {
   const COMPONENT_NAME = 'Home';
 
   return (

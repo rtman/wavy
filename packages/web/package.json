@@ -2,6 +2,18 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "workspaces": {
+    "nohoist": [
+      "*react*",
+      "*react*/**",
+      "*connected-react-router*",
+      "*connected-react-router*/**",
+      "*react-dom*",
+      "*react-dom*/**",
+      "*react-router-dom*",
+      "*react-router-dom*/**"
+    ]
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
     "@testing-library/jest-dom": "^4.2.4",
