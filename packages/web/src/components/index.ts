@@ -6,3 +6,5 @@ export { SubTitle } from './subTitle';
 export { ColumnContainer } from './columnContainer';
 export { ErrorMessage } from './errorMessage';
 export { useMediaState } from './useMediaState';
+export { SearchBar } from './searchBar';
+export { Card } from './card';

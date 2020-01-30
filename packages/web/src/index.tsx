@@ -14,12 +14,18 @@ import * as state from 'state';
 import { App } from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 
 export const history = createBrowserHistory();
 
 console.log('config', config);
 
 firebase.initializeApp(config.FIREBASE_CONFIG);
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql'
+});
 
 // helpers.sentry.install();
 
@@ -48,7 +54,9 @@ sagaMiddleware.run(sagas.rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
