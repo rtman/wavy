@@ -1,4 +1,4 @@
-import { Card, Screen, SearchBar } from 'components';
+import { BottomBar, Card, Screen, SearchBar, TopBar, ContentContainer } from 'components';
 // import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
@@ -48,9 +48,12 @@ export const Home = () => {
 
   return (
     <Screen>
-      <div>Hello</div>
-      <SearchBar onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} />
-      <Card>
+      <ContentContainer>
+        <TopBar></TopBar>
+        <SearchBar onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} />
+        <Card></Card>
+      </ContentContainer>
+      <BottomBar>
         <audio
           preload="none"
           src={
@@ -58,7 +61,7 @@ export const Home = () => {
           }
           controls={true}
         />
-      </Card>
+      </BottomBar>
     </Screen>
   );
 };

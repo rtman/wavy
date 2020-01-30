@@ -8,3 +8,6 @@ export { ErrorMessage } from './errorMessage';
 export { useMediaState } from './useMediaState';
 export { SearchBar } from './searchBar';
 export { Card } from './card';
+export { TopBar } from './topBar';
+export { BottomBar } from './bottomBar';
+export { ContentContainer } from './contentContainer';

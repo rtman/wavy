@@ -1,16 +1,14 @@
 import * as consts from 'consts';
 import styled from 'styled-components';
 
-export const Card = styled.div({
+export const ContentContainer = styled.div({
   backgroundColor: consts.ui.colors.bgWhite,
   border: '1px black solid',
-  padding: `15px 32px`,
-  margin: `8px`,
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
-  width: '70%',
-  height: '100%',
-  '@media(max-width: 600px)': {
-    width: '100%'
-  }
+  width: '100%',
+  boxSizing: 'border-box',
+  height: '100%'
 });
