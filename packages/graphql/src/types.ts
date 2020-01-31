@@ -56,11 +56,16 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
   songs?: Maybe<Array<Maybe<Song>>>;
+  searchSongs?: Maybe<Array<Maybe<Song>>>;
   song?: Maybe<Song>;
 };
 
 export type QuerySongArgs = {
   id: Scalars['ID'];
+};
+
+export type QuerySearchSongArgs = {
+  query: Scalars['String'];
 };
 
 export type Song = {
@@ -269,11 +274,6 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  searchSongs?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Song']>>>,
-    ParentType,
-    ContextType
-  >;
   songs?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Song']>>>,
     ParentType,
@@ -284,6 +284,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QuerySongArgs, 'id'>
+  >;
+  searchSongs?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Song']>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchSongArgs, 'query'>
   >;
 };
 

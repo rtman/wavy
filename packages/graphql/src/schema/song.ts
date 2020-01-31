@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     songs: [Song]
     song(id: ID!): Song
+    searchSongs(query: String!): [Song]
   }
 
   extend type Mutation {

@@ -10,7 +10,8 @@ import {
   Query,
   // SubscriptionResolvers
 } from '../types';
-// import sequelize from 'sequelize';
+import {sequelize} from '../models';
+import {QueryTypes} from 'sequelize';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -26,12 +27,13 @@ export const songResolvers: Resolvers = {
       const {id} = args;
       return await ctx.models.Song.findByPk(id);
     },
-    // searchSongs: async (_parent, args, ctx): Promise<Query['searchSongs']> => {
-    //   const {query} = args;
-    //   return await sequelize.query(
-    //     `SELECT * FROM songs WHERE songs ==> ${query}`,
-    //   );
-    // },
+    searchSongs: async (_parent, args): Promise<Query['searchSongs']> => {
+      const {query} = args;
+      return await sequelize.query(
+        `SELECT * FROM songs AS song WHERE song ==> '${query}';`,
+        {type: QueryTypes.SELECT},
+      );
+    },
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Song> => {
