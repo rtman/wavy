@@ -3,6 +3,14 @@ import { BottomBar, Card, Screen, SearchBar, TopBar, ContentContainer } from 'co
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 // import c_quenz from './public/audio/c_quenz.mp3';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -39,16 +47,17 @@ const SEARCH_SONGS_QUERY = gql`
   }
 `;
 
-// function submitSearchQuery(searchQuery: string) {
-//   const { loading, error, data } = useQuery(SEARCH_SONGS_QUERY, { variables: { query: searchQuery } });
-//   if (loading) return <p>Loading ...</p>;
-//   return <h1>Hello {data.greeting.message}!</h1>;
-// }
+const getHttpUrl = async (googleStorageUri: string) => {
+  const fileRef = firebase.storage().refFromURL(googleStorageUri);
+  const url = await fileRef.getDownloadURL();
+  return url;
+};
 
 export const Home = () => {
   const COMPONENT_NAME = 'Home';
 
   const [searchText, setSearchText] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<Song[]>([]);
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);
   console.log('data', data);
@@ -63,24 +72,51 @@ export const Home = () => {
     setSearchText(event.target.value);
   };
 
-  const onKeyDownSearchBar = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDownSearchBar = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode == 13) {
       const formattedSearchText = `*${searchText}*`;
       submitSearch({ variables: { query: formattedSearchText } });
     }
   };
 
+  useEffect(() => {
+    const convertSongUrls = async () => {
+      const songs = data?.searchSongs ?? [];
+
+      const songUrlPromises = songs.map((song: Song) => getHttpUrl(song.url));
+      const artworkUrlPromises = songs.map((song: Song) => getHttpUrl(song.artwork));
+      const songUrls = await Promise.all(songUrlPromises);
+      const artworkUrls = await Promise.all(artworkUrlPromises);
+
+      const resolvedSongs = songs.map((song: any, index: number) => {
+        return { ...song, artwork: artworkUrls[index], url: songUrls[index] };
+      });
+
+      setSearchResults(resolvedSongs);
+    };
+
+    convertSongUrls();
+  }, [data]);
+
   const renderSearchResults = () => {
-    const songs = data?.searchSongs ?? [];
-    const songList = songs.map((song: any) => {
-      return (
-        <div key={song.id}>
-          <div>{song.artist}</div>
-          <div>{song.title}</div>
-        </div>
-      );
-    });
-    return <li>{songList}</li>;
+    console.log('searchResults', searchResults);
+    if (searchResults.length > 0) {
+      const songsList = searchResults.map((song: any) => {
+        return (
+          <React.Fragment key={`${song.artist} - ${song.title}`}>
+            <ListItem key={song.id} alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar variant="square" src={song.artwork} />
+              </ListItemAvatar>
+              <ListItemText primary={song.title} secondary={song.artist} />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </React.Fragment>
+        );
+      });
+      return <List>{songsList}</List>;
+    }
+    return null;
   };
 
   console.log('searchText', searchText);

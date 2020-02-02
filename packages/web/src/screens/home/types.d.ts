@@ -16,3 +16,16 @@ interface EmailAndPasswordStateProps {
 // type EmailAndPasswordDispatchProps = typeof import('./EmailAndPasswordContainer').mapDispatchToProps;
 
 type PasswordRequirementStatus = 'done' | 'blank' | 'fail';
+
+interface Song {
+  id: string;
+  artist: string;
+  title: string;
+  album: string;
+  genre: string[];
+  artwork: string;
+  url: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  date: Date;
+}
