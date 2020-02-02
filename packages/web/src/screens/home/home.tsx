@@ -65,7 +65,8 @@ export const Home = () => {
 
   const onKeyDownSearchBar = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode == 13) {
-      submitSearch({ variables: { query: searchText } });
+      const formattedSearchText = `*${searchText}*`;
+      submitSearch({ variables: { query: formattedSearchText } });
     }
   };
 
