@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('songs', [
       {
-        url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).mp3',
+        url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).ogg',
         title: 'Gold Coast (House Mix)',
         artist: 'András',
         album: 'Untitled',
@@ -16,7 +16,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit Point.mp3',
+        url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
         title: 'Exit Point',
         artist: 'Raf Reza',
         album: 'Moods from the Multiverse',

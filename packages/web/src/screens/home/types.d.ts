@@ -24,6 +24,7 @@ interface Song {
   album: string;
   genre: string[];
   artwork: string;
+  duration: number;
   url: string;
   createdAt?: Date;
   updatedAt?: Date;

@@ -53,6 +53,7 @@ export const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
+  const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);
@@ -76,6 +77,7 @@ export const Home = () => {
   };
 
   const playAudio = (song: Song) => {
+    setCurrentSong(song);
     const audio = new Audio(song.url);
     setPlayerAudio(audio);
     // audio.play();
@@ -132,7 +134,7 @@ export const Home = () => {
         <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
       </ContentContainer>
       <BottomBar>
-        <Player audio={playerAudio ?? new Audio()} />
+        <Player audio={playerAudio ?? new Audio()} currentSong={currentSong} />
         {/* <audio
           preload="none"
           src={
