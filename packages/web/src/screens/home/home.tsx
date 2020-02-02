@@ -130,13 +130,13 @@ export const Home = () => {
         <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
       </ContentContainer>
       <BottomBar>
-        <audio
+        {/* <audio
           preload="none"
           src={
             'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/B2_Exit%20Point.mp3?alt=media&token=b7dab356-8989-4251-a4a3-2b7302354595'
           }
           controls={true}
-        />
+        /> */}
       </BottomBar>
     </Screen>
   );
