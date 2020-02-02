@@ -11,3 +11,4 @@ export { Card } from './card';
 export { TopBar } from './topBar';
 export { BottomBar } from './bottomBar';
 export { ContentContainer } from './contentContainer';
+export { TextInput } from './textInput';

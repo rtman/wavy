@@ -1,14 +1,9 @@
-import { BottomBar, Card, Screen, SearchBar, TopBar, ContentContainer } from 'components';
+import { BottomBar, Screen, SearchBar, TextInput, TopBar, ContentContainer } from 'components';
 // import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+import { Avatar, Card, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 
@@ -79,6 +74,11 @@ export const Home = () => {
     }
   };
 
+  const playAudio = (song: Song) => {
+    const audio = new Audio(song.url);
+    audio.play();
+  };
+
   useEffect(() => {
     const convertSongUrls = async () => {
       const songs = data?.searchSongs ?? [];
@@ -104,7 +104,7 @@ export const Home = () => {
       const songsList = searchResults.map((song: any) => {
         return (
           <React.Fragment key={`${song.artist} - ${song.title}`}>
-            <ListItem key={song.id} alignItems="flex-start">
+            <ListItem key={song.id} alignItems="flex-start" onClick={() => playAudio(song)}>
               <ListItemAvatar>
                 <Avatar variant="square" src={song.artwork} />
               </ListItemAvatar>
@@ -126,7 +126,7 @@ export const Home = () => {
     <Screen>
       <ContentContainer>
         <TopBar></TopBar>
-        <SearchBar onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} />
+        <TextInput onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} fullWidth={true} />
         <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
       </ContentContainer>
       <BottomBar>
