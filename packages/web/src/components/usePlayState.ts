@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-export const useMediaState = (audio: HTMLAudioElement) => {
+export const usePlayState = (audio: HTMLAudioElement) => {
   const [currentState, setCurrentState] = useState<string | null>(null);
 
-  const events = [
+  const events: string[] = [
     'abort',
     'canplay',
     'canplaythrough',
@@ -40,9 +40,21 @@ export const useMediaState = (audio: HTMLAudioElement) => {
     eventArray.forEach((event) => el.removeEventListener(event, fn, false));
   };
 
+  const filterStates = (type: string) => {
+    const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
+
+    if (type === 'playing') {
+      return type;
+    } else if (statesThatStopPlayback.includes(type)) {
+      return null;
+    } else {
+      return currentState;
+    }
+  };
+
   useEffect(() => {
     const callback = (event: any) => {
-      setCurrentState(event.type);
+      setCurrentState(filterStates(event.type));
     };
     addListenerMulti(audio, events, callback);
 

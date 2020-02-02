@@ -1,85 +1,29 @@
 import React, { useState } from 'react';
-// import * as components from 'components';
+import { RowContainer } from 'components';
+import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
+// import { useMediaState } from 'components';
+import { usePlayState } from 'components';
 
-// export const Player = (props: PlayerProps) => {
-//   const playbackState = usePlaybackState();
-//   const [trackTitle, setTrackTitle] = useState('');
-//   const [trackArtwork, setTrackArtwork] = useState('');
-//   const [trackArtist, setTrackArtist] = useState('');
-//   const [trackDuration, setTrackDuration] = useState(0);
+export const Player = (props: Player) => {
+  const { audio } = props;
 
-//   useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event: any) => {
-//     if (event.type === Event.PlaybackTrackChanged) {
-//       const track = await TrackPlayer.getTrack(event.nextTrack);
-//       setTrackTitle(track.title);
-//       setTrackArtist(track.artist);
-//       setTrackArtwork(track.artwork);
-//       setTrackDuration(track.duration);
-//     }
-//   });
+  const currentState = usePlayState(audio);
 
-//   const { onNext, onPrevious, onTogglePlayback } = props;
+  const play = () => {
+    audio.play();
+  };
 
-//   let middleButtonText = 'Play';
+  const pause = () => {
+    audio.pause();
+  };
 
-//   if (playbackState === State.Playing || playbackState === State.Buffering) {
-//     middleButtonText = 'Pause';
-//   }
+  console.log('currentState', currentState);
 
-//   return (
-//     <View style={styles.card}>
-//       <Image style={styles.cover} source={{ uri: trackArtwork }} />
-//       <components.ProgressBar duration={trackDuration} />
-//       <Text style={styles.title}>{trackTitle}</Text>
-//       <Text style={styles.artist}>{trackArtist}</Text>
-//       <View style={styles.controls}>
-//         <components.ControlButton title={'<<'} onPress={onPrevious} />
-//         <components.ControlButton title={middleButtonText} onPress={onTogglePlayback} />
-//         <components.ControlButton title={'>>'} onPress={onNext} />
-//       </View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   card: {
-//     width: '80%',
-//     elevation: 1,
-//     borderRadius: 4,
-//     shadowRadius: 2,
-//     shadowOpacity: 0.1,
-//     alignItems: 'center',
-//     shadowColor: 'black',
-//     backgroundColor: 'white',
-//     shadowOffset: { width: 0, height: 1 }
-//   },
-//   cover: {
-//     width: 140,
-//     height: 140,
-//     marginTop: 20,
-//     backgroundColor: 'grey'
-//   },
-//   progress: {
-//     height: 1,
-//     width: '90%',
-//     marginTop: 10,
-//     flexDirection: 'row'
-//   },
-//   title: {
-//     marginTop: 10
-//   },
-//   artist: {
-//     fontWeight: 'bold'
-//   },
-//   controls: {
-//     marginVertical: 20,
-//     flexDirection: 'row'
-//   },
-//   controlButtonContainer: {
-//     flex: 1
-//   },
-//   controlButtonText: {
-//     fontSize: 18,
-//     textAlign: 'center'
-//   }
-// });
+  return (
+    <RowContainer>
+      <SkipPrevious />
+      {currentState === 'playing' ? <Pause onClick={pause} /> : <PlayArrow onClick={play} />}
+      <SkipNext />
+    </RowContainer>
+  );
+};

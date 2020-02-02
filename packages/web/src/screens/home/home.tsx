@@ -1,4 +1,4 @@
-import { BottomBar, Screen, SearchBar, TextInput, TopBar, ContentContainer } from 'components';
+import { BottomBar, Screen, SearchBar, TextInput, TopBar, ContentContainer, Player } from 'components';
 // import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
@@ -53,6 +53,7 @@ export const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
+  const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);
   console.log('data', data);
@@ -76,7 +77,8 @@ export const Home = () => {
 
   const playAudio = (song: Song) => {
     const audio = new Audio(song.url);
-    audio.play();
+    setPlayerAudio(audio);
+    // audio.play();
   };
 
   useEffect(() => {
@@ -130,6 +132,7 @@ export const Home = () => {
         <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
       </ContentContainer>
       <BottomBar>
+        <Player audio={playerAudio ?? new Audio()} />
         {/* <audio
           preload="none"
           src={
