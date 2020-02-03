@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RowContainer, useTimer } from 'components';
 import { Slider } from '@material-ui/core';
+import moment from 'moment';
 
 export const ProgressBar = (props: ProgressBar) => {
   const { audio, duration } = props;
@@ -42,10 +43,17 @@ export const ProgressBar = (props: ProgressBar) => {
   };
 
   //   console.log('isSeeking', isSeeking);
+  const getFormattedTime = (value: number) => {
+    const duration = moment.duration(value, 'seconds').as('millisecond');
+    const formatted = moment.utc(duration).format('mm:ss');
+    return formatted;
+  };
 
   return (
     <RowContainer width="100%" margin="0px 8px">
+      <div>{getFormattedTime(position)}</div>
       <Slider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
+      <div>{getFormattedTime(duration)}</div>
     </RowContainer>
   );
 };
