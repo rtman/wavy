@@ -9,16 +9,14 @@ export const ProgressBar = (props: ProgressBar) => {
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
 
   const updatePosition = () => {
-    if (isSeeking) {
-      setPosition(seekPosition);
-    } else {
+    if (!isSeeking) {
       setPosition(audio.currentTime);
     }
   };
 
-  useTimer(500, updatePosition);
+  useTimer(300, updatePosition);
 
-  console.log('duration', duration);
+  //   console.log('duration', duration);
   //   console.log('currentPosition', currentPosition);
   //   console.log('seekPosition', seekPosition);
   //   console.log('position', position);
@@ -26,18 +24,24 @@ export const ProgressBar = (props: ProgressBar) => {
   const onSeeking = (_event: React.ChangeEvent<{}>, value: number | number[]) => {
     setIsSeeking(true);
     // setSeekPosition(event.target.value);
-    // console.log('onSeeking - event.target.value', event.target.value);
-    if (typeof value === 'number') {
-      setSeekPosition(value);
-    }
+    // console.log('onSeeking - event.target', _event.target);
+
+    //   console.log('onSeeking - value', value);
+
+    // setSeekPosition(value as number);
+    setPosition(value as number);
   };
 
   const onSeekCommitted = (event: React.ChangeEvent<{}>, value: number | number[]) => {
-    setIsSeeking(false);
-    audio.currentTime = seekPosition;
+    setPosition(value as number);
+
     // console.log('onSeekCommitted - event.target.value', event.target.value);
     console.log('onSeekCommitted - value', value);
+    setIsSeeking(false);
+    audio.currentTime = position;
   };
+
+  //   console.log('isSeeking', isSeeking);
 
   return (
     <RowContainer width="100%" margin="0px 8px">

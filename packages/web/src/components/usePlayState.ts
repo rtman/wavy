@@ -41,7 +41,8 @@ export const usePlayState = (audio: HTMLAudioElement) => {
   };
 
   const filterStates = (type: string) => {
-    const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
+    // const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
+    const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend'];
 
     if (type === 'playing') {
       return type;
