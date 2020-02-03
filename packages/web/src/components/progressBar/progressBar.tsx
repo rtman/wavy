@@ -40,7 +40,7 @@ export const ProgressBar = (props: ProgressBar) => {
   };
 
   return (
-    <RowContainer>
+    <RowContainer width="100%" margin="0px 8px">
       <Slider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
     </RowContainer>
   );

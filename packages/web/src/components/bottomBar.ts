@@ -8,7 +8,7 @@ export const BottomBar = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
   width: '100%',
   boxSizing: 'border-box'
