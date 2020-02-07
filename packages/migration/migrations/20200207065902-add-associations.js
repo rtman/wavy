@@ -10,13 +10,13 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
     return queryInterface.addColumn(
-      'Artist', // name of Source model
-      'songId', // name of the key we're adding
+      'Song', // name of Target model
+      'artistId', // name of the key we're addin
       {
         type: Sequelize.UUID,
         references: {
-          model: 'Song', // name of Target model
-          key: 'id' // key in Target model that we're referencing
+          model: 'Artist', // name of Source model
+          key: 'id' // key in Source model that we're referencing
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
@@ -33,8 +33,8 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     return queryInterface.removeColumn(
-      'Artist', // name of Source model
-      'songId' // key we want to remove
+      'Song', // name of Target model
+      'artistId' // key we want to remove
     );
   }
 };
