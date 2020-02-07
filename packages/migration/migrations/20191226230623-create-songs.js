@@ -4,9 +4,10 @@ module.exports = {
     return queryInterface.createTable('songs', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.UUID
       },
       title: {
         type: Sequelize.TEXT
