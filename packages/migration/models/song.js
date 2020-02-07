@@ -4,7 +4,13 @@ module.exports = (sequelize, DataTypes) => {
     'Song',
     {
       title: DataTypes.STRING,
-      artist: DataTypes.STRING
+      artist: DataTypes.STRING,
+      url: DataTypes.STRING,
+      album: DataTypes.STRING,
+      genres: DataTypes.ARRAY,
+      artwork: DataTypes.STRING,
+      duration: DataTypes.INTEGER,
+      date: DataTypes.DATE
     },
     {}
   );

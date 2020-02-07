@@ -1,13 +1,8 @@
 import styled, { CSSObject, CSSProp } from 'styled-components';
 import * as CSS from 'csstype';
 
-interface RowContainerProps {
-  width?: CSS.StandardLonghandProperties['width'];
-  margin?: CSS.StandardShorthandProperties['margin'];
-}
-
 export const RowContainer = styled.div(
-  (props: RowContainerProps): CSSObject => ({
+  (props: CSS.StandardProperties): CSSObject => ({
     flexDirection: 'row',
     textAlign: 'center',
     display: 'flex',
