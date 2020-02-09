@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 
 // let sequelize;
 // if (process.env.DATABASE_URL) {
@@ -13,22 +13,23 @@ const sequelize = new Sequelize(
   process.env.DATABASE_PASSWORD!,
   {
     host: 'postgresql',
-    dialect: 'postgres'
-  }
+    dialect: 'postgres',
+  },
 );
 // }
 
 const models = {
-  Song: sequelize.import('./song')
+  Song: sequelize.import('./song'),
+  Artist: sequelize.import('./artist'),
 };
 
-Object.keys(models).forEach((key) => {
+Object.keys(models).forEach(key => {
   if ('associate' in models[key]) {
     models[key].associate(models);
   }
 });
 
-export { sequelize };
+export {sequelize};
 
 export default models;
 

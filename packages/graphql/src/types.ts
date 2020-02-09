@@ -83,6 +83,15 @@ export type Song = {
   updatedAt?: Maybe<Scalars['Date']>;
 };
 
+export type Artist = {
+  __typename?: 'Artist';
+  name?: Maybe<Scalars['String']>;
+  genre?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
