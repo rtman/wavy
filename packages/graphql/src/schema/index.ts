@@ -1,6 +1,7 @@
-import { gql } from 'apollo-server-express';
+import {gql} from 'apollo-server-express';
 
 import songSchema from './song';
+import artistSchema from './artist';
 
 const linkSchema = gql`
   scalar Date
@@ -15,4 +16,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, songSchema];
+export default [linkSchema, songSchema, artistSchema];
