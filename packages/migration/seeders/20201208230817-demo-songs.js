@@ -10,7 +10,7 @@ module.exports = {
       {
         url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).ogg',
         title: 'Gold Coast (House Mix)',
-        artistId: artistRows.find((artist) => artist.name === 'András').id,
+        artist_id: artistRows.find((artist) => artist.name === 'András').id,
         album: 'Untitled',
         genre: 'House',
         date: '2014-05-20T07:00:00+00:00', // RFC 3339
@@ -22,7 +22,7 @@ module.exports = {
       {
         url: 'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).ogg',
         title: 'TEST - Gold Coast (House Mix) - TEST',
-        artistId: artistRows.find((artist) => artist.name === 'András').id,
+        artist_id: artistRows.find((artist) => artist.name === 'András').id,
         album: 'Untitled',
         genre: 'House',
         date: '2014-05-20T07:00:00+00:00', // RFC 3339
@@ -34,7 +34,7 @@ module.exports = {
       {
         url: 'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
         title: 'Exit Point',
-        artistId: artistRows.find((artist) => artist.name === 'Raf Reza').id,
+        artist_id: artistRows.find((artist) => artist.name === 'Raf Reza').id,
         album: 'Moods from the Multiverse',
         genre: 'Space',
         date: '2014-05-20T07:00:00+00:00', // RFC 3339
