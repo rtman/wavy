@@ -63,13 +63,27 @@ export const songResolvers: Resolvers = {
       // );
       const result = await sequelize.query(
         `
-        SELECT songs.*, artists.* 
+        SELECT songs.id AS song_id,
+        songs.title,
+        songs.genre,
+        songs.duration,
+        songs.album,
+        songs.url,
+        songs.artwork,
+        artists.id AS artist_id,
+        artists.name AS artist_name
         FROM songs, artists 
         WHERE songs.artist_id = artists.id 
         AND (artists ==> '*${query}*' OR songs ==> '*${query}*');
       `,
         {type: QueryTypes.SELECT},
       );
+      // const result = await sequelize.query(
+      //   `
+      //   SELECT songs.*, artists.* FROM songs, artists WHERE songs.artist_id = artists.id AND (artists ==> '*${query}*' OR songs ==> '*${query}*');
+      // `,
+      //   {type: QueryTypes.SELECT},
+      // );
       return result;
     },
   },

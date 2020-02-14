@@ -39,7 +39,7 @@ export default gql`
 
   type SongArtist {
     title: String
-    name: String
+    artist_name: String
     artist_id: ID
     album: String
     genre: String
@@ -47,7 +47,7 @@ export default gql`
     artwork: String
     duration: Int
     date: Date
-    id: ID
+    song_id: ID
     createdAt: Date
     updatedAt: Date
   }
