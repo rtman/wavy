@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Artist.associate = function(models) {
     // associations can be defined here
     // Artist.hasMany(models.Song, {
-    //   foreignKey: 'artistId'
+    //   foreignKey: 'artist_id'
     //   // type: DataTypes.UUID
     // });
   };

@@ -35,7 +35,7 @@ export const songResolvers: Resolvers = {
       );
       // query with LEFT JOIN
       // return await sequelize.query(
-      //   `SELECT songs.*, artists.name FROM songs LEFT JOIN artists ON ("artistId" = artists.id) WHERE songs ==> '${query}';`,
+      //   `SELECT songs.*, artists.name FROM songs LEFT JOIN artists ON ("artist_id" = artists.id) WHERE songs ==> '${query}';`,
       //   {type: QueryTypes.SELECT},
       // );
     },
@@ -44,9 +44,33 @@ export const songResolvers: Resolvers = {
       args,
     ): Promise<Query['searchSongsWithArtists']> => {
       const {query} = args;
-      return await sequelize.query(`
-      SELECT songs.* FROM songs
-      WHERE songs ==> dsl.join('artistId', 'idxArtists', 'id', '*${query}*');`);
+      // const result = await sequelize.query(
+      //
+      // searches artist table but doesnt show the data/columns from there
+      // SELECT songs.* FROM songs
+      // WHERE songs ==> dsl.join('artist_id', 'idxArtists', 'id', '*${query}*');`,
+      //   {type: QueryTypes.SELECT},
+      // );
+
+      // doesnt work yet, shows duplicates of everything
+      // const result = await sequelize.query(
+      //   `
+      //   SELECT songs.*, artists.*
+      //   FROM songs, artists
+      //   WHERE songs  ==> dsl.join('artist_id', 'idxArtists', 'id', '*Raf*');
+      // `,
+      //   {type: QueryTypes.SELECT},
+      // );
+      const result = await sequelize.query(
+        `
+        SELECT songs.*, artists.* 
+        FROM songs, artists 
+        WHERE songs.artist_id = artists.id 
+        AND (artists ==> '*${query}*' OR songs ==> '*${query}*');
+      `,
+        {type: QueryTypes.SELECT},
+      );
+      return result;
     },
   },
   Mutation: {
