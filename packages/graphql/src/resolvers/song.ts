@@ -29,14 +29,24 @@ export const songResolvers: Resolvers = {
     },
     searchSongs: async (_parent, args): Promise<Query['searchSongs']> => {
       const {query} = args;
-      // return await sequelize.query(
-      //   `SELECT * FROM songs AS song WHERE song ==> '${query}';`,
-      //   {type: QueryTypes.SELECT},
-      // );
       return await sequelize.query(
-        `SELECT songs.*, artists.name FROM songs LEFT JOIN artists ON ("artistId" = artists.id) WHERE songs ==> '${query}';`,
+        `SELECT * FROM songs AS song WHERE song ==> '${query}';`,
         {type: QueryTypes.SELECT},
       );
+      // query with LEFT JOIN
+      // return await sequelize.query(
+      //   `SELECT songs.*, artists.name FROM songs LEFT JOIN artists ON ("artistId" = artists.id) WHERE songs ==> '${query}';`,
+      //   {type: QueryTypes.SELECT},
+      // );
+    },
+    searchSongsWithArtists: async (
+      _parent,
+      args,
+    ): Promise<Query['searchSongsWithArtists']> => {
+      const {query} = args;
+      return await sequelize.query(`
+      SELECT songs.* FROM songs
+      WHERE songs ==> dsl.join('artistId', 'idxArtists', 'id', '*${query}*');`);
     },
   },
   Mutation: {
