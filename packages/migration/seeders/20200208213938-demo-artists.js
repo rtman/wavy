@@ -5,15 +5,15 @@ module.exports = {
     return await queryInterface.bulkInsert('artists', [
       {
         name: 'András',
-        // albums: 'Untitled',
-        genre: 'House',
+        albums: ['Untitled'],
+        description: 'András Fox is a musician from australia!',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: 'Raf Reza',
-        // albums: 'Moods from the Multiverse',
-        genre: 'Space',
+        albums: ['Moods from the Multiverse'],
+        description: 'Raf is a musician living in toronto!',
         createdAt: new Date(),
         updatedAt: new Date()
       }

@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       name: DataTypes.STRING,
-      // genres: DataTypes.ARRAY(DataTypes.STRING),
-      genres: DataTypes.ARRAY(DataTypes.STRING),
+      albums: DataTypes.ARRAY(DataTypes.STRING),
       // songs: DataTypes.STRING,
-      description: DataTypes.STRING,
-      albums: DataTypes.STRING
+      description: DataTypes.STRING
     },
     {}
   );

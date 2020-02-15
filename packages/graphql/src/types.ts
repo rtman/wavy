@@ -22,7 +22,8 @@ export type Scalars = {
 export type Artist = {
   __typename?: 'Artist';
   name?: Maybe<Scalars['String']>;
-  genre?: Maybe<Scalars['String']>;
+  albums?: Maybe<Array<Scalars['String']>>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
@@ -39,6 +40,8 @@ export type Mutation = {
   createNewSong: Song;
   updateSongTitle: Song;
   deleteSong: Scalars['Boolean'];
+  createNewArtist: Artist;
+  deleteArtist: Scalars['Boolean'];
 };
 
 export type MutationCreateNewSongArgs = {
@@ -61,6 +64,16 @@ export type MutationDeleteSongArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationCreateNewArtistArgs = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+  albums: Maybe<Array<Scalars['String']>>;
+};
+
+export type MutationDeleteArtistArgs = {
+  id: Scalars['ID'];
+};
+
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
@@ -71,6 +84,7 @@ export type Query = {
   artists?: Maybe<Array<Maybe<Artist>>>;
   artist?: Maybe<Artist>;
   searchArtists?: Maybe<Array<Maybe<Artist>>>;
+  searchArtistsWithSongs?: Maybe<Array<Maybe<Song & Artist>>>;
 };
 
 export type QuerySongArgs = {
@@ -297,6 +311,21 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationDeleteSongArgs, 'id'>
   >;
+  createNewArtist?: Resolver<
+    ResolversTypes['Artist'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationCreateNewArtistArgs,
+      'name' | 'description' | 'albums'
+    >
+  >;
+  deleteArtist?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteArtistArgs, 'id'>
+  >;
 };
 
 export type QueryResolvers<
@@ -339,6 +368,12 @@ export type QueryResolvers<
     RequireFields<QueryArtistArgs, 'id'>
   >;
   searchArtists?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Artist']>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArtistsArgs, 'query'>
+  >;
+  searchArtistsWithSongs?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Artist']>>>,
     ParentType,
     ContextType,
