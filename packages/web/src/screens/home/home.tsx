@@ -16,7 +16,7 @@ const SONG_QUERY = gql`
   {
     songs {
       title
-      artist
+      artist_id
       album
       genre
       url
@@ -31,7 +31,7 @@ const SEARCH_SONGS_QUERY = gql`
   query SearchSongs($query: String!) {
     searchSongs(query: $query) {
       title
-      artist
+      artist_id
       album
       genre
       url
