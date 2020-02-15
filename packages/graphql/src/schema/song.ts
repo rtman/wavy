@@ -11,7 +11,7 @@ export default gql`
   extend type Mutation {
     createNewSong(
       title: String!
-      artist: String!
+      artist_id: ID!
       album: String!
       genre: String!
       url: String!

@@ -89,10 +89,19 @@ export const songResolvers: Resolvers = {
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Song> => {
-      const {artist, album, artwork, date, duration, genre, title, url} = args;
+      const {
+        artist_id,
+        album,
+        artwork,
+        date,
+        duration,
+        genre,
+        title,
+        url,
+      } = args;
       return await ctx.models.Song.create({
         title,
-        artist,
+        artist_id,
         album,
         genre,
         url,

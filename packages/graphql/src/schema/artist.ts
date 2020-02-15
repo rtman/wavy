@@ -10,8 +10,9 @@ export default gql`
 
   extend type Mutation {
     createNewArtist(
-      title: String!
+      name: String!
       albums: [String]
+      image: String
       description: String
     ): Artist!
     deleteArtist(id: ID!): Boolean!
@@ -21,6 +22,7 @@ export default gql`
     name: String
     albums: [String]
     description: String
+    image: String
     id: ID
     createdAt: Date
     updatedAt: Date
