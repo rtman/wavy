@@ -114,7 +114,6 @@ export const Home = () => {
   return (
     <Screen>
       <ContentContainer>
-        <TopBar></TopBar>
         <TextInput onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} fullWidth={true} />
         <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
       </ContentContainer>
