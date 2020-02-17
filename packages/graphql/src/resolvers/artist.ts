@@ -50,9 +50,9 @@ export const artistResolvers: Resolvers = {
         songs.title,
         songs.genre,
         songs.duration,
-        songs.album,
+        songs.album_ids,
         songs.url,
-        songs.artwork,
+        songs.image,
         artists.id AS artist_id,
         artists.name AS artist_name
         FROM songs, artists 
@@ -66,12 +66,7 @@ export const artistResolvers: Resolvers = {
   },
   Mutation: {
     createNewArtist: async (_parent, args, ctx): Promise<Artist> => {
-      const {name, description, albums} = args;
-      return await ctx.models.artist.create({
-        name,
-        description,
-        albums,
-      });
+      return await ctx.models.artist.create(args);
     },
     deleteArtist: async (
       _parent,

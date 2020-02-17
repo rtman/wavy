@@ -65,11 +65,11 @@ export const songResolvers: Resolvers = {
         `
         SELECT songs.id AS song_id,
         songs.title,
-        songs.genre,
+        songs.genres,
         songs.duration,
-        songs.album,
+        songs.album_id,
         songs.url,
-        songs.artwork,
+        songs.image,
         artists.id AS artist_id,
         artists.name AS artist_name
         FROM songs, artists 
@@ -89,26 +89,7 @@ export const songResolvers: Resolvers = {
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Song> => {
-      const {
-        artist_id,
-        album,
-        artwork,
-        date,
-        duration,
-        genre,
-        title,
-        url,
-      } = args;
-      return await ctx.models.Song.create({
-        title,
-        artist_id,
-        album,
-        genre,
-        url,
-        artwork,
-        duration,
-        date,
-      });
+      return await ctx.models.Song.create(args);
     },
     updateSongTitle: async (_parent, args, ctx): Promise<Song> => {
       const {title, id} = args;

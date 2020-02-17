@@ -13,7 +13,7 @@ export default gql`
       title: String!
       artist_id: ID!
       album_id: ID!
-      genre: String!
+      genres: [String!]
       url: String!
       artwork: String!
       duration: Int!
@@ -27,7 +27,7 @@ export default gql`
     title: String
     artist_id: ID
     album_id: ID
-    genre: [String]
+    genres: [String]
     url: String
     artwork: String
     duration: Int
@@ -42,7 +42,7 @@ export default gql`
     artist_name: String
     artist_id: ID
     album_id: ID
-    genre: [String]
+    genres: [String]
     url: String
     artwork: String
     duration: Int

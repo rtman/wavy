@@ -16,16 +16,23 @@ const song = (
   const Song_ = sequelize.define('song', {
     title: DataTypes.STRING,
     artist_id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       references: {
         model: 'artists', // name of Source model
         key: 'id', // key in Source model that we're referencing
       },
     },
-    album: DataTypes.STRING,
-    genre: DataTypes.STRING,
+    // album_id: {
+    //   type: Sequelize.INTEGER,
+    //   references: {
+    //     model: 'albums', // name of Source model
+    //     key: 'id', // key in Source model that we're referencing
+    //   },
+    // },
+    album_id: DataTypes.INTEGER,
+    genres: DataTypes.ARRAY(DataTypes.STRING),
     url: DataTypes.STRING,
-    artwork: DataTypes.STRING,
+    image: DataTypes.STRING,
     duration: DataTypes.INTEGER,
     date: DataTypes.DATE,
   }) as SongModelStatic;

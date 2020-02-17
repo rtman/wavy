@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
 const models = {
   Song: sequelize.import('./song'),
   Artist: sequelize.import('./artist'),
+  Album: sequelize.import('./album'),
 };
 
 Object.keys(models).forEach(key => {
@@ -32,22 +33,3 @@ Object.keys(models).forEach(key => {
 export {sequelize};
 
 export default models;
-
-// export const songs = [
-//   {
-//     title: 'The Bells',
-//     artist: 'Jeff Mills'
-//   },
-//   {
-//     title: 'I got that feelin',
-//     artist: 'Dreamer G'
-//   },
-//   {
-//     title: 'Kind of Blue',
-//     artist: 'Miles Davis'
-//   },
-//   {
-//     title: 'Only the lonely',
-//     artist: 'Roy Orbison'
-//   }
-// ];
