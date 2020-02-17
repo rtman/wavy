@@ -8,7 +8,7 @@ export default gql`
   }
 
   extend type Mutation {
-    createNewAlbum(title: String!, artist_id: ID!, image: String!): Song!
+    createNewAlbum(title: String!, artist_id: ID!, image: String!): Album!
     deleteAlbum(id: ID!): Boolean!
   }
 

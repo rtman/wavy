@@ -15,7 +15,7 @@ export default gql`
       album_id: ID!
       genres: [String!]
       url: String!
-      artwork: String!
+      image: String!
       duration: Int!
       date: Date!
     ): Song!
@@ -29,7 +29,7 @@ export default gql`
     album_id: ID
     genres: [String]
     url: String
-    artwork: String
+    image: String
     duration: Int
     date: Date
     id: ID
@@ -44,7 +44,7 @@ export default gql`
     album_id: ID
     genres: [String]
     url: String
-    artwork: String
+    image: String
     duration: Int
     date: Date
     song_id: ID

@@ -3,7 +3,7 @@
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
 import {
-  Artist,
+  Album,
   MutationResolvers,
   Scalars,
   QueryResolvers,
@@ -18,39 +18,39 @@ interface Resolvers {
   Mutation: MutationResolvers;
 }
 
-export const artistResolvers: Resolvers = {
+export const albumResolvers: Resolvers = {
   Query: {
-    artists: async (_parent, _args, ctx): Promise<Query['artists']> => {
-      return await ctx.models.Artist.findAll();
+    albums: async (_parent, _args, ctx): Promise<Query['albums']> => {
+      return await ctx.models.Album.findAll();
     },
-    artist: async (_parent, args, ctx): Promise<Query['artist']> => {
+    album: async (_parent, args, ctx): Promise<Query['album']> => {
       const {id} = args;
-      return await ctx.models.Artist.findByPk(id);
+      return await ctx.models.Album.findByPk(id);
     },
-    searchArtists: async (_parent, args): Promise<Query['searchArtists']> => {
+    searchAlbums: async (_parent, args): Promise<Query['searchAlbums']> => {
       const {query} = args;
       return await sequelize.query(
-        `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
+        `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
         {type: QueryTypes.SELECT},
       );
       // query with LEFT JOIN
       // return await sequelize.query(
-      //   `SELECT artists.*, artists.name FROM artists LEFT JOIN artists ON ("artist_id" = artists.id) WHERE artists ==> '${query}';`,
+      //   `SELECT albums.*, albums.name FROM albums LEFT JOIN albums ON ("album_id" = albums.id) WHERE albums ==> '${query}';`,
       //   {type: QueryTypes.SELECT},
       // );
     },
   },
   Mutation: {
-    createNewArtist: async (_parent, args, ctx): Promise<Artist> => {
-      return await ctx.models.artist.create(args);
+    createNewAlbum: async (_parent, args, ctx): Promise<Album> => {
+      return await ctx.models.album.create(args);
     },
-    deleteArtist: async (
+    deleteAlbum: async (
       _parent,
       args,
       {models},
     ): Promise<Scalars['Boolean']> => {
       const {id} = args;
-      return await models.artist.destroy({
+      return await models.album.destroy({
         where: {id},
       });
     },

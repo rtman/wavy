@@ -9,7 +9,7 @@ type AlbumModelStatic = typeof Sequelize.Model & {
   new (values?: object, options?: Sequelize.BuildOptions): AlbumModel;
 };
 
-const artist = (
+const album = (
   sequelize: Sequelize.Sequelize,
   DataTypes: typeof Sequelize.DataTypes,
 ): AlbumModelStatic => {
@@ -24,4 +24,4 @@ const artist = (
   return Album_;
 };
 
-export default artist;
+export default album;

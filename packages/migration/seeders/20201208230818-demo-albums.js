@@ -6,6 +6,7 @@ module.exports = {
       {
         id: 1,
         title: 'Untitled',
+        artist_id: 1,
         song_ids: [1, 2],
         description: 'Untitled is a single/ep',
         image: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
@@ -15,6 +16,7 @@ module.exports = {
       {
         id: 2,
         title: 'Moods From the Multiverse',
+        artist_id: 2,
         song_ids: [3],
         description: 'Released on heart to heart records',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
