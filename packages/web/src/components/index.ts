@@ -1,7 +1,7 @@
 export { AppContainer } from './appContainer';
-export { ArtistImage } from './artistImage';
-export { ArtistImageContainer } from './artistImageContainer';
-export { ArtistTitle } from './artistTitle';
+export { ProfileHeaderImage } from './profileHeaderImage';
+export { ProfileHeaderImageContainer } from './profileHeaderImageContainer';
+export { ProfileHeaderTitle } from './profileHeaderTitle';
 export { Input } from './input';
 export { Button } from './button';
 export { Screen } from './screen';

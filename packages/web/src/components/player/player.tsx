@@ -4,12 +4,14 @@ import { PlayArrow, Pause, SkipPrevious, SkipNext, TextFields } from '@material-
 // import { useMediaState } from 'components';
 import { ProgressBar, usePlayState } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
+import { useHistory } from 'react-router-dom';
 import { SongArtist, SongTitle } from './styles';
 
 export const Player = (props: Player) => {
   const { audio, currentSong } = props;
 
   const currentState = usePlayState(audio);
+  const history = useHistory();
 
   const play = () => {
     audio.play();
@@ -25,6 +27,14 @@ export const Player = (props: Player) => {
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist_name ?? '';
 
+  const onClickArtist = () => {
+    history.push(`/artist/${currentSong?.artist_id}`);
+  };
+
+  const onClickSong = () => {
+    return null;
+  };
+
   return (
     <RowContainer width={'100%'}>
       <SkipPrevious />
@@ -32,8 +42,8 @@ export const Player = (props: Player) => {
       <SkipNext />
       <ProgressBar audio={audio} duration={duration} />
       <ColumnContainer>
-        <SongTitle>{songTitle}</SongTitle>
-        <SongArtist>{songArtist}</SongArtist>
+        <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>
+        <SongArtist onClick={onClickArtist}>{songArtist}</SongArtist>
       </ColumnContainer>
     </RowContainer>
   );

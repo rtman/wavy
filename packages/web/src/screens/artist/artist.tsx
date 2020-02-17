@@ -1,7 +1,8 @@
-import { ArtistImage, ArtistImageContainer, ArtistTitle, ContentContainer, Screen, SubTitle } from 'components';
+import { ProfileHeaderImage, ProfileHeaderImageContainer, ProfileHeaderTitle, ContentContainer, Screen, SubTitle } from 'components';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import firebase from 'firebase';
 import { Avatar, Card, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
@@ -28,6 +29,7 @@ export const Artist = () => {
   const { id } = useParams();
   const { loading, error, data, networkStatus } = useQuery(ARTIST, { variables: { id: id?.toString() } });
   const playerContext = useContext(PlayerContext);
+  const history = useHistory();
   const [imageUrl, setImageUrl] = useState<string>('');
 
   console.log('error', error);
@@ -106,10 +108,10 @@ export const Artist = () => {
             <div>loading</div>
           ) : (
             <>
-              <ArtistImageContainer>
-                <ArtistImage src={imageUrl} />
-                <ArtistTitle>{data.artist.name}</ArtistTitle>
-              </ArtistImageContainer>
+              <ProfileHeaderImageContainer>
+                <ProfileHeaderImage src={imageUrl} />
+                <ProfileHeaderTitle>{data.artist.name}</ProfileHeaderTitle>
+              </ProfileHeaderImageContainer>
               <SubTitle>Description</SubTitle>
               <div>{data.artist.description}</div>
               <SubTitle>Songs</SubTitle>

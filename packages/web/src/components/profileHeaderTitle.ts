@@ -1,7 +1,7 @@
 import styled, { CSSObject } from 'styled-components';
 import * as consts from 'consts';
 
-export const ArtistTitle = styled.div(
+export const ProfileHeaderTitle = styled.div(
   (): CSSObject => ({
     position: 'absolute',
     bottom: '8px',

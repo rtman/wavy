@@ -1,6 +1,6 @@
 import { Screen, TextInput, ContentContainer } from 'components';
-// import * as helpers from 'helpers';
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Avatar, Card, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
@@ -37,6 +37,7 @@ export const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const playerContext = useContext(PlayerContext);
+  const history = useHistory();
 
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);
@@ -84,6 +85,10 @@ export const Home = () => {
     }
   };
 
+  const onClickArtist = (artist_id: string) => {
+    history.push(`/artist/${artist_id}`);
+  };
+
   const renderSearchResults = () => {
     console.log('searchResults', searchResults);
     if (searchResults.length > 0) {
@@ -94,7 +99,7 @@ export const Home = () => {
               <ListItemAvatar>
                 <Avatar variant="square" src={song.artwork} />
               </ListItemAvatar>
-              <ListItemText primary={song.title} secondary={song.artist_name} />
+              <ListItemText primary={song.title} secondary={song.artist_name} onClick={() => onClickArtist(song.artist_id)} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </React.Fragment>
