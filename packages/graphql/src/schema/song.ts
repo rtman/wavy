@@ -5,7 +5,7 @@ export default gql`
     songs: [Song]
     song(id: ID!): Song
     searchSongs(query: String!): [Song]
-    searchSongsWithArtists(query: String!): [SongArtist]
+    searchSongsWithArtistsAlbums(query: String!): [SongArtistAlbum]
   }
 
   extend type Mutation {
@@ -37,11 +37,12 @@ export default gql`
     updatedAt: Date
   }
 
-  type SongArtist {
+  type SongArtistAlbum {
     title: String
     artist_name: String
     artist_id: ID
     album_id: ID
+    album_title: String
     genres: [String]
     url: String
     image: String

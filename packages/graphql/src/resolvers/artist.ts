@@ -12,6 +12,7 @@ import {
 } from '../types';
 import {sequelize} from '../models';
 import {QueryTypes} from 'sequelize';
+import song from '../models/song';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -26,6 +27,41 @@ export const artistResolvers: Resolvers = {
     artist: async (_parent, args, ctx): Promise<Query['artist']> => {
       const {id} = args;
       return await ctx.models.Artist.findByPk(id);
+      // return await sequelize.query(
+      //   `
+      //   SELECT artists.id AS artist_id,
+      //   artists.name,
+      //   artists.image,
+      //   songs.id AS song_id,
+      //   songs.title AS song_title,
+      //   songs.url AS song_url,
+      //   albums.id AS album_id,
+      //   albums.title AS album_title,
+      //   albums.image AS album_image
+      //   FROM artists, songs, albums
+      //   WHERE artists.id = ${id} AND albums.id::VARCHAR = ANY (artists.album_ids) AND songs.id::VARCHAR = ANY (artists.song_ids);
+      // `,
+      //   {type: QueryTypes.SELECT},
+      // );
+    },
+    artistAll: async (_parent, args, ctx): Promise<Query['artistAll']> => {
+      const {id} = args;
+      return await sequelize.query(
+        `
+        SELECT artists.id AS artist_id,
+        artists.name,
+        artists.image,
+        songs.id AS song_id,
+        songs.title AS song_title,
+        songs.url AS song_url,
+        albums.id AS album_id,
+        albums.title AS album_title,
+        albums.image AS album_image
+        FROM artists, songs, albums
+        WHERE artists.id = ${id} AND albums.id::VARCHAR = ANY (artists.album_ids) AND songs.id::VARCHAR = ANY (artists.song_ids);
+      `,
+        {type: QueryTypes.SELECT},
+      );
     },
     searchArtists: async (_parent, args): Promise<Query['searchArtists']> => {
       const {query} = args;

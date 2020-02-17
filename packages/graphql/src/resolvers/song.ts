@@ -39,10 +39,10 @@ export const songResolvers: Resolvers = {
       //   {type: QueryTypes.SELECT},
       // );
     },
-    searchSongsWithArtists: async (
+    searchSongsWithArtistsAlbums: async (
       _parent,
       args,
-    ): Promise<Query['searchSongsWithArtists']> => {
+    ): Promise<Query['searchSongsWithArtistsAlbums']> => {
       const {query} = args;
       // const result = await sequelize.query(
       //
@@ -67,14 +67,15 @@ export const songResolvers: Resolvers = {
         songs.title,
         songs.genres,
         songs.duration,
-        songs.album_id,
         songs.url,
         songs.image,
         artists.id AS artist_id,
-        artists.name AS artist_name
-        FROM songs, artists 
-        WHERE songs.artist_id = artists.id 
-        AND (artists ==> '*${query}*' OR songs ==> '*${query}*');
+        artists.name AS artist_name,
+        albums.id AS album_id,
+        albums.title AS album_title
+        FROM songs, artists, albums 
+        WHERE songs.artist_id = artists.id AND songs.album_id = albums.id 
+        AND (artists ==> '*${query}*' OR songs ==> '*${query}*' OR albums ==> '*${query}*');
       `,
         {type: QueryTypes.SELECT},
       );

@@ -10,16 +10,16 @@ import { PlayerContext } from '../../App';
 
 const SEARCH_SONGS_QUERY = gql`
   query SearchSongsWithArtist($query: String!) {
-    searchSongsWithArtists(query: $query) {
+    searchSongsWithArtistsAlbums(query: $query) {
       song_id
       title
       artist_id
       artist_name
-      album
-      genre
+      album_title
+      genres
       url
       duration
-      artwork
+      image
       date
     }
   }
@@ -62,15 +62,15 @@ export const Home = () => {
 
   useEffect(() => {
     const convertSongUrls = async () => {
-      const songs = data?.searchSongsWithArtists ?? [];
+      const songs = data?.searchSongsWithArtistsAlbums ?? [];
 
       const songUrlPromises = songs.map((song: Song) => getHttpUrl(song.url));
-      const artworkUrlPromises = songs.map((song: Song) => getHttpUrl(song.artwork));
+      const imageUrlPromises = songs.map((song: Song) => getHttpUrl(song.image));
       const songUrls = await Promise.all(songUrlPromises);
-      const artworkUrls = await Promise.all(artworkUrlPromises);
+      const imageUrls = await Promise.all(imageUrlPromises);
 
       const resolvedSongs = songs.map((song: any, index: number) => {
-        return { ...song, artwork: artworkUrls[index], url: songUrls[index] };
+        return { ...song, image: imageUrls[index], url: songUrls[index] };
       });
 
       setSearchResults(resolvedSongs);
@@ -97,7 +97,7 @@ export const Home = () => {
           <React.Fragment key={`${song.artist_name} - ${song.title}`}>
             <ListItem key={song.id} alignItems="flex-start" onClick={() => onClickSong(song)}>
               <ListItemAvatar>
-                <Avatar variant="square" src={song.artwork} />
+                <Avatar variant="square" src={song.image} />
               </ListItemAvatar>
               <ListItemText primary={song.title} secondary={song.artist_name} onClick={() => onClickArtist(song.artist_id)} />
             </ListItem>
