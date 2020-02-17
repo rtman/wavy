@@ -1,6 +1,6 @@
+import { TrackPositionSlider } from 'components';
 import React, { useEffect, useState } from 'react';
 import { RowContainer, useTimer } from 'components';
-import { Slider } from '@material-ui/core';
 import moment from 'moment';
 
 export const ProgressBar = (props: ProgressBar) => {
@@ -52,7 +52,7 @@ export const ProgressBar = (props: ProgressBar) => {
   return (
     <RowContainer width="100%" margin="0px 8px">
       <div>{getFormattedTime(position)}</div>
-      <Slider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
+      <TrackPositionSlider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
       <div>{getFormattedTime(duration)}</div>
     </RowContainer>
   );

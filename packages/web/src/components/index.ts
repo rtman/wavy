@@ -22,3 +22,4 @@ export { RowContainer } from './rowContainer';
 export { Player } from './player';
 export { ProgressBar } from './progressBar';
 export { Navigator } from './navigation';
+export { TrackPositionSlider } from './trackPositionSlider';
