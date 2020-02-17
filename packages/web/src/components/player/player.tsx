@@ -23,7 +23,7 @@ export const Player = (props: Player) => {
 
   const duration = currentSong?.duration ?? 0;
   const songTitle = currentSong?.title ?? '';
-  const songArtist = currentSong?.artist ?? '';
+  const songArtist = currentSong?.artist_name ?? '';
 
   return (
     <RowContainer width={'100%'}>

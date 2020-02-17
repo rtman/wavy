@@ -14,7 +14,7 @@ export const Player = (props: PlayerProps) => {
     if (event.type === Event.PlaybackTrackChanged) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
       setTrackTitle(track.title);
-      setTrackArtist(track.artist);
+      setTrackArtist(track.artist_name);
       setTrackArtwork(track.artwork);
       setTrackDuration(track.duration);
     }

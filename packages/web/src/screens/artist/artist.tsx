@@ -29,7 +29,6 @@ export const Artist = () => {
   const { loading, error, data, networkStatus } = useQuery(ARTIST, { variables: { id: id?.toString() } });
   const playerContext = useContext(PlayerContext);
   const [imageUrl, setImageUrl] = useState<string>('');
-  const [albums, setAlbums] = useState<string[]>([]);
 
   console.log('error', error);
 
@@ -43,11 +42,33 @@ export const Artist = () => {
     runAysnc();
   }, [data]);
 
-  useEffect(() => {
-    if (data?.artist?.albums) {
-      setAlbums(data?.artist?.albums);
+  const onClickAlbum = (album: Album) => {
+    // if (playerContext?.playAudio) {
+    //   playerContext.playAudio(song);
+    // }
+  };
+
+  const renderAlbums = () => {
+    if (data?.artist?.albums?.length > 0) {
+      const albums = data.artist.albums;
+      const albumsList = albums.map((album: Album) => {
+        return (
+          <React.Fragment key={`${album.title}`}>
+            <ListItem key={album.id} alignItems="flex-start" onClick={() => onClickAlbum(album)}>
+              <ListItemAvatar>
+                <Avatar variant="square" src={album.artwork} />
+              </ListItemAvatar>
+              <ListItemText primary={album.title} />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </React.Fragment>
+        );
+      });
+      return <List>{albumsList}</List>;
+    } else {
+      return null;
     }
-  }, [data]);
+  };
 
   const onClickSong = (song: Song) => {
     if (playerContext?.playAudio) {
@@ -60,12 +81,12 @@ export const Artist = () => {
       const songs = data.artist.songs;
       const songsList = songs.map((song: Song) => {
         return (
-          <React.Fragment key={`${song.artist} - ${song.title}`}>
+          <React.Fragment key={`${song.artist_name} - ${song.title}`}>
             <ListItem key={song.id} alignItems="flex-start" onClick={() => onClickSong(song)}>
               <ListItemAvatar>
                 <Avatar variant="square" src={song.artwork} />
               </ListItemAvatar>
-              <ListItemText primary={song.title} secondary={song.artist} />
+              <ListItemText primary={song.title} secondary={song.artist_name} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </React.Fragment>
@@ -94,7 +115,7 @@ export const Artist = () => {
               <SubTitle>Songs</SubTitle>
               {renderSongs()}
               <SubTitle>Albums</SubTitle>
-              <div>{data.artist.albums}</div>
+              {renderAlbums()}
             </>
           )}
         </Card>

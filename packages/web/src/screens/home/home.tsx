@@ -1,4 +1,4 @@
-import { BottomBar, Screen, SearchBar, TextInput, TopBar, ContentContainer, Player } from 'components';
+import { Screen, TextInput, ContentContainer } from 'components';
 // import * as helpers from 'helpers';
 import React, { useContext, useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
@@ -8,16 +8,13 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import { PlayerContext } from '../../App';
 
-// import c_quenz from './public/audio/c_quenz.mp3';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import * as state from 'state';
-
 const SEARCH_SONGS_QUERY = gql`
-  query SearchSongs($query: String!) {
-    searchSongs(query: $query) {
+  query SearchSongsWithArtist($query: String!) {
+    searchSongsWithArtists(query: $query) {
+      song_id
       title
       artist_id
+      artist_name
       album
       genre
       url
@@ -64,7 +61,7 @@ export const Home = () => {
 
   useEffect(() => {
     const convertSongUrls = async () => {
-      const songs = data?.searchSongs ?? [];
+      const songs = data?.searchSongsWithArtists ?? [];
 
       const songUrlPromises = songs.map((song: Song) => getHttpUrl(song.url));
       const artworkUrlPromises = songs.map((song: Song) => getHttpUrl(song.artwork));
@@ -92,12 +89,12 @@ export const Home = () => {
     if (searchResults.length > 0) {
       const songsList = searchResults.map((song: any) => {
         return (
-          <React.Fragment key={`${song.artist} - ${song.title}`}>
+          <React.Fragment key={`${song.artist_name} - ${song.title}`}>
             <ListItem key={song.id} alignItems="flex-start" onClick={() => onClickSong(song)}>
               <ListItemAvatar>
                 <Avatar variant="square" src={song.artwork} />
               </ListItemAvatar>
-              <ListItemText primary={song.title} secondary={song.artist} />
+              <ListItemText primary={song.title} secondary={song.artist_name} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </React.Fragment>
