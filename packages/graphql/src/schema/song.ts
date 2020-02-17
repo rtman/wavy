@@ -12,7 +12,7 @@ export default gql`
     createNewSong(
       title: String!
       artist_id: ID!
-      album: String!
+      album_id: ID!
       genre: String!
       url: String!
       artwork: String!
@@ -26,8 +26,8 @@ export default gql`
   type Song {
     title: String
     artist_id: ID
-    album: String
-    genre: String
+    album_id: ID
+    genre: [String]
     url: String
     artwork: String
     duration: Int
@@ -41,8 +41,8 @@ export default gql`
     title: String
     artist_name: String
     artist_id: ID
-    album: String
-    genre: String
+    album_id: ID
+    genre: [String]
     url: String
     artwork: String
     duration: Int

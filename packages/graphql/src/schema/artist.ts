@@ -6,12 +6,14 @@ export default gql`
     artist(id: ID!): Artist
     searchArtists(query: String!): [Artist]
     searchArtistsWithSongs(query: String!): [SongArtist]
+    searchArtistsWithAlbumsSongs(query: String!): [ArtistAlbumsSongs]
   }
 
   extend type Mutation {
     createNewArtist(
       name: String!
-      albums: [String]
+      album_ids: [ID]
+      song_ids: [ID]
       image: String
       description: String
     ): Artist!
@@ -20,7 +22,21 @@ export default gql`
 
   type Artist {
     name: String
-    albums: [String]
+    album_ids: [ID]
+    song_ids: [ID]
+    description: String
+    image: String
+    id: ID
+    createdAt: Date
+    updatedAt: Date
+  }
+
+  type ArtistAlbumsSongs {
+    name: String
+    album_ids: [ID]
+    albums: [Album]
+    song_ids: [ID]
+    songs: [Song]
     description: String
     image: String
     id: ID
