@@ -8,16 +8,35 @@ import firebase from 'firebase';
 import { Avatar, Card, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 import { PlayerContext } from '../../App';
 
+// const ARTIST_ALL = gql`
+//   query ArtistAll($id: ID!) {
+//     artistAll(id: $id) {
+//       name
+//       song_title
+//       song_url
+//       album_title
+//       album_image
+//       description
+//       image
+//     }
+//   }
+// `;
+
 const ARTIST_ALL = gql`
   query ArtistAll($id: ID!) {
     artistAll(id: $id) {
       name
-      song_title
-      song_url
-      album_title
-      album_image
-      description
       image
+      albums {
+        title
+        image
+        songs {
+          title
+          image
+          url
+          duration
+        }
+      }
     }
   }
 `;
@@ -39,8 +58,8 @@ export const Artist = () => {
 
   useEffect(() => {
     const runAysnc = async () => {
-      if (data?.artistAll[0]?.image) {
-        const url = await getHttpUrl(data.artistAll[0].image);
+      if (data?.artistAll?.image) {
+        const url = await getHttpUrl(data.artistAll.image);
         setImageUrl(url);
       }
     };
@@ -54,15 +73,16 @@ export const Artist = () => {
   };
 
   const renderAlbums = () => {
-    if (data?.artistAll?.length > 0) {
-      const albumsList = data.artistAll.map((d: any) => {
+    const albums = data?.artistAll?.albums;
+    if (albums) {
+      const albumsList = albums.map((album: any) => {
         return (
-          <React.Fragment key={`${d.album_title}`}>
-            <ListItem key={d.album_id} alignItems="flex-start" onClick={() => onClickAlbum(d)}>
+          <React.Fragment key={`${album.title}`}>
+            <ListItem key={album.id} alignItems="flex-start" onClick={() => onClickAlbum(album)}>
               <ListItemAvatar>
-                <Avatar variant="square" src={d.album_image} />
+                <Avatar variant="square" src={album.image} />
               </ListItemAvatar>
-              <ListItemText primary={d.album_title} />
+              <ListItemText primary={album.title} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </React.Fragment>
@@ -74,48 +94,45 @@ export const Artist = () => {
     }
   };
 
-  const onClickSong = async (song: ArtistSongs) => {
+  const onClickSong = async (song: Song) => {
     if (playerContext?.playAudio) {
-      const songUrl = await getHttpUrl(song.song_url);
-      const track: Song = {
-        id: song.song_id,
-        artist_name: song.name,
-        artist_id: song.artist_id,
-        title: song.song_title,
-        album_title: song.album_title,
-        album_id: song.album_id,
-        image: song.image,
-        url: songUrl,
-        genres: ['test'],
-        duration: 200,
-        date: new Date()
+      console.log('onClickSong song', song);
+      let songUrl = await getHttpUrl(song.url);
+      const resolvedSong = {
+        ...song,
+        url: songUrl
       };
-      console.log('track', track);
-      playerContext.playAudio(track);
+      console.log('onClickSong - resolvedSong', resolvedSong);
+      playerContext.playAudio(resolvedSong);
     }
   };
 
   const renderSongs = () => {
-    if (data?.artistAll?.length > 0) {
-      const songs = data.artistAll;
-      const songsList = songs.map((song: ArtistSongs) => {
-        return (
-          <React.Fragment key={`${song.name} - ${song.song_title}`}>
-            <ListItem key={song.song_id} alignItems="flex-start" onClick={() => onClickSong(song)}>
-              <ListItemAvatar>
-                <Avatar variant="square" src={song.image} />
-              </ListItemAvatar>
-              <ListItemText primary={song.song_title} secondary={song.name} />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </React.Fragment>
-        );
-      });
+    if (data?.artistAll?.albums.length > 0) {
+      const albums = data.artistAll.albums;
+      const songsList = albums.map((album: Album) =>
+        album.songs.map((song: Song) => {
+          const artistName = data.artistAll.name;
+          return (
+            <React.Fragment key={`${artistName} - ${song.title}`}>
+              <ListItem key={song.id} alignItems="flex-start" onClick={() => onClickSong(song)}>
+                <ListItemAvatar>
+                  <Avatar variant="square" src={song.image} />
+                </ListItemAvatar>
+                <ListItemText primary={song.title} secondary={artistName} />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </React.Fragment>
+          );
+        })
+      );
       return <List>{songsList}</List>;
     } else {
       return null;
     }
   };
+
+  console.log('data', data);
 
   return (
     <Screen>
@@ -127,10 +144,10 @@ export const Artist = () => {
             <>
               <ProfileHeaderImageContainer>
                 <ProfileHeaderImage src={imageUrl} />
-                <ProfileHeaderTitle>{data?.artistAll[0]?.name}</ProfileHeaderTitle>
+                <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
               </ProfileHeaderImageContainer>
               <SubTitle>Description</SubTitle>
-              <div>{data?.artistAll[0]?.description}</div>
+              <div>{data?.artistAll?.description}</div>
               <SubTitle>Songs</SubTitle>
               {renderSongs()}
               <SubTitle>Albums</SubTitle>

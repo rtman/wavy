@@ -4,7 +4,7 @@ export default gql`
   extend type Query {
     artists: [Artist]
     artist(id: ID!): Artist
-    artistAll(id: ID!): [ArtistSongs]
+    artistAll(id: ID!): ArtistAllResult
     searchArtists(query: String!): [Artist]
   }
 
@@ -40,8 +40,20 @@ export default gql`
     album_title: String
     album_image: String
     song_id: ID
+    genres: [String]
     song_title: String
     song_url: String
+    duration: Int
+    song_image: String
+    song_date: Date
+    song_createdAt: Date
+    song_updatedAt: Date
     description: String
+  }
+
+  type ArtistAllResult {
+    name: String
+    image: String
+    albums: [Album]
   }
 `;

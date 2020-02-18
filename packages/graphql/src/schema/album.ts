@@ -16,6 +16,7 @@ export default gql`
     title: String
     artist_id: ID
     song_ids: [ID]
+    songs: [Song]
     description: String
     image: String
     id: ID
