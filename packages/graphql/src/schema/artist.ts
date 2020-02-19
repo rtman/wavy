@@ -54,6 +54,7 @@ export default gql`
   type ArtistAllResult {
     name: String
     image: String
+    description: String
     albums: [Album]
   }
 `;

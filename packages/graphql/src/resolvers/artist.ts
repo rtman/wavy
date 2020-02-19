@@ -55,6 +55,7 @@ export const artistResolvers: Resolvers = {
         SELECT artists.id AS artist_id,
         artists.name,
         artists.image,
+        artists.description,
         songs.id AS song_id,
         songs.genres,
         songs.title AS song_title,
@@ -77,11 +78,13 @@ export const artistResolvers: Resolvers = {
       let formattedResult = {
         name: '',
         image: '',
+        description: '',
         albums: [],
       };
       if (result.length > 0) {
         formattedResult.name = result[0].name;
         formattedResult.image = result[0].image;
+        formattedResult.description = result[0].description;
 
         result.forEach(item => {
           const albumIndex = formattedResult.albums.findIndex(

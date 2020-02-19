@@ -27,6 +27,7 @@ const ARTIST_ALL = gql`
     artistAll(id: $id) {
       name
       image
+      description
       albums {
         title
         image
