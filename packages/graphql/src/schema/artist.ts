@@ -30,7 +30,7 @@ export default gql`
     updatedAt: Date
   }
 
-  type ArtistSongs {
+  type ArtistSongsAlbumsJoined {
     name: String
     image: String
     artist_id: ID

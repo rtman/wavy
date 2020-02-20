@@ -1,4 +1,4 @@
-import { Screen, TextInput, ContentContainer } from 'components';
+import { Screen, SongRow, TextInput, ContentContainer } from 'components';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
@@ -41,13 +41,6 @@ export const Home = () => {
 
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);
-  console.log('data', data);
-
-  // useEffect(() => {
-  //   const audio = new Audio(c_quenz);
-  //   audio.load();
-  //   audio.play();
-  // }, []);
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -79,39 +72,19 @@ export const Home = () => {
     convertSongUrls();
   }, [data]);
 
-  const onClickSong = (song: Song) => {
-    if (playerContext?.playAudio) {
-      playerContext.playAudio(song);
-    }
-  };
-
-  const onClickArtist = (artist_id: string) => {
-    history.push(`/artist/${artist_id}`);
-  };
+  // const onClickArtist = (artist_id: string) => {
+  //   history.push(`/artist/${artist_id}`);
+  // };
 
   const renderSearchResults = () => {
-    console.log('searchResults', searchResults);
     if (searchResults.length > 0) {
       const songsList = searchResults.map((song: any) => {
-        return (
-          <React.Fragment key={`${song.artist_name} - ${song.title}`}>
-            <ListItem key={song.id} alignItems="flex-start" onClick={() => onClickSong(song)}>
-              <ListItemAvatar>
-                <Avatar variant="square" src={song.image} />
-              </ListItemAvatar>
-              <ListItemText primary={song.title} secondary={song.artist_name} onClick={() => onClickArtist(song.artist_id)} />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </React.Fragment>
-        );
+        return <SongRow key={song.song_id} {...song} />;
       });
       return <List>{songsList}</List>;
     }
     return null;
   };
-
-  console.log('searchText', searchText);
-  console.log('loading', loading);
 
   return (
     <Screen>

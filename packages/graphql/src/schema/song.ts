@@ -26,6 +26,8 @@ export default gql`
   type Song {
     title: String
     artist_id: ID
+    artist_name: String
+    album_title: String
     album_id: ID
     genres: [String]
     url: String

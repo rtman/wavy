@@ -8,7 +8,7 @@ import {
   Scalars,
   QueryResolvers,
   Query,
-  ArtistSongs,
+  ArtistSongsAlbumsJoined,
   // SubscriptionResolvers
 } from '../types';
 import {sequelize} from '../models';
@@ -50,7 +50,7 @@ export const artistResolvers: Resolvers = {
     },
     artistAll: async (_parent, args, ctx): Promise<Query['artistAll']> => {
       const {id} = args;
-      const result = await sequelize.query<ArtistSongs>(
+      const result = await sequelize.query<ArtistSongsAlbumsJoined>(
         `
         SELECT artists.id AS artist_id,
         artists.name,
@@ -92,7 +92,9 @@ export const artistResolvers: Resolvers = {
           );
           const song = {
             artist_id: item.artist_id,
+            artist_name: formattedResult.name,
             album_id: item.album_id,
+            album_title: item.album_title,
             genres: item.genres,
             url: item.song_url,
             title: item.song_title,

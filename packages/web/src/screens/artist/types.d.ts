@@ -1,4 +1,4 @@
-interface ArtistSongs {
+interface ArtistSongsAlbumsJoined {
   name: string;
   image: string;
   artist_id: string;
