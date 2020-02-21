@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
-import { PlayerContext } from '../App';
+import { PlayerContext } from 'context';
 
 export const SongRow = (song: Song, passedOnClickSong?: (song: Song) => Promise<void>) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
@@ -13,6 +13,7 @@ export const SongRow = (song: Song, passedOnClickSong?: (song: Song) => Promise<
       ...song,
       url: songUrl
     };
+    console.log('playerContext', playerContext);
     if (playerContext?.playAudio) {
       playerContext.playAudio(resolvedSong);
     }

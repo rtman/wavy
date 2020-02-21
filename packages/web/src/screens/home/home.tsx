@@ -1,12 +1,10 @@
 import { Screen, SongRow, TextInput, ContentContainer } from 'components';
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Avatar, Card, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
+import { Card, List } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import { PlayerContext } from '../../App';
 
 const SEARCH_SONGS_QUERY = gql`
   query SearchSongsWithArtist($query: String!) {
@@ -36,8 +34,6 @@ export const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const playerContext = useContext(PlayerContext);
-  const history = useHistory();
 
   // const { loading, error, data } = useQuery(SONG_QUERY);
   const [submitSearch, { loading, error, data }] = useLazyQuery(SEARCH_SONGS_QUERY);

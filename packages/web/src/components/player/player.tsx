@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RowContainer } from 'components';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
@@ -6,9 +6,14 @@ import { ColumnContainer } from 'components/columnContainer';
 import { useHistory } from 'react-router-dom';
 import * as helpers from 'helpers';
 import { SongArtist, SongTitle } from './styles';
+import { PlayerContext } from 'context';
 
 export const Player = (props: Player) => {
-  const { audio, currentSong } = props;
+  // const { audio, currentSong } = props;
+  const playerContext = useContext(PlayerContext);
+
+  const audio = playerContext.playerAudio ?? props.audio;
+  const currentSong = playerContext.currentSong ?? props.currentSong;
 
   const currentState = helpers.hooks.usePlayState(audio);
   const history = useHistory();
