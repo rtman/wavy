@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RowContainer } from 'components';
-import { PlayArrow, Pause, SkipPrevious, SkipNext, TextFields } from '@material-ui/icons';
+import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
 import { useHistory } from 'react-router-dom';
+import * as helpers from 'helpers';
 import { SongArtist, SongTitle } from './styles';
 
 export const Player = (props: Player) => {
   const { audio, currentSong } = props;
 
-  const currentState = usePlayState(audio);
+  const currentState = helpers.hooks.usePlayState(audio);
   const history = useHistory();
 
   const play = () => {
