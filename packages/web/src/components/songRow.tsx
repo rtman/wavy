@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { useGetStorageHttpUrl } from 'components';
+import * as helpers from 'helpers';
 import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 import { PlayerContext } from '../App';
 
 export const SongRow = (song: Song, passedOnClickSong?: (song: Song) => Promise<void>) => {
-  const imageUrl = useGetStorageHttpUrl(song.image);
-  const songUrl = useGetStorageHttpUrl(song.url);
+  const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
+  const songUrl = helpers.hooks.useGetStorageHttpUrl(song.url);
   const playerContext = useContext(PlayerContext);
 
   const onClickSong = (song: Song) => {

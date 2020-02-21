@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { RowContainer } from 'components';
 import { PlayArrow, Pause, SkipPrevious, SkipNext, TextFields } from '@material-ui/icons';
-// import { useMediaState } from 'components';
-import { ProgressBar, usePlayState } from 'components';
+import { ProgressBar } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
 import { useHistory } from 'react-router-dom';
 import { SongArtist, SongTitle } from './styles';

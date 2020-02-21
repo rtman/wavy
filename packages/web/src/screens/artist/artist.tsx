@@ -6,9 +6,9 @@ import {
   ContentContainer,
   Screen,
   SongRow,
-  SubTitle,
-  useGetStorageHttpUrl
+  SubTitle
 } from 'components';
+import * as helpers from 'helpers';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
@@ -58,7 +58,7 @@ export const Artist = () => {
   const { id } = useParams();
   const { loading, error, data, networkStatus } = useQuery(ARTIST_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
-  const artistImageUrl = useGetStorageHttpUrl(data?.artistAll?.image);
+  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistAll?.image);
 
   console.log('error', error);
 
