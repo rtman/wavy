@@ -25,18 +25,51 @@ export type Album = {
   updatedAt?: Maybe<Scalars['Date']>,
 };
 
+export type AlbumAllResult = {
+   __typename?: 'AlbumAllResult',
+  title?: Maybe<Scalars['String']>,
+  image?: Maybe<Scalars['String']>,
+  description?: Maybe<Scalars['String']>,
+  artist_name?: Maybe<Scalars['String']>,
+  artist_id?: Maybe<Scalars['String']>,
+  artist_image?: Maybe<Scalars['String']>,
+  songs?: Maybe<Array<Maybe<Album>>>,
+};
+
 export type AlbumSongsArtist = {
    __typename?: 'AlbumSongsArtist',
   title?: Maybe<Scalars['String']>,
+  description?: Maybe<Scalars['String']>,
+  image?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['ID']>,
   artist_id?: Maybe<Scalars['ID']>,
   artists?: Maybe<Array<Maybe<Artist>>>,
   song_ids?: Maybe<Array<Maybe<Scalars['ID']>>>,
   songs?: Maybe<Array<Maybe<Song>>>,
-  description?: Maybe<Scalars['String']>,
-  image?: Maybe<Scalars['String']>,
-  id?: Maybe<Scalars['ID']>,
   createdAt?: Maybe<Scalars['Date']>,
   updatedAt?: Maybe<Scalars['Date']>,
+};
+
+export type AlbumSongsJoined = {
+   __typename?: 'AlbumSongsJoined',
+  album_id?: Maybe<Scalars['ID']>,
+  album_title?: Maybe<Scalars['String']>,
+  album_image?: Maybe<Scalars['String']>,
+  album_description?: Maybe<Scalars['String']>,
+  createdAt?: Maybe<Scalars['Date']>,
+  updatedAt?: Maybe<Scalars['Date']>,
+  artist_name?: Maybe<Scalars['String']>,
+  artist_image?: Maybe<Scalars['String']>,
+  artist_id?: Maybe<Scalars['ID']>,
+  song_id?: Maybe<Scalars['ID']>,
+  genres?: Maybe<Array<Maybe<Scalars['String']>>>,
+  song_title?: Maybe<Scalars['String']>,
+  song_url?: Maybe<Scalars['String']>,
+  duration?: Maybe<Scalars['Int']>,
+  song_image?: Maybe<Scalars['String']>,
+  song_date?: Maybe<Scalars['Date']>,
+  song_createdAt?: Maybe<Scalars['Date']>,
+  song_updatedAt?: Maybe<Scalars['Date']>,
 };
 
 export type Artist = {
@@ -157,6 +190,7 @@ export type Query = {
   searchArtists?: Maybe<Array<Maybe<Artist>>>,
   albums?: Maybe<Array<Maybe<Album>>>,
   album?: Maybe<Album>,
+  albumAll?: Maybe<AlbumSongsArtist>,
   searchAlbums?: Maybe<Array<Maybe<Album>>>,
   songs?: Maybe<Array<Maybe<Song>>>,
   song?: Maybe<Song>,
@@ -181,6 +215,11 @@ export type QuerySearchArtistsArgs = {
 
 
 export type QueryAlbumArgs = {
+  id: Scalars['ID']
+};
+
+
+export type QueryAlbumAllArgs = {
   id: Scalars['ID']
 };
 
@@ -327,11 +366,13 @@ export type ResolversTypes = {
   Album: ResolverTypeWrapper<Album>,
   Song: ResolverTypeWrapper<Song>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
+  AlbumSongsArtist: ResolverTypeWrapper<AlbumSongsArtist>,
   SongArtistAlbum: ResolverTypeWrapper<SongArtistAlbum>,
   Mutation: ResolverTypeWrapper<{}>,
   Subscription: ResolverTypeWrapper<{}>,
   ArtistSongsAlbumsJoined: ResolverTypeWrapper<ArtistSongsAlbumsJoined>,
-  AlbumSongsArtist: ResolverTypeWrapper<AlbumSongsArtist>,
+  AlbumSongsJoined: ResolverTypeWrapper<AlbumSongsJoined>,
+  AlbumAllResult: ResolverTypeWrapper<AlbumAllResult>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -348,11 +389,13 @@ export type ResolversParentTypes = {
   Album: Album,
   Song: Song,
   Int: Scalars['Int'],
+  AlbumSongsArtist: AlbumSongsArtist,
   SongArtistAlbum: SongArtistAlbum,
   Mutation: {},
   Subscription: {},
   ArtistSongsAlbumsJoined: ArtistSongsAlbumsJoined,
-  AlbumSongsArtist: AlbumSongsArtist,
+  AlbumSongsJoined: AlbumSongsJoined,
+  AlbumAllResult: AlbumAllResult,
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
 };
@@ -370,17 +413,50 @@ export type AlbumResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: isTypeOfResolverFn,
 };
 
+export type AlbumAllResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AlbumAllResult'] = ResolversParentTypes['AlbumAllResult']> = {
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  artist_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  artist_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  artist_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn,
+};
+
 export type AlbumSongsArtistResolvers<ContextType = any, ParentType extends ResolversParentTypes['AlbumSongsArtist'] = ResolversParentTypes['AlbumSongsArtist']> = {
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   artist_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   artists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType>,
   song_ids?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType>,
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn,
+};
+
+export type AlbumSongsJoinedResolvers<ContextType = any, ParentType extends ResolversParentTypes['AlbumSongsJoined'] = ResolversParentTypes['AlbumSongsJoined']> = {
+  album_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  album_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  album_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  album_description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  artist_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  artist_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  artist_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  song_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  genres?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
+  song_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  song_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  song_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  song_date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  song_createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  song_updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn,
 };
 
@@ -449,6 +525,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   searchArtists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType, RequireFields<QuerySearchArtistsArgs, 'query'>>,
   albums?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType>,
   album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>,
+  albumAll?: Resolver<Maybe<ResolversTypes['AlbumSongsArtist']>, ParentType, ContextType, RequireFields<QueryAlbumAllArgs, 'id'>>,
   searchAlbums?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType, RequireFields<QuerySearchAlbumsArgs, 'query'>>,
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType>,
   song?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongArgs, 'id'>>,
@@ -500,7 +577,9 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 
 export type Resolvers<ContextType = any> = {
   Album?: AlbumResolvers<ContextType>,
+  AlbumAllResult?: AlbumAllResultResolvers<ContextType>,
   AlbumSongsArtist?: AlbumSongsArtistResolvers<ContextType>,
+  AlbumSongsJoined?: AlbumSongsJoinedResolvers<ContextType>,
   Artist?: ArtistResolvers<ContextType>,
   ArtistAllResult?: ArtistAllResultResolvers<ContextType>,
   ArtistSongsAlbumsJoined?: ArtistSongsAlbumsJoinedResolvers<ContextType>,

@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { List } from '@material-ui/core';
+import { Card, List } from '@material-ui/core';
 
 // const ARTIST_ALL = gql`
 //   query ArtistAll($id: ID!) {
@@ -90,7 +90,7 @@ export const Artist = () => {
 
   return (
     <Screen>
-      <ContentContainer>
+      <Card>
         {loading ? (
           <div>loading</div>
         ) : (
@@ -109,7 +109,7 @@ export const Artist = () => {
             </div>
           </>
         )}
-      </ContentContainer>
+      </Card>
     </Screen>
   );
 };

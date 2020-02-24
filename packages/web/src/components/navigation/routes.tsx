@@ -9,7 +9,7 @@ export const Routes = (props: any) => {
   return (
     <Switch>
       <PublicRoute exact={true} path="/" component={screens.Home} />
-      <PublicRoute exact={true} path="/album" component={screens.Album} />
+      <PublicRoute exact={true} path="/album/:id?" component={screens.Album} />
       <PublicRoute exact={true} path="/artist/:id?" component={screens.Artist} />
     </Switch>
   );

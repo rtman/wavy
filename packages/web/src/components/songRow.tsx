@@ -21,7 +21,6 @@ export const SongRow = (props: SongRowProps) => {
       ...song,
       url: songUrl
     };
-    console.log('playerContext', playerContext);
     if (playerContext?.playAudio) {
       playerContext.playAudio(resolvedSong);
     }
