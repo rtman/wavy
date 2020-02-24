@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Card, List } from '@material-ui/core';
+import { List } from '@material-ui/core';
 
 // const ARTIST_ALL = gql`
 //   query ArtistAll($id: ID!) {
@@ -71,7 +71,7 @@ export const Artist = () => {
   const renderAlbums = () => {
     const albums = data?.artistAll?.albums;
     if (albums) {
-      const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} {...album} />);
+      const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
       return <List>{albumsList}</List>;
     } else {
       return null;
@@ -81,7 +81,7 @@ export const Artist = () => {
   const renderSongs = () => {
     if (data?.artistAll?.albums.length > 0) {
       const albums = data.artistAll.albums;
-      const songsList = albums.map((album: Album) => album.songs.map((song: Song) => <SongRow key={song.id} {...song} />));
+      const songsList = albums.map((album: Album) => album.songs.map((song: Song) => <SongRow key={song.id} song={song} />));
       return <List>{songsList}</List>;
     } else {
       return null;
@@ -91,24 +91,24 @@ export const Artist = () => {
   return (
     <Screen>
       <ContentContainer>
-        <Card>
-          {loading ? (
-            <div>loading</div>
-          ) : (
-            <>
-              <ProfileHeaderImageContainer>
-                <ProfileHeaderImage src={artistImageUrl} />
-                <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
-              </ProfileHeaderImageContainer>
-              <SubTitle>Description</SubTitle>
+        {loading ? (
+          <div>loading</div>
+        ) : (
+          <>
+            <ProfileHeaderImageContainer>
+              <ProfileHeaderImage src={artistImageUrl} />
+              <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
+            </ProfileHeaderImageContainer>
+            <SubTitle>Description</SubTitle>
+            <div>
               <div>{data?.artistAll?.description}</div>
               <SubTitle>Songs</SubTitle>
               {renderSongs()}
               <SubTitle>Albums</SubTitle>
               {renderAlbums()}
-            </>
-          )}
-        </Card>
+            </div>
+          </>
+        )}
       </ContentContainer>
     </Screen>
   );

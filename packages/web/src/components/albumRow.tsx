@@ -2,7 +2,13 @@ import React from 'react';
 import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 import * as helpers from 'helpers';
 
-export const AlbumRow = (album: Album, onClickAlbum?: (album: Album) => Promise<void>) => {
+interface AlbumRowProps {
+  album: Album;
+  onClickAlbum?: (album: Album) => Promise<void>;
+}
+
+export const AlbumRow = (props: AlbumRowProps) => {
+  const { album, onClickAlbum } = props;
   const onClick = onClickAlbum ? onClickAlbum : () => null;
 
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(album.image);

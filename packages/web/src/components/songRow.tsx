@@ -3,7 +3,15 @@ import * as helpers from 'helpers';
 import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
-export const SongRow = (song: Song, passedOnClickSong?: (song: Song) => Promise<void>) => {
+interface SongRowProps {
+  song: Song;
+  passedOnClickSong?: (song: Song) => Promise<void>;
+  secondaryStyle?: boolean;
+}
+
+export const SongRow = (props: SongRowProps) => {
+  const { song, passedOnClickSong, secondaryStyle } = props;
+
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const songUrl = helpers.hooks.useGetStorageHttpUrl(song.url);
   const playerContext = useContext(PlayerContext);
@@ -24,10 +32,12 @@ export const SongRow = (song: Song, passedOnClickSong?: (song: Song) => Promise<
   return (
     <>
       <ListItem alignItems="flex-start" onClick={() => resolvedOnClick(song)}>
-        <ListItemAvatar>
-          <Avatar variant="square" src={imageUrl} />
-        </ListItemAvatar>
-        <ListItemText primary={song.title} secondary={song.artist_name} />
+        {secondaryStyle ? null : (
+          <ListItemAvatar>
+            <Avatar variant="square" src={imageUrl} />
+          </ListItemAvatar>
+        )}
+        <ListItemText primary={song.title} secondary={!secondaryStyle && song.artist_name} />
       </ListItem>
       <Divider variant="inset" component="li" />
     </>

@@ -6,9 +6,10 @@ export const ContentContainer = styled.div({
   border: '1px black solid',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
   width: '100%',
   boxSizing: 'border-box',
-  height: '100%'
+  height: '100%',
+  overflow: 'auto'
 });

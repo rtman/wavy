@@ -2,12 +2,18 @@ import { AlbumRow, SongRow } from 'components';
 import React from 'react';
 import { Divider, List } from '@material-ui/core';
 
-export const AlbumWithSongs = (album: Album) => {
+interface AlbumWithSongsProps {
+  album: Album;
+}
+
+export const AlbumWithSongs = (props: AlbumWithSongsProps) => {
+  const { album } = props;
+
   const renderSongs = () => {
-    const songsList = album.songs.map((song: Song, index) => {
+    const songsList = album.songs.map((song: Song, index: number) => {
       return (
         <React.Fragment key={song.id}>
-          <SongRow {...song} />
+          <SongRow song={song} secondaryStyle={true} />
           {index !== album.songs.length ? <Divider /> : null}
         </React.Fragment>
       );
@@ -18,7 +24,7 @@ export const AlbumWithSongs = (album: Album) => {
 
   return (
     <>
-      <AlbumRow {...album} />
+      <AlbumRow album={album} />
       {renderSongs()}
     </>
   );
