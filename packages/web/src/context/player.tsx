@@ -5,9 +5,13 @@ interface PlayerContext {
   playAudio?: (song: Song) => void;
   currentSong: Song | null;
   playerAudio: HTMLAudioElement | null;
+  addSongsToEndOfQueue: Song[];
+  addSongsToBeginningOfQueue: Song[];
+  replaceQueueWithSongs: Song[];
+  clearQueue: () => void;
 }
 
-export const PlayerContext = createContext<PlayerContext>({ playAudio: undefined, currentSong: null, playerAudio: null });
+export const PlayerContext = createContext<PlayerContext>({ playAudio: undefined, currentSong: null, playerAudio: null, addSongsToEndOfQueue: [],  addSongsToBeginningOfQueue: [], replaceQueueWithSongs: [], clearQueue:  });
 
 export const PlayerProvider = ({ children }: any) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
