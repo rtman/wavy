@@ -31,6 +31,7 @@ interface Song {
   createdAt?: Date;
   updatedAt?: Date;
   date: Date;
+  audio?: HTMLAudioElement;
 }
 
 interface Album {

@@ -8,12 +8,12 @@ import * as helpers from 'helpers';
 import { SongArtist, SongTitle } from './styles';
 import { PlayerContext } from 'context';
 
-export const Player = (props: Player) => {
+export const Player = () => {
   // const { audio, currentSong } = props;
   const playerContext = useContext(PlayerContext);
 
-  const audio = playerContext.playerAudio ?? props.audio;
-  const currentSong = playerContext.currentSong ?? props.currentSong;
+  const audio = playerContext.audio;
+  const currentSong = playerContext.currentSong;
 
   const currentState = helpers.hooks.usePlayState(audio);
   const history = useHistory();
