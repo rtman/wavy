@@ -1,10 +1,9 @@
 import { Screen, SongRow, TextInput, ContentContainer } from 'components';
+import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Card, List } from '@material-ui/core';
-import firebase from 'firebase/app';
-import 'firebase/storage';
 
 const SEARCH_SONGS_QUERY = gql`
   query SearchSongsWithArtist($query: String!) {
@@ -22,12 +21,6 @@ const SEARCH_SONGS_QUERY = gql`
     }
   }
 `;
-
-const getHttpUrl = async (googleStorageUri: string) => {
-  const fileRef = firebase.storage().refFromURL(googleStorageUri);
-  const url = await fileRef.getDownloadURL();
-  return url;
-};
 
 export const Home = () => {
   const COMPONENT_NAME = 'Home';
@@ -53,8 +46,8 @@ export const Home = () => {
     const convertSongUrls = async () => {
       const songs = data?.searchSongsWithArtistsAlbums ?? [];
 
-      const songUrlPromises = songs.map((song: Song) => getHttpUrl(song.url));
-      const imageUrlPromises = songs.map((song: Song) => getHttpUrl(song.image));
+      const songUrlPromises = songs.map((song: Song) => helpers.hooks.useGetStorageHttpUrl(song.url));
+      const imageUrlPromises = songs.map((song: Song) => helpers.hooks.useGetStorageHttpUrl(song.image));
       const songUrls = await Promise.all(songUrlPromises);
       const imageUrls = await Promise.all(imageUrlPromises);
 
