@@ -66,7 +66,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
     console.log('playState', type);
     if (dontCareStates.includes(type)) {
       return currentState;
-    } else if (type === 'playing' || type === 'pause') {
+    } else if (['playing', 'pause', 'ended'].includes(type)) {
       return type;
     } else if (statesThatStopPlayback.includes(type)) {
       return currentState;

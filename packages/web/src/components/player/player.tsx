@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { RowContainer } from 'components';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
@@ -36,6 +36,12 @@ export const Player = () => {
       playerContext.unPause();
     }
   };
+
+  useEffect(() => {
+    if (currentState === 'ended') {
+      playerContext.playNextSongInQueue();
+    }
+  }, [currentState]);
 
   return (
     <RowContainer width={'100%'}>
