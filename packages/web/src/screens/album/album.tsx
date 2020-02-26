@@ -9,12 +9,13 @@ import {
   SubTitle
 } from 'components';
 import * as helpers from 'helpers';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Card, List } from '@material-ui/core';
+import { Button, Card, List } from '@material-ui/core';
+import { PlayerContext } from 'context';
 
 // const ARTIST_ALL = gql`
 //   query ArtistAll($id: ID!) {
@@ -49,6 +50,7 @@ const ALBUM_ALL = gql`
 
 export const Album = () => {
   const { id } = useParams();
+  const playerContext = useContext(PlayerContext);
   const { loading, error, data, networkStatus } = useQuery(ALBUM_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumAll?.image);
@@ -75,6 +77,7 @@ export const Album = () => {
               <ProfileHeaderImage src={albumImageUrl} />
               <ProfileHeaderTitle>{data?.albumAll?.title}</ProfileHeaderTitle>
             </ProfileHeaderImageContainer>
+            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
             <SubTitle>Description</SubTitle>
             <div>
               <div>{data?.albumAll?.description}</div>

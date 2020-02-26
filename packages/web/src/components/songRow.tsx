@@ -24,7 +24,6 @@ export const SongRow = (props: SongRowProps) => {
   const { song, passedOnClickSong, secondaryStyle } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
-  const songUrl = helpers.hooks.useGetStorageHttpUrl(song.url);
   const playerContext = useContext(PlayerContext);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,19 +45,8 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
-  // const handleClickPlayAndClearQueue = () => {
-  //   playerContext.replaceQueueWithSongs([song]);
-  //   handleMenuClose();
-  // };
-
   const onClickSong = (song: Song) => {
-    const resolvedSong = {
-      ...song,
-      url: songUrl
-    };
-    if (playerContext?.playAudio) {
-      playerContext.playAudio(resolvedSong);
-    }
+    playerContext.replaceQueueWithSongs([song]);
   };
 
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
@@ -81,7 +69,6 @@ export const SongRow = (props: SongRowProps) => {
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
-        {/* <MenuItem onClick={handleClickPlayAndClearQueue}>Play and Clear Queue</MenuItem> */}
       </Menu>
       <Divider variant="inset" component="li" />
     </>
