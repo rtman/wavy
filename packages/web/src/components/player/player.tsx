@@ -18,13 +18,13 @@ export const Player = () => {
   const currentState = helpers.hooks.usePlayState(audio);
   const history = useHistory();
 
-  const play = () => {
-    audio.play();
-  };
+  // const play = () => {
+  //   audio.play();
+  // };
 
-  const pause = () => {
-    audio.pause();
-  };
+  // const pause = () => {
+  //   audio.pause();
+  // };
 
   console.log('currentState', currentState);
 
@@ -42,9 +42,9 @@ export const Player = () => {
 
   return (
     <RowContainer width={'100%'}>
-      <SkipPrevious />
-      {currentState === 'playing' ? <Pause onClick={pause} /> : <PlayArrow onClick={play} />}
-      <SkipNext />
+      <SkipPrevious onClick={playerContext.playPreviousSongInQueue} />
+      {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={playerContext.playQueue} />}
+      <SkipNext onClick={playerContext.playNextSongInQueue} />
       <ProgressBar audio={audio} duration={duration} />
       <ColumnContainer>
         <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>

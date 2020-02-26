@@ -36,7 +36,7 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const handleClickPlayNow = () => {
-    playerContext.addSongsToBeginningOfQueue([song]);
+    playerContext.replaceQueueWithSongs([song]);
     handleMenuClose();
   };
 
@@ -46,10 +46,10 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
-  const handleClickPlayAndClearQueue = () => {
-    playerContext.replaceQueueWithSongs([song]);
-    handleMenuClose();
-  };
+  // const handleClickPlayAndClearQueue = () => {
+  //   playerContext.replaceQueueWithSongs([song]);
+  //   handleMenuClose();
+  // };
 
   const onClickSong = (song: Song) => {
     const resolvedSong = {
@@ -81,7 +81,7 @@ export const SongRow = (props: SongRowProps) => {
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
-        <MenuItem onClick={handleClickPlayAndClearQueue}>Play and Clear Queue</MenuItem>
+        {/* <MenuItem onClick={handleClickPlayAndClearQueue}>Play and Clear Queue</MenuItem> */}
       </Menu>
       <Divider variant="inset" component="li" />
     </>

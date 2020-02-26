@@ -57,7 +57,7 @@ export const Album = () => {
 
   const renderSongs = () => {
     if (data?.albumAll?.songs.length > 0) {
-      const songsList = data.albumAll.songs.map((song: Song) => <SongRow key={song.id} song={song} />);
+      const songsList = data.albumAll.songs.map((song: Song) => <SongRow key={song.song_id} song={song} />);
       return <List>{songsList}</List>;
     } else {
       return null;

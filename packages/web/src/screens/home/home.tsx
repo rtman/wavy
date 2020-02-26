@@ -46,8 +46,8 @@ export const Home = () => {
     const convertSongUrls = async () => {
       const songs = data?.searchSongsWithArtistsAlbums ?? [];
 
-      const songUrlPromises = songs.map((song: Song) => helpers.hooks.useGetStorageHttpUrl(song.url));
-      const imageUrlPromises = songs.map((song: Song) => helpers.hooks.useGetStorageHttpUrl(song.image));
+      const songUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.url));
+      const imageUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.image));
       const songUrls = await Promise.all(songUrlPromises);
       const imageUrls = await Promise.all(imageUrlPromises);
 
@@ -74,6 +74,8 @@ export const Home = () => {
     }
     return null;
   };
+
+  console.log('data', data);
 
   return (
     <Screen>

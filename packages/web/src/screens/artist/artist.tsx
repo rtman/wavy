@@ -81,7 +81,7 @@ export const Artist = () => {
   const renderSongs = () => {
     if (data?.artistAll?.albums.length > 0) {
       const albums = data.artistAll.albums;
-      const songsList = albums.map((album: Album) => album.songs.map((song: Song) => <SongRow key={song.id} song={song} />));
+      const songsList = albums.map((album: Album) => album.songs.map((song: Song) => <SongRow key={song.song_id} song={song} />));
       return <List>{songsList}</List>;
     } else {
       return null;

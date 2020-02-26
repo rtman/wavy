@@ -4,20 +4,28 @@ import firebase from 'firebase';
 
 interface PlayerContext {
   playAudio?: (song: Song) => void;
+  playQueue: () => void;
+  playNextSongInQueue: () => void;
+  playPreviousSongInQueue: () => void;
+  pause: () => void;
   currentSong: Song | null;
   audio: HTMLAudioElement;
   addSongsToEndOfQueue: (songs: Song[]) => void;
-  addSongsToBeginningOfQueue: (songs: Song[]) => void;
+  // addSongsToBeginningOfQueue: (songs: Song[]) => void;
   replaceQueueWithSongs: (songs: Song[]) => void;
   clearQueue: () => void;
 }
 
 export const PlayerContext = createContext<PlayerContext>({
   playAudio: undefined,
+  playQueue: () => {},
+  playNextSongInQueue: () => {},
+  playPreviousSongInQueue: () => {},
+  pause: () => {},
   currentSong: null,
   audio: new Audio(),
   addSongsToEndOfQueue: () => {},
-  addSongsToBeginningOfQueue: () => {},
+  // addSongsToBeginningOfQueue: () => {},
   replaceQueueWithSongs: () => {},
   clearQueue: () => {}
 });
@@ -25,14 +33,16 @@ export const PlayerContext = createContext<PlayerContext>({
 export const PlayerProvider = ({ children }: any) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [queue, setQueue] = useState<Song[]>([]);
+  const [queuePosition, setQueuePosition] = useState<number>(0);
   // const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   const [localStorageQueue, setLocalStorageQueue] = helpers.hooks.useLocalStorage('queue', []);
+  const [localStorageQueuePosition, setLocalStorageQueuePosition] = helpers.hooks.useLocalStorage('queuePosition', 0);
 
-  const audio = new Audio();
+  let audio = new Audio();
 
   const addAudioElements = async (songs: Song[]) => {
     const songUrlPromises = songs.map((s) => {
-      return getStorageHttpUrl(s);
+      return getStorageHttpUrl(s.url);
     });
     const result = await Promise.all(songUrlPromises);
     const resolvedSongs = songs.map((s, index) => {
@@ -44,9 +54,14 @@ export const PlayerProvider = ({ children }: any) => {
     return resolvedSongs;
   };
 
-  useEffect(async () => {
-    const resolvedLocalStorageQueue = await addAudioElements(localStorageQueue);
-    setQueue(resolvedLocalStorageQueue);
+  useEffect(() => {
+    const loadLocalStorageQueue = async () => {
+      const resolvedLocalStorageQueue = await addAudioElements(localStorageQueue);
+      console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
+      setQueue(resolvedLocalStorageQueue);
+      setQueuePosition(localStorageQueuePosition);
+    };
+    loadLocalStorageQueue();
   }, []);
 
   const addSongsToEndOfQueue = async (songs: Song[]) => {
@@ -61,8 +76,35 @@ export const PlayerProvider = ({ children }: any) => {
 
     const newQueue = [...resolvedSongs];
     setQueue(newQueue);
+    setQueuePosition(0);
     setLocalStorageQueue(newQueue);
-    playAudio(newQueue[0]);
+    setLocalStorageQueuePosition(0);
+    playAudio(newQueue, 0);
+  };
+
+  const playPreviousSongInQueue = () => {
+    const position = queuePosition - 1;
+    console.log('position', position);
+    console.log('queue', queue);
+    if (queue && queue[position]) {
+      playAudio(queue, position);
+    }
+  };
+
+  const playNextSongInQueue = () => {
+    const position = queuePosition + 1;
+
+    if (queue && queue[position]) {
+      playAudio(queue, position);
+    }
+  };
+
+  const playQueue = () => {
+    const position = queuePosition;
+
+    if (queue && queue[position]) {
+      playAudio(queue, position);
+    }
   };
 
   const clearQueue = () => {
@@ -70,14 +112,15 @@ export const PlayerProvider = ({ children }: any) => {
     setLocalStorageQueue([]);
   };
 
-  const addSongsToBeginningOfQueue = async (songs: Song[]) => {
-    const resolvedSongs = await addAudioElements(songs);
+  // const addSongsToBeginningOfQueue = async (songs: Song[]) => {
+  //   const resolvedSongs = await addAudioElements(songs);
 
-    const newQueue = [...resolvedSongs, ...queue];
-    setQueue(newQueue);
-    setLocalStorageQueue(newQueue);
-    playAudio(newQueue[0]);
-  };
+  //   const newQueue = [...resolvedSongs, ...queue];
+  //   console.log('addSongsToBeginningOfQueue newQueue', newQueue);
+  //   setQueue(newQueue);
+  //   setLocalStorageQueue(newQueue);
+  //   playAudio(newQueue[0]);
+  // };
 
   // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
   const getStorageHttpUrl = async (googleStorageUri: string) => {
@@ -86,29 +129,43 @@ export const PlayerProvider = ({ children }: any) => {
     return resolvedUrl;
   };
 
-  const playAudio = async (song: Song) => {
-    console.log('before audio.currentSrc', audio.currentSrc);
-    console.log('audio.duration', audio.duration);
-    const queueIndex = queue.findIndex((s) => s.id === song.id);
-    console.log('queueIndex', queueIndex);
-    const songToPlay = queue[queueIndex];
-    console.log('songToPlay', songToPlay);
-    setCurrentSong(songToPlay);
-    const songUrl = await getStorageHttpUrl(songToPlay.url);
-
-    if (audio.currentSrc.length > 0) {
-      console.log('after audio.currentSrc', audio.currentSrc);
-      audio.pause();
-      audio.currentTime = 0;
+  const playAudio = async (currentQueue: Song[], position: number) => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.pause();
+      currentSong.audio.currentTime = 0;
     }
-    audio.src = songUrl;
-    // setPlayerAudio(audio);
-    audio.play();
+
+    // might want to check for position in queue exsits
+    const songToPlay = currentQueue[position];
+    setCurrentSong(songToPlay);
+
+    if (songToPlay && songToPlay.audio) {
+      setQueuePosition(position);
+      setLocalStorageQueuePosition(position);
+      songToPlay.audio.play();
+      audio = songToPlay.audio;
+    }
+  };
+
+  const pause = () => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.pause();
+    }
   };
 
   return (
     <PlayerContext.Provider
-      value={{ playAudio, currentSong, audio, addSongsToBeginningOfQueue, addSongsToEndOfQueue, clearQueue, replaceQueueWithSongs }}
+      value={{
+        playQueue,
+        pause,
+        playNextSongInQueue,
+        playPreviousSongInQueue,
+        currentSong,
+        audio,
+        addSongsToEndOfQueue,
+        clearQueue,
+        replaceQueueWithSongs
+      }}
     >
       {children}
     </PlayerContext.Provider>

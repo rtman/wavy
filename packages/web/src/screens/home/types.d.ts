@@ -18,7 +18,7 @@ interface EmailAndPasswordStateProps {
 type PasswordRequirementStatus = 'done' | 'blank' | 'fail';
 
 interface Song {
-  id: string;
+  song_id: string;
   artist_name: string;
   artist_id: string;
   title: string;
