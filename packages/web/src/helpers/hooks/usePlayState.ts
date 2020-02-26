@@ -42,13 +42,34 @@ export const usePlayState = (audio: HTMLAudioElement) => {
 
   const filterStates = (type: string) => {
     // const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
-    const statesThatStopPlayback = ['abort', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend'];
+    const statesThatStopPlayback = ['abort', 'error', 'emptied', 'encrypted', 'ended', 'waiting', 'stalled'];
+
+    const dontCareStates = [
+      'canplay',
+      'canplaythrough',
+      'durationchange',
+      'interruptbegin',
+      'interruptend',
+      'loadeddata',
+      'loadedmetadata',
+      'loadstart',
+      'mozaudioavailable',
+      'progress',
+      'ratechange',
+      'seeked',
+      'seeking',
+      'suspend',
+      'timeupdate',
+      'volumechange'
+    ];
 
     console.log('playState', type);
-    if (type === 'playing' || type === 'pause') {
+    if (dontCareStates.includes(type)) {
+      return currentState;
+    } else if (type === 'playing' || type === 'pause') {
       return type;
     } else if (statesThatStopPlayback.includes(type)) {
-      return null;
+      return currentState;
     } else {
       return currentState;
     }
