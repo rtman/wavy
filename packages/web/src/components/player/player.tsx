@@ -9,26 +9,15 @@ import { SongArtist, SongTitle } from './styles';
 import { PlayerContext } from 'context';
 
 export const Player = () => {
-  // const { audio, currentSong } = props;
   const playerContext = useContext(PlayerContext);
 
-  const audio = playerContext.audio;
   const currentSong = playerContext.currentSong;
 
-  const currentState = helpers.hooks.usePlayState(audio);
+  const currentState = helpers.hooks.usePlayState(currentSong?.audio ?? new Audio());
   const history = useHistory();
-
-  // const play = () => {
-  //   audio.play();
-  // };
-
-  // const pause = () => {
-  //   audio.pause();
-  // };
 
   console.log('currentState', currentState);
 
-  const duration = currentSong?.duration ?? 0;
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist_name ?? '';
 
@@ -40,12 +29,20 @@ export const Player = () => {
     return null;
   };
 
+  const onClickPlay = () => {
+    if (currentState !== 'pause') {
+      playerContext.playQueue();
+    } else {
+      playerContext.unPause();
+    }
+  };
+
   return (
     <RowContainer width={'100%'}>
       <SkipPrevious onClick={playerContext.playPreviousSongInQueue} />
-      {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={playerContext.playQueue} />}
+      {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
       <SkipNext onClick={playerContext.playNextSongInQueue} />
-      <ProgressBar audio={audio} duration={duration} />
+      <ProgressBar />
       <ColumnContainer>
         <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>
         <SongArtist onClick={onClickArtist}>{songArtist}</SongArtist>

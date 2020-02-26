@@ -42,10 +42,10 @@ export const usePlayState = (audio: HTMLAudioElement) => {
 
   const filterStates = (type: string) => {
     // const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
-    const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend'];
+    const statesThatStopPlayback = ['abort', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend'];
 
     console.log('playState', type);
-    if (type === 'playing') {
+    if (type === 'playing' || type === 'pause') {
       return type;
     } else if (statesThatStopPlayback.includes(type)) {
       return null;

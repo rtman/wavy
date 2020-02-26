@@ -8,6 +8,7 @@ interface PlayerContext {
   playNextSongInQueue: () => void;
   playPreviousSongInQueue: () => void;
   pause: () => void;
+  unPause: () => void;
   currentSong: Song | null;
   audio: HTMLAudioElement;
   addSongsToEndOfQueue: (songs: Song[]) => void;
@@ -22,6 +23,7 @@ export const PlayerContext = createContext<PlayerContext>({
   playNextSongInQueue: () => {},
   playPreviousSongInQueue: () => {},
   pause: () => {},
+  unPause: () => {},
   currentSong: null,
   audio: new Audio(),
   addSongsToEndOfQueue: () => {},
@@ -84,8 +86,6 @@ export const PlayerProvider = ({ children }: any) => {
 
   const playPreviousSongInQueue = () => {
     const position = queuePosition - 1;
-    console.log('position', position);
-    console.log('queue', queue);
     if (queue && queue[position]) {
       playAudio(queue, position);
     }
@@ -147,6 +147,12 @@ export const PlayerProvider = ({ children }: any) => {
     }
   };
 
+  const unPause = () => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.play();
+    }
+  };
+
   const pause = () => {
     if (currentSong && currentSong.audio) {
       currentSong.audio.pause();
@@ -158,6 +164,7 @@ export const PlayerProvider = ({ children }: any) => {
       value={{
         playQueue,
         pause,
+        unPause,
         playNextSongInQueue,
         playPreviousSongInQueue,
         currentSong,
