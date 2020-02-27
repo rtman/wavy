@@ -7,6 +7,8 @@ export const ProfileHeaderTitle = styled.div(
     bottom: '8px',
     left: '16px',
     color: consts.ui.colors.bgWhite,
-    fontSize: `${consts.ui.fontSizes.bigTitle}px`
+    fontSize: `${consts.ui.fontSizes.bigTitle}px`,
+    backgroundColor: 'black',
+    padding: '8px'
   })
 );

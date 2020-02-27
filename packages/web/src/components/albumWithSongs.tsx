@@ -14,7 +14,7 @@ export const AlbumWithSongs = (props: AlbumWithSongsProps) => {
       return (
         <React.Fragment key={song.song_id}>
           <SongRow song={song} secondaryStyle={true} />
-          {index !== album.songs.length ? <Divider /> : null}
+          {index < album.songs.length - 1 ? <Divider /> : null}
         </React.Fragment>
       );
     });

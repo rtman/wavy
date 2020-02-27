@@ -1,15 +1,6 @@
+import { StyledButton } from 'components';
 import React, { useContext } from 'react';
-import {
-  Avatar,
-  Button,
-  Divider,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  Menu,
-  MenuItem
-} from '@material-ui/core';
+import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
 import { PlayerContext } from 'context';
@@ -58,15 +49,15 @@ export const AlbumRow = (props: AlbumRowProps) => {
 
   return (
     <>
-      <ListItem alignItems="flex-start" onClick={() => resolvedOnClick(album)}>
+      <ListItem alignItems="flex-start" onClick={() => resolvedOnClick(album)} button={true}>
         <ListItemAvatar>
           <Avatar variant="square" src={albumImageUrl} />
         </ListItemAvatar>
         <ListItemText primary={album.title} />
         <ListItemSecondaryAction>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
             <MoreVert />
-          </Button>
+          </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>

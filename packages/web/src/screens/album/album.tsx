@@ -1,5 +1,6 @@
 import {
   AlbumWithSongs,
+  ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
@@ -9,12 +10,12 @@ import {
   SubTitle
 } from 'components';
 import * as helpers from 'helpers';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Button, List } from '@material-ui/core';
+import { Button, Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 // const ARTIST_ALL = gql`
@@ -55,16 +56,23 @@ export const Album = () => {
   const history = useHistory();
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumAll?.image);
 
-  console.log('error', error);
-
   const renderSongs = () => {
     if (data?.albumAll?.songs.length > 0) {
-      const songsList = data.albumAll.songs.map((song: Song) => <SongRow key={song.song_id} song={song} secondaryStyle={true} />);
+      const songsList = data.albumAll.songs.map((song: Song, index: number) => {
+        return (
+          <>
+            <SongRow key={song.song_id} song={song} secondaryStyle={true} />
+            {index < data.albumAll.songs.length - 1 ? <Divider /> : null}
+          </>
+        );
+      });
       return <List>{songsList}</List>;
     } else {
       return null;
     }
   };
+
+  console.log('test');
 
   return (
     <Screen>
@@ -76,11 +84,13 @@ export const Album = () => {
             <ProfileHeaderImage src={albumImageUrl} />
             <ProfileHeaderTitle>{data?.albumAll?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
-          <SubTitle>Description</SubTitle>
-          <div>{data?.albumAll?.description}</div>
-          <SubTitle>Songs</SubTitle>
-          {renderSongs()}
+          <ProfileContainer>
+            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
+            <SubTitle>Description</SubTitle>
+            <div>{data?.albumAll?.description}</div>
+            <SubTitle>Songs</SubTitle>
+            {renderSongs()}
+          </ProfileContainer>
         </ContentContainer>
       )}
     </Screen>

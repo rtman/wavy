@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { RowContainer, StyledButton } from 'components';
-import { Button } from '@material-ui/core';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
@@ -11,14 +10,16 @@ import { PlayerContext } from 'context';
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
+  const [filteredMediaState, setFilteredMediaState] = useState<string>('');
 
   const currentSong = playerContext.currentSong;
+  const allMediaStates = helpers.hooks.useMediaState(currentSong?.audio ?? new Audio());
 
-  const currentState = helpers.hooks.usePlayState(currentSong?.audio ?? new Audio());
+  useEffect(() => {
+    setFilteredMediaState(helpers.filterMediaStates(allMediaStates, filteredMediaState));
+  }, [allMediaStates, filteredMediaState]);
+
   const history = useHistory();
-
-  console.log('currentState', currentState);
-
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist_name ?? '';
 
@@ -31,7 +32,7 @@ export const Player = () => {
   };
 
   const onClickPlay = () => {
-    if (currentState !== 'pause') {
+    if (filteredMediaState !== 'pause') {
       playerContext.playQueue();
     } else {
       playerContext.unPause();
@@ -39,10 +40,12 @@ export const Player = () => {
   };
 
   useEffect(() => {
-    if (currentState === 'ended') {
+    if (filteredMediaState === 'ended') {
       playerContext.playNextSongInQueue();
     }
-  }, [currentState]);
+  }, [filteredMediaState]);
+
+  console.log('mediaState', filteredMediaState);
 
   return (
     <RowContainer width={'100%'}>
@@ -50,7 +53,7 @@ export const Player = () => {
         <SkipPrevious />
       </StyledButton>
       <StyledButton>
-        {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
+        {filteredMediaState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
       </StyledButton>
       <StyledButton onClick={playerContext.playNextSongInQueue}>
         <SkipNext />

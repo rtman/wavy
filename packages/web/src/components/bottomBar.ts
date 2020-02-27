@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const BottomBar = styled.div({
   backgroundColor: consts.ui.colors.bgWhite,
   border: '1px black solid',
-  padding: `15px 32px`,
+  padding: `8px`,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useMediaState = (audio: HTMLAudioElement) => {
-  const [currentState, setCurrentState] = useState<string | null>(null);
+  const [currentState, setCurrentState] = useState<string>('');
 
   const events = [
     'abort',

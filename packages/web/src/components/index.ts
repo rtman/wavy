@@ -2,6 +2,7 @@ export { AppContainer } from './appContainer';
 export { ProfileHeaderImage } from './profileHeaderImage';
 export { ProfileHeaderImageContainer } from './profileHeaderImageContainer';
 export { ProfileHeaderTitle } from './profileHeaderTitle';
+export { ProfileContainer } from './profileContainer';
 export { Input } from './input';
 export { Button } from './button';
 export { Screen } from './screen';

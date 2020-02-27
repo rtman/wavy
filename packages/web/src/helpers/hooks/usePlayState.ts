@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
 export const usePlayState = (audio: HTMLAudioElement) => {
-  const [currentState, setCurrentState] = useState<string | null>(null);
+  const [latchedState, setLatchedState] = useState<string | null>(null);
+  console.log('usePlayState start');
 
   const events: string[] = [
     'abort',
@@ -63,26 +64,25 @@ export const usePlayState = (audio: HTMLAudioElement) => {
       'volumechange'
     ];
 
-    console.log('playState', type);
     if (dontCareStates.includes(type)) {
-      return currentState;
+      return latchedState;
     } else if (['playing', 'pause', 'ended'].includes(type)) {
       return type;
     } else if (statesThatStopPlayback.includes(type)) {
-      return currentState;
+      return latchedState;
     } else {
-      return currentState;
+      return latchedState;
     }
   };
 
   useEffect(() => {
     const callback = (event: any) => {
-      setCurrentState(filterStates(event.type));
+      setLatchedState(filterStates(event.type));
     };
     addListenerMulti(audio, events, callback);
 
     return () => removeListenerMulti(audio, events, callback);
   });
 
-  return currentState;
+  return latchedState;
 };

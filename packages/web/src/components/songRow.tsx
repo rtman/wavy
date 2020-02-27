@@ -1,7 +1,7 @@
 import { StyledButton, StyledAvatar, StyledListItemText } from 'components';
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
-import { Button, Divider, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import { Avatar, Button, ButtonBase, Divider, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory } from 'react-router-dom';
@@ -54,9 +54,9 @@ export const SongRow = (props: SongRowProps) => {
       <ListItem alignItems="flex-start">
         {secondaryStyle ? null : (
           <ListItemAvatar>
-            <StyledButton onClick={() => resolvedOnClick(song)}>
-              <StyledAvatar variant="square" src={imageUrl} />
-            </StyledButton>
+            <ButtonBase onClick={() => resolvedOnClick(song)}>
+              <Avatar variant="square" src={imageUrl} />
+            </ButtonBase>
           </ListItemAvatar>
         )}
         {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
@@ -67,16 +67,15 @@ export const SongRow = (props: SongRowProps) => {
         />
         {/* </StyledButton> */}
         <ListItemSecondaryAction>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
             <MoreVert />
-          </Button>
+          </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
       </Menu>
-      <Divider variant="inset" component="li" />
     </>
   );
 };
