@@ -62,6 +62,7 @@ export const PlayerProvider = ({ children }: any) => {
       console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
       setQueue(resolvedLocalStorageQueue);
       setQueuePosition(localStorageQueuePosition);
+      setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
     };
     loadLocalStorageQueue();
   }, []);
@@ -135,7 +136,7 @@ export const PlayerProvider = ({ children }: any) => {
       currentSong.audio.currentTime = 0;
     }
 
-    // might want to check for position in queue exsits
+    // might want to check if position in queue exists
     const songToPlay = currentQueue[position];
     setCurrentSong(songToPlay);
 

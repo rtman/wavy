@@ -20,6 +20,7 @@ export const Player = () => {
   }, [allMediaStates, filteredMediaState]);
 
   const history = useHistory();
+  console.log('playerContext currentSong', currentSong);
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist_name ?? '';
 
