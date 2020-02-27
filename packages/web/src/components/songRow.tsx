@@ -1,10 +1,11 @@
 import { StyledButton, StyledAvatar, StyledListItemText } from 'components';
+import * as consts from 'consts';
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, Button, ButtonBase, Divider, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface SongRowProps {
   song: Song;
@@ -19,6 +20,7 @@ export const SongRow = (props: SongRowProps) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
+  const location = useLocation();
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,15 +41,23 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
-  const onClickSong = (song: Song) => {
+  const onClickSong = () => {
     playerContext.replaceQueueWithSongs([song]);
   };
 
-  const onClickGoToArtist = (song: Song) => {
+  const onClickGoToArtist = () => {
     history.push(`/artist/${song.artist_id}`);
   };
 
+  const onClickGoToAlbum = () => {
+    history.push(`/album/${song.album_id}`);
+  };
+
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
+
+  console.log('location', location);
+
+  console.log('song', song);
 
   return (
     <>
@@ -63,7 +73,7 @@ export const SongRow = (props: SongRowProps) => {
         <StyledListItemText
           primary={song.title}
           secondary={secondaryStyle ? null : song.artist_name}
-          onClick={secondaryStyle ? () => onClickSong(song) : () => onClickGoToArtist(song)}
+          onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
         />
         {/* </StyledButton> */}
         <ListItemSecondaryAction>
@@ -75,6 +85,8 @@ export const SongRow = (props: SongRowProps) => {
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
+        {!location.pathname.includes(consts.routes.ALBUM) ? <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem> : null}
+        {!location.pathname.includes(consts.routes.ARTIST) ? <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem> : null}
       </Menu>
     </>
   );

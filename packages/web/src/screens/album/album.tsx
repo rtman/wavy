@@ -40,6 +40,8 @@ const ALBUM_ALL = gql`
       description
       songs {
         id
+        album_id
+        artist_id
         title
         image
         url

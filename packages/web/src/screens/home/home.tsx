@@ -13,6 +13,7 @@ const SEARCH_SONGS_QUERY = gql`
       artist_id
       artist_name
       album_title
+      album_id
       genres
       url
       duration

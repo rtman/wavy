@@ -46,6 +46,8 @@ const ARTIST_ALL = gql`
           title
           artist_name
           album_title
+          artist_id
+          album_id
           image
           url
           duration
