@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Button, Card, List } from '@material-ui/core';
+import { Button, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 // const ARTIST_ALL = gql`
@@ -59,7 +59,7 @@ export const Album = () => {
 
   const renderSongs = () => {
     if (data?.albumAll?.songs.length > 0) {
-      const songsList = data.albumAll.songs.map((song: Song) => <SongRow key={song.song_id} song={song} />);
+      const songsList = data.albumAll.songs.map((song: Song) => <SongRow key={song.song_id} song={song} secondaryStyle={true} />);
       return <List>{songsList}</List>;
     } else {
       return null;
@@ -68,25 +68,21 @@ export const Album = () => {
 
   return (
     <Screen>
-      <Card>
-        {loading ? (
-          <div>loading</div>
-        ) : (
-          <>
-            <ProfileHeaderImageContainer>
-              <ProfileHeaderImage src={albumImageUrl} />
-              <ProfileHeaderTitle>{data?.albumAll?.title}</ProfileHeaderTitle>
-            </ProfileHeaderImageContainer>
-            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
-            <SubTitle>Description</SubTitle>
-            <div>
-              <div>{data?.albumAll?.description}</div>
-              <SubTitle>Songs</SubTitle>
-              {renderSongs()}
-            </div>
-          </>
-        )}
-      </Card>
+      {loading ? (
+        <div>loading</div>
+      ) : (
+        <ContentContainer>
+          <ProfileHeaderImageContainer>
+            <ProfileHeaderImage src={albumImageUrl} />
+            <ProfileHeaderTitle>{data?.albumAll?.title}</ProfileHeaderTitle>
+          </ProfileHeaderImageContainer>
+          <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
+          <SubTitle>Description</SubTitle>
+          <div>{data?.albumAll?.description}</div>
+          <SubTitle>Songs</SubTitle>
+          {renderSongs()}
+        </ContentContainer>
+      )}
     </Screen>
   );
 };

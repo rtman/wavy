@@ -1,23 +1,16 @@
+import { StyledButton, StyledAvatar, StyledListItemText } from 'components';
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
-import {
-  Avatar,
-  Button,
-  Divider,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  Menu,
-  MenuItem
-} from '@material-ui/core';
+import { Button, Divider, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
+import { useHistory } from 'react-router-dom';
 
 interface SongRowProps {
   song: Song;
   passedOnClickSong?: (song: Song) => Promise<void>;
   secondaryStyle?: boolean;
+  enableGoToArtist?: boolean;
 }
 
 export const SongRow = (props: SongRowProps) => {
@@ -25,6 +18,7 @@ export const SongRow = (props: SongRowProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const playerContext = useContext(PlayerContext);
+  const history = useHistory();
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -49,17 +43,29 @@ export const SongRow = (props: SongRowProps) => {
     playerContext.replaceQueueWithSongs([song]);
   };
 
+  const onClickGoToArtist = (song: Song) => {
+    history.push(`/artist/${song.artist_id}`);
+  };
+
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
   return (
     <>
-      <ListItem alignItems="flex-start" onClick={() => resolvedOnClick(song)}>
+      <ListItem alignItems="flex-start">
         {secondaryStyle ? null : (
           <ListItemAvatar>
-            <Avatar variant="square" src={imageUrl} />
+            <StyledButton onClick={() => resolvedOnClick(song)}>
+              <StyledAvatar variant="square" src={imageUrl} />
+            </StyledButton>
           </ListItemAvatar>
         )}
-        <ListItemText primary={song.title} secondary={secondaryStyle ? null : song.artist_name} />
+        {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
+        <StyledListItemText
+          primary={song.title}
+          secondary={secondaryStyle ? null : song.artist_name}
+          onClick={secondaryStyle ? () => onClickSong(song) : () => onClickGoToArtist(song)}
+        />
+        {/* </StyledButton> */}
         <ListItemSecondaryAction>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
             <MoreVert />

@@ -7,5 +7,6 @@ export const Screen = styled.div({
   justifyContent: 'space-between',
   height: '100%',
   width: '100%',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  overflowY: 'auto'
 });

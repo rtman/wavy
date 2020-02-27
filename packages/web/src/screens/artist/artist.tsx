@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Card, List } from '@material-ui/core';
+import { List } from '@material-ui/core';
 
 // const ARTIST_ALL = gql`
 //   query ArtistAll($id: ID!) {
@@ -90,26 +90,22 @@ export const Artist = () => {
 
   return (
     <Screen>
-      <Card>
-        {loading ? (
-          <div>loading</div>
-        ) : (
-          <>
-            <ProfileHeaderImageContainer>
-              <ProfileHeaderImage src={artistImageUrl} />
-              <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
-            </ProfileHeaderImageContainer>
-            <SubTitle>Description</SubTitle>
-            <div>
-              <div>{data?.artistAll?.description}</div>
-              <SubTitle>Songs</SubTitle>
-              {renderSongs()}
-              <SubTitle>Albums</SubTitle>
-              {renderAlbums()}
-            </div>
-          </>
-        )}
-      </Card>
+      {loading ? (
+        <div>loading</div>
+      ) : (
+        <ContentContainer>
+          <ProfileHeaderImageContainer>
+            <ProfileHeaderImage src={artistImageUrl} />
+            <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
+          </ProfileHeaderImageContainer>
+          <SubTitle>Description</SubTitle>
+          <div>{data?.artistAll?.description}</div>
+          <SubTitle>Songs</SubTitle>
+          {renderSongs()}
+          <SubTitle>Albums</SubTitle>
+          {renderAlbums()}
+        </ContentContainer>
+      )}
     </Screen>
   );
 };

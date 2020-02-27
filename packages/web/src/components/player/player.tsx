@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { RowContainer } from 'components';
+import { RowContainer, StyledButton } from 'components';
+import { Button } from '@material-ui/core';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
@@ -45,9 +46,15 @@ export const Player = () => {
 
   return (
     <RowContainer width={'100%'}>
-      <SkipPrevious onClick={playerContext.playPreviousSongInQueue} />
-      {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
-      <SkipNext onClick={playerContext.playNextSongInQueue} />
+      <StyledButton onClick={playerContext.playPreviousSongInQueue}>
+        <SkipPrevious />
+      </StyledButton>
+      <StyledButton>
+        {currentState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
+      </StyledButton>
+      <StyledButton onClick={playerContext.playNextSongInQueue}>
+        <SkipNext />
+      </StyledButton>
       <ProgressBar />
       <ColumnContainer>
         <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>

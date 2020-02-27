@@ -3,7 +3,7 @@ import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Card, List } from '@material-ui/core';
+import { List } from '@material-ui/core';
 
 const SEARCH_SONGS_QUERY = gql`
   query SearchSongsWithArtist($query: String!) {
@@ -81,7 +81,7 @@ export const Home = () => {
     <Screen>
       <ContentContainer>
         <TextInput onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} fullWidth={true} />
-        <Card>{loading ? <div>Loading</div> : renderSearchResults()}</Card>
+        {loading ? <div>Loading</div> : renderSearchResults()}
       </ContentContainer>
     </Screen>
   );
