@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RowContainer, useTimer } from 'components';
 import moment from 'moment';
 import { PlayerContext } from 'context';
+import { TimeText } from './styles';
 
 export const ProgressBar = () => {
   // const { audio, duration } = props;
@@ -59,9 +60,9 @@ export const ProgressBar = () => {
 
   return (
     <RowContainer width="100%" margin="0px 8px">
-      <div>{getFormattedTime(position)}</div>
+      <TimeText>{getFormattedTime(position)}</TimeText>
       <TrackPositionSlider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
-      <div>{getFormattedTime(duration)}</div>
+      <TimeText>{getFormattedTime(duration)}</TimeText>
     </RowContainer>
   );
 };

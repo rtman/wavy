@@ -1,12 +1,33 @@
-import styled, { CSSObject, CSSProp } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 import * as consts from 'consts';
 
-export const SongTitle = styled.div(() => ({
-  fontSize: consts.ui.fontSizes.normal,
-  cursor: 'pointer'
-}));
+export const SongTitle = styled.div(
+  (): CSSObject => ({
+    fontSize: consts.ui.fontSizes.description,
+    cursor: 'pointer',
+    textAlign: 'left',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden'
+  })
+);
 
-export const SongArtist = styled.div(() => ({
-  fontSize: consts.ui.fontSizes.normal,
-  cursor: 'pointer'
-}));
+export const SongArtist = styled.div(
+  (): CSSObject => ({
+    fontSize: consts.ui.fontSizes.small,
+    cursor: 'pointer',
+    textAlign: 'left',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden'
+  })
+);
+
+export const SongInfoContainer = styled.div(
+  (): CSSObject => ({
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    minWidth: `${window.innerWidth * 0.2}px`
+  })
+);

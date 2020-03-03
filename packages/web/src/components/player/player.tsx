@@ -5,7 +5,7 @@ import { ProgressBar } from 'components';
 import { ColumnContainer } from 'components/columnContainer';
 import { useHistory } from 'react-router-dom';
 import * as helpers from 'helpers';
-import { SongArtist, SongTitle } from './styles';
+import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 import { PlayerContext } from 'context';
 
 export const Player = () => {
@@ -60,10 +60,10 @@ export const Player = () => {
         <SkipNext />
       </StyledButton>
       <ProgressBar />
-      <ColumnContainer>
+      <SongInfoContainer>
         <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>
         <SongArtist onClick={onClickArtist}>{songArtist}</SongArtist>
-      </ColumnContainer>
+      </SongInfoContainer>
     </RowContainer>
   );
 };
