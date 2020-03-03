@@ -75,8 +75,6 @@ export const Album = () => {
     }
   };
 
-  console.log('test');
-
   return (
     <Screen>
       {loading ? (

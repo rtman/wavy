@@ -20,7 +20,7 @@ export const Player = () => {
   }, [allMediaStates, filteredMediaState]);
 
   const history = useHistory();
-  console.log('playerContext currentSong', currentSong);
+  // console.log('playerContext currentSong', currentSong);
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist_name ?? '';
 
@@ -46,7 +46,7 @@ export const Player = () => {
     }
   }, [filteredMediaState]);
 
-  console.log('mediaState', filteredMediaState);
+  // console.log('mediaState', filteredMediaState);
 
   return (
     <RowContainer width={'100%'}>

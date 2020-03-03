@@ -1,4 +1,4 @@
-import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
+import { AppContainer, BottomBar, Navigator, NavMenu, Player, TopBar } from 'components';
 import React, { useContext } from 'react';
 import { PlayerContext, PlayerProvider } from 'context';
 import './App.css';
@@ -7,7 +7,9 @@ export const App = () => {
   return (
     <AppContainer>
       <PlayerProvider>
-        <TopBar />
+        <TopBar>
+          <NavMenu />
+        </TopBar>
         <Navigator />
         <BottomBar>
           <Player />

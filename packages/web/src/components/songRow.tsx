@@ -55,9 +55,8 @@ export const SongRow = (props: SongRowProps) => {
 
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
-  console.log('location', location);
-
-  console.log('song', song);
+  // console.log('location', location);
+  // console.log('song', song);
 
   return (
     <>

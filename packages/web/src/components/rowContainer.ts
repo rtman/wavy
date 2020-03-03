@@ -8,6 +8,7 @@ export const RowContainer = styled.div(
     alignItems: 'center',
     display: 'flex',
     width: props.width ?? 'auto',
-    margin: props.margin ?? '0px'
+    margin: props.margin ?? '0px',
+    justifyContent: props.justifyContent ?? 'flex-start'
   })
 );

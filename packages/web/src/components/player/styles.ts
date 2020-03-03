@@ -1,4 +1,4 @@
-import styled, { CSSObject } from 'styled-components';
+import styled, { css, CSSObject } from 'styled-components';
 import * as consts from 'consts';
 
 export const SongTitle = styled.div(
@@ -9,18 +9,26 @@ export const SongTitle = styled.div(
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden'
-  })
+  }),
+  `
+  &:hover {
+    text-decoration: underline
+  }`
 );
 
 export const SongArtist = styled.div(
   (): CSSObject => ({
-    fontSize: consts.ui.fontSizes.small,
+    fontSize: `${consts.ui.fontSizes.small}px`,
     cursor: 'pointer',
     textAlign: 'left',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden'
-  })
+  }),
+  `
+  &:hover {
+    text-decoration: underline
+  }`
 );
 
 export const SongInfoContainer = styled.div(
