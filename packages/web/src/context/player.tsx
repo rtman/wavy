@@ -86,7 +86,7 @@ export const PlayerProvider = ({ children }: any) => {
   };
 
   const playPreviousSongInQueue = () => {
-    if (currentSong?.audio?.currentTime ?? 0 < 5) {
+    if (currentSong?.audio?.currentTime && currentSong.audio.currentTime < 5) {
       const position = queuePosition - 1;
       if (queue && queue[position]) {
         playAudio(queue, position);
