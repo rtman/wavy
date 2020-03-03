@@ -86,9 +86,15 @@ export const PlayerProvider = ({ children }: any) => {
   };
 
   const playPreviousSongInQueue = () => {
-    const position = queuePosition - 1;
-    if (queue && queue[position]) {
-      playAudio(queue, position);
+    if (currentSong?.audio?.currentTime ?? 0 < 5) {
+      const position = queuePosition - 1;
+      if (queue && queue[position]) {
+        playAudio(queue, position);
+      }
+    } else {
+      if (queue && queue[queuePosition]) {
+        playAudio(queue, queuePosition);
+      }
     }
   };
 
