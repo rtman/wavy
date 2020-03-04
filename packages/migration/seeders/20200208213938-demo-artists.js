@@ -22,6 +22,46 @@ module.exports = {
         image: 'gs://groov-development-ddc9d.appspot.com/raf.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id: 3,
+        name: 'ESB',
+        album_ids: [2],
+        song_ids: [3],
+        description: 'ESB is a musician living in vancouver!',
+        image: 'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 4,
+        name: 'Seb Wildblood',
+        album_ids: [2],
+        song_ids: [3],
+        description: 'Seb is a musician living in london!',
+        image: 'gs://groov-development-ddc9d.appspot.com/seb wildblood.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 4,
+        name: 'Bad Bad Not Good',
+        album_ids: [2],
+        song_ids: [3],
+        description: 'BBNG are a musicians living in toronto (I think)!',
+        image: 'gs://groov-development-ddc9d.appspot.com/bbng.jpeg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 5,
+        name: 'Benedek',
+        album_ids: [2],
+        song_ids: [3],
+        description: 'Benedek makes dope funk!',
+        image: 'gs://groov-development-ddc9d.appspot.com/benedek.jpeg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },
