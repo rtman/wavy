@@ -11,6 +11,7 @@ export const Routes = (props: any) => {
       <PublicRoute exact={true} path="/" component={screens.Home} />
       <PublicRoute exact={true} path="/album/:id?" component={screens.Album} />
       <PublicRoute exact={true} path="/artist/:id?" component={screens.Artist} />
+      <PublicRoute exact={true} path="/queue" component={screens.Queue} />
     </Switch>
   );
 };

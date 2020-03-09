@@ -194,6 +194,7 @@ export type Query = {
   searchAlbums?: Maybe<Array<Maybe<Album>>>,
   songs?: Maybe<Array<Maybe<Song>>>,
   song?: Maybe<Song>,
+  songsById?: Maybe<Array<Maybe<Song>>>,
   searchSongs?: Maybe<Array<Maybe<Song>>>,
   searchSongsWithArtistsAlbums?: Maybe<Array<Maybe<SongArtistAlbum>>>,
 };
@@ -231,6 +232,11 @@ export type QuerySearchAlbumsArgs = {
 
 export type QuerySongArgs = {
   id: Scalars['ID']
+};
+
+
+export type QuerySongsByIdArgs = {
+  ids: Array<Maybe<Scalars['ID']>>
 };
 
 
@@ -529,6 +535,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   searchAlbums?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType, RequireFields<QuerySearchAlbumsArgs, 'query'>>,
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType>,
   song?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongArgs, 'id'>>,
+  songsById?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySongsByIdArgs, 'ids'>>,
   searchSongs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySearchSongsArgs, 'query'>>,
   searchSongsWithArtistsAlbums?: Resolver<Maybe<Array<Maybe<ResolversTypes['SongArtistAlbum']>>>, ParentType, ContextType, RequireFields<QuerySearchSongsWithArtistsAlbumsArgs, 'query'>>,
 };

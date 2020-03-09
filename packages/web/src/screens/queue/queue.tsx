@@ -6,10 +6,10 @@ import { gql } from 'apollo-boost';
 import { Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
-const SONG_IDS_QUERY = gql`
-  query SongsIdsWithArtistAlbums($songIds: [String]!) {
-    songIdsWithArtistsAlbums(songIds: $songIds) {
-      song_id
+const SONGS_BY_ID_QUERY = gql`
+  query SongsById($ids: [ID]!) {
+    songsById(ids: $ids) {
+      id
       title
       artist_id
       artist_name
@@ -28,23 +28,25 @@ export const Queue = () => {
   const history = useHistory();
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, error, data }] = useLazyQuery(SONG_IDS_QUERY);
+  const [submitSongIds, { loading, error, data }] = useLazyQuery(SONGS_BY_ID_QUERY);
 
   useEffect(() => {
     let songIds_: string[] = [];
-    playerContext.queue.forEach((song: Song) => {
-      songIds_.push(song.song_id);
+    console.log('playerContext.queue', playerContext.queue);
+
+    playerContext.queue.forEach((song: any) => {
+      songIds_.push(song.id);
     });
     setSongIds(songIds_);
   }, [playerContext.queue]);
 
   useEffect(() => {
-    submitSongIds({ variables: { songIds: songIds } });
+    submitSongIds({ variables: { ids: songIds } });
   }, [songIds]);
 
   const renderSongs = () => {
-    if (data?.songIdsWithArtistsAlbums?.length > 0) {
-      const songs = data?.songIdsWithArtistsAlbums;
+    if (data?.songsById?.length > 0) {
+      const songs = data?.songsById;
       const songsList = songs.map((song: Song, index: number) => {
         return (
           <>
@@ -58,6 +60,9 @@ export const Queue = () => {
       return null;
     }
   };
+
+  console.log('songIds', songIds);
+  console.log('data', data);
 
   return (
     <Screen>

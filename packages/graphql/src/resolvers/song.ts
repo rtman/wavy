@@ -23,6 +23,13 @@ export const songResolvers: Resolvers = {
     songs: async (_parent, _args, ctx): Promise<Query['songs']> => {
       return await ctx.models.Song.findAll();
     },
+    songsById: async (_parent, args, ctx): Promise<Query['songsById']> => {
+      const {ids} = args;
+      return await sequelize.query(
+        `SELECT * FROM songs AS song WHERE song.id = ANY ('{${ids}}');`,
+        {type: QueryTypes.SELECT},
+      );
+    },
     song: async (_parent, args, ctx): Promise<Query['song']> => {
       const {id} = args;
       return await ctx.models.Song.findByPk(id);
@@ -30,7 +37,19 @@ export const songResolvers: Resolvers = {
     searchSongs: async (_parent, args): Promise<Query['searchSongs']> => {
       const {query} = args;
       return await sequelize.query(
-        `SELECT * FROM songs AS song WHERE song ==> '${query}';`,
+        `
+        SELECT songs.id AS song_id,
+        songs.title,
+        songs.genres,
+        songs.duration,
+        songs.url,
+        songs.image,
+        artists.id AS artist_id,
+        artists.name AS artist_name,
+        albums.id AS album_id,
+        albums.title AS album_title
+        FROM songs, artists, albums
+        WHERE song ==> '${query}';`,
         {type: QueryTypes.SELECT},
       );
       // query with LEFT JOIN
