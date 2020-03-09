@@ -66,12 +66,10 @@ export const artistResolvers: Resolvers = {
         albums.id AS album_id,
         albums.title AS album_title,
         albums.image AS album_image
-        FROM artists, songs, albums
-        WHERE artists.id = ${id} AND albums.id::VARCHAR = ANY (artists.album_ids) AND songs.id::VARCHAR = ANY (artists.song_ids);
+        FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id WHERE artists.id = ${id};
       `,
         {type: QueryTypes.SELECT},
       );
-
       // songs.createdAt AS song_createdAt,
       // songs.updatedAt AS song_updatedAt,
 
@@ -90,6 +88,7 @@ export const artistResolvers: Resolvers = {
           const albumIndex = formattedResult.albums.findIndex(
             album => item.album_id === album.id,
           );
+
           const song = {
             artist_id: item.artist_id,
             artist_name: formattedResult.name,

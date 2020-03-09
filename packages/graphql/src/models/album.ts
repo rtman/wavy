@@ -15,7 +15,13 @@ const album = (
 ): AlbumModelStatic => {
   const Album_ = sequelize.define('album', {
     title: DataTypes.STRING,
-    artist_id: DataTypes.STRING,
+    artist_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'artists', // name of Source model
+        key: 'id', // key in Source model that we're referencing
+      },
+    },
     song_ids: DataTypes.ARRAY(DataTypes.STRING),
     image: DataTypes.STRING,
     description: DataTypes.STRING,

@@ -47,8 +47,7 @@ export const albumResolvers: Resolvers = {
         songs.duration,
         songs.image AS song_image,
         songs.date AS song_date
-        FROM albums, songs, artists
-        WHERE albums.id = ${id} AND artists.id::VARCHAR = albums.artist_id AND songs.id::VARCHAR = ANY (albums.song_ids);
+        FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id WHERE albums.id = ${id};
       `,
         {type: QueryTypes.SELECT},
       );

@@ -22,14 +22,13 @@ const song = (
         key: 'id', // key in Source model that we're referencing
       },
     },
-    // album_id: {
-    //   type: Sequelize.INTEGER,
-    //   references: {
-    //     model: 'albums', // name of Source model
-    //     key: 'id', // key in Source model that we're referencing
-    //   },
-    // },
-    album_id: DataTypes.INTEGER,
+    album_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'albums', // name of Source model
+        key: 'id', // key in Source model that we're referencing
+      },
+    },
     genres: DataTypes.ARRAY(DataTypes.STRING),
     url: DataTypes.STRING,
     image: DataTypes.STRING,
