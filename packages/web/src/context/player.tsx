@@ -15,6 +15,7 @@ interface PlayerContext {
   // addSongsToBeginningOfQueue: (songs: Song[]) => void;
   replaceQueueWithSongs: (songs: Song[]) => void;
   clearQueue: () => void;
+  queue: Song[];
 }
 
 export const PlayerContext = createContext<PlayerContext>({
@@ -29,7 +30,8 @@ export const PlayerContext = createContext<PlayerContext>({
   addSongsToEndOfQueue: () => {},
   // addSongsToBeginningOfQueue: () => {},
   replaceQueueWithSongs: () => {},
-  clearQueue: () => {}
+  clearQueue: () => {},
+  queue: []
 });
 
 export const PlayerProvider = ({ children }: any) => {
@@ -178,7 +180,8 @@ export const PlayerProvider = ({ children }: any) => {
         audio,
         addSongsToEndOfQueue,
         clearQueue,
-        replaceQueueWithSongs
+        replaceQueueWithSongs,
+        queue
       }}
     >
       {children}
