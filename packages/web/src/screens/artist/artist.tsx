@@ -81,7 +81,7 @@ export const Artist = () => {
         album.songs.map((song: Song, index: number) => {
           return (
             <>
-              <SongRow key={song.song_id} song={song} />
+              <SongRow key={song.id} song={song} />
               {index < album.songs.length - 1 ? <Divider /> : null}
             </>
           );

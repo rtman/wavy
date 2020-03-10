@@ -63,7 +63,7 @@ export const Album = () => {
       const songsList = data.albumWithSongsArtistsJoined.songs.map((song: Song, index: number) => {
         return (
           <>
-            <SongRow key={song.song_id} song={song} secondaryStyle={true} />
+            <SongRow key={song.id} song={song} secondaryStyle={true} />
             {index < data.albumWithSongsArtistsJoined.songs.length - 1 ? <Divider /> : null}
           </>
         );

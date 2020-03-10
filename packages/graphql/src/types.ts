@@ -153,7 +153,7 @@ export type Query = {
   searchAlbums?: Maybe<Array<Maybe<Album>>>,
   songs?: Maybe<Array<Maybe<Song>>>,
   songById?: Maybe<Song>,
-  songsByIdWithAlbumArtistsJoined?: Maybe<Array<Maybe<SongsWithAlbumArtistsJoined>>>,
+  songsByIdWithAlbumArtistsJoined?: Maybe<Array<Maybe<Song>>>,
   searchSongs?: Maybe<Array<Maybe<Song>>>,
 };
 
@@ -331,9 +331,9 @@ export type ResolversTypes = {
   Album: ResolverTypeWrapper<Album>,
   Song: ResolverTypeWrapper<Song>,
   AlbumWithSongsArtistsJoinedFormatted: ResolverTypeWrapper<AlbumWithSongsArtistsJoinedFormatted>,
-  SongsWithAlbumArtistsJoined: ResolverTypeWrapper<SongsWithAlbumArtistsJoined>,
   Mutation: ResolverTypeWrapper<{}>,
   Subscription: ResolverTypeWrapper<{}>,
+  SongsWithAlbumArtistsJoined: ResolverTypeWrapper<SongsWithAlbumArtistsJoined>,
   AlbumWithSongsArtistsJoined: ResolverTypeWrapper<AlbumWithSongsArtistsJoined>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
@@ -351,9 +351,9 @@ export type ResolversParentTypes = {
   Album: Album,
   Song: Song,
   AlbumWithSongsArtistsJoinedFormatted: AlbumWithSongsArtistsJoinedFormatted,
-  SongsWithAlbumArtistsJoined: SongsWithAlbumArtistsJoined,
   Mutation: {},
   Subscription: {},
+  SongsWithAlbumArtistsJoined: SongsWithAlbumArtistsJoined,
   AlbumWithSongsArtistsJoined: AlbumWithSongsArtistsJoined,
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
@@ -448,7 +448,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   searchAlbums?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType, RequireFields<QuerySearchAlbumsArgs, 'query'>>,
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType>,
   songById?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongByIdArgs, 'id'>>,
-  songsByIdWithAlbumArtistsJoined?: Resolver<Maybe<Array<Maybe<ResolversTypes['SongsWithAlbumArtistsJoined']>>>, ParentType, ContextType, RequireFields<QuerySongsByIdWithAlbumArtistsJoinedArgs, 'ids'>>,
+  songsByIdWithAlbumArtistsJoined?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySongsByIdWithAlbumArtistsJoinedArgs, 'ids'>>,
   searchSongs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySearchSongsArgs, 'query'>>,
 };
 

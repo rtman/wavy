@@ -10,15 +10,15 @@ const SONGS_BY_ID_QUERY = gql`
   query SongsByIdWithAlbumArtistsJoined($ids: [ID]!) {
     songsByIdWithAlbumArtistsJoined(ids: $ids) {
       artist_id
-      song_title
+      title
       album_id
-      song_genres
-      song_url
-      song_image
-      song_date
-      song_id
-      song_createdAt
-      song_updatedAt
+      genres
+      url
+      image
+      date
+      id
+      createdAt
+      updatedAt
       artist_name
       album_title
     }
@@ -48,22 +48,24 @@ export const Queue = () => {
   const renderSongs = () => {
     if (data?.songsByIdWithAlbumArtistsJoined?.length > 0) {
       const songs = data?.songsByIdWithAlbumArtistsJoined;
-      const songsList = songs.map((song: Song, index: number) => {
+      const sortedSongs: Song[] = [];
+      songs.forEach((a: Song) => {
+        sortedSongs[songIds.indexOf(a.id)] = a;
+      });
+      const songsList = sortedSongs.map((song: Song, index: number) => {
         return (
           <>
-            <SongRow key={song.song_id} song={song} />
+            <SongRow key={song.id} song={song} />
             {index < songs.length - 1 ? <Divider /> : null}
           </>
         );
       });
+
       return <List>{songsList}</List>;
     } else {
       return null;
     }
   };
-
-  console.log('songIds', songIds);
-  console.log('data', data);
 
   return (
     <Screen>

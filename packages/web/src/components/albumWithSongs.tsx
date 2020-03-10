@@ -12,7 +12,7 @@ export const AlbumWithSongs = (props: AlbumWithSongsProps) => {
   const renderSongs = () => {
     const songsList = album.songs.map((song: Song, index: number) => {
       return (
-        <React.Fragment key={song.song_id}>
+        <React.Fragment key={song.id}>
           <SongRow song={song} secondaryStyle={true} />
           {index < album.songs.length - 1 ? <Divider /> : null}
         </React.Fragment>

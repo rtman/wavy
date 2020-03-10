@@ -30,16 +30,7 @@ export const songResolvers: Resolvers = {
     ): Promise<Query['songsByIdWithAlbumArtistsJoined']> => {
       const {ids} = args;
       return await sequelize.query(
-        `SELECT songs.id AS song_id,
-        songs.title AS song_title,
-        songs.genres AS song_genres,
-        songs.image AS song_image,
-        songs.url AS song_url,
-        songs.artist_id,
-        songs.album_id,
-        songs.date AS song_date,
-        songs."createdAt" AS "song_createdAt",
-        songs."updatedAt" AS "song_updatedAt",
+        `SELECT songs.*,
         artists.name AS artist_name,
         albums.title AS album_title
         FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id 
