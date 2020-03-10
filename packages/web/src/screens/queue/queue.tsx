@@ -49,8 +49,8 @@ export const Queue = () => {
     if (data?.songsByIdWithAlbumArtistsJoined?.length > 0) {
       const songs = data?.songsByIdWithAlbumArtistsJoined;
       const sortedSongs: Song[] = [];
-      songs.forEach((a: Song) => {
-        sortedSongs[songIds.indexOf(a.id)] = a;
+      songs.forEach((s: Song) => {
+        sortedSongs[songIds.indexOf(s.id)] = s;
       });
       const songsList = sortedSongs.map((song: Song, index: number) => {
         return (

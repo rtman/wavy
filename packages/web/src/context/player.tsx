@@ -5,6 +5,7 @@ import firebase from 'firebase';
 interface PlayerContext {
   playAudio?: (song: Song) => void;
   playQueue: () => void;
+  playSongInQueue(song: Song): void;
   playNextSongInQueue: () => void;
   playPreviousSongInQueue: () => void;
   pause: () => void;
@@ -15,12 +16,14 @@ interface PlayerContext {
   // addSongsToBeginningOfQueue: (songs: Song[]) => void;
   replaceQueueWithSongs: (songs: Song[]) => void;
   clearQueue: () => void;
+  removeSongFromQueue(id: string): void;
   queue: Song[];
 }
 
 export const PlayerContext = createContext<PlayerContext>({
   playAudio: undefined,
   playQueue: () => {},
+  playSongInQueue: () => {},
   playNextSongInQueue: () => {},
   playPreviousSongInQueue: () => {},
   pause: () => {},
@@ -31,6 +34,7 @@ export const PlayerContext = createContext<PlayerContext>({
   // addSongsToBeginningOfQueue: () => {},
   replaceQueueWithSongs: () => {},
   clearQueue: () => {},
+  removeSongFromQueue: () => {},
   queue: []
 });
 
@@ -87,6 +91,11 @@ export const PlayerProvider = ({ children }: any) => {
     playAudio(newQueue, 0);
   };
 
+  const playSongInQueue = (song: Song) => {
+    const index = queue.findIndex((s: Song) => s.id === song.id);
+    playAudio(queue, index);
+  };
+
   const playPreviousSongInQueue = () => {
     if (currentSong?.audio?.currentTime && currentSong.audio.currentTime < 5) {
       const position = queuePosition - 1;
@@ -119,6 +128,14 @@ export const PlayerProvider = ({ children }: any) => {
   const clearQueue = () => {
     setQueue([]);
     setLocalStorageQueue([]);
+  };
+
+  const removeSongFromQueue = (id: string) => {
+    const index = queue.findIndex((s: Song) => s.id === id);
+    const newQueue = [...queue];
+    newQueue.splice(index, 1);
+    setQueue(newQueue);
+    setLocalStorageQueue(newQueue);
   };
 
   // const addSongsToBeginningOfQueue = async (songs: Song[]) => {
@@ -174,12 +191,14 @@ export const PlayerProvider = ({ children }: any) => {
         playQueue,
         pause,
         unPause,
+        playSongInQueue,
         playNextSongInQueue,
         playPreviousSongInQueue,
         currentSong,
         audio,
         addSongsToEndOfQueue,
         clearQueue,
+        removeSongFromQueue,
         replaceQueueWithSongs,
         queue
       }}

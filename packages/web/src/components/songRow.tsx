@@ -31,12 +31,23 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const handleClickPlayNow = () => {
-    playerContext.replaceQueueWithSongs([song]);
+    if (location.pathname.includes(consts.routes.QUEUE)) {
+      playerContext.playSongInQueue(song);
+    } else {
+      playerContext.replaceQueueWithSongs([song]);
+    }
+
     handleMenuClose();
   };
 
   const handleClickAddToQueue = () => {
     playerContext.addSongsToEndOfQueue([song]);
+
+    handleMenuClose();
+  };
+
+  const handleClickRemoveFromQueue = () => {
+    playerContext.removeSongFromQueue(song.id);
 
     handleMenuClose();
   };
@@ -83,9 +94,11 @@ export const SongRow = (props: SongRowProps) => {
       </ListItem>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
-        <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
-        {!location.pathname.includes(consts.routes.ALBUM) ? <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem> : null}
-        {!location.pathname.includes(consts.routes.ARTIST) ? <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem> : null}
+        <MenuItem onClick={location.pathname.includes(consts.routes.QUEUE) ? handleClickRemoveFromQueue : handleClickAddToQueue}>
+          {location.pathname.includes(consts.routes.QUEUE) ? 'Remove From Queue' : 'Add to Queue'}
+        </MenuItem>
+        {location.pathname.includes(consts.routes.ALBUM) ? null : <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem>}
+        {location.pathname.includes(consts.routes.ARTIST) ? null : <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>}
       </Menu>
     </>
   );
