@@ -33,8 +33,8 @@ import { PlayerContext } from 'context';
 // `;
 
 const ALBUM_ALL = gql`
-  query AlbumAll($id: ID!) {
-    albumAll(id: $id) {
+  query AlbumWithSongsArtistsJoined($id: ID!) {
+    albumWithSongsArtistsJoined(id: $id) {
       title
       image
       description
@@ -46,7 +46,6 @@ const ALBUM_ALL = gql`
         title
         image
         url
-        duration
       }
     }
   }
@@ -57,15 +56,15 @@ export const Album = () => {
   const playerContext = useContext(PlayerContext);
   const { loading, error, data, networkStatus } = useQuery(ALBUM_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumAll?.image);
+  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumWithSongsArtistsJoined?.image);
 
   const renderSongs = () => {
-    if (data?.albumAll?.songs.length > 0) {
-      const songsList = data.albumAll.songs.map((song: Song, index: number) => {
+    if (data?.albumWithSongsArtistsJoined?.songs.length > 0) {
+      const songsList = data.albumWithSongsArtistsJoined.songs.map((song: Song, index: number) => {
         return (
           <>
             <SongRow key={song.song_id} song={song} secondaryStyle={true} />
-            {index < data.albumAll.songs.length - 1 ? <Divider /> : null}
+            {index < data.albumWithSongsArtistsJoined.songs.length - 1 ? <Divider /> : null}
           </>
         );
       });
@@ -83,12 +82,12 @@ export const Album = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={albumImageUrl} />
-            <ProfileHeaderTitle>{data?.albumAll?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{data?.albumWithSongsArtistsJoined?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
-            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumAll?.songs)}>Play Now</Button>
+            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumWithSongsArtistsJoined?.songs)}>Play Now</Button>
             <SubTitle>Description</SubTitle>
-            <div>{data?.albumAll?.description}</div>
+            <div>{data?.albumWithSongsArtistsJoined?.description}</div>
             <SubTitle>Songs</SubTitle>
             {renderSongs()}
           </ProfileContainer>

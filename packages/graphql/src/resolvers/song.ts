@@ -23,45 +23,35 @@ export const songResolvers: Resolvers = {
     songs: async (_parent, _args, ctx): Promise<Query['songs']> => {
       return await ctx.models.Song.findAll();
     },
-    songsById: async (_parent, args, ctx): Promise<Query['songsById']> => {
+    songsByIdWithAlbumArtistsJoined: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['songsByIdWithAlbumArtistsJoined']> => {
       const {ids} = args;
       return await sequelize.query(
-        `SELECT * FROM songs AS song WHERE song.id = ANY ('{${ids}}');`,
+        `SELECT songs.id AS song_id,
+        songs.title AS song_title,
+        songs.genres AS song_genres,
+        songs.image AS song_image,
+        songs.url AS song_url,
+        songs.artist_id,
+        songs.album_id,
+        songs.date AS song_date,
+        songs."createdAt" AS "song_createdAt",
+        songs."updatedAt" AS "song_updatedAt",
+        artists.name AS artist_name,
+        albums.title AS album_title
+        FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id 
+        WHERE songs.id = ANY ('{${ids}}');`,
         {type: QueryTypes.SELECT},
       );
     },
-    song: async (_parent, args, ctx): Promise<Query['song']> => {
+    songById: async (_parent, args, ctx): Promise<Query['songById']> => {
       const {id} = args;
       return await ctx.models.Song.findByPk(id);
     },
     searchSongs: async (_parent, args): Promise<Query['searchSongs']> => {
-      const {query} = args;
-      return await sequelize.query(
-        `
-        SELECT songs.id AS song_id,
-        songs.title,
-        songs.genres,
-        songs.duration,
-        songs.url,
-        songs.image,
-        artists.id AS artist_id,
-        artists.name AS artist_name,
-        albums.id AS album_id,
-        albums.title AS album_title
-        FROM songs, artists, albums
-        WHERE song ==> '${query}';`,
-        {type: QueryTypes.SELECT},
-      );
-      // query with LEFT JOIN
-      // return await sequelize.query(
-      //   `SELECT songs.*, artists.name FROM songs LEFT JOIN artists ON ("artist_id" = artists.id) WHERE songs ==> '${query}';`,
-      //   {type: QueryTypes.SELECT},
-      // );
-    },
-    searchSongsWithArtistsAlbums: async (
-      _parent,
-      args,
-    ): Promise<Query['searchSongsWithArtistsAlbums']> => {
       const {query} = args;
       // const result = await sequelize.query(
       //

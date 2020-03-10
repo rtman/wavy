@@ -8,12 +8,11 @@ import {
   Scalars,
   QueryResolvers,
   Query,
-  AlbumSongsJoined,
+  SongsWithAlbumArtistsJoined,
   // SubscriptionResolvers
 } from '../types';
 import {sequelize} from '../models';
 import {QueryTypes} from 'sequelize';
-import {format} from 'url';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -25,13 +24,17 @@ export const albumResolvers: Resolvers = {
     albums: async (_parent, _args, ctx): Promise<Query['albums']> => {
       return await ctx.models.Album.findAll();
     },
-    album: async (_parent, args, ctx): Promise<Query['album']> => {
+    albumById: async (_parent, args, ctx): Promise<Query['albumById']> => {
       const {id} = args;
       return await ctx.models.Album.findByPk(id);
     },
-    albumAll: async (_parent, args, ctx): Promise<Query['albumAll']> => {
+    albumWithSongsArtistsJoined: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['albumWithSongsArtistsJoined']> => {
       const {id} = args;
-      const result = await sequelize.query<AlbumSongsJoined>(
+      const result = await sequelize.query<SongsWithAlbumArtistsJoined>(
         `
         SELECT albums.id AS album_id,
         albums.title AS album_title,
@@ -76,11 +79,10 @@ export const albumResolvers: Resolvers = {
             artist_name: formattedResult.artist_name,
             album_id: item.album_id,
             album_title: formattedResult.title,
-            genres: item.genres,
+            genres: item.song_genres,
             url: item.song_url,
             title: item.song_title,
             image: item.song_image,
-            duration: item.duration,
             date: item.song_date,
             id: item.song_id,
             createdAt: item.song_createdAt,

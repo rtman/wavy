@@ -32,8 +32,8 @@ import { Divider, List } from '@material-ui/core';
 // `;
 
 const ARTIST_ALL = gql`
-  query ArtistAll($id: ID!) {
-    artistAll(id: $id) {
+  query ArtistWithSongsAlbumsJoined($id: ID!) {
+    artistWithSongsAlbumsJoined(id: $id) {
       name
       image
       description
@@ -50,7 +50,6 @@ const ARTIST_ALL = gql`
           album_id
           image
           url
-          duration
         }
       }
     }
@@ -61,12 +60,12 @@ export const Artist = () => {
   const { id } = useParams();
   const { loading, error, data, networkStatus } = useQuery(ARTIST_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
-  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistAll?.image);
+  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistWithSongsAlbumsJoined?.image);
 
   console.log('error', error);
 
   const renderAlbums = () => {
-    const albums = data?.artistAll?.albums;
+    const albums = data?.artistWithSongsAlbumsJoined?.albums;
     if (albums) {
       const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
       return <List>{albumsList}</List>;
@@ -76,8 +75,8 @@ export const Artist = () => {
   };
 
   const renderSongs = () => {
-    if (data?.artistAll?.albums.length > 0) {
-      const albums = data.artistAll.albums;
+    if (data?.artistWithSongsAlbumsJoined?.albums.length > 0) {
+      const albums = data.artistWithSongsAlbumsJoined.albums;
       const songsList = albums.map((album: Album) =>
         album.songs.map((song: Song, index: number) => {
           return (
@@ -94,6 +93,7 @@ export const Artist = () => {
     }
   };
 
+  console.log('data', data);
   return (
     <Screen>
       {loading ? (
@@ -102,11 +102,11 @@ export const Artist = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={artistImageUrl} />
-            <ProfileHeaderTitle>{data?.artistAll?.name}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{data?.artistWithSongsAlbumsJoined?.name}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <SubTitle>Description</SubTitle>
-            <div>{data?.artistAll?.description}</div>
+            <div>{data?.artistWithSongsAlbumsJoined?.description}</div>
             <SubTitle>Songs</SubTitle>
             {renderSongs()}
             <SubTitle>Albums</SubTitle>

@@ -7,19 +7,20 @@ import { Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 const SONGS_BY_ID_QUERY = gql`
-  query SongsById($ids: [ID]!) {
-    songsById(ids: $ids) {
-      id
-      title
+  query SongsByIdWithAlbumArtistsJoined($ids: [ID]!) {
+    songsByIdWithAlbumArtistsJoined(ids: $ids) {
       artist_id
+      song_title
+      album_id
+      song_genres
+      song_url
+      song_image
+      song_date
+      song_id
+      song_createdAt
+      song_updatedAt
       artist_name
       album_title
-      album_id
-      genres
-      url
-      duration
-      image
-      date
     }
   }
 `;
@@ -45,8 +46,8 @@ export const Queue = () => {
   }, [songIds]);
 
   const renderSongs = () => {
-    if (data?.songsById?.length > 0) {
-      const songs = data?.songsById;
+    if (data?.songsByIdWithAlbumArtistsJoined?.length > 0) {
+      const songs = data?.songsByIdWithAlbumArtistsJoined;
       const songsList = songs.map((song: Song, index: number) => {
         return (
           <>

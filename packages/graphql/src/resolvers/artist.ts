@@ -8,13 +8,11 @@ import {
   Scalars,
   QueryResolvers,
   Query,
-  ArtistSongsAlbumsJoined,
+  SongsWithAlbumArtistsJoined,
   // SubscriptionResolvers
 } from '../types';
 import {sequelize} from '../models';
 import {QueryTypes} from 'sequelize';
-import song from '../models/song';
-import album from '../models/album';
 import {TimeoutError} from 'bluebird';
 
 interface Resolvers {
@@ -27,7 +25,7 @@ export const artistResolvers: Resolvers = {
     artists: async (_parent, _args, ctx): Promise<Query['artists']> => {
       return await ctx.models.Artist.findAll();
     },
-    artist: async (_parent, args, ctx): Promise<Query['artist']> => {
+    artistById: async (_parent, args, ctx): Promise<Query['artistById']> => {
       const {id} = args;
       const result = await ctx.models.Artist.findByPk(id);
       return result;
@@ -48,19 +46,22 @@ export const artistResolvers: Resolvers = {
       //   {type: QueryTypes.SELECT},
       // );
     },
-    artistAll: async (_parent, args, ctx): Promise<Query['artistAll']> => {
+    artistWithSongsAlbumsJoined: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['artistWithSongsAlbumsJoined']> => {
       const {id} = args;
-      const result = await sequelize.query<ArtistSongsAlbumsJoined>(
+      const result = await sequelize.query<SongsWithAlbumArtistsJoined>(
         `
         SELECT artists.id AS artist_id,
-        artists.name,
-        artists.image,
-        artists.description,
+        artists.name AS artist_name,
+        artists.image AS artist_image,
+        artists.description AS artist_description,
         songs.id AS song_id,
-        songs.genres,
+        songs.genres AS song_genres,
         songs.title AS song_title,
         songs.url AS song_url,
-        songs.duration,
         songs.image AS song_image,
         songs.date AS song_date,
         albums.id AS album_id,
@@ -76,13 +77,17 @@ export const artistResolvers: Resolvers = {
       let formattedResult = {
         name: '',
         image: '',
+        createdAt: '',
+        updatedAt: '',
         description: '',
         albums: [],
       };
       if (result.length > 0) {
-        formattedResult.name = result[0].name;
-        formattedResult.image = result[0].image;
-        formattedResult.description = result[0].description;
+        formattedResult.name = result[0].artist_name;
+        formattedResult.image = result[0].artist_image;
+        formattedResult.description = result[0].artist_description;
+        formattedResult.createdAt = result[0].artist_createdAt;
+        formattedResult.updatedAt = result[0].artist_updatedAt;
 
         result.forEach(item => {
           const albumIndex = formattedResult.albums.findIndex(
@@ -94,11 +99,10 @@ export const artistResolvers: Resolvers = {
             artist_name: formattedResult.name,
             album_id: item.album_id,
             album_title: item.album_title,
-            genres: item.genres,
+            genres: item.song_genres,
             url: item.song_url,
             title: item.song_title,
             image: item.song_image,
-            duration: item.duration,
             date: item.song_date,
             id: item.song_id,
             createdAt: item.song_createdAt,
@@ -111,6 +115,8 @@ export const artistResolvers: Resolvers = {
               title: item.album_title,
               image: item.album_image,
               id: item.album_id,
+              createdAt: item.album_createdAt,
+              updatedAt: item.album_updatedAt,
               songs: [song],
             });
           }

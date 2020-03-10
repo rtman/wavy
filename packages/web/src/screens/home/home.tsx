@@ -6,9 +6,9 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { List } from '@material-ui/core';
 
 const SEARCH_SONGS_QUERY = gql`
-  query SearchSongsWithArtist($query: String!) {
-    searchSongsWithArtistsAlbums(query: $query) {
-      song_id
+  query SearchSongs($query: String!) {
+    searchSongs(query: $query) {
+      id
       title
       artist_id
       artist_name
@@ -16,7 +16,6 @@ const SEARCH_SONGS_QUERY = gql`
       album_id
       genres
       url
-      duration
       image
       date
     }
