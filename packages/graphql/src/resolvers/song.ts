@@ -72,7 +72,7 @@ export const songResolvers: Resolvers = {
       // );
       const result = await sequelize.query(
         `
-        SELECT songs.id AS song_id,
+        SELECT songs.id,
         songs.title,
         songs.genres,
         songs.duration,

@@ -44,7 +44,7 @@ export const Home = () => {
 
   useEffect(() => {
     const convertSongUrls = async () => {
-      const songs = data?.searchSongsWithArtistsAlbums ?? [];
+      const songs = data?.searchSongs ?? [];
 
       const songUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.url));
       const imageUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.image));
@@ -68,7 +68,7 @@ export const Home = () => {
   const renderSearchResults = () => {
     if (searchResults.length > 0) {
       const songsList = searchResults.map((song: any) => {
-        return <SongRow key={song.song_id} song={song} />;
+        return <SongRow key={song.id} song={song} />;
       });
       return <List>{songsList}</List>;
     }
