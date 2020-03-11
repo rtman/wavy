@@ -27,7 +27,7 @@ const SONGS_BY_ID_QUERY = gql`
 
 export const Queue = () => {
   const history = useHistory();
-  const playerContext = useContext<typeof PlayerContext>(PlayerContext);
+  const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
   const [submitSongIds, { loading, error, data }] = useLazyQuery(SONGS_BY_ID_QUERY);
 
