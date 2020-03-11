@@ -12,7 +12,6 @@ import createSagaMiddleware from 'redux-saga';
 import * as sagas from 'sagas';
 import * as state from 'state';
 import { App } from './App';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
