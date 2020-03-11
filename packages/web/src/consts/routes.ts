@@ -1,4 +1,6 @@
-export const HOME = '/';
+export const ROOT = '/';
+export const HOME = '/home';
+export const SIGN_UP = '/signup';
 export const ARTIST = '/artist';
 export const ALBUM = '/album';
 export const PLAYLIST = '/playlist';
