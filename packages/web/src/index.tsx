@@ -16,6 +16,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
+import { CssBaseline } from '@material-ui/core';
+import Helmet from 'react-helmet';
 
 export const history = createBrowserHistory();
 
@@ -55,7 +57,12 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <ApolloProvider client={client}>
-        <App />
+        <Helmet>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Helmet>
+        <CssBaseline>
+          <App />
+        </CssBaseline>
       </ApolloProvider>
     </ConnectedRouter>
   </Provider>,
