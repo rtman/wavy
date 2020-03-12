@@ -1,7 +1,21 @@
-import { Button, Container, Grid, FormControl, TextField } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, FormControl, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Title, SubTitle } from 'components';
 import firebase from 'firebase';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+
+const CREATE_USER = gql`
+  mutation CREATE_USER($firstName: String!, $lastName: String!, $email: String!, $password: String!, $id: String!) {
+    createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, id: $id) {
+      id
+      firstName
+      lastName
+      email
+      password
+    }
+  }
+`;
 
 interface SignupFieldErrors {
   firstName: boolean;
@@ -17,6 +31,7 @@ export const Signup = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [createUser, { data, error, loading }] = useMutation(CREATE_USER);
   //   const [fieldErrors, setFieldErrors] = useState({
   //     firstName: false,
   //     lastName: false,
@@ -30,7 +45,10 @@ export const Signup = () => {
   };
 
   const onClickSignup = async () => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const firebaseCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    if (firebaseCredential?.user) {
+      createUser({ variables: { firstName, lastName, email, password, id: firebaseCredential.user.uid } });
+    }
   };
 
   return (
@@ -85,7 +103,7 @@ export const Signup = () => {
             />
           </FormControl>
         </Grid>
-        <Button onClick={onClickSignup}>Sign up</Button>
+        <Button onClick={onClickSignup}>{loading ? <CircularProgress /> : 'Sign up'}</Button>
       </Grid>
     </Container>
   );

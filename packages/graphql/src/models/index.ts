@@ -22,6 +22,7 @@ const models = {
   Song: sequelize.import('./song'),
   Artist: sequelize.import('./artist'),
   Album: sequelize.import('./album'),
+  User: sequelize.import('./user'),
 };
 
 Object.keys(models).forEach(key => {

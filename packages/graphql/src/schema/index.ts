@@ -4,6 +4,7 @@ import artistSchema from './artist';
 import albumSchema from './album';
 import joinedSchema from './joined';
 import songSchema from './song';
+import userSchema from './user';
 
 const linkSchema = gql`
   scalar Date
@@ -24,4 +25,5 @@ export default [
   joinedSchema,
   linkSchema,
   songSchema,
+  userSchema,
 ];
