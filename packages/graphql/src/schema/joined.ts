@@ -62,4 +62,27 @@ export default gql`
     description: String
     albums: [Album]
   }
+
+  type PlaylistWithSongsJoined {
+    playlist_title: String
+    playlist_description: String
+    playlist_image: String
+    playlist_user_ids: [ID]
+    song_title: String
+    song_url: String
+    song_image: String
+    song_date: Date
+    song_createdAt: Date
+    song_updatedAt: Date
+    song_id: ID
+    song_genres: [String]
+  }
+
+  type PlaylistWithSongsJoinedFormatted {
+    title: String
+    description: String
+    user_ids: [ID]
+    image: String
+    songs: [Song]
+  }
 `;

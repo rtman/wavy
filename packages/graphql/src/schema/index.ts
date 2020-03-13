@@ -3,6 +3,7 @@ import {gql} from 'apollo-server-express';
 import artistSchema from './artist';
 import albumSchema from './album';
 import joinedSchema from './joined';
+import playlistSchema from './playlist';
 import songSchema from './song';
 import userSchema from './user';
 
@@ -24,6 +25,7 @@ export default [
   albumSchema,
   joinedSchema,
   linkSchema,
+  playlistSchema,
   songSchema,
   userSchema,
 ];

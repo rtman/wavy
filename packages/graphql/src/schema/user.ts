@@ -18,6 +18,7 @@ export default gql`
       favourites: [ID]
       following: [ID]
       recentlyPlayed: [ID]
+      playlists: [ID]
     ): User!
     deleteUser(id: ID!): Boolean!
   }
@@ -31,5 +32,6 @@ export default gql`
     favourites: [ID]
     following: [ID]
     recentlyPlayed: [ID]
+    playlists: [ID]
   }
 `;

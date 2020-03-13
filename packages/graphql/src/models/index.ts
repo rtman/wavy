@@ -19,9 +19,10 @@ const sequelize = new Sequelize(
 // }
 
 const models = {
-  Song: sequelize.import('./song'),
   Artist: sequelize.import('./artist'),
   Album: sequelize.import('./album'),
+  Playlist: sequelize.import('./playlist'),
+  Song: sequelize.import('./song'),
   User: sequelize.import('./user'),
 };
 
