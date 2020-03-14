@@ -267,7 +267,7 @@ export type QuerySearchAlbumsArgs = {
 
 
 export type QueryPlaylistsByIdsArgs = {
-  ids: Array<Maybe<Scalars['String']>>
+  ids: Array<Maybe<Scalars['ID']>>
 };
 
 
