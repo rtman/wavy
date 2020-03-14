@@ -28,8 +28,6 @@ export const userResolvers: Resolvers = {
   },
   Mutation: {
     createUser: async (_parent, args, ctx): Promise<User> => {
-      console.log('ctx.models', ctx.models);
-      console.log('args', args);
       return await ctx.models.User.create(args);
     },
     deleteUser: async (

@@ -15,7 +15,8 @@ const playlist = (
 ): PlaylistModelStatic => {
   const Playlist_ = sequelize.define('playlist', {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     title: DataTypes.STRING,
@@ -23,6 +24,13 @@ const playlist = (
     image: DataTypes.STRING,
     user_ids: DataTypes.ARRAY(DataTypes.INTEGER),
     songs: DataTypes.ARRAY(DataTypes.INTEGER),
+    // songs: {
+    //   type: DataTypes.ARRAY(DataTypes.INTEGER),
+    //   references: {
+    //     model: 'songs', // name of Source model
+    //     key: 'id', // key in Source model that we're referencing
+    //   },
+    // },
   }) as PlaylistModelStatic;
 
   return Playlist_;

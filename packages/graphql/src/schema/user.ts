@@ -10,7 +10,7 @@ export default gql`
 
   extend type Mutation {
     createUser(
-      id: String!
+      id: ID!
       firstName: String!
       lastName: String!
       email: String!
@@ -24,7 +24,7 @@ export default gql`
   }
 
   type User {
-    id: String
+    id: ID
     firstName: String
     lastName: String
     email: String
