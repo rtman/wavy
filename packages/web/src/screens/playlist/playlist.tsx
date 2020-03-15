@@ -52,26 +52,27 @@ export const Playlist = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
-  const getPlaylist = useLazyQuery(PLAYLIST_BY_ID_WITH_SONGS_QUERY);
-  const submitPlaylistInfo = useMutation(UPDATE_PLAYLIST_INFO);
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(getPlaylist[1].data?.playlistByIdWithSongs?.image);
+  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(PLAYLIST_BY_ID_WITH_SONGS_QUERY, {
+    fetchPolicy: 'no-cache'
+  });
+  const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(UPDATE_PLAYLIST_INFO, {
+    onCompleted(data) {
+      getPlaylist({ variables: { id } });
+    }
+  });
+  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistByIdWithSongs?.image);
 
   useEffect(() => {
-    getPlaylist[0]({ variables: { id } });
+    getPlaylist({ variables: { id } });
   }, []);
 
-  useEffect(() => {
-    getPlaylist[0]({ variables: { id } });
-    console.log('submitPlaylistInfo[1].data', submitPlaylistInfo[1].data);
-  }, [submitPlaylistInfo[1].data]);
-
   const renderSongs = () => {
-    if (getPlaylist[1].data?.playlistByIdWithSongs?.songs.length > 0) {
-      const songsList = getPlaylist[1].data.playlistByIdWithSongs.songs.map((song: Song, index: number) => {
+    if (queryData?.playlistByIdWithSongs?.songs.length > 0) {
+      const songsList = queryData.playlistByIdWithSongs.songs.map((song: Song, index: number) => {
         return (
           <>
             <SongRow key={song.id} song={song} />
-            {index < getPlaylist[1].data.playlistByIdWithSongs.songs.length - 1 ? <Divider /> : null}
+            {index < queryData.playlistByIdWithSongs.songs.length - 1 ? <Divider /> : null}
           </>
         );
       });
@@ -86,7 +87,7 @@ export const Playlist = () => {
   };
 
   const onClickSave = () => {
-    submitPlaylistInfo[0]({ variables: { title: playlistTitle, description: playlistDescription, id } });
+    submitPlaylistInfo({ variables: { title: playlistTitle, description: playlistDescription, id } });
     setEditModalVisible(false);
   };
 
@@ -96,23 +97,21 @@ export const Playlist = () => {
 
   return (
     <Screen>
-      {getPlaylist[1].loading ? (
+      {queryLoading ? (
         <CircularProgress />
       ) : (
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={playlistImageUrl} />
-            <ProfileHeaderTitle>{getPlaylist[1].data?.playlistByIdWithSongs?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{queryData?.playlistByIdWithSongs?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <RowContainer>
-              <Button onClick={() => playerContext.replaceQueueWithSongs(getPlaylist[1].data?.playlistByIdWithSongs?.songs)}>
-                Play Now
-              </Button>
+              <Button onClick={() => playerContext.replaceQueueWithSongs(queryData?.playlistByIdWithSongs?.songs)}>Play Now</Button>
               <Button onClick={onClickEdit(true)}>Edit</Button>
             </RowContainer>
             <SubTitle>Description</SubTitle>
-            <div>{getPlaylist[1].data?.playlistByIdWithSongs?.description}</div>
+            <div>{queryData?.playlistByIdWithSongs?.description}</div>
             <SubTitle>Songs</SubTitle>
             {renderSongs()}
           </ProfileContainer>
