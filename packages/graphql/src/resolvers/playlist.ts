@@ -85,6 +85,16 @@ export const playlistResolvers: Resolvers = {
     createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
       return await ctx.models.Playlist.create(args);
     },
+    updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
+      const {title, description, id} = args;
+      const playlist = await ctx.models.Playlist.findByPk(id);
+      return await playlist.update({title, description});
+    },
+    updatePlaylistSongs: async (_parent, args, ctx): Promise<Playlist> => {
+      const {songs, id} = args;
+      const playlist = await ctx.models.Playlist.findByPk(id);
+      return await playlist.update({songs});
+    },
     deletePlaylist: async (
       _parent,
       args,

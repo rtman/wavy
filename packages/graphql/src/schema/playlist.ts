@@ -17,6 +17,8 @@ export default gql`
       user_ids: [ID]!
       songs: [ID]
     ): Playlist!
+    updatePlaylistInfo(title: String!, description: String!, id: ID!): Playlist
+    updatePlaylistSongs(songs: [ID]!, id: ID!): Playlist
     deletePlaylist(id: ID!): Boolean!
   }
 

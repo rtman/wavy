@@ -88,6 +88,8 @@ export type Mutation = {
   createNewAlbum: Album,
   deleteAlbum: Scalars['Boolean'],
   createPlaylist: Playlist,
+  updatePlaylistInfo?: Maybe<Playlist>,
+  updatePlaylistSongs?: Maybe<Playlist>,
   deletePlaylist: Scalars['Boolean'],
   createNewSong: Song,
   updateSongTitle: Song,
@@ -129,6 +131,19 @@ export type MutationCreatePlaylistArgs = {
   image?: Maybe<Scalars['String']>,
   user_ids: Array<Maybe<Scalars['ID']>>,
   songs?: Maybe<Array<Maybe<Scalars['ID']>>>
+};
+
+
+export type MutationUpdatePlaylistInfoArgs = {
+  title: Scalars['String'],
+  description: Scalars['String'],
+  id: Scalars['ID']
+};
+
+
+export type MutationUpdatePlaylistSongsArgs = {
+  songs: Array<Maybe<Scalars['ID']>>,
+  id: Scalars['ID']
 };
 
 
@@ -562,6 +577,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createNewAlbum?: Resolver<ResolversTypes['Album'], ParentType, ContextType, RequireFields<MutationCreateNewAlbumArgs, 'title' | 'artist_id' | 'image'>>,
   deleteAlbum?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteAlbumArgs, 'id'>>,
   createPlaylist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType, RequireFields<MutationCreatePlaylistArgs, 'title' | 'description' | 'user_ids'>>,
+  updatePlaylistInfo?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistInfoArgs, 'title' | 'description' | 'id'>>,
+  updatePlaylistSongs?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistSongsArgs, 'songs' | 'id'>>,
   deletePlaylist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeletePlaylistArgs, 'id'>>,
   createNewSong?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationCreateNewSongArgs, 'title' | 'artist_id' | 'album_id' | 'url' | 'image' | 'date'>>,
   updateSongTitle?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationUpdateSongTitleArgs, 'id' | 'title'>>,
