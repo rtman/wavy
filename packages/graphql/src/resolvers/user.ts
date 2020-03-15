@@ -30,6 +30,48 @@ export const userResolvers: Resolvers = {
     createUser: async (_parent, args, ctx): Promise<User> => {
       return await ctx.models.User.create(args);
     },
+    updateFollowing: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, artistId} = args;
+        const user = await ctx.models.User.findByPk(id);
+        let newFollowing = [...user.following];
+        if (newFollowing.includes(artistId)) {
+          const index = newFollowing.indexOf(artistId);
+          newFollowing.splice(index, 1);
+        } else {
+          newFollowing.push(artistId);
+        }
+        await user.update({following: newFollowing});
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    updateFavourites: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songId} = args;
+        const user = await ctx.models.User.findByPk(id);
+        let newFavourites = [...user.favourites];
+        if (newFavourites.includes(songId)) {
+          const index = newFavourites.indexOf(songId);
+          newFavourites.splice(index, 1);
+        } else {
+          newFavourites.push(songId);
+        }
+        await user.update({favourites: newFavourites});
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
     deleteUser: async (
       _parent,
       args,

@@ -95,6 +95,8 @@ export type Mutation = {
   updateSongTitle: Song,
   deleteSong: Scalars['Boolean'],
   createUser: User,
+  updateFollowing: Scalars['Boolean'],
+  updateFavourites: Scalars['Boolean'],
   deleteUser: Scalars['Boolean'],
 };
 
@@ -184,6 +186,18 @@ export type MutationCreateUserArgs = {
   following?: Maybe<Array<Maybe<Scalars['ID']>>>,
   recentlyPlayed?: Maybe<Array<Maybe<Scalars['ID']>>>,
   playlists?: Maybe<Array<Maybe<Scalars['ID']>>>
+};
+
+
+export type MutationUpdateFollowingArgs = {
+  id: Scalars['ID'],
+  artistId: Scalars['ID']
+};
+
+
+export type MutationUpdateFavouritesArgs = {
+  id: Scalars['ID'],
+  songId: Scalars['ID']
 };
 
 
@@ -584,6 +598,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateSongTitle?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationUpdateSongTitleArgs, 'id' | 'title'>>,
   deleteSong?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteSongArgs, 'id'>>,
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'id' | 'firstName' | 'lastName' | 'email' | 'password'>>,
+  updateFollowing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFollowingArgs, 'id' | 'artistId'>>,
+  updateFavourites?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFavouritesArgs, 'id' | 'songId'>>,
   deleteUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
 };
 
