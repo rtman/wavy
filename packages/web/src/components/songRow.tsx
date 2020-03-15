@@ -1,11 +1,12 @@
-import { StyledButton, StyledAvatar, StyledListItemText } from 'components';
+import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import * as helpers from 'helpers';
-import { Avatar, Button, ButtonBase, Divider, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory, useLocation } from 'react-router-dom';
+import NestedMenuItem from 'material-ui-nested-menu-item';
 
 interface SongRowProps {
   song: Song;
@@ -16,7 +17,8 @@ interface SongRowProps {
 
 export const SongRow = (props: SongRowProps) => {
   const { song, passedOnClickSong, secondaryStyle } = props;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuPosition, setMenuPosition] = useState<any>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
@@ -24,10 +26,16 @@ export const SongRow = (props: SongRowProps) => {
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    event.preventDefault();
+    setMenuPosition({
+      top: event.pageY,
+      left: event.pageX
+    });
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    setMenuPosition(null);
   };
 
   const handleClickPlayNow = () => {
@@ -92,13 +100,28 @@ export const SongRow = (props: SongRowProps) => {
           </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        PaperProps={{
+          style: {
+            maxHeight: 48 * 4.5,
+            width: 200
+          }
+        }}
+      >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={location.pathname.includes(consts.routes.QUEUE) ? handleClickRemoveFromQueue : handleClickAddToQueue}>
           {location.pathname.includes(consts.routes.QUEUE) ? 'Remove From Queue' : 'Add to Queue'}
         </MenuItem>
         {location.pathname.includes(consts.routes.ALBUM) ? null : <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem>}
         {location.pathname.includes(consts.routes.ARTIST) ? null : <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>}
+        <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+          <MenuItem>Playlist 1</MenuItem>
+        </NestedMenuItem>
       </Menu>
     </>
   );
