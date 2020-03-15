@@ -8,7 +8,7 @@ export const NavMenu = () => {
     <RowContainer justifyContent={'flex-end'}>
       <NavMenuItem to={consts.routes.HOME}>Home</NavMenuItem>
       <NavMenuItem to={consts.routes.QUEUE}>Queue</NavMenuItem>
-      <NavMenuItem to={consts.routes.PLAYLIST}>Playlists</NavMenuItem>
+      <NavMenuItem to={consts.routes.PLAYLISTS}>Playlists</NavMenuItem>
       <NavMenuItem to={consts.routes.HOME}>Following</NavMenuItem>
       <NavMenuItem to={consts.routes.HOME}>Favourites</NavMenuItem>
     </RowContainer>

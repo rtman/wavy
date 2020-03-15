@@ -36,6 +36,19 @@ export const playlistResolvers: Resolvers = {
       );
       return result;
     },
+    playlistsByUserId: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['playlistsByUserId']> => {
+      const {userId} = args;
+      return await sequelize.query<Playlist>(
+        `SELECT *
+         FROM playlists
+         WHERE '${userId}' = ANY (user_ids);`,
+        {type: QueryTypes.SELECT},
+      );
+    },
     playlistByIdWithSongs: async (
       _parent,
       args,

@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     playlists: [Playlist]
     playlistsByIds(ids: [ID]!): [Playlist]
+    playlistsByUserId(userId: ID!): [Playlist]
     playlistByIdWithSongs(id: ID!): PlaylistWithSongsJoinedFormatted
     searchPlaylists(query: String!): [Playlist]
   }

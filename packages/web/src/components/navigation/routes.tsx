@@ -17,6 +17,7 @@ export const Routes = (props: any) => {
       <PublicRoute exact={true} path={`${consts.routes.ALBUM}/:id?`} component={screens.Album} />
       <PublicRoute exact={true} path={`${consts.routes.ARTIST}/:id?`} component={screens.Artist} />
       <PublicRoute exact={true} path={consts.routes.QUEUE} component={screens.Queue} />
+      <PublicRoute exact={true} path={consts.routes.PLAYLISTS} component={screens.Playlists} />
       <PublicRoute exact={true} path={`${consts.routes.PLAYLIST}/:id?`} component={screens.Playlist} />
     </Switch>
   );
