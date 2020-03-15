@@ -9,6 +9,7 @@ import {
   SubTitle,
   RowContainer
 } from 'components';
+import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
@@ -17,49 +18,26 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
 
-const PLAYLIST_BY_ID_WITH_SONGS_QUERY = gql`
-  query PlaylistByIdWithSongs($id: ID!) {
-    playlistByIdWithSongs(id: $id) {
-      title
-      description
-      image
-      user_ids
-      songs {
-        id
-        album_id
-        artist_id
-        artist_name
-        title
-        image
-        url
-      }
-    }
-  }
-`;
-
-const UPDATE_PLAYLIST_INFO = gql`
-  mutation UpdatePlaylistInfo($title: String!, $description: String!, $id: ID!) {
-    updatePlaylistInfo(title: $title, description: $description, id: $id) {
-      title
-      description
-    }
-  }
-`;
-
 export const Playlist = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
-  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(PLAYLIST_BY_ID_WITH_SONGS_QUERY, {
-    fetchPolicy: 'no-cache'
-  });
-  const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(UPDATE_PLAYLIST_INFO, {
-    onCompleted(data) {
-      getPlaylist({ variables: { id } });
+  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(
+    consts.queries.PLAYLIST_BY_ID_WITH_SONGS_QUERY,
+    {
+      fetchPolicy: 'no-cache'
     }
-  });
+  );
+  const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(
+    consts.mutations.UPDATE_PLAYLIST_INFO,
+    {
+      onCompleted(data) {
+        getPlaylist({ variables: { id } });
+      }
+    }
+  );
   const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistByIdWithSongs?.image);
 
   useEffect(() => {

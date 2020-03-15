@@ -1,32 +1,12 @@
 import { StyledButton, StyledListItemText } from 'components';
+import * as consts from 'consts';
 import React, { useContext, useEffect } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
-
-const PLAYLIST_BY_ID_WITH_SONGS_QUERY = gql`
-  query PlaylistByIdWithSongs($id: ID!) {
-    playlistByIdWithSongs(id: $id) {
-      title
-      description
-      image
-      user_ids
-      songs {
-        id
-        album_id
-        artist_id
-        artist_name
-        title
-        image
-        url
-      }
-    }
-  }
-`;
 
 interface PlaylistRowProps {
   playlist: Playlist;
@@ -39,7 +19,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, error, data }] = useLazyQuery(PLAYLIST_BY_ID_WITH_SONGS_QUERY);
+  const [submitSearch, { loading, error, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID_WITH_SONGS_QUERY);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

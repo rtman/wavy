@@ -9,6 +9,7 @@ import {
   SongRow,
   SubTitle
 } from 'components';
+import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -32,29 +33,10 @@ import { PlayerContext } from 'context';
 //   }
 // `;
 
-const ALBUM_ALL = gql`
-  query AlbumWithSongsArtistsJoined($id: ID!) {
-    albumWithSongsArtistsJoined(id: $id) {
-      title
-      image
-      description
-      songs {
-        id
-        album_id
-        artist_id
-        artist_name
-        title
-        image
-        url
-      }
-    }
-  }
-`;
-
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, error, data, networkStatus } = useQuery(ALBUM_ALL, { variables: { id: id?.toString() } });
+  const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumWithSongsArtistsJoined?.image);
 

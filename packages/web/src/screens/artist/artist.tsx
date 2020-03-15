@@ -9,6 +9,7 @@ import {
   SongRow,
   SubTitle
 } from 'components';
+import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -31,34 +32,9 @@ import { Divider, List } from '@material-ui/core';
 //   }
 // `;
 
-const ARTIST_ALL = gql`
-  query ArtistWithSongsAlbumsJoined($id: ID!) {
-    artistWithSongsAlbumsJoined(id: $id) {
-      name
-      image
-      description
-      albums {
-        id
-        title
-        image
-        songs {
-          id
-          title
-          artist_name
-          album_title
-          artist_id
-          album_id
-          image
-          url
-        }
-      }
-    }
-  }
-`;
-
 export const Artist = () => {
   const { id } = useParams();
-  const { loading, error, data, networkStatus } = useQuery(ARTIST_ALL, { variables: { id: id?.toString() } });
+  const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistWithSongsAlbumsJoined?.image);
 

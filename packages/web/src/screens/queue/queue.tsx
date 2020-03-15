@@ -1,4 +1,5 @@
 import { ContentContainer, Screen, SongRow, SubTitle } from 'components';
+import * as consts from 'consts';
 import React, { useEffect, useContext, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
@@ -6,30 +7,11 @@ import { gql } from 'apollo-boost';
 import { Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
-const SONGS_BY_ID_QUERY = gql`
-  query SongsByIdWithAlbumArtistsJoined($ids: [ID]!) {
-    songsByIdWithAlbumArtistsJoined(ids: $ids) {
-      artist_id
-      title
-      album_id
-      genres
-      url
-      image
-      date
-      id
-      createdAt
-      updatedAt
-      artist_name
-      album_title
-    }
-  }
-`;
-
 export const Queue = () => {
   const history = useHistory();
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, error, data }] = useLazyQuery(SONGS_BY_ID_QUERY);
+  const [submitSongIds, { loading, error, data }] = useLazyQuery(consts.queries.SONGS_BY_ID_QUERY);
 
   useEffect(() => {
     let songIds_: string[] = [];
