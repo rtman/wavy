@@ -6,6 +6,7 @@ import { Divider, List } from '@material-ui/core';
 
 export const Playlists = () => {
   const { loading, error, data } = useQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
+    // TODO: temp hardcode userId until its hooked up properly
     variables: { userId: 'd97f1d32-647a-11ea-bc55-0242ac130003' }
   });
 

@@ -1,6 +1,6 @@
 import { AppContainer, BottomBar, Navigator, NavMenu, Player, TopBar } from 'components';
 import React from 'react';
-import { PlayerProvider } from 'context';
+import { PlayerProvider, UserProvider } from 'context';
 import './App.css';
 import firebase from 'firebase';
 import 'firebase/auth';
@@ -10,6 +10,7 @@ export const App = () => {
   const [user, initialising, error] = useAuthState(firebase.auth());
 
   console.log('initialising', initialising);
+
   if (user) {
     return (
       <AppContainer>
@@ -17,7 +18,9 @@ export const App = () => {
           <TopBar>
             <NavMenu />
           </TopBar>
-          <Navigator />
+          <UserProvider>
+            <Navigator />
+          </UserProvider>
           <BottomBar>
             <Player />
           </BottomBar>

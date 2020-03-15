@@ -10,8 +10,11 @@ export const Following = () => {
   const [getArtists, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.ARTISTS_BY_ID, {
     // fetchPolicy: 'no-cache'
   });
+
   useEffect(() => {
-    getArtists({ variables: { ids: [userContext?.user?.following] } });
+    if (userContext?.user?.following) {
+      getArtists({ variables: { ids: userContext?.user?.following } });
+    }
   }, [userContext?.user?.following]);
 
   const renderArtists = () => {

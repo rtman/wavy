@@ -72,7 +72,8 @@ export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
     onCompleted: (data) => {
-      setUser(data);
+      console.log('getUserById data.userById', data.userById);
+      setUser(data.userById);
     }
   });
   const [submitUpdateFollowing, { data: updateFollowingData, loading: updateFollowingLoading, error: updateFollowingError }] = useMutation(
@@ -105,6 +106,12 @@ export const UserProvider = ({ children }: any) => {
     getUserById({ variables: { id } });
   };
 
+  useEffect(() => {
+    // TODO: temp hardcode user id until its hooked up proper
+    // Also not how it will be called, called in loadApp somehow
+    loadUser('d97f1d32-647a-11ea-bc55-0242ac130003');
+  }, []);
+
   const updateFollowing = (id: string) => {
     submitUpdateFollowing({ variables: { id } });
   };
@@ -127,7 +134,7 @@ export const UserProvider = ({ children }: any) => {
         updatePlaylists
       }}
     >
-      children
+      {children}
     </UserContext.Provider>
   );
 };

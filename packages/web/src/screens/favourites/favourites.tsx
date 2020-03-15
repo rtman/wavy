@@ -11,16 +11,18 @@ export const Favourites = () => {
     fetchPolicy: 'no-cache'
   });
   useEffect(() => {
-    getSongs({ variables: { ids: [userContext?.user?.favourites] } });
+    if (userContext?.user?.favourites) {
+      getSongs({ variables: { ids: userContext?.user?.favourites } });
+    }
   }, [userContext?.user?.favourites]);
 
   const renderSongs = () => {
-    if (queryData?.songsByIdWithAlbumArtistsJoined?.songs.length > 0) {
-      const songsList = queryData.songsByIdWithAlbumArtistsJoined.songs.map((song: Song, index: number) => {
+    if (queryData?.songsByIdWithAlbumArtistsJoined?.length > 0) {
+      const songsList = queryData.songsByIdWithAlbumArtistsJoined.map((song: Song, index: number) => {
         return (
           <>
             <SongRow key={song.id} song={song} />
-            {index < queryData.songsByIdWithAlbumArtistsJoined.songs.length - 1 ? <Divider /> : null}
+            {index < queryData.songsByIdWithAlbumArtistsJoined.length - 1 ? <Divider /> : null}
           </>
         );
       });

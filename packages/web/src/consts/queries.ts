@@ -7,7 +7,7 @@ export const ARTISTS_BY_ID = gql`
       name
       image
       description
-      albums
+      album_ids
     }
   }
 `;
@@ -126,7 +126,7 @@ export const SONGS_BY_ID_QUERY = gql`
 `;
 
 export const USER_BY_ID = gql`
-  query UserById($id: ID!) {
+  query UserById($id: String!) {
     userById(id: $id) {
       firstName
       lastName

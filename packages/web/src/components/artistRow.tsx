@@ -1,4 +1,4 @@
-import { StyledButton } from 'components';
+import { StyledButton, StyledListItemText } from 'components';
 import React from 'react';
 import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
@@ -39,6 +39,11 @@ export const ArtistRow = (props: ArtistRowProps) => {
             <Avatar variant="square" src={imageUrl} />
           </ButtonBase>
         </ListItemAvatar>
+        <StyledListItemText
+          primary={artist.name}
+          // secondary={secondaryStyle ? null : artist.name}
+          // onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
+        />
         <ListItemSecondaryAction>
           <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
             <MoreVert />
