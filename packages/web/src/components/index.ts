@@ -26,6 +26,7 @@ export { AlbumRow } from './albumRow';
 export { AlbumWithSongs } from './albumWithSongs';
 export { PlaylistRow } from './playlistRow';
 export { SongRow } from './songRow';
+export { ArtistRow } from './artistRow';
 export { StyledAvatar } from './styledAvatar';
 export { StyledListItemText } from './styledListItemText';
 export { StyledButton } from './styledButton';

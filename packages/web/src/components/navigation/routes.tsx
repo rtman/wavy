@@ -19,6 +19,8 @@ export const Routes = (props: any) => {
       <PublicRoute exact={true} path={consts.routes.QUEUE} component={screens.Queue} />
       <PublicRoute exact={true} path={consts.routes.PLAYLISTS} component={screens.Playlists} />
       <PublicRoute exact={true} path={`${consts.routes.PLAYLIST}/:id?`} component={screens.Playlist} />
+      <PublicRoute exact={true} path={consts.routes.FOLLOWING} component={screens.Following} />
+      <PublicRoute exact={true} path={consts.routes.FAVOURITES} component={screens.Favourites} />
     </Switch>
   );
 };

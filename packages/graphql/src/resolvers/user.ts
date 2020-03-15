@@ -72,6 +72,48 @@ export const userResolvers: Resolvers = {
         return false;
       }
     },
+    updatePlaylists: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, playlistId} = args;
+        const user = await ctx.models.User.findByPk(id);
+        let newPlaylists = [...user.playlists];
+        if (newPlaylists.includes(playlistId)) {
+          const index = newPlaylists.indexOf(playlistId);
+          newPlaylists.splice(index, 1);
+        } else {
+          newPlaylists.push(playlistId);
+        }
+        await user.update({playlists: newPlaylists});
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    updateRecentlyPlayed: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songId} = args;
+        const user = await ctx.models.User.findByPk(id);
+        let newRecentlyPlayed = [...user.recentlyPlayed];
+        if (newRecentlyPlayed.includes(songId)) {
+          const index = newRecentlyPlayed.indexOf(songId);
+          newRecentlyPlayed.splice(index, 1);
+        } else {
+          newRecentlyPlayed.push(songId);
+        }
+        await user.update({recentlyPlayed: newRecentlyPlayed});
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
     deleteUser: async (
       _parent,
       args,

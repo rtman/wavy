@@ -1,5 +1,17 @@
 import { gql } from 'apollo-boost';
 
+export const ARTISTS_BY_ID = gql`
+  query ArtistsByID($ids: [ID]!) {
+    artistsById(ids: $ids) {
+      id
+      name
+      image
+      description
+      albums
+    }
+  }
+`;
+
 export const ARTIST_ALL = gql`
   query ArtistWithSongsAlbumsJoined($id: ID!) {
     artistWithSongsAlbumsJoined(id: $id) {
@@ -109,6 +121,20 @@ export const SONGS_BY_ID_QUERY = gql`
       updatedAt
       artist_name
       album_title
+    }
+  }
+`;
+
+export const USER_BY_ID = gql`
+  query UserById($id: ID!) {
+    userById(id: $id) {
+      firstName
+      lastName
+      email
+      following
+      favourites
+      recentlyPlayed
+      playlists
     }
   }
 `;

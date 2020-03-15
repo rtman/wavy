@@ -46,6 +46,14 @@ export const artistResolvers: Resolvers = {
       //   {type: QueryTypes.SELECT},
       // );
     },
+    artistsById: async (_parent, args, ctx): Promise<Query['artistsById']> => {
+      const {ids} = args;
+      return await ctx.models.Artist.findAll({
+        where: {
+          id: ids,
+        },
+      });
+    },
     artistWithSongsAlbumsJoined: async (
       _parent,
       args,

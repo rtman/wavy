@@ -1,7 +1,9 @@
-export { Home } from './home';
 export { Album } from './album';
 export { Artist } from './artist';
-export { Queue } from './queue';
+export { Home } from './home';
+export { Following } from './following';
+export { Favourites } from './favourites';
 export { Playlist } from './playlist';
 export { Playlists } from './playlists';
+export { Queue } from './queue';
 export { Signup } from './signup';

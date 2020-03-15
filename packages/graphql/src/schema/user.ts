@@ -22,6 +22,8 @@ export default gql`
     ): User!
     updateFollowing(id: ID!, artistId: ID!): Boolean!
     updateFavourites(id: ID!, songId: ID!): Boolean!
+    updatePlaylists(id: ID!, playlistId: ID!): Boolean!
+    updateRecentlyPlayed(id: ID!, songId: ID!): Boolean!
     deleteUser(id: ID!): Boolean!
   }
 

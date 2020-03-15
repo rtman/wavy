@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 export const App = () => {
   const [user, initialising, error] = useAuthState(firebase.auth());
 
+  console.log('initialising', initialising);
   if (user) {
     return (
       <AppContainer>

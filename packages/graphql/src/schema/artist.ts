@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     artists: [Artist]
     artistById(id: ID!): Artist
+    artistsById(ids: [ID]!): [Artist]
     artistWithSongsAlbumsJoined(id: ID!): ArtistWithSongsAlbumsJoinedFormatted
     searchArtists(query: String!): [Artist]
   }

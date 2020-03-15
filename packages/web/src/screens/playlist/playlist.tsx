@@ -13,7 +13,6 @@ import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, List, TextField } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';

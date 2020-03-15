@@ -97,6 +97,8 @@ export type Mutation = {
   createUser: User,
   updateFollowing: Scalars['Boolean'],
   updateFavourites: Scalars['Boolean'],
+  updatePlaylists: Scalars['Boolean'],
+  updateRecentlyPlayed: Scalars['Boolean'],
   deleteUser: Scalars['Boolean'],
 };
 
@@ -201,6 +203,18 @@ export type MutationUpdateFavouritesArgs = {
 };
 
 
+export type MutationUpdatePlaylistsArgs = {
+  id: Scalars['ID'],
+  playlistId: Scalars['ID']
+};
+
+
+export type MutationUpdateRecentlyPlayedArgs = {
+  id: Scalars['ID'],
+  songId: Scalars['ID']
+};
+
+
 export type MutationDeleteUserArgs = {
   id: Scalars['ID']
 };
@@ -245,6 +259,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>,
   artists?: Maybe<Array<Maybe<Artist>>>,
   artistById?: Maybe<Artist>,
+  artistsById?: Maybe<Array<Maybe<Artist>>>,
   artistWithSongsAlbumsJoined?: Maybe<ArtistWithSongsAlbumsJoinedFormatted>,
   searchArtists?: Maybe<Array<Maybe<Artist>>>,
   albums?: Maybe<Array<Maybe<Album>>>,
@@ -268,6 +283,11 @@ export type Query = {
 
 export type QueryArtistByIdArgs = {
   id: Scalars['ID']
+};
+
+
+export type QueryArtistsByIdArgs = {
+  ids: Array<Maybe<Scalars['ID']>>
 };
 
 
@@ -600,6 +620,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'id' | 'firstName' | 'lastName' | 'email' | 'password'>>,
   updateFollowing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFollowingArgs, 'id' | 'artistId'>>,
   updateFavourites?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFavouritesArgs, 'id' | 'songId'>>,
+  updatePlaylists?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdatePlaylistsArgs, 'id' | 'playlistId'>>,
+  updateRecentlyPlayed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateRecentlyPlayedArgs, 'id' | 'songId'>>,
   deleteUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
 };
 
@@ -642,6 +664,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   artists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType>,
   artistById?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistByIdArgs, 'id'>>,
+  artistsById?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType, RequireFields<QueryArtistsByIdArgs, 'ids'>>,
   artistWithSongsAlbumsJoined?: Resolver<Maybe<ResolversTypes['ArtistWithSongsAlbumsJoinedFormatted']>, ParentType, ContextType, RequireFields<QueryArtistWithSongsAlbumsJoinedArgs, 'id'>>,
   searchArtists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType, RequireFields<QuerySearchArtistsArgs, 'query'>>,
   albums?: Resolver<Maybe<Array<Maybe<ResolversTypes['Album']>>>, ParentType, ContextType>,

@@ -32,3 +32,15 @@ export const UPDATE_USER_FAVOURITES = gql`
     updateUserFavourites(id: $id, songId: $songId)
   }
 `;
+
+export const UPDATE_USER_PLAYLISTS = gql`
+  mutation UpdateUserPlaylists($id: ID!, $paylistId: ID!) {
+    updateUserPlaylists(id: $id, paylistId: $paylistId)
+  }
+`;
+
+export const UPDATE_USER_RECENTLY_PLAYED = gql`
+  mutation UpdateUserRecentlyPlayed($id: ID!, $songId: ID!) {
+    updateUserRecentlyPLayed(id: $id, songId: $songId)
+  }
+`;
