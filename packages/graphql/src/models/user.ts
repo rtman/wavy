@@ -22,6 +22,7 @@ const user = (
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    //TODO: change to UUID datatypes
     favourites: DataTypes.ARRAY(DataTypes.INTEGER),
     following: DataTypes.ARRAY(DataTypes.INTEGER),
     recentlyPlayed: DataTypes.ARRAY(DataTypes.INTEGER),

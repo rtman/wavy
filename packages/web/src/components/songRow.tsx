@@ -67,16 +67,19 @@ export const SongRow = (props: SongRowProps) => {
 
   const onClickGoToArtist = () => {
     history.push(`/artist/${song.artist_id}`);
+    handleMenuClose();
   };
 
   const onClickGoToAlbum = () => {
     history.push(`/album/${song.album_id}`);
+    handleMenuClose();
   };
 
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
   const onClickToggleFavourite = () => {
     userContext?.updateFavourites(song.id);
+    handleMenuClose();
   };
 
   const getFavouriteTitle = () => {

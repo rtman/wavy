@@ -71,6 +71,7 @@ export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
   const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
+    fetchPolicy: 'cache-and-network',
     onCompleted: (data) => {
       console.log('getUserById data.userById', data.userById);
       setUser(data.userById);
@@ -80,7 +81,9 @@ export const UserProvider = ({ children }: any) => {
     consts.mutations.UPDATE_FOLLOWING,
     {
       onCompleted: (data) => {
-        loadUser(data.id);
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
   );
@@ -89,14 +92,18 @@ export const UserProvider = ({ children }: any) => {
     { data: updateFavouritesData, loading: updateFavouritesLoading, error: updateFavouritesError }
   ] = useMutation(consts.mutations.UPDATE_FAVOURITES, {
     onCompleted: (data) => {
-      loadUser(data.id);
+      if (user?.id) {
+        loadUser(user?.id);
+      }
     }
   });
   const [submitUpdatePlaylists, { data: updatePlaylistsData, loading: updatePlaylistsLoading, error: updatePlaylistsError }] = useMutation(
     consts.mutations.UPDATE_PLAYLISTS,
     {
       onCompleted: (data) => {
-        loadUser(data.id);
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
   );
@@ -118,11 +125,11 @@ export const UserProvider = ({ children }: any) => {
   };
 
   const updateFavourites = (songId: string) => {
-    submitUpdateFavourites({ variables: { id: authContextState?.firebaseUser?.uid, songId } });
+    submitUpdateFavourites({ variables: { id: user?.id, songId } });
   };
 
   const updatePlaylists = (playlistId: string) => {
-    submitUpdatePlaylists({ variables: { id: authContextState?.firebaseUser?.uid, playlistId } });
+    submitUpdatePlaylists({ variables: { id: user?.id, playlistId } });
   };
 
   return (

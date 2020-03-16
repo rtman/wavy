@@ -34,6 +34,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
 
   const onClickToggleFollow = () => {
     userContext?.updateFollowing(artist.id.toString());
+    handleMenuClose();
   };
 
   const resolvedOnClick = typeof passedOnClickArtist === 'function' ? passedOnClickArtist : onClickGoToArtist;

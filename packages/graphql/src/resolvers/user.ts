@@ -30,6 +30,7 @@ export const userResolvers: Resolvers = {
     createUser: async (_parent, args, ctx): Promise<User> => {
       return await ctx.models.User.create(args);
     },
+    //TODO: Update all returns to return the full data, for usage in onCompleted
     updateFollowing: async (
       _parent,
       args,
@@ -37,18 +38,11 @@ export const userResolvers: Resolvers = {
     ): Promise<Scalars['Boolean']> => {
       try {
         const {id, artistId} = args;
-        console.log('args', args);
         const user = await ctx.models.User.findByPk(id);
-        // console.log('user', user);
         let newFollowing = [...user.following];
-        console.log('newFollowing', newFollowing);
-        console.log('typeof artistId', typeof artistId);
-        console.log(
-          'newFollowing.includes(artistId)',
-          newFollowing.includes(artistId),
-        );
-        if (newFollowing.includes(artistId)) {
-          const index = newFollowing.indexOf(artistId);
+        //TODO: temp cast to number for testing, remove, make all ids uuid
+        if (newFollowing.includes(Number(artistId))) {
+          const index = newFollowing.indexOf(Number(artistId));
           newFollowing.splice(index, 1);
         } else {
           newFollowing.push(artistId);
@@ -68,8 +62,8 @@ export const userResolvers: Resolvers = {
         const {id, songId} = args;
         const user = await ctx.models.User.findByPk(id);
         let newFavourites = [...user.favourites];
-        if (newFavourites.includes(songId)) {
-          const index = newFavourites.indexOf(songId);
+        if (newFavourites.includes(Number(songId))) {
+          const index = newFavourites.indexOf(Number(songId));
           newFavourites.splice(index, 1);
         } else {
           newFavourites.push(songId);
@@ -89,8 +83,8 @@ export const userResolvers: Resolvers = {
         const {id, playlistId} = args;
         const user = await ctx.models.User.findByPk(id);
         let newPlaylists = [...user.playlists];
-        if (newPlaylists.includes(playlistId)) {
-          const index = newPlaylists.indexOf(playlistId);
+        if (newPlaylists.includes(Number(playlistId))) {
+          const index = newPlaylists.indexOf(Number(playlistId));
           newPlaylists.splice(index, 1);
         } else {
           newPlaylists.push(playlistId);
