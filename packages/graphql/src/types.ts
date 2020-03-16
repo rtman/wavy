@@ -133,7 +133,7 @@ export type MutationCreatePlaylistArgs = {
   title: Scalars['String'],
   description: Scalars['String'],
   image?: Maybe<Scalars['String']>,
-  user_ids: Array<Maybe<Scalars['ID']>>,
+  user_ids: Array<Maybe<Scalars['String']>>,
   songs?: Maybe<Array<Maybe<Scalars['ID']>>>
 };
 
@@ -179,7 +179,7 @@ export type MutationDeleteSongArgs = {
 
 
 export type MutationCreateUserArgs = {
-  id: Scalars['ID'],
+  id: Scalars['String'],
   firstName: Scalars['String'],
   lastName: Scalars['String'],
   email: Scalars['String'],
@@ -192,31 +192,31 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationUpdateFollowingArgs = {
-  id: Scalars['ID'],
+  id: Scalars['String'],
   artistId: Scalars['ID']
 };
 
 
 export type MutationUpdateFavouritesArgs = {
-  id: Scalars['ID'],
+  id: Scalars['String'],
   songId: Scalars['ID']
 };
 
 
 export type MutationUpdatePlaylistsArgs = {
-  id: Scalars['ID'],
+  id: Scalars['String'],
   playlistId: Scalars['ID']
 };
 
 
 export type MutationUpdateRecentlyPlayedArgs = {
-  id: Scalars['ID'],
+  id: Scalars['String'],
   songId: Scalars['ID']
 };
 
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['ID']
+  id: Scalars['String']
 };
 
 export type Playlist = {
@@ -225,7 +225,7 @@ export type Playlist = {
   title?: Maybe<Scalars['String']>,
   description?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['String']>,
-  user_ids?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  user_ids?: Maybe<Array<Maybe<Scalars['String']>>>,
   songs?: Maybe<Array<Maybe<Scalars['ID']>>>,
 };
 
@@ -322,7 +322,7 @@ export type QueryPlaylistsByIdsArgs = {
 
 
 export type QueryPlaylistsByUserIdArgs = {
-  userId: Scalars['ID']
+  userId: Scalars['String']
 };
 
 
@@ -408,7 +408,7 @@ export type Subscription = {
 
 export type User = {
    __typename?: 'User',
-  id?: Maybe<Scalars['ID']>,
+  id?: Maybe<Scalars['String']>,
   firstName?: Maybe<Scalars['String']>,
   lastName?: Maybe<Scalars['String']>,
   email?: Maybe<Scalars['String']>,
@@ -630,7 +630,7 @@ export type PlaylistResolvers<ContextType = any, ParentType extends ResolversPar
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  user_ids?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
+  user_ids?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn,
 };
@@ -734,7 +734,7 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 }
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,

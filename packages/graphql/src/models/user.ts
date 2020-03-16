@@ -15,8 +15,7 @@ const user = (
 ): UserModelStatic => {
   const User_ = sequelize.define('user', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       primaryKey: true,
     },
     firstName: DataTypes.STRING,

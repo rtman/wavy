@@ -1,8 +1,7 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react';
+import React, { createContext, useEffect, useContext, useState } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { AuthContextState } from 'context';
 import * as consts from 'consts';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from 'firebase';
 
 interface UserContextProps {
   user: User | undefined;
@@ -70,6 +69,7 @@ export const UserContext = createContext<UserContextProps | undefined>(undefined
 
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
+  const authContextState = useContext(AuthContextState);
   const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
     onCompleted: (data) => {
       console.log('getUserById data.userById', data.userById);
@@ -107,9 +107,10 @@ export const UserProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
-    // TODO: temp hardcode user id until its hooked up proper
-    // Also not how it will be called, called in loadApp somehow
-    loadUser('d97f1d32-647a-11ea-bc55-0242ac130003');
+    console.log('authContextState?.firebaseUser?.uid', authContextState?.firebaseUser?.uid);
+    if (authContextState?.firebaseUser?.uid) {
+      loadUser(authContextState?.firebaseUser?.uid);
+    }
   }, []);
 
   const updateFollowing = (id: string) => {

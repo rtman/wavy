@@ -4,7 +4,7 @@ export default gql`
   extend type Query {
     playlists: [Playlist]
     playlistsByIds(ids: [ID]!): [Playlist]
-    playlistsByUserId(userId: ID!): [Playlist]
+    playlistsByUserId(userId: String!): [Playlist]
     playlistByIdWithSongs(id: ID!): PlaylistWithSongsJoinedFormatted
     searchPlaylists(query: String!): [Playlist]
   }
@@ -14,7 +14,7 @@ export default gql`
       title: String!
       description: String!
       image: String
-      user_ids: [ID]!
+      user_ids: [String]!
       songs: [ID]
     ): Playlist!
     updatePlaylistInfo(title: String!, description: String!, id: ID!): Playlist
@@ -27,7 +27,7 @@ export default gql`
     title: String
     description: String
     image: String
-    user_ids: [ID]
+    user_ids: [String]
     songs: [ID]
   }
 `;

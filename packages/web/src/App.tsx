@@ -1,17 +1,13 @@
 import { AppContainer, BottomBar, Navigator, NavMenu, Player, TopBar } from 'components';
-import React from 'react';
-import { PlayerProvider, UserProvider } from 'context';
+import React, { useContext } from 'react';
+import { AuthContextState, PlayerProvider, UserProvider } from 'context';
 import './App.css';
-import firebase from 'firebase';
-import 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const App = () => {
-  const [user, initialising, error] = useAuthState(firebase.auth());
+  const authContextState = useContext(AuthContextState);
+  console.log('App, firebaseUser', authContextState?.firebaseUser);
 
-  console.log('initialising', initialising);
-
-  if (user) {
+  if (authContextState?.firebaseUser) {
     return (
       <AppContainer>
         <PlayerProvider>

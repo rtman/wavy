@@ -77,7 +77,7 @@ export const PLAYLIST_BY_ID_WITH_SONGS_QUERY = gql`
 `;
 
 export const PLAYLISTS_BY_USER_ID = gql`
-  query PlaylistsByUserId($userId: ID!) {
+  query PlaylistsByUserId($userId: String!) {
     playlistsByUserId(userId: $userId) {
       id
       title

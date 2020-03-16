@@ -10,7 +10,7 @@ export default gql`
 
   extend type Mutation {
     createUser(
-      id: ID!
+      id: String!
       firstName: String!
       lastName: String!
       email: String!
@@ -20,15 +20,15 @@ export default gql`
       recentlyPlayed: [ID]
       playlists: [ID]
     ): User!
-    updateFollowing(id: ID!, artistId: ID!): Boolean!
-    updateFavourites(id: ID!, songId: ID!): Boolean!
-    updatePlaylists(id: ID!, playlistId: ID!): Boolean!
-    updateRecentlyPlayed(id: ID!, songId: ID!): Boolean!
-    deleteUser(id: ID!): Boolean!
+    updateFollowing(id: String!, artistId: ID!): Boolean!
+    updateFavourites(id: String!, songId: ID!): Boolean!
+    updatePlaylists(id: String!, playlistId: ID!): Boolean!
+    updateRecentlyPlayed(id: String!, songId: ID!): Boolean!
+    deleteUser(id: String!): Boolean!
   }
 
   type User {
-    id: ID
+    id: String
     firstName: String
     lastName: String
     email: String

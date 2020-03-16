@@ -17,6 +17,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 import { CssBaseline } from '@material-ui/core';
 import Helmet from 'react-helmet';
+import { AuthProvider } from 'context';
 
 export const history = createBrowserHistory();
 
@@ -60,7 +61,9 @@ ReactDOM.render(
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Helmet>
         <CssBaseline>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </CssBaseline>
       </ApolloProvider>
     </ConnectedRouter>

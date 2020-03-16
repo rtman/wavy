@@ -7,6 +7,7 @@ import { UserContext } from 'context';
 
 export const Following = () => {
   const userContext = useContext(UserContext);
+  console.log('userContext?.user', userContext?.user);
   const [getArtists, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.ARTISTS_BY_ID, {
     // fetchPolicy: 'no-cache'
   });
