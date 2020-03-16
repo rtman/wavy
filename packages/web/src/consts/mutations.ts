@@ -21,26 +21,26 @@ export const UPDATE_PLAYLIST_INFO = gql`
   }
 `;
 
-export const UPDATE_USER_FOLLOWING = gql`
-  mutation UpdateUserFollowing($id: ID!, $artistId: ID!) {
-    updateUserFollowing(id: $id, artistId: $artistId)
+export const UPDATE_FOLLOWING = gql`
+  mutation UpdateFollowing($id: String!, $artistId: ID!) {
+    updateFollowing(id: $id, artistId: $artistId)
   }
 `;
 
-export const UPDATE_USER_FAVOURITES = gql`
-  mutation UpdateUserFavourites($id: ID!, $songId: ID!) {
-    updateUserFavourites(id: $id, songId: $songId)
+export const UPDATE_FAVOURITES = gql`
+  mutation UpdateFavourites($id: String!, $songId: ID!) {
+    updateFavourites(id: $id, songId: $songId)
   }
 `;
 
-export const UPDATE_USER_PLAYLISTS = gql`
-  mutation UpdateUserPlaylists($id: ID!, $paylistId: ID!) {
-    updateUserPlaylists(id: $id, paylistId: $paylistId)
+export const UPDATE_PLAYLISTS = gql`
+  mutation UpdatePlaylists($id: String!, $paylistId: ID!) {
+    updatePlaylists(id: $id, paylistId: $paylistId)
   }
 `;
 
-export const UPDATE_USER_RECENTLY_PLAYED = gql`
-  mutation UpdateUserRecentlyPlayed($id: ID!, $songId: ID!) {
-    updateUserRecentlyPLayed(id: $id, songId: $songId)
+export const UPDATE_RECENTLY_PLAYED = gql`
+  mutation UpdateRecentlyPlayed($id: String!, $songId: ID!) {
+    updateRecentlyPLayed(id: $id, songId: $songId)
   }
 `;

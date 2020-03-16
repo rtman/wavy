@@ -4,8 +4,8 @@ interface User {
   lastName: string;
   email: string;
   password: string;
-  following: number[];
-  favourites: number[];
+  following: string[];
+  favourites: string[];
   playlists: string[];
   recentlyPlayed: number[];
 }

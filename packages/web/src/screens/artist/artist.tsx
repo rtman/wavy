@@ -11,12 +11,13 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { gql } from 'apollo-boost';
-import { Divider, List } from '@material-ui/core';
+import { Button, Divider, List } from '@material-ui/core';
+import { UserContext, PlayerContext } from 'context';
 
 // const ARTIST_ALL = gql`
 //   query ArtistAll($id: ID!) {
@@ -36,9 +37,24 @@ export const Artist = () => {
   const { id } = useParams();
   const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_ALL, { variables: { id: id?.toString() } });
   const history = useHistory();
+  const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistWithSongsAlbumsJoined?.image);
 
   console.log('error', error);
+
+  const onClickToggleFollow = () => {
+    if (id) {
+      userContext?.updateFollowing(id);
+    }
+  };
+
+  const getFollowTitle = () => {
+    if (id) {
+      return userContext?.user?.following.includes(id) ? 'Unfollow' : 'Follow';
+    } else {
+      return 'Loading';
+    }
+  };
 
   const renderAlbums = () => {
     const albums = data?.artistWithSongsAlbumsJoined?.albums;
@@ -81,6 +97,7 @@ export const Artist = () => {
             <ProfileHeaderTitle>{data?.artistWithSongsAlbumsJoined?.name}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
+            <Button onClick={onClickToggleFollow}>{getFollowTitle()}</Button>
             <SubTitle>Description</SubTitle>
             <div>{data?.artistWithSongsAlbumsJoined?.description}</div>
             <SubTitle>Songs</SubTitle>

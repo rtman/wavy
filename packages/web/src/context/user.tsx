@@ -77,7 +77,7 @@ export const UserProvider = ({ children }: any) => {
     }
   });
   const [submitUpdateFollowing, { data: updateFollowingData, loading: updateFollowingLoading, error: updateFollowingError }] = useMutation(
-    consts.mutations.UPDATE_USER_FOLLOWING,
+    consts.mutations.UPDATE_FOLLOWING,
     {
       onCompleted: (data) => {
         loadUser(data.id);
@@ -87,13 +87,13 @@ export const UserProvider = ({ children }: any) => {
   const [
     submitUpdateFavourites,
     { data: updateFavouritesData, loading: updateFavouritesLoading, error: updateFavouritesError }
-  ] = useMutation(consts.mutations.UPDATE_USER_FAVOURITES, {
+  ] = useMutation(consts.mutations.UPDATE_FAVOURITES, {
     onCompleted: (data) => {
       loadUser(data.id);
     }
   });
   const [submitUpdatePlaylists, { data: updatePlaylistsData, loading: updatePlaylistsLoading, error: updatePlaylistsError }] = useMutation(
-    consts.mutations.UPDATE_USER_PLAYLISTS,
+    consts.mutations.UPDATE_PLAYLISTS,
     {
       onCompleted: (data) => {
         loadUser(data.id);
@@ -113,16 +113,16 @@ export const UserProvider = ({ children }: any) => {
     }
   }, []);
 
-  const updateFollowing = (id: string) => {
-    submitUpdateFollowing({ variables: { id } });
+  const updateFollowing = (artistId: string) => {
+    submitUpdateFollowing({ variables: { id: user?.id, artistId } });
   };
 
-  const updateFavourites = (id: string) => {
-    submitUpdateFavourites({ variables: { id } });
+  const updateFavourites = (songId: string) => {
+    submitUpdateFavourites({ variables: { id: authContextState?.firebaseUser?.uid, songId } });
   };
 
-  const updatePlaylists = (id: string) => {
-    submitUpdatePlaylists({ variables: { id } });
+  const updatePlaylists = (playlistId: string) => {
+    submitUpdatePlaylists({ variables: { id: authContextState?.firebaseUser?.uid, playlistId } });
   };
 
   return (

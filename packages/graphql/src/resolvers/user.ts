@@ -37,8 +37,16 @@ export const userResolvers: Resolvers = {
     ): Promise<Scalars['Boolean']> => {
       try {
         const {id, artistId} = args;
+        console.log('args', args);
         const user = await ctx.models.User.findByPk(id);
+        // console.log('user', user);
         let newFollowing = [...user.following];
+        console.log('newFollowing', newFollowing);
+        console.log('typeof artistId', typeof artistId);
+        console.log(
+          'newFollowing.includes(artistId)',
+          newFollowing.includes(artistId),
+        );
         if (newFollowing.includes(artistId)) {
           const index = newFollowing.indexOf(artistId);
           newFollowing.splice(index, 1);

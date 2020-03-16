@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { PlayerContext } from 'context';
+import { PlayerContext, UserContext } from 'context';
 import { useHistory, useLocation } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 
@@ -21,6 +21,7 @@ export const SongRow = (props: SongRowProps) => {
   const [menuPosition, setMenuPosition] = useState<any>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const playerContext = useContext(PlayerContext);
+  const userContext = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
 
@@ -74,6 +75,14 @@ export const SongRow = (props: SongRowProps) => {
 
   const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
+  const onClickToggleFavourite = () => {
+    userContext?.updateFavourites(song.id);
+  };
+
+  const getFavouriteTitle = () => {
+    return userContext?.user?.favourites.includes(song.id) ? 'Unfavourite' : 'Favourite';
+  };
+
   // console.log('location', location);
   // console.log('song', song);
 
@@ -119,7 +128,11 @@ export const SongRow = (props: SongRowProps) => {
         </MenuItem>
         {location.pathname.includes(consts.routes.ALBUM) ? null : <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem>}
         {location.pathname.includes(consts.routes.ARTIST) ? null : <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>}
+        {location.pathname.includes(consts.routes.ARTIST) ? null : (
+          <MenuItem onClick={onClickToggleFavourite}>{getFavouriteTitle()}</MenuItem>
+        )}
         <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+          {/* TODO: hook up adding to playlist */}
           <MenuItem>Playlist 1</MenuItem>
         </NestedMenuItem>
       </Menu>

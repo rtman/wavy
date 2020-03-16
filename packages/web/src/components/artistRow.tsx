@@ -1,9 +1,10 @@
 import { StyledButton, StyledListItemText } from 'components';
-import React from 'react';
+import React, { useContext } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { UserContext } from 'context';
 
 interface ArtistRowProps {
   artist: Artist;
@@ -15,6 +16,8 @@ export const ArtistRow = (props: ArtistRowProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(artist.image);
   const history = useHistory();
+  const location = useLocation();
+  const userContext = useContext(UserContext);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,6 +30,10 @@ export const ArtistRow = (props: ArtistRowProps) => {
   const onClickGoToArtist = () => {
     history.push(`/artist/${artist.id}`);
     handleMenuClose();
+  };
+
+  const onClickToggleFollow = () => {
+    userContext?.updateFollowing(artist.id.toString());
   };
 
   const resolvedOnClick = typeof passedOnClickArtist === 'function' ? passedOnClickArtist : onClickGoToArtist;
@@ -52,6 +59,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
       </ListItem>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
+        <MenuItem onClick={onClickToggleFollow}>{userContext?.user?.following.includes(artist.id) ? 'Unfollow' : 'Follow'}</MenuItem>
       </Menu>
     </>
   );
