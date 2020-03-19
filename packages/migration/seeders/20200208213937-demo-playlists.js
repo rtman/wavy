@@ -8,7 +8,7 @@ module.exports = {
         title: 'Hot Choones 2020',
         description: 'Only heaters!!',
         image: 'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
-        user_ids: Sequelize.literal(`ARRAY['d97f1d32-647a-11ea-bc55-0242ac130003']::"uuid"[]`),
+        user_ids: ['H2qAdR0c81c3xGFk5PmgDXKAjis1'],
         songs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         createdAt: new Date(),
         updatedAt: new Date()

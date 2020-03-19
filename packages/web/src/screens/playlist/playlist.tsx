@@ -26,7 +26,7 @@ export const Playlist = () => {
   const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(
     consts.queries.PLAYLIST_BY_ID_WITH_SONGS_QUERY,
     {
-      fetchPolicy: 'no-cache'
+      fetchPolicy: 'network-only'
     }
   );
   const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(

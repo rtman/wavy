@@ -12,12 +12,15 @@ export default gql`
   extend type Mutation {
     createPlaylist(
       title: String!
-      description: String!
-      image: String
+      description: String
       user_ids: [String]!
-      songs: [ID]
     ): Playlist!
-    updatePlaylistInfo(title: String!, description: String!, id: ID!): Playlist
+    updatePlaylistInfo(
+      id: ID!
+      title: String
+      description: String
+      image: String
+    ): Playlist
     addPlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
     removePlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
     deletePlaylist(id: ID!): Boolean!

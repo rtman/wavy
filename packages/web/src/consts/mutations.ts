@@ -12,24 +12,20 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const CREATE_PLAYLIST = gql`
+  mutation CreatePlaylist($user_ids: [String]!, $title: String!, $description: String) {
+    createPlaylist(user_ids: $user_ids, title: $title, description: $description) {
+      id
+    }
+  }
+`;
+
 export const UPDATE_PLAYLIST_INFO = gql`
   mutation UpdatePlaylistInfo($title: String!, $description: String!, $id: ID!) {
     updatePlaylistInfo(title: $title, description: $description, id: $id) {
       title
       description
     }
-  }
-`;
-
-export const UPDATE_FOLLOWING = gql`
-  mutation UpdateFollowing($id: String!, $artistId: ID!) {
-    updateFollowing(id: $id, artistId: $artistId)
-  }
-`;
-
-export const UPDATE_FAVOURITES = gql`
-  mutation UpdateFavourites($id: String!, $songId: ID!) {
-    updateFavourites(id: $id, songId: $songId)
   }
 `;
 
@@ -42,6 +38,18 @@ export const ADD_PLAYLIST_SONGS = gql`
 export const REMOVE_PLAYLIST_SONGS = gql`
   mutation RemovePlaylistSongs($id: ID!, $song_ids: [ID]!) {
     removePlaylistSongs(id: $id, song_ids: $song_ids)
+  }
+`;
+
+export const UPDATE_FOLLOWING = gql`
+  mutation UpdateFollowing($id: String!, $artistId: ID!) {
+    updateFollowing(id: $id, artistId: $artistId)
+  }
+`;
+
+export const UPDATE_FAVOURITES = gql`
+  mutation UpdateFavourites($id: String!, $songId: ID!) {
+    updateFavourites(id: $id, songId: $songId)
   }
 `;
 

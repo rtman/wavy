@@ -22,7 +22,7 @@ const playlist = (
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     image: DataTypes.STRING,
-    user_ids: DataTypes.ARRAY(DataTypes.UUID),
+    user_ids: DataTypes.ARRAY(DataTypes.STRING),
     songs: DataTypes.ARRAY(DataTypes.INTEGER),
     // songs: {
     //   type: DataTypes.ARRAY(DataTypes.INTEGER),

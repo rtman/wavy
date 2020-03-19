@@ -132,17 +132,16 @@ export type MutationDeleteAlbumArgs = {
 
 export type MutationCreatePlaylistArgs = {
   title: Scalars['String'],
-  description: Scalars['String'],
-  image?: Maybe<Scalars['String']>,
-  user_ids: Array<Maybe<Scalars['String']>>,
-  songs?: Maybe<Array<Maybe<Scalars['ID']>>>
+  description?: Maybe<Scalars['String']>,
+  user_ids: Array<Maybe<Scalars['String']>>
 };
 
 
 export type MutationUpdatePlaylistInfoArgs = {
-  title: Scalars['String'],
-  description: Scalars['String'],
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  title?: Maybe<Scalars['String']>,
+  description?: Maybe<Scalars['String']>,
+  image?: Maybe<Scalars['String']>
 };
 
 
@@ -638,8 +637,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteArtist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteArtistArgs, 'id'>>,
   createNewAlbum?: Resolver<ResolversTypes['Album'], ParentType, ContextType, RequireFields<MutationCreateNewAlbumArgs, 'title' | 'artist_id' | 'image'>>,
   deleteAlbum?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteAlbumArgs, 'id'>>,
-  createPlaylist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType, RequireFields<MutationCreatePlaylistArgs, 'title' | 'description' | 'user_ids'>>,
-  updatePlaylistInfo?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistInfoArgs, 'title' | 'description' | 'id'>>,
+  createPlaylist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType, RequireFields<MutationCreatePlaylistArgs, 'title' | 'user_ids'>>,
+  updatePlaylistInfo?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistInfoArgs, 'id'>>,
   addPlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddPlaylistSongsArgs, 'id' | 'song_ids'>>,
   removePlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemovePlaylistSongsArgs, 'id' | 'song_ids'>>,
   deletePlaylist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeletePlaylistArgs, 'id'>>,

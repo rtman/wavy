@@ -17,6 +17,12 @@ interface Resolvers {
   Mutation: MutationResolvers;
 }
 
+interface UpdatePlaylistInfoUpdate {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
 export const playlistResolvers: Resolvers = {
   Query: {
     playlists: async (_parent, _args, ctx): Promise<Query['playlists']> => {
@@ -86,9 +92,19 @@ export const playlistResolvers: Resolvers = {
       return await ctx.models.Playlist.create(args);
     },
     updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
-      const {title, description, id} = args;
-      const playlist = await ctx.models.Playlist.findByPk(id);
-      return await playlist.update({title, description});
+      //TODO: if arg is optional, probably just pass args object instead of processing
+      const {id, title, description, image} = args;
+      if (title || description || image) {
+        let update: UpdatePlaylistInfoUpdate = {};
+        title ? (update.title = title) : null;
+        description ? (update.description = description) : null;
+        image ? (update.image = image) : null;
+        const playlist = await ctx.models.Playlist.findByPk(id);
+
+        return await playlist.update(update);
+      } else {
+        return null;
+      }
     },
     addPlaylistSongs: async (
       _parent,
