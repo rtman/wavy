@@ -33,9 +33,15 @@ export const UPDATE_FAVOURITES = gql`
   }
 `;
 
-export const UPDATE_PLAYLISTS = gql`
-  mutation UpdatePlaylists($id: String!, $paylistId: ID!) {
-    updatePlaylists(id: $id, paylistId: $paylistId)
+export const ADD_PLAYLIST_SONGS = gql`
+  mutation AddPlaylistSongs($id: ID!, $song_ids: [ID]!) {
+    addPlaylistSongs(id: $id, song_ids: $song_ids)
+  }
+`;
+
+export const REMOVE_PLAYLIST_SONGS = gql`
+  mutation RemovePlaylistSongs($id: ID!, $song_ids: [ID]!) {
+    removePlaylistSongs(id: $id, song_ids: $song_ids)
   }
 `;
 

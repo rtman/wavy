@@ -139,3 +139,24 @@ export const USER_BY_ID = gql`
     }
   }
 `;
+
+export const USER_BY_ID_WITH_PLAYLISTS_JOINED = gql`
+  query UserByIdWithPlaylistsJoined($id: String!) {
+    userByIdWithPlaylistsJoined(id: $id) {
+      id
+      firstName
+      lastName
+      email
+      following
+      favourites
+      recentlyPlayed
+      playlists {
+        id
+        title
+        description
+        songs
+        user_ids
+      }
+    }
+  }
+`;

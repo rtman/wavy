@@ -89,7 +89,8 @@ export type Mutation = {
   deleteAlbum: Scalars['Boolean'],
   createPlaylist: Playlist,
   updatePlaylistInfo?: Maybe<Playlist>,
-  updatePlaylistSongs?: Maybe<Playlist>,
+  addPlaylistSongs: Scalars['Boolean'],
+  removePlaylistSongs: Scalars['Boolean'],
   deletePlaylist: Scalars['Boolean'],
   createNewSong: Song,
   updateSongTitle: Song,
@@ -145,9 +146,15 @@ export type MutationUpdatePlaylistInfoArgs = {
 };
 
 
-export type MutationUpdatePlaylistSongsArgs = {
-  songs: Array<Maybe<Scalars['ID']>>,
-  id: Scalars['ID']
+export type MutationAddPlaylistSongsArgs = {
+  id: Scalars['ID'],
+  song_ids: Array<Maybe<Scalars['ID']>>
+};
+
+
+export type MutationRemovePlaylistSongsArgs = {
+  id: Scalars['ID'],
+  song_ids: Array<Maybe<Scalars['ID']>>
 };
 
 
@@ -277,6 +284,7 @@ export type Query = {
   searchSongs?: Maybe<Array<Maybe<Song>>>,
   users?: Maybe<Array<Maybe<User>>>,
   userById?: Maybe<User>,
+  userByIdWithPlaylistsJoined?: Maybe<UserWithPlaylistsJoined>,
   searchUsers?: Maybe<Array<Maybe<User>>>,
 };
 
@@ -356,6 +364,11 @@ export type QueryUserByIdArgs = {
 };
 
 
+export type QueryUserByIdWithPlaylistsJoinedArgs = {
+  id: Scalars['String']
+};
+
+
 export type QuerySearchUsersArgs = {
   query: Scalars['String']
 };
@@ -417,6 +430,19 @@ export type User = {
   following?: Maybe<Array<Maybe<Scalars['ID']>>>,
   recentlyPlayed?: Maybe<Array<Maybe<Scalars['ID']>>>,
   playlists?: Maybe<Array<Maybe<Scalars['ID']>>>,
+};
+
+export type UserWithPlaylistsJoined = {
+   __typename?: 'UserWithPlaylistsJoined',
+  id?: Maybe<Scalars['String']>,
+  firstName?: Maybe<Scalars['String']>,
+  lastName?: Maybe<Scalars['String']>,
+  email?: Maybe<Scalars['String']>,
+  password?: Maybe<Scalars['String']>,
+  favourites?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  following?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  recentlyPlayed?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  playlists?: Maybe<Array<Maybe<Playlist>>>,
 };
 
 
@@ -505,6 +531,7 @@ export type ResolversTypes = {
   Playlist: ResolverTypeWrapper<Playlist>,
   PlaylistWithSongsJoinedFormatted: ResolverTypeWrapper<PlaylistWithSongsJoinedFormatted>,
   User: ResolverTypeWrapper<User>,
+  UserWithPlaylistsJoined: ResolverTypeWrapper<UserWithPlaylistsJoined>,
   Mutation: ResolverTypeWrapper<{}>,
   Subscription: ResolverTypeWrapper<{}>,
   SongsWithAlbumArtistsJoined: ResolverTypeWrapper<SongsWithAlbumArtistsJoined>,
@@ -529,6 +556,7 @@ export type ResolversParentTypes = {
   Playlist: Playlist,
   PlaylistWithSongsJoinedFormatted: PlaylistWithSongsJoinedFormatted,
   User: User,
+  UserWithPlaylistsJoined: UserWithPlaylistsJoined,
   Mutation: {},
   Subscription: {},
   SongsWithAlbumArtistsJoined: SongsWithAlbumArtistsJoined,
@@ -612,7 +640,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteAlbum?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteAlbumArgs, 'id'>>,
   createPlaylist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType, RequireFields<MutationCreatePlaylistArgs, 'title' | 'description' | 'user_ids'>>,
   updatePlaylistInfo?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistInfoArgs, 'title' | 'description' | 'id'>>,
-  updatePlaylistSongs?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistSongsArgs, 'songs' | 'id'>>,
+  addPlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddPlaylistSongsArgs, 'id' | 'song_ids'>>,
+  removePlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemovePlaylistSongsArgs, 'id' | 'song_ids'>>,
   deletePlaylist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeletePlaylistArgs, 'id'>>,
   createNewSong?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationCreateNewSongArgs, 'title' | 'artist_id' | 'album_id' | 'url' | 'image' | 'date'>>,
   updateSongTitle?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationUpdateSongTitleArgs, 'id' | 'title'>>,
@@ -682,6 +711,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   searchSongs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySearchSongsArgs, 'query'>>,
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>,
+  userByIdWithPlaylistsJoined?: Resolver<Maybe<ResolversTypes['UserWithPlaylistsJoined']>, ParentType, ContextType, RequireFields<QueryUserByIdWithPlaylistsJoinedArgs, 'id'>>,
   searchUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QuerySearchUsersArgs, 'query'>>,
 };
 
@@ -746,6 +776,19 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: isTypeOfResolverFn,
 };
 
+export type UserWithPlaylistsJoinedResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserWithPlaylistsJoined'] = ResolversParentTypes['UserWithPlaylistsJoined']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  favourites?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
+  following?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
+  recentlyPlayed?: Resolver<Maybe<Array<Maybe<ResolversTypes['ID']>>>, ParentType, ContextType>,
+  playlists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Playlist']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn,
+};
+
 export type Resolvers<ContextType = any> = {
   Album?: AlbumResolvers<ContextType>,
   AlbumWithSongsArtistsJoined?: AlbumWithSongsArtistsJoinedResolvers<ContextType>,
@@ -763,6 +806,7 @@ export type Resolvers<ContextType = any> = {
   Subscription?: SubscriptionResolvers<ContextType>,
   Upload?: GraphQLScalarType,
   User?: UserResolvers<ContextType>,
+  UserWithPlaylistsJoined?: UserWithPlaylistsJoinedResolvers<ContextType>,
 };
 
 

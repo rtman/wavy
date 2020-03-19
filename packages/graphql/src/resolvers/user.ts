@@ -25,6 +25,21 @@ export const userResolvers: Resolvers = {
       const result = await ctx.models.User.findByPk(id);
       return result;
     },
+    userByIdWithPlaylistsJoined: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['userByIdWithPlaylistsJoined']> => {
+      const {id} = args;
+      const result = await ctx.models.User.findByPk(id);
+      const playListResult = await ctx.models.Playlist.findAll({
+        where: {
+          id: result.playlists,
+        },
+      });
+      result.playlists = playListResult;
+      return result;
+    },
   },
   Mutation: {
     createUser: async (_parent, args, ctx): Promise<User> => {

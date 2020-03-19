@@ -8,7 +8,8 @@ interface UserContextProps {
   loadUser(id: string): void;
   updateFollowing(id: string): void;
   updateFavourites(id: string): void;
-  updatePlaylists(id: string): void;
+  updatePlaylist(id: string, song_ids: string[]): void;
+  playlists: Playlist[];
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -70,13 +71,18 @@ export const UserContext = createContext<UserContextProps | undefined>(undefined
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
-  const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
-    fetchPolicy: 'cache-and-network',
-    onCompleted: (data) => {
-      console.log('getUserById data.userById', data.userById);
-      setUser(data.userById);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(
+    consts.queries.USER_BY_ID_WITH_PLAYLISTS_JOINED,
+    {
+      fetchPolicy: 'cache-and-network',
+      onCompleted: (data) => {
+        console.log('getUserById data.userByIdWithPlaylistsJoined', data.userByIdWithPlaylistsJoined);
+        setUser(data.userByIdWithPlaylistsJoined);
+        setPlaylists(data.userByIdWithPlaylistsJoined.playlists);
+      }
     }
-  });
+  );
   const [submitUpdateFollowing, { data: updateFollowingData, loading: updateFollowingLoading, error: updateFollowingError }] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
     {
@@ -98,7 +104,7 @@ export const UserProvider = ({ children }: any) => {
     }
   });
   const [submitUpdatePlaylists, { data: updatePlaylistsData, loading: updatePlaylistsLoading, error: updatePlaylistsError }] = useMutation(
-    consts.mutations.UPDATE_PLAYLISTS,
+    consts.mutations.ADD_PLAYLIST_SONGS,
     {
       onCompleted: (data) => {
         if (user?.id) {
@@ -128,8 +134,8 @@ export const UserProvider = ({ children }: any) => {
     submitUpdateFavourites({ variables: { id: user?.id, songId } });
   };
 
-  const updatePlaylists = (playlistId: string) => {
-    submitUpdatePlaylists({ variables: { id: user?.id, playlistId } });
+  const updatePlaylist = (playlistId: string, song_ids: string[]) => {
+    submitUpdatePlaylists({ variables: { id: playlistId, song_ids } });
   };
 
   return (
@@ -139,7 +145,8 @@ export const UserProvider = ({ children }: any) => {
         loadUser,
         updateFollowing,
         updateFavourites,
-        updatePlaylists
+        updatePlaylist,
+        playlists
       }}
     >
       {children}

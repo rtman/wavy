@@ -85,4 +85,16 @@ export default gql`
     image: String
     songs: [Song]
   }
+
+  type UserWithPlaylistsJoined {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    favourites: [ID]
+    following: [ID]
+    recentlyPlayed: [ID]
+    playlists: [Playlist]
+  }
 `;

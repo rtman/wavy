@@ -26,7 +26,7 @@ const user = (
     favourites: DataTypes.ARRAY(DataTypes.INTEGER),
     following: DataTypes.ARRAY(DataTypes.INTEGER),
     recentlyPlayed: DataTypes.ARRAY(DataTypes.INTEGER),
-    playlists: DataTypes.ARRAY(DataTypes.INTEGER),
+    playlists: DataTypes.ARRAY(DataTypes.UUID),
   }) as UserModelStatic;
 
   return User_;

@@ -89,6 +89,20 @@ export const SongRow = (props: SongRowProps) => {
   // console.log('location', location);
   // console.log('song', song);
 
+  const onClickAddToPlaylist = (playlistId: string) => () => {
+    userContext?.updatePlaylist(playlistId, [song.id]);
+  };
+
+  const renderPlaylists = () => {
+    const playlistList = userContext?.playlists.map((p: Playlist) => (
+      <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
+        {p.title}
+      </MenuItem>
+    ));
+
+    return playlistList;
+  };
+
   return (
     <>
       <ListItem alignItems="flex-start">
@@ -134,10 +148,11 @@ export const SongRow = (props: SongRowProps) => {
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
           <MenuItem onClick={onClickToggleFavourite}>{getFavouriteTitle()}</MenuItem>
         )}
-        <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
-          {/* TODO: hook up adding to playlist */}
-          <MenuItem>Playlist 1</MenuItem>
-        </NestedMenuItem>
+        {userContext?.playlists?.length ?? 0 > 0 ? (
+          <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+            {renderPlaylists()}
+          </NestedMenuItem>
+        ) : null}
       </Menu>
     </>
   );

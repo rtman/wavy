@@ -90,10 +90,39 @@ export const playlistResolvers: Resolvers = {
       const playlist = await ctx.models.Playlist.findByPk(id);
       return await playlist.update({title, description});
     },
-    updatePlaylistSongs: async (_parent, args, ctx): Promise<Playlist> => {
-      const {songs, id} = args;
-      const playlist = await ctx.models.Playlist.findByPk(id);
-      return await playlist.update({songs});
+    addPlaylistSongs: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, song_ids} = args;
+        const playlist = await ctx.models.Playlist.findByPk(id);
+        const newSongIds = [...playlist.songs, ...song_ids];
+        await playlist.update({songs: newSongIds});
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    removePlaylistSongs: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, song_ids} = args;
+        const playlist = await ctx.models.Playlist.findByPk(id);
+        let newSongIds = playlist.songs.filter(
+          item => !song_ids.includes(item),
+        );
+        await playlist.update({songs: newSongIds});
+
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
     deletePlaylist: async (
       _parent,

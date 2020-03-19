@@ -12,7 +12,7 @@ module.exports = {
         favourites: [5, 6, 7],
         recentlyPlayed: [1, 2, 3, 4],
         following: [1, 2, 3],
-        playlists: [1],
+        playlists: Sequelize.literal(`ARRAY['9cf2e2ed-932b-4e98-bb6a-39c1e324dc09']::"uuid"[]`),
         createdAt: new Date(),
         updatedAt: new Date()
       }

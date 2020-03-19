@@ -18,7 +18,8 @@ export default gql`
       songs: [ID]
     ): Playlist!
     updatePlaylistInfo(title: String!, description: String!, id: ID!): Playlist
-    updatePlaylistSongs(songs: [ID]!, id: ID!): Playlist
+    addPlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
+    removePlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
     deletePlaylist(id: ID!): Boolean!
   }
 
