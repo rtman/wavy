@@ -94,6 +94,7 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const renderPlaylists = () => {
+    console.log('userContext?.playlists', userContext?.playlists);
     const playlistList = userContext?.playlists.map((p: Playlist) => (
       <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
         {p.title}

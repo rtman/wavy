@@ -31,7 +31,7 @@ export default gql`
     title: String
     description: String
     image: String
-    user_ids: [String]
+    # user_ids: [String]
     songs: [ID]
   }
 `;

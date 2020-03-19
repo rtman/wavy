@@ -75,7 +75,7 @@ export const UserProvider = ({ children }: any) => {
   const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(
     consts.queries.USER_BY_ID_WITH_PLAYLISTS_JOINED,
     {
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'no-cache',
       onCompleted: (data) => {
         console.log('getUserById data.userByIdWithPlaylistsJoined', data.userByIdWithPlaylistsJoined);
         setUser(data.userByIdWithPlaylistsJoined);

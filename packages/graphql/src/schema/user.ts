@@ -37,6 +37,6 @@ export default gql`
     favourites: [ID]
     following: [ID]
     recentlyPlayed: [ID]
-    playlists: [ID]
+    # playlists: [ID]
   }
 `;
