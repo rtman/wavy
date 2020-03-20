@@ -5,29 +5,28 @@ export default gql`
     artists: [Artist]
     artistById(id: ID!): Artist
     artistsById(ids: [ID]!): [Artist]
-    artistWithSongsAlbumsJoined(id: ID!): ArtistWithSongsAlbumsJoinedFormatted
+    # artistWithSongsAlbumsJoined(id: ID!): ArtistWithSongsAlbumsJoinedFormatted
     searchArtists(query: String!): [Artist]
   }
 
   extend type Mutation {
     createNewArtist(
-      name: String!
-      album_ids: [ID]
-      song_ids: [ID]
-      image: String
-      description: String
+      artist_name: String!
+      artist_image: String
+      artist_description: String
     ): Artist!
-    deleteArtist(id: ID!): Boolean!
+    deleteArtist(artist_id: ID!): Boolean!
   }
 
   type Artist {
-    name: String
-    description: String
-    image: String
-    id: ID
-    createdAt: Date
-    updatedAt: Date
-    album_ids: [ID]
-    song_ids: [ID]
+    artist_id: ID
+    artist_name: String
+    artist_albums: [Album]
+    artist_songs: [Songs]
+    artist_song_ids: [ID]
+    artist_image: String
+    artist_description: String
+    artist_createdAt: Date
+    artist_updatedAt: Date
   }
 `;

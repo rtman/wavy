@@ -4,24 +4,28 @@ export default gql`
   extend type Query {
     albums: [Album]
     albumById(id: ID!): Album
-    albumWithSongsArtistsJoined(id: ID!): AlbumWithSongsArtistsJoinedFormatted
+    # albumWithSongsArtistsJoined(id: ID!): AlbumWithSongsArtistsJoinedFormatted
     searchAlbums(query: String!): [Album]
   }
 
   extend type Mutation {
-    createNewAlbum(title: String!, artist_id: ID!, image: String!): Album!
-    deleteAlbum(id: ID!): Boolean!
+    createNewAlbum(
+      album_title: String!
+      album_artist_id: ID!
+      album_title: String!
+    ): Album!
+    deleteAlbum(album_id: ID!): Boolean!
   }
 
   type Album {
-    title: String
-    artist_id: ID
-    song_ids: [ID]
-    songs: [Song]
-    description: String
-    image: String
-    id: ID
-    createdAt: Date
-    updatedAt: Date
+    album_id: ID
+    album_artist_id: ID
+    album_supporting_artist_ids: [ID]
+    album_title: String
+    album_song_ids: [ID]
+    album_image: String
+    album_description: String
+    album_createdAt: Date
+    album_updatedAt: Date
   }
 `;

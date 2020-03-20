@@ -3,37 +3,35 @@ import {gql} from 'apollo-server-express';
 export default gql`
   extend type Query {
     songs: [Song]
-    songById(id: ID!): Song
-    songsByIdWithAlbumArtistsJoined(ids: [ID]!): [Song]
+    songById(song_id: ID!): Song
+    # songsByIdWithAlbumArtistsJoined(song_ids: [ID]!): [Song]
     searchSongs(query: String!): [Song]
   }
 
   extend type Mutation {
     createNewSong(
-      title: String!
-      artist_id: ID!
-      album_id: ID!
-      genres: [String!]
-      url: String!
-      image: String!
-      date: Date!
+      song_title: String!
+      song_artist_id: ID!
+      song_album_id: ID!
+      song_genres: [ID!]
+      song_url: String!
+      song_image: String!
+      song_release_date: Date!
     ): Song!
-    updateSongTitle(id: ID!, title: String!): Song!
-    deleteSong(id: ID!): Boolean!
+    updateSongTitle(song_id: ID!, song_title: String!): Song!
+    deleteSong(song_id: ID!): Boolean!
   }
 
   type Song {
-    title: String
-    id: ID
-    url: String
-    image: String
-    artist_name: String
-    artist_id: ID
-    album_id: ID
-    album_title: String
-    genres: [String]
-    date: Date
-    createdAt: Date
-    updatedAt: Date
+    song_id: ID
+    song_title: String
+    song_url: String
+    song_artist_id: ID
+    song_supporting_artist_ids: [ID]
+    song_album_id: ID
+    song_genres: [ID]
+    song_release_date: Date
+    song_createdAt: Date
+    song_updatedAt: Date
   }
 `;

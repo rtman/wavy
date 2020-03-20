@@ -25,8 +25,8 @@ export class Playlist extends Model<Playlist> {
   playlist_description: string;
   @Column
   playlist_image: string;
-  @Column({type: DataTypes.ARRAY(DataTypes.INTEGER)})
-  playlist_songs: number[];
+  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
+  playlist_songs: string[];
   @CreatedAt
   @Column
   playlist_createdAt!: Date;

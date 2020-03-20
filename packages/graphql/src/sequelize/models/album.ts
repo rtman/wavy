@@ -20,10 +20,10 @@ export class Album extends Model<Album> {
   @ForeignKey(() => Artist)
   @Column
   album_artist_id: string;
-  @Column
-  album_title: string;
   @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
   album_supporting_artist_ids: string[];
+  @Column
+  album_title: string;
   @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
   album_song_ids: string[];
   @Column

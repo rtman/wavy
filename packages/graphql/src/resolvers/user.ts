@@ -1,6 +1,6 @@
 import {} from 'graphql';
 import {
-  // User,
+  User,
   MutationResolvers,
   Scalars,
   QueryResolvers,
@@ -9,7 +9,7 @@ import {
 import {sequelize} from '../sequelize';
 import {QueryTypes} from 'sequelize';
 import {TimeoutError} from 'bluebird';
-import {Playlist, User} from '../models';
+import {Models} from '../sequelize';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -18,12 +18,12 @@ interface Resolvers {
 
 export const userResolvers: Resolvers = {
   Query: {
-    users: async (_parent, _args, ctx): Promise<Query['users']> => {
-      return await User.findAll();
+    users: async (_parent, _args): Promise<Query['users']> => {
+      return await Models.User.findAll();
     },
     userById: async (_parent, args, ctx): Promise<Query['userById']> => {
       const {id} = args;
-      const result = await User.findByPk(id);
+      const result = await Models.User.findByPk(id);
       return result;
     },
     userByIdWithPlaylists: async (
@@ -32,11 +32,11 @@ export const userResolvers: Resolvers = {
       ctx,
     ): Promise<Query['userByIdWithPlaylists']> => {
       const {id} = args;
-      const result = await User.findByPk(id, {
+      const result = await Models.User.findByPk(id, {
         raw: false,
         include: [
           {
-            model: Playlist,
+            model: Models.Playlist,
             where: {user_id: id},
             as: 'user_playlists',
             required: false,
@@ -71,8 +71,8 @@ export const userResolvers: Resolvers = {
     // },
   },
   Mutation: {
-    createUser: async (_parent, args, ctx): Promise<User> => {
-      return await User.create(args);
+    createUser: async (_parent, args): Promise<User> => {
+      return await Models.User.create(args);
     },
     //TODO: Update all returns to return the full data, for usage in onCompleted
     // updateFollowing: async (
@@ -160,15 +160,10 @@ export const userResolvers: Resolvers = {
     //     return false;
     //   }
     // },
-    deleteUser: async (
-      _parent,
-      args,
-      {models},
-    ): Promise<Scalars['Boolean']> => {
-      const {id} = args;
-      return await models.user.destroy({
-        where: {id},
-      });
-    },
+    // deleteUser: async (_parent, args): Promise<Scalars['Boolean']> => {
+    //   const {id} = args;
+    //   return await Models.User.destroy({
+    //     where: {id},
+    //   });
   },
 };
