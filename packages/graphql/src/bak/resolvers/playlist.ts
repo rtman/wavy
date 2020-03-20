@@ -3,8 +3,8 @@ import {
   Playlist,
   MutationResolvers,
   Scalars,
-  // SongsWithAlbumArtistsJoined,
-  // Song,
+  SongsWithAlbumArtistsJoined,
+  Song,
   QueryResolvers,
   Query,
 } from '../types';
@@ -55,37 +55,37 @@ export const playlistResolvers: Resolvers = {
         {type: QueryTypes.SELECT},
       );
     },
-    // playlistByIdWithSongs: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Query['playlistByIdWithSongs']> => {
-    //   const {id} = args;
+    playlistByIdWithSongs: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Query['playlistByIdWithSongs']> => {
+      const {id} = args;
 
-    //   const playlistResult = await ctx.models.Playlist.findByPk(id);
-    //   const playlistData = playlistResult?.dataValues;
+      const playlistResult = await ctx.models.Playlist.findByPk(id);
+      const playlistData = playlistResult?.dataValues;
 
-    //   const songsResult = await sequelize.query<Song>(
-    //     `SELECT songs.*,
-    //     artists.name AS artist_name,
-    //     artists.id AS artist_id,
-    //     albums.id AS album_id,
-    //     albums.title AS album_title
-    //     FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id
-    //     WHERE songs.id = ANY ('{${playlistData.songs}}');`,
-    //     {type: QueryTypes.SELECT},
-    //   );
+      const songsResult = await sequelize.query<Song>(
+        `SELECT songs.*,
+        artists.name AS artist_name,
+        artists.id AS artist_id,
+        albums.id AS album_id,
+        albums.title AS album_title
+        FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id 
+        WHERE songs.id = ANY ('{${playlistData.songs}}');`,
+        {type: QueryTypes.SELECT},
+      );
 
-    //   const formattedResult = {
-    //     title: playlistData.title,
-    //     description: playlistData.description,
-    //     image: playlistData.image,
-    //     user_ids: playlistData.user_ids,
-    //     songs: songsResult,
-    //   };
+      const formattedResult = {
+        title: playlistData.title,
+        description: playlistData.description,
+        image: playlistData.image,
+        user_ids: playlistData.user_ids,
+        songs: songsResult,
+      };
 
-    //   return formattedResult;
-    // },
+      return formattedResult;
+    },
   },
   Mutation: {
     createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {

@@ -1,8 +1,8 @@
 // import { GraphQLDateTime } from 'graphql-iso-date';
 
-// import {albumResolvers} from './album';
-// import {artistResolvers} from './artist';
-// import {songResolvers} from './song';
+import {albumResolvers} from './album';
+import {artistResolvers} from './artist';
+import {songResolvers} from './song';
 import {playlistResolvers} from './playlist';
 import {userResolvers} from './user';
 
@@ -14,9 +14,9 @@ import {userResolvers} from './user';
 
 export default [
   //   customScalarResolver,
-  // artistResolvers,
-  // albumResolvers,
-  // songResolvers,
+  artistResolvers,
+  albumResolvers,
+  songResolvers,
   playlistResolvers,
   userResolvers,
 ];

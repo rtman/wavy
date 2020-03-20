@@ -4,7 +4,8 @@ export default gql`
   extend type Query {
     users: [User]
     userById(id: String!): User
-    userByIdWithPlaylistsJoined(id: String!): UserWithPlaylistsJoined
+    userByIdWithPlaylists(id: String!): UserWithPLaylists
+    # userByIdWithPlaylistsJoined(id: String!): UserWithPlaylistsJoined
     # userByIdWithFavourites(id: ID!): UserWithSongsAlbumsJoinedFormatted
     searchUsers(query: String!): [User]
   }
@@ -21,22 +22,34 @@ export default gql`
       recentlyPlayed: [ID]
       playlists: [ID]
     ): User!
-    updateFollowing(id: String!, artistId: ID!): Boolean!
-    updateFavourites(id: String!, songId: ID!): Boolean!
-    updatePlaylists(id: String!, playlistId: ID!): Boolean!
-    updateRecentlyPlayed(id: String!, songId: ID!): Boolean!
+    # updateFollowing(id: String!, artistId: ID!): Boolean!
+    # updateFavourites(id: String!, songId: ID!): Boolean!
+    # updatePlaylists(id: String!, playlistId: ID!): Boolean!
+    # updateRecentlyPlayed(id: String!, songId: ID!): Boolean!
     deleteUser(id: String!): Boolean!
   }
 
   type User {
-    id: String
-    firstName: String
-    lastName: String
-    email: String
-    password: String
-    favourites: [ID]
-    following: [ID]
-    recentlyPlayed: [ID]
+    user_id: String
+    user_firstName: String
+    user_lastName: String
+    user_email: String
+    user_password: String
+    user_favourites: [ID]
+    user_following: [ID]
+    user_recentlyPlayed: [ID]
     # playlists: [ID]
+  }
+
+  type UserWithPLaylists {
+    user_id: String
+    user_firstName: String
+    user_lastName: String
+    user_email: String
+    user_password: String
+    user_favourites: [ID]
+    user_following: [ID]
+    user_recentlyPlayed: [ID]
+    user_playlists: [Playlist]
   }
 `;

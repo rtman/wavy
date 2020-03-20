@@ -10,7 +10,7 @@ import {
   Query,
   // SubscriptionResolvers
 } from '../types';
-import {sequelize} from '../models';
+import {sequelize} from '../sequelize.config';
 import {QueryTypes} from 'sequelize';
 
 interface Resolvers {

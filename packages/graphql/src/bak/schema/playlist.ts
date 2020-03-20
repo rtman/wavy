@@ -5,7 +5,7 @@ export default gql`
     playlists: [Playlist]
     playlistsByIds(ids: [ID]!): [Playlist]
     playlistsByUserId(userId: String!): [Playlist]
-    # playlistByIdWithSongs(id: ID!): PlaylistWithSongsJoinedFormatted
+    playlistByIdWithSongs(id: ID!): PlaylistWithSongsJoinedFormatted
     searchPlaylists(query: String!): [Playlist]
   }
 
@@ -27,11 +27,11 @@ export default gql`
   }
 
   type Playlist {
-    playlist_id: ID
-    playlist_title: String
-    playlist_description: String
-    playlist_image: String
+    id: ID
+    title: String
+    description: String
+    image: String
     # user_ids: [String]
-    playlist_songs: [ID]
+    songs: [ID]
   }
 `;

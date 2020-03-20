@@ -2,7 +2,7 @@ import express from 'express';
 import schema from './schema';
 import resolvers from './resolvers';
 import {ApolloServer} from 'apollo-server-express';
-import models, {sequelize} from './models';
+import {sequelize} from './sequelize.config';
 import depthLimit from 'graphql-depth-limit';
 import {createServer} from 'http';
 import compression from 'compression';
@@ -34,7 +34,7 @@ const server = new ApolloServer({
     // console.log('Apollo server connection', connection);
     if (req) {
       return {
-        models,
+        models: sequelize.models,
       };
     }
 
