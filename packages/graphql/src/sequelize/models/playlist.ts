@@ -8,6 +8,7 @@ import {
   PrimaryKey,
   UpdatedAt,
   Table,
+  HasMany,
 } from 'sequelize-typescript';
 import {User} from './user';
 import {UserPlaylist} from './userPlaylist';
@@ -32,10 +33,15 @@ export class Playlist extends Model<Playlist> {
   @UpdatedAt
   @Column
   playlist_updatedAt!: Date;
-  @BelongsToMany(() => User, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-    through: () => UserPlaylist,
-  })
-  playlist_users: User[];
+  @BelongsToMany(
+    () => User,
+    () => UserPlaylist,
+  )
+  playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
+  // @BelongsToMany(() => User, {
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  //   through: () => UserPlaylist,
+  // })
+  // playlist_users: User[];
 }

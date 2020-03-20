@@ -8,7 +8,7 @@ import {
   QueryResolvers,
   Query,
 } from '../types';
-import {sequelize} from '../sequelize.config';
+import {sequelize} from '../sequelize';
 import {QueryTypes} from 'sequelize';
 import {TimeoutError} from 'bluebird';
 

@@ -36,10 +36,15 @@ export class User extends Model<User> {
   @UpdatedAt
   @Column
   user_updatedAt!: Date;
-  @BelongsToMany(() => Playlist, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-    through: () => UserPlaylist,
-  })
-  playlists: Array<Playlist & {UserPlaylist: UserPlaylist}>;
+  @BelongsToMany(
+    () => Playlist,
+    () => UserPlaylist,
+  )
+  user_playlists: Array<Playlist & {UserPlaylist: UserPlaylist}>;
+  // @BelongsToMany(() => Playlist, {
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  //   through: () => UserPlaylist,
+  // })
+  // playlists: Array<Playlist & {UserPlaylist: UserPlaylist}>;
 }
