@@ -8,7 +8,7 @@ import {
   QueryResolvers,
   Query,
 } from '../types';
-import {sequelize} from '../sequelize';
+import {Models, sequelize} from '../sequelize';
 import {QueryTypes} from 'sequelize';
 import {TimeoutError} from 'bluebird';
 
@@ -25,8 +25,8 @@ interface UpdatePlaylistInfoUpdate {
 
 export const playlistResolvers: Resolvers = {
   Query: {
-    playlists: async (_parent, _args, ctx): Promise<Query['playlists']> => {
-      return await ctx.models.Playlist.findAll();
+    playlists: async (_parent, _args): Promise<Query['playlists']> => {
+      return await Models.Playlist.findAll();
     },
     playlistsByIds: async (
       _parent,
@@ -88,67 +88,66 @@ export const playlistResolvers: Resolvers = {
     // },
   },
   Mutation: {
-    createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
-      return await ctx.models.Playlist.create(args);
+    createPlaylist: async (_parent, args): Promise<Playlist> => {
+      return await Models.Playlist.create(args);
     },
-    updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
+    updatePlaylistInfo: async (_parent, args): Promise<Playlist> => {
       //TODO: if arg is optional, probably just pass args object instead of processing
-      const {id, title, description, image} = args;
-      if (title || description || image) {
+      const {
+        playlist_id,
+        playlist_title,
+        playlist_description,
+        playlist_image,
+      } = args;
+      if (playlist_title || playlist_description || playlist_image) {
         let update: UpdatePlaylistInfoUpdate = {};
-        title ? (update.title = title) : null;
-        description ? (update.description = description) : null;
-        image ? (update.image = image) : null;
-        const playlist = await ctx.models.Playlist.findByPk(id);
+        playlist_title ? (update.title = playlist_title) : null;
+        playlist_description
+          ? (update.description = playlist_description)
+          : null;
+        playlist_image ? (update.image = playlist_image) : null;
+        const playlist = await Models.Playlist.findByPk(playlist_id);
 
         return await playlist.update(update);
       } else {
         return null;
       }
     },
-    addPlaylistSongs: async (
-      _parent,
-      args,
-      ctx,
-    ): Promise<Scalars['Boolean']> => {
+    addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
       try {
-        const {id, song_ids} = args;
-        const playlist = await ctx.models.Playlist.findByPk(id);
-        const newSongIds = [...playlist.songs, ...song_ids];
-        await playlist.update({songs: newSongIds});
+        const {playlist_id, song_ids} = args;
+        const playlist = await Models.Playlist.findByPk(playlist_id);
+        const newSongIds = [...playlist.playlist_songs, ...song_ids];
+        await playlist.update({playlist_songs: newSongIds});
 
         return true;
       } catch (error) {
         return false;
       }
     },
-    removePlaylistSongs: async (
-      _parent,
-      args,
-      ctx,
-    ): Promise<Scalars['Boolean']> => {
+    removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
       try {
-        const {id, song_ids} = args;
-        const playlist = await ctx.models.Playlist.findByPk(id);
-        let newSongIds = playlist.songs.filter(
+        const {playlist_id, song_ids} = args;
+        const playlist = await Models.Playlist.findByPk(playlist_id);
+        let newSongIds = playlist.playlist_songs.filter(
           item => !song_ids.includes(item),
         );
-        await playlist.update({songs: newSongIds});
+        await playlist.update({playlist_songs: newSongIds});
 
         return true;
       } catch (error) {
         return false;
       }
     },
-    deletePlaylist: async (
-      _parent,
-      args,
-      {models},
-    ): Promise<Scalars['Boolean']> => {
-      const {id} = args;
-      return await models.playlist.destroy({
-        where: {id},
+    deletePlaylist: async (_parent, args): Promise<Scalars['Boolean']> => {
+      const {playlist_id} = args;
+      const result = await Models.Playlist.destroy({
+        where: {playlist_id},
       });
+      if (result) {
+        return true;
+      }
+      return false;
     },
   },
 };

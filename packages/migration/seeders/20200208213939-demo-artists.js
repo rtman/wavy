@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkInsert('artists', [
       {
-        id: 1,
+        id: '30f65df5-98bb-48cd-83e5-867f707f941d',
         name: 'András',
         album_ids: [1],
         song_ids: [1],
@@ -14,7 +14,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 2,
+        id: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         name: 'Raf Reza',
         album_ids: [2, 3],
         song_ids: [2, 3, 4, 5, 6, 7, 8],
@@ -24,7 +24,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 3,
+        id: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         name: 'ESB',
         album_ids: [4, 5, 6],
         song_ids: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -34,7 +34,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 4,
+        id: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         name: 'Seb Wildblood',
         album_ids: [7, 8, 9, 10, 11],
         song_ids: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
@@ -44,7 +44,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 5,
+        id: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         name: 'Bad Bad Not Good',
         album_ids: [12],
         song_ids: [45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56],
@@ -54,7 +54,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        id: 6,
+        id: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         name: 'Benedek',
         album_ids: [13, 14],
         song_ids: [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68],

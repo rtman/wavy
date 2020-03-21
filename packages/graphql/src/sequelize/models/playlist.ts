@@ -9,6 +9,7 @@ import {
   UpdatedAt,
   Table,
   HasMany,
+  ForeignKey,
 } from 'sequelize-typescript';
 import {User} from './user';
 import {UserPlaylist} from './userPlaylist';
@@ -19,6 +20,9 @@ export class Playlist extends Model<Playlist> {
   @PrimaryKey
   @Column
   playlist_id: string;
+  @ForeignKey(() => User)
+  @Column
+  playlist_user_id: string;
   @Column
   playlist_title: string;
   @Column
@@ -36,6 +40,8 @@ export class Playlist extends Model<Playlist> {
   @BelongsToMany(
     () => User,
     () => UserPlaylist,
+    'user_id',
+    'playlist_id',
   )
   playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
   // @BelongsToMany(() => User, {

@@ -21,23 +21,25 @@ export const userResolvers: Resolvers = {
     users: async (_parent, _args): Promise<Query['users']> => {
       return await Models.User.findAll();
     },
-    userById: async (_parent, args, ctx): Promise<Query['userById']> => {
-      const {id} = args;
-      const result = await Models.User.findByPk(id);
+    userById: async (_parent, args): Promise<Query['userById']> => {
+      const {user_id} = args;
+      const result = await Models.User.findByPk(user_id);
       return result;
     },
     userByIdWithPlaylists: async (
       _parent,
       args,
-      ctx,
     ): Promise<Query['userByIdWithPlaylists']> => {
-      const {id} = args;
-      const result = await Models.User.findByPk(id, {
-        raw: false,
+      const {user_id} = args;
+      const result = await Models.User.findOne({
+        where: {
+          user_id: user_id,
+        },
+        // raw: false,
         include: [
           {
             model: Models.Playlist,
-            where: {user_id: id},
+            where: {user_id: user_id},
             as: 'user_playlists',
             required: false,
             attributes: ['playlist_id', 'playlist_title'],
@@ -52,7 +54,7 @@ export const userResolvers: Resolvers = {
 
       console.log('result', result);
 
-      return {};
+      return result;
     },
     // userByIdWithPlaylistsJoined: async (
     //   _parent,
