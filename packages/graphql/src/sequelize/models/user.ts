@@ -24,11 +24,20 @@ export class User extends Model<User> {
   user_email: string;
   @Column
   user_password: string;
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  user_favourites: string[];
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  user_following: string[];
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
+  // @Column({
+  //   type: DataTypes.ARRAY(DataTypes.UUID),
+  //   defaultValue: DataTypes.UUIDV4,
+  // })
+  // user_favourites: string[];
+  // @Column({
+  //   type: DataTypes.ARRAY(DataTypes.UUID),
+  //   defaultValue: DataTypes.UUIDV4,
+  // })
+  // user_following: string[];
+  // @Column({
+  //   type: DataTypes.ARRAY(DataTypes.UUID),
+  //   defaultValue: DataTypes.UUIDV4,
+  // })
   user_recentlyPlayed: string[];
   @CreatedAt
   @Column
@@ -39,8 +48,6 @@ export class User extends Model<User> {
   @BelongsToMany(
     () => Playlist,
     () => UserPlaylist,
-    'playlist_id',
-    'user_id',
   )
   user_playlists: Array<Playlist & {UserPlaylist: UserPlaylist}>;
   // @BelongsToMany(() => Playlist, {

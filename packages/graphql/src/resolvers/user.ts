@@ -31,17 +31,13 @@ export const userResolvers: Resolvers = {
       args,
     ): Promise<Query['userByIdWithPlaylists']> => {
       const {user_id} = args;
-      const result = await Models.User.findOne({
-        where: {
-          user_id: user_id,
-        },
-        // raw: false,
+      const result = await Models.User.findByPk(user_id, {
         include: [
           {
             model: Models.Playlist,
-            where: {user_id: user_id},
+            // where: {user_id: user_id},
             as: 'user_playlists',
-            required: false,
+            // required: false,
             attributes: ['playlist_id', 'playlist_title'],
           },
         ],
@@ -51,8 +47,6 @@ export const userResolvers: Resolvers = {
       //   `SELECT "User"."user_id", "User"."user_firstName", "User"."user_lastName", "User"."user_email", "User"."user_password", "User"."user_favourites", "User"."user_following", "User"."user_recentlyPlayed", "User"."user_createdAt", "User"."user_updatedAt", "user_playlists"."playlist_id" AS "user_playlists.playlist_id", "user_playlists"."playlist_title" AS "user_playlists.playlist_title", "user_playlists->UserPlaylist"."user_id" AS "user_playlists.UserPlaylist.user_id", "user_playlists->UserPlaylist"."playlist_id" AS "user_playlists.UserPlaylist.playlist_id", "user_playlists->UserPlaylist"."createdAt" AS "user_playlists.UserPlaylist.createdAt", "user_playlists->UserPlaylist"."updatedAt" AS "user_playlists.UserPlaylist.updatedAt" FROM "users" AS "User" LEFT OUTER JOIN ( "user_playlist" AS "user_playlists->UserPlaylist" INNER JOIN "playlists" AS "user_playlists" ON "user_playlists"."playlist_id" = "user_playlists->UserPlaylist"."playlist_id") ON "User"."user_id" = "user_playlists->UserPlaylist"."user_id"  WHERE "User"."user_id" = 'H2qAdR0c81c3xGFk5PmgDXKAjis1';`,
       //   {type: QueryTypes.SELECT},
       // );
-
-      console.log('result', result);
 
       return result;
     },

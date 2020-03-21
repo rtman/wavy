@@ -29,8 +29,11 @@ export class Playlist extends Model<Playlist> {
   playlist_description: string;
   @Column
   playlist_image: string;
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  playlist_songs: string[];
+  // @Column({
+  //   type: DataTypes.ARRAY(DataTypes.UUID),
+  //   defaultValue: DataTypes.UUIDV4,
+  // })
+  // playlist_songs: string[];
   @CreatedAt
   @Column
   playlist_createdAt!: Date;
@@ -40,8 +43,6 @@ export class Playlist extends Model<Playlist> {
   @BelongsToMany(
     () => User,
     () => UserPlaylist,
-    'user_id',
-    'playlist_id',
   )
   playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
   // @BelongsToMany(() => User, {

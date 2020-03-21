@@ -20,8 +20,8 @@ export default gql`
       playlist_description: String
       playlist_image: String
     ): Playlist
-    addPlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
-    removePlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
+    # addPlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
+    # removePlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
     deletePlaylist(playlist_id: ID!): Boolean!
   }
 
@@ -30,7 +30,7 @@ export default gql`
     playlist_title: String
     playlist_description: String
     playlist_image: String
-    playlist_songs: [ID]
+    # playlist_songs: [ID]
     playlist_createdAt: Date
     playlist_updatedAt: Date
   }

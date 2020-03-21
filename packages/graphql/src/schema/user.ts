@@ -16,11 +16,10 @@ export default gql`
       user_firstName: String!
       user_lastName: String!
       user_email: String!
-      user_password: String!
-      user_favourites: [ID]
-      user_following: [ID]
-      user_recentlyPlayed: [ID]
-    ): User!
+      user_password: String! # user_favourites: [ID]
+    ): # user_following: [ID]
+    # user_recentlyPlayed: [ID]
+    User!
     # updateFollowing(id: String!, artistId: ID!): Boolean!
     # updateFavourites(id: String!, songId: ID!): Boolean!
     # updatePlaylists(id: String!, playlistId: ID!): Boolean!
@@ -34,9 +33,9 @@ export default gql`
     user_lastName: String
     user_email: String
     user_password: String
-    user_favourites: [ID]
-    user_following: [ID]
-    user_recentlyPlayed: [ID]
+    # user_favourites: [ID]
+    # user_following: [ID]
+    # user_recentlyPlayed: [ID]
     # playlists: [ID]
   }
 
@@ -46,9 +45,9 @@ export default gql`
     user_lastName: String
     user_email: String
     user_password: String
-    user_favourites: [ID]
-    user_following: [ID]
-    user_recentlyPlayed: [ID]
+    # user_favourites: [ID]
+    # user_following: [ID]
+    # user_recentlyPlayed: [ID]
     user_playlists: [Playlist]
   }
 `;

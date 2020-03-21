@@ -113,32 +113,32 @@ export const playlistResolvers: Resolvers = {
         return null;
       }
     },
-    addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
-      try {
-        const {playlist_id, song_ids} = args;
-        const playlist = await Models.Playlist.findByPk(playlist_id);
-        const newSongIds = [...playlist.playlist_songs, ...song_ids];
-        await playlist.update({playlist_songs: newSongIds});
+    // addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+    //   try {
+    //     const {playlist_id, song_ids} = args;
+    //     const playlist = await Models.Playlist.findByPk(playlist_id);
+    //     const newSongIds = [...playlist.playlist_songs, ...song_ids];
+    //     await playlist.update({playlist_songs: newSongIds});
 
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
-    removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
-      try {
-        const {playlist_id, song_ids} = args;
-        const playlist = await Models.Playlist.findByPk(playlist_id);
-        let newSongIds = playlist.playlist_songs.filter(
-          item => !song_ids.includes(item),
-        );
-        await playlist.update({playlist_songs: newSongIds});
+    //     return true;
+    //   } catch (error) {
+    //     return false;
+    //   }
+    // },
+    // removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+    //   try {
+    //     const {playlist_id, song_ids} = args;
+    //     const playlist = await Models.Playlist.findByPk(playlist_id);
+    //     let newSongIds = playlist.playlist_songs.filter(
+    //       item => !song_ids.includes(item),
+    //     );
+    //     await playlist.update({playlist_songs: newSongIds});
 
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
+    //     return true;
+    //   } catch (error) {
+    //     return false;
+    //   }
+    // },
     deletePlaylist: async (_parent, args): Promise<Scalars['Boolean']> => {
       const {playlist_id} = args;
       const result = await Models.Playlist.destroy({
