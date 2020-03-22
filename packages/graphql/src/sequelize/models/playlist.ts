@@ -11,6 +11,8 @@ import {
   HasMany,
   ForeignKey,
 } from 'sequelize-typescript';
+import {Song} from './song';
+import {SongPlaylist} from './songPlaylist';
 import {User} from './user';
 import {UserPlaylist} from './userPlaylist';
 
@@ -20,35 +22,33 @@ export class Playlist extends Model<Playlist> {
   @PrimaryKey
   @Column
   playlist_id: string;
-  @ForeignKey(() => User)
-  @Column
-  playlist_user_id: string;
+
   @Column
   playlist_title: string;
+
   @Column
   playlist_description: string;
+
   @Column
   playlist_image: string;
-  // @Column({
-  //   type: DataTypes.ARRAY(DataTypes.UUID),
-  //   defaultValue: DataTypes.UUIDV4,
-  // })
-  // playlist_songs: string[];
-  @CreatedAt
-  @Column
-  playlist_createdAt!: Date;
-  @UpdatedAt
-  @Column
-  playlist_updatedAt!: Date;
+
+  @BelongsToMany(
+    () => Song,
+    () => SongPlaylist,
+  )
+  playlist_songs: Song[];
+
   @BelongsToMany(
     () => User,
     () => UserPlaylist,
   )
-  playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
-  // @BelongsToMany(() => User, {
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  //   through: () => UserPlaylist,
-  // })
-  // playlist_users: User[];
+  playlist_users: User[];
+
+  @CreatedAt
+  @Column
+  playlist_createdAt!: Date;
+
+  @UpdatedAt
+  @Column
+  playlist_updatedAt!: Date;
 }

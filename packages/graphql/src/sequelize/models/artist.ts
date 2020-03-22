@@ -1,4 +1,5 @@
 import {
+  BelongsToMany,
   CreatedAt,
   Column,
   HasMany,
@@ -8,9 +9,10 @@ import {
   UpdatedAt,
   Table,
 } from 'sequelize-typescript';
-import {DataTypes} from 'sequelize';
 import {Album} from './album';
 import {Song} from './song';
+import {User} from './user';
+import {UserArtistFollowing} from './userArtistFollowing';
 
 @Table({tableName: 'artists'})
 export class Artist extends Model<Artist> {
@@ -18,21 +20,32 @@ export class Artist extends Model<Artist> {
   @PrimaryKey
   @Column
   artist_id: string;
+
   @Column
   artist_name: string;
+
   @HasMany(() => Album)
   artist_albums: Album[];
+
   @HasMany(() => Song)
   artist_songs: Song[];
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  artist_song_ids: string;
+
   @Column
   artist_image: string;
+
   @Column
   artist_description: string;
+
+  @BelongsToMany(
+    () => User,
+    () => UserArtistFollowing,
+  )
+  artist_users_following: User[];
+
   @CreatedAt
   @Column
   artist_createdAt!: Date;
+
   @UpdatedAt
   @Column
   artist_updatedAt!: Date;

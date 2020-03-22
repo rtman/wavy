@@ -1,6 +1,8 @@
 import {
+  BelongsTo,
   CreatedAt,
   Column,
+  HasMany,
   IsUUID,
   Model,
   PrimaryKey,
@@ -10,6 +12,7 @@ import {
 } from 'sequelize-typescript';
 import {DataTypes} from 'sequelize';
 import {Artist} from './artist';
+import {Song} from './song';
 
 @Table({tableName: 'albums'})
 export class Album extends Model<Album> {
@@ -17,22 +20,30 @@ export class Album extends Model<Album> {
   @PrimaryKey
   @Column
   album_id: string;
+
   @ForeignKey(() => Artist)
   @Column
   album_artist_id: string;
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  album_supporting_artist_ids: string[];
+
+  @BelongsTo(() => Artist)
+  artist: Artist;
+
   @Column
   album_title: string;
-  @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  album_song_ids: string[];
+
+  @HasMany(() => Song)
+  album_songs: Song[];
+
   @Column
   album_image: string;
+
   @Column
   album_description: string;
+
   @CreatedAt
   @Column
   album_createdAt!: Date;
+
   @UpdatedAt
   @Column
   album_updatedAt!: Date;

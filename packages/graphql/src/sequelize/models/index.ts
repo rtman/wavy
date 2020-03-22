@@ -1,6 +1,11 @@
-// export {Album} from './album';
-// export {Artist} from './artist';
+export {Album} from './album';
+export {Artist} from './artist';
 export {Playlist} from './playlist';
 export {User} from './user';
 export {UserPlaylist} from './userPlaylist';
-// export {Song} from './song';
+export {UserRecentlyPlayed} from './userRecentlyPlayed';
+export {UserFollowing} from './userFollowing';
+export {UserFavourites} from './userFavourites';
+export {SongPlaylist} from './songPlaylist';
+export {SongSupportingArtist} from './songSupportingArtist';
+export {Song} from './song';
