@@ -18,24 +18,37 @@ interface Resolvers {
 
 export const userResolvers: Resolvers = {
   Query: {
-    // users: async (_parent, _args): Promise<Query['users']> => {
-    //   return await Models.User.findAll();
-    // },
-    // userById: async (_parent, args): Promise<Query['userById']> => {
-    //   const {user_id} = args;
-    //   const result = await Models.User.findByPk(user_id, {
-    //     include: [
-    //       {
-    //         model: Models.Playlist,
-    //         // where: {user_id: user_id},
-    //         as: 'user_playlists',
-    //         // required: false,
-    //         attributes: ['playlist_id', 'playlist_title'],
-    //       },
-    //     ],
-    //   });
-    //   return result;
-    // },
+    users: async (_parent, _args): Promise<Query['users']> => {
+      return await Models.User.findAll();
+    },
+    userById: async (_parent, args): Promise<Query['userById']> => {
+      const {user_id} = args;
+      const result = await Models.User.findByPk(user_id, {
+        include: [
+          {
+            model: Models.Playlist,
+            as: 'user_playlists',
+            attributes: ['playlist_id', 'playlist_title'],
+          },
+          // {
+          //   model: Models.Song,
+          //   as: 'user_favourites',
+          //   attributes: ['song_id', 'song_title'],
+          // },
+          {
+            model: Models.Artist,
+            as: 'user_following',
+            attributes: ['artist_id', 'artist_name'],
+          },
+          // {
+          //   model: Models.Song,
+          //   as: 'user_recently_played',
+          //   attributes: ['song_id', 'song_title'],
+          // },
+        ],
+      });
+      return result;
+    },
     // userByIdWithPlaylistsJoined: async (
     //   _parent,
     //   args,
@@ -53,10 +66,10 @@ export const userResolvers: Resolvers = {
     // },
   },
   Mutation: {
-    // createUser: async (_parent, args): Promise<User> => {
-    //   return await Models.User.create(args);
-    // },
-    //TODO: Update all returns to return the full data, for usage in onCompleted
+    createUser: async (_parent, args): Promise<User> => {
+      return await Models.User.create(args);
+    },
+    // TODO: Update all returns to return the full data, for usage in onCompleted
     // updateFollowing: async (
     //   _parent,
     //   args,
@@ -142,10 +155,11 @@ export const userResolvers: Resolvers = {
     //     return false;
     //   }
     // },
-    // deleteUser: async (_parent, args): Promise<Scalars['Boolean']> => {
-    //   const {id} = args;
-    //   return await Models.User.destroy({
-    //     where: {id},
-    //   });
+    deleteUser: async (_parent, args): Promise<Scalars['Int']> => {
+      const {id} = args;
+      return await Models.User.destroy({
+        where: {id},
+      });
+    },
   },
 };

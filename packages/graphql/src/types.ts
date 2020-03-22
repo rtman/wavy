@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -46,6 +47,50 @@ export enum CacheControlScope {
 export type Mutation = {
    __typename?: 'Mutation',
   _?: Maybe<Scalars['Boolean']>,
+  createUser: User,
+  updateFollowing: Scalars['Boolean'],
+  updateFavourites: Scalars['Boolean'],
+  updatePlaylists: Scalars['Boolean'],
+  updateRecentlyPlayed: Scalars['Boolean'],
+  deleteUser: Scalars['Int'],
+};
+
+
+export type MutationCreateUserArgs = {
+  user_id: Scalars['String'],
+  user_firstName: Scalars['String'],
+  user_lastName: Scalars['String'],
+  user_email: Scalars['String'],
+  user_password: Scalars['String']
+};
+
+
+export type MutationUpdateFollowingArgs = {
+  id: Scalars['String'],
+  artistId: Scalars['ID']
+};
+
+
+export type MutationUpdateFavouritesArgs = {
+  id: Scalars['String'],
+  songId: Scalars['ID']
+};
+
+
+export type MutationUpdatePlaylistsArgs = {
+  id: Scalars['String'],
+  playlistId: Scalars['ID']
+};
+
+
+export type MutationUpdateRecentlyPlayedArgs = {
+  id: Scalars['String'],
+  songId: Scalars['ID']
+};
+
+
+export type MutationDeleteUserArgs = {
+  id: Scalars['String']
 };
 
 export type Playlist = {
@@ -62,6 +107,19 @@ export type Playlist = {
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['Boolean']>,
+  users?: Maybe<Array<Maybe<User>>>,
+  userById?: Maybe<User>,
+  searchUsers?: Maybe<Array<Maybe<User>>>,
+};
+
+
+export type QueryUserByIdArgs = {
+  user_id: Scalars['String']
+};
+
+
+export type QuerySearchUsersArgs = {
+  query: Scalars['String']
 };
 
 export type Song = {
@@ -173,16 +231,17 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  Mutation: ResolverTypeWrapper<{}>,
-  Subscription: ResolverTypeWrapper<{}>,
+  User: ResolverTypeWrapper<User>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Artist: ResolverTypeWrapper<Artist>,
-  ID: ResolverTypeWrapper<Scalars['ID']>,
-  Album: ResolverTypeWrapper<Album>,
   Song: ResolverTypeWrapper<Song>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  Artist: ResolverTypeWrapper<Artist>,
+  Album: ResolverTypeWrapper<Album>,
   Date: ResolverTypeWrapper<Scalars['Date']>,
   Playlist: ResolverTypeWrapper<Playlist>,
-  User: ResolverTypeWrapper<User>,
+  Mutation: ResolverTypeWrapper<{}>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  Subscription: ResolverTypeWrapper<{}>,
   CacheControlScope: CacheControlScope,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
 };
@@ -191,16 +250,17 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {},
   Boolean: Scalars['Boolean'],
-  Mutation: {},
-  Subscription: {},
+  User: User,
   String: Scalars['String'],
-  Artist: Artist,
-  ID: Scalars['ID'],
-  Album: Album,
   Song: Song,
+  ID: Scalars['ID'],
+  Artist: Artist,
+  Album: Album,
   Date: Scalars['Date'],
   Playlist: Playlist,
-  User: User,
+  Mutation: {},
+  Int: Scalars['Int'],
+  Subscription: {},
   CacheControlScope: CacheControlScope,
   Upload: Scalars['Upload'],
 };
@@ -237,6 +297,12 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user_id' | 'user_firstName' | 'user_lastName' | 'user_email' | 'user_password'>>,
+  updateFollowing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFollowingArgs, 'id' | 'artistId'>>,
+  updateFavourites?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateFavouritesArgs, 'id' | 'songId'>>,
+  updatePlaylists?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdatePlaylistsArgs, 'id' | 'playlistId'>>,
+  updateRecentlyPlayed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateRecentlyPlayedArgs, 'id' | 'songId'>>,
+  deleteUser?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>,
 };
 
 export type PlaylistResolvers<ContextType = any, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = {
@@ -252,6 +318,9 @@ export type PlaylistResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
+  userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'user_id'>>,
+  searchUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QuerySearchUsersArgs, 'query'>>,
 };
 
 export type SongResolvers<ContextType = any, ParentType extends ResolversParentTypes['Song'] = ResolversParentTypes['Song']> = {

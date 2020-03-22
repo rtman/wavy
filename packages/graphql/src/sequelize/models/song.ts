@@ -52,7 +52,7 @@ export class Song extends Model<Song> {
 
   // TODO: Figureout gengres, most likely a many to many assocation
   @Column({type: DataType.ARRAY(DataType.STRING)})
-  song_genres: string;
+  song_genres: string[];
 
   @Column
   song_title: string;
