@@ -46,11 +46,16 @@ export class Song extends Model<Song> {
     () => Artist,
     () => SongArtistSupportingArtist,
   )
-  song_supporting_artist_ids: Artist[];
+  song_supporting_artist_ids: Array<
+    Artist & {SongArtistSupportingArtist: SongArtistSupportingArtist}
+  >;
 
   // TODO: Figureout gengres, most likely a many to many assocation
   @Column({type: DataType.ARRAY(DataType.STRING)})
   song_genres: string;
+
+  @Column
+  song_title: string;
 
   @Column
   song_url: string;
@@ -65,7 +70,7 @@ export class Song extends Model<Song> {
     () => Playlist,
     () => SongPlaylist,
   )
-  song_playlists: Playlist[];
+  song_playlists: Array<Playlist & {SongPlaylist: SongPlaylist}>;
 
   @CreatedAt
   @Column
@@ -79,11 +84,13 @@ export class Song extends Model<Song> {
     () => User,
     () => UserSongFavourites,
   )
-  song_users_favourited: User[];
+  song_users_favourited: Array<User & {UserSongFavourites: UserSongFavourites}>;
 
   @BelongsToMany(
     () => User,
     () => UserSongRecentlyPlayed,
   )
-  song_users_recently_played: User[];
+  song_users_recently_played: Array<
+    User & {UserSongRecentlyPlayed: UserSongRecentlyPlayed}
+  >;
 }

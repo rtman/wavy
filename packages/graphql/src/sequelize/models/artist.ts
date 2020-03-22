@@ -40,7 +40,9 @@ export class Artist extends Model<Artist> {
     () => User,
     () => UserArtistFollowing,
   )
-  artist_users_following: User[];
+  artist_users_following: Array<
+    User & {UserArtistFollowing: UserArtistFollowing}
+  >;
 
   @CreatedAt
   @Column

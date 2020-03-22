@@ -33,7 +33,7 @@ export const songResolvers: Resolvers = {
     //     `SELECT songs.*,
     //     artists.name AS artist_name,
     //     albums.title AS album_title
-    //     FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id 
+    //     FROM songs INNER JOIN albums ON albums.id = songs.album_id INNER JOIN artists ON artists.id = songs.artist_id
     //     WHERE songs.id = ANY ('{${ids}}');`,
     //     {type: QueryTypes.SELECT},
     //   );
@@ -51,7 +51,6 @@ export const songResolvers: Resolvers = {
     //   // WHERE songs ==> dsl.join('artist_id', 'idxArtists', 'id', '*${query}*');`,
     //   //   {type: QueryTypes.SELECT},
     //   // );
-
     //   // doesnt work yet, shows duplicates of everything
     //   // const result = await sequelize.query(
     //   //   `
@@ -73,8 +72,8 @@ export const songResolvers: Resolvers = {
     //     artists.name AS artist_name,
     //     albums.id AS album_id,
     //     albums.title AS album_title
-    //     FROM songs, artists, albums 
-    //     WHERE songs.artist_id = artists.id AND songs.album_id = albums.id 
+    //     FROM songs, artists, albums
+    //     WHERE songs.artist_id = artists.id AND songs.album_id = albums.id
     //     AND (artists ==> '*${query}*' OR songs ==> '*${query}*' OR albums ==> '*${query}*');
     //   `,
     //     {type: QueryTypes.SELECT},
@@ -89,23 +88,23 @@ export const songResolvers: Resolvers = {
     // },
   },
   Mutation: {
-  //   createNewSong: async (_parent, args): Promise<Song> => {
-  //     return await Models.Song.create(args);
-  //   },
-  //   updateSongTitle: async (_parent, args): Promise<Song> => {
-  //     const {title, id} = args;
-  //     const song = await Models.Song.findByPk(id);
-  //     return await song.update({title});
-  //   },
-  //   deleteSong: async (
-  //     _parent,
-  //     args,
-  //     {models},
-  //   ): Promise<Scalars['Boolean']> => {
-  //     const {id} = args;
-  //     return await models.Song.destroy({
-  //       where: {id},
-  //     });
-  //   },
-  // },
+    //   createNewSong: async (_parent, args): Promise<Song> => {
+    //     return await Models.Song.create(args);
+    //   },
+    //   updateSongTitle: async (_parent, args): Promise<Song> => {
+    //     const {title, id} = args;
+    //     const song = await Models.Song.findByPk(id);
+    //     return await song.update({title});
+    //   },
+    //   deleteSong: async (
+    //     _parent,
+    //     args,
+    //     {models},
+    //   ): Promise<Scalars['Boolean']> => {
+    //     const {id} = args;
+    //     return await models.Song.destroy({
+    //       where: {id},
+    //     });
+    //   },
+  },
 };

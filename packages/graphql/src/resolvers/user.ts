@@ -18,38 +18,24 @@ interface Resolvers {
 
 export const userResolvers: Resolvers = {
   Query: {
-    users: async (_parent, _args): Promise<Query['users']> => {
-      return await Models.User.findAll();
-    },
-    userById: async (_parent, args): Promise<Query['userById']> => {
-      const {user_id} = args;
-      const result = await Models.User.findByPk(user_id);
-      return result;
-    },
-    userByIdWithPlaylists: async (
-      _parent,
-      args,
-    ): Promise<Query['userByIdWithPlaylists']> => {
-      const {user_id} = args;
-      const result = await Models.User.findByPk(user_id, {
-        include: [
-          {
-            model: Models.Playlist,
-            // where: {user_id: user_id},
-            as: 'user_playlists',
-            // required: false,
-            attributes: ['playlist_id', 'playlist_title'],
-          },
-        ],
-      });
-
-      // const result = await sequelize.query(
-      //   `SELECT "User"."user_id", "User"."user_firstName", "User"."user_lastName", "User"."user_email", "User"."user_password", "User"."user_favourites", "User"."user_following", "User"."user_recentlyPlayed", "User"."user_createdAt", "User"."user_updatedAt", "user_playlists"."playlist_id" AS "user_playlists.playlist_id", "user_playlists"."playlist_title" AS "user_playlists.playlist_title", "user_playlists->UserPlaylist"."user_id" AS "user_playlists.UserPlaylist.user_id", "user_playlists->UserPlaylist"."playlist_id" AS "user_playlists.UserPlaylist.playlist_id", "user_playlists->UserPlaylist"."createdAt" AS "user_playlists.UserPlaylist.createdAt", "user_playlists->UserPlaylist"."updatedAt" AS "user_playlists.UserPlaylist.updatedAt" FROM "users" AS "User" LEFT OUTER JOIN ( "user_playlist" AS "user_playlists->UserPlaylist" INNER JOIN "playlists" AS "user_playlists" ON "user_playlists"."playlist_id" = "user_playlists->UserPlaylist"."playlist_id") ON "User"."user_id" = "user_playlists->UserPlaylist"."user_id"  WHERE "User"."user_id" = 'H2qAdR0c81c3xGFk5PmgDXKAjis1';`,
-      //   {type: QueryTypes.SELECT},
-      // );
-
-      return result;
-    },
+    // users: async (_parent, _args): Promise<Query['users']> => {
+    //   return await Models.User.findAll();
+    // },
+    // userById: async (_parent, args): Promise<Query['userById']> => {
+    //   const {user_id} = args;
+    //   const result = await Models.User.findByPk(user_id, {
+    //     include: [
+    //       {
+    //         model: Models.Playlist,
+    //         // where: {user_id: user_id},
+    //         as: 'user_playlists',
+    //         // required: false,
+    //         attributes: ['playlist_id', 'playlist_title'],
+    //       },
+    //     ],
+    //   });
+    //   return result;
+    // },
     // userByIdWithPlaylistsJoined: async (
     //   _parent,
     //   args,
@@ -67,9 +53,9 @@ export const userResolvers: Resolvers = {
     // },
   },
   Mutation: {
-    createUser: async (_parent, args): Promise<User> => {
-      return await Models.User.create(args);
-    },
+    // createUser: async (_parent, args): Promise<User> => {
+    //   return await Models.User.create(args);
+    // },
     //TODO: Update all returns to return the full data, for usage in onCompleted
     // updateFollowing: async (
     //   _parent,

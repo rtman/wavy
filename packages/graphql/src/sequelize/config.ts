@@ -1,12 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-import {
-  // Album,
-  // Artist,
-  Playlist,
-  User,
-  UserPlaylist,
-  // Song
-} from './models';
+import * as Models from './models';
 
 const sequelize = new Sequelize({
   // process.env.TEST_DATABASE || process.env.DATABASE_DB,
@@ -16,12 +9,17 @@ const sequelize = new Sequelize({
   host: 'postgresql',
   dialect: 'postgres',
   models: [
-    // Album,
-    // Artist,
-    Playlist,
-    User,
-    UserPlaylist,
-    // Song
+    Models.Album,
+    Models.Artist,
+    Models.Playlist,
+    Models.User,
+    Models.UserSongFavourites,
+    Models.UserArtistFollowing,
+    Models.UserSongRecentlyPlayed,
+    Models.UserPlaylist,
+    Models.Song,
+    Models.SongPlaylist,
+    Models.SongArtistSupportingArtist,
   ],
 });
 

@@ -11,9 +11,9 @@ import {Artist} from './artist';
 import {Playlist} from './playlist';
 import {Song} from './song';
 import {UserPlaylist} from './userPlaylist';
-import {UserFavourites} from './userFavourites';
-import {UserFollowing} from './userFollowing';
-import {UserRecentlyPlayed} from './userRecentlyPlayed';
+import {UserSongFavourites} from './userSongFavourites';
+import {UserArtistFollowing} from './userArtistFollowing';
+import {UserSongRecentlyPlayed} from './userSongRecentlyPlayed';
 
 @Table({tableName: 'users'})
 export class User extends Model<User> {
@@ -35,19 +35,19 @@ export class User extends Model<User> {
 
   @BelongsToMany(
     () => Song,
-    () => UserFavourites,
+    () => UserSongFavourites,
   )
   user_favourites: Song[];
 
   @BelongsToMany(
     () => Artist,
-    () => UserFollowing,
+    () => UserArtistFollowing,
   )
   user_following: Artist[];
 
   @BelongsToMany(
     () => Song,
-    () => UserRecentlyPlayed,
+    () => UserSongRecentlyPlayed,
   )
   user_recentlyPlayed: Song[];
 

@@ -1,10 +1,9 @@
 import {gql} from 'apollo-server-express';
 
-// import artistSchema from './artist';
-// import albumSchema from './album';
-// import joinedSchema from './joined';
+import artistSchema from './artist';
+import albumSchema from './album';
 import playlistSchema from './playlist';
-// import songSchema from './song';
+import songSchema from './song';
 import userSchema from './user';
 
 const linkSchema = gql`
@@ -21,11 +20,10 @@ const linkSchema = gql`
 `;
 
 export default [
-  // artistSchema,
-  // albumSchema,
-  // joinedSchema,
+  artistSchema,
+  albumSchema,
   linkSchema,
   playlistSchema,
-  // songSchema,
+  songSchema,
   userSchema,
 ];

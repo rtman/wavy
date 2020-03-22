@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "",
+    "build": "yarn tsc --build tsconfig.build.json",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
     "generate": "yarn graphql-codegen"

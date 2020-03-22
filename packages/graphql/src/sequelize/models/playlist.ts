@@ -36,13 +36,13 @@ export class Playlist extends Model<Playlist> {
     () => Song,
     () => SongPlaylist,
   )
-  playlist_songs: Song[];
+  playlist_songs: Array<Song & {SongPlaylist: SongPlaylist}>;
 
   @BelongsToMany(
     () => User,
     () => UserPlaylist,
   )
-  playlist_users: User[];
+  playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
 
   @CreatedAt
   @Column
