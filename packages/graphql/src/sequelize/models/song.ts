@@ -3,6 +3,7 @@ import {
   BelongsTo,
   CreatedAt,
   Column,
+  DataType,
   IsUUID,
   Model,
   PrimaryKey,
@@ -10,6 +11,7 @@ import {
   Table,
   ForeignKey,
 } from 'sequelize-typescript';
+
 import {Artist} from './artist';
 import {Album} from './album';
 import {Playlist} from './playlist';
@@ -46,9 +48,9 @@ export class Song extends Model<Song> {
   )
   song_supporting_artist_ids: Artist[];
 
-  // TODO: Add genres
-  // @Column({type: DataTypes.ARRAY(DataTypes.UUID)})
-  // song_genres: string;
+  // TODO: Figureout gengres, most likely a many to many assocation
+  @Column({type: DataType.ARRAY(DataType.STRING)})
+  song_genres: string;
 
   @Column
   song_url: string;
