@@ -4,7 +4,6 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const artistsQuery = await queryInterface.sequelize.query(`SELECT artist_id, artist_name from artists;`);
     const artistRows = artistsQuery[0];
-    console.log('artistRows', artistRows);
 
     await queryInterface.bulkInsert('songs', [
       {

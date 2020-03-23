@@ -46,7 +46,7 @@ export class Song extends Model<Song> {
     () => Artist,
     () => SongArtistSupportingArtist,
   )
-  song_supporting_artist_ids: Array<
+  song_supporting_artists: Array<
     Artist & {SongArtistSupportingArtist: SongArtistSupportingArtist}
   >;
 

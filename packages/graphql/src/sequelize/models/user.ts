@@ -49,7 +49,7 @@ export class User extends Model<User> {
     () => Song,
     () => UserSongRecentlyPlayed,
   )
-  user_recentlyPlayed: Song[];
+  user_recently_played: Song[];
 
   @CreatedAt
   @Column

@@ -4,8 +4,6 @@ export default gql`
   extend type Query {
     users: [User]
     userById(user_id: String!): User
-    # userByIdWithPlaylistsJoined(id: String!): UserWithPlaylistsJoined
-    # userByIdWithFavourites(id: ID!): UserWithSongsAlbumsJoinedFormatted
     searchUsers(query: String!): [User]
   }
 
@@ -15,7 +13,7 @@ export default gql`
       user_firstName: String!
       user_lastName: String!
       user_email: String!
-      user_password: String! # user_favourites: [ID] # user_following: [ID] # user_recentlyPlayed: [ID]
+      user_password: String!
     ): User!
     updateFollowing(id: String!, artistId: ID!): Boolean!
     updateFavourites(id: String!, songId: ID!): Boolean!
@@ -32,7 +30,7 @@ export default gql`
     user_password: String
     user_favourites: [Song]
     user_following: [Artist]
-    user_recentlyPlayed: [Song]
+    user_recently_played: [Song]
     user_playlists: [Playlist]
   }
 `;

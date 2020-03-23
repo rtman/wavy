@@ -13,9 +13,9 @@ import {userResolvers} from './user';
 // };
 
 export default [
-  // artistResolvers,
-  // albumResolvers,
-  // songResolvers,
+  artistResolvers,
+  albumResolvers,
+  songResolvers,
   playlistResolvers,
   userResolvers,
 ];

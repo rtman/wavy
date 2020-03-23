@@ -1,4 +1,3 @@
-import {} from 'graphql';
 import {
   User,
   MutationResolvers,
@@ -6,9 +5,7 @@ import {
   QueryResolvers,
   Query,
 } from '../types';
-import {sequelize} from '../sequelize';
-import {QueryTypes} from 'sequelize';
-import {TimeoutError} from 'bluebird';
+
 import {Models} from '../sequelize';
 
 interface Resolvers {
@@ -30,40 +27,25 @@ export const userResolvers: Resolvers = {
             as: 'user_playlists',
             attributes: ['playlist_id', 'playlist_title'],
           },
-          // {
-          //   model: Models.Song,
-          //   as: 'user_favourites',
-          //   attributes: ['song_id', 'song_title'],
-          // },
+          {
+            model: Models.Song,
+            as: 'user_favourites',
+            attributes: ['song_id', 'song_title'],
+          },
           {
             model: Models.Artist,
             as: 'user_following',
             attributes: ['artist_id', 'artist_name'],
           },
-          // {
-          //   model: Models.Song,
-          //   as: 'user_recently_played',
-          //   attributes: ['song_id', 'song_title'],
-          // },
+          {
+            model: Models.Song,
+            as: 'user_recently_played',
+            attributes: ['song_id', 'song_title'],
+          },
         ],
       });
       return result;
     },
-    // userByIdWithPlaylistsJoined: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Query['userByIdWithPlaylistsJoined']> => {
-    //   const {id} = args;
-    //   const result = await ctx.models.User.findByPk(id);
-    //   const playListResult = await ctx.models.Playlist.findAll({
-    //     where: {
-    //       id: result.playlists,
-    //     },
-    //   });
-    //   result.playlists = playListResult;
-    //   return result;
-    // },
   },
   Mutation: {
     createUser: async (_parent, args): Promise<User> => {

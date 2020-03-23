@@ -1,4 +1,3 @@
-import {DataTypes} from 'sequelize';
 import {
   BelongsToMany,
   Column,
@@ -8,8 +7,6 @@ import {
   PrimaryKey,
   UpdatedAt,
   Table,
-  HasMany,
-  ForeignKey,
 } from 'sequelize-typescript';
 import {Song} from './song';
 import {SongPlaylist} from './songPlaylist';

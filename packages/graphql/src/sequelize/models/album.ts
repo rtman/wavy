@@ -26,7 +26,7 @@ export class Album extends Model<Album> {
   album_artist_id: string;
 
   @BelongsTo(() => Artist)
-  artist: Artist;
+  album_artist: Artist;
 
   @Column
   album_title: string;
@@ -39,6 +39,8 @@ export class Album extends Model<Album> {
 
   @Column
   album_description: string;
+
+  // TODO: add supporting artists to album
 
   @CreatedAt
   @Column

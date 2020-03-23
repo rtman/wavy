@@ -1,26 +1,26 @@
 import {gql} from 'apollo-server-express';
 
 export default gql`
-  # extend type Query {
-  # albums: [Album]
-  # albumById(id: ID!): Album
-  # # albumWithSongsArtistsJoined(id: ID!): AlbumWithSongsArtistsJoinedFormatted
-  # searchAlbums(query: String!): [Album]
-  # }
+  extend type Query {
+    albums: [Album]
+    albumById(id: ID!): Album
+    # albumWithSongsArtistsJoined(id: ID!): AlbumWithSongsArtistsJoinedFormatted
+    searchAlbums(query: String!): [Album]
+  }
 
-  # extend type Mutation {
-  # createNewAlbum(
-  #   album_title: String!
-  #   album_artist_id: ID!
-  #   album_title: String!
-  # ): Album!
-  # deleteAlbum(album_id: ID!): Boolean!
-  # }
+  extend type Mutation {
+    createNewAlbum(
+      album_title: String!
+      album_artist_id: ID!
+      album_title: String!
+    ): Album!
+    deleteAlbum(album_id: ID!): Int!
+  }
 
   type Album {
     album_id: ID
     album_artist_id: ID
-    album_supporting_artists: [Artist]
+    album_artist: Artist
     album_title: String
     album_songs: [Song]
     album_image: String
