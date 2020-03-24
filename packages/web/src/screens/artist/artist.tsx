@@ -15,30 +15,15 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import { Button, Divider, List } from '@material-ui/core';
 import { UserContext, PlayerContext } from 'context';
 
-// const ARTIST_ALL = gql`
-//   query ArtistAll($id: ID!) {
-//     artistAll(id: $id) {
-//       name
-//       song_title
-//       song_url
-//       album_title
-//       album_image
-//       description
-//       image
-//     }
-//   }
-// `;
-
 export const Artist = () => {
   const { id } = useParams();
-  const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_ALL, { variables: { id: id?.toString() } });
+  const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_BY_ID, { variables: { id: id?.toString() } });
   const history = useHistory();
   const userContext = useContext(UserContext);
-  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistWithSongsAlbumsJoined?.image);
+  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistById?.image);
 
   console.log('error', error);
 
@@ -57,7 +42,7 @@ export const Artist = () => {
   };
 
   const renderAlbums = () => {
-    const albums = data?.artistWithSongsAlbumsJoined?.albums;
+    const albums = data?.artistById?.albums;
     if (albums) {
       const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
       return <List>{albumsList}</List>;
@@ -67,9 +52,9 @@ export const Artist = () => {
   };
 
   const renderSongs = () => {
-    if (data?.artistWithSongsAlbumsJoined?.albums.length > 0) {
-      const albums = data.artistWithSongsAlbumsJoined.albums;
-      const songsList = albums.map((album: Album) =>
+    if (data?.artistById?.albums.length > 0) {
+      const albums = data.artistById.albums;
+      const songsList = albums.songs.map((album: Album) =>
         album.songs.map((song: Song, index: number) => {
           return (
             <>
@@ -94,12 +79,12 @@ export const Artist = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={artistImageUrl} />
-            <ProfileHeaderTitle>{data?.artistWithSongsAlbumsJoined?.name}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{data?.artistById?.name}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <Button onClick={onClickToggleFollow}>{getFollowTitle()}</Button>
             <SubTitle>Description</SubTitle>
-            <div>{data?.artistWithSongsAlbumsJoined?.description}</div>
+            <div>{data?.artistById?.description}</div>
             <SubTitle>Songs</SubTitle>
             {renderSongs()}
             <SubTitle>Albums</SubTitle>

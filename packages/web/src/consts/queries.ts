@@ -12,9 +12,9 @@ export const ARTISTS_BY_ID = gql`
   }
 `;
 
-export const ARTIST_ALL = gql`
-  query ArtistWithSongsAlbumsJoined($id: ID!) {
-    artistWithSongsAlbumsJoined(id: $id) {
+export const ARTIST_BY_ID = gql`
+  query ArtistById($id: ID!) {
+    artistById(id: $id) {
       name
       image
       description
@@ -25,13 +25,15 @@ export const ARTIST_ALL = gql`
         songs {
           id
           title
-          artist_name
-          album_title
-          artist_id
-          album_id
-          image
           url
+          image
         }
+      }
+      songs {
+        id
+        title
+        image
+        url
       }
     }
   }
@@ -40,19 +42,29 @@ export const ARTIST_ALL = gql`
 export const ALBUM_BY_ID = gql`
   query AlbumById($id: ID!) {
     albumById(id: $id) {
-      album_title
-      album_image
-      album_description
-      album_songs {
-        songId
-        song_title
-        song_image
-        song_url
+      title
+      image
+      description
+      songs {
+        id
+        title
+        image
+        url
+        artistId
+        artist {
+          id
+          name
+        }
+        albumId
+        album {
+          id
+          title
+        }
       }
-      album_artist {
-        artist_name
-        artist_id
-        artist_image
+      artist {
+        name
+        id
+        image
       }
     }
   }

@@ -22,10 +22,10 @@ export const Player = () => {
   const history = useHistory();
   // console.log('playerContext currentSong', currentSong);
   const songTitle = currentSong?.title ?? '';
-  const songArtist = currentSong?.artist_name ?? '';
+  const songArtist = currentSong?.artist?.name ?? '';
 
   const onClickArtist = () => {
-    history.push(`/artist/${currentSong?.artist_id}`);
+    history.push(`/artist/${currentSong?.artist.id}`);
   };
 
   const onClickSong = () => {

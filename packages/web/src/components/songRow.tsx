@@ -66,12 +66,12 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const onClickGoToArtist = () => {
-    history.push(`/artist/${song.artist_id}`);
+    history.push(`/artist/${song.artist.id}`);
     handleMenuClose();
   };
 
   const onClickGoToAlbum = () => {
-    history.push(`/album/${song.album_id}`);
+    history.push(`/album/${song.album.id}`);
     handleMenuClose();
   };
 
@@ -117,7 +117,7 @@ export const SongRow = (props: SongRowProps) => {
         {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
         <StyledListItemText
           primary={song.title}
-          secondary={secondaryStyle ? null : song.artist_name}
+          secondary={secondaryStyle ? null : song.artist.name}
           onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
         />
         {/* </StyledButton> */}

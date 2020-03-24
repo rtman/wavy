@@ -19,22 +19,18 @@ export const userResolvers: Resolvers = {
           {
             model: Models.Playlist,
             as: 'userPlaylists',
-            attributes: ['id', 'title'],
           },
           {
             model: Models.Song,
             as: 'userFavourites',
-            attributes: ['id', 'title'],
           },
           {
             model: Models.Artist,
             as: 'userFollowing',
-            attributes: ['id', 'title'],
           },
           {
             model: Models.Song,
             as: 'user_recently_played',
-            attributes: ['id', 'title'],
           },
         ],
       });

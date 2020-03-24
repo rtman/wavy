@@ -24,11 +24,11 @@ export const Album = () => {
   const playerContext = useContext(PlayerContext);
   const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
   const history = useHistory();
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumWithSongsArtistsJoined?.image);
+  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumById?.image);
 
   const renderSongs = () => {
-    if (data?.albumById?.album_songs && data.albumById.album_songs.length > 0) {
-      const songs = data?.albumById?.album_songs;
+    if (data?.albumById?.songs && data.albumById.songs.length > 0) {
+      const songs = data?.albumById?.songs;
       const songsList = songs.map((song: Song, index: number) => {
         return (
           <>
@@ -52,14 +52,14 @@ export const Album = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={albumImageUrl} />
-            <ProfileHeaderTitle>{data?.albumById?.album_title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
-            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumById?.album_songs)}>Play Now</Button>
+            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumById?.songs)}>Play Now</Button>
             <SubTitle>Description</SubTitle>
-            <div>{data?.albumById?.album_description}</div>
+            <div>{data?.albumById?.description}</div>
             <SubTitle>Songs</SubTitle>
-            {data?.albumById?.album_songs ? renderSongs() : null}
+            {data?.albumById?.songs ? renderSongs() : null}
           </ProfileContainer>
         </ContentContainer>
       )}

@@ -10,7 +10,6 @@ import {
   Table,
   ForeignKey,
 } from 'sequelize-typescript';
-import {DataTypes} from 'sequelize';
 import {Artist} from './artist';
 import {Song} from './song';
 

@@ -23,17 +23,30 @@ export const artistResolvers: Resolvers = {
           {
             model: Models.Album,
             as: 'albums',
-            attributes: ['id', 'title', 'image'],
+            include: [
+              {
+                model: Models.Song,
+                as: 'songs',
+                include: [
+                  {
+                    model: Models.Artist,
+                    as: 'artist',
+                  },
+                  {
+                    model: Models.Album,
+                    as: 'albums',
+                  },
+                ],
+              },
+            ],
           },
           {
             model: Models.Song,
             as: 'songs',
-            attributes: ['id', 'title', 'url', 'image'],
           },
           {
             model: Models.User,
             as: 'usersFollowing',
-            attributes: ['id'],
           },
         ],
       });

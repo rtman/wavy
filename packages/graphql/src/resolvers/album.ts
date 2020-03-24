@@ -29,12 +29,14 @@ export const albumResolvers: Resolvers = {
           {
             model: Models.Song,
             as: 'songs',
-            attributes: ['id', 'title', 'url', 'image'],
+            incldue: [
+              {model: Models.Artist, as: 'artist'},
+              {model: Models.Artist, as: 'album'},
+            ],
           },
           {
             model: Models.Artist,
             as: 'artist',
-            attributes: ['id', 'name', 'image'],
           },
         ],
       });

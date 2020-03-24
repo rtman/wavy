@@ -19,11 +19,11 @@ type PasswordRequirementStatus = 'done' | 'blank' | 'fail';
 
 interface Song {
   id: string;
-  artist_name: string;
-  artist_id: string;
-  song_title: string;
-  album_title: string;
-  album_id: string;
+  artist: Artist;
+  artistId: string;
+  title: string;
+  album: Album;
+  albumId: string;
   genres: string[];
   image: string;
   url: string;
