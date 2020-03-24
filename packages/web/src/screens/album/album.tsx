@@ -19,34 +19,21 @@ import { gql } from 'apollo-boost';
 import { Button, Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
-// const ARTIST_ALL = gql`
-//   query ArtistAll($id: ID!) {
-//     artistAll(id: $id) {
-//       name
-//       song_title
-//       song_url
-//       album_title
-//       album_image
-//       description
-//       image
-//     }
-//   }
-// `;
-
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_ALL, { variables: { id: id?.toString() } });
+  const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
   const history = useHistory();
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumWithSongsArtistsJoined?.image);
 
   const renderSongs = () => {
-    if (data?.albumWithSongsArtistsJoined?.songs.length > 0) {
-      const songsList = data.albumWithSongsArtistsJoined.songs.map((song: Song, index: number) => {
+    if (data?.albumById?.album_songs && data.albumById.album_songs.length > 0) {
+      const songs = data?.albumById?.album_songs;
+      const songsList = songs.map((song: Song, index: number) => {
         return (
           <>
             <SongRow key={song.id} song={song} secondaryStyle={true} />
-            {index < data.albumWithSongsArtistsJoined.songs.length - 1 ? <Divider /> : null}
+            {index < songs.length - 1 ? <Divider /> : null}
           </>
         );
       });
@@ -56,6 +43,7 @@ export const Album = () => {
     }
   };
 
+  console.log('album data', data);
   return (
     <Screen>
       {loading ? (
@@ -64,14 +52,14 @@ export const Album = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={albumImageUrl} />
-            <ProfileHeaderTitle>{data?.albumWithSongsArtistsJoined?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{data?.albumById?.album_title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
-            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumWithSongsArtistsJoined?.songs)}>Play Now</Button>
+            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumById?.album_songs)}>Play Now</Button>
             <SubTitle>Description</SubTitle>
-            <div>{data?.albumWithSongsArtistsJoined?.description}</div>
+            <div>{data?.albumById?.album_description}</div>
             <SubTitle>Songs</SubTitle>
-            {renderSongs()}
+            {data?.albumById?.album_songs ? renderSongs() : null}
           </ProfileContainer>
         </ContentContainer>
       )}

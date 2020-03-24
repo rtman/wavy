@@ -21,16 +21,15 @@ interface Song {
   id: string;
   artist_name: string;
   artist_id: string;
-  title: string;
+  song_title: string;
   album_title: string;
   album_id: string;
   genres: string[];
   image: string;
-  duration: number;
   url: string;
   createdAt?: Date;
   updatedAt?: Date;
-  date: Date;
+  release_date: Date;
   audio?: HTMLAudioElement;
 }
 

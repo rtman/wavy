@@ -37,20 +37,22 @@ export const ARTIST_ALL = gql`
   }
 `;
 
-export const ALBUM_ALL = gql`
-  query AlbumWithSongsArtistsJoined($id: ID!) {
-    albumWithSongsArtistsJoined(id: $id) {
-      title
-      image
-      description
-      songs {
-        id
-        album_id
-        artist_id
+export const ALBUM_BY_ID = gql`
+  query AlbumById($id: ID!) {
+    albumById(id: $id) {
+      album_title
+      album_image
+      album_description
+      album_songs {
+        song_id
+        song_title
+        song_image
+        song_url
+      }
+      album_artist {
         artist_name
-        title
-        image
-        url
+        artist_id
+        artist_image
       }
     }
   }
