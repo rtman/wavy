@@ -18,34 +18,34 @@ export class Playlist extends Model<Playlist> {
   @IsUUID(4)
   @PrimaryKey
   @Column
-  playlist_id: string;
+  id: string;
 
   @Column
-  playlist_title: string;
+  title: string;
 
   @Column
-  playlist_description: string;
+  description: string;
 
   @Column
-  playlist_image: string;
+  image: string;
 
   @BelongsToMany(
     () => Song,
     () => SongPlaylist,
   )
-  playlist_songs: Array<Song & {SongPlaylist: SongPlaylist}>;
+  songs: Array<Song & {SongPlaylist: SongPlaylist}>;
 
   @BelongsToMany(
     () => User,
     () => UserPlaylist,
   )
-  playlist_users: Array<User & {UserPlaylist: UserPlaylist}>;
+  users: Array<User & {UserPlaylist: UserPlaylist}>;
 
   @CreatedAt
   @Column
-  playlist_createdAt!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
   @Column
-  playlist_updatedAt!: Date;
+  updatedAt!: Date;
 }

@@ -22,18 +22,18 @@ export const artistResolvers: Resolvers = {
         include: [
           {
             model: Models.Album,
-            as: 'artist_albums',
-            attributes: ['album_id', 'album_title', 'album_image'],
+            as: 'albums',
+            attributes: ['id', 'title', 'image'],
           },
           {
             model: Models.Song,
-            as: 'artist_songs',
-            attributes: ['song_id', 'song_title', 'song_url', 'song_image'],
+            as: 'songs',
+            attributes: ['id', 'title', 'url', 'image'],
           },
           {
             model: Models.User,
-            as: 'artist_users_following',
-            attributes: ['user_id'],
+            as: 'usersFollowing',
+            attributes: ['id'],
           },
         ],
       });
@@ -60,9 +60,9 @@ export const artistResolvers: Resolvers = {
       return await Models.Artist.create(args);
     },
     deleteArtist: async (_parent, args, {models}): Promise<Scalars['Int']> => {
-      const {artist_id} = args;
+      const {id} = args;
       return await models.artist.destroy({
-        where: {artist_id},
+        where: {id},
       });
     },
   },

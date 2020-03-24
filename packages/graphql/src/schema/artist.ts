@@ -9,24 +9,19 @@ export default gql`
   }
 
   extend type Mutation {
-    createNewArtist(
-      artist_name: String!
-      artist_image: String
-      artist_description: String
-    ): Artist!
-    deleteArtist(artist_id: ID!): Int!
+    createNewArtist(name: String!, image: String, description: String): Artist!
+    deleteArtist(id: ID!): Int!
   }
 
   type Artist {
-    artist_id: ID
-    artist_name: String
-    artist_albums: [Album]
-    artist_songs: [Song]
-    artist_song_ids: [ID]
-    artist_image: String
-    artist_description: String
-    artist_users_following: [User]
-    artist_createdAt: Date
-    artist_updatedAt: Date
+    id: ID
+    name: String
+    albums: [Album]
+    songs: [Song]
+    image: String
+    description: String
+    usersFollowing: [User]
+    createdAt: Date
+    updatedAt: Date
   }
 `;

@@ -8,18 +8,18 @@ import {
 import {User} from './user';
 import {Song} from './song';
 
-@Table({tableName: 'user_song_recently_played'})
+@Table({tableName: 'userSongRecentlyPlayed'})
 export class UserSongRecentlyPlayed extends Model<UserSongRecentlyPlayed> {
   @ForeignKey(() => User)
   @PrimaryKey
   @Column
-  user_id: string;
+  userId: string;
 
   @ForeignKey(() => Song)
   @PrimaryKey
   @Column
-  song_id: string;
+  songId: string;
 
   @Column
-  time_stamp: Date;
+  timeStamp: Date;
 }

@@ -26,71 +26,71 @@ export class Song extends Model<Song> {
   @IsUUID(4)
   @PrimaryKey
   @Column
-  song_id: string;
+  id: string;
 
   @ForeignKey(() => Artist)
   @Column
-  song_artist_id: string;
+  artistId: string;
 
   @BelongsTo(() => Artist)
-  song_artist: Artist;
+  artist: Artist;
 
   @ForeignKey(() => Album)
   @Column
-  song_album_id: string;
+  albumId: string;
 
   @BelongsTo(() => Album)
-  song_album: Album;
+  album: Album;
 
   @BelongsToMany(
     () => Artist,
     () => SongArtistSupportingArtist,
   )
-  song_supporting_artists: Array<
+  supportingArtists: Array<
     Artist & {SongArtistSupportingArtist: SongArtistSupportingArtist}
   >;
 
   // TODO: Figureout gengres, most likely a many to many assocation
   @Column({type: DataType.ARRAY(DataType.STRING)})
-  song_genres: string[];
+  genres: string[];
 
   @Column
-  song_title: string;
+  title: string;
 
   @Column
-  song_url: string;
+  url: string;
 
   @Column
-  song_image: string;
+  image: string;
 
   @Column
-  song_release_date: Date;
+  releaseDate: Date;
 
   @BelongsToMany(
     () => Playlist,
     () => SongPlaylist,
   )
-  song_playlists: Array<Playlist & {SongPlaylist: SongPlaylist}>;
+  playlists: Array<Playlist & {SongPlaylist: SongPlaylist}>;
 
   @CreatedAt
   @Column
-  song_createdAt!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
   @Column
-  song_updatedAt!: Date;
+  updatedAt!: Date;
 
   @BelongsToMany(
     () => User,
     () => UserSongFavourites,
   )
-  song_users_favourited: Array<User & {UserSongFavourites: UserSongFavourites}>;
+  usersFavourited: Array<User & {UserSongFavourites: UserSongFavourites}>;
 
   @BelongsToMany(
     () => User,
     () => UserSongRecentlyPlayed,
   )
-  song_users_recently_played: Array<
+  usersRecentlyPlayed: Array<
     User & {UserSongRecentlyPlayed: UserSongRecentlyPlayed}
   >;
 }

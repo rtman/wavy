@@ -8,15 +8,15 @@ import {
 import {User} from './user';
 import {Playlist} from './playlist';
 
-@Table({tableName: 'user_playlist'})
+@Table({tableName: 'userPlaylist'})
 export class UserPlaylist extends Model<UserPlaylist> {
   @ForeignKey(() => User)
   @PrimaryKey
   @Column
-  user_id: string;
+  userId: string;
 
   @ForeignKey(() => Playlist)
   @PrimaryKey
   @Column
-  playlist_id: string;
+  playlistId: string;
 }

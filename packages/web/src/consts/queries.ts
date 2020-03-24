@@ -44,7 +44,7 @@ export const ALBUM_BY_ID = gql`
       album_image
       album_description
       album_songs {
-        song_id
+        songId
         song_title
         song_image
         song_url

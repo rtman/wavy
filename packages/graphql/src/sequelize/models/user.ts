@@ -19,49 +19,49 @@ import {UserSongRecentlyPlayed} from './userSongRecentlyPlayed';
 export class User extends Model<User> {
   @PrimaryKey
   @Column
-  user_id: string;
+  id: string;
 
   @Column
-  user_firstName: string;
+  firstName: string;
 
   @Column
-  user_lastName: string;
+  lastName: string;
 
   @Column
-  user_email: string;
+  email: string;
 
   @Column
-  user_password: string;
+  password: string;
 
   @BelongsToMany(
     () => Song,
     () => UserSongFavourites,
   )
-  user_favourites: Song[];
+  favourites: Song[];
 
   @BelongsToMany(
     () => Artist,
     () => UserArtistFollowing,
   )
-  user_following: Artist[];
+  following: Artist[];
 
   @BelongsToMany(
     () => Song,
     () => UserSongRecentlyPlayed,
   )
-  user_recently_played: Song[];
+  recentlyPlayed: Song[];
 
   @CreatedAt
   @Column
-  user_createdAt!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
   @Column
-  user_updatedAt!: Date;
+  updatedAt!: Date;
 
   @BelongsToMany(
     () => Playlist,
     () => UserPlaylist,
   )
-  user_playlists: Playlist[];
+  playlists: Playlist[];
 }

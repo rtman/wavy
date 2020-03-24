@@ -28,18 +28,18 @@ export const playlistResolvers: Resolvers = {
       const {ids} = args;
       const result = await Models.Playlist.findAll({
         where: {
-          playlist_id: ids,
+          id: ids,
         },
         include: [
           {
             model: Models.Song,
-            as: 'playlist_songs',
-            attributes: ['song_id', 'song_title', 'song_image', 'song_url'],
+            as: 'songs',
+            attributes: ['id', 'title', 'image', 'url'],
           },
           {
             model: Models.User,
-            as: 'playlist_users',
-            attributes: ['user_id', 'user_firstName', 'user_lastName'],
+            as: 'users',
+            attributes: ['id', 'firstName', 'lastName'],
           },
         ],
       });
@@ -52,20 +52,13 @@ export const playlistResolvers: Resolvers = {
     },
     updatePlaylistInfo: async (_parent, args): Promise<Playlist> => {
       //TODO: if arg is optional, probably just pass args object instead of processing
-      const {
-        playlist_id,
-        playlist_title,
-        playlist_description,
-        playlist_image,
-      } = args;
-      if (playlist_title || playlist_description || playlist_image) {
+      const {id, title, description, image} = args;
+      if (title || description || image) {
         let update: UpdatePlaylistInfoUpdate = {};
-        playlist_title ? (update.title = playlist_title) : null;
-        playlist_description
-          ? (update.description = playlist_description)
-          : null;
-        playlist_image ? (update.image = playlist_image) : null;
-        const playlist = await Models.Playlist.findByPk(playlist_id);
+        title ? (update.title = title) : null;
+        description ? (update.description = description) : null;
+        image ? (update.image = image) : null;
+        const playlist = await Models.Playlist.findByPk(id);
         return await playlist.update(update);
       } else {
         return null;
@@ -73,10 +66,10 @@ export const playlistResolvers: Resolvers = {
     },
     // addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
     //   try {
-    //     const {playlist_id, song_ids} = args;
-    //     const playlist = await Models.Playlist.findByPk(playlist_id);
-    //     const newSongIds = [...playlist.playlist_songs, ...song_ids];
-    //     await playlist.update({playlist_songs: newSongIds});
+    //     const {id, song_ids} = args;
+    //     const playlist = await Models.Playlist.findByPk(id);
+    //     const newSongIds = [...playlist.songs, ...song_ids];
+    //     await playlist.update({songs: newSongIds});
     //     return true;
     //   } catch (error) {
     //     return false;
@@ -84,21 +77,21 @@ export const playlistResolvers: Resolvers = {
     // },
     // removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
     //   try {
-    //     const {playlist_id, song_ids} = args;
-    //     const playlist = await Models.Playlist.findByPk(playlist_id);
-    //     let newSongIds = playlist.playlist_songs.filter(
+    //     const {id, song_ids} = args;
+    //     const playlist = await Models.Playlist.findByPk(id);
+    //     let newSongIds = playlist.songs.filter(
     //       item => !song_ids.includes(item),
     //     );
-    //     await playlist.update({playlist_songs: newSongIds});
+    //     await playlist.update({songs: newSongIds});
     //     return true;
     //   } catch (error) {
     //     return false;
     //   }
     // },
     deletePlaylist: async (_parent, args): Promise<Scalars['Int']> => {
-      const {playlist_id} = args;
+      const {id} = args;
       return await Models.Playlist.destroy({
-        where: {playlist_id},
+        where: {id},
       });
     },
   },

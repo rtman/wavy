@@ -1,10 +1,4 @@
-import {
-  User,
-  MutationResolvers,
-  Scalars,
-  QueryResolvers,
-  Query,
-} from '../types';
+import {MutationResolvers, Scalars, QueryResolvers, Query} from '../types';
 
 import {Models} from '../sequelize';
 
@@ -15,32 +9,32 @@ interface Resolvers {
 
 export const userResolvers: Resolvers = {
   Query: {
-    users: async (_parent, _args): Promise<Query['users']> => {
-      return await Models.User.findAll();
-    },
+    // users: async (_parent, _args): Promise<Models.User> => {
+    //   return await Models.User.findAll();
+    // },
     userById: async (_parent, args): Promise<Query['userById']> => {
-      const {user_id} = args;
-      const result = await Models.User.findByPk(user_id, {
+      const {id} = args;
+      const result = await Models.User.findByPk(id, {
         include: [
           {
             model: Models.Playlist,
-            as: 'user_playlists',
-            attributes: ['playlist_id', 'playlist_title'],
+            as: 'userPlaylists',
+            attributes: ['id', 'title'],
           },
           {
             model: Models.Song,
-            as: 'user_favourites',
-            attributes: ['song_id', 'song_title'],
+            as: 'userFavourites',
+            attributes: ['id', 'title'],
           },
           {
             model: Models.Artist,
-            as: 'user_following',
-            attributes: ['artist_id', 'artist_name'],
+            as: 'userFollowing',
+            attributes: ['id', 'title'],
           },
           {
             model: Models.Song,
             as: 'user_recently_played',
-            attributes: ['song_id', 'song_title'],
+            attributes: ['id', 'title'],
           },
         ],
       });
@@ -48,7 +42,7 @@ export const userResolvers: Resolvers = {
     },
   },
   Mutation: {
-    createUser: async (_parent, args): Promise<User> => {
+    createUser: async (_parent, args): Promise<Models.User> => {
       return await Models.User.create(args);
     },
     // TODO: Update all returns to return the full data, for usage in onCompleted
@@ -60,7 +54,7 @@ export const userResolvers: Resolvers = {
     //   try {
     //     const {id, artistId} = args;
     //     const user = await User.findByPk(id);
-    //     let newFollowing = [...user.user_following];
+    //     let newFollowing = [...user.userFollowing];
     //     //TODO: temp cast to number for testing, remove, make all ids uuid
     //     if (newFollowing.includes(Number(artistId))) {
     //       const index = newFollowing.indexOf(Number(artistId));
@@ -82,7 +76,7 @@ export const userResolvers: Resolvers = {
     //   try {
     //     const {id, songId} = args;
     //     const user = await User.findByPk(id);
-    //     let newFavourites = [...user.user_favourites];
+    //     let newFavourites = [...user.userFavourites];
     //     if (newFavourites.includes(Number(songId))) {
     //       const index = newFavourites.indexOf(Number(songId));
     //       newFavourites.splice(index, 1);

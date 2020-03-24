@@ -19,34 +19,34 @@ export class Album extends Model<Album> {
   @IsUUID(4)
   @PrimaryKey
   @Column
-  album_id: string;
+  id: string;
 
   @ForeignKey(() => Artist)
   @Column
-  album_artist_id: string;
+  artistId: string;
 
   @BelongsTo(() => Artist)
-  album_artist: Artist;
+  artist: Artist;
 
   @Column
-  album_title: string;
+  title: string;
 
   @HasMany(() => Song)
-  album_songs: Song[];
+  songs: Song[];
 
   @Column
-  album_image: string;
+  image: string;
 
   @Column
-  album_description: string;
+  description: string;
 
   // TODO: add supporting artists to album
 
   @CreatedAt
   @Column
-  album_createdAt!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
   @Column
-  album_updatedAt!: Date;
+  updatedAt!: Date;
 }

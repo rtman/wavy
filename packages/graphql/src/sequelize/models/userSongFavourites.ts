@@ -8,15 +8,15 @@ import {
 import {User} from './user';
 import {Song} from './song';
 
-@Table({tableName: 'user_song_favourites'})
+@Table({tableName: 'userSongFavourites'})
 export class UserSongFavourites extends Model<UserSongFavourites> {
   @ForeignKey(() => User)
   @PrimaryKey
   @Column
-  user_id: string;
+  userId: string;
 
   @ForeignKey(() => Song)
   @PrimaryKey
   @Column
-  song_id: string;
+  songId: string;
 }

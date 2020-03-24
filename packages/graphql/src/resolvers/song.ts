@@ -17,28 +17,28 @@ export const songResolvers: Resolvers = {
       return await Models.Song.findAll();
     },
     songById: async (_parent, args): Promise<Models.Song> => {
-      const {song_id} = args;
-      return await Models.Song.findByPk(song_id, {
+      const {id} = args;
+      return await Models.Song.findByPk(id, {
         include: [
           {
             model: Models.Artist,
-            as: 'song_artist',
-            attributes: ['artist_id', 'artist_name', 'artist_image'],
+            as: 'artist',
+            attributes: ['id', 'name', 'image'],
           },
           {
             model: Models.Album,
-            as: 'song_album',
-            attributes: ['album_id', 'album_title', 'album_image'],
+            as: 'album',
+            attributes: ['id', 'title', 'image'],
           },
           {
             model: Models.User,
-            as: 'song_users_favourited',
-            attributes: ['user_id', 'user_firstName', 'user_lastName'],
+            as: 'usersFavourited',
+            attributes: ['id', 'firstName', 'lastName'],
           },
           {
             model: Models.Artist,
-            as: 'song_supporting_artists',
-            attributes: ['artist_id', 'artist_name', 'artist_image'],
+            as: 'supportingArtists',
+            attributes: ['id', 'name', 'image'],
           },
         ],
       });
@@ -71,14 +71,14 @@ export const songResolvers: Resolvers = {
       return await Models.Song.create(args);
     },
     updateSongTitle: async (_parent, args): Promise<Models.Song> => {
-      const {song_title, song_id} = args;
-      const song = await Models.Song.findByPk(song_id);
-      return await song.update({song_title});
+      const {id, title} = args;
+      const song = await Models.Song.findByPk(id);
+      return await song.update({title});
     },
     deleteSong: async (_parent, args): Promise<Scalars['Int']> => {
-      const {song_id} = args;
+      const {id} = args;
       return await Models.Song.destroy({
-        where: {song_id},
+        where: {id},
       });
     },
   },

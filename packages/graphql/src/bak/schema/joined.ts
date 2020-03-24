@@ -13,7 +13,7 @@ export default gql`
     song_date: Date
     song_createdAt: Date
     song_updatedAt: Date
-    song_id: ID
+    songId: ID
     song_genres: [String]
     artist_name: String
     artist_image: String
@@ -74,7 +74,7 @@ export default gql`
     song_date: Date
     song_createdAt: Date
     song_updatedAt: Date
-    song_id: ID
+    songId: ID
     song_genres: [String]
   }
 

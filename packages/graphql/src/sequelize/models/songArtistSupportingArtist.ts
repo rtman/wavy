@@ -8,17 +8,17 @@ import {
 import {Song} from './song';
 import {Artist} from './artist';
 
-@Table({tableName: 'song_artist_supporting_artist'})
+@Table({tableName: 'songArtistSupportingArtist'})
 export class SongArtistSupportingArtist extends Model<
   SongArtistSupportingArtist
 > {
   @ForeignKey(() => Song)
   @PrimaryKey
   @Column
-  song_id: string;
+  songId: string;
 
   @ForeignKey(() => Artist)
   @PrimaryKey
   @Column
-  artist_id: string;
+  artistId: string;
 }

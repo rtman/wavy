@@ -19,36 +19,34 @@ export class Artist extends Model<Artist> {
   @IsUUID(4)
   @PrimaryKey
   @Column
-  artist_id: string;
+  id: string;
 
   @Column
-  artist_name: string;
+  name: string;
 
   @HasMany(() => Album)
-  artist_albums: Album[];
+  albums: Album[];
 
   @HasMany(() => Song)
-  artist_songs: Song[];
+  songs: Song[];
 
   @Column
-  artist_image: string;
+  image: string;
 
   @Column
-  artist_description: string;
+  description: string;
 
   @BelongsToMany(
     () => User,
     () => UserArtistFollowing,
   )
-  artist_users_following: Array<
-    User & {UserArtistFollowing: UserArtistFollowing}
-  >;
+  usersFollowing: Array<User & {UserArtistFollowing: UserArtistFollowing}>;
 
   @CreatedAt
   @Column
-  artist_createdAt!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
   @Column
-  artist_updatedAt!: Date;
+  updatedAt!: Date;
 }

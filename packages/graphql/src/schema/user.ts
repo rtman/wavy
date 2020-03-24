@@ -2,18 +2,18 @@ import {gql} from 'apollo-server-express';
 
 export default gql`
   extend type Query {
-    users: [User]
-    userById(user_id: String!): User
+    # users: [User]
+    userById(id: String!): User
     searchUsers(query: String!): [User]
   }
 
   extend type Mutation {
     createUser(
-      user_id: String!
-      user_firstName: String!
-      user_lastName: String!
-      user_email: String!
-      user_password: String!
+      id: String!
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
     ): User!
     updateFollowing(id: String!, artistId: ID!): Boolean!
     updateFavourites(id: String!, songId: ID!): Boolean!
@@ -23,14 +23,14 @@ export default gql`
   }
 
   type User {
-    user_id: String
-    user_firstName: String
-    user_lastName: String
-    user_email: String
-    user_password: String
-    user_favourites: [Song]
-    user_following: [Artist]
-    user_recently_played: [Song]
-    user_playlists: [Playlist]
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    favourites: [Song]
+    following: [Artist]
+    recentlyPlayed: [Song]
+    playlists: [Playlist]
   }
 `;

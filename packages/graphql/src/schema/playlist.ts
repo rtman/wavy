@@ -8,29 +8,26 @@ export default gql`
   }
 
   extend type Mutation {
-    createPlaylist(
-      playlist_title: String!
-      playlist_description: String
-    ): Playlist!
+    createPlaylist(title: String!, description: String): Playlist!
     updatePlaylistInfo(
-      playlist_id: ID!
-      playlist_title: String
-      playlist_description: String
-      playlist_image: String
+      id: ID!
+      title: String
+      description: String
+      image: String
     ): Playlist
-    # addPlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
-    # removePlaylistSongs(playlist_id: ID!, song_ids: [ID]!): Boolean!
-    deletePlaylist(playlist_id: ID!): Int!
+    # addPlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
+    # removePlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
+    deletePlaylist(id: ID!): Int!
   }
 
   type Playlist {
-    playlist_id: ID
-    playlist_title: String
-    playlist_description: String
-    playlist_image: String
-    playlist_songs: [Song]
-    playlist_users: [User]
-    playlist_createdAt: Date
-    playlist_updatedAt: Date
+    id: ID
+    title: String
+    description: String
+    image: String
+    songs: [Song]
+    users: [User]
+    createdAt: Date
+    updatedAt: Date
   }
 `;

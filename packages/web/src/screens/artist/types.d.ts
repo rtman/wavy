@@ -11,7 +11,7 @@ interface ArtistSongsAlbumsJoined extends Artist {
   album_id: string;
   album_title: string;
   album_image: string;
-  song_id: string;
+  songId: string;
   song_title: string;
   song_url: string;
   description: string;
