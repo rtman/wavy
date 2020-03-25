@@ -6,7 +6,7 @@ import {
   ProfileHeaderTitle,
   ContentContainer,
   Screen,
-  SongRow,
+  // SongRow,
   SubTitle
 } from 'components';
 import * as consts from 'consts';
@@ -14,14 +14,12 @@ import * as helpers from 'helpers';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
-import { Button, Divider, List } from '@material-ui/core';
-import { UserContext, PlayerContext } from 'context';
+import { Button, List } from '@material-ui/core';
+import { UserContext } from 'context';
 
 export const Artist = () => {
   const { id } = useParams();
   const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_BY_ID, { variables: { id: id?.toString() } });
-  const history = useHistory();
   const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistById?.image);
 
@@ -72,7 +70,6 @@ export const Artist = () => {
   //   }
   // };
 
-  console.log('data', data);
   return (
     <Screen>
       {loading ? (
