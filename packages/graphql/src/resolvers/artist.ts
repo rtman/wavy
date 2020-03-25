@@ -34,7 +34,7 @@ export const artistResolvers: Resolvers = {
                   },
                   {
                     model: Models.Album,
-                    as: 'albums',
+                    as: 'album',
                   },
                 ],
               },
@@ -43,6 +43,16 @@ export const artistResolvers: Resolvers = {
           {
             model: Models.Song,
             as: 'songs',
+            include: [
+              {
+                model: Models.Artist,
+                as: 'artist',
+              },
+              {
+                model: Models.Album,
+                as: 'album',
+              },
+            ],
           },
           {
             model: Models.User,

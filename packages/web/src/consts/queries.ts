@@ -27,6 +27,16 @@ export const ARTIST_BY_ID = gql`
           title
           url
           image
+          artist {
+            id
+            name
+            image
+          }
+          album {
+            id
+            title
+            image
+          }
         }
       }
       songs {
@@ -34,6 +44,16 @@ export const ARTIST_BY_ID = gql`
         title
         image
         url
+        artist {
+          id
+          name
+          image
+        }
+        album {
+          id
+          title
+          image
+        }
       }
     }
   }

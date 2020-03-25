@@ -43,6 +43,8 @@ export const Artist = () => {
 
   const renderAlbums = () => {
     const albums = data?.artistById?.albums;
+    console.log('artist renderAlbums - albums', albums);
+
     if (albums) {
       const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
       return <List>{albumsList}</List>;
@@ -51,24 +53,24 @@ export const Artist = () => {
     }
   };
 
-  const renderSongs = () => {
-    if (data?.artistById?.albums.length > 0) {
-      const albums = data.artistById.albums;
-      const songsList = albums.songs.map((album: Album) =>
-        album.songs.map((song: Song, index: number) => {
-          return (
-            <>
-              <SongRow key={song.id} song={song} />
-              {index < album.songs.length - 1 ? <Divider /> : null}
-            </>
-          );
-        })
-      );
-      return <List>{songsList}</List>;
-    } else {
-      return null;
-    }
-  };
+  // const renderSongs = () => {
+  //   if (data?.artistById?.albums.length > 0) {
+  //     const songs = data.artistById.songs;
+  //     console.log('artist renderSongs - songs', songs);
+  //     const songsList = songs.map((song: Song, index: number) => {
+  //       return (
+  //         <React.Fragment key={song.id}>
+  //           <SongRow song={song} />
+  //           {index < songs.length - 1 ? <Divider /> : null}
+  //         </React.Fragment>
+  //       );
+  //     });
+
+  //     return <List>{songsList}</List>;
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
   console.log('data', data);
   return (
@@ -85,8 +87,8 @@ export const Artist = () => {
             <Button onClick={onClickToggleFollow}>{getFollowTitle()}</Button>
             <SubTitle>Description</SubTitle>
             <div>{data?.artistById?.description}</div>
-            <SubTitle>Songs</SubTitle>
-            {renderSongs()}
+            {/* <SubTitle>Songs</SubTitle>
+            {renderSongs()} */}
             <SubTitle>Albums</SubTitle>
             {renderAlbums()}
           </ProfileContainer>

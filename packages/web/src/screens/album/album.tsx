@@ -11,11 +11,10 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import { Button, Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
@@ -23,18 +22,17 @@ export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
-  const history = useHistory();
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumById?.image);
 
   const renderSongs = () => {
-    if (data?.albumById?.songs && data.albumById.songs.length > 0) {
+    if (data?.albumById?.songs.length > 0) {
       const songs = data?.albumById?.songs;
       const songsList = songs.map((song: Song, index: number) => {
         return (
-          <>
-            <SongRow key={song.id} song={song} secondaryStyle={true} />
+          <React.Fragment key={song.id}>
+            <SongRow song={song} secondaryStyle={true} />
             {index < songs.length - 1 ? <Divider /> : null}
-          </>
+          </React.Fragment>
         );
       });
       return <List>{songsList}</List>;
@@ -43,7 +41,6 @@ export const Album = () => {
     }
   };
 
-  console.log('album data', data);
   return (
     <Screen>
       {loading ? (

@@ -29,9 +29,9 @@ export const albumResolvers: Resolvers = {
           {
             model: Models.Song,
             as: 'songs',
-            incldue: [
+            include: [
               {model: Models.Artist, as: 'artist'},
-              {model: Models.Artist, as: 'album'},
+              {model: Models.Album, as: 'album'},
             ],
           },
           {
