@@ -19,7 +19,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, error, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID_WITH_SONGS_QUERY);
+  const [submitSearch, { loading, error, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,8 +35,8 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   };
 
   useEffect(() => {
-    if (!loading && data?.playlistByIdWithSongs) {
-      playerContext.replaceQueueWithSongs(data?.playlistByIdWithSongs?.songs);
+    if (!loading && data?.playlistById) {
+      playerContext.replaceQueueWithSongs(data?.playlistById?.songs);
     }
   }, [loading, data]);
 

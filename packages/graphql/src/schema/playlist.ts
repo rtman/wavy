@@ -3,7 +3,8 @@ import {gql} from 'apollo-server-express';
 export default gql`
   extend type Query {
     playlists: [Playlist]
-    playlistsByIds(ids: [ID]!): [Playlist]
+    playlistById(id: ID!): Playlist
+    playlistsByUserId(userId: String!): [Playlist]
     searchPlaylists(query: String!): [Playlist]
   }
 

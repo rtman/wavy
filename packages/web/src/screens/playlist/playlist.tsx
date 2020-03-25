@@ -23,12 +23,9 @@ export const Playlist = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
-  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(
-    consts.queries.PLAYLIST_BY_ID_WITH_SONGS_QUERY,
-    {
-      fetchPolicy: 'network-only'
-    }
-  );
+  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
+    fetchPolicy: 'network-only'
+  });
   const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(
     consts.mutations.UPDATE_PLAYLIST_INFO,
     {
@@ -37,20 +34,20 @@ export const Playlist = () => {
       }
     }
   );
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistByIdWithSongs?.image);
+  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistById?.image);
 
   useEffect(() => {
     getPlaylist({ variables: { id } });
   }, []);
 
   const renderSongs = () => {
-    if (queryData?.playlistByIdWithSongs?.songs.length > 0) {
-      const songsList = queryData.playlistByIdWithSongs.songs.map((song: Song, index: number) => {
+    if (queryData?.playlistById?.songs.length > 0) {
+      const songsList = queryData.playlistById.songs.map((song: Song, index: number) => {
         return (
-          <>
-            <SongRow key={song.id} song={song} />
-            {index < queryData.playlistByIdWithSongs.songs.length - 1 ? <Divider /> : null}
-          </>
+          <React.Fragment key={song.id}>
+            <SongRow song={song} />
+            {index < queryData.playlistById.songs.length - 1 ? <Divider /> : null}
+          </React.Fragment>
         );
       });
       return <List>{songsList}</List>;
@@ -72,6 +69,8 @@ export const Playlist = () => {
 
   const handleOnChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => setPlaylistDescription(event.target.value);
 
+  console.log('data', queryData);
+
   return (
     <Screen>
       {queryLoading ? (
@@ -80,15 +79,15 @@ export const Playlist = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={playlistImageUrl} />
-            <ProfileHeaderTitle>{queryData?.playlistByIdWithSongs?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{queryData?.playlistById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <RowContainer>
-              <Button onClick={() => playerContext.replaceQueueWithSongs(queryData?.playlistByIdWithSongs?.songs)}>Play Now</Button>
+              <Button onClick={() => playerContext.replaceQueueWithSongs(queryData?.playlistById?.songs)}>Play Now</Button>
               <Button onClick={onClickEdit(true)}>Edit</Button>
             </RowContainer>
             <SubTitle>Description</SubTitle>
-            <div>{queryData?.playlistByIdWithSongs?.description}</div>
+            <div>{queryData?.playlistById?.description}</div>
             <SubTitle>Songs</SubTitle>
             {renderSongs()}
           </ProfileContainer>

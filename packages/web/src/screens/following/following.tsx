@@ -8,24 +8,26 @@ import { UserContext } from 'context';
 export const Following = () => {
   const userContext = useContext(UserContext);
   console.log('userContext?.user', userContext?.user);
-  const [getArtists, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.ARTISTS_BY_ID, {
-    // fetchPolicy: 'no-cache'
-  });
+  // const [getArtists, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.ARTISTS_BY_ID, {
+  //   // fetchPolicy: 'no-cache'
+  // });
 
-  useEffect(() => {
-    if (userContext?.user?.following) {
-      getArtists({ variables: { ids: userContext?.user?.following } });
-    }
-  }, [userContext?.user?.following]);
+  // useEffect(() => {
+  //   if (userContext?.user?.following) {
+  //     getArtists({ variables: { ids: userContext?.user?.following } });
+  //   }
+  // }, [userContext?.user?.following]);
 
   const renderArtists = () => {
-    if (queryData?.artistsById?.length > 0) {
-      const artistList = queryData.artistsById.map((artist: Artist, index: number) => {
+    if (userContext?.user?.following?.length ?? 0 > 0) {
+      const following = userContext?.user?.following ?? [];
+      console.log('following', following);
+      const artistList = following.map((artist: Artist, index: number) => {
         return (
-          <>
-            <ArtistRow key={artist.id} artist={artist} />
-            {index < queryData.artistsById.length - 1 ? <Divider /> : null}
-          </>
+          <React.Fragment key={artist.id}>
+            <ArtistRow artist={artist} />
+            {index < following.length - 1 ? <Divider /> : null}
+          </React.Fragment>
         );
       });
       return <List>{artistList}</List>;
@@ -36,13 +38,13 @@ export const Following = () => {
 
   return (
     <Screen>
-      {queryLoading ? (
-        <CircularProgress />
-      ) : (
+      {userContext?.user ? (
         <ContentContainer>
           <SubTitle>Following</SubTitle>
           {renderArtists()}
         </ContentContainer>
+      ) : (
+        <CircularProgress />
       )}
     </Screen>
   );

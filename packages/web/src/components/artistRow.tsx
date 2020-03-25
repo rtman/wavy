@@ -60,7 +60,9 @@ export const ArtistRow = (props: ArtistRowProps) => {
       </ListItem>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
-        <MenuItem onClick={onClickToggleFollow}>{userContext?.user?.following.includes(artist.id) ? 'Unfollow' : 'Follow'}</MenuItem>
+        <MenuItem onClick={onClickToggleFollow}>
+          {userContext?.user?.following.find((f) => f.id === artist.id) ? 'Unfollow' : 'Follow'}
+        </MenuItem>
       </Menu>
     </>
   );

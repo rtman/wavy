@@ -18,19 +18,47 @@ export const userResolvers: Resolvers = {
         include: [
           {
             model: Models.Playlist,
-            as: 'userPlaylists',
+            as: 'playlists',
+            include: [
+              {
+                model: Models.Song,
+                as: 'songs',
+                include: [
+                  {
+                    model: Models.Artist,
+                    as: 'artist',
+                  },
+                  {model: Models.Album, as: 'album'},
+                ],
+              },
+              {model: Models.User, as: 'users'},
+            ],
           },
           {
             model: Models.Song,
-            as: 'userFavourites',
+            as: 'favourites',
+            include: [
+              {
+                model: Models.Artist,
+                as: 'artist',
+              },
+              {model: Models.Album, as: 'album'},
+            ],
           },
           {
             model: Models.Artist,
-            as: 'userFollowing',
+            as: 'following',
           },
           {
             model: Models.Song,
-            as: 'user_recently_played',
+            as: 'recentlyPlayed',
+            include: [
+              {
+                model: Models.Artist,
+                as: 'artist',
+              },
+              {model: Models.Album, as: 'album'},
+            ],
           },
         ],
       });

@@ -72,17 +72,14 @@ export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
-  const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(
-    consts.queries.USER_BY_ID_WITH_PLAYLISTS_JOINED,
-    {
-      fetchPolicy: 'no-cache',
-      onCompleted: (data) => {
-        console.log('getUserById data.userByIdWithPlaylistsJoined', data.userByIdWithPlaylistsJoined);
-        setUser(data.userByIdWithPlaylistsJoined);
-        setPlaylists(data.userByIdWithPlaylistsJoined.playlists);
-      }
+  const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
+    fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      console.log('getUserById data.userById', data.userById);
+      setUser(data.userById);
+      setPlaylists(data.userById.playlists);
     }
-  );
+  });
   const [submitUpdateFollowing, { data: updateFollowingData, loading: updateFollowingLoading, error: updateFollowingError }] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
     {

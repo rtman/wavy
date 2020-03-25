@@ -90,21 +90,32 @@ export const ALBUM_BY_ID = gql`
   }
 `;
 
-export const PLAYLIST_BY_ID_WITH_SONGS_QUERY = gql`
-  query PlaylistByIdWithSongs($id: ID!) {
-    playlistByIdWithSongs(id: $id) {
+export const PLAYLIST_BY_ID = gql`
+  query PlaylistById($id: ID!) {
+    playlistById(id: $id) {
       title
       description
       image
-      user_ids
+      users {
+        id
+        firstName
+        lastName
+      }
       songs {
         id
-        album_id
-        artist_id
-        artist_name
         title
         image
         url
+        album {
+          id
+          title
+          image
+        }
+        artist {
+          id
+          name
+          image
+        }
       }
     }
   }
@@ -117,8 +128,27 @@ export const PLAYLISTS_BY_USER_ID = gql`
       title
       description
       image
-      user_ids
-      songs
+      users {
+        id
+        firstName
+        lastName
+      }
+      songs {
+        id
+        title
+        url
+        image
+        artist {
+          id
+          name
+          image
+        }
+        album {
+          id
+          title
+          image
+        }
+      }
     }
   }
 `;
@@ -160,36 +190,74 @@ export const SONGS_BY_ID_QUERY = gql`
 `;
 
 export const USER_BY_ID = gql`
-  query UserById($id: String!) {
+  query userById($id: String!) {
     userById(id: $id) {
       id
       firstName
       lastName
       email
-      following
-      favourites
-      recentlyPlayed
-      playlists
-    }
-  }
-`;
-
-export const USER_BY_ID_WITH_PLAYLISTS_JOINED = gql`
-  query UserByIdWithPlaylistsJoined($id: String!) {
-    userByIdWithPlaylistsJoined(id: $id) {
-      id
-      firstName
-      lastName
-      email
-      following
-      favourites
-      recentlyPlayed
+      following {
+        id
+        name
+        image
+      }
+      favourites {
+        id
+        title
+        image
+        url
+        artist {
+          id
+          name
+          image
+        }
+        album {
+          id
+          title
+          image
+        }
+      }
+      recentlyPlayed {
+        id
+        title
+        image
+        url
+        artist {
+          id
+          name
+          image
+        }
+        album {
+          id
+          title
+          image
+        }
+      }
       playlists {
         id
         title
         description
-        songs
-        user_ids
+        users {
+          id
+          firstName
+          lastName
+        }
+        songs {
+          id
+          title
+          url
+          image
+          artist {
+            id
+            name
+            image
+          }
+          album {
+            id
+            title
+            image
+          }
+        }
       }
     }
   }

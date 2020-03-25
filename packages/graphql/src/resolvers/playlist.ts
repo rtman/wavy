@@ -24,22 +24,53 @@ export const playlistResolvers: Resolvers = {
     playlists: async (_parent, _args): Promise<Query['playlists']> => {
       return await Models.Playlist.findAll();
     },
-    playlistsByIds: async (_parent, args): Promise<Query['playlistsByIds']> => {
-      const {ids} = args;
-      const result = await Models.Playlist.findAll({
-        where: {
-          id: ids,
-        },
+    playlistById: async (_parent, args): Promise<Query['playlistById']> => {
+      const {id} = args;
+      const result = await Models.Playlist.findByPk(id, {
         include: [
           {
             model: Models.Song,
             as: 'songs',
-            attributes: ['id', 'title', 'image', 'url'],
+            include: [
+              {
+                model: Models.Artist,
+                as: 'artist',
+              },
+              {model: Models.Album, as: 'album'},
+            ],
           },
           {
             model: Models.User,
             as: 'users',
-            attributes: ['id', 'firstName', 'lastName'],
+          },
+        ],
+      });
+      return result;
+    },
+    playlistsByUserId: async (
+      _parent,
+      args,
+    ): Promise<Query['playlistsByUserId']> => {
+      const {userId} = args;
+      const result = await Models.Playlist.findAll({
+        include: [
+          {
+            model: Models.Song,
+            as: 'songs',
+            include: [
+              {
+                model: Models.Artist,
+                as: 'artist',
+              },
+              {model: Models.Album, as: 'album'},
+            ],
+          },
+          {
+            model: Models.User,
+            as: 'users',
+            where: {
+              id: userId,
+            },
           },
         ],
       });

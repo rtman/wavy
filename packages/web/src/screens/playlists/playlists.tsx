@@ -32,10 +32,10 @@ export const Playlists = () => {
     if (queryData?.playlistsByUserId?.length > 0) {
       const playlistsList = queryData.playlistsByUserId.map((playlist: Playlist, index: number) => {
         return (
-          <>
-            <PlaylistRow key={playlist.id} playlist={playlist} />
+          <React.Fragment key={playlist.id}>
+            <PlaylistRow playlist={playlist} />
             {index < queryData.playlistsByUserId.length - 1 ? <Divider /> : null}
-          </>
+          </React.Fragment>
         );
       });
       return <List>{playlistsList}</List>;

@@ -23,8 +23,6 @@ export const Artist = () => {
   const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistById?.image);
 
-  console.log('error', error);
-
   const onClickToggleFollow = () => {
     if (id) {
       userContext?.updateFollowing(id);
@@ -33,7 +31,7 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      return userContext?.user?.following.includes(id) ? 'Unfollow' : 'Follow';
+      return userContext?.user?.following.find((f) => f.id === id) ? 'Unfollow' : 'Follow';
     } else {
       return 'Loading';
     }
@@ -41,7 +39,6 @@ export const Artist = () => {
 
   const renderAlbums = () => {
     const albums = data?.artistById?.albums;
-    console.log('artist renderAlbums - albums', albums);
 
     if (albums) {
       const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
