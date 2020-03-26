@@ -21,7 +21,6 @@ export const Following = () => {
   const renderArtists = () => {
     if (userContext?.user?.following?.length ?? 0 > 0) {
       const following = userContext?.user?.following ?? [];
-      console.log('following', following);
       const artistList = following.map((artist: Artist, index: number) => {
         return (
           <React.Fragment key={artist.id}>

@@ -5,7 +5,7 @@ import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 
 interface SongRowProps {
@@ -24,6 +24,7 @@ export const SongRow = (props: SongRowProps) => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
+  const { id } = useParams();
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -90,11 +91,16 @@ export const SongRow = (props: SongRowProps) => {
   // console.log('song', song);
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
-    userContext?.updatePlaylist(playlistId, [song.id]);
+    userContext?.addSongsToPlaylist(playlistId, [song.id]);
+  };
+
+  const onClickRemoveFromPlaylist = () => {
+    if (id) {
+      userContext?.removeSongsFromPlaylist(id, [song.id]);
+    }
   };
 
   const renderPlaylists = () => {
-    console.log('userContext?.playlists', userContext?.playlists);
     const playlistList = userContext?.playlists.map((p: Playlist) => (
       <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
         {p.title}
@@ -149,6 +155,9 @@ export const SongRow = (props: SongRowProps) => {
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
           <MenuItem onClick={onClickToggleFavourite}>{getFavouriteTitle()}</MenuItem>
         )}
+        {location.pathname.includes(consts.routes.PLAYLIST) ? (
+          <MenuItem onClick={onClickRemoveFromPlaylist}>Remove From Playlist</MenuItem>
+        ) : null}
         {userContext?.playlists?.length ?? 0 > 0 ? (
           <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
             {renderPlaylists()}

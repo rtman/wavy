@@ -16,8 +16,8 @@ export default gql`
       description: String
       image: String
     ): Playlist
-    # addPlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
-    # removePlaylistSongs(id: ID!, song_ids: [ID]!): Boolean!
+    addPlaylistSongs(id: ID!, songIds: [ID]!): Boolean!
+    removePlaylistSongs(id: ID!, songIds: [ID]!): Boolean!
     deletePlaylist(id: ID!): Int!
   }
 

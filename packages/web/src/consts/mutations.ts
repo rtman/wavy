@@ -30,14 +30,14 @@ export const UPDATE_PLAYLIST_INFO = gql`
 `;
 
 export const ADD_PLAYLIST_SONGS = gql`
-  mutation AddPlaylistSongs($id: ID!, $song_ids: [ID]!) {
-    addPlaylistSongs(id: $id, song_ids: $song_ids)
+  mutation AddPlaylistSongs($id: ID!, $songIds: [ID]!) {
+    addPlaylistSongs(id: $id, songIds: $songIds)
   }
 `;
 
 export const REMOVE_PLAYLIST_SONGS = gql`
-  mutation RemovePlaylistSongs($id: ID!, $song_ids: [ID]!) {
-    removePlaylistSongs(id: $id, song_ids: $song_ids)
+  mutation RemovePlaylistSongs($id: ID!, $songIds: [ID]!) {
+    removePlaylistSongs(id: $id, songIds: $songIds)
   }
 `;
 

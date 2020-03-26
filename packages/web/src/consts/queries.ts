@@ -158,7 +158,7 @@ export const SEARCH_SONGS_QUERY = gql`
     searchSongs(query: $query) {
       id
       title
-      artist_id
+      artist
       artist_name
       album_title
       album_id

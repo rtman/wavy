@@ -70,91 +70,85 @@ export const userResolvers: Resolvers = {
       return await Models.User.create(args);
     },
     // TODO: Update all returns to return the full data, for usage in onCompleted
-    // updateFollowing: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, artistId} = args;
-    //     const user = await User.findByPk(id);
-    //     let newFollowing = [...user.userFollowing];
-    //     //TODO: temp cast to number for testing, remove, make all ids uuid
-    //     if (newFollowing.includes(Number(artistId))) {
-    //       const index = newFollowing.indexOf(Number(artistId));
-    //       newFollowing.splice(index, 1);
-    //     } else {
-    //       newFollowing.push(artistId);
-    //     }
-    //     await user.update({following: newFollowing});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
-    // updateFavourites: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, songId} = args;
-    //     const user = await User.findByPk(id);
-    //     let newFavourites = [...user.userFavourites];
-    //     if (newFavourites.includes(Number(songId))) {
-    //       const index = newFavourites.indexOf(Number(songId));
-    //       newFavourites.splice(index, 1);
-    //     } else {
-    //       newFavourites.push(songId);
-    //     }
-    //     await user.update({favourites: newFavourites});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
-    // updatePlaylists: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, playlistId} = args;
-    //     const user = await User.findByPk(id);
-    //     let newPlaylists = [...user.playlists];
-    //     if (newPlaylists.includes(Number(playlistId))) {
-    //       const index = newPlaylists.indexOf(Number(playlistId));
-    //       newPlaylists.splice(index, 1);
-    //     } else {
-    //       newPlaylists.push(playlistId);
-    //     }
-    //     await user.update({playlists: newPlaylists});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
-    // updateRecentlyPlayed: async (
-    //   _parent,
-    //   args,
-    //   ctx,
-    // ): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, songId} = args;
-    //     const user = await User.findByPk(id);
-    //     let newRecentlyPlayed = [...user.recentlyPlayed];
-    //     if (newRecentlyPlayed.includes(songId)) {
-    //       const index = newRecentlyPlayed.indexOf(songId);
-    //       newRecentlyPlayed.splice(index, 1);
-    //     } else {
-    //       newRecentlyPlayed.push(songId);
-    //     }
-    //     await user.update({recentlyPlayed: newRecentlyPlayed});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
+    updateFollowing: async (_parent, args): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, artistId} = args;
+        const following = await Models.UserArtistFollowing.findOne({
+          where: {
+            userId: id,
+            artistId,
+          },
+        });
+        if (following) {
+          await following.destroy();
+        } else {
+          await Models.UserArtistFollowing.create({userId: id, artistId});
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    updateFavourites: async (_parent, args): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songId} = args;
+        const favourite = await Models.UserSongFavourites.findOne({
+          where: {
+            userId: id,
+            songId,
+          },
+        });
+        if (favourite) {
+          await favourite.destroy();
+        } else {
+          await Models.UserSongFavourites.create({userId: id, songId});
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    updatePlaylists: async (_parent, args): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, playlistId} = args;
+        const playlist = await Models.UserPlaylist.findOne({
+          where: {
+            userId: id,
+            playlistId,
+          },
+        });
+        if (playlist) {
+          await playlist.destroy();
+        } else {
+          await Models.UserPlaylist.create({userId: id, playlistId});
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    updateRecentlyPlayed: async (
+      _parent,
+      args,
+    ): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songId} = args;
+        const song = await Models.UserSongRecentlyPlayed.findOne({
+          where: {
+            userId: id,
+            songId,
+          },
+        });
+        if (song) {
+          await song.destroy();
+        } else {
+          await Models.UserSongRecentlyPlayed.create({userId: id, songId});
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
     deleteUser: async (_parent, args): Promise<Scalars['Int']> => {
       const {id} = args;
       return await Models.User.destroy({

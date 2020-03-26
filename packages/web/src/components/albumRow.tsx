@@ -57,7 +57,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const song_ids = album.songs.map((s) => s.id);
-    userContext?.updatePlaylist(playlistId, song_ids);
+    userContext?.addSongsToPlaylist(playlistId, song_ids);
   };
 
   const renderPlaylists = () => {

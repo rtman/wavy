@@ -53,6 +53,8 @@ export type Mutation = {
   deleteAlbum: Scalars['Int'],
   createPlaylist: Playlist,
   updatePlaylistInfo?: Maybe<Playlist>,
+  addPlaylistSongs: Scalars['Boolean'],
+  removePlaylistSongs: Scalars['Boolean'],
   deletePlaylist: Scalars['Int'],
   createNewSong: Song,
   updateSongTitle: Song,
@@ -100,6 +102,18 @@ export type MutationUpdatePlaylistInfoArgs = {
   title?: Maybe<Scalars['String']>,
   description?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['String']>
+};
+
+
+export type MutationAddPlaylistSongsArgs = {
+  id: Scalars['ID'],
+  songIds: Array<Maybe<Scalars['ID']>>
+};
+
+
+export type MutationRemovePlaylistSongsArgs = {
+  id: Scalars['ID'],
+  songIds: Array<Maybe<Scalars['ID']>>
 };
 
 
@@ -196,6 +210,7 @@ export type Query = {
   songs?: Maybe<Array<Maybe<Song>>>,
   songById?: Maybe<Song>,
   searchSongs?: Maybe<Array<Maybe<Song>>>,
+  users?: Maybe<Array<Maybe<User>>>,
   userById?: Maybe<User>,
   searchUsers?: Maybe<Array<Maybe<User>>>,
 };
@@ -445,6 +460,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteAlbum?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationDeleteAlbumArgs, 'id'>>,
   createPlaylist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType, RequireFields<MutationCreatePlaylistArgs, 'title'>>,
   updatePlaylistInfo?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<MutationUpdatePlaylistInfoArgs, 'id'>>,
+  addPlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddPlaylistSongsArgs, 'id' | 'songIds'>>,
+  removePlaylistSongs?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemovePlaylistSongsArgs, 'id' | 'songIds'>>,
   deletePlaylist?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationDeletePlaylistArgs, 'id'>>,
   createNewSong?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationCreateNewSongArgs, 'title' | 'artistId' | 'albumId' | 'url' | 'image' | 'releaseDate'>>,
   updateSongTitle?: Resolver<ResolversTypes['Song'], ParentType, ContextType, RequireFields<MutationUpdateSongTitleArgs, 'id' | 'title'>>,
@@ -485,6 +502,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType>,
   songById?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongByIdArgs, 'id'>>,
   searchSongs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySearchSongsArgs, 'query'>>,
+  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>,
   searchUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QuerySearchUsersArgs, 'query'>>,
 };

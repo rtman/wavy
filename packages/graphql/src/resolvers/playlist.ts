@@ -95,34 +95,33 @@ export const playlistResolvers: Resolvers = {
         return null;
       }
     },
-    // addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, song_ids} = args;
-    //     const playlist = await Models.Playlist.findByPk(id);
-    //     const newSongIds = [...playlist.songs, ...song_ids];
-    //     await playlist.update({songs: newSongIds});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
-    // removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
-    //   try {
-    //     const {id, song_ids} = args;
-    //     const playlist = await Models.Playlist.findByPk(id);
-    //     let newSongIds = playlist.songs.filter(
-    //       item => !song_ids.includes(item),
-    //     );
-    //     await playlist.update({songs: newSongIds});
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // },
+    addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songIds} = args;
+        const records = songIds.map(sId => {
+          return {playlistId: id, songId: sId};
+        });
+        await Models.SongPlaylist.bulkCreate(records, {ignoreDuplicates: true});
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+    removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+      try {
+        const {id, songIds} = args;
+        await Models.SongPlaylist.destroy({
+          where: {songId: songIds, playlistId: id},
+        });
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
     deletePlaylist: async (_parent, args): Promise<Scalars['Int']> => {
       const {id} = args;
-      return await Models.Playlist.destroy({
-        where: {id},
+      return await Models.SongPlaylist.destroy({
+        where: {playlistId: id},
       });
     },
   },

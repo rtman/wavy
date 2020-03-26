@@ -8,7 +8,8 @@ interface UserContextProps {
   loadUser(id: string): void;
   updateFollowing(id: string): void;
   updateFavourites(id: string): void;
-  updatePlaylist(id: string, song_ids: string[]): void;
+  addSongsToPlaylist(id: string, songIds: string[]): void;
+  removeSongsFromPlaylist(id: string, songIds: string[]): void;
   playlists: Playlist[];
 }
 
@@ -100,16 +101,27 @@ export const UserProvider = ({ children }: any) => {
       }
     }
   });
-  const [submitUpdatePlaylists, { data: updatePlaylistsData, loading: updatePlaylistsLoading, error: updatePlaylistsError }] = useMutation(
-    consts.mutations.ADD_PLAYLIST_SONGS,
-    {
-      onCompleted: (data) => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
+  const [
+    submitAddSongsToPlaylists,
+    { data: addSongsToPlaylistsData, loading: addSongsToPlaylistsLoading, error: addSongsToPlaylistsError }
+  ] = useMutation(consts.mutations.ADD_PLAYLIST_SONGS, {
+    onCompleted: (data) => {
+      if (user?.id) {
+        loadUser(user?.id);
       }
     }
-  );
+  });
+
+  const [
+    submitRemoveSongsFromPlaylist,
+    { data: removeSongsFromPlaylistData, loading: removeSongsFromPlaylistLoading, error: removeSongsFromPlaylistError }
+  ] = useMutation(consts.mutations.REMOVE_PLAYLIST_SONGS, {
+    onCompleted: (data) => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    }
+  });
   const [user, setUser] = useState<User | undefined>(undefined);
 
   const loadUser = (id: string) => {
@@ -131,8 +143,12 @@ export const UserProvider = ({ children }: any) => {
     submitUpdateFavourites({ variables: { id: user?.id, songId } });
   };
 
-  const updatePlaylist = (playlistId: string, song_ids: string[]) => {
-    submitUpdatePlaylists({ variables: { id: playlistId, song_ids } });
+  const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
+    submitAddSongsToPlaylists({ variables: { id: playlistId, songIds } });
+  };
+
+  const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
+    submitRemoveSongsFromPlaylist({ variables: { id: playlistId, songIds } });
   };
 
   return (
@@ -142,7 +158,8 @@ export const UserProvider = ({ children }: any) => {
         loadUser,
         updateFollowing,
         updateFavourites,
-        updatePlaylist,
+        addSongsToPlaylist,
+        removeSongsFromPlaylist,
         playlists
       }}
     >
