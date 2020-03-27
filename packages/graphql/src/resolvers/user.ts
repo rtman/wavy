@@ -149,7 +149,7 @@ export const userResolvers: Resolvers = {
         return false;
       }
     },
-    deleteUser: async (_parent, args): Promise<Scalars['Int']> => {
+    deleteUser: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const {id} = args;
       return await Models.User.destroy({
         where: {id},

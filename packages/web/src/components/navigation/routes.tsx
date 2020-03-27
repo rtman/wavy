@@ -5,7 +5,7 @@ import * as screens from 'screens';
 import { PublicRoute } from './publicRoute';
 import { AuthContextState } from 'context';
 
-export const Routes = (props: any) => {
+export const Routes = () => {
   const authContextState = useContext(AuthContextState);
   console.log('Navigator - authContextState.firebaseUser', authContextState?.firebaseUser);
 

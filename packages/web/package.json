@@ -44,7 +44,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:ts": "yarn tsc --build tsconfig.build.json",
+    "build:ts": "yarn tsc --build tsconfig.json",
     "tslintfix": "tslint 'src/**/*.ts?(x)' --fix",
     "postinstall": "patch-package"
   },

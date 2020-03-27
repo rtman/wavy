@@ -1,5 +1,5 @@
 import * as consts from 'consts';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const SearchBar = styled.input({
   backgroundColor: consts.ui.colors.bgWhite,

@@ -19,7 +19,7 @@ import { UserContext } from 'context';
 
 export const Artist = () => {
   const { id } = useParams();
-  const { loading, error, data, networkStatus } = useQuery(consts.queries.ARTIST_BY_ID, { variables: { id: id?.toString() } });
+  const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, { variables: { id: id?.toString() } });
   const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistById?.image);
 

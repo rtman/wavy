@@ -1,4 +1,4 @@
-import styled, { css, CSSObject } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 import * as consts from 'consts';
 
 export const SongTitle = styled.div(

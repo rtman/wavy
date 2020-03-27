@@ -22,7 +22,7 @@
     "lint": "yarn tslint",
     "tslint": "tslint 'src/**/*.ts?(x)'",
     "tslintfix": "tslint 'src/**/*.ts?(x)' --fix",
-    "build": "yarn tsc --build tsconfig.build.json",
+    "build": "yarn tsc --build tsconfig.json",
     "build:env": "sh ./scripts/build-env.sh",
     "install:gems": "(cd ios; bundle check || bundle install; cd -)",
     "install:hacks": "yarn patch-package",

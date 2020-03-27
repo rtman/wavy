@@ -19,7 +19,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, error, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID);
+  const [submitSearch, { loading, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

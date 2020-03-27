@@ -1,5 +1,5 @@
 import { TrackPositionSlider } from 'components';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { RowContainer, useTimer } from 'components';
 import moment from 'moment';
 import { PlayerContext } from 'context';
@@ -10,7 +10,6 @@ export const ProgressBar = () => {
   const playerContext = useContext(PlayerContext);
   const audio = playerContext?.currentSong?.audio;
 
-  const [seekPosition, setSeekPosition] = useState<number>(0);
   const [position, setPosition] = useState<number>(0);
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
 
@@ -38,7 +37,7 @@ export const ProgressBar = () => {
     setPosition(value as number);
   };
 
-  const onSeekCommitted = (event: React.ChangeEvent<{}>, value: number | number[]) => {
+  const onSeekCommitted = (_event: React.ChangeEvent<{}>, value: number | number[]) => {
     setPosition(value as number);
 
     // console.log('onSeekCommitted - event.target.value', event.target.value);

@@ -2,18 +2,15 @@ import { Screen, SongRow, TextInput, ContentContainer } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
-import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { List } from '@material-ui/core';
 
 export const Home = () => {
-  const COMPONENT_NAME = 'Home';
+  // const COMPONENT_NAME = 'Home';
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-
-  // const { loading, error, data } = useQuery(SONG_QUERY);
-  const [submitSearch, { loading, error, data }] = useLazyQuery(consts.queries.SEARCH_SONGS_QUERY);
+  const [submitSearch, { loading, data }] = useLazyQuery(consts.queries.SEARCH_SONGS_QUERY);
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);

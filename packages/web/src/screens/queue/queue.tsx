@@ -2,16 +2,13 @@ import { ContentContainer, Screen, SongRow, SubTitle } from 'components';
 import * as consts from 'consts';
 import React, { useEffect, useContext, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import { Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 export const Queue = () => {
-  const history = useHistory();
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, error, data }] = useLazyQuery(consts.queries.SONGS_BY_ID_QUERY);
+  const [submitSongIds, { loading, data }] = useLazyQuery(consts.queries.SONGS_BY_ID_QUERY);
 
   useEffect(() => {
     let songIds_: string[] = [];

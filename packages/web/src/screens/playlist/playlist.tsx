@@ -23,17 +23,14 @@ export const Playlist = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
-  const [getPlaylist, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
+  const [getPlaylist, { loading: queryLoading, data: queryData }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
     fetchPolicy: 'network-only'
   });
-  const [submitPlaylistInfo, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(
-    consts.mutations.UPDATE_PLAYLIST_INFO,
-    {
-      onCompleted(data) {
-        getPlaylist({ variables: { id } });
-      }
+  const [submitPlaylistInfo] = useMutation(consts.mutations.UPDATE_PLAYLIST_INFO, {
+    onCompleted() {
+      getPlaylist({ variables: { id } });
     }
-  );
+  });
   const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistById?.image);
 
   useEffect(() => {

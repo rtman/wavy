@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import * as helpers from 'helpers';
 import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context';
 
 interface ArtistRowProps {
@@ -16,7 +16,6 @@ export const ArtistRow = (props: ArtistRowProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(artist.image);
   const history = useHistory();
-  const location = useLocation();
   const userContext = useContext(UserContext);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {

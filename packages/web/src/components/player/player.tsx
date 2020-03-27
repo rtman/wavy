@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RowContainer, StyledButton } from 'components';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
 import { ProgressBar } from 'components';
-import { ColumnContainer } from 'components/columnContainer';
 import { useHistory } from 'react-router-dom';
 import * as helpers from 'helpers';
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';

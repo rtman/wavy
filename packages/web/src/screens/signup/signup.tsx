@@ -5,13 +5,13 @@ import { Title, SubTitle } from 'components';
 import firebase from 'firebase';
 import { useMutation } from '@apollo/react-hooks';
 
-interface SignupFieldErrors {
-  firstName: boolean;
-  lastName: boolean;
-  email: boolean;
-  password: boolean;
-  confirmPassword: boolean;
-}
+// interface SignupFieldErrors {
+//   firstName: boolean;
+//   lastName: boolean;
+//   email: boolean;
+//   password: boolean;
+//   confirmPassword: boolean;
+// }
 
 export const Signup = () => {
   const [firstName, setFirstName] = useState<string>('');
@@ -19,7 +19,7 @@ export const Signup = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [createUser, { data, error, loading }] = useMutation(consts.mutations.CREATE_USER);
+  const [createUser, { loading }] = useMutation(consts.mutations.CREATE_USER);
   //   const [fieldErrors, setFieldErrors] = useState({
   //     firstName: false,
   //     lastName: false,

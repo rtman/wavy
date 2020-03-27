@@ -8,6 +8,7 @@
     },
     "rules": {
         "semi": "error",
-        "comma-dangle": "always"
+        "comma-dangle": "always",
+        "sort-imports": true
     }
 }

@@ -1,22 +1,11 @@
 import { ArtistRow, ContentContainer, Screen, SubTitle } from 'components';
-import * as consts from 'consts';
-import React, { useContext, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import React, { useContext } from 'react';
 import { CircularProgress, Divider, List } from '@material-ui/core';
 import { UserContext } from 'context';
 
 export const Following = () => {
   const userContext = useContext(UserContext);
   console.log('userContext?.user', userContext?.user);
-  // const [getArtists, { loading: queryLoading, data: queryData, error: queryError }] = useLazyQuery(consts.queries.ARTISTS_BY_ID, {
-  //   // fetchPolicy: 'no-cache'
-  // });
-
-  // useEffect(() => {
-  //   if (userContext?.user?.following) {
-  //     getArtists({ variables: { ids: userContext?.user?.following } });
-  //   }
-  // }, [userContext?.user?.following]);
 
   const renderArtists = () => {
     if (userContext?.user?.following?.length ?? 0 > 0) {

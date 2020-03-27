@@ -1,5 +1,4 @@
 import {
-  AlbumWithSongs,
   ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
@@ -14,14 +13,13 @@ import * as helpers from 'helpers';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
 import { Button, Divider, List } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, error, data, networkStatus } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
+  const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumById?.image);
 
   const renderSongs = () => {

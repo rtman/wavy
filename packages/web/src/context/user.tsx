@@ -15,65 +15,11 @@ interface UserContextProps {
 
 export const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-// function userReducer(state, action) {
-//   switch (action.type) {
-//     case 'addFollowing': {
-//       return { user: state.count + 1 };
-//     }
-//     case 'removeFollowing': {
-//       return { count: state.count - 1 };
-//     }
-//     case 'addPlaylist': {
-//       return { count: state.count + 1 };
-//     }
-//     case 'removePlaylist': {
-//       return { count: state.count - 1 };
-//     }
-//     case 'addFavourite': {
-//       return { count: state.count + 1 };
-//     }
-//     case 'removeFavourite': {
-//       return { count: state.count - 1 };
-//     }
-//     case 'initUserState': {
-//       return;
-//     }
-//     default: {
-//       throw new Error(`Unhandled action type: ${action.type}`);
-//     }
-//   }
-// }
-
-// function useUserState() {
-//   const context = React.useContext(UserStateContext);
-//   if (context === undefined) {
-//     throw new Error('useCountState must be used within a UserProvider');
-//   }
-//   return context;
-// }
-
-// function useUserDispatch() {
-//   const context = React.useContext(UserDispatchContext);
-//   if (context === undefined) {
-//     throw new Error('useCountState must be used within a UserProvider');
-//   }
-//   return context;
-// }
-
-// export const useLoadUser = () => {
-//   const [getUserData, { data: queryData, loading: queryLoading, error: errorLoading }] = useLazyQuery(consts.queries.USER_BY_ID, {
-//     onCompleted: (data) => {
-//       const dispatch = useUserDispatch();
-//       dispatch({ type: 'initUser', payload: data });
-//     }
-//   });
-// };
-
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
-  const [getUserById, { data: userByIdData, loading: userByIdLoading, error: userByIdError }] = useLazyQuery(consts.queries.USER_BY_ID, {
+  const [getUserById] = useLazyQuery(consts.queries.USER_BY_ID, {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
       console.log('getUserById data.userById', data.userById);
@@ -81,42 +27,30 @@ export const UserProvider = ({ children }: any) => {
       setPlaylists(data.userById.playlists);
     }
   });
-  const [submitUpdateFollowing, { data: updateFollowingData, loading: updateFollowingLoading, error: updateFollowingError }] = useMutation(
-    consts.mutations.UPDATE_FOLLOWING,
-    {
-      onCompleted: (data) => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
-      }
-    }
-  );
-  const [
-    submitUpdateFavourites,
-    { data: updateFavouritesData, loading: updateFavouritesLoading, error: updateFavouritesError }
-  ] = useMutation(consts.mutations.UPDATE_FAVOURITES, {
-    onCompleted: (data) => {
+  const [submitUpdateFollowing] = useMutation(consts.mutations.UPDATE_FOLLOWING, {
+    onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
       }
     }
   });
-  const [
-    submitAddSongsToPlaylists,
-    { data: addSongsToPlaylistsData, loading: addSongsToPlaylistsLoading, error: addSongsToPlaylistsError }
-  ] = useMutation(consts.mutations.ADD_PLAYLIST_SONGS, {
-    onCompleted: (data) => {
+  const [submitUpdateFavourites] = useMutation(consts.mutations.UPDATE_FAVOURITES, {
+    onCompleted: () => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    }
+  });
+  const [submitAddSongsToPlaylists] = useMutation(consts.mutations.ADD_PLAYLIST_SONGS, {
+    onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
       }
     }
   });
 
-  const [
-    submitRemoveSongsFromPlaylist,
-    { data: removeSongsFromPlaylistData, loading: removeSongsFromPlaylistLoading, error: removeSongsFromPlaylistError }
-  ] = useMutation(consts.mutations.REMOVE_PLAYLIST_SONGS, {
-    onCompleted: (data) => {
+  const [submitRemoveSongsFromPlaylist] = useMutation(consts.mutations.REMOVE_PLAYLIST_SONGS, {
+    onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
       }

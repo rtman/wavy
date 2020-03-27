@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "module": "commonjs",
+    "module": "esnext",
     "jsx": "react",
     "noEmit": true,
     "resolveJsonModule": true,
@@ -16,17 +16,16 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "plugins": [
       {
         "name": "typescript-styled-plugin"
       }
-    ]
+    ],
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"],
+  "include": ["src"]
 }

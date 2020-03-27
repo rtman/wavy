@@ -1,4 +1,4 @@
-import styled, { CSSObject, CSSProp } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 import * as CSS from 'csstype';
 
 export const RowContainer = styled.div(
