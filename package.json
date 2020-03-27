@@ -41,7 +41,7 @@
     "typescript-styled-plugin": "^0.15.0"
   },
   "scripts": {
-    "psContainer": "docker exec -it postgresql bash",
+    "psContainer": "docker exec -it postgresql bash > psql -U groov -D groov",
     "psTerminal": "psql -U groov -D groov",
     "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules && rm yarn.lock"
   },
