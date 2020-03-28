@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return await queryInterface.bulkInsert('songArtistSupportingArtist', [
       // TODO: Create seed for supporting artists
       {
@@ -13,7 +13,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     return await queryInterface.bulkDelete(
       'songArtistSupportingArtist',
       null,

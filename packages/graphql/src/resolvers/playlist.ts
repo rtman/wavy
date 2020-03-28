@@ -1,4 +1,3 @@
-import {} from 'graphql';
 import { Playlist, MutationResolvers, Scalars, QueryResolvers } from '../types';
 import { Models } from 'orm';
 
@@ -80,7 +79,7 @@ export const playlistResolvers: Resolvers = {
       //TODO: if arg is optional, probably just pass args object instead of processing
       const { id, title, description, image } = args;
       if (title || description || image) {
-        let update: UpdatePlaylistInfoUpdate = {};
+        const update: UpdatePlaylistInfoUpdate = {};
         title ? (update.title = title) : null;
         description ? (update.description = description) : null;
         image ? (update.image = image) : null;

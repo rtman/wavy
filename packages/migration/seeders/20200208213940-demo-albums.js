@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return await queryInterface.bulkInsert('albums', [
       {
         id: '6960fd68-732e-4c3c-8995-8d72989f53db',
@@ -138,7 +138,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     return await queryInterface.bulkDelete('albums', null, {});
   },
 };

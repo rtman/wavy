@@ -2,12 +2,13 @@ import express from 'express';
 import schema from './schema';
 import resolvers from './resolvers';
 import { ApolloServer } from 'apollo-server-express';
-import { sequelize } from 'orm';
+import { sequelizeInstance } from 'orm';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
 import { Resolvers } from './types';
+import { GraphQLError } from 'graphql';
 
 const app = express();
 const server = new ApolloServer({
@@ -15,7 +16,7 @@ const server = new ApolloServer({
   playground: true,
   typeDefs: schema,
   resolvers: resolvers as Resolvers,
-  formatError: (error) => {
+  formatError: (error): GraphQLError => {
     // remove the internal sequelize error message
     // leave only the important validation error
     const message = error.message
@@ -27,14 +28,14 @@ const server = new ApolloServer({
       message,
     };
   },
-  context: async ({ req }) => {
+  context: ({ req }) => {
     // context: async ({ req, connection }) => {
 
     // console.log('Apollo server req', req);s
     // console.log('Apollo server connection', connection);
     if (req) {
       return {
-        models: sequelize.models,
+        models: sequelizeInstance.models,
       };
     }
 
@@ -51,7 +52,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 const httpServer = createServer(app);
 
-sequelize.sync().then(() => {
+sequelizeInstance.sync().then(() => {
   httpServer.listen({ port }, () => {
     console.log(
       `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`

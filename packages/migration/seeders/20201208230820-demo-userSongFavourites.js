@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return await queryInterface.bulkInsert('userSongFavourites', [
       {
         userId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
@@ -54,7 +54,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     return await queryInterface.bulkDelete('userSongFavourites', null, {});
   },
 };

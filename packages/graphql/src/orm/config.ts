@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as Models from './models';
 
-const sequelize = new Sequelize({
+const sequelizeInstance = new Sequelize({
   // process.env.TEST_DATABASE || process.env.DATABASE_DB,
   database: process.env.DATABASE_DB,
   username: process.env.DATABASE_USER,
@@ -23,4 +23,4 @@ const sequelize = new Sequelize({
   ],
 });
 
-export { sequelize };
+export { sequelizeInstance };

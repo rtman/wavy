@@ -1,9 +1,9 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     return queryInterface.sequelize.query('CREATE EXTENSION zombodb;');
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.sequelize.query('DROP EXTENSION zombodb;');
   },
 };

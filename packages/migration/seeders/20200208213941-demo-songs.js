@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     const artistsQuery = await queryInterface.sequelize.query(
       `SELECT id, name from artists;`
     );
@@ -922,7 +922,7 @@ module.exports = {
     ]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     return await queryInterface.bulkDelete('songs', null, {});
   },
 };
