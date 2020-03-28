@@ -1,12 +1,6 @@
 import {} from 'graphql';
-import {
-  Playlist,
-  MutationResolvers,
-  Scalars,
-  QueryResolvers,
-  Query,
-} from '../types';
-import {Models} from '../sequelize';
+import {Playlist, MutationResolvers, Scalars, QueryResolvers} from '../types';
+import {Models} from 'orm';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -21,12 +15,12 @@ interface UpdatePlaylistInfoUpdate {
 
 export const playlistResolvers: Resolvers = {
   Query: {
-    playlists: async (_parent, _args): Promise<Query['playlists']> => {
-      return await Models.Playlist.findAll();
+    playlists: async (_parent, _args, ctx): Promise<Models.Playlist[]> => {
+      return await ctx.models.Playlist.findAll();
     },
-    playlistById: async (_parent, args): Promise<Query['playlistById']> => {
+    playlistById: async (_parent, args, ctx): Promise<Models.Playlist> => {
       const {id} = args;
-      const result = await Models.Playlist.findByPk(id, {
+      const result = await ctx.models.Playlist.findByPk(id, {
         include: [
           {
             model: Models.Song,
@@ -50,9 +44,10 @@ export const playlistResolvers: Resolvers = {
     playlistsByUserId: async (
       _parent,
       args,
-    ): Promise<Query['playlistsByUserId']> => {
+      ctx,
+    ): Promise<Models.Playlist[]> => {
       const {userId} = args;
-      const result = await Models.Playlist.findAll({
+      const result = await ctx.models.Playlist.findAll({
         include: [
           {
             model: Models.Song,
@@ -78,10 +73,10 @@ export const playlistResolvers: Resolvers = {
     },
   },
   Mutation: {
-    createPlaylist: async (_parent, args): Promise<Playlist> => {
-      return await Models.Playlist.create(args);
+    createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
+      return await ctx.models.Playlist.create(args);
     },
-    updatePlaylistInfo: async (_parent, args): Promise<Playlist> => {
+    updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
       //TODO: if arg is optional, probably just pass args object instead of processing
       const {id, title, description, image} = args;
       if (title || description || image) {
@@ -89,28 +84,38 @@ export const playlistResolvers: Resolvers = {
         title ? (update.title = title) : null;
         description ? (update.description = description) : null;
         image ? (update.image = image) : null;
-        const playlist = await Models.Playlist.findByPk(id);
+        const playlist = await ctx.models.Playlist.findByPk(id);
         return await playlist.update(update);
       } else {
-        return null;
+        return {};
       }
     },
-    addPlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+    addPlaylistSongs: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
       try {
         const {id, songIds} = args;
         const records = songIds.map(sId => {
           return {playlistId: id, songId: sId};
         });
-        await Models.SongPlaylist.bulkCreate(records, {ignoreDuplicates: true});
+        await ctx.models.SongPlaylist.bulkCreate(records, {
+          ignoreDuplicates: true,
+        });
         return true;
       } catch (error) {
         return false;
       }
     },
-    removePlaylistSongs: async (_parent, args): Promise<Scalars['Boolean']> => {
+    removePlaylistSongs: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
       try {
         const {id, songIds} = args;
-        await Models.SongPlaylist.destroy({
+        await ctx.models.SongPlaylist.destroy({
           where: {songId: songIds, playlistId: id},
         });
         return true;
@@ -118,9 +123,9 @@ export const playlistResolvers: Resolvers = {
         return false;
       }
     },
-    deletePlaylist: async (_parent, args): Promise<Scalars['Int']> => {
+    deletePlaylist: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const {id} = args;
-      return await Models.SongPlaylist.destroy({
+      return await ctx.models.SongPlaylist.destroy({
         where: {playlistId: id},
       });
     },

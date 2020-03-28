@@ -1,6 +1,6 @@
-import {MutationResolvers, Scalars, QueryResolvers, Query} from '../types';
+import {MutationResolvers, Scalars, QueryResolvers} from '../types';
 
-import {Models} from '../sequelize';
+import {Models} from 'orm';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -12,9 +12,9 @@ export const userResolvers: Resolvers = {
     // users: async (_parent, _args): Promise<Models.User> => {
     //   return await Models.User.findAll();
     // },
-    userById: async (_parent, args): Promise<Query['userById']> => {
+    userById: async (_parent, args, ctx): Promise<Models.User> => {
       const {id} = args;
-      const result = await Models.User.findByPk(id, {
+      const result = await ctx.models.User.findByPk(id, {
         include: [
           {
             model: Models.Playlist,
@@ -66,14 +66,18 @@ export const userResolvers: Resolvers = {
     },
   },
   Mutation: {
-    createUser: async (_parent, args): Promise<Models.User> => {
-      return await Models.User.create(args);
+    createUser: async (_parent, args, ctx): Promise<Models.User> => {
+      return await ctx.models.User.create(args);
     },
     // TODO: Update all returns to return the full data, for usage in onCompleted
-    updateFollowing: async (_parent, args): Promise<Scalars['Boolean']> => {
+    updateFollowing: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
       try {
         const {id, artistId} = args;
-        const following = await Models.UserArtistFollowing.findOne({
+        const following = await ctx.models.UserArtistFollowing.findOne({
           where: {
             userId: id,
             artistId,
@@ -82,17 +86,21 @@ export const userResolvers: Resolvers = {
         if (following) {
           await following.destroy();
         } else {
-          await Models.UserArtistFollowing.create({userId: id, artistId});
+          await ctx.models.UserArtistFollowing.create({userId: id, artistId});
         }
         return true;
       } catch (error) {
         return false;
       }
     },
-    updateFavourites: async (_parent, args): Promise<Scalars['Boolean']> => {
+    updateFavourites: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
       try {
         const {id, songId} = args;
-        const favourite = await Models.UserSongFavourites.findOne({
+        const favourite = await ctx.models.UserSongFavourites.findOne({
           where: {
             userId: id,
             songId,
@@ -101,17 +109,21 @@ export const userResolvers: Resolvers = {
         if (favourite) {
           await favourite.destroy();
         } else {
-          await Models.UserSongFavourites.create({userId: id, songId});
+          await ctx.models.UserSongFavourites.create({userId: id, songId});
         }
         return true;
       } catch (error) {
         return false;
       }
     },
-    updatePlaylists: async (_parent, args): Promise<Scalars['Boolean']> => {
+    updatePlaylists: async (
+      _parent,
+      args,
+      ctx,
+    ): Promise<Scalars['Boolean']> => {
       try {
         const {id, playlistId} = args;
-        const playlist = await Models.UserPlaylist.findOne({
+        const playlist = await ctx.models.UserPlaylist.findOne({
           where: {
             userId: id,
             playlistId,
@@ -120,7 +132,7 @@ export const userResolvers: Resolvers = {
         if (playlist) {
           await playlist.destroy();
         } else {
-          await Models.UserPlaylist.create({userId: id, playlistId});
+          await ctx.models.UserPlaylist.create({userId: id, playlistId});
         }
         return true;
       } catch (error) {
@@ -130,10 +142,11 @@ export const userResolvers: Resolvers = {
     updateRecentlyPlayed: async (
       _parent,
       args,
+      ctx,
     ): Promise<Scalars['Boolean']> => {
       try {
         const {id, songId} = args;
-        const song = await Models.UserSongRecentlyPlayed.findOne({
+        const song = await ctx.models.UserSongRecentlyPlayed.findOne({
           where: {
             userId: id,
             songId,
@@ -142,7 +155,7 @@ export const userResolvers: Resolvers = {
         if (song) {
           await song.destroy();
         } else {
-          await Models.UserSongRecentlyPlayed.create({userId: id, songId});
+          await ctx.models.UserSongRecentlyPlayed.create({userId: id, songId});
         }
         return true;
       } catch (error) {
@@ -151,7 +164,7 @@ export const userResolvers: Resolvers = {
     },
     deleteUser: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const {id} = args;
-      return await Models.User.destroy({
+      return await ctx.models.User.destroy({
         where: {id},
       });
     },

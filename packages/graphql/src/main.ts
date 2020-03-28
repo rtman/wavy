@@ -2,7 +2,7 @@ import express from 'express';
 import schema from './schema';
 import resolvers from './resolvers';
 import {ApolloServer} from 'apollo-server-express';
-import {sequelize} from './sequelize';
+import {sequelize} from 'orm';
 import depthLimit from 'graphql-depth-limit';
 import {createServer} from 'http';
 import compression from 'compression';

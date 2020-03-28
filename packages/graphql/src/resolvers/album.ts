@@ -6,10 +6,9 @@ import {
   MutationResolvers,
   Scalars,
   QueryResolvers,
-  Query,
   // SubscriptionResolvers
 } from '../types';
-import {Models, sequelize} from '../sequelize';
+import {Models, sequelize} from 'orm';
 import {QueryTypes} from 'sequelize';
 
 interface Resolvers {
@@ -19,10 +18,10 @@ interface Resolvers {
 
 export const albumResolvers: Resolvers = {
   Query: {
-    albums: async (_parent, _args, ctx): Promise<Query['albums']> => {
-      return await Models.Album.findAll();
+    albums: async (_parent, _args, ctx): Promise<Models.Album[]> => {
+      return await ctx.models.Album.findAll();
     },
-    albumById: async (_parent, args, ctx): Promise<Query['albumById']> => {
+    albumById: async (_parent, args, ctx): Promise<Models.Album> => {
       const {id} = args;
       return await ctx.models.Album.findByPk(id, {
         include: [
@@ -41,7 +40,7 @@ export const albumResolvers: Resolvers = {
         ],
       });
     },
-    searchAlbums: async (_parent, args): Promise<Query['searchAlbums']> => {
+    searchAlbums: async (_parent, args, _ctx): Promise<Models.Album[]> => {
       const {query} = args;
       return await sequelize.query(
         `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
@@ -51,11 +50,11 @@ export const albumResolvers: Resolvers = {
   },
   Mutation: {
     createNewAlbum: async (_parent, args, ctx): Promise<Models.Album> => {
-      return await Models.Album.create(args);
+      return await ctx.models.Album.create(args);
     },
-    deleteAlbum: async (_parent, args): Promise<Scalars['Int']> => {
+    deleteAlbum: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const {id} = args;
-      return await Models.Album.destroy({
+      return await ctx.models.Album.destroy({
         where: {id},
       });
     },

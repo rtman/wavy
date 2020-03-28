@@ -2,8 +2,8 @@
 // import { combineResolvers } from 'graphql-resolvers';
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
-import {MutationResolvers, Scalars, QueryResolvers, Query} from '../types';
-import {sequelize, Models} from '../sequelize';
+import {MutationResolvers, Scalars, QueryResolvers} from '../types';
+import {sequelize, Models} from 'orm';
 import {QueryTypes} from 'sequelize';
 
 interface Resolvers {
@@ -13,12 +13,12 @@ interface Resolvers {
 
 export const artistResolvers: Resolvers = {
   Query: {
-    artists: async (_parent, _args): Promise<Query['artists']> => {
-      return await Models.Artist.findAll();
+    artists: async (_parent, _args, ctx): Promise<Models.Artist[]> => {
+      return await ctx.models.Artist.findAll();
     },
-    artistById: async (_parent, args): Promise<Models.Artist> => {
+    artistById: async (_parent, args, ctx): Promise<Models.Artist> => {
       const {id} = args;
-      const result = await Models.Artist.findByPk(id, {
+      const result = await ctx.models.Artist.findByPk(id, {
         include: [
           {
             model: Models.Album,
@@ -62,15 +62,15 @@ export const artistResolvers: Resolvers = {
       });
       return result;
     },
-    artistsById: async (_parent, args): Promise<Query['artistsById']> => {
+    artistsById: async (_parent, args, ctx): Promise<Models.Artist[]> => {
       const {ids} = args;
-      return await Models.Artist.findAll({
+      return await ctx.models.Artist.findAll({
         where: {
           id: ids,
         },
       });
     },
-    searchArtists: async (_parent, args): Promise<Query['searchArtists']> => {
+    searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
       const {query} = args;
       return await sequelize.query(
         `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
@@ -79,8 +79,8 @@ export const artistResolvers: Resolvers = {
     },
   },
   Mutation: {
-    createNewArtist: async (_parent, args): Promise<Models.Artist> => {
-      return await Models.Artist.create(args);
+    createNewArtist: async (_parent, args, ctx): Promise<Models.Artist> => {
+      return await ctx.models.Artist.create(args);
     },
     deleteArtist: async (_parent, args, {models}): Promise<Scalars['Int']> => {
       const {id} = args;
