@@ -3,7 +3,7 @@
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
 import { MutationResolvers, Scalars, QueryResolvers } from '../types';
-import { sequelize, Models } from 'orm';
+import { sequelizeInstance, Models } from '../orm';
 import { QueryTypes } from 'sequelize';
 
 interface Resolvers {
@@ -72,7 +72,7 @@ export const artistResolvers: Resolvers = {
     },
     searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
       const { query } = args;
-      return await sequelize.query(
+      return await sequelizeInstance.query(
         `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
         { type: QueryTypes.SELECT }
       );

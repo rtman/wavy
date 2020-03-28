@@ -8,7 +8,7 @@ import {
   QueryResolvers,
   // SubscriptionResolvers
 } from '../types';
-import { Models, sequelize } from 'orm';
+import { Models, sequelizeInstance } from '../orm';
 import { QueryTypes } from 'sequelize';
 
 interface Resolvers {
@@ -42,7 +42,7 @@ export const albumResolvers: Resolvers = {
     },
     searchAlbums: async (_parent, args, _ctx): Promise<Models.Album[]> => {
       const { query } = args;
-      return await sequelize.query(
+      return await sequelizeInstance.query(
         `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
         { type: QueryTypes.SELECT }
       );

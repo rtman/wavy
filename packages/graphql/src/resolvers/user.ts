@@ -1,6 +1,6 @@
 import { MutationResolvers, Scalars, QueryResolvers } from '../types';
 
-import { Models } from 'orm';
+import { Models } from '../orm';
 
 interface Resolvers {
   Query: QueryResolvers;

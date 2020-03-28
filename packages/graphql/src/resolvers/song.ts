@@ -1,9 +1,8 @@
 // import jwt from 'jsonwebtoken';
 // import { combineResolvers } from 'graphql-resolvers';
 // import { AuthenticationError, UserInputError } from 'apollo-server';
-import {} from 'graphql';
 import { MutationResolvers, Scalars, QueryResolvers } from '../types';
-import { Models, sequelize } from 'orm';
+import { Models, sequelizeInstance } from '../orm';
 import { QueryTypes } from 'sequelize';
 
 interface Resolvers {
@@ -41,7 +40,7 @@ export const songResolvers: Resolvers = {
     },
     searchSongs: async (_parent, args, _ctx): Promise<Models.Song[]> => {
       const { query } = args;
-      const result = await sequelize.query(
+      const result = await sequelizeInstance.query(
         `
         SELECT songs.id,
         songs.title,
@@ -59,7 +58,8 @@ export const songResolvers: Resolvers = {
       `,
         { type: QueryTypes.SELECT }
       );
-      return result;
+      // TODO: fix with proper typing
+      return result as any;
     },
   },
   Mutation: {

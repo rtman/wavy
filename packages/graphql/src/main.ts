@@ -2,20 +2,21 @@ import express from 'express';
 import schema from './schema';
 import resolvers from './resolvers';
 import { ApolloServer } from 'apollo-server-express';
-import { sequelizeInstance } from 'orm';
+import { sequelizeInstance } from './orm';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import { Resolvers } from './types';
 import { GraphQLError } from 'graphql';
 
 const app = express();
+
 const server = new ApolloServer({
   introspection: true,
   playground: true,
   typeDefs: schema,
-  resolvers: resolvers as Resolvers,
+  // TODO: fix with proper type
+  resolvers: resolvers as any,
   formatError: (error): GraphQLError => {
     // remove the internal sequelize error message
     // leave only the important validation error
