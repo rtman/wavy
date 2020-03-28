@@ -22,10 +22,13 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "yarn tsc --build tsconfig.json",
+    "build:ts": "yarn tsc --build tsconfig.json",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
-    "generate": "yarn graphql-codegen"
+    "generate": "yarn graphql-codegen",
+    "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",
+    "prettier": "prettier --write 'src/**/*.ts?(x)'",
+    "prettier:check": "prettier -c 'src/**/*.ts?(x)'"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
@@ -35,16 +38,10 @@
     "@types/node": "^13.1.1",
     "@types/sequelize": "^4.28.8",
     "@types/validator": "^12.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
-    "@typescript-eslint/parser": "^2.13.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.7.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-import": "^0.7.1",
     "graphql-import-node": "^0.0.4",
-    "husky": "^3.1.0",
     "jest": "^24.9.0",
-    "lint-staged": "^9.5.0",
     "nodemon": "^2.0.2"
   }
 }

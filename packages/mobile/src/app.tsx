@@ -2,7 +2,7 @@ import React from 'react';
 import * as components from 'components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-import { NavigationNativeContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 // import { createHttpLink } from 'apollo-link-http';
 
 const client = new ApolloClient({
@@ -11,10 +11,10 @@ const client = new ApolloClient({
 
 export const App = () => {
   return (
-    <NavigationNativeContainer>
+    <NavigationContainer>
       <ApolloProvider client={client}>
         <components.NavigationTabs />
       </ApolloProvider>
-    </NavigationNativeContainer>
+    </NavigationContainer>
   );
 };
