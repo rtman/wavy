@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 
 export const createReducer = (history: any) =>
   combineReducers({
-    router: connectRouter(history)
+    router: connectRouter(history),
   });
 
 export let rootReducer: ReturnType<typeof createReducer>;

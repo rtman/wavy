@@ -8,5 +8,5 @@ export const Screen = styled.div({
   height: '100%',
   width: '100%',
   boxSizing: 'border-box',
-  overflowY: 'auto'
+  overflowY: 'auto',
 });

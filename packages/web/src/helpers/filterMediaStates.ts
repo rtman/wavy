@@ -7,7 +7,7 @@ export const filterMediaStates = (type: string, state: string) => {
     'encrypted',
     'ended',
     'waiting',
-    'stalled'
+    'stalled',
   ];
 
   const dontCareStates = [
@@ -26,7 +26,7 @@ export const filterMediaStates = (type: string, state: string) => {
     'seeking',
     'suspend',
     'timeupdate',
-    'volumechange'
+    'volumechange',
   ];
 
   if (dontCareStates.includes(type)) {

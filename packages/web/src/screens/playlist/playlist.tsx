@@ -7,7 +7,7 @@ import {
   Screen,
   SongRow,
   SubTitle,
-  RowContainer
+  RowContainer,
 } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ import {
   DialogTitle,
   Divider,
   List,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
@@ -35,16 +35,16 @@ export const Playlist = () => {
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
   const [
     getPlaylist,
-    { loading: queryLoading, data: queryData }
+    { loading: queryLoading, data: queryData },
   ] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   });
   const [submitPlaylistInfo] = useMutation(
     consts.mutations.UPDATE_PLAYLIST_INFO,
     {
       onCompleted() {
         getPlaylist({ variables: { id } });
-      }
+      },
     }
   );
   const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(
@@ -81,7 +81,7 @@ export const Playlist = () => {
 
   const onClickSave = () => {
     submitPlaylistInfo({
-      variables: { title: playlistTitle, description: playlistDescription, id }
+      variables: { title: playlistTitle, description: playlistDescription, id },
     });
     setEditModalVisible(false);
   };

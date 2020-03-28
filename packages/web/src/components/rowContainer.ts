@@ -9,6 +9,6 @@ export const RowContainer = styled.div(
     display: 'flex',
     width: props.width ?? 'auto',
     margin: props.margin ?? '0px',
-    justifyContent: props.justifyContent ?? 'flex-start'
+    justifyContent: props.justifyContent ?? 'flex-start',
   })
 );

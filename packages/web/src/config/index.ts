@@ -8,5 +8,5 @@ const environmentSettings = getEnvironmentSettings(
 export const config: any = {
   JS_BUILD_FLAVOR: process.env.REACT_APP_JS_BUILD_FLAVOR,
   ...commonSettings,
-  ...environmentSettings
+  ...environmentSettings,
 };

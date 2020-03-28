@@ -9,7 +9,7 @@ const settings: BuildFlavorsObject = {
   common: {},
   //   beta: betaSettings,
   development: developmentSettings,
-  production: productionSettings
+  production: productionSettings,
 };
 
 export const getEnvironmentSettings = (

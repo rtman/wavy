@@ -30,7 +30,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
     'suspend',
     'timeupdate',
     'volumechange',
-    'waiting'
+    'waiting',
   ];
 
   const addListenerMulti = (
@@ -58,7 +58,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
       'encrypted',
       'ended',
       'waiting',
-      'stalled'
+      'stalled',
     ];
 
     const dontCareStates = [
@@ -77,7 +77,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
       'seeking',
       'suspend',
       'timeupdate',
-      'volumechange'
+      'volumechange',
     ];
 
     if (dontCareStates.includes(type)) {

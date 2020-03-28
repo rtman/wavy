@@ -27,7 +27,7 @@ export const UserProvider = ({ children }: any) => {
       console.log('getUserById data.userById', data.userById);
       setUser(data.userById);
       setPlaylists(data.userById.playlists);
-    }
+    },
   });
   const [submitUpdateFollowing] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: any) => {
         if (user?.id) {
           loadUser(user?.id);
         }
-      }
+      },
     }
   );
   const [submitUpdateFavourites] = useMutation(
@@ -46,7 +46,7 @@ export const UserProvider = ({ children }: any) => {
         if (user?.id) {
           loadUser(user?.id);
         }
-      }
+      },
     }
   );
   const [submitAddSongsToPlaylists] = useMutation(
@@ -56,7 +56,7 @@ export const UserProvider = ({ children }: any) => {
         if (user?.id) {
           loadUser(user?.id);
         }
-      }
+      },
     }
   );
 
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }: any) => {
         if (user?.id) {
           loadUser(user?.id);
         }
-      }
+      },
     }
   );
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -111,7 +111,7 @@ export const UserProvider = ({ children }: any) => {
         updateFavourites,
         addSongsToPlaylist,
         removeSongsFromPlaylist,
-        playlists
+        playlists,
       }}
     >
       {children}

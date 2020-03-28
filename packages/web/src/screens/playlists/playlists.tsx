@@ -3,7 +3,7 @@ import {
   PlaylistRow,
   RowContainer,
   Screen,
-  SubTitle
+  SubTitle,
 } from 'components';
 import { UserContext } from 'context';
 import * as consts from 'consts';
@@ -18,7 +18,7 @@ import {
   DialogTitle,
   Divider,
   List,
-  TextField
+  TextField,
 } from '@material-ui/core';
 
 export const Playlists = () => {
@@ -28,14 +28,14 @@ export const Playlists = () => {
   const userContext = useContext(UserContext);
   const [
     getPlaylists,
-    { loading: queryLoading, data: queryData }
+    { loading: queryLoading, data: queryData },
   ] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   });
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {
       getPlaylists({ variables: { userId: userContext?.user?.id } });
-    }
+    },
   });
 
   useEffect(() => {
@@ -73,8 +73,8 @@ export const Playlists = () => {
       variables: {
         user_ids: [userContext?.user?.id],
         title: playlistTitle,
-        description: playlistDescription
-      }
+        description: playlistDescription,
+      },
     });
     setNewModalVisible(false);
   };

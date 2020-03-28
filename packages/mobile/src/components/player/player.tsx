@@ -3,7 +3,7 @@ import TrackPlayer, {
   Event,
   State,
   usePlaybackState,
-  useTrackPlayerEvents
+  useTrackPlayerEvents,
 } from 'react-native-track-player';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as components from 'components';
@@ -61,35 +61,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: 'black',
     backgroundColor: 'white',
-    shadowOffset: { width: 0, height: 1 }
+    shadowOffset: { width: 0, height: 1 },
   },
   cover: {
     width: 140,
     height: 140,
     marginTop: 20,
-    backgroundColor: 'grey'
+    backgroundColor: 'grey',
   },
   progress: {
     height: 1,
     width: '90%',
     marginTop: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   title: {
-    marginTop: 10
+    marginTop: 10,
   },
   artist: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   controls: {
     marginVertical: 20,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   controlButtonContainer: {
-    flex: 1
+    flex: 1,
   },
   controlButtonText: {
     fontSize: 18,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

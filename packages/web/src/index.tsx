@@ -26,7 +26,7 @@ console.log('config', config);
 firebase.initializeApp(config.FIREBASE_CONFIG);
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
+  uri: 'http://localhost:3000/graphql',
 });
 
 // helpers.sentry.install();
@@ -38,7 +38,7 @@ const sagaGlobalErrorHandler = (error: Error) => {
 
 // const initialize = async () => {
 const sagaMiddleware = createSagaMiddleware({
-  onError: sagaGlobalErrorHandler
+  onError: sagaGlobalErrorHandler,
 });
 
 let middleware = redux.applyMiddleware(

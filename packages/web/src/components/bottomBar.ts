@@ -11,5 +11,5 @@ export const BottomBar = styled.div({
   justifyContent: 'space-between',
   fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
   width: '100%',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
 });

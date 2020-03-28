@@ -8,6 +8,6 @@ export const productionSettings: BuildFlavorSettings = {
     storageBucket: 'groov-development-ddc9d.appspot.com',
     messagingSenderId: '40882793956',
     appId: '1:40882793956:web:1d0ceebf21653ad2fb2bf1',
-    measurementId: 'G-60Y7BNGVQT'
-  }
+    measurementId: 'G-60Y7BNGVQT',
+  },
 };

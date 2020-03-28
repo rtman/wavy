@@ -35,7 +35,7 @@ export const PlayerContext = createContext<PlayerContext>({
   replaceQueueWithSongs: () => {},
   clearQueue: () => {},
   removeSongFromQueue: () => {},
-  queue: []
+  queue: [],
 });
 
 export const PlayerProvider = ({ children }: any) => {
@@ -45,11 +45,11 @@ export const PlayerProvider = ({ children }: any) => {
   // const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   const [
     localStorageQueue,
-    setLocalStorageQueue
+    setLocalStorageQueue,
   ] = helpers.hooks.useLocalStorage('queue', []);
   const [
     localStorageQueuePosition,
-    setLocalStorageQueuePosition
+    setLocalStorageQueuePosition,
   ] = helpers.hooks.useLocalStorage('queuePosition', 0);
 
   let audio = new Audio();
@@ -62,7 +62,7 @@ export const PlayerProvider = ({ children }: any) => {
     const resolvedSongs = songs.map((s, index) => {
       return {
         ...s,
-        audio: new Audio(result[index])
+        audio: new Audio(result[index]),
       };
     });
     return resolvedSongs;
@@ -208,7 +208,7 @@ export const PlayerProvider = ({ children }: any) => {
         clearQueue,
         removeSongFromQueue,
         replaceQueueWithSongs,
-        queue
+        queue,
       }}
     >
       {children}

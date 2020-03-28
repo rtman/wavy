@@ -10,7 +10,7 @@ module.exports = {
         image:
           'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         id: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc10',
@@ -19,7 +19,7 @@ module.exports = {
         image:
           'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         id: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc11',
@@ -28,12 +28,12 @@ module.exports = {
         image:
           'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
         createdAt: new Date(),
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkDelete('playlists', null, {});
-  }
+  },
 };

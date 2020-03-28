@@ -23,7 +23,7 @@ export const ProgressBar = (props: any) => {
       <View
         style={{
           flex: props.duration - position,
-          backgroundColor: 'grey'
+          backgroundColor: 'grey',
         }}
       />
     </View>
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     height: 1,
     width: '90%',
     marginTop: 10,
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 });

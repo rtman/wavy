@@ -11,10 +11,10 @@ export const ControlButton = ({ title, onPress }: ControlButton) => {
 
 const styles = StyleSheet.create({
   controlButtonContainer: {
-    flex: 1
+    flex: 1,
   },
   controlButtonText: {
     fontSize: 18,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

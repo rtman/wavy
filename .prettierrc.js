@@ -4,5 +4,6 @@ module.exports = {
   semi: true,
   bracketSpacing: true,
   arrowParens: 'always',
-  parser: 'typescript'
+  parser: 'typescript',
+  trailingComma: 'es5'
 };

@@ -5,7 +5,7 @@ import {
   Model,
   PrimaryKey,
   UpdatedAt,
-  Table
+  Table,
 } from 'sequelize-typescript';
 import { Artist } from './artist';
 import { Playlist } from './playlist';

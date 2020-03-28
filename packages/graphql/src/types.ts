@@ -1,7 +1,7 @@
 import {
   GraphQLResolveInfo,
   GraphQLScalarType,
-  GraphQLScalarTypeConfig
+  GraphQLScalarTypeConfig,
 } from 'graphql';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = {
@@ -47,7 +47,7 @@ export type Artist = {
 
 export enum CacheControlScope {
   Public = 'PUBLIC',
-  Private = 'PRIVATE'
+  Private = 'PRIVATE',
 }
 
 export type Mutation = {

@@ -10,6 +10,6 @@ export const ContentContainer = styled.div(
     fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
     width: '100%',
     boxSizing: 'border-box',
-    height: '100%'
+    height: '100%',
   })
 );

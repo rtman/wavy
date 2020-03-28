@@ -8,7 +8,7 @@ export const NavMenuItem = styled(Link)(
     cursor: 'pointer',
     margin: '0px 8px',
     textDecoration: 'none',
-    color: 'black'
+    color: 'black',
   }),
   `&:hover {
       text-decoration: underline

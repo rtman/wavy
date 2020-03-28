@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: any) => {
       value={{
         firebaseUser,
         initialising,
-        error
+        error,
       }}
     >
       {children}

@@ -26,13 +26,13 @@ export const userResolvers: Resolvers = {
                 include: [
                   {
                     model: Models.Artist,
-                    as: 'artist'
+                    as: 'artist',
                   },
-                  { model: Models.Album, as: 'album' }
-                ]
+                  { model: Models.Album, as: 'album' },
+                ],
               },
-              { model: Models.User, as: 'users' }
-            ]
+              { model: Models.User, as: 'users' },
+            ],
           },
           {
             model: Models.Song,
@@ -40,14 +40,14 @@ export const userResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist'
+                as: 'artist',
               },
-              { model: Models.Album, as: 'album' }
-            ]
+              { model: Models.Album, as: 'album' },
+            ],
           },
           {
             model: Models.Artist,
-            as: 'following'
+            as: 'following',
           },
           {
             model: Models.Song,
@@ -55,15 +55,15 @@ export const userResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist'
+                as: 'artist',
               },
-              { model: Models.Album, as: 'album' }
-            ]
-          }
-        ]
+              { model: Models.Album, as: 'album' },
+            ],
+          },
+        ],
       });
       return result;
-    }
+    },
   },
   Mutation: {
     createUser: async (_parent, args, ctx): Promise<Models.User> => {
@@ -80,8 +80,8 @@ export const userResolvers: Resolvers = {
         const following = await ctx.models.UserArtistFollowing.findOne({
           where: {
             userId: id,
-            artistId
-          }
+            artistId,
+          },
         });
         if (following) {
           await following.destroy();
@@ -103,8 +103,8 @@ export const userResolvers: Resolvers = {
         const favourite = await ctx.models.UserSongFavourites.findOne({
           where: {
             userId: id,
-            songId
-          }
+            songId,
+          },
         });
         if (favourite) {
           await favourite.destroy();
@@ -126,8 +126,8 @@ export const userResolvers: Resolvers = {
         const playlist = await ctx.models.UserPlaylist.findOne({
           where: {
             userId: id,
-            playlistId
-          }
+            playlistId,
+          },
         });
         if (playlist) {
           await playlist.destroy();
@@ -149,15 +149,15 @@ export const userResolvers: Resolvers = {
         const song = await ctx.models.UserSongRecentlyPlayed.findOne({
           where: {
             userId: id,
-            songId
-          }
+            songId,
+          },
         });
         if (song) {
           await song.destroy();
         } else {
           await ctx.models.UserSongRecentlyPlayed.create({
             userId: id,
-            songId
+            songId,
           });
         }
         return true;
@@ -168,8 +168,8 @@ export const userResolvers: Resolvers = {
     deleteUser: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const { id } = args;
       return await ctx.models.User.destroy({
-        where: { id }
+        where: { id },
       });
-    }
-  }
+    },
+  },
 };

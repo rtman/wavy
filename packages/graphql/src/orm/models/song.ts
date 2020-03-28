@@ -9,7 +9,7 @@ import {
   PrimaryKey,
   UpdatedAt,
   Table,
-  ForeignKey
+  ForeignKey,
 } from 'sequelize-typescript';
 
 import { Artist } from './artist';

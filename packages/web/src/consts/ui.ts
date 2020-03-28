@@ -37,7 +37,7 @@ export const colors = {
   brightGreen: '#45f9ba',
   darkGreen: '#7dd290',
   mediumAquamarine: '#62d692',
-  transparentWhite: 'rgba(255, 255, 255, 0.7)'
+  transparentWhite: 'rgba(255, 255, 255, 0.7)',
 };
 
 export const fontSizes = {
@@ -51,5 +51,5 @@ export const fontSizes = {
   bigTitle: 32,
   hugeTitle: 48,
   smallTitle: 20,
-  floatingButton: 50
+  floatingButton: 50,
 };

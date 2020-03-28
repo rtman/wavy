@@ -8,5 +8,5 @@ export const TopBar = styled.div({
   // margin: `8px`,
   display: 'block',
   width: '100%',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
 });

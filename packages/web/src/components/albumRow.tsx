@@ -8,7 +8,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
@@ -36,7 +36,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
     event.preventDefault();
     setMenuPosition({
       top: event.pageY,
-      left: event.pageX
+      left: event.pageX,
     });
   };
 

@@ -8,7 +8,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';

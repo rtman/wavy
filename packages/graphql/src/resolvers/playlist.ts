@@ -28,16 +28,16 @@ export const playlistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist'
+                as: 'artist',
               },
-              { model: Models.Album, as: 'album' }
-            ]
+              { model: Models.Album, as: 'album' },
+            ],
           },
           {
             model: Models.User,
-            as: 'users'
-          }
-        ]
+            as: 'users',
+          },
+        ],
       });
       return result;
     },
@@ -55,22 +55,22 @@ export const playlistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist'
+                as: 'artist',
               },
-              { model: Models.Album, as: 'album' }
-            ]
+              { model: Models.Album, as: 'album' },
+            ],
           },
           {
             model: Models.User,
             as: 'users',
             where: {
-              id: userId
-            }
-          }
-        ]
+              id: userId,
+            },
+          },
+        ],
       });
       return result;
-    }
+    },
   },
   Mutation: {
     createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
@@ -101,7 +101,7 @@ export const playlistResolvers: Resolvers = {
           return { playlistId: id, songId: sId };
         });
         await ctx.models.SongPlaylist.bulkCreate(records, {
-          ignoreDuplicates: true
+          ignoreDuplicates: true,
         });
         return true;
       } catch (error) {
@@ -116,7 +116,7 @@ export const playlistResolvers: Resolvers = {
       try {
         const { id, songIds } = args;
         await ctx.models.SongPlaylist.destroy({
-          where: { songId: songIds, playlistId: id }
+          where: { songId: songIds, playlistId: id },
         });
         return true;
       } catch (error) {
@@ -126,8 +126,8 @@ export const playlistResolvers: Resolvers = {
     deletePlaylist: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const { id } = args;
       return await ctx.models.SongPlaylist.destroy({
-        where: { playlistId: id }
+        where: { playlistId: id },
       });
-    }
-  }
+    },
+  },
 };

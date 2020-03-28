@@ -3,6 +3,6 @@ import styled, { CSSObject } from 'styled-components';
 
 export const TimeText = styled.div(
   (): CSSObject => ({
-    fontSize: `${consts.ui.fontSizes.normal}px`
+    fontSize: `${consts.ui.fontSizes.normal}px`,
   })
 );

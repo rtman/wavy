@@ -10,12 +10,12 @@ module.exports = {
         email: 'ryanjtrann@gmail.com',
         password: '123456',
         createdAt: new Date(),
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkDelete('users', null, {});
-  }
+  },
 };

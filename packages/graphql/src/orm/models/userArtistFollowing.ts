@@ -3,7 +3,7 @@ import {
   ForeignKey,
   Model,
   Table,
-  PrimaryKey
+  PrimaryKey,
 } from 'sequelize-typescript';
 import { User } from './user';
 import { Artist } from './artist';

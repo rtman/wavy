@@ -5,5 +5,5 @@ export const AppContainer = styled.div({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 });

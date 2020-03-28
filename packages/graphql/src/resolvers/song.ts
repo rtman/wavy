@@ -22,21 +22,21 @@ export const songResolvers: Resolvers = {
         include: [
           {
             model: Models.Artist,
-            as: 'artist'
+            as: 'artist',
           },
           {
             model: Models.Album,
-            as: 'album'
+            as: 'album',
           },
           {
             model: Models.User,
-            as: 'usersFavourited'
+            as: 'usersFavourited',
           },
           {
             model: Models.Artist,
-            as: 'supportingArtists'
-          }
-        ]
+            as: 'supportingArtists',
+          },
+        ],
       });
     },
     searchSongs: async (_parent, args, _ctx): Promise<Models.Song[]> => {
@@ -60,7 +60,7 @@ export const songResolvers: Resolvers = {
         { type: QueryTypes.SELECT }
       );
       return result;
-    }
+    },
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Models.Song> => {
@@ -74,8 +74,8 @@ export const songResolvers: Resolvers = {
     deleteSong: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const { id } = args;
       return await ctx.models.Song.destroy({
-        where: { id }
+        where: { id },
       });
-    }
-  }
+    },
+  },
 };

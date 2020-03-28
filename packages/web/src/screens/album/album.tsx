@@ -6,7 +6,7 @@ import {
   ContentContainer,
   Screen,
   SongRow,
-  SubTitle
+  SubTitle,
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
@@ -20,7 +20,7 @@ export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, {
-    variables: { id: id?.toString() }
+    variables: { id: id?.toString() },
   });
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(
     data?.albumById?.image

@@ -3,7 +3,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
 import TrackPlayer, {
   usePlaybackState,
-  State
+  State,
 } from 'react-native-track-player';
 import storage from '@react-native-firebase/storage';
 import { gql } from 'apollo-boost';
@@ -138,7 +138,7 @@ export const Home = () => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
       }}
     >
       <View>{loading ? <Text>'loading'</Text> : renderQueue()}</View>

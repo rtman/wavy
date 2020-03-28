@@ -17,5 +17,5 @@ export default [
   albumResolvers,
   songResolvers,
   playlistResolvers,
-  userResolvers
+  userResolvers,
 ];

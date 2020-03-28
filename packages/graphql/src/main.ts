@@ -24,7 +24,7 @@ const server = new ApolloServer({
 
     return {
       ...error,
-      message
+      message,
     };
   },
   context: async ({ req }) => {
@@ -34,14 +34,14 @@ const server = new ApolloServer({
     // console.log('Apollo server connection', connection);
     if (req) {
       return {
-        models: sequelize.models
+        models: sequelize.models,
       };
     }
 
     // if (connection) {
     // }
   },
-  validationRules: [depthLimit(7)]
+  validationRules: [depthLimit(7)],
 });
 const port = 3000;
 
@@ -51,7 +51,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 const httpServer = createServer(app);
 
-sequelize.sync().then(async () => {
+sequelize.sync().then(() => {
   httpServer.listen({ port }, () => {
     console.log(
       `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`

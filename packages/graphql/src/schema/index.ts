@@ -25,5 +25,5 @@ export default [
   linkSchema,
   playlistSchema,
   songSchema,
-  userSchema
+  userSchema,
 ];

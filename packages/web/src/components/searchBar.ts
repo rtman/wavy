@@ -13,6 +13,6 @@ export const SearchBar = styled.input({
   fontSize: `${consts.ui.fontSizes.secondaryTitle}px`,
   width: '70%',
   '@media(max-width: 600px)': {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });

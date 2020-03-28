@@ -19,8 +19,8 @@ const sequelize = new Sequelize({
     Models.UserPlaylist,
     Models.Song,
     Models.SongPlaylist,
-    Models.SongArtistSupportingArtist
-  ]
+    Models.SongArtistSupportingArtist,
+  ],
 });
 
 export { sequelize };

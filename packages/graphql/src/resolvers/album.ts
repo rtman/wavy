@@ -5,7 +5,7 @@ import {} from 'graphql';
 import {
   MutationResolvers,
   Scalars,
-  QueryResolvers
+  QueryResolvers,
   // SubscriptionResolvers
 } from '../types';
 import { Models, sequelize } from 'orm';
@@ -30,14 +30,14 @@ export const albumResolvers: Resolvers = {
             as: 'songs',
             include: [
               { model: Models.Artist, as: 'artist' },
-              { model: Models.Album, as: 'album' }
-            ]
+              { model: Models.Album, as: 'album' },
+            ],
           },
           {
             model: Models.Artist,
-            as: 'artist'
-          }
-        ]
+            as: 'artist',
+          },
+        ],
       });
     },
     searchAlbums: async (_parent, args, _ctx): Promise<Models.Album[]> => {
@@ -46,7 +46,7 @@ export const albumResolvers: Resolvers = {
         `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
         { type: QueryTypes.SELECT }
       );
-    }
+    },
   },
   Mutation: {
     createNewAlbum: async (_parent, args, ctx): Promise<Models.Album> => {
@@ -55,8 +55,8 @@ export const albumResolvers: Resolvers = {
     deleteAlbum: async (_parent, args, ctx): Promise<Scalars['Int']> => {
       const { id } = args;
       return await ctx.models.Album.destroy({
-        where: { id }
+        where: { id },
       });
-    }
-  }
+    },
+  },
 };

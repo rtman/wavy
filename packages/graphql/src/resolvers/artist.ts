@@ -30,15 +30,15 @@ export const artistResolvers: Resolvers = {
                 include: [
                   {
                     model: Models.Artist,
-                    as: 'artist'
+                    as: 'artist',
                   },
                   {
                     model: Models.Album,
-                    as: 'album'
-                  }
-                ]
-              }
-            ]
+                    as: 'album',
+                  },
+                ],
+              },
+            ],
           },
           {
             model: Models.Song,
@@ -46,19 +46,19 @@ export const artistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist'
+                as: 'artist',
               },
               {
                 model: Models.Album,
-                as: 'album'
-              }
-            ]
+                as: 'album',
+              },
+            ],
           },
           {
             model: Models.User,
-            as: 'usersFollowing'
-          }
-        ]
+            as: 'usersFollowing',
+          },
+        ],
       });
       return result;
     },
@@ -66,8 +66,8 @@ export const artistResolvers: Resolvers = {
       const { ids } = args;
       return await ctx.models.Artist.findAll({
         where: {
-          id: ids
-        }
+          id: ids,
+        },
       });
     },
     searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
@@ -76,7 +76,7 @@ export const artistResolvers: Resolvers = {
         `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
         { type: QueryTypes.SELECT }
       );
-    }
+    },
   },
   Mutation: {
     createNewArtist: async (_parent, args, ctx): Promise<Models.Artist> => {
@@ -89,8 +89,8 @@ export const artistResolvers: Resolvers = {
     ): Promise<Scalars['Int']> => {
       const { id } = args;
       return await models.artist.destroy({
-        where: { id }
+        where: { id },
       });
-    }
-  }
+    },
+  },
 };

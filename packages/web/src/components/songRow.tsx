@@ -9,7 +9,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
@@ -39,7 +39,7 @@ export const SongRow = (props: SongRowProps) => {
     event.preventDefault();
     setMenuPosition({
       top: event.pageY,
-      left: event.pageX
+      left: event.pageX,
     });
   };
 
@@ -159,8 +159,8 @@ export const SongRow = (props: SongRowProps) => {
         PaperProps={{
           style: {
             maxHeight: 48 * 4.5,
-            width: 200
-          }
+            width: 200,
+          },
         }}
       >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>

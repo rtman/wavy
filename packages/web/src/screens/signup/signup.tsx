@@ -4,7 +4,7 @@ import {
   Container,
   Grid,
   FormControl,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import * as consts from 'consts';
 import React, { useState } from 'react';
@@ -53,8 +53,8 @@ export const Signup = () => {
           lastName,
           email,
           password,
-          id: firebaseCredential.user.uid
-        }
+          id: firebaseCredential.user.uid,
+        },
       });
     }
   };

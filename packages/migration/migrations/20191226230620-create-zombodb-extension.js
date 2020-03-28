@@ -5,5 +5,5 @@ module.exports = {
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.query('DROP EXTENSION zombodb;');
-  }
+  },
 };

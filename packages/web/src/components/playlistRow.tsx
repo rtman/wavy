@@ -9,7 +9,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';

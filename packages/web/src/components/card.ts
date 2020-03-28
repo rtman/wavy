@@ -13,6 +13,6 @@ export const Card = styled.div({
   width: '70%',
   // height: '100%',
   '@media(max-width: 600px)': {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });

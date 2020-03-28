@@ -29,7 +29,7 @@ export const useMediaState = (audio: HTMLAudioElement) => {
     'suspend',
     'timeupdate',
     'volumechange',
-    'waiting'
+    'waiting',
   ];
 
   const addListenerMulti = (
