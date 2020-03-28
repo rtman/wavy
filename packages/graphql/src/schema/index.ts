@@ -1,4 +1,4 @@
-import {gql} from 'apollo-server-express';
+import { gql } from 'apollo-server-express';
 
 import artistSchema from './artist';
 import albumSchema from './album';
@@ -25,5 +25,5 @@ export default [
   linkSchema,
   playlistSchema,
   songSchema,
-  userSchema,
+  userSchema
 ];

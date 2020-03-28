@@ -13,7 +13,9 @@ interface UserContextProps {
   playlists: Playlist[];
 }
 
-export const UserContext = createContext<UserContextProps | undefined>(undefined);
+export const UserContext = createContext<UserContextProps | undefined>(
+  undefined
+);
 
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
@@ -27,35 +29,47 @@ export const UserProvider = ({ children }: any) => {
       setPlaylists(data.userById.playlists);
     }
   });
-  const [submitUpdateFollowing] = useMutation(consts.mutations.UPDATE_FOLLOWING, {
-    onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
+  const [submitUpdateFollowing] = useMutation(
+    consts.mutations.UPDATE_FOLLOWING,
+    {
+      onCompleted: () => {
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
-  });
-  const [submitUpdateFavourites] = useMutation(consts.mutations.UPDATE_FAVOURITES, {
-    onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
+  );
+  const [submitUpdateFavourites] = useMutation(
+    consts.mutations.UPDATE_FAVOURITES,
+    {
+      onCompleted: () => {
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
-  });
-  const [submitAddSongsToPlaylists] = useMutation(consts.mutations.ADD_PLAYLIST_SONGS, {
-    onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
+  );
+  const [submitAddSongsToPlaylists] = useMutation(
+    consts.mutations.ADD_PLAYLIST_SONGS,
+    {
+      onCompleted: () => {
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
-  });
+  );
 
-  const [submitRemoveSongsFromPlaylist] = useMutation(consts.mutations.REMOVE_PLAYLIST_SONGS, {
-    onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
+  const [submitRemoveSongsFromPlaylist] = useMutation(
+    consts.mutations.REMOVE_PLAYLIST_SONGS,
+    {
+      onCompleted: () => {
+        if (user?.id) {
+          loadUser(user?.id);
+        }
       }
     }
-  });
+  );
   const [user, setUser] = useState<User | undefined>(undefined);
 
   const loadUser = (id: string) => {
@@ -63,7 +77,10 @@ export const UserProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
-    console.log('authContextState?.firebaseUser?.uid', authContextState?.firebaseUser?.uid);
+    console.log(
+      'authContextState?.firebaseUser?.uid',
+      authContextState?.firebaseUser?.uid
+    );
     if (authContextState?.firebaseUser?.uid) {
       loadUser(authContextState?.firebaseUser?.uid);
     }

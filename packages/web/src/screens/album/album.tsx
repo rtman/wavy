@@ -19,8 +19,12 @@ import { PlayerContext } from 'context';
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, { variables: { id: id?.toString() } });
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.albumById?.image);
+  const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, {
+    variables: { id: id?.toString() }
+  });
+  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(
+    data?.albumById?.image
+  );
 
   const renderSongs = () => {
     if (data?.albumById?.songs.length > 0) {
@@ -50,7 +54,13 @@ export const Album = () => {
             <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
-            <Button onClick={() => playerContext.replaceQueueWithSongs(data?.albumById?.songs)}>Play Now</Button>
+            <Button
+              onClick={() =>
+                playerContext.replaceQueueWithSongs(data?.albumById?.songs)
+              }
+            >
+              Play Now
+            </Button>
             <SubTitle>Description</SubTitle>
             <div>{data?.albumById?.description}</div>
             <SubTitle>Songs</SubTitle>

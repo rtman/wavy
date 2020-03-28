@@ -1,6 +1,6 @@
-import {MutationResolvers, Scalars, QueryResolvers} from '../types';
+import { MutationResolvers, Scalars, QueryResolvers } from '../types';
 
-import {Models} from 'orm';
+import { Models } from 'orm';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -13,7 +13,7 @@ export const userResolvers: Resolvers = {
     //   return await Models.User.findAll();
     // },
     userById: async (_parent, args, ctx): Promise<Models.User> => {
-      const {id} = args;
+      const { id } = args;
       const result = await ctx.models.User.findByPk(id, {
         include: [
           {
@@ -26,13 +26,13 @@ export const userResolvers: Resolvers = {
                 include: [
                   {
                     model: Models.Artist,
-                    as: 'artist',
+                    as: 'artist'
                   },
-                  {model: Models.Album, as: 'album'},
-                ],
+                  { model: Models.Album, as: 'album' }
+                ]
               },
-              {model: Models.User, as: 'users'},
-            ],
+              { model: Models.User, as: 'users' }
+            ]
           },
           {
             model: Models.Song,
@@ -40,14 +40,14 @@ export const userResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist',
+                as: 'artist'
               },
-              {model: Models.Album, as: 'album'},
-            ],
+              { model: Models.Album, as: 'album' }
+            ]
           },
           {
             model: Models.Artist,
-            as: 'following',
+            as: 'following'
           },
           {
             model: Models.Song,
@@ -55,15 +55,15 @@ export const userResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist',
+                as: 'artist'
               },
-              {model: Models.Album, as: 'album'},
-            ],
-          },
-        ],
+              { model: Models.Album, as: 'album' }
+            ]
+          }
+        ]
       });
       return result;
-    },
+    }
   },
   Mutation: {
     createUser: async (_parent, args, ctx): Promise<Models.User> => {
@@ -73,20 +73,20 @@ export const userResolvers: Resolvers = {
     updateFollowing: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, artistId} = args;
+        const { id, artistId } = args;
         const following = await ctx.models.UserArtistFollowing.findOne({
           where: {
             userId: id,
-            artistId,
-          },
+            artistId
+          }
         });
         if (following) {
           await following.destroy();
         } else {
-          await ctx.models.UserArtistFollowing.create({userId: id, artistId});
+          await ctx.models.UserArtistFollowing.create({ userId: id, artistId });
         }
         return true;
       } catch (error) {
@@ -96,20 +96,20 @@ export const userResolvers: Resolvers = {
     updateFavourites: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, songId} = args;
+        const { id, songId } = args;
         const favourite = await ctx.models.UserSongFavourites.findOne({
           where: {
             userId: id,
-            songId,
-          },
+            songId
+          }
         });
         if (favourite) {
           await favourite.destroy();
         } else {
-          await ctx.models.UserSongFavourites.create({userId: id, songId});
+          await ctx.models.UserSongFavourites.create({ userId: id, songId });
         }
         return true;
       } catch (error) {
@@ -119,20 +119,20 @@ export const userResolvers: Resolvers = {
     updatePlaylists: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, playlistId} = args;
+        const { id, playlistId } = args;
         const playlist = await ctx.models.UserPlaylist.findOne({
           where: {
             userId: id,
-            playlistId,
-          },
+            playlistId
+          }
         });
         if (playlist) {
           await playlist.destroy();
         } else {
-          await ctx.models.UserPlaylist.create({userId: id, playlistId});
+          await ctx.models.UserPlaylist.create({ userId: id, playlistId });
         }
         return true;
       } catch (error) {
@@ -142,20 +142,23 @@ export const userResolvers: Resolvers = {
     updateRecentlyPlayed: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, songId} = args;
+        const { id, songId } = args;
         const song = await ctx.models.UserSongRecentlyPlayed.findOne({
           where: {
             userId: id,
-            songId,
-          },
+            songId
+          }
         });
         if (song) {
           await song.destroy();
         } else {
-          await ctx.models.UserSongRecentlyPlayed.create({userId: id, songId});
+          await ctx.models.UserSongRecentlyPlayed.create({
+            userId: id,
+            songId
+          });
         }
         return true;
       } catch (error) {
@@ -163,10 +166,10 @@ export const userResolvers: Resolvers = {
       }
     },
     deleteUser: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const {id} = args;
+      const { id } = args;
       return await ctx.models.User.destroy({
-        where: {id},
+        where: { id }
       });
-    },
-  },
+    }
+  }
 };

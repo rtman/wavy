@@ -79,7 +79,6 @@
     "babel-plugin-styled-components": "^1.10.6",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
-    "prettier": "^1.19.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga-test-plan": "^4.0.0-rc.3",
     "typescript": "^3.7.4",

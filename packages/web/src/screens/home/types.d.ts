@@ -1,4 +1,5 @@
-type EmailAndPasswordProps = EmailAndPasswordDispatchProps & EmailAndPasswordStateProps;
+type EmailAndPasswordProps = EmailAndPasswordDispatchProps &
+  EmailAndPasswordStateProps;
 
 interface EmailAndPasswordStateProps {
   email: string;

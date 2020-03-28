@@ -9,7 +9,9 @@ interface AuthContextStateProps {
   error: firebase.auth.Error | undefined;
 }
 
-export const AuthContextState = createContext<AuthContextStateProps | undefined>(undefined);
+export const AuthContextState = createContext<
+  AuthContextStateProps | undefined
+>(undefined);
 
 export const AuthProvider = ({ children }: any) => {
   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());

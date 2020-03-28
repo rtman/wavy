@@ -1,6 +1,6 @@
 import {} from 'graphql';
-import {Playlist, MutationResolvers, Scalars, QueryResolvers} from '../types';
-import {Models} from 'orm';
+import { Playlist, MutationResolvers, Scalars, QueryResolvers } from '../types';
+import { Models } from 'orm';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -19,7 +19,7 @@ export const playlistResolvers: Resolvers = {
       return await ctx.models.Playlist.findAll();
     },
     playlistById: async (_parent, args, ctx): Promise<Models.Playlist> => {
-      const {id} = args;
+      const { id } = args;
       const result = await ctx.models.Playlist.findByPk(id, {
         include: [
           {
@@ -28,25 +28,25 @@ export const playlistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist',
+                as: 'artist'
               },
-              {model: Models.Album, as: 'album'},
-            ],
+              { model: Models.Album, as: 'album' }
+            ]
           },
           {
             model: Models.User,
-            as: 'users',
-          },
-        ],
+            as: 'users'
+          }
+        ]
       });
       return result;
     },
     playlistsByUserId: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Models.Playlist[]> => {
-      const {userId} = args;
+      const { userId } = args;
       const result = await ctx.models.Playlist.findAll({
         include: [
           {
@@ -55,22 +55,22 @@ export const playlistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist',
+                as: 'artist'
               },
-              {model: Models.Album, as: 'album'},
-            ],
+              { model: Models.Album, as: 'album' }
+            ]
           },
           {
             model: Models.User,
             as: 'users',
             where: {
-              id: userId,
-            },
-          },
-        ],
+              id: userId
+            }
+          }
+        ]
       });
       return result;
-    },
+    }
   },
   Mutation: {
     createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
@@ -78,7 +78,7 @@ export const playlistResolvers: Resolvers = {
     },
     updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
       //TODO: if arg is optional, probably just pass args object instead of processing
-      const {id, title, description, image} = args;
+      const { id, title, description, image } = args;
       if (title || description || image) {
         let update: UpdatePlaylistInfoUpdate = {};
         title ? (update.title = title) : null;
@@ -93,15 +93,15 @@ export const playlistResolvers: Resolvers = {
     addPlaylistSongs: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, songIds} = args;
-        const records = songIds.map(sId => {
-          return {playlistId: id, songId: sId};
+        const { id, songIds } = args;
+        const records = songIds.map((sId) => {
+          return { playlistId: id, songId: sId };
         });
         await ctx.models.SongPlaylist.bulkCreate(records, {
-          ignoreDuplicates: true,
+          ignoreDuplicates: true
         });
         return true;
       } catch (error) {
@@ -111,12 +111,12 @@ export const playlistResolvers: Resolvers = {
     removePlaylistSongs: async (
       _parent,
       args,
-      ctx,
+      ctx
     ): Promise<Scalars['Boolean']> => {
       try {
-        const {id, songIds} = args;
+        const { id, songIds } = args;
         await ctx.models.SongPlaylist.destroy({
-          where: {songId: songIds, playlistId: id},
+          where: { songId: songIds, playlistId: id }
         });
         return true;
       } catch (error) {
@@ -124,10 +124,10 @@ export const playlistResolvers: Resolvers = {
       }
     },
     deletePlaylist: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const {id} = args;
+      const { id } = args;
       return await ctx.models.SongPlaylist.destroy({
-        where: {playlistId: id},
+        where: { playlistId: id }
       });
-    },
-  },
+    }
+  }
 };

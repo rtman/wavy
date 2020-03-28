@@ -14,6 +14,10 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.bulkDelete('songArtistSupportingArtist', null, {});
+    return await queryInterface.bulkDelete(
+      'songArtistSupportingArtist',
+      null,
+      {}
+    );
   }
 };

@@ -32,11 +32,19 @@ export const useMediaState = (audio: HTMLAudioElement) => {
     'waiting'
   ];
 
-  const addListenerMulti = (el: HTMLAudioElement, eventArray: string[], fn: (event: any) => void) => {
+  const addListenerMulti = (
+    el: HTMLAudioElement,
+    eventArray: string[],
+    fn: (event: any) => void
+  ) => {
     eventArray.forEach((event) => el.addEventListener(event, fn, false));
   };
 
-  const removeListenerMulti = (el: HTMLAudioElement, eventArray: string[], fn: (event: any) => void) => {
+  const removeListenerMulti = (
+    el: HTMLAudioElement,
+    eventArray: string[],
+    fn: (event: any) => void
+  ) => {
     eventArray.forEach((event) => el.removeEventListener(event, fn, false));
   };
 

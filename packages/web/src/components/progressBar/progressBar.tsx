@@ -26,7 +26,10 @@ export const ProgressBar = () => {
   //   console.log('seekPosition', seekPosition);
   //   console.log('position', position);
 
-  const onSeeking = (_event: React.ChangeEvent<{}>, value: number | number[]) => {
+  const onSeeking = (
+    _event: React.ChangeEvent<{}>,
+    value: number | number[]
+  ) => {
     setIsSeeking(true);
     // setSeekPosition(event.target.value);
     // console.log('onSeeking - event.target', _event.target);
@@ -37,7 +40,10 @@ export const ProgressBar = () => {
     setPosition(value as number);
   };
 
-  const onSeekCommitted = (_event: React.ChangeEvent<{}>, value: number | number[]) => {
+  const onSeekCommitted = (
+    _event: React.ChangeEvent<{}>,
+    value: number | number[]
+  ) => {
     setPosition(value as number);
 
     // console.log('onSeekCommitted - event.target.value', event.target.value);
@@ -60,7 +66,13 @@ export const ProgressBar = () => {
   return (
     <RowContainer width="100%" margin="0px 8px">
       <TimeText>{getFormattedTime(position)}</TimeText>
-      <TrackPositionSlider min={0} max={duration} value={position} onChange={onSeeking} onChangeCommitted={onSeekCommitted} />
+      <TrackPositionSlider
+        min={0}
+        max={duration}
+        value={position}
+        onChange={onSeeking}
+        onChangeCommitted={onSeekCommitted}
+      />
       <TimeText>{getFormattedTime(duration)}</TimeText>
     </RowContainer>
   );

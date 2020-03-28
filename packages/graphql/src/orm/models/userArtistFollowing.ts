@@ -3,12 +3,12 @@ import {
   ForeignKey,
   Model,
   Table,
-  PrimaryKey,
+  PrimaryKey
 } from 'sequelize-typescript';
-import {User} from './user';
-import {Artist} from './artist';
+import { User } from './user';
+import { Artist } from './artist';
 
-@Table({tableName: 'userArtistFollowing'})
+@Table({ tableName: 'userArtistFollowing' })
 export class UserArtistFollowing extends Model<UserArtistFollowing> {
   @ForeignKey(() => User)
   @PrimaryKey

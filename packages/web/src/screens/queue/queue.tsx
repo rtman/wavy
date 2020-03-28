@@ -8,7 +8,9 @@ import { PlayerContext } from 'context';
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, data }] = useLazyQuery(consts.queries.SONGS_BY_ID_QUERY);
+  const [submitSongIds, { loading, data }] = useLazyQuery(
+    consts.queries.SONGS_BY_ID_QUERY
+  );
 
   useEffect(() => {
     let songIds_: string[] = [];

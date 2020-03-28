@@ -2,9 +2,9 @@
 // import { combineResolvers } from 'graphql-resolvers';
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
-import {MutationResolvers, Scalars, QueryResolvers} from '../types';
-import {sequelize, Models} from 'orm';
-import {QueryTypes} from 'sequelize';
+import { MutationResolvers, Scalars, QueryResolvers } from '../types';
+import { sequelize, Models } from 'orm';
+import { QueryTypes } from 'sequelize';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -17,7 +17,7 @@ export const artistResolvers: Resolvers = {
       return await ctx.models.Artist.findAll();
     },
     artistById: async (_parent, args, ctx): Promise<Models.Artist> => {
-      const {id} = args;
+      const { id } = args;
       const result = await ctx.models.Artist.findByPk(id, {
         include: [
           {
@@ -30,15 +30,15 @@ export const artistResolvers: Resolvers = {
                 include: [
                   {
                     model: Models.Artist,
-                    as: 'artist',
+                    as: 'artist'
                   },
                   {
                     model: Models.Album,
-                    as: 'album',
-                  },
-                ],
-              },
-            ],
+                    as: 'album'
+                  }
+                ]
+              }
+            ]
           },
           {
             model: Models.Song,
@@ -46,47 +46,51 @@ export const artistResolvers: Resolvers = {
             include: [
               {
                 model: Models.Artist,
-                as: 'artist',
+                as: 'artist'
               },
               {
                 model: Models.Album,
-                as: 'album',
-              },
-            ],
+                as: 'album'
+              }
+            ]
           },
           {
             model: Models.User,
-            as: 'usersFollowing',
-          },
-        ],
+            as: 'usersFollowing'
+          }
+        ]
       });
       return result;
     },
     artistsById: async (_parent, args, ctx): Promise<Models.Artist[]> => {
-      const {ids} = args;
+      const { ids } = args;
       return await ctx.models.Artist.findAll({
         where: {
-          id: ids,
-        },
+          id: ids
+        }
       });
     },
     searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
-      const {query} = args;
+      const { query } = args;
       return await sequelize.query(
         `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
-        {type: QueryTypes.SELECT},
+        { type: QueryTypes.SELECT }
       );
-    },
+    }
   },
   Mutation: {
     createNewArtist: async (_parent, args, ctx): Promise<Models.Artist> => {
       return await ctx.models.Artist.create(args);
     },
-    deleteArtist: async (_parent, args, {models}): Promise<Scalars['Int']> => {
-      const {id} = args;
+    deleteArtist: async (
+      _parent,
+      args,
+      { models }
+    ): Promise<Scalars['Int']> => {
+      const { id } = args;
       return await models.artist.destroy({
-        where: {id},
+        where: { id }
       });
-    },
-  },
+    }
+  }
 };

@@ -5,17 +5,17 @@ import {
   Model,
   PrimaryKey,
   UpdatedAt,
-  Table,
+  Table
 } from 'sequelize-typescript';
-import {Artist} from './artist';
-import {Playlist} from './playlist';
-import {Song} from './song';
-import {UserPlaylist} from './userPlaylist';
-import {UserSongFavourites} from './userSongFavourites';
-import {UserArtistFollowing} from './userArtistFollowing';
-import {UserSongRecentlyPlayed} from './userSongRecentlyPlayed';
+import { Artist } from './artist';
+import { Playlist } from './playlist';
+import { Song } from './song';
+import { UserPlaylist } from './userPlaylist';
+import { UserSongFavourites } from './userSongFavourites';
+import { UserArtistFollowing } from './userArtistFollowing';
+import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
-@Table({tableName: 'users'})
+@Table({ tableName: 'users' })
 export class User extends Model<User> {
   @PrimaryKey
   @Column
@@ -35,19 +35,19 @@ export class User extends Model<User> {
 
   @BelongsToMany(
     () => Song,
-    () => UserSongFavourites,
+    () => UserSongFavourites
   )
   favourites: Song[];
 
   @BelongsToMany(
     () => Artist,
-    () => UserArtistFollowing,
+    () => UserArtistFollowing
   )
   following: Artist[];
 
   @BelongsToMany(
     () => Song,
-    () => UserSongRecentlyPlayed,
+    () => UserSongRecentlyPlayed
   )
   recentlyPlayed: Song[];
 
@@ -61,7 +61,7 @@ export class User extends Model<User> {
 
   @BelongsToMany(
     () => Playlist,
-    () => UserPlaylist,
+    () => UserPlaylist
   )
   playlists: Playlist[];
 }

@@ -23,7 +23,8 @@ module.exports = {
         id: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         name: 'ESB',
         description: 'ESB is a musician living in vancouver!',
-        image: 'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },

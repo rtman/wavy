@@ -12,10 +12,14 @@ export const Player = () => {
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
 
   const currentSong = playerContext.currentSong;
-  const allMediaStates = helpers.hooks.useMediaState(currentSong?.audio ?? new Audio());
+  const allMediaStates = helpers.hooks.useMediaState(
+    currentSong?.audio ?? new Audio()
+  );
 
   useEffect(() => {
-    setFilteredMediaState(helpers.filterMediaStates(allMediaStates, filteredMediaState));
+    setFilteredMediaState(
+      helpers.filterMediaStates(allMediaStates, filteredMediaState)
+    );
   }, [allMediaStates, filteredMediaState]);
 
   const history = useHistory();
@@ -53,7 +57,11 @@ export const Player = () => {
         <SkipPrevious />
       </StyledButton>
       <StyledButton>
-        {filteredMediaState === 'playing' ? <Pause onClick={playerContext.pause} /> : <PlayArrow onClick={onClickPlay} />}
+        {filteredMediaState === 'playing' ? (
+          <Pause onClick={playerContext.pause} />
+        ) : (
+          <PlayArrow onClick={onClickPlay} />
+        )}
       </StyledButton>
       <StyledButton onClick={playerContext.playNextSongInQueue}>
         <SkipNext />

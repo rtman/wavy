@@ -12,7 +12,9 @@ const settings: BuildFlavorsObject = {
   production: productionSettings
 };
 
-export const getEnvironmentSettings = (env: string | undefined): BuildFlavorsObject | {} => {
+export const getEnvironmentSettings = (
+  env: string | undefined
+): BuildFlavorsObject | {} => {
   if (env === undefined) {
     return {};
   }

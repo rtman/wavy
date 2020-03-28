@@ -19,9 +19,13 @@ import { UserContext } from 'context';
 
 export const Artist = () => {
   const { id } = useParams();
-  const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, { variables: { id: id?.toString() } });
+  const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, {
+    variables: { id: id?.toString() }
+  });
   const userContext = useContext(UserContext);
-  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(data?.artistById?.image);
+  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(
+    data?.artistById?.image
+  );
 
   const onClickToggleFollow = () => {
     if (id) {
@@ -31,7 +35,9 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      return userContext?.user?.following.find((f) => f.id === id) ? 'Unfollow' : 'Follow';
+      return userContext?.user?.following.find((f) => f.id === id)
+        ? 'Unfollow'
+        : 'Follow';
     } else {
       return 'Loading';
     }
@@ -41,7 +47,9 @@ export const Artist = () => {
     const albums = data?.artistById?.albums;
 
     if (albums) {
-      const albumsList = albums.map((album: Album) => <AlbumWithSongs key={album.id} album={album} />);
+      const albumsList = albums.map((album: Album) => (
+        <AlbumWithSongs key={album.id} album={album} />
+      ));
       return <List>{albumsList}</List>;
     } else {
       return null;

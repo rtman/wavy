@@ -2,9 +2,9 @@
 // import { combineResolvers } from 'graphql-resolvers';
 // import { AuthenticationError, UserInputError } from 'apollo-server';
 import {} from 'graphql';
-import {MutationResolvers, Scalars, QueryResolvers} from '../types';
-import {Models, sequelize} from 'orm';
-import {QueryTypes} from 'sequelize';
+import { MutationResolvers, Scalars, QueryResolvers } from '../types';
+import { Models, sequelize } from 'orm';
+import { QueryTypes } from 'sequelize';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -17,30 +17,30 @@ export const songResolvers: Resolvers = {
       return await ctx.models.Song.findAll();
     },
     songById: async (_parent, args, ctx): Promise<Models.Song> => {
-      const {id} = args;
+      const { id } = args;
       return await ctx.models.Song.findByPk(id, {
         include: [
           {
             model: Models.Artist,
-            as: 'artist',
+            as: 'artist'
           },
           {
             model: Models.Album,
-            as: 'album',
+            as: 'album'
           },
           {
             model: Models.User,
-            as: 'usersFavourited',
+            as: 'usersFavourited'
           },
           {
             model: Models.Artist,
-            as: 'supportingArtists',
-          },
-        ],
+            as: 'supportingArtists'
+          }
+        ]
       });
     },
     searchSongs: async (_parent, args, _ctx): Promise<Models.Song[]> => {
-      const {query} = args;
+      const { query } = args;
       const result = await sequelize.query(
         `
         SELECT songs.id,
@@ -57,25 +57,25 @@ export const songResolvers: Resolvers = {
         WHERE songs.artist_id = artists.id AND songs.album_id = albums.id
         AND (artists ==> '*${query}*' OR songs ==> '*${query}*' OR albums ==> '*${query}*');
       `,
-        {type: QueryTypes.SELECT},
+        { type: QueryTypes.SELECT }
       );
       return result;
-    },
+    }
   },
   Mutation: {
     createNewSong: async (_parent, args, ctx): Promise<Models.Song> => {
       return await ctx.models.Song.create(args);
     },
     updateSongTitle: async (_parent, args, ctx): Promise<Models.Song> => {
-      const {id, title} = args;
+      const { id, title } = args;
       const song = await ctx.models.Song.findByPk(id);
-      return await song.update({title});
+      return await song.update({ title });
     },
     deleteSong: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const {id} = args;
+      const { id } = args;
       return await ctx.models.Song.destroy({
-        where: {id},
+        where: { id }
       });
-    },
-  },
+    }
+  }
 };

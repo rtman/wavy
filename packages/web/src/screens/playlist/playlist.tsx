@@ -13,7 +13,17 @@ import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, List, TextField } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  List,
+  TextField
+} from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
 
@@ -23,15 +33,23 @@ export const Playlist = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
-  const [getPlaylist, { loading: queryLoading, data: queryData }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
+  const [
+    getPlaylist,
+    { loading: queryLoading, data: queryData }
+  ] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
     fetchPolicy: 'network-only'
   });
-  const [submitPlaylistInfo] = useMutation(consts.mutations.UPDATE_PLAYLIST_INFO, {
-    onCompleted() {
-      getPlaylist({ variables: { id } });
+  const [submitPlaylistInfo] = useMutation(
+    consts.mutations.UPDATE_PLAYLIST_INFO,
+    {
+      onCompleted() {
+        getPlaylist({ variables: { id } });
+      }
     }
-  });
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(queryData?.playlistById?.image);
+  );
+  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(
+    queryData?.playlistById?.image
+  );
 
   useEffect(() => {
     getPlaylist({ variables: { id } });
@@ -39,14 +57,18 @@ export const Playlist = () => {
 
   const renderSongs = () => {
     if (queryData?.playlistById?.songs.length > 0) {
-      const songsList = queryData.playlistById.songs.map((song: Song, index: number) => {
-        return (
-          <React.Fragment key={song.id}>
-            <SongRow song={song} />
-            {index < queryData.playlistById.songs.length - 1 ? <Divider /> : null}
-          </React.Fragment>
-        );
-      });
+      const songsList = queryData.playlistById.songs.map(
+        (song: Song, index: number) => {
+          return (
+            <React.Fragment key={song.id}>
+              <SongRow song={song} />
+              {index < queryData.playlistById.songs.length - 1 ? (
+                <Divider />
+              ) : null}
+            </React.Fragment>
+          );
+        }
+      );
       return <List>{songsList}</List>;
     } else {
       return null;
@@ -58,13 +80,18 @@ export const Playlist = () => {
   };
 
   const onClickSave = () => {
-    submitPlaylistInfo({ variables: { title: playlistTitle, description: playlistDescription, id } });
+    submitPlaylistInfo({
+      variables: { title: playlistTitle, description: playlistDescription, id }
+    });
     setEditModalVisible(false);
   };
 
-  const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => setPlaylistTitle(event.target.value);
+  const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPlaylistTitle(event.target.value);
 
-  const handleOnChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => setPlaylistDescription(event.target.value);
+  const handleOnChangeDescription = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => setPlaylistDescription(event.target.value);
 
   console.log('data', queryData);
 
@@ -76,11 +103,21 @@ export const Playlist = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={playlistImageUrl} />
-            <ProfileHeaderTitle>{queryData?.playlistById?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>
+              {queryData?.playlistById?.title}
+            </ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <RowContainer>
-              <Button onClick={() => playerContext.replaceQueueWithSongs(queryData?.playlistById?.songs)}>Play Now</Button>
+              <Button
+                onClick={() =>
+                  playerContext.replaceQueueWithSongs(
+                    queryData?.playlistById?.songs
+                  )
+                }
+              >
+                Play Now
+              </Button>
               <Button onClick={onClickEdit(true)}>Edit</Button>
             </RowContainer>
             <SubTitle>Description</SubTitle>
@@ -90,7 +127,11 @@ export const Playlist = () => {
           </ProfileContainer>
         </ContentContainer>
       )}
-      <Dialog open={editModalVisible} onClose={onClickEdit(false)} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={editModalVisible}
+        onClose={onClickEdit(false)}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Edit Playlist</DialogTitle>
         <DialogContent>
           <TextField

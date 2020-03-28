@@ -1,1 +1,3 @@
-type ApplicationState = import('typesafe-actions').StateType<typeof import('./reducer').rootReducer>;
+type ApplicationState = import('typesafe-actions').StateType<
+  typeof import('./reducer').rootReducer
+>;

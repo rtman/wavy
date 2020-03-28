@@ -1,4 +1,4 @@
-import {Sequelize} from 'sequelize-typescript';
+import { Sequelize } from 'sequelize-typescript';
 import * as Models from './models';
 
 const sequelize = new Sequelize({
@@ -19,8 +19,8 @@ const sequelize = new Sequelize({
     Models.UserPlaylist,
     Models.Song,
     Models.SongPlaylist,
-    Models.SongArtistSupportingArtist,
-  ],
+    Models.SongArtistSupportingArtist
+  ]
 });
 
-export {sequelize};
+export { sequelize };

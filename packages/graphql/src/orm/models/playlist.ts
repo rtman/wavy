@@ -6,14 +6,14 @@ import {
   Model,
   PrimaryKey,
   UpdatedAt,
-  Table,
+  Table
 } from 'sequelize-typescript';
-import {Song} from './song';
-import {SongPlaylist} from './songPlaylist';
-import {User} from './user';
-import {UserPlaylist} from './userPlaylist';
+import { Song } from './song';
+import { SongPlaylist } from './songPlaylist';
+import { User } from './user';
+import { UserPlaylist } from './userPlaylist';
 
-@Table({tableName: 'playlists'})
+@Table({ tableName: 'playlists' })
 export class Playlist extends Model<Playlist> {
   @IsUUID(4)
   @PrimaryKey
@@ -31,15 +31,15 @@ export class Playlist extends Model<Playlist> {
 
   @BelongsToMany(
     () => Song,
-    () => SongPlaylist,
+    () => SongPlaylist
   )
-  songs: Array<Song & {SongPlaylist: SongPlaylist}>;
+  songs: Array<Song & { SongPlaylist: SongPlaylist }>;
 
   @BelongsToMany(
     () => User,
-    () => UserPlaylist,
+    () => UserPlaylist
   )
-  users: Array<User & {UserPlaylist: UserPlaylist}>;
+  users: Array<User & { UserPlaylist: UserPlaylist }>;
 
   @CreatedAt
   @Column

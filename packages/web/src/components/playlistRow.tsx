@@ -2,7 +2,15 @@ import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useEffect } from 'react';
 import * as helpers from 'helpers';
-import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import {
+  Avatar,
+  ButtonBase,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory } from 'react-router-dom';
@@ -19,7 +27,9 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, data }] = useLazyQuery(consts.queries.PLAYLIST_BY_ID);
+  const [submitSearch, { loading, data }] = useLazyQuery(
+    consts.queries.PLAYLIST_BY_ID
+  );
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,7 +55,10 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     handleMenuClose();
   };
 
-  const resolvedOnClick = typeof passedOnClickPlaylist === 'function' ? passedOnClickPlaylist : handleClickPlayNow;
+  const resolvedOnClick =
+    typeof passedOnClickPlaylist === 'function'
+      ? passedOnClickPlaylist
+      : handleClickPlayNow;
 
   // console.log('location', location);
   // console.log('song', song);
@@ -66,12 +79,22 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
         />
         {/* </StyledButton> */}
         <ListItemSecondaryAction>
-          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleMenuClick}
+          >
             <MoreVert />
           </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={onClickGoToPlaylist}>Go to Playlist</MenuItem>
       </Menu>

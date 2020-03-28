@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 // import StyledComponets from 'styled-components';
-import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player';
+import TrackPlayer, {
+  usePlaybackState,
+  State
+} from 'react-native-track-player';
 import storage from '@react-native-firebase/storage';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
@@ -44,8 +47,12 @@ export const Home = () => {
       }
       const { songs } = data;
 
-      const trackUrlPromises = songs.map((track: Track) => getHttpUrl(track.url));
-      const artworkUrlPromises = songs.map((track: Track) => getHttpUrl(track.artwork));
+      const trackUrlPromises = songs.map((track: Track) =>
+        getHttpUrl(track.url)
+      );
+      const artworkUrlPromises = songs.map((track: Track) =>
+        getHttpUrl(track.artwork)
+      );
       const trackUrls = await Promise.all(trackUrlPromises);
       const artworkUrls = await Promise.all(artworkUrlPromises);
 
@@ -126,9 +133,20 @@ export const Home = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+      }}
+    >
       <View>{loading ? <Text>'loading'</Text> : renderQueue()}</View>
-      <components.Player onNext={skipToNext} onPrevious={skipToPrevious} onTogglePlayback={togglePlayBack} />
+      <components.Player
+        onNext={skipToNext}
+        onPrevious={skipToPrevious}
+        onTogglePlayback={togglePlayBack}
+      />
       <Text>{error ? error.message : null}</Text>
     </SafeAreaView>
   );

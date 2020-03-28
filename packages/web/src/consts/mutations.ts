@@ -1,8 +1,20 @@
 import { gql } from 'apollo-boost';
 
 export const CREATE_USER = gql`
-  mutation CreateUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $id: String!) {
-    createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, id: $id) {
+  mutation CreateUser(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $id: String!
+  ) {
+    createUser(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      id: $id
+    ) {
       id
       firstName
       lastName
@@ -13,15 +25,27 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_PLAYLIST = gql`
-  mutation CreatePlaylist($user_ids: [String]!, $title: String!, $description: String) {
-    createPlaylist(user_ids: $user_ids, title: $title, description: $description) {
+  mutation CreatePlaylist(
+    $user_ids: [String]!
+    $title: String!
+    $description: String
+  ) {
+    createPlaylist(
+      user_ids: $user_ids
+      title: $title
+      description: $description
+    ) {
       id
     }
   }
 `;
 
 export const UPDATE_PLAYLIST_INFO = gql`
-  mutation UpdatePlaylistInfo($title: String!, $description: String!, $id: ID!) {
+  mutation UpdatePlaylistInfo(
+    $title: String!
+    $description: String!
+    $id: ID!
+  ) {
     updatePlaylistInfo(title: $title, description: $description, id: $id) {
       title
       description

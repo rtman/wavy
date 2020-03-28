@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import TrackPlayer, { Event, State, usePlaybackState, useTrackPlayerEvents } from 'react-native-track-player';
+import TrackPlayer, {
+  Event,
+  State,
+  usePlaybackState,
+  useTrackPlayerEvents
+} from 'react-native-track-player';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as components from 'components';
 
@@ -36,7 +41,10 @@ export const Player = (props: PlayerProps) => {
       <Text style={styles.artist}>{trackArtist}</Text>
       <View style={styles.controls}>
         <components.ControlButton title={'<<'} onPress={onPrevious} />
-        <components.ControlButton title={middleButtonText} onPress={onTogglePlayback} />
+        <components.ControlButton
+          title={middleButtonText}
+          onPress={onTogglePlayback}
+        />
         <components.ControlButton title={'>>'} onPress={onNext} />
       </View>
     </View>

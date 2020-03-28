@@ -43,8 +43,14 @@ export const PlayerProvider = ({ children }: any) => {
   const [queue, setQueue] = useState<Song[]>([]);
   const [queuePosition, setQueuePosition] = useState<number>(0);
   // const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
-  const [localStorageQueue, setLocalStorageQueue] = helpers.hooks.useLocalStorage('queue', []);
-  const [localStorageQueuePosition, setLocalStorageQueuePosition] = helpers.hooks.useLocalStorage('queuePosition', 0);
+  const [
+    localStorageQueue,
+    setLocalStorageQueue
+  ] = helpers.hooks.useLocalStorage('queue', []);
+  const [
+    localStorageQueuePosition,
+    setLocalStorageQueuePosition
+  ] = helpers.hooks.useLocalStorage('queuePosition', 0);
 
   let audio = new Audio();
 
@@ -64,7 +70,9 @@ export const PlayerProvider = ({ children }: any) => {
 
   useEffect(() => {
     const loadLocalStorageQueue = async () => {
-      const resolvedLocalStorageQueue = await addAudioElements(localStorageQueue);
+      const resolvedLocalStorageQueue = await addAudioElements(
+        localStorageQueue
+      );
       console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
       setQueue(resolvedLocalStorageQueue);
       setQueuePosition(localStorageQueuePosition);

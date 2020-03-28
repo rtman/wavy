@@ -1,4 +1,11 @@
-import { AppContainer, BottomBar, Navigator, NavMenu, Player, TopBar } from 'components';
+import {
+  AppContainer,
+  BottomBar,
+  Navigator,
+  NavMenu,
+  Player,
+  TopBar
+} from 'components';
 import React, { useContext } from 'react';
 import { AuthContextState, PlayerProvider, UserProvider } from 'context';
 import './App.css';

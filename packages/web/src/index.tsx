@@ -41,7 +41,10 @@ const sagaMiddleware = createSagaMiddleware({
   onError: sagaGlobalErrorHandler
 });
 
-let middleware = redux.applyMiddleware(routerMiddleware(history), sagaMiddleware);
+let middleware = redux.applyMiddleware(
+  routerMiddleware(history),
+  sagaMiddleware
+);
 
 if (process.env.NODE_ENV === 'development') {
   const composeEnhancers = composeWithDevTools({});
@@ -58,7 +61,10 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <ApolloProvider client={client}>
         <Helmet>
-          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
         </Helmet>
         <CssBaseline>
           <AuthProvider>

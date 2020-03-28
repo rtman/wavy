@@ -2,7 +2,15 @@ import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useState } from 'react';
 import * as helpers from 'helpers';
-import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import {
+  Avatar,
+  ButtonBase,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -76,7 +84,8 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
-  const resolvedOnClick = typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
+  const resolvedOnClick =
+    typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
   const onClickToggleFavourite = () => {
     userContext?.updateFavourites(song.id);
@@ -84,7 +93,9 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.favourites.find((f) => f.id === song.id) ? 'Unfavourite' : 'Favourite';
+    return userContext?.user?.favourites.find((f) => f.id === song.id)
+      ? 'Unfavourite'
+      : 'Favourite';
   };
 
   // console.log('location', location);
@@ -124,11 +135,17 @@ export const SongRow = (props: SongRowProps) => {
         <StyledListItemText
           primary={song.title}
           secondary={secondaryStyle ? null : song.artist.name}
-          onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
+          onClick={
+            secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()
+          }
         />
         {/* </StyledButton> */}
         <ListItemSecondaryAction>
-          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleMenuClick}
+          >
             <MoreVert />
           </StyledButton>
         </ListItemSecondaryAction>
@@ -147,19 +164,38 @@ export const SongRow = (props: SongRowProps) => {
         }}
       >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
-        <MenuItem onClick={location.pathname.includes(consts.routes.QUEUE) ? handleClickRemoveFromQueue : handleClickAddToQueue}>
-          {location.pathname.includes(consts.routes.QUEUE) ? 'Remove From Queue' : 'Add to Queue'}
+        <MenuItem
+          onClick={
+            location.pathname.includes(consts.routes.QUEUE)
+              ? handleClickRemoveFromQueue
+              : handleClickAddToQueue
+          }
+        >
+          {location.pathname.includes(consts.routes.QUEUE)
+            ? 'Remove From Queue'
+            : 'Add to Queue'}
         </MenuItem>
-        {location.pathname.includes(consts.routes.ALBUM) ? null : <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem>}
-        {location.pathname.includes(consts.routes.ARTIST) ? null : <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>}
+        {location.pathname.includes(consts.routes.ALBUM) ? null : (
+          <MenuItem onClick={onClickGoToAlbum}>Go to Album</MenuItem>
+        )}
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
-          <MenuItem onClick={onClickToggleFavourite}>{getFavouriteTitle()}</MenuItem>
+          <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
+        )}
+        {location.pathname.includes(consts.routes.ARTIST) ? null : (
+          <MenuItem onClick={onClickToggleFavourite}>
+            {getFavouriteTitle()}
+          </MenuItem>
         )}
         {location.pathname.includes(consts.routes.PLAYLIST) ? (
-          <MenuItem onClick={onClickRemoveFromPlaylist}>Remove From Playlist</MenuItem>
+          <MenuItem onClick={onClickRemoveFromPlaylist}>
+            Remove From Playlist
+          </MenuItem>
         ) : null}
         {userContext?.playlists?.length ?? 0 > 0 ? (
-          <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+          <NestedMenuItem
+            label="Add to Playlist"
+            parentMenuOpen={!!menuPosition}
+          >
             {renderPlaylists()}
           </NestedMenuItem>
         ) : null}

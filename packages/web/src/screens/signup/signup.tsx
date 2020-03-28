@@ -1,4 +1,11 @@
-import { Button, CircularProgress, Container, Grid, FormControl, TextField } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  FormControl,
+  TextField
+} from '@material-ui/core';
 import * as consts from 'consts';
 import React, { useState } from 'react';
 import { Title, SubTitle } from 'components';
@@ -28,14 +35,27 @@ export const Signup = () => {
   //     confirmPassword: false
   //   });
 
-  const onTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>, setValueCb: (value: string) => void) => {
+  const onTextFieldChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setValueCb: (value: string) => void
+  ) => {
     setValueCb(event.target.value);
   };
 
   const onClickSignup = async () => {
-    const firebaseCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const firebaseCredential = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
     if (firebaseCredential?.user) {
-      createUser({ variables: { firstName, lastName, email, password, id: firebaseCredential.user.uid } });
+      createUser({
+        variables: {
+          firstName,
+          lastName,
+          email,
+          password,
+          id: firebaseCredential.user.uid
+        }
+      });
     }
   };
 
@@ -49,7 +69,9 @@ export const Signup = () => {
             <TextField
               value={firstName}
               label="First Name"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onTextFieldChange(event, setFirstName)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onTextFieldChange(event, setFirstName)
+              }
             />
           </FormControl>
         </Grid>
@@ -58,7 +80,9 @@ export const Signup = () => {
             <TextField
               value={lastName}
               label="Last Name"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onTextFieldChange(event, setLastName)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onTextFieldChange(event, setLastName)
+              }
             />
           </FormControl>
         </Grid>
@@ -67,7 +91,9 @@ export const Signup = () => {
             <TextField
               value={email}
               label="Email"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onTextFieldChange(event, setEmail)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onTextFieldChange(event, setEmail)
+              }
             />
           </FormControl>
         </Grid>
@@ -77,7 +103,9 @@ export const Signup = () => {
               value={password}
               type="password"
               label="Password"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onTextFieldChange(event, setPassword)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onTextFieldChange(event, setPassword)
+              }
             />
           </FormControl>
         </Grid>
@@ -87,11 +115,15 @@ export const Signup = () => {
               value={confirmPassword}
               type="password"
               label="Confirm Password"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onTextFieldChange(event, setConfirmPassword)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onTextFieldChange(event, setConfirmPassword)
+              }
             />
           </FormControl>
         </Grid>
-        <Button onClick={onClickSignup}>{loading ? <CircularProgress /> : 'Sign up'}</Button>
+        <Button onClick={onClickSignup}>
+          {loading ? <CircularProgress /> : 'Sign up'}
+        </Button>
       </Grid>
     </Container>
   );

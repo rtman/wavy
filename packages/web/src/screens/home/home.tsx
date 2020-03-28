@@ -10,13 +10,17 @@ export const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const [submitSearch, { loading, data }] = useLazyQuery(consts.queries.SEARCH_SONGS_QUERY);
+  const [submitSearch, { loading, data }] = useLazyQuery(
+    consts.queries.SEARCH_SONGS_QUERY
+  );
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
 
-  const onKeyDownSearchBar = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDownSearchBar = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.keyCode == 13) {
       const formattedSearchText = `*${searchText}*`;
       submitSearch({ variables: { query: formattedSearchText } });
@@ -27,8 +31,12 @@ export const Home = () => {
     const convertSongUrls = async () => {
       const songs = data?.searchSongs ?? [];
 
-      const songUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.url));
-      const imageUrlPromises = songs.map((song: Song) => helpers.getStorageHttpUrl(song.image));
+      const songUrlPromises = songs.map((song: Song) =>
+        helpers.getStorageHttpUrl(song.url)
+      );
+      const imageUrlPromises = songs.map((song: Song) =>
+        helpers.getStorageHttpUrl(song.image)
+      );
       const songUrls = await Promise.all(songUrlPromises);
       const imageUrls = await Promise.all(imageUrlPromises);
 
@@ -61,7 +69,13 @@ export const Home = () => {
   return (
     <Screen>
       <ContentContainer>
-        <TextInput onChange={onChangeSearchBar} value={searchText} placeholder={'Search'} onKeyDown={onKeyDownSearchBar} fullWidth={true} />
+        <TextInput
+          onChange={onChangeSearchBar}
+          value={searchText}
+          placeholder={'Search'}
+          onKeyDown={onKeyDownSearchBar}
+          fullWidth={true}
+        />
         {loading ? <div>Loading</div> : renderSearchResults()}
       </ContentContainer>
     </Screen>

@@ -62,7 +62,8 @@ module.exports = {
         title: 'Foreign Parts',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         description: 'Released on SW',
-        image: 'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -71,7 +72,8 @@ module.exports = {
         title: 'Melodic Tools',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         description: 'Released on SW',
-        image: 'gs://groov-development-ddc9d.appspot.com/seb wildblood - sw005.jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/seb wildblood - sw005.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -80,7 +82,8 @@ module.exports = {
         title: 'SW004',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         description: 'Released on SW',
-        image: 'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -89,7 +92,8 @@ module.exports = {
         title: 'Submarine',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         description: 'Released on SW',
-        image: 'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -107,7 +111,8 @@ module.exports = {
         title: 'BBNG',
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         description: 'Self released',
-        image: 'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -116,7 +121,8 @@ module.exports = {
         title: `Bene's World`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         description: 'Released on Leaving Records',
-        image: 'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },

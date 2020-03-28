@@ -8,12 +8,12 @@ import {
   PrimaryKey,
   UpdatedAt,
   Table,
-  ForeignKey,
+  ForeignKey
 } from 'sequelize-typescript';
-import {Artist} from './artist';
-import {Song} from './song';
+import { Artist } from './artist';
+import { Song } from './song';
 
-@Table({tableName: 'albums'})
+@Table({ tableName: 'albums' })
 export class Album extends Model<Album> {
   @IsUUID(4)
   @PrimaryKey

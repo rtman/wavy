@@ -1,16 +1,35 @@
-import { ContentContainer, PlaylistRow, RowContainer, Screen, SubTitle } from 'components';
+import {
+  ContentContainer,
+  PlaylistRow,
+  RowContainer,
+  Screen,
+  SubTitle
+} from 'components';
 import { UserContext } from 'context';
 import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, List, TextField } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  List,
+  TextField
+} from '@material-ui/core';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
   const userContext = useContext(UserContext);
-  const [getPlaylists, { loading: queryLoading, data: queryData }] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
+  const [
+    getPlaylists,
+    { loading: queryLoading, data: queryData }
+  ] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
     fetchPolicy: 'network-only'
   });
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
@@ -27,14 +46,18 @@ export const Playlists = () => {
 
   const renderPlaylists = () => {
     if (queryData?.playlistsByUserId?.length > 0) {
-      const playlistsList = queryData.playlistsByUserId.map((playlist: Playlist, index: number) => {
-        return (
-          <React.Fragment key={playlist.id}>
-            <PlaylistRow playlist={playlist} />
-            {index < queryData.playlistsByUserId.length - 1 ? <Divider /> : null}
-          </React.Fragment>
-        );
-      });
+      const playlistsList = queryData.playlistsByUserId.map(
+        (playlist: Playlist, index: number) => {
+          return (
+            <React.Fragment key={playlist.id}>
+              <PlaylistRow playlist={playlist} />
+              {index < queryData.playlistsByUserId.length - 1 ? (
+                <Divider />
+              ) : null}
+            </React.Fragment>
+          );
+        }
+      );
       return <List>{playlistsList}</List>;
     } else {
       return null;
@@ -46,13 +69,22 @@ export const Playlists = () => {
   };
 
   const onClickSave = () => {
-    createPlaylist({ variables: { user_ids: [userContext?.user?.id], title: playlistTitle, description: playlistDescription } });
+    createPlaylist({
+      variables: {
+        user_ids: [userContext?.user?.id],
+        title: playlistTitle,
+        description: playlistDescription
+      }
+    });
     setNewModalVisible(false);
   };
 
-  const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => setPlaylistTitle(event.target.value);
+  const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPlaylistTitle(event.target.value);
 
-  const handleOnChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => setPlaylistDescription(event.target.value);
+  const handleOnChangeDescription = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => setPlaylistDescription(event.target.value);
 
   return (
     <Screen>
@@ -67,7 +99,11 @@ export const Playlists = () => {
           {renderPlaylists()}
         </ContentContainer>
       )}
-      <Dialog open={newModalVisible} onClose={onClickNew(false)} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={newModalVisible}
+        onClose={onClickNew(false)}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">New Playlist</DialogTitle>
         <DialogContent>
           <TextField

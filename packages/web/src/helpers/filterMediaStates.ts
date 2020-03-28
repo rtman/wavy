@@ -1,6 +1,14 @@
 export const filterMediaStates = (type: string, state: string) => {
   // const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
-  const statesThatStopPlayback = ['abort', 'error', 'emptied', 'encrypted', 'ended', 'waiting', 'stalled'];
+  const statesThatStopPlayback = [
+    'abort',
+    'error',
+    'emptied',
+    'encrypted',
+    'ended',
+    'waiting',
+    'stalled'
+  ];
 
   const dontCareStates = [
     'canplay',

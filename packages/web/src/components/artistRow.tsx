@@ -1,7 +1,15 @@
 import { StyledButton, StyledListItemText } from 'components';
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
-import { Avatar, ButtonBase, ListItem, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import {
+  Avatar,
+  ButtonBase,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context';
@@ -36,7 +44,10 @@ export const ArtistRow = (props: ArtistRowProps) => {
     handleMenuClose();
   };
 
-  const resolvedOnClick = typeof passedOnClickArtist === 'function' ? passedOnClickArtist : onClickGoToArtist;
+  const resolvedOnClick =
+    typeof passedOnClickArtist === 'function'
+      ? passedOnClickArtist
+      : onClickGoToArtist;
 
   return (
     <>
@@ -52,15 +63,27 @@ export const ArtistRow = (props: ArtistRowProps) => {
           // onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
         />
         <ListItemSecondaryAction>
-          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleMenuClick}
+          >
             <MoreVert />
           </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         <MenuItem onClick={onClickToggleFollow}>
-          {userContext?.user?.following.find((f) => f.id === artist.id) ? 'Unfollow' : 'Follow'}
+          {userContext?.user?.following.find((f) => f.id === artist.id)
+            ? 'Unfollow'
+            : 'Follow'}
         </MenuItem>
       </Menu>
     </>

@@ -1,6 +1,15 @@
 import { StyledButton } from 'components';
 import React, { useContext, useState } from 'react';
-import { Avatar, Divider, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, Menu, MenuItem } from '@material-ui/core';
+import {
+  Avatar,
+  Divider,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
 import { PlayerContext, UserContext } from 'context';
@@ -53,7 +62,10 @@ export const AlbumRow = (props: AlbumRowProps) => {
     playerContext.replaceQueueWithSongs(album.songs);
   };
 
-  const resolvedOnClick = typeof passedOnClickAlbum === 'function' ? passedOnClickAlbum : onClickAlbum;
+  const resolvedOnClick =
+    typeof passedOnClickAlbum === 'function'
+      ? passedOnClickAlbum
+      : onClickAlbum;
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const song_ids = album.songs.map((s) => s.id);
@@ -72,23 +84,40 @@ export const AlbumRow = (props: AlbumRowProps) => {
 
   return (
     <>
-      <ListItem alignItems="flex-start" onClick={() => resolvedOnClick(album)} button={true}>
+      <ListItem
+        alignItems="flex-start"
+        onClick={() => resolvedOnClick(album)}
+        button={true}
+      >
         <ListItemAvatar>
           <Avatar variant="square" src={albumImageUrl} />
         </ListItemAvatar>
         <ListItemText primary={album.title} />
         <ListItemSecondaryAction>
-          <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <StyledButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleMenuClick}
+          >
             <MoreVert />
           </StyledButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
         <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
         {userContext?.playlists?.length ?? 0 > 0 ? (
-          <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+          <NestedMenuItem
+            label="Add to Playlist"
+            parentMenuOpen={!!menuPosition}
+          >
             {renderPlaylists()}
           </NestedMenuItem>
         ) : null}

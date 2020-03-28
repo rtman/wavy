@@ -9,19 +9,19 @@ import {
   PrimaryKey,
   UpdatedAt,
   Table,
-  ForeignKey,
+  ForeignKey
 } from 'sequelize-typescript';
 
-import {Artist} from './artist';
-import {Album} from './album';
-import {Playlist} from './playlist';
-import {SongPlaylist} from './songPlaylist';
-import {SongArtistSupportingArtist} from './songArtistSupportingArtist';
-import {UserSongFavourites} from './userSongFavourites';
-import {User} from './user';
-import {UserSongRecentlyPlayed} from './userSongRecentlyPlayed';
+import { Artist } from './artist';
+import { Album } from './album';
+import { Playlist } from './playlist';
+import { SongPlaylist } from './songPlaylist';
+import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+import { UserSongFavourites } from './userSongFavourites';
+import { User } from './user';
+import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
-@Table({tableName: 'songs'})
+@Table({ tableName: 'songs' })
 export class Song extends Model<Song> {
   @IsUUID(4)
   @PrimaryKey
@@ -44,14 +44,14 @@ export class Song extends Model<Song> {
 
   @BelongsToMany(
     () => Artist,
-    () => SongArtistSupportingArtist,
+    () => SongArtistSupportingArtist
   )
   supportingArtists: Array<
-    Artist & {SongArtistSupportingArtist: SongArtistSupportingArtist}
+    Artist & { SongArtistSupportingArtist: SongArtistSupportingArtist }
   >;
 
   // TODO: Figureout gengres, most likely a many to many assocation
-  @Column({type: DataType.ARRAY(DataType.STRING)})
+  @Column({ type: DataType.ARRAY(DataType.STRING) })
   genres: string[];
 
   @Column
@@ -68,9 +68,9 @@ export class Song extends Model<Song> {
 
   @BelongsToMany(
     () => Playlist,
-    () => SongPlaylist,
+    () => SongPlaylist
   )
-  playlists: Array<Playlist & {SongPlaylist: SongPlaylist}>;
+  playlists: Array<Playlist & { SongPlaylist: SongPlaylist }>;
 
   @CreatedAt
   @Column
@@ -82,15 +82,15 @@ export class Song extends Model<Song> {
 
   @BelongsToMany(
     () => User,
-    () => UserSongFavourites,
+    () => UserSongFavourites
   )
-  usersFavourited: Array<User & {UserSongFavourites: UserSongFavourites}>;
+  usersFavourited: Array<User & { UserSongFavourites: UserSongFavourites }>;
 
   @BelongsToMany(
     () => User,
-    () => UserSongRecentlyPlayed,
+    () => UserSongRecentlyPlayed
   )
   usersRecentlyPlayed: Array<
-    User & {UserSongRecentlyPlayed: UserSongRecentlyPlayed}
+    User & { UserSongRecentlyPlayed: UserSongRecentlyPlayed }
   >;
 }

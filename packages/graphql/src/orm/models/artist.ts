@@ -7,14 +7,14 @@ import {
   Model,
   PrimaryKey,
   UpdatedAt,
-  Table,
+  Table
 } from 'sequelize-typescript';
-import {Album} from './album';
-import {Song} from './song';
-import {User} from './user';
-import {UserArtistFollowing} from './userArtistFollowing';
+import { Album } from './album';
+import { Song } from './song';
+import { User } from './user';
+import { UserArtistFollowing } from './userArtistFollowing';
 
-@Table({tableName: 'artists'})
+@Table({ tableName: 'artists' })
 export class Artist extends Model<Artist> {
   @IsUUID(4)
   @PrimaryKey
@@ -38,9 +38,9 @@ export class Artist extends Model<Artist> {
 
   @BelongsToMany(
     () => User,
-    () => UserArtistFollowing,
+    () => UserArtistFollowing
   )
-  usersFollowing: Array<User & {UserArtistFollowing: UserArtistFollowing}>;
+  usersFollowing: Array<User & { UserArtistFollowing: UserArtistFollowing }>;
 
   @CreatedAt
   @Column
