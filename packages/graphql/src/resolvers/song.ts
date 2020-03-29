@@ -38,6 +38,32 @@ export const songResolvers: Resolvers = {
         ],
       });
     },
+    songsById: async (_parent, args, ctx): Promise<Models.Song[]> => {
+      const { ids } = args;
+      return await ctx.models.Song.findAll({
+        where: {
+          id: ids,
+        },
+        include: [
+          {
+            model: Models.Artist,
+            as: 'artist',
+          },
+          {
+            model: Models.Album,
+            as: 'album',
+          },
+          {
+            model: Models.User,
+            as: 'usersFavourited',
+          },
+          {
+            model: Models.Artist,
+            as: 'supportingArtists',
+          },
+        ],
+      });
+    },
     searchSongs: async (_parent, args, _ctx): Promise<Models.Song[]> => {
       const { query } = args;
       const result = await sequelizeInstance.query(

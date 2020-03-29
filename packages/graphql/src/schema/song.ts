@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     songs: [Song]
     songById(id: ID!): Song
+    songsById(ids: [ID]!): [Song]
     searchSongs(query: String!): [Song]
   }
 

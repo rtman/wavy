@@ -171,20 +171,22 @@ export const SEARCH_SONGS_QUERY = gql`
 `;
 
 export const SONGS_BY_ID_QUERY = gql`
-  query SongsByIdWithAlbumArtistsJoined($ids: [ID]!) {
-    songsByIdWithAlbumArtistsJoined(ids: $ids) {
-      artist_id
+  query SongsById($ids: [ID]!) {
+    songsById(ids: $ids) {
+      id
       title
-      album_id
-      genres
       url
       image
-      date
-      id
-      createdAt
-      updatedAt
-      artist_name
-      album_title
+      artist {
+        id
+        name
+        image
+      }
+      album {
+        id
+        title
+        image
+      }
     }
   }
 `;

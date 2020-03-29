@@ -27,8 +27,8 @@ export const Queue = () => {
   }, [songIds]);
 
   const renderSongs = () => {
-    if (data?.songsByIdWithAlbumArtistsJoined?.length > 0) {
-      const songs = data?.songsByIdWithAlbumArtistsJoined;
+    if (data?.songsById?.length > 0) {
+      const songs = data?.songsById;
       const sortedSongs: Song[] = [];
       songs.forEach((s: Song) => {
         sortedSongs[songIds.indexOf(s.id)] = s;
