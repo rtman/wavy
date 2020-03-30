@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import * as helpers from 'helpers';
 import firebase from 'firebase';
 
@@ -54,7 +54,7 @@ export const PlayerProvider = ({ children }: any) => {
 
   let audio = new Audio();
 
-  const addAudioElements = async (songs: Song[]) => {
+  const addAudioElements = useCallback(async (songs: Song[]) => {
     const songUrlPromises = songs.map((s) => {
       return getStorageHttpUrl(s.url);
     });
@@ -66,7 +66,7 @@ export const PlayerProvider = ({ children }: any) => {
       };
     });
     return resolvedSongs;
-  };
+  }, []);
 
   useEffect(() => {
     const loadLocalStorageQueue = async () => {

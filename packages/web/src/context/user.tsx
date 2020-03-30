@@ -1,4 +1,10 @@
-import React, { createContext, useEffect, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useEffect,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { AuthContextState } from 'context';
 import * as consts from 'consts';
@@ -72,9 +78,12 @@ export const UserProvider = ({ children }: any) => {
   );
   const [user, setUser] = useState<User | undefined>(undefined);
 
-  const loadUser = (id: string) => {
-    getUserById({ variables: { id } });
-  };
+  const loadUser = useCallback(
+    (id: string) => {
+      getUserById({ variables: { id } });
+    },
+    [getUserById]
+  );
 
   useEffect(() => {
     console.log(
