@@ -70,7 +70,7 @@ export const Home: React.FunctionComponent = () => {
       await TrackPlayer.add(resolvedSongs);
       const queue = await TrackPlayer.getQueue();
       // TODO: fix type
-      // eslint-disable-next-lint no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setQueue(queue as any);
     };
 
