@@ -84,7 +84,7 @@ export const UserProvider = ({ children }: any) => {
     if (authContextState?.firebaseUser?.uid) {
       loadUser(authContextState?.firebaseUser?.uid);
     }
-  }, []);
+  }, [authContextState, loadUser]);
 
   const updateFollowing = (artistId: string) => {
     submitUpdateFollowing({ variables: { id: user?.id, artistId } });

@@ -85,6 +85,7 @@ export const songResolvers: Resolvers = {
         { type: QueryTypes.SELECT }
       );
       // TODO: fix with proper typing
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return result as any;
     },
   },

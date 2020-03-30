@@ -25,7 +25,7 @@ const SONGS = gql`
   }
 `;
 
-export const Home = () => {
+export const Home: React.FunctionComponent = () => {
   const [trackQueue, setQueue] = useState<Track[]>([]);
   // const [loading, setLoading] = useState(false);
   const playbackState = usePlaybackState();
@@ -58,7 +58,7 @@ export const Home = () => {
 
       const resolvedSongs = [];
       for (let i = 0; i < songs.length; i++) {
-        let { __typename, ...song } = songs[i];
+        const { ...song } = songs[i];
         song.id = `${song.artist}-${song.title}`;
         song.url = trackUrls[i];
         song.artwork = artworkUrls[i];
@@ -106,13 +106,17 @@ export const Home = () => {
   const skipToNext = async () => {
     try {
       await TrackPlayer.skipToNext();
-    } catch (_) {}
+    } catch (_) {
+      console.log(_);
+    }
   };
 
   const skipToPrevious = async () => {
     try {
       await TrackPlayer.skipToPrevious();
-    } catch (_) {}
+    } catch (_) {
+      console.log(_);
+    }
   };
 
   const togglePlayBack = async () => {

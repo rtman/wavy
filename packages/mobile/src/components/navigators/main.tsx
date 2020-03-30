@@ -6,7 +6,7 @@ import * as screens from 'screens';
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export const NavigationStack = () => {
+export const NavigationStack: React.FunctionComponent = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Profile" component={screens.Search} />
@@ -15,7 +15,7 @@ export const NavigationStack = () => {
   );
 };
 
-export const NavigationTabs = () => {
+export const NavigationTabs: React.FunctionComponent = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={screens.Home} />

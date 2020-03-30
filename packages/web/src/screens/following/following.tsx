@@ -8,6 +8,7 @@ export const Following = () => {
   console.log('userContext?.user', userContext?.user);
 
   const renderArtists = () => {
+    // eslint-disable-next-line no-self-compare
     if (userContext?.user?.following?.length ?? 0 > 0) {
       const following = userContext?.user?.following ?? [];
       const artistList = following.map((artist: Artist, index: number) => {

@@ -9,7 +9,7 @@ const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
 });
 
-export const App = () => {
+export const App: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
       <ApolloProvider client={client}>

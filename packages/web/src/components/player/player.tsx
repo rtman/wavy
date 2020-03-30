@@ -47,7 +47,7 @@ export const Player = () => {
     if (filteredMediaState === 'ended') {
       playerContext.playNextSongInQueue();
     }
-  }, [filteredMediaState]);
+  }, [filteredMediaState, playerContext]);
 
   // console.log('mediaState', filteredMediaState);
 

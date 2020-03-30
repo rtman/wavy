@@ -8,49 +8,6 @@ import TrackPlayer, {
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as components from 'components';
 
-export const Player = (props: PlayerProps) => {
-  const playbackState = usePlaybackState();
-  const [trackTitle, setTrackTitle] = useState('');
-  const [trackArtwork, setTrackArtwork] = useState('');
-  const [trackArtist, setTrackArtist] = useState('');
-  const [trackDuration, setTrackDuration] = useState(0);
-
-  useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event: any) => {
-    if (event.type === Event.PlaybackTrackChanged) {
-      const track = await TrackPlayer.getTrack(event.nextTrack);
-      setTrackTitle(track.title);
-      setTrackArtist(track.artist_name);
-      setTrackArtwork(track.artwork);
-      setTrackDuration(track.duration);
-    }
-  });
-
-  const { onNext, onPrevious, onTogglePlayback } = props;
-
-  let middleButtonText = 'Play';
-
-  if (playbackState === State.Playing || playbackState === State.Buffering) {
-    middleButtonText = 'Pause';
-  }
-
-  return (
-    <View style={styles.card}>
-      <Image style={styles.cover} source={{ uri: trackArtwork }} />
-      <components.ProgressBar duration={trackDuration} />
-      <Text style={styles.title}>{trackTitle}</Text>
-      <Text style={styles.artist}>{trackArtist}</Text>
-      <View style={styles.controls}>
-        <components.ControlButton title={'<<'} onPress={onPrevious} />
-        <components.ControlButton
-          title={middleButtonText}
-          onPress={onTogglePlayback}
-        />
-        <components.ControlButton title={'>>'} onPress={onNext} />
-      </View>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   card: {
     width: '80%',
@@ -93,3 +50,52 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export const Player: React.FunctionComponent<PlayerProps> = (props) => {
+  const playbackState = usePlaybackState();
+  const [trackTitle, setTrackTitle] = useState('');
+  const [trackArtwork, setTrackArtwork] = useState<string | number | undefined>(
+    ''
+  );
+  const [trackArtist, setTrackArtist] = useState('');
+  const [trackDuration, setTrackDuration] = useState<number | undefined>(0);
+
+  useTrackPlayerEvents(
+    [Event.PlaybackTrackChanged],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    () => async (event: any) => {
+      if (event.type === Event.PlaybackTrackChanged) {
+        const track = await TrackPlayer.getTrack(event.nextTrack);
+        setTrackTitle(track.title);
+        setTrackArtist(track.artist_name);
+        setTrackArtwork(track.artwork);
+        setTrackDuration(track.duration);
+      }
+    }
+  );
+
+  const { onNext, onPrevious, onTogglePlayback } = props;
+
+  let middleButtonText = 'Play';
+
+  if (playbackState === State.Playing || playbackState === State.Buffering) {
+    middleButtonText = 'Pause';
+  }
+
+  return (
+    <View style={styles.card}>
+      <Image style={styles.cover} source={{ uri: trackArtwork }} />
+      <components.ProgressBar duration={trackDuration} />
+      <Text style={styles.title}>{trackTitle}</Text>
+      <Text style={styles.artist}>{trackArtist}</Text>
+      <View style={styles.controls}>
+        <components.ControlButton title={'<<'} onPress={onPrevious} />
+        <components.ControlButton
+          title={middleButtonText}
+          onPress={onTogglePlayback}
+        />
+        <components.ControlButton title={'>>'} onPress={onNext} />
+      </View>
+    </View>
+  );
+};

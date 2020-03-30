@@ -79,7 +79,7 @@ export const PlayerProvider = ({ children }: any) => {
       setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
     };
     loadLocalStorageQueue();
-  }, []);
+  }, [addAudioElements, localStorageQueue, localStorageQueuePosition]);
 
   const addSongsToEndOfQueue = async (songs: Song[]) => {
     const resolvedSongs = await addAudioElements(songs);

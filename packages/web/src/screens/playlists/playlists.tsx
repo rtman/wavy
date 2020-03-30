@@ -32,6 +32,10 @@ export const Playlists = () => {
   ] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
     fetchPolicy: 'network-only',
   });
+
+  const user = userContext?.user;
+  const userId = user?.id;
+
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {
       getPlaylists({ variables: { userId: userContext?.user?.id } });
@@ -39,10 +43,10 @@ export const Playlists = () => {
   });
 
   useEffect(() => {
-    if (userContext?.user?.id) {
+    if (userId) {
       getPlaylists({ variables: { userId: userContext?.user?.id } });
     }
-  }, [userContext?.user?.id]);
+  }, [userContext, userId, getPlaylists]);
 
   const renderPlaylists = () => {
     if (queryData?.playlistsByUserId?.length > 0) {

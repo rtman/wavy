@@ -1,4 +1,4 @@
 interface ControlButton {
-  title: String;
+  title: string;
   onPress: () => void;
 }

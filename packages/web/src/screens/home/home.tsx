@@ -21,7 +21,7 @@ export const Home = () => {
   const onKeyDownSearchBar = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       const formattedSearchText = `*${searchText}*`;
       submitSearch({ variables: { query: formattedSearchText } });
     }

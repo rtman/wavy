@@ -113,6 +113,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
         <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
+        {/* eslint-disable-next-line no-self-compare*/}
         {userContext?.playlists?.length ?? 0 > 0 ? (
           <NestedMenuItem
             label="Add to Playlist"

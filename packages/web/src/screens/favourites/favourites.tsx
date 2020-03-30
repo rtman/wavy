@@ -7,6 +7,7 @@ export const Favourites = () => {
   const userContext = useContext(UserContext);
 
   const renderSongs = () => {
+    // eslint-disable-next-line no-self-compare
     if (userContext?.user?.favourites?.length ?? 0 > 0) {
       const favourites = userContext?.user?.favourites ?? [];
       const songsList = favourites.map((song: Song, index: number) => {

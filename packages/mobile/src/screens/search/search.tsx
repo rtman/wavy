@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export const Search = () => {
+export const Search = (): React.ReactNode => {
   return <Text>Search</Text>;
 };

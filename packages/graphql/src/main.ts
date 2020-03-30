@@ -16,6 +16,7 @@ const server = new ApolloServer({
   playground: true,
   typeDefs: schema,
   // TODO: fix with proper type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resolvers: resolvers as any,
   formatError: (error): GraphQLError => {
     // remove the internal sequelize error message

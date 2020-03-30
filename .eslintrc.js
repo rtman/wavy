@@ -9,6 +9,11 @@ module.exports = {
         tsconfigRootDir: __dirname,
         project: ['./packages/*/tsconfig.json'],
       },
+      // for mobile specifically, can remove later when coding mobile
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'react-native/no-inline-styles': 'off',
+      },
       extends: [
         '@react-native-community',
         'eslint:recommended',
