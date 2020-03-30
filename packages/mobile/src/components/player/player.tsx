@@ -84,7 +84,8 @@ export const Player: React.FunctionComponent<PlayerProps> = (props) => {
 
   return (
     <View style={styles.card}>
-      <Image style={styles.cover} source={{ uri: trackArtwork }} />
+      {/* TODO: Fix type */}
+      <Image style={styles.cover} source={{ uri: trackArtwork as string }} />
       <components.ProgressBar duration={trackDuration} />
       <Text style={styles.title}>{trackTitle}</Text>
       <Text style={styles.artist}>{trackArtist}</Text>
