@@ -69,7 +69,9 @@ export const Home: React.FunctionComponent = () => {
 
       await TrackPlayer.add(resolvedSongs);
       const queue = await TrackPlayer.getQueue();
-      setQueue(queue);
+      // TODO: fix type
+      // eslint-disable-next-lint no-explicit-any
+      setQueue(queue as any);
     };
 
     // if (!loading) {
