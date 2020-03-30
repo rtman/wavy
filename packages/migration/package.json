@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "build:ts": "echo 'Skipping due to JS'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
     "lint": "eslint '**/*.js' && npm run prettier:check",
