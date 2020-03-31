@@ -47,8 +47,7 @@ export const Playlists = () => {
     if (user?.id) {
       getPlaylists({ variables: { userId: user.id } });
     }
-  }, [user]);
-  // }, [user, getPlaylists]);
+  }, [user, getPlaylists]);
 
   const renderPlaylists = () => {
     if (queryData?.playlistsByUserId?.length > 0) {
@@ -77,7 +76,7 @@ export const Playlists = () => {
   const onClickSave = () => {
     createPlaylist({
       variables: {
-        user_ids: [userContext?.user?.id],
+        userId: userContext?.user?.id,
         title: playlistTitle,
         description: playlistDescription,
       },

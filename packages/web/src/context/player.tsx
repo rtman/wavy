@@ -87,6 +87,8 @@ export const PlayerProvider = ({ children }: any) => {
       setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
     };
     loadLocalStorageQueue();
+    // TODO: Re enable and fix deps, localStorageQueuePosition breaks it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // }, [localStorageQueue, localStorageQueuePosition]);
 

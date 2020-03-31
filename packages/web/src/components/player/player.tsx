@@ -47,6 +47,8 @@ export const Player = () => {
     if (filteredMediaState === 'ended') {
       playerContext.playNextSongInQueue();
     }
+    // TODO: Re enable and fix deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredMediaState]);
   // }, [filteredMediaState, playerContext]);
 

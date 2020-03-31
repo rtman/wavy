@@ -9,7 +9,11 @@ export default gql`
   }
 
   extend type Mutation {
-    createPlaylist(title: String!, description: String): Playlist!
+    createPlaylist(
+      userId: String!
+      title: String!
+      description: String
+    ): Playlist!
     updatePlaylistInfo(
       id: ID!
       title: String

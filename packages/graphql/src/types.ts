@@ -93,6 +93,7 @@ export type MutationDeleteAlbumArgs = {
 };
 
 export type MutationCreatePlaylistArgs = {
+  userId: Scalars['String'];
   title: Scalars['String'];
   description?: Maybe<Scalars['String']>;
 };

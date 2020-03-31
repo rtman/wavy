@@ -1,5 +1,6 @@
 import { Playlist, MutationResolvers, Scalars, QueryResolvers } from '../types';
 import { Models } from '../orm';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Resolvers {
   Query: QueryResolvers;
@@ -73,7 +74,17 @@ export const playlistResolvers: Resolvers = {
   },
   Mutation: {
     createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
-      return await ctx.models.Playlist.create(args);
+      const { title, description, userId } = args;
+      const playlist = await ctx.models.Playlist.create({
+        id: uuidv4(),
+        title,
+        description,
+      });
+      await ctx.models.UserPlaylist.create({
+        userId,
+        playlistId: playlist.id,
+      });
+      return playlist;
     },
     updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
       //TODO: if arg is optional, probably just pass args object instead of processing

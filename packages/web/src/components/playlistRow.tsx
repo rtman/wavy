@@ -48,6 +48,8 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     if (!loading && data?.playlistById) {
       playerContext.replaceQueueWithSongs(data?.playlistById?.songs);
     }
+    // TODO: Re enable and fix deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, data]);
   // }, [loading, data, playerContext]);
 

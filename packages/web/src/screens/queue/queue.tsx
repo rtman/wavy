@@ -24,8 +24,7 @@ export const Queue = () => {
 
   useEffect(() => {
     submitSongIds({ variables: { ids: songIds } });
-  }, [songIds]);
-  // }, [songIds,submitSongIds]);
+  }, [songIds, submitSongIds]);
 
   const renderSongs = () => {
     if (data?.songsById?.length > 0) {

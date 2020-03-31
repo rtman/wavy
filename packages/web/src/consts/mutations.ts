@@ -26,15 +26,11 @@ export const CREATE_USER = gql`
 
 export const CREATE_PLAYLIST = gql`
   mutation CreatePlaylist(
-    $user_ids: [String]!
+    $userId: String!
     $title: String!
     $description: String
   ) {
-    createPlaylist(
-      user_ids: $user_ids
-      title: $title
-      description: $description
-    ) {
+    createPlaylist(userId: $userId, title: $title, description: $description) {
       id
     }
   }

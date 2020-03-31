@@ -53,8 +53,7 @@ export const Playlist = () => {
 
   useEffect(() => {
     getPlaylist({ variables: { id } });
-  }, []);
-  // }, [getPlaylist, id]);
+  }, [getPlaylist, id]);
 
   const renderSongs = () => {
     if (queryData?.playlistById?.songs.length > 0) {
