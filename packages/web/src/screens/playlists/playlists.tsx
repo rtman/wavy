@@ -26,15 +26,16 @@ export const Playlists = () => {
   const [playlistTitle, setPlaylistTitle] = useState<string>('');
   const [playlistDescription, setPlaylistDescription] = useState<string>('');
   const userContext = useContext(UserContext);
+
+  const user = userContext?.user;
+  // const userId = user?.id;
+
   const [
     getPlaylists,
     { loading: queryLoading, data: queryData },
   ] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
     fetchPolicy: 'network-only',
   });
-
-  const user = userContext?.user;
-  const userId = user?.id;
 
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {
@@ -43,10 +44,11 @@ export const Playlists = () => {
   });
 
   useEffect(() => {
-    if (userId) {
-      getPlaylists({ variables: { userId: userContext?.user?.id } });
+    if (user?.id) {
+      getPlaylists({ variables: { userId: user.id } });
     }
-  }, [userContext, userId, getPlaylists]);
+  }, [user]);
+  // }, [user, getPlaylists]);
 
   const renderPlaylists = () => {
     if (queryData?.playlistsByUserId?.length > 0) {

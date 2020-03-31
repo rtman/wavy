@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import * as helpers from 'helpers';
 import firebase from 'firebase';
 
@@ -38,6 +38,28 @@ export const PlayerContext = createContext<PlayerContext>({
   queue: [],
 });
 
+// TODO: add to helpers
+const addAudioElements = async (songs: Song[]) => {
+  const songUrlPromises = songs.map((s) => {
+    return getStorageHttpUrl(s.url);
+  });
+  const result = await Promise.all(songUrlPromises);
+  const resolvedSongs = songs.map((s, index) => {
+    return {
+      ...s,
+      audio: new Audio(result[index]),
+    };
+  });
+  return resolvedSongs;
+};
+
+// TODO: add to helpers
+const getStorageHttpUrl = async (googleStorageUri: string) => {
+  const fileRef = firebase.storage().refFromURL(googleStorageUri);
+  const resolvedUrl = await fileRef.getDownloadURL();
+  return resolvedUrl;
+};
+
 export const PlayerProvider = ({ children }: any) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [queue, setQueue] = useState<Song[]>([]);
@@ -54,20 +76,6 @@ export const PlayerProvider = ({ children }: any) => {
 
   let audio = new Audio();
 
-  const addAudioElements = useCallback(async (songs: Song[]) => {
-    const songUrlPromises = songs.map((s) => {
-      return getStorageHttpUrl(s.url);
-    });
-    const result = await Promise.all(songUrlPromises);
-    const resolvedSongs = songs.map((s, index) => {
-      return {
-        ...s,
-        audio: new Audio(result[index]),
-      };
-    });
-    return resolvedSongs;
-  }, []);
-
   useEffect(() => {
     const loadLocalStorageQueue = async () => {
       const resolvedLocalStorageQueue = await addAudioElements(
@@ -79,7 +87,8 @@ export const PlayerProvider = ({ children }: any) => {
       setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
     };
     loadLocalStorageQueue();
-  }, [addAudioElements, localStorageQueue, localStorageQueuePosition]);
+  }, []);
+  // }, [localStorageQueue, localStorageQueuePosition]);
 
   const addSongsToEndOfQueue = async (songs: Song[]) => {
     const resolvedSongs = await addAudioElements(songs);
@@ -157,11 +166,6 @@ export const PlayerProvider = ({ children }: any) => {
   // };
 
   // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
-  const getStorageHttpUrl = async (googleStorageUri: string) => {
-    const fileRef = firebase.storage().refFromURL(googleStorageUri);
-    const resolvedUrl = await fileRef.getDownloadURL();
-    return resolvedUrl;
-  };
 
   const playAudio = async (currentQueue: Song[], position: number) => {
     if (currentSong && currentSong.audio) {

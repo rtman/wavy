@@ -48,7 +48,8 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     if (!loading && data?.playlistById) {
       playerContext.replaceQueueWithSongs(data?.playlistById?.songs);
     }
-  }, [loading, data, playerContext]);
+  }, [loading, data]);
+  // }, [loading, data, playerContext]);
 
   const onClickGoToPlaylist = () => {
     history.push(`/playlist/${playlist.id}`);

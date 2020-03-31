@@ -47,9 +47,8 @@ export const Player = () => {
     if (filteredMediaState === 'ended') {
       playerContext.playNextSongInQueue();
     }
-  }, [filteredMediaState, playerContext]);
-
-  // console.log('mediaState', filteredMediaState);
+  }, [filteredMediaState]);
+  // }, [filteredMediaState, playerContext]);
 
   return (
     <RowContainer width={'100%'}>

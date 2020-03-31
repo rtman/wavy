@@ -181,11 +181,11 @@ export const SongRow = (props: SongRowProps) => {
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
           <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         )}
-        {location.pathname.includes(consts.routes.ARTIST) ? null : (
-          <MenuItem onClick={onClickToggleFavourite}>
-            {getFavouriteTitle()}
-          </MenuItem>
-        )}
+
+        <MenuItem onClick={onClickToggleFavourite}>
+          {getFavouriteTitle()}
+        </MenuItem>
+
         {location.pathname.includes(consts.routes.PLAYLIST) ? (
           <MenuItem onClick={onClickRemoveFromPlaylist}>
             Remove From Playlist
