@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as consts from 'consts';
-import { NavMenuItem } from './styles';
+import { NavMenuItem, NavButton } from './styles';
 import { RowContainer } from 'components';
+import { AuthContextState } from 'context';
 
 export const NavMenu = () => {
+  const authContextState = useContext(AuthContextState);
+
   return (
     <RowContainer justifyContent={'flex-end'}>
       <NavMenuItem to={consts.routes.HOME}>Home</NavMenuItem>
@@ -11,6 +14,7 @@ export const NavMenu = () => {
       <NavMenuItem to={consts.routes.PLAYLISTS}>Playlists</NavMenuItem>
       <NavMenuItem to={consts.routes.FOLLOWING}>Following</NavMenuItem>
       <NavMenuItem to={consts.routes.FAVOURITES}>Favourites</NavMenuItem>
+      <NavButton onClick={() => authContextState?.logout()}>Log out</NavButton>
     </RowContainer>
   );
 };

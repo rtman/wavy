@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Redirect, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import * as consts from 'consts';
 import * as screens from 'screens';
 import { PublicRoute } from './publicRoute';
+import { PrivateRoute } from './privateRoute';
 import { AuthContextState } from 'context';
 
 export const Routes = () => {
@@ -14,56 +15,53 @@ export const Routes = () => {
 
   return (
     <Switch>
-      <PublicRoute exact={true} path={consts.routes.ROOT}>
-        <Redirect
-          to={
-            authContextState?.firebaseUser
-              ? consts.routes.HOME
-              : consts.routes.SIGN_UP
-          }
-        />
-      </PublicRoute>
+      <PublicRoute exact={true} path={consts.routes.ROOT} />
       <PublicRoute
         exact={true}
-        path={consts.routes.HOME}
-        component={screens.Home}
+        path={consts.routes.LOG_IN}
+        component={screens.Login}
       />
       <PublicRoute
         exact={true}
         path={consts.routes.SIGN_UP}
         component={screens.Signup}
       />
-      <PublicRoute
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.HOME}
+        component={screens.Home}
+      />
+      <PrivateRoute
         exact={true}
         path={`${consts.routes.ALBUM}/:id?`}
         component={screens.Album}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={`${consts.routes.ARTIST}/:id?`}
         component={screens.Artist}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={consts.routes.QUEUE}
         component={screens.Queue}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={consts.routes.PLAYLISTS}
         component={screens.Playlists}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={`${consts.routes.PLAYLIST}/:id?`}
         component={screens.Playlist}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={consts.routes.FOLLOWING}
         component={screens.Following}
       />
-      <PublicRoute
+      <PrivateRoute
         exact={true}
         path={consts.routes.FAVOURITES}
         component={screens.Favourites}

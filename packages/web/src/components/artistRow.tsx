@@ -1,3 +1,4 @@
+import * as consts from 'consts';
 import { StyledButton, StyledListItemText } from 'components';
 import React, { useContext } from 'react';
 import * as helpers from 'helpers';
@@ -35,7 +36,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
   };
 
   const onClickGoToArtist = () => {
-    history.push(`/artist/${artist.id}`);
+    history.push(`${consts.routes.ARTIST}/${artist.id}`);
     handleMenuClose();
   };
 

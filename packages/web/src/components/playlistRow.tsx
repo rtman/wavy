@@ -54,7 +54,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   // }, [loading, data, playerContext]);
 
   const onClickGoToPlaylist = () => {
-    history.push(`/playlist/${playlist.id}`);
+    history.push(`${consts.routes.PLAYLIST}/${playlist.id}`);
     handleMenuClose();
   };
 

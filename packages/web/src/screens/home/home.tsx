@@ -51,7 +51,7 @@ export const Home = () => {
   }, [data]);
 
   // const onClickArtist = (artist_id: string) => {
-  //   history.push(`/artist/${artist_id}`);
+  //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
   // };
 
   const renderSearchResults = () => {

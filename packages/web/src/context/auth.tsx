@@ -7,6 +7,7 @@ interface AuthContextStateProps {
   firebaseUser: firebase.User | undefined;
   initialising: boolean;
   error: firebase.auth.Error | undefined;
+  logout(): void;
 }
 
 export const AuthContextState = createContext<
@@ -16,12 +17,17 @@ export const AuthContextState = createContext<
 export const AuthProvider = ({ children }: any) => {
   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
 
+  const logout = async () => {
+    await firebase.auth().signOut();
+  };
+
   return (
     <AuthContextState.Provider
       value={{
         firebaseUser,
         initialising,
         error,
+        logout,
       }}
     >
       {children}

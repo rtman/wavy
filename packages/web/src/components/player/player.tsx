@@ -1,3 +1,4 @@
+import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
 import { RowContainer, StyledButton } from 'components';
 import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
@@ -28,7 +29,7 @@ export const Player = () => {
   const songArtist = currentSong?.artist?.name ?? '';
 
   const onClickArtist = () => {
-    history.push(`/artist/${currentSong?.artist.id}`);
+    history.push(`${consts.routes.ARTIST}/${currentSong?.artist.id}`);
   };
 
   const onClickSong = () => {

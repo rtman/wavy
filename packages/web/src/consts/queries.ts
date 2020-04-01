@@ -158,14 +158,20 @@ export const SEARCH_SONGS_QUERY = gql`
     searchSongs(query: $query) {
       id
       title
-      artist
-      artist_name
-      album_title
-      album_id
+      artist {
+        id
+        name
+        image
+      }
+      album {
+        id
+        title
+        image
+      }
       genres
       url
       image
-      date
+      releaseDate
     }
   }
 `;

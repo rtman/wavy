@@ -75,12 +75,12 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const onClickGoToArtist = () => {
-    history.push(`/artist/${song.artist.id}`);
+    history.push(`${consts.routes.ARTIST}/${song.artist.id}`);
     handleMenuClose();
   };
 
   const onClickGoToAlbum = () => {
-    history.push(`/album/${song.album.id}`);
+    history.push(`${consts.routes.ALBUM}/${song.album.id}`);
     handleMenuClose();
   };
 

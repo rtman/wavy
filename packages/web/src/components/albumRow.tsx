@@ -1,3 +1,4 @@
+import * as consts from 'consts';
 import { StyledButton } from 'components';
 import React, { useContext, useState } from 'react';
 import {
@@ -55,7 +56,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
   };
 
   const handleClickGoToAlbum = () => {
-    history.push(`/album/${album?.id}`);
+    history.push(`${consts.routes.ALBUM}/${album?.id}`);
   };
 
   const onClickAlbum = () => {

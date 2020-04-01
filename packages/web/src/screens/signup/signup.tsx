@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import * as consts from 'consts';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Title, SubTitle } from 'components';
 import firebase from 'firebase';
 import { useMutation } from '@apollo/react-hooks';
@@ -27,6 +28,9 @@ export const Signup = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [createUser, { loading }] = useMutation(consts.mutations.CREATE_USER);
+
+  const history = useHistory();
+
   //   const [fieldErrors, setFieldErrors] = useState({
   //     firstName: false,
   //     lastName: false,
@@ -57,6 +61,10 @@ export const Signup = () => {
         },
       });
     }
+  };
+
+  const onClickLogin = () => {
+    history.push(consts.routes.LOG_IN);
   };
 
   return (
@@ -123,6 +131,9 @@ export const Signup = () => {
         </Grid>
         <Button onClick={onClickSignup}>
           {loading ? <CircularProgress /> : 'Sign up'}
+        </Button>
+        <Button onClick={onClickLogin}>
+          {'Already have an Account? Log in'}
         </Button>
       </Grid>
     </Container>
