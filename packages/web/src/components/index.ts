@@ -1,3 +1,6 @@
+import * as alignment from './alignment';
+import * as spacing from './spacing';
+
 export { AppContainer } from './appContainer';
 export { ProfileHeaderImage } from './profileHeaderImage';
 export { ProfileHeaderImageContainer } from './profileHeaderImageContainer';
@@ -33,3 +36,6 @@ export { StyledButton } from './styledButton';
 export { NavMenu } from './navMenu';
 
 export * from './flex';
+export * from './image';
+
+export { alignment, spacing };
