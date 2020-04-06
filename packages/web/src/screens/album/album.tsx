@@ -71,9 +71,8 @@ export const Album = () => {
               Play Now
             </Button>
 
-            <spacing.BetweenComponents />
             <Typography variant="h1">Description</Typography>
-
+            <spacing.BetweenComponents />
             <div>{data?.albumById?.description}</div>
             <spacing.BetweenComponents />
             <Typography variant="h1">Songs</Typography>
