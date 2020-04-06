@@ -1,19 +1,26 @@
 import {
-  ProfileContainer,
+  // Flex,
+  // ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
   ContentContainer,
   Screen,
   SongRow,
-  SubTitle,
+  spacing,
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { Button, Divider, List } from '@material-ui/core';
+import {
+  Button,
+  Container,
+  Divider,
+  List,
+  Typography,
+} from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 export const Album = () => {
@@ -53,19 +60,27 @@ export const Album = () => {
             <ProfileHeaderImage src={albumImageUrl} />
             <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <ProfileContainer>
+          <Container>
             <Button
+              variant="contained"
+              color="primary"
               onClick={() =>
                 playerContext.replaceQueueWithSongs(data?.albumById?.songs)
               }
             >
               Play Now
             </Button>
-            <SubTitle>Description</SubTitle>
+
+            <spacing.BetweenComponents />
+            <Typography variant="h1">Description</Typography>
+
             <div>{data?.albumById?.description}</div>
-            <SubTitle>Songs</SubTitle>
+            <spacing.BetweenComponents />
+            <Typography variant="h1">Songs</Typography>
+            <spacing.BetweenComponents />
             {data?.albumById?.songs ? renderSongs() : null}
-          </ProfileContainer>
+            <spacing.BetweenComponents />
+          </Container>
         </ContentContainer>
       )}
     </Screen>
