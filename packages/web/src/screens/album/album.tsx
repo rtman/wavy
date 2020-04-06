@@ -60,7 +60,7 @@ export const Album = () => {
             <ProfileHeaderImage src={albumImageUrl} />
             <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <Container>
+          <Container maxWidth="lg">
             <Button
               variant="contained"
               color="primary"
