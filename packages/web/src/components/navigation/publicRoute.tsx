@@ -9,19 +9,19 @@ export const PublicRoute = (props: any) => {
   const firebaseUser = authContextState?.firebaseUser;
 
   const renderComponent = (componentProps: any) => {
-    return <Component {...componentProps} />;
+    return Component ? <Component {...componentProps} /> : undefined;
   };
 
-  const doRedirect = () => {
+  const doRoute = () => {
     if (firebaseUser) {
-      return <Redirect to={firebaseUser ? consts.routes.HOME : props.path} />;
+      return <Redirect to={consts.routes.HOME} />;
+    } else {
+      if (props.path === consts.routes.ROOT) {
+        return <Redirect to={consts.routes.LOG_IN} />;
+      }
+      return <Route {...rest} render={renderComponent} />;
     }
-    return null;
   };
 
-  return (
-    <Route {...rest} render={renderComponent}>
-      {doRedirect()}
-    </Route>
-  );
+  return doRoute();
 };
