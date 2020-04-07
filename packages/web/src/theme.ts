@@ -206,8 +206,8 @@ const makeThemeOverrides = ({
   },
   MuiDivider: {
     root: {
-      marginBottom: defaultTheme.spacing(4),
-      marginTop: defaultTheme.spacing(4),
+      marginBottom: defaultTheme.spacing(2),
+      marginTop: defaultTheme.spacing(2),
     },
   },
   MuiDrawer: {

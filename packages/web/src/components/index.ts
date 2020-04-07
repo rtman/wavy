@@ -1,5 +1,5 @@
-import * as alignment from './alignment';
-import * as spacing from './spacing';
+import * as Alignment from './alignment';
+import * as Spacing from './spacing';
 
 export { AppContainer } from './appContainer';
 export { ProfileHeaderImage } from './profileHeaderImage';
@@ -38,4 +38,4 @@ export { NavMenu } from './navMenu';
 export * from './flex';
 export * from './image';
 
-export { alignment, spacing };
+export { Alignment, Spacing };

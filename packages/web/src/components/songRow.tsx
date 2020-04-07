@@ -123,7 +123,7 @@ export const SongRow = (props: SongRowProps) => {
 
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" dense={true}>
         {secondaryStyle ? null : (
           <ListItemAvatar>
             <ButtonBase onClick={() => resolvedOnClick(song)}>

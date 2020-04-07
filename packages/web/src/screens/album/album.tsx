@@ -1,13 +1,10 @@
 import {
-  // Flex,
-  // ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
-  ContentContainer,
   Screen,
   SongRow,
-  spacing,
+  Spacing,
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
@@ -55,32 +52,31 @@ export const Album = () => {
       {loading ? (
         <div>loading</div>
       ) : (
-        <ContentContainer>
+        <Container>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={albumImageUrl} />
             <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <Container maxWidth="lg">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                playerContext.replaceQueueWithSongs(data?.albumById?.songs)
-              }
-            >
-              Play Now
-            </Button>
-
-            <Typography variant="h1">Description</Typography>
-            <spacing.BetweenComponents />
-            <div>{data?.albumById?.description}</div>
-            <spacing.BetweenComponents />
-            <Typography variant="h1">Songs</Typography>
-            <spacing.BetweenComponents />
-            {data?.albumById?.songs ? renderSongs() : null}
-            <spacing.BetweenComponents />
-          </Container>
-        </ContentContainer>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() =>
+              playerContext.replaceQueueWithSongs(data?.albumById?.songs)
+            }
+          >
+            Play Now
+          </Button>
+          <Typography variant="h1">Description</Typography>
+          <Spacing.BetweenComponents />
+          <Typography variant="body1">
+            {data?.albumById?.description}
+          </Typography>
+          <Spacing.BetweenComponents />
+          <Typography variant="h1">Songs</Typography>
+          <Spacing.BetweenComponents />
+          {data?.albumById?.songs ? renderSongs() : null}
+          <Spacing.BetweenComponents />
+        </Container>
       )}
     </Screen>
   );
