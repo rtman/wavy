@@ -3,7 +3,6 @@ import {
   PlaylistRow,
   RowContainer,
   Screen,
-  SubTitle,
 } from 'components';
 import { UserContext } from 'context';
 import * as consts from 'consts';
@@ -19,6 +18,7 @@ import {
   Divider,
   List,
   TextField,
+  Typography,
 } from '@material-ui/core';
 
 export const Playlists = () => {
@@ -97,9 +97,15 @@ export const Playlists = () => {
         <CircularProgress />
       ) : (
         <ContentContainer>
-          <SubTitle>Playlists</SubTitle>
+          <Typography variant="h1">Playlists</Typography>
           <RowContainer>
-            <Button onClick={onClickNew(true)}>New</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onClickNew(true)}
+            >
+              New
+            </Button>
           </RowContainer>
           {renderPlaylists()}
         </ContentContainer>

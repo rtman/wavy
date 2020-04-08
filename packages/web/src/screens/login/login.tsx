@@ -6,10 +6,11 @@ import {
   Grid,
   FormControl,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Title, SubTitle } from 'components';
+import { Spacing, Title } from 'components';
 import firebase from 'firebase';
 
 // interface SignupFieldErrors {
@@ -48,7 +49,7 @@ export const Login = () => {
   return (
     <Container maxWidth="md">
       <Title>Welcome to AppName</Title>
-      <SubTitle>Login</SubTitle>
+      <Typography variant="h1">Login</Typography>
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
@@ -73,10 +74,11 @@ export const Login = () => {
             />
           </FormControl>
         </Grid>
-        <Button onClick={onClickLogin}>
-          {loading ? <CircularProgress /> : 'Log in'}
+        <Button variant="contained" color="primary" onClick={onClickLogin}>
+          {loading ? <CircularProgress color="secondary" /> : 'Log in'}
         </Button>
-        <Button onClick={onClickSignup}>
+        <Spacing.section.Major />
+        <Button variant="outlined" color="secondary" onClick={onClickSignup}>
           {`Don't have an account? Sign in`}
         </Button>
       </Grid>

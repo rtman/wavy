@@ -5,11 +5,12 @@ import {
   Grid,
   FormControl,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import * as consts from 'consts';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Title, SubTitle } from 'components';
+import { Spacing, Title } from 'components';
 import firebase from 'firebase';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -70,7 +71,7 @@ export const Signup = () => {
   return (
     <Container maxWidth="md">
       <Title>Welcome to AppName</Title>
-      <SubTitle>Create an account</SubTitle>
+      <Typography variant="h1">Create an account</Typography>
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
@@ -129,10 +130,11 @@ export const Signup = () => {
             />
           </FormControl>
         </Grid>
-        <Button onClick={onClickSignup}>
-          {loading ? <CircularProgress /> : 'Sign up'}
+        <Button variant="contained" color="primary" onClick={onClickSignup}>
+          {loading ? <CircularProgress color="secondary" /> : 'Sign up'}
         </Button>
-        <Button onClick={onClickLogin}>
+        <Spacing.section.Major />
+        <Button variant="outlined" color="secondary" onClick={onClickLogin}>
           {'Already have an Account? Log in'}
         </Button>
       </Grid>

@@ -1,6 +1,12 @@
-import { ArtistRow, ContentContainer, Screen, SubTitle } from 'components';
-import React, { useContext } from 'react';
-import { CircularProgress, Divider, List } from '@material-ui/core';
+import { ArtistRow, Screen } from 'components';
+import React, { Fragment, useContext } from 'react';
+import {
+  CircularProgress,
+  Container,
+  Divider,
+  List,
+  Typography,
+} from '@material-ui/core';
 import { UserContext } from 'context';
 
 export const Following = () => {
@@ -13,10 +19,10 @@ export const Following = () => {
       const following = userContext?.user?.following ?? [];
       const artistList = following.map((artist: Artist, index: number) => {
         return (
-          <React.Fragment key={artist.id}>
+          <Fragment key={artist.id}>
             <ArtistRow artist={artist} />
             {index < following.length - 1 ? <Divider /> : null}
-          </React.Fragment>
+          </Fragment>
         );
       });
       return <List>{artistList}</List>;
@@ -28,10 +34,10 @@ export const Following = () => {
   return (
     <Screen>
       {userContext?.user ? (
-        <ContentContainer>
-          <SubTitle>Following</SubTitle>
+        <Container>
+          <Typography variant="h1">Following</Typography>
           {renderArtists()}
-        </ContentContainer>
+        </Container>
       ) : (
         <CircularProgress />
       )}

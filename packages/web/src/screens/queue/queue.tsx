@@ -1,8 +1,14 @@
-import { ContentContainer, Screen, SongRow, SubTitle } from 'components';
+import { Screen, SongRow } from 'components';
 import * as consts from 'consts';
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, Fragment } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Divider, List } from '@material-ui/core';
+import {
+  Container,
+  CircularProgress,
+  Divider,
+  List,
+  Typography,
+} from '@material-ui/core';
 import { PlayerContext } from 'context';
 
 export const Queue = () => {
@@ -35,10 +41,10 @@ export const Queue = () => {
       });
       const songsList = sortedSongs.map((song: Song, index: number) => {
         return (
-          <>
-            <SongRow key={song.id} song={song} />
+          <Fragment key={song.id}>
+            <SongRow song={song} />
             {index < songs.length - 1 ? <Divider /> : null}
-          </>
+          </Fragment>
         );
       });
 
@@ -51,12 +57,12 @@ export const Queue = () => {
   return (
     <Screen>
       {loading ? (
-        <div>loading</div>
+        <CircularProgress />
       ) : (
-        <ContentContainer>
-          <SubTitle>Queue</SubTitle>
+        <Container>
+          <Typography variant="h1">Queue</Typography>
           {renderSongs()}
-        </ContentContainer>
+        </Container>
       )}
     </Screen>
   );

@@ -1,9 +1,9 @@
-import { Screen, SongRow, TextInput, ContentContainer } from 'components';
+import { Screen, SongRow, TextInput } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { List } from '@material-ui/core';
+import { List, Container } from '@material-ui/core';
 
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
@@ -68,7 +68,7 @@ export const Home = () => {
 
   return (
     <Screen>
-      <ContentContainer>
+      <Container>
         <TextInput
           onChange={onChangeSearchBar}
           value={searchText}
@@ -77,7 +77,7 @@ export const Home = () => {
           fullWidth={true}
         />
         {loading ? <div>Loading</div> : renderSearchResults()}
-      </ContentContainer>
+      </Container>
     </Screen>
   );
 };

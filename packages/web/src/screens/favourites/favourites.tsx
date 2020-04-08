@@ -1,6 +1,12 @@
-import { ContentContainer, Screen, SongRow, SubTitle } from 'components';
-import React, { useContext } from 'react';
-import { CircularProgress, Divider, List } from '@material-ui/core';
+import { Screen, SongRow } from 'components';
+import React, { Fragment, useContext } from 'react';
+import {
+  CircularProgress,
+  Divider,
+  List,
+  Container,
+  Typography,
+} from '@material-ui/core';
 import { UserContext } from 'context';
 
 export const Favourites = () => {
@@ -12,10 +18,10 @@ export const Favourites = () => {
       const favourites = userContext?.user?.favourites ?? [];
       const songsList = favourites.map((song: Song, index: number) => {
         return (
-          <>
+          <Fragment key={song.id}>
             <SongRow key={song.id} song={song} />
             {index < favourites.length - 1 ? <Divider /> : null}
-          </>
+          </Fragment>
         );
       });
       return <List>{songsList}</List>;
@@ -27,10 +33,10 @@ export const Favourites = () => {
   return (
     <Screen>
       {userContext?.user ? (
-        <ContentContainer>
-          <SubTitle>Favourites</SubTitle>
+        <Container>
+          <Typography variant="h1">Favourites</Typography>
           {renderSongs()}
-        </ContentContainer>
+        </Container>
       ) : (
         <CircularProgress />
       )}

@@ -6,11 +6,10 @@ import {
   ContentContainer,
   Screen,
   SongRow,
-  SubTitle,
   RowContainer,
 } from 'components';
 import * as consts from 'consts';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import {
@@ -23,6 +22,7 @@ import {
   Divider,
   List,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
@@ -60,12 +60,12 @@ export const Playlist = () => {
       const songsList = queryData.playlistById.songs.map(
         (song: Song, index: number) => {
           return (
-            <React.Fragment key={song.id}>
+            <Fragment key={song.id}>
               <SongRow song={song} />
               {index < queryData.playlistById.songs.length - 1 ? (
                 <Divider />
               ) : null}
-            </React.Fragment>
+            </Fragment>
           );
         }
       );
@@ -110,6 +110,8 @@ export const Playlist = () => {
           <ProfileContainer>
             <RowContainer>
               <Button
+                variant="contained"
+                color="primary"
                 onClick={() =>
                   playerContext.replaceQueueWithSongs(
                     queryData?.playlistById?.songs
@@ -120,9 +122,11 @@ export const Playlist = () => {
               </Button>
               <Button onClick={onClickEdit(true)}>Edit</Button>
             </RowContainer>
-            <SubTitle>Description</SubTitle>
-            <div>{queryData?.playlistById?.description}</div>
-            <SubTitle>Songs</SubTitle>
+            <Typography variant="h1">Description</Typography>
+            <Typography variant="body1">
+              {queryData?.playlistById?.description}
+            </Typography>
+            <Typography variant="h1">Songs</Typography>
             {renderSongs()}
           </ProfileContainer>
         </ContentContainer>

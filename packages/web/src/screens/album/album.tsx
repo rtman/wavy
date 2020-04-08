@@ -2,9 +2,9 @@ import {
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
-  Screen,
   SongRow,
   Spacing,
+  Screen,
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
@@ -17,6 +17,7 @@ import {
   Divider,
   List,
   Typography,
+  CircularProgress,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 
@@ -50,7 +51,7 @@ export const Album = () => {
   return (
     <Screen>
       {loading ? (
-        <div>loading</div>
+        <CircularProgress />
       ) : (
         <Container>
           <ProfileHeaderImageContainer>

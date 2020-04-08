@@ -1,20 +1,23 @@
 import {
   AlbumWithSongs,
-  ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
-  ContentContainer,
+  Spacing,
   Screen,
-  // SongRow,
-  SubTitle,
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { Button, List } from '@material-ui/core';
+import {
+  Button,
+  Container,
+  List,
+  Typography,
+  CircularProgress,
+} from '@material-ui/core';
 import { UserContext } from 'context';
 
 export const Artist = () => {
@@ -78,23 +81,31 @@ export const Artist = () => {
   return (
     <Screen>
       {loading ? (
-        <div>loading</div>
+        <CircularProgress />
       ) : (
-        <ContentContainer>
+        <Container>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={artistImageUrl} />
             <ProfileHeaderTitle>{data?.artistById?.name}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <ProfileContainer>
-            <Button onClick={onClickToggleFollow}>{getFollowTitle()}</Button>
-            <SubTitle>Description</SubTitle>
-            <div>{data?.artistById?.description}</div>
-            {/* <SubTitle>Songs</SubTitle>
-            {renderSongs()} */}
-            <SubTitle>Albums</SubTitle>
-            {renderAlbums()}
-          </ProfileContainer>
-        </ContentContainer>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onClickToggleFollow}
+          >
+            {getFollowTitle()}
+          </Button>
+          <Spacing.BetweenComponents />
+          <Typography variant="h1">Description</Typography>
+          <Spacing.BetweenComponents />
+          <Typography variant="body1">
+            {data?.artistById?.description}
+          </Typography>
+          <Spacing.BetweenComponents />
+          <Typography variant="h1">Albums</Typography>
+          <Spacing.BetweenComponents />
+          {renderAlbums()}
+        </Container>
       )}
     </Screen>
   );
