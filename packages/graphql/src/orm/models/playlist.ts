@@ -4,10 +4,12 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
-// import { Song } from './song';
+import { Song } from './song';
 // import { SongPlaylist } from './songPlaylist';
-// import { User } from './user';
+import { User } from './user';
 // import { UserPlaylist } from './userPlaylist';
 
 @Entity('playlists')
@@ -24,17 +26,19 @@ export class Playlist {
   @Column()
   image: string;
 
-  // @BelongsToMany(
-  //   () => Song,
-  //   () => SongPlaylist
-  // )
-  // songs: Array<Song & { SongPlaylist: SongPlaylist }>;
+  @ManyToMany(
+    () => Song,
+    (song) => song.playlists
+  )
+  @JoinTable({ name: 'songPlaylist' })
+  songs: Song[];
 
-  // @BelongsToMany(
-  //   () => User,
-  //   () => UserPlaylist
-  // )
-  // users: Array<User & { UserPlaylist: UserPlaylist }>;
+  @ManyToMany(
+    () => User,
+    (user) => user.playlists
+  )
+  @JoinTable({ name: 'userPlaylist' })
+  users: User[];
 
   @CreateDateColumn()
   createdAt!: Date;

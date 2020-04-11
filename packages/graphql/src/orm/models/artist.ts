@@ -11,7 +11,7 @@
 // } from 'sequelize-typescript';
 import { Album } from './album';
 import { Song } from './song';
-// import { User } from './user';
+import { User } from './user';
 // import { UserArtistFollowing } from './userArtistFollowing';
 
 import {
@@ -21,6 +21,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('artists')
@@ -49,11 +51,12 @@ export class Artist {
   @Column()
   description: string;
 
-  // @BelongsToMany(
-  //   () => User,
-  //   () => UserArtistFollowing
-  // )
-  // usersFollowing: Array<User & { UserArtistFollowing: UserArtistFollowing }>;
+  @ManyToMany(
+    () => User,
+    (user) => user.following
+  )
+  @JoinTable({ name: 'userArtistFollowing' })
+  usersFollowing: User[];
 
   @CreateDateColumn()
   createdAt!: Date;

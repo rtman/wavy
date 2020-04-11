@@ -1,10 +1,10 @@
 import { Artist } from './artist';
 import { Album } from './album';
-// import { Playlist } from './playlist';
+import { Playlist } from './playlist';
 // import { SongPlaylist } from './songPlaylist';
 // import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 // import { UserSongFavourites } from './userSongFavourites';
-// import { User } from './user';
+import { User } from './user';
 // import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 import {
@@ -14,6 +14,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('songs')
@@ -41,11 +43,14 @@ export class Song {
   )
   album: Album;
 
-  // @ManyToMany(() => Artist)
-  // @JoinTable({name: 'songArtistSupportingArtist'})
-  // supportingArtists: Artist[]
+  @ManyToMany(
+    () => Artist,
+    (artist) => artist.supportingArtists
+  )
+  @JoinTable({ name: 'songArtistSupportingArtist' })
+  supportingArtists: Artist[];
 
-  // TODO: Figureout gengres, most likely a many to many assocation
+  // TODO: Figureout genres, most likely a many to many assocation
   // @Column()
   // genres: string[];
 
@@ -61,23 +66,30 @@ export class Song {
   @Column()
   releaseDate: Date;
 
+  @ManyToMany(
+    () => Playlist,
+    (playlist) => playlist.songs
+  )
+  @JoinTable({ name: 'songPlaylist' })
+  playlists: Playlist[];
+
   @CreateDateColumn()
   createdAt!: Date;
 
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  // @BelongsToMany(
-  //   () => User,
-  //   () => UserSongFavourites
-  // )
-  // usersFavourited: Array<User & { UserSongFavourites: UserSongFavourites }>;
+  @ManyToMany(
+    () => User,
+    (user) => user.favourites
+  )
+  @JoinTable({ name: 'userSongFavourites' })
+  usersFavourited: User[];
 
-  // @BelongsToMany(
-  //   () => User,
-  //   () => UserSongRecentlyPlayed
-  // )
-  // usersRecentlyPlayed: Array<
-  //   User & { UserSongRecentlyPlayed: UserSongRecentlyPlayed }
-  // >;
+  @ManyToMany(
+    () => User,
+    (user) => user.recentlyPlayed
+  )
+  @JoinTable({ name: 'userSongRecentlyPlayed' })
+  usersRecentlyPlayed: Song[];
 }
