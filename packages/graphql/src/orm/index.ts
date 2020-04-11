@@ -1,4 +1,4 @@
 import * as Models from './models';
 
 export { Models };
-export { sequelizeInstance } from './config';
+export { createOrmConnection } from './config';

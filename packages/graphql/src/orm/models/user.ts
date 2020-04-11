@@ -1,12 +1,12 @@
-import {
-  BelongsToMany,
-  CreatedAt,
-  Column,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
+// import {
+//   BelongsToMany,
+//   CreatedAt,
+//   Column,
+//   Model,
+//   PrimaryKey,
+//   UpdatedAt,
+//   Table,
+// } from 'sequelize-typescript';
 import { Artist } from './artist';
 import { Playlist } from './playlist';
 import { Song } from './song';
@@ -15,53 +15,53 @@ import { UserSongFavourites } from './userSongFavourites';
 import { UserArtistFollowing } from './userArtistFollowing';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
-@Table({ tableName: 'users' })
-export class User extends Model<User> {
-  @PrimaryKey
-  @Column
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  ManyToMany,
+  JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+// import { ObjectType, Field, ID } from 'type-graphql';
+
+@Entity('users')
+export class User {
+  @PrimaryColumn()
   id: string;
 
-  @Column
+  @Column()
   firstName: string;
 
-  @Column
+  @Column()
   lastName: string;
 
-  @Column
+  @Column()
   email: string;
 
-  @Column
+  @Column()
   password: string;
 
-  @BelongsToMany(
-    () => Song,
-    () => UserSongFavourites
-  )
+  @ManyToMany(() => Song)
+  @JoinTable({ name: 'userSongFavourites' })
   favourites: Song[];
 
-  @BelongsToMany(
-    () => Artist,
-    () => UserArtistFollowing
-  )
+  @ManyToMany(() => Artist)
+  @JoinTable({ name: 'userArtistFollowing' })
   following: Artist[];
 
-  @BelongsToMany(
-    () => Song,
-    () => UserSongRecentlyPlayed
-  )
+  @ManyToMany(() => Song)
+  @JoinTable({ name: 'userSongRecentlyPlayed' })
   recentlyPlayed: Song[];
 
-  @CreatedAt
-  @Column
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @UpdateDateColumn()
   updatedAt!: Date;
 
-  @BelongsToMany(
-    () => Playlist,
-    () => UserPlaylist
-  )
+  @ManyToMany(() => Playlist)
+  @JoinTable({ name: 'userPlaylist' })
   playlists: Playlist[];
 }
