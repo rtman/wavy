@@ -1,7 +1,7 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
@@ -12,9 +12,9 @@ import { Song } from './song';
 import { User } from './user';
 // import { UserPlaylist } from './userPlaylist';
 
-@Entity('playlists')
+@Entity('playlist')
 export class Playlist {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

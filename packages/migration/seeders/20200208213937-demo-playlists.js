@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface) => {
-    return await queryInterface.bulkInsert('playlists', [
+    return await queryInterface.bulkInsert('playlist', [
       {
         id: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc09',
         title: 'Hot Choones 2020',
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    return await queryInterface.bulkDelete('playlists', null, {});
+    return await queryInterface.bulkDelete('playlist', null, {});
   },
 };

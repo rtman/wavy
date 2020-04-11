@@ -26,7 +26,7 @@ import {
 } from 'typeorm';
 // import { ObjectType, Field, ID } from 'type-graphql';
 
-@Entity('users')
+@Entity('user')
 export class User {
   @PrimaryColumn()
   id: string;

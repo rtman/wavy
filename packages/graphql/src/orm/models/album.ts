@@ -1,20 +1,21 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { Artist } from './artist';
 import { Song } from './song';
 
-@Entity('albums')
+@Entity('album')
 export class Album {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(
+  @ManyToOne(
     () => Artist,
     (artist) => artist.albums
   )

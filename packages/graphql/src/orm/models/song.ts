@@ -10,7 +10,7 @@ import { User } from './user';
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
@@ -18,9 +18,9 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity('songs')
+@Entity('song')
 export class Song {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   // @ForeignKey(() => Artist)
@@ -45,9 +45,17 @@ export class Song {
 
   @ManyToMany(
     () => Artist,
-    (artist) => artist.supportingArtists
+    (artist) => artist.supportingArtistOn
   )
-  @JoinTable({ name: 'songArtistSupportingArtist' })
+  @JoinTable({
+    name: 'songArtistSupportingArtist',
+    joinColumns: [
+      { name: 'artistId', referencedColumnName: 'id' },
+      // { name: 'createdAt' },
+      // { name: 'updatedAt' },
+    ],
+    inverseJoinColumns: [{ name: 'songId', referencedColumnName: 'id' }],
+  })
   supportingArtists: Artist[];
 
   // TODO: Figureout genres, most likely a many to many assocation

@@ -17,7 +17,7 @@ import { User } from './user';
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
@@ -25,9 +25,9 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity('artists')
+@Entity('artist')
 export class Artist {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -57,6 +57,12 @@ export class Artist {
   )
   @JoinTable({ name: 'userArtistFollowing' })
   usersFollowing: User[];
+
+  @ManyToMany(
+    () => Song,
+    (song) => song.supportingArtists
+  )
+  supportingArtistOn: Song[];
 
   @CreateDateColumn()
   createdAt!: Date;
