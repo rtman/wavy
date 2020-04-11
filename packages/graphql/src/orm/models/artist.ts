@@ -1,52 +1,63 @@
-import {
-  BelongsToMany,
-  CreatedAt,
-  Column,
-  HasMany,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
+// import {
+//   BelongsToMany,
+//   CreatedAt,
+//   Column,
+//   HasMany,
+//   IsUUID,
+//   Model,
+//   PrimaryKey,
+//   UpdatedAt,
+//   Table,
+// } from 'sequelize-typescript';
 import { Album } from './album';
 import { Song } from './song';
-import { User } from './user';
-import { UserArtistFollowing } from './userArtistFollowing';
+// import { User } from './user';
+// import { UserArtistFollowing } from './userArtistFollowing';
 
-@Table({ tableName: 'artists' })
-export class Artist extends Model<Artist> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
+
+@Entity('artists')
+export class Artist {
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @Column
+  @Column()
   name: string;
 
-  @HasMany(() => Album)
+  @OneToMany(
+    () => Album,
+    (album) => album.artist
+  )
   albums: Album[];
 
-  @HasMany(() => Song)
+  @OneToMany(
+    () => Song,
+    (song) => song.artist
+  )
   songs: Song[];
 
-  @Column
+  @Column()
   image: string;
 
-  @Column
+  @Column()
   description: string;
 
-  @BelongsToMany(
-    () => User,
-    () => UserArtistFollowing
-  )
-  usersFollowing: Array<User & { UserArtistFollowing: UserArtistFollowing }>;
+  // @BelongsToMany(
+  //   () => User,
+  //   () => UserArtistFollowing
+  // )
+  // usersFollowing: Array<User & { UserArtistFollowing: UserArtistFollowing }>;
 
-  @CreatedAt
-  @Column
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

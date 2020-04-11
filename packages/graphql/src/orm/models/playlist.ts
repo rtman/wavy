@@ -1,51 +1,44 @@
 import {
-  BelongsToMany,
+  Entity,
   Column,
-  CreatedAt,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
-import { Song } from './song';
-import { SongPlaylist } from './songPlaylist';
-import { User } from './user';
-import { UserPlaylist } from './userPlaylist';
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+// import { Song } from './song';
+// import { SongPlaylist } from './songPlaylist';
+// import { User } from './user';
+// import { UserPlaylist } from './userPlaylist';
 
-@Table({ tableName: 'playlists' })
-export class Playlist extends Model<Playlist> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+@Entity('playlists')
+export class Playlist {
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @Column
+  @Column()
   title: string;
 
-  @Column
+  @Column()
   description: string;
 
-  @Column
+  @Column()
   image: string;
 
-  @BelongsToMany(
-    () => Song,
-    () => SongPlaylist
-  )
-  songs: Array<Song & { SongPlaylist: SongPlaylist }>;
+  // @BelongsToMany(
+  //   () => Song,
+  //   () => SongPlaylist
+  // )
+  // songs: Array<Song & { SongPlaylist: SongPlaylist }>;
 
-  @BelongsToMany(
-    () => User,
-    () => UserPlaylist
-  )
-  users: Array<User & { UserPlaylist: UserPlaylist }>;
+  // @BelongsToMany(
+  //   () => User,
+  //   () => UserPlaylist
+  // )
+  // users: Array<User & { UserPlaylist: UserPlaylist }>;
 
-  @CreatedAt
-  @Column
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

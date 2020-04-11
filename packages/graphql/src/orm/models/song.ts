@@ -1,96 +1,83 @@
-import {
-  BelongsToMany,
-  BelongsTo,
-  CreatedAt,
-  Column,
-  DataType,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-  ForeignKey,
-} from 'sequelize-typescript';
-
 import { Artist } from './artist';
 import { Album } from './album';
-import { Playlist } from './playlist';
-import { SongPlaylist } from './songPlaylist';
-import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
-import { UserSongFavourites } from './userSongFavourites';
-import { User } from './user';
-import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
+// import { Playlist } from './playlist';
+// import { SongPlaylist } from './songPlaylist';
+// import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+// import { UserSongFavourites } from './userSongFavourites';
+// import { User } from './user';
+// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
-@Table({ tableName: 'songs' })
-export class Song extends Model<Song> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+} from 'typeorm';
+
+@Entity('songs')
+export class Song {
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @ForeignKey(() => Artist)
-  @Column
-  artistId: string;
+  // @ForeignKey(() => Artist)
+  // @Column
+  // artistId: string;
 
-  @BelongsTo(() => Artist)
+  @ManyToOne(
+    () => Artist,
+    (artist) => artist.songs
+  )
   artist: Artist;
 
-  @ForeignKey(() => Album)
-  @Column
-  albumId: string;
+  // @ForeignKey(() => Album)
+  // @Column
+  // albumId: string;
 
-  @BelongsTo(() => Album)
+  @ManyToOne(
+    () => Album,
+    (album) => album.songs
+  )
   album: Album;
 
-  @BelongsToMany(
-    () => Artist,
-    () => SongArtistSupportingArtist
-  )
-  supportingArtists: Array<
-    Artist & { SongArtistSupportingArtist: SongArtistSupportingArtist }
-  >;
+  // @ManyToMany(() => Artist)
+  // @JoinTable({name: 'songArtistSupportingArtist'})
+  // supportingArtists: Artist[]
 
   // TODO: Figureout gengres, most likely a many to many assocation
-  @Column({ type: DataType.ARRAY(DataType.STRING) })
-  genres: string[];
+  // @Column()
+  // genres: string[];
 
-  @Column
+  @Column()
   title: string;
 
-  @Column
+  @Column()
   url: string;
 
-  @Column
+  @Column()
   image: string;
 
-  @Column
+  @Column()
   releaseDate: Date;
 
-  @BelongsToMany(
-    () => Playlist,
-    () => SongPlaylist
-  )
-  playlists: Array<Playlist & { SongPlaylist: SongPlaylist }>;
-
-  @CreatedAt
-  @Column
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @UpdateDateColumn()
   updatedAt!: Date;
 
-  @BelongsToMany(
-    () => User,
-    () => UserSongFavourites
-  )
-  usersFavourited: Array<User & { UserSongFavourites: UserSongFavourites }>;
+  // @BelongsToMany(
+  //   () => User,
+  //   () => UserSongFavourites
+  // )
+  // usersFavourited: Array<User & { UserSongFavourites: UserSongFavourites }>;
 
-  @BelongsToMany(
-    () => User,
-    () => UserSongRecentlyPlayed
-  )
-  usersRecentlyPlayed: Array<
-    User & { UserSongRecentlyPlayed: UserSongRecentlyPlayed }
-  >;
+  // @BelongsToMany(
+  //   () => User,
+  //   () => UserSongRecentlyPlayed
+  // )
+  // usersRecentlyPlayed: Array<
+  //   User & { UserSongRecentlyPlayed: UserSongRecentlyPlayed }
+  // >;
 }

@@ -1,51 +1,45 @@
 import {
-  BelongsTo,
-  CreatedAt,
+  Entity,
   Column,
-  HasMany,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-  ForeignKey,
-} from 'sequelize-typescript';
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { Artist } from './artist';
 import { Song } from './song';
 
-@Table({ tableName: 'albums' })
-export class Album extends Model<Album> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+@Entity('albums')
+export class Album {
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @ForeignKey(() => Artist)
-  @Column
-  artistId: string;
-
-  @BelongsTo(() => Artist)
+  @OneToMany(
+    () => Artist,
+    (artist) => artist.albums
+  )
   artist: Artist;
 
-  @Column
+  @Column()
   title: string;
 
-  @HasMany(() => Song)
+  @OneToMany(
+    () => Song,
+    (song) => song.album
+  )
   songs: Song[];
 
-  @Column
+  @Column()
   image: string;
 
-  @Column
+  @Column()
   description: string;
 
   // TODO: add supporting artists to album
 
-  @CreatedAt
-  @Column
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

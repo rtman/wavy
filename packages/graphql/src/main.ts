@@ -6,13 +6,18 @@ import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import { GraphQLError, GraphQLSchema } from 'graphql';
+import {
+  GraphQLError,
+  // GraphQLSchema
+} from 'graphql';
 import 'reflect-metadata';
-import { buildSchema } from 'type-graphql';
+import schema from './schema';
+// import { buildSchema } from 'type-graphql';
 
 const port = 3000;
 
-const initApolloServer = (schema: GraphQLSchema) =>
+const initApolloServer = () =>
+  // const initApolloServer = (schema: GraphQLSchema) =>
   new ApolloServer({
     introspection: true,
     playground: true,
@@ -58,11 +63,12 @@ const runServer = async () => {
   try {
     await createOrmConnection();
     console.log('TypeORM connected to postgres');
-    const schema = await buildSchema({
-      resolvers: [RecipeResolver],
-    });
+    // const schema = await buildSchema({
+    //   resolvers: [RecipeResolver],
+    // });
 
-    const server = initApolloServer(schema);
+    // const server = initApolloServer(schema);
+    const server = initApolloServer();
     server.applyMiddleware({ app, path: '/graphql' });
 
     const httpServer = createServer(app);
