@@ -43,7 +43,7 @@ module.exports = {
         songId: 'c5e4e4b4-29d7-4e32-b910-ed3591d27858',
         playlistId: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc10',
         // createdAt: new Date(),
-        updatedAt: new Date(),
+        // updatedAt: new Date(),
       },
       {
         songId: '7ee03d70-294a-4221-8d67-c88062b5cf2f',

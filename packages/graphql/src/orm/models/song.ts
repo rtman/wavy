@@ -49,12 +49,6 @@ export class Song {
   )
   @JoinTable({
     name: 'songArtistSupportingArtist',
-    joinColumns: [
-      { name: 'artistId', referencedColumnName: 'id' },
-      // { name: 'createdAt' },
-      // { name: 'updatedAt' },
-    ],
-    inverseJoinColumns: [{ name: 'songId', referencedColumnName: 'id' }],
   })
   supportingArtists: Artist[];
 
