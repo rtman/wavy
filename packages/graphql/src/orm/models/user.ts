@@ -40,17 +40,17 @@ export class User {
   @Column()
   password: string;
 
-  @Field(() => [Song])
+  @Field(() => [Song], { nullable: true })
   @ManyToMany(() => Song)
   @JoinTable({ name: 'userSongFavourites' })
   favourites: Song[];
 
-  @Field(() => [Artist])
+  @Field(() => [Artist], { nullable: true })
   @ManyToMany(() => Artist)
   @JoinTable({ name: 'userArtistFollowing' })
   following: Artist[];
 
-  @Field(() => [Song])
+  @Field(() => [Song], { nullable: true })
   @ManyToMany(() => Song)
   @JoinTable({ name: 'userSongRecentlyPlayed' })
   recentlyPlayed: Song[];
@@ -63,7 +63,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Field(() => [Playlist])
+  @Field(() => [Playlist], { nullable: true })
   @ManyToMany(() => Playlist)
   @JoinTable({ name: 'userPlaylist' })
   playlists: Playlist[];
