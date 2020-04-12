@@ -21,6 +21,15 @@ class CreateUser implements Partial<Models.User> {
   password: string;
 }
 
+@InputType()
+class UpdateFollowing implements Partial<Models.User> {
+  @Field()
+  id: string;
+
+  @Field()
+  artistId: string;
+}
+
 @Resolver(Models.User)
 export class UserResolvers {
   @Query(() => Models.User)
@@ -40,47 +49,39 @@ export class UserResolvers {
   }
 
   @Mutation()
-  createUser(
+  async createUser(
     @Arg('data') newUserData: CreateUser
     // @Ctx() ctx: Context
-  ): Models.User {
+  ): Promise<Models.User> {
     // sample implementation
-    const repository = getManager().getRepository(Models.User);
+    const repository = await getManager().getRepository(Models.User);
     const user = repository.create(newUserData);
 
     if (user) {
-      repository.save(user);
+      await repository.save(user);
       return user;
     }
 
     console.log('CreateUser failed', newUserData);
     return user;
   }
-  // @Mutation(() => Models.User)
-  // async createUser(@Arg('id') id: string, @Arg('id') id: string): Promise<Models.User | undefined> {
-  //   const user = await getManager()
-  //     .createQueryBuilder(Models.User, 'user')
-  //     .leftJoinAndSelect('user.favourites', 'artist')
-  //     .where('user.id = :id', { id: id })
-  //     .getOne();
 
-  //   if (user === undefined) {
-  //     console.log('User not found', id);
-  //     return;
-  //   }
-  //   return user;
-  // }
-  // async updateFollowing(@Arg('id') id: string, @Arg('artistId') artistId: string): Promise<Boolean> {
+  // async updateFollowing(
+  //   @Arg('data') updateFollowingData: CreateUser
+  //   // @Ctx() ctx: Context
+  // ): Promise<Models.User> {
   //     const following = await getManager()
   //     .getRepository(Models.User)
-  //     .find({relations: })
+  //     .find()
   //     .where()
+
   //     .createQueryBuilder(Models.UserArtistFollowing, 'userArtistFollowing')
   //       where: {
-  //         userId: id,
-  //         artistId,
+  //         userId: updateFollowingData.id,
+  //         artistId: updateFollowingData.artistId,
   //       },
   //     });
+
   //     if (following) {
   //       await following.destroy();
   //     } else {
