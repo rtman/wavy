@@ -1,14 +1,3 @@
-// import {
-//   BelongsToMany,
-//   CreatedAt,
-//   Column,
-//   HasMany,
-//   IsUUID,
-//   Model,
-//   PrimaryKey,
-//   UpdatedAt,
-//   Table,
-// } from 'sequelize-typescript';
 import { Album } from './album';
 import { Song } from './song';
 import { User } from './user';
