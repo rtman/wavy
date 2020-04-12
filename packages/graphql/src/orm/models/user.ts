@@ -1,12 +1,3 @@
-// import {
-//   BelongsToMany,
-//   CreatedAt,
-//   Column,
-//   Model,
-//   PrimaryKey,
-//   UpdatedAt,
-//   Table,
-// } from 'sequelize-typescript';
 import { Artist } from './artist';
 import { Playlist } from './playlist';
 import { Song } from './song';
@@ -24,43 +15,55 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-// import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @Entity('user')
+@ObjectType()
 export class User {
+  @Field(() => ID)
   @PrimaryColumn()
   id: string;
 
+  @Field(() => String)
   @Column()
   firstName: string;
 
+  @Field(() => String)
   @Column()
   lastName: string;
 
+  @Field(() => String)
   @Column()
   email: string;
 
+  @Field(() => String)
   @Column()
   password: string;
 
+  @Field(() => [Song])
   @ManyToMany(() => Song)
   @JoinTable({ name: 'userSongFavourites' })
   favourites: Song[];
 
+  @Field(() => [Artist])
   @ManyToMany(() => Artist)
   @JoinTable({ name: 'userArtistFollowing' })
   following: Artist[];
 
+  @Field(() => [Song])
   @ManyToMany(() => Song)
   @JoinTable({ name: 'userSongRecentlyPlayed' })
   recentlyPlayed: Song[];
 
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
 
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
 
+  @Field(() => [Playlist])
   @ManyToMany(() => Playlist)
   @JoinTable({ name: 'userPlaylist' })
   playlists: Playlist[];

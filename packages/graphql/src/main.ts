@@ -1,30 +1,30 @@
 import express from 'express';
-import resolvers from './resolvers';
+import * as Resolvers from './resolvers';
 import { ApolloServer } from 'apollo-server-express';
 import { createOrmConnection, Models } from './orm';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import {
-  GraphQLError,
-  // GraphQLSchema
-} from 'graphql';
+import { GraphQLError, GraphQLSchema } from 'graphql';
 import 'reflect-metadata';
-import schema from './schema';
-// import { buildSchema } from 'type-graphql';
+// import schema from './schema';
+// import { UserResolvers } from './resolvers';
+import { buildSchema } from 'type-graphql';
 
 const port = 3000;
 
-const initApolloServer = () =>
+const initApolloServer = (schema: GraphQLSchema) =>
   // const initApolloServer = (schema: GraphQLSchema) =>
+
   new ApolloServer({
     introspection: true,
     playground: true,
-    typeDefs: schema,
+    // typeDefs: schema,
+    schema: schema,
     // TODO: fix with proper type
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolvers: resolvers as any,
+    resolvers: Resolvers as any,
     formatError: (error): GraphQLError => {
       // remove the internal sequelize error message
       // leave only the important validation error
@@ -63,12 +63,12 @@ const runServer = async () => {
   try {
     await createOrmConnection();
     console.log('TypeORM connected to postgres');
-    // const schema = await buildSchema({
-    //   resolvers: [RecipeResolver],
-    // });
+    const schema = await buildSchema({
+      resolvers: [Resolvers.UserResolvers],
+    });
 
     // const server = initApolloServer(schema);
-    const server = initApolloServer();
+    const server = initApolloServer(schema);
     server.applyMiddleware({ app, path: '/graphql' });
 
     const httpServer = createServer(app);

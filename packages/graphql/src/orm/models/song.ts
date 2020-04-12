@@ -17,16 +17,19 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @Entity('song')
+@ObjectType()
 export class Song {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   // @ForeignKey(() => Artist)
   // @Column
   // artistId: string;
-
+  @Field(() => Artist)
   @ManyToOne(
     () => Artist,
     (artist) => artist.songs
@@ -37,12 +40,14 @@ export class Song {
   // @Column
   // albumId: string;
 
+  @Field(() => Album)
   @ManyToOne(
     () => Album,
     (album) => album.songs
   )
   album: Album;
 
+  @Field(() => [Artist])
   @ManyToMany(
     () => Artist,
     (artist) => artist.supportingArtistOn
@@ -56,18 +61,23 @@ export class Song {
   // @Column()
   // genres: string[];
 
+  @Field(() => String)
   @Column()
   title: string;
 
+  @Field(() => String)
   @Column()
   url: string;
 
+  @Field(() => String)
   @Column()
   image: string;
 
+  @Field(() => Date)
   @Column()
   releaseDate: Date;
 
+  @Field(() => [Playlist])
   @ManyToMany(
     () => Playlist,
     (playlist) => playlist.songs
@@ -75,12 +85,15 @@ export class Song {
   @JoinTable({ name: 'songPlaylist' })
   playlists: Playlist[];
 
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
 
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
 
+  @Field(() => [User])
   @ManyToMany(
     () => User,
     (user) => user.favourites
@@ -88,6 +101,7 @@ export class Song {
   @JoinTable({ name: 'userSongFavourites' })
   usersFavourited: User[];
 
+  @Field(() => [Song])
   @ManyToMany(
     () => User,
     (user) => user.recentlyPlayed

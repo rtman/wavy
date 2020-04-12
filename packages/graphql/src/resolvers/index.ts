@@ -4,7 +4,7 @@
 // import { artistResolvers } from './artist';
 // import { songResolvers } from './song';
 // import { playlistResolvers } from './playlist';
-import { userResolvers } from './user';
+import { UserResolvers } from './user';
 
 // import messageResolvers from './message';
 
@@ -12,10 +12,10 @@ import { userResolvers } from './user';
 //   Date: GraphQLDateTime,
 // };
 
-export default [
+export {
   // artistResolvers,
   // albumResolvers,
   // songResolvers,
   // playlistResolvers,
-  userResolvers,
-];
+  UserResolvers,
+};
