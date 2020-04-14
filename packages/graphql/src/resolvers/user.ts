@@ -54,7 +54,7 @@ export class UserResolvers {
     // @Ctx() ctx: Context
   ): Promise<Models.User> {
     // sample implementation
-    const repository = await getManager().getRepository(Models.User);
+    const repository = getManager().getRepository(Models.User);
     const user = repository.create(newUserData);
 
     if (user) {
