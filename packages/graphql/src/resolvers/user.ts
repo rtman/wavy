@@ -22,9 +22,9 @@ class CreateUser implements Partial<Models.User> {
 }
 
 @InputType()
-class UpdateFollowing implements Partial<Models.User> {
+class UpdateFollowing implements Partial<Models.UserArtistFollowing> {
   @Field()
-  id: string;
+  userId: string;
 
   @Field()
   artistId: string;
@@ -48,12 +48,11 @@ export class UserResolvers {
     return user;
   }
 
-  @Mutation()
+  @Mutation(() => Models.User)
   async createUser(
     @Arg('data') newUserData: CreateUser
     // @Ctx() ctx: Context
-  ): Promise<Models.User> {
-    // sample implementation
+  ): Promise<Models.User | undefined> {
     const repository = getManager().getRepository(Models.User);
     const user = repository.create(newUserData);
 
@@ -63,35 +62,38 @@ export class UserResolvers {
     }
 
     console.log('CreateUser failed', newUserData);
-    return user;
+    return;
   }
 
-  // async updateFollowing(
-  //   @Arg('data') updateFollowingData: CreateUser
-  //   // @Ctx() ctx: Context
-  // ): Promise<Models.User> {
-  //     const following = await getManager()
-  //     .getRepository(Models.User)
-  //     .find()
-  //     .where()
+  async updateFollowing(
+    @Arg('data') updateFollowingData: UpdateFollowing
+    // @Ctx() ctx: Context
+  ): Promise<Boolean> {
+    try {
+      const { userId, artistId } = updateFollowingData;
+      const repository = getManager().getRepository(Models.UserArtistFollowing);
 
-  //     .createQueryBuilder(Models.UserArtistFollowing, 'userArtistFollowing')
-  //       where: {
-  //         userId: updateFollowingData.id,
-  //         artistId: updateFollowingData.artistId,
-  //       },
-  //     });
+      const following = await repository.findOne({
+        where: {
+          userId,
+          artistId,
+        },
+      });
 
-  //     if (following) {
-  //       await following.destroy();
-  //     } else {
-  //       await ctx.models.UserArtistFollowing.create({ userId: id, artistId });
-  //     }
-  //     return true;
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // },
+      if (following) {
+        const removed = await repository.remove(following);
+        await repository.save(removed);
+      } else {
+        const created = await repository.create({ userId, artistId });
+        await repository.save(created);
+      }
+      // TODO: Improve return type to show succesful creation or removal
+      return true;
+    } catch (error) {
+      console.log('UpdateFollowing error', error);
+      return false;
+    }
+  }
   // updateFavourites: async (
   //   _parent,
   //   args,

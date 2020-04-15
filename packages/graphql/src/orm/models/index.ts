@@ -4,7 +4,7 @@ export { Playlist } from './playlist';
 export { User } from './user';
 // export { UserPlaylist } from './userPlaylist';
 // export { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
-// export { UserArtistFollowing } from './userArtistFollowing';
+export { UserArtistFollowing } from './userArtistFollowing';
 // export { UserSongFavourites } from './userSongFavourites';
 // export { SongPlaylist } from './songPlaylist';
 // export { SongArtistSupportingArtist } from './songArtistSupportingArtist';

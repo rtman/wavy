@@ -1,7 +1,3 @@
-import { Album } from './album';
-import { Song } from './song';
-import { User } from './user';
-// import { UserArtistFollowing } from './userArtistFollowing';
 import { ObjectType, Field, ID } from 'type-graphql';
 
 import {
@@ -12,8 +8,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
-  JoinTable,
+  // JoinTable,
 } from 'typeorm';
+import { Album } from './album';
+import { Song } from './song';
+import { User } from './user';
+import { UserArtistFollowing } from './userArtistFollowing';
 
 @Entity('artist')
 @ObjectType()
@@ -48,13 +48,18 @@ export class Artist {
   @Column()
   description: string;
 
-  @Field(() => [User])
-  @ManyToMany(
-    () => User,
-    (user) => user.following
+  @Field(() => [User], { nullable: true })
+  @OneToMany(
+    () => UserArtistFollowing,
+    (userArtistFollowing) => userArtistFollowing.artist
   )
-  @JoinTable({ name: 'userArtistFollowing' })
-  usersFollowing: User[];
+  usersFollowing: UserArtistFollowing[];
+  // @ManyToMany(
+  //   () => User,
+  //   (user) => user.following
+  // )
+  // @JoinTable({ name: 'userArtistFollowing' })
+  // usersFollowing: User[];
 
   @Field(() => [Song])
   @ManyToMany(

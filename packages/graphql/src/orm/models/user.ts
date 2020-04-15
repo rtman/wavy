@@ -1,21 +1,22 @@
-import { Artist } from './artist';
-import { Playlist } from './playlist';
-import { Song } from './song';
-// import { UserPlaylist } from './userPlaylist';
-// import { UserSongFavourites } from './userSongFavourites';
-// import { UserArtistFollowing } from './userArtistFollowing';
-// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
-
 import {
   Entity,
   Column,
   PrimaryColumn,
   ManyToMany,
+  OneToMany,
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
+import { Artist } from './artist';
+import { Playlist } from './playlist';
+import { Song } from './song';
+import { UserArtistFollowing } from './userArtistFollowing';
+// import { UserPlaylist } from './userPlaylist';
+// import { UserSongFavourites } from './userSongFavourites';
+// import { UserArtistFollowing } from './userArtistFollowing';
+// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 @Entity('user')
 @ObjectType()
@@ -46,9 +47,17 @@ export class User {
   favourites: Song[];
 
   @Field(() => [Artist], { nullable: true })
-  @ManyToMany(() => Artist)
-  @JoinTable({ name: 'userArtistFollowing' })
-  following: Artist[];
+  @OneToMany(
+    () => UserArtistFollowing,
+    (userArtistFollowing) => userArtistFollowing.user
+  )
+  following: UserArtistFollowing[];
+  // @ManyToMany(
+  //   () => Artist,
+  //   (artist) => artist.usersFollowing
+  // )
+  // @JoinTable({ name: 'userArtistFollowing' })
+  // following: User[];
 
   @Field(() => [Song], { nullable: true })
   @ManyToMany(() => Song)
