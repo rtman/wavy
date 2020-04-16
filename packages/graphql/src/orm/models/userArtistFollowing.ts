@@ -1,9 +1,8 @@
 import {
   Entity,
-  Column,
+  PrimaryColumn,
   ManyToOne,
   CreateDateColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
@@ -13,32 +12,26 @@ import { User } from './user';
 @Entity('userArtistFollowing')
 @ObjectType()
 export class UserArtistFollowing {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => String, { nullable: false })
+  @PrimaryColumn()
+  userId: string;
 
-  @Field(() => String)
-  @Column()
-  userId!: string;
+  @Field(() => ID, { nullable: false })
+  @PrimaryColumn()
+  artistId: string;
 
-  @Field(() => ID)
-  @Column()
-  artistId!: string;
-
-  // @Field(() => String)
-  // @Field(() => User)
   @ManyToOne(
     () => User,
     (user) => user.following
   )
+  @Field(() => User)
   user!: User;
 
-  // @Field(() => ID)
-  // @Field(() => Artist)
   @ManyToOne(
     () => Artist,
     (artist) => artist.usersFollowing
   )
+  @Field(() => Artist)
   artist!: Artist;
 
   @Field(() => Date)

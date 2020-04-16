@@ -8,11 +8,9 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
-  // JoinTable,
 } from 'typeorm';
 import { Album } from './album';
 import { Song } from './song';
-import { User } from './user';
 import { UserArtistFollowing } from './userArtistFollowing';
 
 @Entity('artist')
@@ -48,18 +46,12 @@ export class Artist {
   @Column()
   description: string;
 
-  @Field(() => [User], { nullable: true })
+  @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(
     () => UserArtistFollowing,
     (userArtistFollowing) => userArtistFollowing.artist
   )
   usersFollowing: UserArtistFollowing[];
-  // @ManyToMany(
-  //   () => User,
-  //   (user) => user.following
-  // )
-  // @JoinTable({ name: 'userArtistFollowing' })
-  // usersFollowing: User[];
 
   @Field(() => [Song])
   @ManyToMany(

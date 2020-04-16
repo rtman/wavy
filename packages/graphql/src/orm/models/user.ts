@@ -9,7 +9,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
-import { Artist } from './artist';
 import { Playlist } from './playlist';
 import { Song } from './song';
 import { UserArtistFollowing } from './userArtistFollowing';
@@ -46,18 +45,12 @@ export class User {
   @JoinTable({ name: 'userSongFavourites' })
   favourites: Song[];
 
-  @Field(() => [Artist], { nullable: true })
+  @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(
     () => UserArtistFollowing,
     (userArtistFollowing) => userArtistFollowing.user
   )
   following: UserArtistFollowing[];
-  // @ManyToMany(
-  //   () => Artist,
-  //   (artist) => artist.usersFollowing
-  // )
-  // @JoinTable({ name: 'userArtistFollowing' })
-  // following: User[];
 
   @Field(() => [Song], { nullable: true })
   @ManyToMany(() => Song)
