@@ -8,8 +8,6 @@ import compression from 'compression';
 import cors from 'cors';
 import { GraphQLError, GraphQLSchema } from 'graphql';
 import 'reflect-metadata';
-// import schema from './schema';
-// import { UserResolvers } from './resolvers';
 import { buildSchema } from 'type-graphql';
 
 const port = 3000;
