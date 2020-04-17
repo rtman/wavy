@@ -2,20 +2,15 @@ import {
   Entity,
   Column,
   PrimaryColumn,
-  ManyToMany,
   OneToMany,
-  JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
-import { Playlist } from './playlist';
-import { Song } from './song';
+import { UserPlaylist } from './userPlaylist';
+import { UserSongFavourites } from './userSongFavourites';
 import { UserArtistFollowing } from './userArtistFollowing';
-// import { UserPlaylist } from './userPlaylist';
-// import { UserSongFavourites } from './userSongFavourites';
-// import { UserArtistFollowing } from './userArtistFollowing';
-// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
+import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 @Entity('user')
 @ObjectType()
@@ -40,10 +35,12 @@ export class User {
   @Column()
   password: string;
 
-  @Field(() => [Song], { nullable: true })
-  @ManyToMany(() => Song)
-  @JoinTable({ name: 'userSongFavourites' })
-  favourites: Song[];
+  @Field(() => [UserSongFavourites], { nullable: true })
+  @OneToMany(
+    () => UserSongFavourites,
+    (userSongFavourites) => userSongFavourites.user
+  )
+  favourites: UserSongFavourites[];
 
   @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(
@@ -52,10 +49,19 @@ export class User {
   )
   following: UserArtistFollowing[];
 
-  @Field(() => [Song], { nullable: true })
-  @ManyToMany(() => Song)
-  @JoinTable({ name: 'userSongRecentlyPlayed' })
-  recentlyPlayed: Song[];
+  @Field(() => [UserSongRecentlyPlayed], { nullable: true })
+  @OneToMany(
+    () => UserSongRecentlyPlayed,
+    (userSongRecentlyPlayed) => userSongRecentlyPlayed.user
+  )
+  recentlyPlayed: UserSongRecentlyPlayed[];
+
+  @Field(() => [UserPlaylist], { nullable: true })
+  @OneToMany(
+    () => UserPlaylist,
+    (userPlaylist) => userPlaylist.user
+  )
+  playlists: UserPlaylist[];
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -64,9 +70,4 @@ export class User {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
-
-  @Field(() => [Playlist], { nullable: true })
-  @ManyToMany(() => Playlist)
-  @JoinTable({ name: 'userPlaylist' })
-  playlists: Playlist[];
 }

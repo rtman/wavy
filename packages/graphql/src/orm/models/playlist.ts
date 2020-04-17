@@ -4,13 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
-import { Song } from './song';
-// import { SongPlaylist } from './songPlaylist';
-import { User } from './user';
-// import { UserPlaylist } from './userPlaylist';
+import { SongPlaylist } from './songPlaylist';
+import { UserPlaylist } from './userPlaylist';
 import { ObjectType, Field, ID } from 'type-graphql';
 
 @Entity('playlist')
@@ -32,21 +29,19 @@ export class Playlist {
   @Column()
   image: string;
 
-  @Field(() => [Song])
-  @ManyToMany(
-    () => Song,
-    (song) => song.playlists
+  @Field(() => [SongPlaylist], { nullable: true })
+  @OneToMany(
+    () => SongPlaylist,
+    (songPlaylist) => songPlaylist.playlist
   )
-  @JoinTable({ name: 'songPlaylist' })
-  songs: Song[];
+  songs: SongPlaylist[];
 
-  @Field(() => [User])
-  @ManyToMany(
-    () => User,
-    (user) => user.playlists
+  @Field(() => [UserPlaylist], { nullable: true })
+  @OneToMany(
+    () => UserPlaylist,
+    (userPlaylist) => userPlaylist.user
   )
-  @JoinTable({ name: 'userPlaylist' })
-  users: User[];
+  users: UserPlaylist[];
 
   @Field(() => Date)
   @CreateDateColumn()

@@ -1,5 +1,3 @@
-import { ObjectType, Field, ID } from 'type-graphql';
-
 import {
   Entity,
   Column,
@@ -7,11 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToMany,
 } from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { Album } from './album';
 import { Song } from './song';
 import { UserArtistFollowing } from './userArtistFollowing';
+import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 
 @Entity('artist')
 @ObjectType()
@@ -53,12 +52,12 @@ export class Artist {
   )
   usersFollowing: UserArtistFollowing[];
 
-  @Field(() => [Song])
-  @ManyToMany(
-    () => Song,
-    (song) => song.supportingArtists
+  @Field(() => [SongArtistSupportingArtist], { nullable: true })
+  @OneToMany(
+    () => SongArtistSupportingArtist,
+    (songArtistSupportingArtist) => songArtistSupportingArtist.artist
   )
-  supportingArtistOn: Song[];
+  supportingArtistOn: SongArtistSupportingArtist[];
 
   @Field(() => Date)
   @CreateDateColumn()

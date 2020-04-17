@@ -1,23 +1,19 @@
-import { Artist } from './artist';
-import { Album } from './album';
-import { Playlist } from './playlist';
-// import { SongPlaylist } from './songPlaylist';
-// import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
-// import { UserSongFavourites } from './userSongFavourites';
-import { User } from './user';
-// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
-
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
   ManyToOne,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
+import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+import { UserSongFavourites } from './userSongFavourites';
+import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
+import { SongPlaylist } from './songPlaylist';
+import { Artist } from './artist';
+import { Album } from './album';
 
 @Entity('song')
 @ObjectType()
@@ -29,6 +25,7 @@ export class Song {
   // @ForeignKey(() => Artist)
   // @Column
   // artistId: string;
+
   @Field(() => Artist)
   @ManyToOne(
     () => Artist,
@@ -46,16 +43,6 @@ export class Song {
     (album) => album.songs
   )
   album: Album;
-
-  @Field(() => [Artist])
-  @ManyToMany(
-    () => Artist,
-    (artist) => artist.supportingArtistOn
-  )
-  @JoinTable({
-    name: 'songArtistSupportingArtist',
-  })
-  supportingArtists: Artist[];
 
   // TODO: Figureout genres, most likely a many to many assocation
   // @Column()
@@ -77,13 +64,33 @@ export class Song {
   @Column()
   releaseDate: Date;
 
-  @Field(() => [Playlist])
-  @ManyToMany(
-    () => Playlist,
-    (playlist) => playlist.songs
+  @Field(() => [SongArtistSupportingArtist], { nullable: true })
+  @OneToMany(
+    () => SongArtistSupportingArtist,
+    (songArtistSupportingArtist) => songArtistSupportingArtist.song
   )
-  @JoinTable({ name: 'songPlaylist' })
-  playlists: Playlist[];
+  supportingArtists: SongArtistSupportingArtist[];
+
+  @Field(() => [SongPlaylist], { nullable: true })
+  @OneToMany(
+    () => SongPlaylist,
+    (songPlaylist) => songPlaylist.song
+  )
+  playlists: SongPlaylist[];
+
+  @Field(() => [UserSongFavourites], { nullable: true })
+  @OneToMany(
+    () => UserSongFavourites,
+    (userSongFavourites) => userSongFavourites.song
+  )
+  usersFavourited: UserSongFavourites[];
+
+  @Field(() => [UserSongRecentlyPlayed], { nullable: true })
+  @OneToMany(
+    () => UserSongRecentlyPlayed,
+    (userSongRecentlyPlayed) => userSongRecentlyPlayed.user
+  )
+  usersRecentlyPlayed: UserSongRecentlyPlayed[];
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -92,20 +99,4 @@ export class Song {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
-
-  @Field(() => [User])
-  @ManyToMany(
-    () => User,
-    (user) => user.favourites
-  )
-  @JoinTable({ name: 'userSongFavourites' })
-  usersFavourited: User[];
-
-  @Field(() => [Song])
-  @ManyToMany(
-    () => User,
-    (user) => user.recentlyPlayed
-  )
-  @JoinTable({ name: 'userSongRecentlyPlayed' })
-  usersRecentlyPlayed: Song[];
 }

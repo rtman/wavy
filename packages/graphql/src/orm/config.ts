@@ -15,13 +15,13 @@ const createOrmConnection = async () => {
       Models.Artist,
       Models.Playlist,
       Models.User,
-      // Models.UserSongFavourites,
+      Models.UserSongFavourites,
       Models.UserArtistFollowing,
-      // Models.UserSongRecentlyPlayed,
-      // Models.UserPlaylist,
+      Models.UserSongRecentlyPlayed,
+      Models.UserPlaylist,
       Models.Song,
-      // Models.SongPlaylist,
-      // Models.SongArtistSupportingArtist,
+      Models.SongPlaylist,
+      Models.SongArtistSupportingArtist,
     ],
   });
 };
