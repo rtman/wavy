@@ -80,8 +80,12 @@ export class PlaylistResolvers {
           join: {
             alias: 'playlist',
             leftJoinAndSelect: {
+              // nested join
               songs: 'playlist.songs',
+              song: 'songs.song',
+              // nested join
               users: 'playlist.users',
+              user: 'users.user',
             },
           },
         });

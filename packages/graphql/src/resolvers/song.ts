@@ -54,10 +54,18 @@ export class SongResolvers {
             leftJoinAndSelect: {
               album: 'song.album',
               artist: 'song.artist',
+              // nested join
               supportingArtists: 'song.supportingArtists',
+              artists: 'supportingArtists.artist',
+              // nested join
               playlists: 'song.playlists',
+              playlist: 'playlists.playlist',
+              // nested join
               usersFavourited: 'song.usersFavourited',
+              nestedUsersFavourited: 'usersFavourited.user',
+              // nested join
               usersRecentlyPlayed: 'song.usersRecentlyPlayed',
+              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
             },
           },
         });

@@ -46,8 +46,21 @@ export class AlbumResolvers {
           join: {
             alias: 'album',
             leftJoinAndSelect: {
-              album: 'album.album',
+              artist: 'album.artist',
               songs: 'album.songs',
+              song: 'songs.song',
+
+              supportingArtists: 'song.supportingArtists',
+              artists: 'supportingArtists.artist',
+              // nested join
+              playlists: 'song.playlists',
+              playlist: 'playlists.playlist',
+              // nested join
+              usersFavourited: 'song.usersFavourited',
+              nestedUsersFavourited: 'usersFavourited.user',
+              // nested join
+              usersRecentlyPlayed: 'song.usersRecentlyPlayed',
+              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
             },
           },
         });

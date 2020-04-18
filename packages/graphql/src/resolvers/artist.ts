@@ -47,11 +47,22 @@ export class ArtistResolvers {
             alias: 'artist',
             leftJoinAndSelect: {
               albums: 'artist.albums',
+              // nested join
               songs: 'artist.songs',
+              supportingArtists: 'song.supportingArtists',
+              artists: 'supportingArtists.artist',
+              // nested join
+              usersFavourited: 'song.usersFavourited',
+              nestedUsersFavourited: 'usersFavourited.user',
+              // nested join
+              usersRecentlyPlayed: 'song.usersRecentlyPlayed',
+              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
+              // nested join
               usersFollowing: 'artist.usersFollowing',
-              users: 'usersFollowing.user',
+              nestedUsersFollowing: 'usersFollowing.user',
+              // nested join
               supportingArtistOn: 'artist.supportingArtistOn',
-              // songs: 'supportingArtistOn.song',
+              nestedSupportingArtistOn: 'supportingArtistOn.song',
             },
           },
         });

@@ -22,9 +22,9 @@ export class Song {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // @ForeignKey(() => Artist)
-  // @Column
-  // artistId: string;
+  @Field(() => ID)
+  @Column()
+  artistId: string;
 
   @Field(() => Artist)
   @ManyToOne(
@@ -33,9 +33,9 @@ export class Song {
   )
   artist: Artist;
 
-  // @ForeignKey(() => Album)
-  // @Column
-  // albumId: string;
+  @Field(() => ID)
+  @Column()
+  albumId: string;
 
   @Field(() => Album)
   @ManyToOne(
