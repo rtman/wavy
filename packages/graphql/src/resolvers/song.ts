@@ -49,25 +49,19 @@ export class SongResolvers {
         .getRepository(Models.Song)
         .findOne({
           where: { id },
-          join: {
-            alias: 'song',
-            leftJoinAndSelect: {
-              album: 'song.album',
-              artist: 'song.artist',
-              // nested join
-              supportingArtists: 'song.supportingArtists',
-              artists: 'supportingArtists.artist',
-              // nested join
-              playlists: 'song.playlists',
-              playlist: 'playlists.playlist',
-              // nested join
-              usersFavourited: 'song.usersFavourited',
-              nestedUsersFavourited: 'usersFavourited.user',
-              // nested join
-              usersRecentlyPlayed: 'song.usersRecentlyPlayed',
-              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
-            },
-          },
+          relations: [
+            'album',
+            'artist',
+            'artist.albums',
+            'supportingArtists',
+            'supportingArtists.artist',
+            'playlists',
+            'playlists.playlist',
+            'usersFavourited',
+            'usersFavourited.user',
+            'usersRecentlyPlayed',
+            'usersRecentlyPlayed.user',
+          ],
         });
 
       if (song) {

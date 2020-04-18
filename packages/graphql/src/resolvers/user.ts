@@ -65,19 +65,17 @@ export class UserResolvers {
         .getRepository(Models.User)
         .findOne({
           where: { id },
-          join: {
-            alias: 'user',
-            leftJoinAndSelect: {
-              favourites: 'user.favourites',
-              songs: 'favourites.song',
-              // recentlyPlayed: 'user.recentlyPlayed',
-              // songs: 'recentlyPlayed.song',
-              following: 'user.following',
-              artists: 'following.artist',
-              playlists: 'user.playlists',
-              playlist: 'playlists.playlist',
-            },
-          },
+          relations: [
+            'favourites',
+            'favourites.song',
+            'favourites.song.album',
+            'favourites.song.supportingArtists',
+            'favourites.song.supportingArtists.artist',
+            'following',
+            'following.artist',
+            'playlists',
+            'playlists.playlist',
+          ],
         });
 
       if (user === undefined) {

@@ -77,17 +77,16 @@ export class PlaylistResolvers {
         .getRepository(Models.Playlist)
         .findOne({
           where: { id },
-          join: {
-            alias: 'playlist',
-            leftJoinAndSelect: {
-              // nested join
-              songs: 'playlist.songs',
-              song: 'songs.song',
-              // nested join
-              users: 'playlist.users',
-              user: 'users.user',
-            },
-          },
+          relations: [
+            'songs',
+            'songs.song',
+            'songs.song.artist',
+            'songs.song.album',
+            'songs.song.supportingArtists',
+            'songs.song.supportingArtists.artist',
+            // TODO: issue with user id not being uuid here.
+            // 'users',
+          ],
         });
 
       if (playlist) {

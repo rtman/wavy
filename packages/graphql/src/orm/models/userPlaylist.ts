@@ -31,8 +31,8 @@ export class UserPlaylist {
     () => Playlist,
     (playlist) => playlist.users
   )
-  @Field(() => User)
-  playlist!: User;
+  @Field(() => Playlist)
+  playlist!: Playlist;
 
   @Field(() => Date)
   @CreateDateColumn()

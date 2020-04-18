@@ -43,26 +43,19 @@ export class AlbumResolvers {
         .getRepository(Models.Album)
         .findOne({
           where: { id },
-          join: {
-            alias: 'album',
-            leftJoinAndSelect: {
-              artist: 'album.artist',
-              songs: 'album.songs',
-              song: 'songs.song',
-
-              supportingArtists: 'song.supportingArtists',
-              artists: 'supportingArtists.artist',
-              // nested join
-              playlists: 'song.playlists',
-              playlist: 'playlists.playlist',
-              // nested join
-              usersFavourited: 'song.usersFavourited',
-              nestedUsersFavourited: 'usersFavourited.user',
-              // nested join
-              usersRecentlyPlayed: 'song.usersRecentlyPlayed',
-              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
-            },
-          },
+          relations: [
+            'artist',
+            'artist.albums',
+            'songs',
+            'songs.artist',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            // TODO: fix uuid issue with user
+            // 'songs.usersRecentlyPlayed',
+            // 'songs.usersRecentlyPlayed.user',
+            // 'songs.usersFavourited',
+            // 'songs.usersFavourited.user',
+          ],
         });
 
       if (album === undefined) {

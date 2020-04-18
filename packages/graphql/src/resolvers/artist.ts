@@ -43,28 +43,25 @@ export class ArtistResolvers {
         .getRepository(Models.Artist)
         .findOne({
           where: { id },
-          join: {
-            alias: 'artist',
-            leftJoinAndSelect: {
-              albums: 'artist.albums',
-              // nested join
-              songs: 'artist.songs',
-              supportingArtists: 'song.supportingArtists',
-              artists: 'supportingArtists.artist',
-              // nested join
-              usersFavourited: 'song.usersFavourited',
-              nestedUsersFavourited: 'usersFavourited.user',
-              // nested join
-              usersRecentlyPlayed: 'song.usersRecentlyPlayed',
-              nestedUsersRecentlyPlayed: 'usersRecentlyPlayed.user',
-              // nested join
-              usersFollowing: 'artist.usersFollowing',
-              nestedUsersFollowing: 'usersFollowing.user',
-              // nested join
-              supportingArtistOn: 'artist.supportingArtistOn',
-              nestedSupportingArtistOn: 'supportingArtistOn.song',
-            },
-          },
+          relations: [
+            'songs',
+            'songs.album',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            'albums',
+            'albums.songs',
+            'albums.songs.supportingArtists',
+            'albums.songs.supportingArtists.artist',
+            'supportingArtistOn',
+            'supportingArtistOn.song',
+            // TODO: fix uuid issue with user
+            // 'songs.usersRecentlyPlayed',
+            // 'songs.usersRecentlyPlayed.user',
+            // 'songs.usersFavourited',
+            // 'songs.usersFavourited.user',
+            // 'usersFollowing',
+            // 'usersFollowing.user',
+          ],
         });
 
       if (artist) {
