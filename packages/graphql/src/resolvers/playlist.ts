@@ -3,9 +3,54 @@ import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { Playlist } from 'orm/models';
 
+@InputType()
+class CreatePlaylist implements Partial<Models.Playlist> {
+  @Field()
+  title: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  image: string;
+}
+
+@InputType()
+class UpdatePlaylistInfo implements Partial<Models.Playlist> {
+  @Field()
+  id: string;
+
+  @Field()
+  title: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  image: string;
+}
+
+@InputType()
+class AddPlaylistSongs implements Partial<Models.Playlist> {
+  @Field()
+  id: string;
+
+  @Field(() => [String])
+  songIds: string[];
+}
+
+@InputType()
+class RemovePlaylistSongs implements Partial<Models.Playlist> {
+  @Field()
+  id: string;
+
+  @Field(() => [String])
+  songIds: string[];
+}
+
 @Resolver(Models.Playlist)
 export class PlaylistResolvers {
-  @Query(() => Models.Playlist)
+  @Query(() => [Models.Playlist])
   async playlists(): Promise<Models.Playlist[] | undefined> {
     try {
       const playlists = await getManager()
@@ -55,9 +100,9 @@ export class PlaylistResolvers {
     }
   }
 
-  @Query(() => Models.Playlist)
+  @Query(() => [Models.Playlist])
   async playlistsById(
-    @Arg('ids') ids: string[]
+    @Arg('ids', () => [String]) ids: string[]
   ): Promise<Models.Playlist[] | undefined> {
     try {
       const playlists = await getManager()
@@ -200,49 +245,4 @@ export class PlaylistResolvers {
       return false;
     }
   }
-}
-
-@InputType()
-class CreatePlaylist implements Partial<Models.Playlist> {
-  @Field()
-  title: string;
-
-  @Field()
-  description: string;
-
-  @Field()
-  image: string;
-}
-
-@InputType()
-class UpdatePlaylistInfo implements Partial<Models.Playlist> {
-  @Field()
-  id: string;
-
-  @Field()
-  title: string;
-
-  @Field()
-  description: string;
-
-  @Field()
-  image: string;
-}
-
-@InputType()
-class AddPlaylistSongs implements Partial<Models.Playlist> {
-  @Field()
-  id: string;
-
-  @Field()
-  songIds: string[];
-}
-
-@InputType()
-class RemovePlaylistSongs implements Partial<Models.Playlist> {
-  @Field()
-  id: string;
-
-  @Field()
-  songIds: string[];
 }

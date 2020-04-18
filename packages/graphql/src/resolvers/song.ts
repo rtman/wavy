@@ -2,9 +2,30 @@ import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
+@InputType()
+class CreateSong implements Partial<Models.Song> {
+  @Field()
+  title: string;
+
+  @Field()
+  artistId: string;
+
+  @Field()
+  image: string;
+}
+
+// @InputType()
+// class UpdateSongTitle implements Partial<Models.Song> {
+//   @Field()
+//   title: string;
+
+//   @Field()
+//   id: string;
+// }
+
 @Resolver(Models.Song)
 export class SongResolvers {
-  @Query(() => Models.Song)
+  @Query(() => [Models.Song])
   async songs(): Promise<Models.Song[] | undefined> {
     try {
       const songs = await getManager()
@@ -21,6 +42,7 @@ export class SongResolvers {
       console.log('Find songs error', error);
     }
   }
+  @Query(() => Models.Song)
   async songById(@Arg('id') id: string): Promise<Models.Song | undefined> {
     try {
       const song = await getManager()
@@ -53,9 +75,9 @@ export class SongResolvers {
     }
   }
 
-  @Query(() => Models.Song)
+  @Query(() => [Models.Song])
   async songsById(
-    @Arg('ids') ids: string[]
+    @Arg('ids', () => [String]) ids: string[]
   ): Promise<Models.Song[] | undefined> {
     try {
       const songs = await getManager()
@@ -215,25 +237,4 @@ export class SongResolvers {
       return false;
     }
   }
-}
-
-@InputType()
-class CreateSong implements Partial<Models.Song> {
-  @Field()
-  title: string;
-
-  @Field()
-  artistId: string;
-
-  @Field()
-  image: string;
-}
-
-@InputType()
-class UpdateSongTitle implements Partial<Models.Song> {
-  @Field()
-  title: string;
-
-  @Field()
-  id: string;
 }

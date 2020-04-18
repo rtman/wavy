@@ -2,9 +2,21 @@ import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
+@InputType({ description: 'Create a new artist' })
+class CreateArtist implements Partial<Models.Artist> {
+  @Field()
+  name: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  image: string;
+}
+
 @Resolver(Models.Artist)
 export class ArtistResolvers {
-  @Query(() => Models.Artist)
+  @Query(() => [Models.Artist])
   async artists(): Promise<Models.Artist[] | undefined> {
     try {
       const artists = await getManager()
@@ -15,10 +27,13 @@ export class ArtistResolvers {
         return artists;
       } else {
         console.log('No artists found');
+
         return;
       }
     } catch (error) {
       console.log('Find artists error', error);
+
+      return;
     }
   }
   @Query(() => Models.Artist)
@@ -54,9 +69,9 @@ export class ArtistResolvers {
     }
   }
 
-  @Query(() => Models.Artist)
+  @Query(() => [Models.Artist])
   async artistsById(
-    @Arg('ids') ids: string[]
+    @Arg('ids', () => [String]) ids: string[]
   ): Promise<Models.Artist[] | undefined> {
     try {
       const artists = await getManager()
@@ -65,6 +80,8 @@ export class ArtistResolvers {
       if (artists) {
         return artists;
       } else {
+        console.log('artistsById - no artists found', ids);
+
         return;
       }
     } catch (error) {
@@ -119,16 +136,4 @@ export class ArtistResolvers {
       return false;
     }
   }
-}
-
-@InputType({ description: 'Create a new artist' })
-class CreateArtist implements Partial<Models.Artist> {
-  @Field()
-  name: string;
-
-  @Field()
-  description: string;
-
-  @Field()
-  image: string;
 }

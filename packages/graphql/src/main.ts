@@ -62,7 +62,13 @@ const runServer = async () => {
     await createOrmConnection();
     console.log('TypeORM connected to postgres');
     const schema = await buildSchema({
-      resolvers: [Resolvers.UserResolvers],
+      resolvers: [
+        Resolvers.UserResolvers,
+        Resolvers.ArtistResolvers,
+        Resolvers.AlbumResolvers,
+        Resolvers.PlaylistResolvers,
+        Resolvers.SongResolvers,
+      ],
     });
 
     // const server = initApolloServer(schema);

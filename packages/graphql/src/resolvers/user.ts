@@ -2,6 +2,60 @@ import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
+@InputType({ description: 'Create a new user' })
+class CreateUser implements Partial<Models.User> {
+  @Field()
+  id: string;
+
+  @Field()
+  firstName: string;
+
+  @Field()
+  lastName: string;
+
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
+}
+
+@InputType()
+class UpdateFollowing implements Partial<Models.UserArtistFollowing> {
+  @Field()
+  userId: string;
+
+  @Field()
+  artistId: string;
+}
+
+@InputType()
+class UpdateFavourites implements Partial<Models.UserSongFavourites> {
+  @Field()
+  userId: string;
+
+  @Field()
+  songId: string;
+}
+
+@InputType()
+class UpdatePlaylists implements Partial<Models.UserPlaylist> {
+  @Field()
+  userId: string;
+
+  @Field()
+  playlistId: string;
+}
+
+@InputType()
+class UpdateRecentlyPlayed implements Partial<Models.UserSongRecentlyPlayed> {
+  @Field()
+  userId: string;
+
+  @Field()
+  songId: string;
+}
+
 @Resolver(Models.User)
 export class UserResolvers {
   @Query(() => Models.User)
@@ -201,58 +255,4 @@ export class UserResolvers {
       return false;
     }
   }
-}
-
-@InputType({ description: 'Create a new user' })
-class CreateUser implements Partial<Models.User> {
-  @Field()
-  id: string;
-
-  @Field()
-  firstName: string;
-
-  @Field()
-  lastName: string;
-
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
-}
-
-@InputType()
-class UpdateFollowing implements Partial<Models.UserArtistFollowing> {
-  @Field()
-  userId: string;
-
-  @Field()
-  artistId: string;
-}
-
-@InputType()
-class UpdateFavourites implements Partial<Models.UserSongFavourites> {
-  @Field()
-  userId: string;
-
-  @Field()
-  songId: string;
-}
-
-@InputType()
-class UpdatePlaylists implements Partial<Models.UserPlaylist> {
-  @Field()
-  userId: string;
-
-  @Field()
-  playlistId: string;
-}
-
-@InputType()
-class UpdateRecentlyPlayed implements Partial<Models.UserSongRecentlyPlayed> {
-  @Field()
-  userId: string;
-
-  @Field()
-  songId: string;
 }

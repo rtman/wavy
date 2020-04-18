@@ -2,9 +2,24 @@ import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
+@InputType({ description: 'Create a new album' })
+class CreateAlbum implements Partial<Models.Album> {
+  @Field()
+  title: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  artistId: string;
+
+  @Field()
+  image: string;
+}
+
 @Resolver(Models.Album)
 export class AlbumResolvers {
-  @Query(() => Models.Album)
+  @Query(() => [Models.Album])
   async albums(): Promise<Models.Album[] | undefined> {
     try {
       const albums = await getManager()
@@ -94,19 +109,4 @@ export class AlbumResolvers {
       return false;
     }
   }
-}
-
-@InputType({ description: 'Create a new album' })
-class CreateAlbum implements Partial<Models.Album> {
-  @Field()
-  title: string;
-
-  @Field()
-  description: string;
-
-  @Field()
-  artistId: string;
-
-  @Field()
-  image: string;
 }
