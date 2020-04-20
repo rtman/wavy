@@ -39,7 +39,7 @@ export class Playlist {
   @Field(() => [UserPlaylist], { nullable: true })
   @OneToMany(
     () => UserPlaylist,
-    (userPlaylist) => userPlaylist.user
+    (userPlaylist) => userPlaylist.playlist
   )
   users: UserPlaylist[];
 

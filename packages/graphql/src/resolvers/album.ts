@@ -50,11 +50,10 @@ export class AlbumResolvers {
             'songs.artist',
             'songs.supportingArtists',
             'songs.supportingArtists.artist',
-            // TODO: fix uuid issue with user
-            // 'songs.usersRecentlyPlayed',
-            // 'songs.usersRecentlyPlayed.user',
-            // 'songs.usersFavourited',
-            // 'songs.usersFavourited.user',
+            'songs.usersRecentlyPlayed',
+            'songs.usersRecentlyPlayed.user',
+            'songs.usersFavourited',
+            'songs.usersFavourited.user',
           ],
         });
 

@@ -88,7 +88,7 @@ export class Song {
   @Field(() => [UserSongRecentlyPlayed], { nullable: true })
   @OneToMany(
     () => UserSongRecentlyPlayed,
-    (userSongRecentlyPlayed) => userSongRecentlyPlayed.user
+    (userSongRecentlyPlayed) => userSongRecentlyPlayed.song
   )
   usersRecentlyPlayed: UserSongRecentlyPlayed[];
 

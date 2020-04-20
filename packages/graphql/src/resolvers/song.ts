@@ -114,6 +114,7 @@ export class SongResolvers {
         .leftJoinAndSelect('supportingArtists.artist', 'supportingArtist')
         .leftJoinAndSelect('song.usersFavourited', 'usersFavourited')
         .leftJoinAndSelect('usersFavourited.user', 'user')
+        // Here is the zdb query and syntax
         .where('song ==> :query', { query })
         .getMany();
 

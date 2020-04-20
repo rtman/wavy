@@ -68,6 +68,7 @@ export class PlaylistResolvers {
       console.log('Find playlists error', error);
     }
   }
+
   @Query(() => Models.Playlist)
   async playlistById(
     @Arg('id') id: string
@@ -84,8 +85,8 @@ export class PlaylistResolvers {
             'songs.song.album',
             'songs.song.supportingArtists',
             'songs.song.supportingArtists.artist',
-            // TODO: issue with user id not being uuid here.
-            // 'users',
+            'users',
+            'users.user',
           ],
         });
 
