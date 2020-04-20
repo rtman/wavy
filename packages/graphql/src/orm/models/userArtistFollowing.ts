@@ -12,7 +12,7 @@ import { User } from './user';
 @Entity('userArtistFollowing')
 @ObjectType()
 export class UserArtistFollowing {
-  @Field(() => String, { nullable: false })
+  @Field(() => ID, { nullable: false })
   @PrimaryColumn()
   userId: string;
 

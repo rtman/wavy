@@ -12,7 +12,7 @@ import { Song } from './song';
 @Entity('userSongRecentlyPlayed')
 @ObjectType()
 export class UserSongRecentlyPlayed {
-  @Field(() => String)
+  @Field(() => ID)
   @PrimaryColumn()
   userId: string;
 

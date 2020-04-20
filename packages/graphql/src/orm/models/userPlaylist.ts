@@ -12,7 +12,7 @@ import { Playlist } from './playlist';
 @Entity('userPlaylist')
 @ObjectType()
 export class UserPlaylist {
-  @Field(() => String, { nullable: false })
+  @Field(() => ID, { nullable: false })
   @PrimaryColumn()
   userId: string;
 
