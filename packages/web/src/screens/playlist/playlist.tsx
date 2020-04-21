@@ -58,7 +58,9 @@ export const Playlist = () => {
   const renderSongs = () => {
     if (queryData?.playlistById?.songs.length > 0) {
       const songsList = queryData.playlistById.songs.map(
-        (song: Song, index: number) => {
+        // TODO: get proper type for this from orm, not any
+        (songInstance: any, index: number) => {
+          const song = songInstance.song;
           return (
             <Fragment key={song.id}>
               <SongRow song={song} />

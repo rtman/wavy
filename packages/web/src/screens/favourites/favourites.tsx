@@ -16,14 +16,19 @@ export const Favourites = () => {
     // eslint-disable-next-line no-self-compare
     if (userContext?.user?.favourites?.length ?? 0 > 0) {
       const favourites = userContext?.user?.favourites ?? [];
-      const songsList = favourites.map((song: Song, index: number) => {
-        return (
-          <Fragment key={song.id}>
-            <SongRow key={song.id} song={song} />
-            {index < favourites.length - 1 ? <Divider /> : null}
-          </Fragment>
-        );
-      });
+      // TODO: fix type here, should be userArtistFollowing type from orm not any
+      console.log('favourites', favourites);
+      const songsList = favourites.map(
+        (favouriteInstance: any, index: number) => {
+          const song = favouriteInstance.song;
+          return (
+            <Fragment key={song.id}>
+              <SongRow key={song.id} song={song} />
+              {index < favourites.length - 1 ? <Divider /> : null}
+            </Fragment>
+          );
+        }
+      );
       return <List>{songsList}</List>;
     } else {
       return null;

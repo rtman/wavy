@@ -3,7 +3,7 @@ import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { List, Container } from '@material-ui/core';
+import { List, Container, CircularProgress } from '@material-ui/core';
 
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
@@ -76,7 +76,7 @@ export const Home = () => {
           onKeyDown={onKeyDownSearchBar}
           fullWidth={true}
         />
-        {loading ? <div>Loading</div> : renderSearchResults()}
+        {loading ? <CircularProgress /> : renderSearchResults()}
       </Container>
     </Screen>
   );

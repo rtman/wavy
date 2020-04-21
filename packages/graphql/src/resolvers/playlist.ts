@@ -1,7 +1,7 @@
 import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
-import { Playlist } from 'orm/models';
+import { Playlist, UserPlaylist } from 'orm/models';
 
 @InputType()
 class CreatePlaylist implements Partial<Models.Playlist> {
@@ -115,6 +115,55 @@ export class PlaylistResolvers {
           where: {
             id: ids,
           },
+        });
+
+      if (playlists) {
+        return playlists;
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log('playlistsById error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Playlist])
+  async playlistsByUserId(
+    @Arg('userId') userId: string
+  ): Promise<Models.Playlist[] | undefined> {
+    try {
+      const userPlaylists = await getManager()
+        .getRepository(Models.UserPlaylist)
+        .find({
+          where: {
+            userId,
+          },
+        });
+
+      if (!userPlaylists) {
+        console.log('playlistsByUserId no playlists found - userId', userId);
+        return;
+      }
+
+      console.log('playlistsByUserId userPlaylists', userPlaylists);
+
+      const playlistIds = userPlaylists.map(
+        (userPlaylist: UserPlaylist) => userPlaylist.playlistId
+      );
+
+      const playlists = await getManager()
+        .getRepository(Models.Playlist)
+        .findByIds(playlistIds, {
+          relations: [
+            'users',
+            'users.user',
+            'songs',
+            'songs.song',
+            'songs.song.artist',
+            'songs.song.album',
+          ],
         });
 
       if (playlists) {

@@ -13,16 +13,136 @@ export const ARTISTS_BY_ID = gql`
 `;
 
 export const ARTIST_BY_ID = gql`
-  query ArtistById($id: ID!) {
+  query ArtistById($id: String!) {
     artistById(id: $id) {
+      id
       name
-      image
       description
+      image
       albums {
         id
         title
         image
         songs {
+          id
+          title
+          url
+          image
+          supportingArtists {
+            createdAt
+            artist {
+              id
+              name
+              image
+            }
+          }
+          usersRecentlyPlayed {
+            createdAt
+            user {
+              id
+              firstName
+              lastName
+            }
+          }
+        }
+      }
+      usersFollowing {
+        createdAt
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+      supportingArtistOn {
+        createdAt
+        song {
+          id
+          title
+          url
+        }
+      }
+      # songs {
+      #   id,
+      #   title,
+      #   url,
+      #   image
+      #   album{
+      #     id
+      #     title,
+      #     image
+      #   }
+      # }
+    }
+  }
+`;
+
+export const ALBUM_BY_ID = gql`
+  query AlbumById($id: String!) {
+    albumById(id: $id) {
+      id
+      title
+      image
+      description
+      songs {
+        id
+        title
+        url
+        image
+        artistId
+        albumId
+        artist {
+          id
+          name
+        }
+        supportingArtists {
+          createdAt
+          artist {
+            id
+            name
+            image
+          }
+        }
+        usersFavourited {
+          createdAt
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+      }
+      artist {
+        id
+        name
+        image
+        albums {
+          title
+          id
+          image
+        }
+      }
+    }
+  }
+`;
+
+export const PLAYLIST_BY_ID = gql`
+  query PlaylistById($id: String!) {
+    playlistById(id: $id) {
+      title
+      description
+      image
+      users {
+        createdAt
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+      songs {
+        createdAt
+        song {
           id
           title
           url
@@ -39,84 +159,6 @@ export const ARTIST_BY_ID = gql`
           }
         }
       }
-      songs {
-        id
-        title
-        image
-        url
-        artist {
-          id
-          name
-          image
-        }
-        album {
-          id
-          title
-          image
-        }
-      }
-    }
-  }
-`;
-
-export const ALBUM_BY_ID = gql`
-  query AlbumById($id: ID!) {
-    albumById(id: $id) {
-      title
-      image
-      description
-      songs {
-        id
-        title
-        image
-        url
-        artistId
-        artist {
-          id
-          name
-        }
-        albumId
-        album {
-          id
-          title
-        }
-      }
-      artist {
-        name
-        id
-        image
-      }
-    }
-  }
-`;
-
-export const PLAYLIST_BY_ID = gql`
-  query PlaylistById($id: ID!) {
-    playlistById(id: $id) {
-      title
-      description
-      image
-      users {
-        id
-        firstName
-        lastName
-      }
-      songs {
-        id
-        title
-        image
-        url
-        album {
-          id
-          title
-          image
-        }
-        artist {
-          id
-          name
-          image
-        }
-      }
     }
   }
 `;
@@ -129,24 +171,30 @@ export const PLAYLISTS_BY_USER_ID = gql`
       description
       image
       users {
-        id
-        firstName
-        lastName
+        createdAt
+        user {
+          id
+          firstName
+          lastName
+        }
       }
       songs {
-        id
-        title
-        url
-        image
-        artist {
-          id
-          name
-          image
-        }
-        album {
+        createdAt
+        song {
           id
           title
+          url
           image
+          artist {
+            id
+            name
+            image
+          }
+          album {
+            id
+            title
+            image
+          }
         }
       }
     }
@@ -168,7 +216,6 @@ export const SEARCH_SONGS_QUERY = gql`
         title
         image
       }
-      genres
       url
       image
       releaseDate
@@ -177,7 +224,7 @@ export const SEARCH_SONGS_QUERY = gql`
 `;
 
 export const SONGS_BY_ID_QUERY = gql`
-  query SongsById($ids: [ID]!) {
+  query SongsById($ids: [String!]!) {
     songsById(ids: $ids) {
       id
       title
@@ -204,67 +251,49 @@ export const USER_BY_ID = gql`
       firstName
       lastName
       email
+      password
       following {
-        id
-        name
-        image
+        createdAt
+        artist {
+          id
+          name
+          image
+        }
       }
       favourites {
-        id
-        title
-        image
-        url
-        artist {
-          id
-          name
-          image
-        }
-        album {
+        createdAt
+        song {
           id
           title
           image
-        }
-      }
-      recentlyPlayed {
-        id
-        title
-        image
-        url
-        artist {
-          id
-          name
-          image
-        }
-        album {
-          id
-          title
-          image
-        }
-      }
-      playlists {
-        id
-        title
-        description
-        users {
-          id
-          firstName
-          lastName
-        }
-        songs {
-          id
-          title
-          url
-          image
-          artist {
-            id
-            name
-            image
-          }
           album {
             id
             title
             image
           }
+          artist {
+            id
+            name
+            image
+          }
+          supportingArtists {
+            createdAt
+            artist {
+              id
+              name
+              image
+            }
+          }
+        }
+      }
+      playlists {
+        createdAt
+        updatedAt
+        playlist {
+          id
+          title
+          image
+          description
         }
       }
     }

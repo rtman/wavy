@@ -69,6 +69,7 @@ export class UserResolvers {
             'favourites',
             'favourites.song',
             'favourites.song.album',
+            'favourites.song.artist',
             'favourites.song.supportingArtists',
             'favourites.song.supportingArtists.artist',
             'following',

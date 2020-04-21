@@ -23,7 +23,7 @@ import { UserContext } from 'context';
 export const Artist = () => {
   const { id } = useParams();
   const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, {
-    variables: { id: id?.toString() },
+    variables: { id },
   });
   const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(
@@ -77,6 +77,8 @@ export const Artist = () => {
   //     return null;
   //   }
   // };
+
+  console.log('artist - data', data);
 
   return (
     <Screen>
