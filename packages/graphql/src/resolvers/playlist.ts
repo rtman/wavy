@@ -178,6 +178,34 @@ export class PlaylistResolvers {
     }
   }
 
+  @Query(() => [Models.Playlist])
+  async searchPlaylists(
+    @Arg('query') query: string
+  ): Promise<Models.Playlist[] | undefined> {
+    try {
+      const playlists = await getManager()
+        .createQueryBuilder()
+        .select('playlist')
+        .from(Models.Playlist, 'playlist')
+        .leftJoinAndSelect('playlist.users', 'users')
+        .leftJoinAndSelect('users.user', 'user')
+        // Here is the zdb query and syntax
+        .where('playlist ==> :query', { query })
+        .getMany();
+
+      if (playlists) {
+        return playlists;
+      }
+
+      console.log('searchPlaylists query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchPlaylists error', error);
+
+      return;
+    }
+  }
+
   @Mutation(() => Models.Playlist)
   async createPlaylist(
     @Arg('data') payload: CreatePlaylist
@@ -207,7 +235,7 @@ export class PlaylistResolvers {
   ): Promise<Playlist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Playlist);
-      const playlist = repository.findOne({ where: { id: payload.id } });
+      const playlist = await repository.update(payload.id, payload);
 
       if (playlist) {
         return;
@@ -226,7 +254,7 @@ export class PlaylistResolvers {
   @Mutation(() => Models.Playlist)
   async addPlaylistSongs(
     @Arg('data') payload: AddPlaylistSongs
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
       const repository = getManager().getRepository(Models.SongPlaylist);
@@ -253,7 +281,7 @@ export class PlaylistResolvers {
   @Mutation(() => Models.Playlist)
   async removePlaylistSongs(
     @Arg('data') payload: RemovePlaylistSongs
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
       const repository = getManager().getRepository(Models.SongPlaylist);
@@ -278,8 +306,8 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Album)
-  async deleteAlbum(@Arg('id') id: string): Promise<Boolean> {
+  @Mutation(() => Models.Playlist)
+  async deletePlaylist(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Playlist);
       const playlistToDelete = await repository.findOne({ where: { id } });
@@ -288,12 +316,12 @@ export class PlaylistResolvers {
 
         return true;
       } else {
-        console.log('deleteAlbum - User not found');
+        console.log('deletePlaylist - User not found');
 
         return false;
       }
     } catch (error) {
-      console.log('deleteAlbum error', error);
+      console.log('deletePlaylist error', error);
 
       return false;
     }

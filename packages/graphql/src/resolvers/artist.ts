@@ -96,14 +96,34 @@ export class ArtistResolvers {
       return;
     }
   }
-  // TODO: implement, figure out how to incorporate zdb search
-  // searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
-  //   const { query } = args;
-  //   return await sequelizeInstance.query(
-  //     `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
-  //     { type: QueryTypes.SELECT }
-  //   );
-  // },
+
+  @Query(() => [Models.Artist])
+  async searchArtists(
+    @Arg('query') query: string
+  ): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .createQueryBuilder()
+        .select('artist')
+        .from(Models.Artist, 'artist')
+        .leftJoinAndSelect('artist.usersFollowing', 'usersFollowing')
+        .leftJoinAndSelect('usersFollowing.user', 'user')
+        // Here is the zdb query and syntax
+        .where('artist ==> :query', { query })
+        .getMany();
+
+      if (artists) {
+        return artists;
+      }
+
+      console.log('searchArtists query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchArtists error', error);
+
+      return;
+    }
+  }
 
   @Mutation(() => Models.Artist)
   async createArtist(
@@ -127,7 +147,7 @@ export class ArtistResolvers {
   }
 
   @Mutation(() => Models.Artist)
-  async deleteArtist(@Arg('id') id: string): Promise<Boolean> {
+  async deleteArtist(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Artist);
       const artistToDelete = await repository.findOne({ where: { id } });

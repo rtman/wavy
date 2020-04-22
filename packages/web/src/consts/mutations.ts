@@ -62,8 +62,8 @@ export const REMOVE_PLAYLIST_SONGS = gql`
 `;
 
 export const UPDATE_FOLLOWING = gql`
-  mutation UpdateFollowing($id: String!, $artistId: ID!) {
-    updateFollowing(id: $id, artistId: $artistId)
+  mutation($userId: String!, $artistId: ID!) {
+    updateFollowing(userId: $userId, artistId: $artistId)
   }
 `;
 

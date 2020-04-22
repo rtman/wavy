@@ -1,9 +1,17 @@
 import { Models } from '../orm';
-import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
+import {
+  Arg,
+  Field,
+  InputType,
+  Resolver,
+  Query,
+  Mutation,
+  // Args,
+} from 'type-graphql';
 import { getManager } from 'typeorm';
 
 @InputType({ description: 'Create a new user' })
-class CreateUser implements Partial<Models.User> {
+class CreateUserArgs implements Partial<Models.User> {
   @Field()
   id: string;
 
@@ -21,7 +29,8 @@ class CreateUser implements Partial<Models.User> {
 }
 
 @InputType()
-class UpdateFollowing implements Partial<Models.UserArtistFollowing> {
+export class UpdateFollowingArgs
+  implements Partial<Models.UserArtistFollowing> {
   @Field()
   userId: string;
 
@@ -30,7 +39,7 @@ class UpdateFollowing implements Partial<Models.UserArtistFollowing> {
 }
 
 @InputType()
-class UpdateFavourites implements Partial<Models.UserSongFavourites> {
+class UpdateFavouritesArgs implements Partial<Models.UserSongFavourites> {
   @Field()
   userId: string;
 
@@ -39,7 +48,7 @@ class UpdateFavourites implements Partial<Models.UserSongFavourites> {
 }
 
 @InputType()
-class UpdatePlaylists implements Partial<Models.UserPlaylist> {
+class UpdatePlaylistsArgs implements Partial<Models.UserPlaylist> {
   @Field()
   userId: string;
 
@@ -48,7 +57,8 @@ class UpdatePlaylists implements Partial<Models.UserPlaylist> {
 }
 
 @InputType()
-class UpdateRecentlyPlayed implements Partial<Models.UserSongRecentlyPlayed> {
+class UpdateRecentlyPlayedArgs
+  implements Partial<Models.UserSongRecentlyPlayed> {
   @Field()
   userId: string;
 
@@ -92,7 +102,7 @@ export class UserResolvers {
 
   @Mutation(() => Models.User)
   async createUser(
-    @Arg('data') payload: CreateUser
+    @Arg('data') payload: CreateUserArgs
     // @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
@@ -114,9 +124,8 @@ export class UserResolvers {
 
   @Mutation(() => Models.User)
   async updateFollowing(
-    @Arg('data') payload: UpdateFollowing
-    // @Ctx() ctx: Context
-  ): Promise<Boolean> {
+    @Arg('data') payload: UpdateFollowingArgs
+  ): Promise<boolean> {
     try {
       const { userId, artistId } = payload;
       const repository = getManager().getRepository(Models.UserArtistFollowing);
@@ -129,10 +138,9 @@ export class UserResolvers {
       });
 
       if (following) {
-        const removed = await repository.remove(following);
-        await repository.save(removed);
+        await repository.remove(following);
       } else {
-        const created = await repository.create({ userId, artistId });
+        const created = repository.create({ userId, artistId });
         await repository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
@@ -142,11 +150,12 @@ export class UserResolvers {
       return false;
     }
   }
+
   @Mutation(() => Models.User)
   async updateFavourites(
-    @Arg('data') payload: UpdateFavourites
+    @Arg('data') payload: UpdateFavouritesArgs
     // @Ctx() ctx: Context
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     try {
       const { userId, songId } = payload;
       const repository = getManager().getRepository(Models.UserSongFavourites);
@@ -159,10 +168,9 @@ export class UserResolvers {
       });
 
       if (favourited) {
-        const removed = await repository.remove(favourited);
-        await repository.save(removed);
+        await repository.remove(favourited);
       } else {
-        const created = await repository.create({ userId, songId });
+        const created = repository.create({ userId, songId });
         await repository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
@@ -175,9 +183,9 @@ export class UserResolvers {
 
   @Mutation(() => Models.User)
   async updatePlaylists(
-    @Arg('data') payload: UpdatePlaylists
+    @Arg('data') payload: UpdatePlaylistsArgs
     // @Ctx() ctx: Context
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     try {
       const { userId, playlistId } = payload;
       const repository = getManager().getRepository(Models.UserPlaylist);
@@ -190,10 +198,9 @@ export class UserResolvers {
       });
 
       if (playlist) {
-        const removed = await repository.remove(playlist);
-        await repository.save(removed);
+        await repository.remove(playlist);
       } else {
-        const created = await repository.create({ userId, playlistId });
+        const created = repository.create({ userId, playlistId });
         await repository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
@@ -206,9 +213,9 @@ export class UserResolvers {
 
   @Mutation(() => Models.User)
   async updateRecentlyPlayed(
-    @Arg('data') payload: UpdateRecentlyPlayed
+    @Arg('data') payload: UpdateRecentlyPlayedArgs
     // @Ctx() ctx: Context
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     try {
       const { userId, songId } = payload;
       const repository = getManager().getRepository(
@@ -223,10 +230,9 @@ export class UserResolvers {
       });
 
       if (recentlyPlayed) {
-        const removed = await repository.remove(recentlyPlayed);
-        await repository.save(removed);
+        repository.remove(recentlyPlayed);
       } else {
-        const created = await repository.create({ userId, songId });
+        const created = repository.create({ userId, songId });
         await repository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
@@ -238,7 +244,7 @@ export class UserResolvers {
   }
 
   @Mutation(() => Models.User)
-  async deleteUser(@Arg('id') id: string): Promise<Boolean> {
+  async deleteUser(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.User);
       const userToDelete = await repository.findOne({ where: { id } });

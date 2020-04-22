@@ -67,14 +67,33 @@ export class AlbumResolvers {
       return;
     }
   }
-  // TODO: figure out zdb search
-  // searchAlbums: async (_parent, args, _ctx): Promise<Models.Album[]> => {
-  //   const { query } = args;
-  //   return await sequelizeInstance.query(
-  //     `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
-  //     { type: QueryTypes.SELECT }
-  //   );
-  // },
+
+  @Query(() => [Models.Album])
+  async searchAlbums(
+    @Arg('query') query: string
+  ): Promise<Models.Album[] | undefined> {
+    try {
+      const albums = await getManager()
+        .createQueryBuilder()
+        .select('album')
+        .from(Models.Album, 'album')
+        .leftJoinAndSelect('album.artist', 'artist')
+        // Here is the zdb query and syntax
+        .where('album ==> :query', { query })
+        .getMany();
+
+      if (albums) {
+        return albums;
+      }
+
+      console.log('searchAlbums query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchAlbums error', error);
+
+      return;
+    }
+  }
 
   @Mutation(() => Models.Album)
   async createAlbum(
@@ -98,7 +117,7 @@ export class AlbumResolvers {
   }
 
   @Mutation(() => Models.Album)
-  async deleteAlbum(@Arg('id') id: string): Promise<Boolean> {
+  async deleteAlbum(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Album);
       const albumToDelete = await repository.findOne({ where: { id } });

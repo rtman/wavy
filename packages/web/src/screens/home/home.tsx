@@ -56,7 +56,7 @@ export const Home = () => {
 
   const renderSearchResults = () => {
     if (searchResults.length > 0) {
-      const songsList = searchResults.map((song: any) => {
+      const songsList = searchResults.map((song: Song) => {
         return <SongRow key={song.id} song={song} />;
       });
       return <List>{songsList}</List>;

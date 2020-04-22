@@ -14,14 +14,14 @@ class CreateSong implements Partial<Models.Song> {
   image: string;
 }
 
-// @InputType()
-// class UpdateSongTitle implements Partial<Models.Song> {
-//   @Field()
-//   title: string;
+@InputType()
+class UpdateSongTitle implements Partial<Models.Song> {
+  @Field()
+  title: string;
 
-//   @Field()
-//   id: string;
-// }
+  @Field()
+  id: string;
+}
 
 @Resolver(Models.Song)
 export class SongResolvers {
@@ -167,41 +167,47 @@ export class SongResolvers {
       return;
     }
   }
-  //TODO: finish this
-  // @Mutation(() => Models.Song)
-  // async updateSongTitle(
-  //   @Arg('data') payload: UpdateSongTitle
-  // ): Promise<Boolean> {
-  //   try {
-  //     const repository = getManager().getRepository(Models.Song);
-  //     const song = repository.findOne({ where: { id: payload.id } });
-
-  //     if (song) {
-  //       return true;
-  //     }
-  //     console.log('updateSongTitle failed', payload);
-
-  //     return false;
-  //   } catch (error) {
-  //     console.log('updateSongTitle error', error);
-  //     return false;
-  //   }
-  // }
 
   @Mutation(() => Models.Song)
-  async deleteSong(@Arg('id') id: string): Promise<Boolean> {
+  async updateSongTitle(
+    @Arg('data') payload: UpdateSongTitle
+  ): Promise<boolean> {
+    try {
+      const repository = getManager().getRepository(Models.Song);
+      const song = await repository.update(payload.id, {
+        title: payload.title,
+      });
+
+      if (song) {
+        return true;
+      }
+      console.log('updateSongTitle failed', payload);
+
+      return false;
+    } catch (error) {
+      console.log('updateSongTitle error', error);
+
+      return false;
+    }
+  }
+
+  @Mutation(() => Models.Song)
+  async deleteSong(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);
       const songToDelete = await repository.findOne({ where: { id } });
       if (songToDelete) {
         await repository.remove(songToDelete);
+
         return true;
       } else {
         console.log('deleteSong - User not found');
+
         return false;
       }
     } catch (error) {
       console.log('deleteSong error', error);
+
       return false;
     }
   }
