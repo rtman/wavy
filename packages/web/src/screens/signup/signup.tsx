@@ -54,11 +54,13 @@ export const Signup = () => {
     if (firebaseCredential?.user) {
       createUser({
         variables: {
-          firstName,
-          lastName,
-          email,
-          password,
-          id: firebaseCredential.user.uid,
+          input: {
+            firstName,
+            lastName,
+            email,
+            password,
+            id: firebaseCredential.user.uid,
+          },
         },
       });
     }

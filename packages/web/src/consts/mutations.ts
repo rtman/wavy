@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const CREATE_USER = gql`
-  mutation CreateUser($data: CreateUserArgs!) {
-    createUser(data: $data) {
+  mutation CreateUser($input: CreateUserArgs!) {
+    createUser(input: $input) {
       id
       firstName
       lastName
@@ -13,16 +13,16 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_PLAYLIST = gql`
-  mutation CreatePlaylist($data: CreatePlaylistArgs!) {
-    createPlaylist(data: $data) {
+  mutation CreatePlaylist($input: CreatePlaylistArgs!) {
+    createPlaylist(input: $input) {
       id
     }
   }
 `;
 
 export const UPDATE_PLAYLIST_INFO = gql`
-  mutation UpdatePlaylistInfo($data: UpdatePlaylistInfoArgs!) {
-    updatePlaylistInfo(data: $data) {
+  mutation UpdatePlaylistInfo($input: UpdatePlaylistInfoArgs!) {
+    updatePlaylistInfo(input: $input) {
       title
       description
     }
@@ -30,31 +30,31 @@ export const UPDATE_PLAYLIST_INFO = gql`
 `;
 
 export const ADD_PLAYLIST_SONGS = gql`
-  mutation AddPlaylistSongs($data: AddPlaylistSongsArgs!) {
-    addPlaylistSongs(data: $data)
+  mutation AddPlaylistSongs($input: AddPlaylistSongsArgs!) {
+    addPlaylistSongs(input: $input)
   }
 `;
 
 export const REMOVE_PLAYLIST_SONGS = gql`
-  mutation RemovePlaylistSongs($data: RemovePlaylistSongsArgs!) {
-    removePlaylistSongs(data: $data)
+  mutation RemovePlaylistSongs($input: RemovePlaylistSongsArgs!) {
+    removePlaylistSongs(input: $input)
   }
 `;
 
 export const UPDATE_FOLLOWING = gql`
-  mutation($data: UpdateFollowingArgs!) {
-    updateFollowing(data: $data)
+  mutation($input: UpdateFollowingArgs!) {
+    updateFollowing(input: $input)
   }
 `;
 
 export const UPDATE_FAVOURITES = gql`
-  mutation UpdateFavourites($data: UpdateFavouritesArgs!) {
-    updateFavourites(data: $data)
+  mutation UpdateFavourites($input: UpdateFavouritesArgs!) {
+    updateFavourites(input: $input)
   }
 `;
 
 export const UPDATE_RECENTLY_PLAYED = gql`
-  mutation UpdateRecentlyPlayed($data: UpdateRecentlyPlayedArgs!) {
-    updateRecentlyPLayed(data: $data)
+  mutation UpdateRecentlyPlayed($input: UpdateRecentlyPlayedArgs!) {
+    updateRecentlyPlayed(input: $input)
   }
 `;

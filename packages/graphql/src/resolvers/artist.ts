@@ -127,7 +127,7 @@ export class ArtistResolvers {
 
   @Mutation(() => Models.Artist)
   async createArtist(
-    @Arg('data') payload: CreateArtistArgs
+    @Arg('input') payload: CreateArtistArgs
   ): Promise<Models.Artist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Artist);
@@ -146,6 +146,8 @@ export class ArtistResolvers {
     }
   }
 
+  // TODO: need to consider where this artist would be referenced
+  // songs, albums
   @Mutation(() => Boolean)
   async deleteArtist(@Arg('id') id: string): Promise<boolean> {
     try {

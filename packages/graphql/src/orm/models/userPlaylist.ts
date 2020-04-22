@@ -4,7 +4,6 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { User } from './user';
@@ -18,7 +17,7 @@ export class UserPlaylist {
   userId: string;
 
   @Field(() => ID, { nullable: false })
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   playlistId: string;
 
   @ManyToOne(

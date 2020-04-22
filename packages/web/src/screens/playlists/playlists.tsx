@@ -76,7 +76,7 @@ export const Playlists = () => {
   const onClickSave = () => {
     createPlaylist({
       variables: {
-        data: {
+        input: {
           userId: userContext?.user?.id,
           title: playlistTitle,
           description: playlistDescription,

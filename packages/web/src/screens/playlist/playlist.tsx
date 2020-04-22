@@ -83,7 +83,9 @@ export const Playlist = () => {
 
   const onClickSave = () => {
     submitPlaylistInfo({
-      variables: { title: playlistTitle, description: playlistDescription, id },
+      variables: {
+        input: { title: playlistTitle, description: playlistDescription, id },
+      },
     });
     setEditModalVisible(false);
   };

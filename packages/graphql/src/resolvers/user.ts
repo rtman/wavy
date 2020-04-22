@@ -102,7 +102,7 @@ export class UserResolvers {
 
   @Mutation(() => Models.User)
   async createUser(
-    @Arg('data') payload: CreateUserArgs
+    @Arg('input') payload: CreateUserArgs
     // @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
@@ -124,7 +124,7 @@ export class UserResolvers {
 
   @Mutation(() => Boolean)
   async updateFollowing(
-    @Arg('data') payload: UpdateFollowingArgs
+    @Arg('input') payload: UpdateFollowingArgs
   ): Promise<boolean> {
     try {
       const { userId, artistId } = payload;
@@ -153,7 +153,7 @@ export class UserResolvers {
 
   @Mutation(() => Boolean)
   async updateFavourites(
-    @Arg('data') payload: UpdateFavouritesArgs
+    @Arg('input') payload: UpdateFavouritesArgs
     // @Ctx() ctx: Context
   ): Promise<boolean> {
     try {
@@ -183,7 +183,7 @@ export class UserResolvers {
 
   @Mutation(() => Boolean)
   async updatePlaylists(
-    @Arg('data') payload: UpdatePlaylistsArgs
+    @Arg('input') payload: UpdatePlaylistsArgs
     // @Ctx() ctx: Context
   ): Promise<boolean> {
     try {
@@ -213,7 +213,7 @@ export class UserResolvers {
 
   @Mutation(() => Boolean)
   async updateRecentlyPlayed(
-    @Arg('data') payload: UpdateRecentlyPlayedArgs
+    @Arg('input') payload: UpdateRecentlyPlayedArgs
     // @Ctx() ctx: Context
   ): Promise<boolean> {
     try {
@@ -243,6 +243,8 @@ export class UserResolvers {
     }
   }
 
+  // TODO: need to consider where this user would be referenced
+  // favourites, following, playlists, recentlyplayed etc
   @Mutation(() => Boolean)
   async deleteUser(@Arg('id') id: string): Promise<boolean> {
     try {

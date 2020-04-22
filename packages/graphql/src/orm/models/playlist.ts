@@ -21,12 +21,12 @@ export class Playlist {
   @Column()
   title: string;
 
-  @Field(() => String)
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
   description: string;
 
-  @Field(() => String)
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
   image: string;
 
   @Field(() => [SongPlaylist], { nullable: true })

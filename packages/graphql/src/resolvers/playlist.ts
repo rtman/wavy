@@ -1,7 +1,15 @@
-import { Models } from '../orm';
-import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
+import {
+  Arg,
+  Field,
+  ID,
+  InputType,
+  Resolver,
+  Query,
+  Mutation,
+} from 'type-graphql';
 import { getManager } from 'typeorm';
-import { Playlist, UserPlaylist } from 'orm/models';
+//TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue
+import { Models } from '../orm';
 
 @InputType()
 class CreatePlaylistArgs implements Partial<Models.Playlist> {
@@ -20,7 +28,7 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
 
 @InputType()
 class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
-  @Field()
+  @Field(() => ID)
   id: string;
 
   @Field({ nullable: true })
@@ -35,20 +43,29 @@ class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
 
 @InputType()
 class AddPlaylistSongsArgs implements Partial<Models.Playlist> {
-  @Field()
+  @Field(() => ID)
   id: string;
 
-  @Field(() => [String])
+  @Field(() => [ID])
   songIds: string[];
 }
 
 @InputType()
 class RemovePlaylistSongsArgs implements Partial<Models.Playlist> {
-  @Field()
+  @Field(() => ID)
   id: string;
 
-  @Field(() => [String])
+  @Field(() => [ID])
   songIds: string[];
+}
+
+@InputType()
+class DeletePlaylistArgs implements Partial<Models.UserPlaylist> {
+  @Field()
+  userId: string;
+
+  @Field(() => ID)
+  playlistId: string;
 }
 
 @Resolver(Models.Playlist)
@@ -153,7 +170,7 @@ export class PlaylistResolvers {
       console.log('playlistsByUserId userPlaylists', userPlaylists);
 
       const playlistIds = userPlaylists.map(
-        (userPlaylist: UserPlaylist) => userPlaylist.playlistId
+        (userPlaylist: Models.UserPlaylist) => userPlaylist.playlistId
       );
 
       const playlists = await getManager()
@@ -211,20 +228,35 @@ export class PlaylistResolvers {
 
   @Mutation(() => Models.Playlist)
   async createPlaylist(
-    @Arg('data') payload: CreatePlaylistArgs
+    @Arg('input') payload: CreatePlaylistArgs
   ): Promise<Models.Playlist | undefined> {
     try {
-      const repository = getManager().getRepository(Models.Playlist);
-      const playlist = repository.create(payload);
+      const playlistRepo = getManager().getRepository(Models.Playlist);
+      const playlist = playlistRepo.create(payload);
 
-      if (playlist) {
-        await repository.save(playlist);
-        return playlist;
+      if (!playlist) {
+        console.log('CreatePlaylist playlist failed', payload);
       }
 
-      console.log('CreateUser failed', payload);
+      await playlistRepo.save(playlist);
 
-      return;
+      const userPlaylistRepo = getManager().getRepository(Models.UserPlaylist);
+      const userPlaylistPayload = {
+        userId: payload.userId,
+        playlistId: playlist.id,
+      };
+      const userPlaylist = userPlaylistRepo.create(userPlaylistPayload);
+
+      if (!userPlaylist) {
+        console.log(
+          'CreatePlaylist - userPlaylist failed',
+          userPlaylistPayload
+        );
+      }
+
+      await userPlaylistRepo.save(userPlaylist);
+
+      return playlist;
     } catch (error) {
       console.log('createPlaylist error', error);
 
@@ -234,8 +266,8 @@ export class PlaylistResolvers {
 
   @Mutation(() => Models.Playlist)
   async updatePlaylistInfo(
-    @Arg('data') payload: UpdatePlaylistInfoArgs
-  ): Promise<Playlist | undefined> {
+    @Arg('input') payload: UpdatePlaylistInfoArgs
+  ): Promise<Models.Playlist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Playlist);
       const playlist = await repository.update(payload.id, payload);
@@ -256,7 +288,7 @@ export class PlaylistResolvers {
 
   @Mutation(() => Boolean)
   async addPlaylistSongs(
-    @Arg('data') payload: AddPlaylistSongsArgs
+    @Arg('input') payload: AddPlaylistSongsArgs
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
@@ -283,7 +315,7 @@ export class PlaylistResolvers {
 
   @Mutation(() => Boolean)
   async removePlaylistSongs(
-    @Arg('data') payload: RemovePlaylistSongsArgs
+    @Arg('input') payload: RemovePlaylistSongsArgs
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
@@ -309,17 +341,36 @@ export class PlaylistResolvers {
     }
   }
 
+  //TODO: If a playlist has multiple users and its deleted by one user, playlist + userPlaylist entries are removed but it still has userPlaylist entries for the other users. Fix.
   @Mutation(() => Boolean)
-  async deletePlaylist(@Arg('id') id: string): Promise<boolean> {
+  async deletePlaylist(
+    @Arg('input') payload: DeletePlaylistArgs
+  ): Promise<boolean> {
     try {
-      const repository = getManager().getRepository(Models.Playlist);
-      const playlistToDelete = await repository.findOne({ where: { id } });
+      const playlistRepo = getManager().getRepository(Models.Playlist);
+      const playlistToDelete = await playlistRepo.findOne({
+        where: { id: payload.playlistId },
+      });
+
       if (playlistToDelete) {
-        await repository.remove(playlistToDelete);
+        await playlistRepo.remove(playlistToDelete);
+      } else {
+        console.log('deletePlaylist - playlist not found', payload);
+
+        return false;
+      }
+
+      const userPlaylistRepo = getManager().getRepository(Models.UserPlaylist);
+      const userPlaylistToDelete = await userPlaylistRepo.findOne({
+        where: payload,
+      });
+
+      if (userPlaylistToDelete) {
+        await userPlaylistRepo.remove(userPlaylistToDelete);
 
         return true;
       } else {
-        console.log('deletePlaylist - User not found');
+        console.log('deletePlaylist - userPlaylist not found', payload);
 
         return false;
       }

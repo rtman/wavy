@@ -97,25 +97,25 @@ export const UserProvider = ({ children }: any) => {
 
   const updateFollowing = (artistId: string) => {
     submitUpdateFollowing({
-      variables: { data: { userId: user?.id, artistId } },
+      variables: { input: { userId: user?.id, artistId } },
     });
   };
 
   const updateFavourites = (songId: string) => {
     submitUpdateFavourites({
-      variables: { data: { userId: user?.id, songId } },
+      variables: { input: { userId: user?.id, songId } },
     });
   };
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
     submitAddSongsToPlaylists({
-      variables: { data: { userId: playlistId, songIds } },
+      variables: { input: { userId: playlistId, songIds } },
     });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
     submitRemoveSongsFromPlaylist({
-      variables: { data: { userId: playlistId, songIds } },
+      variables: { input: { userId: playlistId, songIds } },
     });
   };
 

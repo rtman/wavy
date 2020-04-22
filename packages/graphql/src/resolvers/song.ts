@@ -147,7 +147,7 @@ export class SongResolvers {
 
   @Mutation(() => Models.Song)
   async createSong(
-    @Arg('data') payload: CreateSongArgs
+    @Arg('input') payload: CreateSongArgs
   ): Promise<Models.Song | undefined> {
     try {
       const repository = getManager().getRepository(Models.Song);
@@ -170,7 +170,7 @@ export class SongResolvers {
 
   @Mutation(() => Boolean)
   async updateSongTitle(
-    @Arg('data') payload: UpdateSongTitleArgs
+    @Arg('input') payload: UpdateSongTitleArgs
   ): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);
@@ -191,6 +191,8 @@ export class SongResolvers {
     }
   }
 
+  // TODO: need to consider where this song would be referenced
+  // favourites, playlists etc
   @Mutation(() => Boolean)
   async deleteSong(@Arg('id') id: string): Promise<boolean> {
     try {

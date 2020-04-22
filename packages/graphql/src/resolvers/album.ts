@@ -97,7 +97,7 @@ export class AlbumResolvers {
 
   @Mutation(() => Models.Album)
   async createAlbum(
-    @Arg('data') payload: CreateAlbumArgs
+    @Arg('input') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
       const repository = getManager().getRepository(Models.Album);
@@ -116,6 +116,8 @@ export class AlbumResolvers {
     }
   }
 
+  //TODO: If an album is deleted, the corresponding songs must also
+  // be deleted, and anything linked to those songs (favourites etc)
   @Mutation(() => Boolean)
   async deleteAlbum(@Arg('id') id: string): Promise<boolean> {
     try {
