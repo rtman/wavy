@@ -93,7 +93,8 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.favourites.find((f) => f.id === song.id)
+    // TODO: fix type for user to include userSongFavourites and remove any
+    return userContext?.user?.favourites.find((f: any) => f.song.id === song.id)
       ? 'Unfavourite'
       : 'Favourite';
   };

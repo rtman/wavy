@@ -96,19 +96,27 @@ export const UserProvider = ({ children }: any) => {
   }, [authContextState, loadUser]);
 
   const updateFollowing = (artistId: string) => {
-    submitUpdateFollowing({ variables: { id: user?.id, artistId } });
+    submitUpdateFollowing({
+      variables: { data: { userId: user?.id, artistId } },
+    });
   };
 
   const updateFavourites = (songId: string) => {
-    submitUpdateFavourites({ variables: { id: user?.id, songId } });
+    submitUpdateFavourites({
+      variables: { data: { userId: user?.id, songId } },
+    });
   };
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
-    submitAddSongsToPlaylists({ variables: { id: playlistId, songIds } });
+    submitAddSongsToPlaylists({
+      variables: { data: { userId: playlistId, songIds } },
+    });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
-    submitRemoveSongsFromPlaylist({ variables: { id: playlistId, songIds } });
+    submitRemoveSongsFromPlaylist({
+      variables: { data: { userId: playlistId, songIds } },
+    });
   };
 
   return (

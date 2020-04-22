@@ -3,7 +3,7 @@ import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 @InputType({ description: 'Create a new album' })
-class CreateAlbum implements Partial<Models.Album> {
+class CreateAlbumArgs implements Partial<Models.Album> {
   @Field()
   title: string;
 
@@ -97,7 +97,7 @@ export class AlbumResolvers {
 
   @Mutation(() => Models.Album)
   async createAlbum(
-    @Arg('data') payload: CreateAlbum
+    @Arg('data') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
       const repository = getManager().getRepository(Models.Album);
@@ -116,7 +116,7 @@ export class AlbumResolvers {
     }
   }
 
-  @Mutation(() => Models.Album)
+  @Mutation(() => Boolean)
   async deleteAlbum(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Album);

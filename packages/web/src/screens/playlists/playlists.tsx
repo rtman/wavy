@@ -76,9 +76,11 @@ export const Playlists = () => {
   const onClickSave = () => {
     createPlaylist({
       variables: {
-        userId: userContext?.user?.id,
-        title: playlistTitle,
-        description: playlistDescription,
+        data: {
+          userId: userContext?.user?.id,
+          title: playlistTitle,
+          description: playlistDescription,
+        },
       },
     });
     setNewModalVisible(false);

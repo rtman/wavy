@@ -2,8 +2,8 @@ import { Models } from '../orm';
 import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
-@InputType({ description: 'Create a new artist' })
-class CreateArtist implements Partial<Models.Artist> {
+@InputType()
+class CreateArtistArgs implements Partial<Models.Artist> {
   @Field()
   name: string;
 
@@ -127,7 +127,7 @@ export class ArtistResolvers {
 
   @Mutation(() => Models.Artist)
   async createArtist(
-    @Arg('data') payload: CreateArtist
+    @Arg('data') payload: CreateArtistArgs
   ): Promise<Models.Artist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Artist);
@@ -146,7 +146,7 @@ export class ArtistResolvers {
     }
   }
 
-  @Mutation(() => Models.Artist)
+  @Mutation(() => Boolean)
   async deleteArtist(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Artist);

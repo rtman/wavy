@@ -3,7 +3,7 @@ import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 @InputType()
-class CreateSong implements Partial<Models.Song> {
+class CreateSongArgs implements Partial<Models.Song> {
   @Field()
   title: string;
 
@@ -15,7 +15,7 @@ class CreateSong implements Partial<Models.Song> {
 }
 
 @InputType()
-class UpdateSongTitle implements Partial<Models.Song> {
+class UpdateSongTitleArgs implements Partial<Models.Song> {
   @Field()
   title: string;
 
@@ -147,7 +147,7 @@ export class SongResolvers {
 
   @Mutation(() => Models.Song)
   async createSong(
-    @Arg('data') payload: CreateSong
+    @Arg('data') payload: CreateSongArgs
   ): Promise<Models.Song | undefined> {
     try {
       const repository = getManager().getRepository(Models.Song);
@@ -168,9 +168,9 @@ export class SongResolvers {
     }
   }
 
-  @Mutation(() => Models.Song)
+  @Mutation(() => Boolean)
   async updateSongTitle(
-    @Arg('data') payload: UpdateSongTitle
+    @Arg('data') payload: UpdateSongTitleArgs
   ): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);
@@ -191,7 +191,7 @@ export class SongResolvers {
     }
   }
 
-  @Mutation(() => Models.Song)
+  @Mutation(() => Boolean)
   async deleteSong(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);

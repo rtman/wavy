@@ -38,7 +38,8 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      return userContext?.user?.following.find((f) => f.id === id)
+      // TODO: fix user type to have the correct type for following, UserArtistFollowing, remove any
+      return userContext?.user?.following.find((f: any) => f.artist.id === id)
         ? 'Unfollow'
         : 'Follow';
     } else {

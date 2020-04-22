@@ -4,34 +4,37 @@ import { getManager } from 'typeorm';
 import { Playlist, UserPlaylist } from 'orm/models';
 
 @InputType()
-class CreatePlaylist implements Partial<Models.Playlist> {
+class CreatePlaylistArgs implements Partial<Models.Playlist> {
+  @Field()
+  userId: string;
+
   @Field()
   title: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
-  @Field()
-  image: string;
+  @Field({ nullable: true })
+  image?: string;
 }
 
 @InputType()
-class UpdatePlaylistInfo implements Partial<Models.Playlist> {
+class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
   @Field()
   id: string;
 
-  @Field()
-  title: string;
+  @Field({ nullable: true })
+  title?: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
-  @Field()
-  image: string;
+  @Field({ nullable: true })
+  image?: string;
 }
 
 @InputType()
-class AddPlaylistSongs implements Partial<Models.Playlist> {
+class AddPlaylistSongsArgs implements Partial<Models.Playlist> {
   @Field()
   id: string;
 
@@ -40,7 +43,7 @@ class AddPlaylistSongs implements Partial<Models.Playlist> {
 }
 
 @InputType()
-class RemovePlaylistSongs implements Partial<Models.Playlist> {
+class RemovePlaylistSongsArgs implements Partial<Models.Playlist> {
   @Field()
   id: string;
 
@@ -208,7 +211,7 @@ export class PlaylistResolvers {
 
   @Mutation(() => Models.Playlist)
   async createPlaylist(
-    @Arg('data') payload: CreatePlaylist
+    @Arg('data') payload: CreatePlaylistArgs
   ): Promise<Models.Playlist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Playlist);
@@ -231,7 +234,7 @@ export class PlaylistResolvers {
 
   @Mutation(() => Models.Playlist)
   async updatePlaylistInfo(
-    @Arg('data') payload: UpdatePlaylistInfo
+    @Arg('data') payload: UpdatePlaylistInfoArgs
   ): Promise<Playlist | undefined> {
     try {
       const repository = getManager().getRepository(Models.Playlist);
@@ -251,9 +254,9 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Playlist)
+  @Mutation(() => Boolean)
   async addPlaylistSongs(
-    @Arg('data') payload: AddPlaylistSongs
+    @Arg('data') payload: AddPlaylistSongsArgs
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
@@ -278,9 +281,9 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Playlist)
+  @Mutation(() => Boolean)
   async removePlaylistSongs(
-    @Arg('data') payload: RemovePlaylistSongs
+    @Arg('data') payload: RemovePlaylistSongsArgs
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
@@ -306,7 +309,7 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Playlist)
+  @Mutation(() => Boolean)
   async deletePlaylist(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Playlist);

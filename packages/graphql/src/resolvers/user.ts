@@ -122,7 +122,7 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Models.User)
+  @Mutation(() => Boolean)
   async updateFollowing(
     @Arg('data') payload: UpdateFollowingArgs
   ): Promise<boolean> {
@@ -151,7 +151,7 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Models.User)
+  @Mutation(() => Boolean)
   async updateFavourites(
     @Arg('data') payload: UpdateFavouritesArgs
     // @Ctx() ctx: Context
@@ -181,7 +181,7 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Models.User)
+  @Mutation(() => Boolean)
   async updatePlaylists(
     @Arg('data') payload: UpdatePlaylistsArgs
     // @Ctx() ctx: Context
@@ -211,7 +211,7 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Models.User)
+  @Mutation(() => Boolean)
   async updateRecentlyPlayed(
     @Arg('data') payload: UpdateRecentlyPlayedArgs
     // @Ctx() ctx: Context
@@ -243,7 +243,7 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Models.User)
+  @Mutation(() => Boolean)
   async deleteUser(@Arg('id') id: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.User);
