@@ -20,6 +20,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { Playlist } from 'types';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
@@ -76,9 +77,11 @@ export const Playlists = () => {
   const onClickSave = () => {
     createPlaylist({
       variables: {
-        userId: userContext?.user?.id,
-        title: playlistTitle,
-        description: playlistDescription,
+        input: {
+          userId: userContext?.user?.id,
+          title: playlistTitle,
+          description: playlistDescription,
+        },
       },
     });
     setNewModalVisible(false);

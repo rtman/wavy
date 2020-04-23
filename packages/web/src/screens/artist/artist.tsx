@@ -19,11 +19,12 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { UserContext } from 'context';
+import { Album } from 'types';
 
 export const Artist = () => {
   const { id } = useParams();
   const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, {
-    variables: { id: id?.toString() },
+    variables: { id },
   });
   const userContext = useContext(UserContext);
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(
@@ -38,7 +39,7 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      return userContext?.user?.following.find((f) => f.id === id)
+      return userContext?.user?.following?.find((f) => f.artist.id === id)
         ? 'Unfollow'
         : 'Follow';
     } else {
@@ -77,6 +78,8 @@ export const Artist = () => {
   //     return null;
   //   }
   // };
+
+  console.log('artist - data', data);
 
   return (
     <Screen>

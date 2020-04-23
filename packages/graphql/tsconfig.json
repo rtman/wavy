@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2016",
     "module": "commonjs",
     "noEmit": true,
     "resolveJsonModule": true,
@@ -17,10 +17,7 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2016", "esnext.asynciterable"],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true

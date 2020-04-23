@@ -1,5 +1,5 @@
 {
-  "name": "migration",
+  "name": "@groov/migration",
   "version": "0.0.1",
   "private": true,
   "scripts": {

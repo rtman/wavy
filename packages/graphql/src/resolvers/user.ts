@@ -1,175 +1,265 @@
-import { MutationResolvers, Scalars, QueryResolvers } from '../types';
-
 import { Models } from '../orm';
+import {
+  Arg,
+  Field,
+  InputType,
+  Resolver,
+  Query,
+  Mutation,
+  // Args,
+} from 'type-graphql';
+import { getManager } from 'typeorm';
 
-interface Resolvers {
-  Query: QueryResolvers;
-  Mutation: MutationResolvers;
+@InputType({ description: 'Create a new user' })
+class CreateUserArgs implements Partial<Models.User> {
+  @Field()
+  id: string;
+
+  @Field()
+  firstName: string;
+
+  @Field()
+  lastName: string;
+
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
 }
 
-export const userResolvers: Resolvers = {
-  Query: {
-    // users: async (_parent, _args): Promise<Models.User> => {
-    //   return await Models.User.findAll();
-    // },
-    userById: async (_parent, args, ctx): Promise<Models.User> => {
-      const { id } = args;
-      const result = await ctx.models.User.findByPk(id, {
-        include: [
-          {
-            model: Models.Playlist,
-            as: 'playlists',
-            include: [
-              {
-                model: Models.Song,
-                as: 'songs',
-                include: [
-                  {
-                    model: Models.Artist,
-                    as: 'artist',
-                  },
-                  { model: Models.Album, as: 'album' },
-                ],
-              },
-              { model: Models.User, as: 'users' },
-            ],
-          },
-          {
-            model: Models.Song,
-            as: 'favourites',
-            include: [
-              {
-                model: Models.Artist,
-                as: 'artist',
-              },
-              { model: Models.Album, as: 'album' },
-            ],
-          },
-          {
-            model: Models.Artist,
-            as: 'following',
-          },
-          {
-            model: Models.Song,
-            as: 'recentlyPlayed',
-            include: [
-              {
-                model: Models.Artist,
-                as: 'artist',
-              },
-              { model: Models.Album, as: 'album' },
-            ],
-          },
-        ],
+@InputType()
+export class UpdateFollowingArgs
+  implements Partial<Models.UserArtistFollowing> {
+  @Field()
+  userId: string;
+
+  @Field()
+  artistId: string;
+}
+
+@InputType()
+class UpdateFavouritesArgs implements Partial<Models.UserSongFavourites> {
+  @Field()
+  userId: string;
+
+  @Field()
+  songId: string;
+}
+
+@InputType()
+class UpdatePlaylistsArgs implements Partial<Models.UserPlaylist> {
+  @Field()
+  userId: string;
+
+  @Field()
+  playlistId: string;
+}
+
+@InputType()
+class UpdateRecentlyPlayedArgs
+  implements Partial<Models.UserSongRecentlyPlayed> {
+  @Field()
+  userId: string;
+
+  @Field()
+  songId: string;
+}
+
+@Resolver(Models.User)
+export class UserResolvers {
+  @Query(() => Models.User)
+  async userById(@Arg('id') id: string): Promise<Models.User | undefined> {
+    try {
+      const user = await getManager()
+        .getRepository(Models.User)
+        .findOne({
+          where: { id },
+          relations: [
+            'favourites',
+            'favourites.song',
+            'favourites.song.album',
+            'favourites.song.artist',
+            'favourites.song.supportingArtists',
+            'favourites.song.supportingArtists.artist',
+            'following',
+            'following.artist',
+            'playlists',
+            'playlists.playlist',
+          ],
+        });
+
+      if (user === undefined) {
+        console.log('User not found', id);
+        return;
+      }
+      return user;
+    } catch (error) {
+      console.log('userById error', error);
+      return;
+    }
+  }
+
+  @Mutation(() => Models.User)
+  async createUser(
+    @Arg('input') payload: CreateUserArgs
+    // @Ctx() ctx: Context
+  ): Promise<Models.User | undefined> {
+    try {
+      const repository = getManager().getRepository(Models.User);
+      const user = repository.create(payload);
+
+      if (user) {
+        await repository.save(user);
+        return user;
+      }
+
+      console.log('CreateUser failed', payload);
+      return;
+    } catch (error) {
+      console.log('createUser error', error);
+      return;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updateFollowing(
+    @Arg('input') payload: UpdateFollowingArgs
+  ): Promise<boolean> {
+    try {
+      const { userId, artistId } = payload;
+      const repository = getManager().getRepository(Models.UserArtistFollowing);
+
+      const following = await repository.findOne({
+        where: {
+          userId,
+          artistId,
+        },
       });
-      return result;
-    },
-  },
-  Mutation: {
-    createUser: async (_parent, args, ctx): Promise<Models.User> => {
-      return await ctx.models.User.create(args);
-    },
-    // TODO: Update all returns to return the full data, for usage in onCompleted
-    updateFollowing: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, artistId } = args;
-        const following = await ctx.models.UserArtistFollowing.findOne({
-          where: {
-            userId: id,
-            artistId,
-          },
-        });
-        if (following) {
-          await following.destroy();
-        } else {
-          await ctx.models.UserArtistFollowing.create({ userId: id, artistId });
-        }
-        return true;
-      } catch (error) {
-        return false;
+
+      if (following) {
+        await repository.remove(following);
+      } else {
+        const created = repository.create({ userId, artistId });
+        await repository.save(created);
       }
-    },
-    updateFavourites: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, songId } = args;
-        const favourite = await ctx.models.UserSongFavourites.findOne({
-          where: {
-            userId: id,
-            songId,
-          },
-        });
-        if (favourite) {
-          await favourite.destroy();
-        } else {
-          await ctx.models.UserSongFavourites.create({ userId: id, songId });
-        }
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
-    updatePlaylists: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, playlistId } = args;
-        const playlist = await ctx.models.UserPlaylist.findOne({
-          where: {
-            userId: id,
-            playlistId,
-          },
-        });
-        if (playlist) {
-          await playlist.destroy();
-        } else {
-          await ctx.models.UserPlaylist.create({ userId: id, playlistId });
-        }
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
-    updateRecentlyPlayed: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, songId } = args;
-        const song = await ctx.models.UserSongRecentlyPlayed.findOne({
-          where: {
-            userId: id,
-            songId,
-          },
-        });
-        if (song) {
-          await song.destroy();
-        } else {
-          await ctx.models.UserSongRecentlyPlayed.create({
-            userId: id,
-            songId,
-          });
-        }
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
-    deleteUser: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const { id } = args;
-      return await ctx.models.User.destroy({
-        where: { id },
+      // TODO: Improve return type to show succesful creation or removal
+      return true;
+    } catch (error) {
+      console.log('UpdateFollowing error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updateFavourites(
+    @Arg('input') payload: UpdateFavouritesArgs
+    // @Ctx() ctx: Context
+  ): Promise<boolean> {
+    try {
+      const { userId, songId } = payload;
+      const repository = getManager().getRepository(Models.UserSongFavourites);
+
+      const favourited = await repository.findOne({
+        where: {
+          userId,
+          songId,
+        },
       });
-    },
-  },
-};
+
+      if (favourited) {
+        await repository.remove(favourited);
+      } else {
+        const created = repository.create({ userId, songId });
+        await repository.save(created);
+      }
+      // TODO: Improve return type to show succesful creation or removal
+      return true;
+    } catch (error) {
+      console.log('updateFavourites error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updatePlaylists(
+    @Arg('input') payload: UpdatePlaylistsArgs
+    // @Ctx() ctx: Context
+  ): Promise<boolean> {
+    try {
+      const { userId, playlistId } = payload;
+      const repository = getManager().getRepository(Models.UserPlaylist);
+
+      const playlist = await repository.findOne({
+        where: {
+          userId,
+          playlistId,
+        },
+      });
+
+      if (playlist) {
+        await repository.remove(playlist);
+      } else {
+        const created = repository.create({ userId, playlistId });
+        await repository.save(created);
+      }
+      // TODO: Improve return type to show succesful creation or removal
+      return true;
+    } catch (error) {
+      console.log('updatePlaylists error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updateRecentlyPlayed(
+    @Arg('input') payload: UpdateRecentlyPlayedArgs
+    // @Ctx() ctx: Context
+  ): Promise<boolean> {
+    try {
+      const { userId, songId } = payload;
+      const repository = getManager().getRepository(
+        Models.UserSongRecentlyPlayed
+      );
+
+      const recentlyPlayed = await repository.findOne({
+        where: {
+          userId,
+          songId,
+        },
+      });
+
+      if (recentlyPlayed) {
+        repository.remove(recentlyPlayed);
+      } else {
+        const created = repository.create({ userId, songId });
+        await repository.save(created);
+      }
+      // TODO: Improve return type to show succesful creation or removal
+      return true;
+    } catch (error) {
+      console.log('updateRecentlyPlayed error', error);
+      return false;
+    }
+  }
+
+  // TODO: need to consider where this user would be referenced
+  // favourites, following, playlists, recentlyplayed etc
+  @Mutation(() => Boolean)
+  async deleteUser(@Arg('id') id: string): Promise<boolean> {
+    try {
+      const repository = getManager().getRepository(Models.User);
+      const userToDelete = await repository.findOne({ where: { id } });
+      if (userToDelete) {
+        await repository.remove(userToDelete);
+        return true;
+      } else {
+        console.log('deleteUser - User not found');
+        return false;
+      }
+    } catch (error) {
+      console.log('deleteUser error', error);
+      return false;
+    }
+  }
+}

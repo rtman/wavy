@@ -1,62 +1,138 @@
-// import jwt from 'jsonwebtoken';
-// import { combineResolvers } from 'graphql-resolvers';
-// import { AuthenticationError, UserInputError } from 'apollo-server';
-import {} from 'graphql';
-import {
-  MutationResolvers,
-  Scalars,
-  QueryResolvers,
-  // SubscriptionResolvers
-} from '../types';
-import { Models, sequelizeInstance } from '../orm';
-import { QueryTypes } from 'sequelize';
+import { Models } from '../orm';
+import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
+import { getManager } from 'typeorm';
 
-interface Resolvers {
-  Query: QueryResolvers;
-  Mutation: MutationResolvers;
+@InputType({ description: 'Create a new album' })
+class CreateAlbumArgs implements Partial<Models.Album> {
+  @Field()
+  title: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  artistId: string;
+
+  @Field()
+  image: string;
 }
 
-export const albumResolvers: Resolvers = {
-  Query: {
-    albums: async (_parent, _args, ctx): Promise<Models.Album[]> => {
-      return await ctx.models.Album.findAll();
-    },
-    albumById: async (_parent, args, ctx): Promise<Models.Album> => {
-      const { id } = args;
-      return await ctx.models.Album.findByPk(id, {
-        include: [
-          {
-            model: Models.Song,
-            as: 'songs',
-            include: [
-              { model: Models.Artist, as: 'artist' },
-              { model: Models.Album, as: 'album' },
-            ],
-          },
-          {
-            model: Models.Artist,
-            as: 'artist',
-          },
-        ],
-      });
-    },
-    searchAlbums: async (_parent, args, _ctx): Promise<Models.Album[]> => {
-      const { query } = args;
-      return await sequelizeInstance.query(
-        `SELECT * FROM albums AS album WHERE album ==> '${query}';`,
-        { type: QueryTypes.SELECT }
-      );
-    },
-  },
-  Mutation: {
-    createNewAlbum: async (_parent, args, ctx): Promise<Models.Album> => {
-      return await ctx.models.Album.create(args);
-    },
-    deleteAlbum: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const { id } = args;
-      return await ctx.models.Album.destroy({
-        where: { id },
-      });
-    },
-  },
-};
+@Resolver(Models.Album)
+export class AlbumResolvers {
+  @Query(() => [Models.Album])
+  async albums(): Promise<Models.Album[] | undefined> {
+    try {
+      const albums = await getManager()
+        .getRepository(Models.Album)
+        .find();
+
+      if (albums) {
+        return albums;
+      } else {
+        console.log('No albums found');
+        return;
+      }
+    } catch (error) {
+      console.log('Find albums error', error);
+    }
+  }
+  @Query(() => Models.Album)
+  async albumById(@Arg('id') id: string): Promise<Models.Album | undefined> {
+    try {
+      const album = await getManager()
+        .getRepository(Models.Album)
+        .findOne({
+          where: { id },
+          relations: [
+            'artist',
+            'artist.albums',
+            'songs',
+            'songs.artist',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            'songs.usersRecentlyPlayed',
+            'songs.usersRecentlyPlayed.user',
+            'songs.usersFavourited',
+            'songs.usersFavourited.user',
+          ],
+        });
+
+      if (album === undefined) {
+        console.log('Album not found', id);
+        return;
+      }
+      return album;
+    } catch (error) {
+      console.log('albumById error', error);
+      return;
+    }
+  }
+
+  @Query(() => [Models.Album])
+  async searchAlbums(
+    @Arg('query') query: string
+  ): Promise<Models.Album[] | undefined> {
+    try {
+      const albums = await getManager()
+        .createQueryBuilder()
+        .select('album')
+        .from(Models.Album, 'album')
+        .leftJoinAndSelect('album.artist', 'artist')
+        // Here is the zdb query and syntax
+        .where('album ==> :query', { query })
+        .getMany();
+
+      if (albums) {
+        return albums;
+      }
+
+      console.log('searchAlbums query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchAlbums error', error);
+
+      return;
+    }
+  }
+
+  @Mutation(() => Models.Album)
+  async createAlbum(
+    @Arg('input') payload: CreateAlbumArgs
+  ): Promise<Models.Album | undefined> {
+    try {
+      const repository = getManager().getRepository(Models.Album);
+      const album = repository.create(payload);
+
+      if (album) {
+        await repository.save(album);
+        return album;
+      }
+
+      console.log('CreateUser failed', payload);
+      return;
+    } catch (error) {
+      console.log('createAlbum error', error);
+      return;
+    }
+  }
+
+  //TODO: If an album is deleted, the corresponding songs must also
+  // be deleted, and anything linked to those songs (favourites etc)
+  @Mutation(() => Boolean)
+  async deleteAlbum(@Arg('id') id: string): Promise<boolean> {
+    try {
+      const repository = getManager().getRepository(Models.Album);
+      const albumToDelete = await repository.findOne({ where: { id } });
+      if (albumToDelete) {
+        await repository.remove(albumToDelete);
+        return true;
+      } else {
+        console.log('deleteAlbum - User not found');
+        return false;
+      }
+    } catch (error) {
+      console.log('deleteAlbum error', error);
+      return false;
+    }
+  }
+}

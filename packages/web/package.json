@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@groov/web",
   "version": "0.1.0",
   "private": true,
   "workspaces": {
@@ -42,6 +42,7 @@
     "typesafe-actions": "^5.1.0"
   },
   "scripts": {
+    "generate": "yarn graphql-codegen",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:ts": "yarn tsc --build tsconfig.json",

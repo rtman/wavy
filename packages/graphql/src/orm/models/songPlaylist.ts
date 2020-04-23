@@ -1,22 +1,50 @@
 import {
-  Column,
-  ForeignKey,
-  Model,
-  Table,
-  PrimaryKey,
-} from 'sequelize-typescript';
+  Entity,
+  PrimaryColumn,
+  // Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { Song } from './song';
 import { Playlist } from './playlist';
 
-@Table({ tableName: 'songPlaylist' })
-export class SongPlaylist extends Model<SongPlaylist> {
-  @ForeignKey(() => Song)
-  @PrimaryKey
-  @Column
+@Entity('songPlaylist')
+@ObjectType()
+export class SongPlaylist {
+  @Field(() => ID, { nullable: false })
+  @PrimaryColumn()
   songId: string;
 
-  @ForeignKey(() => Playlist)
-  @PrimaryKey
-  @Column
+  @Field(() => ID, { nullable: false })
+  @PrimaryColumn()
   playlistId: string;
+
+  // TODO: Add order or songs
+  // @Field(() => Number)
+  // @Column()
+  // order: number;
+
+  @ManyToOne(
+    () => Song,
+    (song) => song.playlists
+  )
+  @Field(() => Song)
+  song!: Song;
+
+  @ManyToOne(
+    () => Playlist,
+    (playlist) => playlist.songs
+  )
+  @Field(() => Playlist)
+  playlist!: Playlist;
+
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

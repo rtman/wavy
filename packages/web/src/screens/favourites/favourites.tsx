@@ -16,7 +16,9 @@ export const Favourites = () => {
     // eslint-disable-next-line no-self-compare
     if (userContext?.user?.favourites?.length ?? 0 > 0) {
       const favourites = userContext?.user?.favourites ?? [];
-      const songsList = favourites.map((song: Song, index: number) => {
+      console.log('favourites', favourites);
+      const songsList = favourites.map((favouriteInstance, index: number) => {
+        const song = favouriteInstance.song;
         return (
           <Fragment key={song.id}>
             <SongRow key={song.id} song={song} />

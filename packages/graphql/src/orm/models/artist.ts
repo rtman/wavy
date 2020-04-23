@@ -1,52 +1,69 @@
 import {
-  BelongsToMany,
-  CreatedAt,
+  Entity,
   Column,
-  HasMany,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { Album } from './album';
 import { Song } from './song';
-import { User } from './user';
 import { UserArtistFollowing } from './userArtistFollowing';
+import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 
-@Table({ tableName: 'artists' })
-export class Artist extends Model<Artist> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+@Entity('artist')
+@ObjectType()
+export class Artist {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   name: string;
 
-  @HasMany(() => Album)
+  @Field(() => [Album])
+  @OneToMany(
+    () => Album,
+    (album) => album.artist
+  )
   albums: Album[];
 
-  @HasMany(() => Song)
+  @Field(() => [Song])
+  @OneToMany(
+    () => Song,
+    (song) => song.artist
+  )
   songs: Song[];
 
-  @Column
+  @Field(() => String)
+  @Column()
   image: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   description: string;
 
-  @BelongsToMany(
-    () => User,
-    () => UserArtistFollowing
+  @Field(() => [UserArtistFollowing], { nullable: true })
+  @OneToMany(
+    () => UserArtistFollowing,
+    (userArtistFollowing) => userArtistFollowing.artist
   )
-  usersFollowing: Array<User & { UserArtistFollowing: UserArtistFollowing }>;
+  usersFollowing: UserArtistFollowing[];
 
-  @CreatedAt
-  @Column
+  @Field(() => [SongArtistSupportingArtist], { nullable: true })
+  @OneToMany(
+    () => SongArtistSupportingArtist,
+    (songArtistSupportingArtist) => songArtistSupportingArtist.artist
+  )
+  supportingArtistOn: SongArtistSupportingArtist[];
+
+  @Field(() => Date)
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @Field(() => Date)
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

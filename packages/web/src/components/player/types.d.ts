@@ -1,4 +1,5 @@
+import { SongWithAudio } from 'screens/home/types';
 interface Player {
   audio: HTMLAudioElement;
-  currentSong: Song | null;
+  currentSong: SongWithAudio | null;
 }

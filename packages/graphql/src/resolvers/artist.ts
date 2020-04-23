@@ -1,96 +1,168 @@
-// import jwt from 'jsonwebtoken';
-// import { combineResolvers } from 'graphql-resolvers';
-// import { AuthenticationError, UserInputError } from 'apollo-server';
-import {} from 'graphql';
-import { MutationResolvers, Scalars, QueryResolvers } from '../types';
-import { sequelizeInstance, Models } from '../orm';
-import { QueryTypes } from 'sequelize';
+import { Models } from '../orm';
+import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
+import { getManager } from 'typeorm';
 
-interface Resolvers {
-  Query: QueryResolvers;
-  Mutation: MutationResolvers;
+@InputType()
+class CreateArtistArgs implements Partial<Models.Artist> {
+  @Field()
+  name: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  image: string;
 }
 
-export const artistResolvers: Resolvers = {
-  Query: {
-    artists: async (_parent, _args, ctx): Promise<Models.Artist[]> => {
-      return await ctx.models.Artist.findAll();
-    },
-    artistById: async (_parent, args, ctx): Promise<Models.Artist> => {
-      const { id } = args;
-      const result = await ctx.models.Artist.findByPk(id, {
-        include: [
-          {
-            model: Models.Album,
-            as: 'albums',
-            include: [
-              {
-                model: Models.Song,
-                as: 'songs',
-                include: [
-                  {
-                    model: Models.Artist,
-                    as: 'artist',
-                  },
-                  {
-                    model: Models.Album,
-                    as: 'album',
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            model: Models.Song,
-            as: 'songs',
-            include: [
-              {
-                model: Models.Artist,
-                as: 'artist',
-              },
-              {
-                model: Models.Album,
-                as: 'album',
-              },
-            ],
-          },
-          {
-            model: Models.User,
-            as: 'usersFollowing',
-          },
-        ],
-      });
-      return result;
-    },
-    artistsById: async (_parent, args, ctx): Promise<Models.Artist[]> => {
-      const { ids } = args;
-      return await ctx.models.Artist.findAll({
-        where: {
-          id: ids,
-        },
-      });
-    },
-    searchArtists: async (_parent, args, _ctx): Promise<Models.Artist[]> => {
-      const { query } = args;
-      return await sequelizeInstance.query(
-        `SELECT * FROM artists AS artist WHERE artist ==> '${query}';`,
-        { type: QueryTypes.SELECT }
-      );
-    },
-  },
-  Mutation: {
-    createNewArtist: async (_parent, args, ctx): Promise<Models.Artist> => {
-      return await ctx.models.Artist.create(args);
-    },
-    deleteArtist: async (
-      _parent,
-      args,
-      { models }
-    ): Promise<Scalars['Int']> => {
-      const { id } = args;
-      return await models.artist.destroy({
-        where: { id },
-      });
-    },
-  },
-};
+@Resolver(Models.Artist)
+export class ArtistResolvers {
+  @Query(() => [Models.Artist])
+  async artists(): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .getRepository(Models.Artist)
+        .find();
+
+      if (artists) {
+        return artists;
+      } else {
+        console.log('No artists found');
+
+        return;
+      }
+    } catch (error) {
+      console.log('Find artists error', error);
+
+      return;
+    }
+  }
+  @Query(() => Models.Artist)
+  async artistById(@Arg('id') id: string): Promise<Models.Artist | undefined> {
+    try {
+      const artist = await getManager()
+        .getRepository(Models.Artist)
+        .findOne({
+          where: { id },
+          relations: [
+            'songs',
+            'songs.album',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            'songs.usersFavourited',
+            'songs.usersFavourited.user',
+            'songs.usersRecentlyPlayed',
+            'songs.usersRecentlyPlayed.user',
+            'albums',
+            'albums.songs',
+            'albums.songs.supportingArtists',
+            'albums.songs.supportingArtists.artist',
+            'supportingArtistOn',
+            'supportingArtistOn.song',
+            'usersFollowing',
+            'usersFollowing.user',
+          ],
+        });
+
+      if (artist) {
+        return artist;
+      }
+      console.log('Artist not found', id);
+
+      return artist;
+    } catch (error) {
+      console.log('artistById error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Artist])
+  async artistsById(
+    @Arg('ids', () => [String]) ids: string[]
+  ): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .getRepository(Models.Artist)
+        .findByIds(ids);
+      if (artists) {
+        return artists;
+      } else {
+        console.log('artistsById - no artists found', ids);
+
+        return;
+      }
+    } catch (error) {
+      console.log('artistsById error', error);
+      return;
+    }
+  }
+
+  @Query(() => [Models.Artist])
+  async searchArtists(
+    @Arg('query') query: string
+  ): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .createQueryBuilder()
+        .select('artist')
+        .from(Models.Artist, 'artist')
+        .leftJoinAndSelect('artist.usersFollowing', 'usersFollowing')
+        .leftJoinAndSelect('usersFollowing.user', 'user')
+        // Here is the zdb query and syntax
+        .where('artist ==> :query', { query })
+        .getMany();
+
+      if (artists) {
+        return artists;
+      }
+
+      console.log('searchArtists query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchArtists error', error);
+
+      return;
+    }
+  }
+
+  @Mutation(() => Models.Artist)
+  async createArtist(
+    @Arg('input') payload: CreateArtistArgs
+  ): Promise<Models.Artist | undefined> {
+    try {
+      const repository = getManager().getRepository(Models.Artist);
+      const artist = repository.create(payload);
+
+      if (artist) {
+        await repository.save(artist);
+        return artist;
+      }
+
+      console.log('CreateUser failed', payload);
+      return;
+    } catch (error) {
+      console.log('createArtist error', error);
+      return;
+    }
+  }
+
+  // TODO: need to consider where this artist would be referenced
+  // songs, albums
+  @Mutation(() => Boolean)
+  async deleteArtist(@Arg('id') id: string): Promise<boolean> {
+    try {
+      const repository = getManager().getRepository(Models.Artist);
+      const artistToDelete = await repository.findOne({ where: { id } });
+      if (artistToDelete) {
+        await repository.remove(artistToDelete);
+        return true;
+      } else {
+        console.log('deleteArtist - User not found');
+        return false;
+      }
+    } catch (error) {
+      console.log('deleteArtist error', error);
+      return false;
+    }
+  }
+}

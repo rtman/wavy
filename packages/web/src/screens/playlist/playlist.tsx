@@ -26,6 +26,7 @@ import {
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
+import { SongPlaylist } from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();
@@ -58,7 +59,8 @@ export const Playlist = () => {
   const renderSongs = () => {
     if (queryData?.playlistById?.songs.length > 0) {
       const songsList = queryData.playlistById.songs.map(
-        (song: Song, index: number) => {
+        (songInstance: SongPlaylist, index: number) => {
+          const song = songInstance.song;
           return (
             <Fragment key={song.id}>
               <SongRow song={song} />
@@ -81,7 +83,9 @@ export const Playlist = () => {
 
   const onClickSave = () => {
     submitPlaylistInfo({
-      variables: { title: playlistTitle, description: playlistDescription, id },
+      variables: {
+        input: { title: playlistTitle, description: playlistDescription, id },
+      },
     });
     setEditModalVisible(false);
   };
@@ -92,6 +96,14 @@ export const Playlist = () => {
   const handleOnChangeDescription = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => setPlaylistDescription(event.target.value);
+
+  const onClickPlayNow = () => {
+    const songs = queryData?.playlistById?.songs.map(
+      (songInstance: SongPlaylist) => songInstance.song
+    );
+
+    playerContext.replaceQueueWithSongs(songs);
+  };
 
   console.log('data', queryData);
 
@@ -112,11 +124,7 @@ export const Playlist = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() =>
-                  playerContext.replaceQueueWithSongs(
-                    queryData?.playlistById?.songs
-                  )
-                }
+                onClick={onClickPlayNow}
               >
                 Play Now
               </Button>

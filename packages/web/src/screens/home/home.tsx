@@ -3,7 +3,8 @@ import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { List, Container } from '@material-ui/core';
+import { List, Container, CircularProgress } from '@material-ui/core';
+import { Song } from 'types';
 
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
@@ -56,7 +57,7 @@ export const Home = () => {
 
   const renderSearchResults = () => {
     if (searchResults.length > 0) {
-      const songsList = searchResults.map((song: any) => {
+      const songsList = searchResults.map((song: Song) => {
         return <SongRow key={song.id} song={song} />;
       });
       return <List>{songsList}</List>;
@@ -76,7 +77,7 @@ export const Home = () => {
           onKeyDown={onKeyDownSearchBar}
           fullWidth={true}
         />
-        {loading ? <div>Loading</div> : renderSearchResults()}
+        {loading ? <CircularProgress /> : renderSearchResults()}
       </Container>
     </Screen>
   );

@@ -15,6 +15,7 @@ import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
+import { Playlist } from 'types';
 
 interface PlaylistRowProps {
   playlist: Playlist;
@@ -39,6 +40,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     setAnchorEl(null);
   };
 
+  // TODO: fix, this isnt setup right
   const handleClickPlayNow = () => {
     submitSearch({ variables: { id: playlist.id } });
     handleMenuClose();

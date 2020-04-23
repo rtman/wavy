@@ -1,51 +1,56 @@
 import {
-  BelongsTo,
-  CreatedAt,
+  Entity,
   Column,
-  HasMany,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-  ForeignKey,
-} from 'sequelize-typescript';
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Artist } from './artist';
 import { Song } from './song';
+import { ObjectType, Field, ID } from 'type-graphql';
 
-@Table({ tableName: 'albums' })
-export class Album extends Model<Album> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+@Entity('album')
+@ObjectType()
+export class Album {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ForeignKey(() => Artist)
-  @Column
-  artistId: string;
-
-  @BelongsTo(() => Artist)
+  @Field(() => Artist)
+  @ManyToOne(
+    () => Artist,
+    (artist) => artist.albums
+  )
   artist: Artist;
 
-  @Column
+  @Field(() => String)
+  @Column()
   title: string;
 
-  @HasMany(() => Song)
+  @Field(() => [Song])
+  @OneToMany(
+    () => Song,
+    (song) => song.album
+  )
   songs: Song[];
 
-  @Column
+  @Field(() => String)
+  @Column()
   image: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   description: string;
 
   // TODO: add supporting artists to album
 
-  @CreatedAt
-  @Column
+  @Field(() => Date)
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @Field(() => Date)
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

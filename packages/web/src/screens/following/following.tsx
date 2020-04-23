@@ -17,7 +17,8 @@ export const Following = () => {
     // eslint-disable-next-line no-self-compare
     if (userContext?.user?.following?.length ?? 0 > 0) {
       const following = userContext?.user?.following ?? [];
-      const artistList = following.map((artist: Artist, index: number) => {
+      const artistList = following.map((followingInstance, index: number) => {
+        const artist = followingInstance.artist;
         return (
           <Fragment key={artist.id}>
             <ArtistRow artist={artist} />

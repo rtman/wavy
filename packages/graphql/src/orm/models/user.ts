@@ -1,67 +1,73 @@
 import {
-  BelongsToMany,
-  CreatedAt,
+  Entity,
   Column,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
-import { Artist } from './artist';
-import { Playlist } from './playlist';
-import { Song } from './song';
+  PrimaryColumn,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { UserPlaylist } from './userPlaylist';
 import { UserSongFavourites } from './userSongFavourites';
 import { UserArtistFollowing } from './userArtistFollowing';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
-@Table({ tableName: 'users' })
-export class User extends Model<User> {
-  @PrimaryKey
-  @Column
+@Entity('user')
+@ObjectType()
+export class User {
+  @Field(() => ID)
+  @PrimaryColumn()
   id: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   firstName: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   lastName: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   email: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   password: string;
 
-  @BelongsToMany(
-    () => Song,
-    () => UserSongFavourites
+  @Field(() => [UserSongFavourites], { nullable: true })
+  @OneToMany(
+    () => UserSongFavourites,
+    (userSongFavourites) => userSongFavourites.user
   )
-  favourites: Song[];
+  favourites: UserSongFavourites[];
 
-  @BelongsToMany(
-    () => Artist,
-    () => UserArtistFollowing
+  @Field(() => [UserArtistFollowing], { nullable: true })
+  @OneToMany(
+    () => UserArtistFollowing,
+    (userArtistFollowing) => userArtistFollowing.user
   )
-  following: Artist[];
+  following: UserArtistFollowing[];
 
-  @BelongsToMany(
-    () => Song,
-    () => UserSongRecentlyPlayed
+  @Field(() => [UserSongRecentlyPlayed], { nullable: true })
+  @OneToMany(
+    () => UserSongRecentlyPlayed,
+    (userSongRecentlyPlayed) => userSongRecentlyPlayed.user
   )
-  recentlyPlayed: Song[];
+  recentlyPlayed: UserSongRecentlyPlayed[];
 
-  @CreatedAt
-  @Column
+  @Field(() => [UserPlaylist], { nullable: true })
+  @OneToMany(
+    () => UserPlaylist,
+    (userPlaylist) => userPlaylist.user
+  )
+  playlists: UserPlaylist[];
+
+  @Field(() => Date)
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @Field(() => Date)
+  @UpdateDateColumn()
   updatedAt!: Date;
-
-  @BelongsToMany(
-    () => Playlist,
-    () => UserPlaylist
-  )
-  playlists: Playlist[];
 }

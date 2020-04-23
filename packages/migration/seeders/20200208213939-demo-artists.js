@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface) => {
-    return await queryInterface.bulkInsert('artists', [
+    return await queryInterface.bulkInsert('artist', [
       {
         id: '30f65df5-98bb-48cd-83e5-867f707f941d',
         name: 'András',
@@ -56,6 +56,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    return await queryInterface.bulkDelete('artists', null, {});
+    return await queryInterface.bulkDelete('artist', null, {});
   },
 };

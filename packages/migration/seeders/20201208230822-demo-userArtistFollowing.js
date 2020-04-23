@@ -27,6 +27,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        userId: 'F2qAdR0c81c3xGFk5PmgDXKAjis2',
+        artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

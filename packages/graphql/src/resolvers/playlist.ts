@@ -1,143 +1,383 @@
-import { Playlist, MutationResolvers, Scalars, QueryResolvers } from '../types';
+import {
+  Arg,
+  Field,
+  ID,
+  InputType,
+  Resolver,
+  Query,
+  Mutation,
+} from 'type-graphql';
+import { getManager } from 'typeorm';
+//TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue
 import { Models } from '../orm';
-import { v4 as uuidv4 } from 'uuid';
 
-interface Resolvers {
-  Query: QueryResolvers;
-  Mutation: MutationResolvers;
-}
+@InputType()
+class CreatePlaylistArgs implements Partial<Models.Playlist> {
+  @Field()
+  userId: string;
 
-interface UpdatePlaylistInfoUpdate {
-  title?: string;
+  @Field()
+  title: string;
+
+  @Field({ nullable: true })
   description?: string;
+
+  @Field({ nullable: true })
   image?: string;
 }
 
-export const playlistResolvers: Resolvers = {
-  Query: {
-    playlists: async (_parent, _args, ctx): Promise<Models.Playlist[]> => {
-      return await ctx.models.Playlist.findAll();
-    },
-    playlistById: async (_parent, args, ctx): Promise<Models.Playlist> => {
-      const { id } = args;
-      const result = await ctx.models.Playlist.findByPk(id, {
-        include: [
-          {
-            model: Models.Song,
-            as: 'songs',
-            include: [
-              {
-                model: Models.Artist,
-                as: 'artist',
-              },
-              { model: Models.Album, as: 'album' },
-            ],
-          },
-          {
-            model: Models.User,
-            as: 'users',
-          },
-        ],
-      });
-      return result;
-    },
-    playlistsByUserId: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Models.Playlist[]> => {
-      const { userId } = args;
-      const result = await ctx.models.Playlist.findAll({
-        include: [
-          {
-            model: Models.Song,
-            as: 'songs',
-            include: [
-              {
-                model: Models.Artist,
-                as: 'artist',
-              },
-              { model: Models.Album, as: 'album' },
-            ],
-          },
-          {
-            model: Models.User,
-            as: 'users',
-            where: {
-              id: userId,
-            },
-          },
-        ],
-      });
-      return result;
-    },
-  },
-  Mutation: {
-    createPlaylist: async (_parent, args, ctx): Promise<Playlist> => {
-      const { title, description, userId } = args;
-      const playlist = await ctx.models.Playlist.create({
-        id: uuidv4(),
-        title,
-        description,
-      });
-      await ctx.models.UserPlaylist.create({
-        userId,
-        playlistId: playlist.id,
-      });
-      return playlist;
-    },
-    updatePlaylistInfo: async (_parent, args, ctx): Promise<Playlist> => {
-      //TODO: if arg is optional, probably just pass args object instead of processing
-      const { id, title, description, image } = args;
-      if (title || description || image) {
-        const update: UpdatePlaylistInfoUpdate = {};
-        title ? (update.title = title) : null;
-        description ? (update.description = description) : null;
-        image ? (update.image = image) : null;
-        const playlist = await ctx.models.Playlist.findByPk(id);
-        return await playlist.update(update);
+@InputType()
+class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
+  @Field(() => ID)
+  id: string;
+
+  @Field({ nullable: true })
+  title?: string;
+
+  @Field({ nullable: true })
+  description?: string;
+
+  @Field({ nullable: true })
+  image?: string;
+}
+
+@InputType()
+class AddPlaylistSongsArgs implements Partial<Models.Playlist> {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => [ID])
+  songIds: string[];
+}
+
+@InputType()
+class RemovePlaylistSongsArgs implements Partial<Models.Playlist> {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => [ID])
+  songIds: string[];
+}
+
+@InputType()
+class DeletePlaylistArgs implements Partial<Models.UserPlaylist> {
+  @Field()
+  userId: string;
+
+  @Field(() => ID)
+  playlistId: string;
+}
+
+@Resolver(Models.Playlist)
+export class PlaylistResolvers {
+  @Query(() => [Models.Playlist])
+  async playlists(): Promise<Models.Playlist[] | undefined> {
+    try {
+      const playlists = await getManager()
+        .getRepository(Models.Playlist)
+        .find();
+
+      if (playlists) {
+        return playlists;
       } else {
-        return {};
+        console.log('No playlists found');
+
+        return;
       }
-    },
-    addPlaylistSongs: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, songIds } = args;
-        const records = songIds.map((sId) => {
-          return { playlistId: id, songId: sId };
+    } catch (error) {
+      console.log('Find playlists error', error);
+    }
+  }
+
+  @Query(() => Models.Playlist)
+  async playlistById(
+    @Arg('id') id: string
+  ): Promise<Models.Playlist | undefined> {
+    try {
+      const playlist = await getManager()
+        .getRepository(Models.Playlist)
+        .findOne({
+          where: { id },
+          relations: [
+            'songs',
+            'songs.song',
+            'songs.song.artist',
+            'songs.song.album',
+            'songs.song.supportingArtists',
+            'songs.song.supportingArtists.artist',
+            'users',
+            'users.user',
+          ],
         });
-        await ctx.models.SongPlaylist.bulkCreate(records, {
-          ignoreDuplicates: true,
+
+      if (playlist) {
+        return playlist;
+      }
+
+      console.log('Playlist not found', id);
+
+      return;
+    } catch (error) {
+      console.log('playlistById error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Playlist])
+  async playlistsById(
+    @Arg('ids', () => [String]) ids: string[]
+  ): Promise<Models.Playlist[] | undefined> {
+    try {
+      const playlists = await getManager()
+        .getRepository(Models.Playlist)
+        .find({
+          where: {
+            id: ids,
+          },
         });
+
+      if (playlists) {
+        return playlists;
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log('playlistsById error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Playlist])
+  async playlistsByUserId(
+    @Arg('userId') userId: string
+  ): Promise<Models.Playlist[] | undefined> {
+    try {
+      const userPlaylists = await getManager()
+        .getRepository(Models.UserPlaylist)
+        .find({
+          where: {
+            userId,
+          },
+        });
+
+      if (!userPlaylists) {
+        console.log('playlistsByUserId no playlists found - userId', userId);
+        return;
+      }
+
+      console.log('playlistsByUserId userPlaylists', userPlaylists);
+
+      const playlistIds = userPlaylists.map(
+        (userPlaylist: Models.UserPlaylist) => userPlaylist.playlistId
+      );
+
+      const playlists = await getManager()
+        .getRepository(Models.Playlist)
+        .findByIds(playlistIds, {
+          relations: [
+            'users',
+            'users.user',
+            'songs',
+            'songs.song',
+            'songs.song.artist',
+            'songs.song.album',
+          ],
+        });
+
+      if (playlists) {
+        return playlists;
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log('playlistsById error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Playlist])
+  async searchPlaylists(
+    @Arg('query') query: string
+  ): Promise<Models.Playlist[] | undefined> {
+    try {
+      const playlists = await getManager()
+        .createQueryBuilder()
+        .select('playlist')
+        .from(Models.Playlist, 'playlist')
+        .leftJoinAndSelect('playlist.users', 'users')
+        .leftJoinAndSelect('users.user', 'user')
+        // Here is the zdb query and syntax
+        .where('playlist ==> :query', { query })
+        .getMany();
+
+      if (playlists) {
+        return playlists;
+      }
+
+      console.log('searchPlaylists query returned nothing - query', query);
+      return;
+    } catch (error) {
+      console.log('searchPlaylists error', error);
+
+      return;
+    }
+  }
+
+  @Mutation(() => Models.Playlist)
+  async createPlaylist(
+    @Arg('input') payload: CreatePlaylistArgs
+  ): Promise<Models.Playlist | undefined> {
+    try {
+      const playlistRepo = getManager().getRepository(Models.Playlist);
+      const playlist = playlistRepo.create(payload);
+
+      if (!playlist) {
+        console.log('CreatePlaylist playlist failed', payload);
+      }
+
+      await playlistRepo.save(playlist);
+
+      const userPlaylistRepo = getManager().getRepository(Models.UserPlaylist);
+      const userPlaylistPayload = {
+        userId: payload.userId,
+        playlistId: playlist.id,
+      };
+      const userPlaylist = userPlaylistRepo.create(userPlaylistPayload);
+
+      if (!userPlaylist) {
+        console.log(
+          'CreatePlaylist - userPlaylist failed',
+          userPlaylistPayload
+        );
+      }
+
+      await userPlaylistRepo.save(userPlaylist);
+
+      return playlist;
+    } catch (error) {
+      console.log('createPlaylist error', error);
+
+      return;
+    }
+  }
+
+  @Mutation(() => Models.Playlist)
+  async updatePlaylistInfo(
+    @Arg('input') payload: UpdatePlaylistInfoArgs
+  ): Promise<Models.Playlist | undefined> {
+    try {
+      const repository = getManager().getRepository(Models.Playlist);
+      const playlist = await repository.update(payload.id, payload);
+
+      if (playlist) {
+        return;
+      }
+
+      console.log('updatePlaylistInfo - playlist not found', payload);
+
+      return;
+    } catch (error) {
+      console.log('updatePlaylistInfo error', error);
+
+      return;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async addPlaylistSongs(
+    @Arg('input') payload: AddPlaylistSongsArgs
+  ): Promise<boolean> {
+    try {
+      const { id, songIds } = payload;
+      const repository = getManager().getRepository(Models.SongPlaylist);
+
+      const addedSongs = songIds.map((songId) =>
+        repository.create({ playlistId: id, songId })
+      );
+
+      if (addedSongs) {
+        await repository.save(addedSongs);
+
         return true;
-      } catch (error) {
-        return false;
       }
-    },
-    removePlaylistSongs: async (
-      _parent,
-      args,
-      ctx
-    ): Promise<Scalars['Boolean']> => {
-      try {
-        const { id, songIds } = args;
-        await ctx.models.SongPlaylist.destroy({
-          where: { songId: songIds, playlistId: id },
-        });
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
-    deletePlaylist: async (_parent, args, ctx): Promise<Scalars['Int']> => {
-      const { id } = args;
-      return await ctx.models.SongPlaylist.destroy({
-        where: { playlistId: id },
+      console.log('addPlaylistSongs failed', payload);
+
+      return false;
+    } catch (error) {
+      console.log('addPlaylistSongs error', error);
+
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async removePlaylistSongs(
+    @Arg('input') payload: RemovePlaylistSongsArgs
+  ): Promise<boolean> {
+    try {
+      const { id, songIds } = payload;
+      const repository = getManager().getRepository(Models.SongPlaylist);
+
+      const instances = songIds.map((songId) => {
+        return { playlistId: id, songId };
       });
-    },
-  },
-};
+      const removedSongs = await repository.find({ where: instances });
+
+      if (removedSongs) {
+        await repository.remove(removedSongs);
+        return true;
+      }
+
+      console.log('removePlaylistSongs - no songs found for playlist', payload);
+
+      return false;
+    } catch (error) {
+      console.log('addPlaylistSongs error', error);
+
+      return false;
+    }
+  }
+
+  //TODO: If a playlist has multiple users and its deleted by one user, playlist + userPlaylist entries are removed but it still has userPlaylist entries for the other users. Fix.
+  @Mutation(() => Boolean)
+  async deletePlaylist(
+    @Arg('input') payload: DeletePlaylistArgs
+  ): Promise<boolean> {
+    try {
+      const playlistRepo = getManager().getRepository(Models.Playlist);
+      const playlistToDelete = await playlistRepo.findOne({
+        where: { id: payload.playlistId },
+      });
+
+      if (playlistToDelete) {
+        await playlistRepo.remove(playlistToDelete);
+      } else {
+        console.log('deletePlaylist - playlist not found', payload);
+
+        return false;
+      }
+
+      const userPlaylistRepo = getManager().getRepository(Models.UserPlaylist);
+      const userPlaylistToDelete = await userPlaylistRepo.findOne({
+        where: payload,
+      });
+
+      if (userPlaylistToDelete) {
+        await userPlaylistRepo.remove(userPlaylistToDelete);
+
+        return true;
+      } else {
+        console.log('deletePlaylist - userPlaylist not found', payload);
+
+        return false;
+      }
+    } catch (error) {
+      console.log('deletePlaylist error', error);
+
+      return false;
+    }
+  }
+}

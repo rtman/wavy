@@ -20,12 +20,13 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
+import { Song } from 'types';
 
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, {
-    variables: { id: id?.toString() },
+    variables: { id },
   });
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(
     data?.albumById?.image

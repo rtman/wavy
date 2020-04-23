@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
+import { Song } from 'types';
 
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);

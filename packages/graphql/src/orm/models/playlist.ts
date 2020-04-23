@@ -1,51 +1,53 @@
 import {
-  BelongsToMany,
+  Entity,
   Column,
-  CreatedAt,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  UpdatedAt,
-  Table,
-} from 'sequelize-typescript';
-import { Song } from './song';
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { SongPlaylist } from './songPlaylist';
-import { User } from './user';
 import { UserPlaylist } from './userPlaylist';
+import { ObjectType, Field, ID } from 'type-graphql';
 
-@Table({ tableName: 'playlists' })
-export class Playlist extends Model<Playlist> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column
+@Entity('playlist')
+@ObjectType()
+export class Playlist {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column
+  @Field(() => String)
+  @Column()
   title: string;
 
-  @Column
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
   description: string;
 
-  @Column
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
   image: string;
 
-  @BelongsToMany(
-    () => Song,
-    () => SongPlaylist
+  @Field(() => [SongPlaylist], { nullable: true })
+  @OneToMany(
+    () => SongPlaylist,
+    (songPlaylist) => songPlaylist.playlist
   )
-  songs: Array<Song & { SongPlaylist: SongPlaylist }>;
+  songs: SongPlaylist[];
 
-  @BelongsToMany(
-    () => User,
-    () => UserPlaylist
+  @Field(() => [UserPlaylist], { nullable: true })
+  @OneToMany(
+    () => UserPlaylist,
+    (userPlaylist) => userPlaylist.playlist
   )
-  users: Array<User & { UserPlaylist: UserPlaylist }>;
+  users: UserPlaylist[];
 
-  @CreatedAt
-  @Column
+  @Field(() => Date)
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdatedAt
-  @Column
+  @Field(() => Date)
+  @UpdateDateColumn()
   updatedAt!: Date;
 }

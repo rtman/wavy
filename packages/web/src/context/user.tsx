@@ -8,6 +8,7 @@ import React, {
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { AuthContextState } from 'context';
 import * as consts from 'consts';
+import { User, UserPlaylist } from 'types';
 
 interface UserContextProps {
   user: User | undefined;
@@ -16,7 +17,7 @@ interface UserContextProps {
   updateFavourites(id: string): void;
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
-  playlists: Playlist[];
+  playlists: UserPlaylist[];
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -26,7 +27,7 @@ export const UserContext = createContext<UserContextProps | undefined>(
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
-  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [playlists, setPlaylists] = useState<UserPlaylist[]>([]);
   const [getUserById] = useLazyQuery(consts.queries.USER_BY_ID, {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
@@ -96,19 +97,27 @@ export const UserProvider = ({ children }: any) => {
   }, [authContextState, loadUser]);
 
   const updateFollowing = (artistId: string) => {
-    submitUpdateFollowing({ variables: { id: user?.id, artistId } });
+    submitUpdateFollowing({
+      variables: { input: { userId: user?.id, artistId } },
+    });
   };
 
   const updateFavourites = (songId: string) => {
-    submitUpdateFavourites({ variables: { id: user?.id, songId } });
+    submitUpdateFavourites({
+      variables: { input: { userId: user?.id, songId } },
+    });
   };
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
-    submitAddSongsToPlaylists({ variables: { id: playlistId, songIds } });
+    submitAddSongsToPlaylists({
+      variables: { input: { id: playlistId, songIds } },
+    });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
-    submitRemoveSongsFromPlaylist({ variables: { id: playlistId, songIds } });
+    submitRemoveSongsFromPlaylist({
+      variables: { input: { id: playlistId, songIds } },
+    });
   };
 
   return (

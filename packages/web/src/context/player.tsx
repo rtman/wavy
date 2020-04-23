@@ -1,23 +1,25 @@
 import React, { createContext, useEffect, useState } from 'react';
 import * as helpers from 'helpers';
 import firebase from 'firebase';
+import { Song } from 'types';
+import { SongWithAudio } from 'screens/home/types';
 
 interface PlayerContext {
-  playAudio?: (song: Song) => void;
+  playAudio?: (song: SongWithAudio) => void;
   playQueue: () => void;
-  playSongInQueue(song: Song): void;
+  playSongInQueue(song: SongWithAudio): void;
   playNextSongInQueue: () => void;
   playPreviousSongInQueue: () => void;
   pause: () => void;
   unPause: () => void;
-  currentSong: Song | null;
+  currentSong: SongWithAudio | null;
   audio: HTMLAudioElement;
   addSongsToEndOfQueue: (songs: Song[]) => void;
   // addSongsToBeginningOfQueue: (songs: Song[]) => void;
   replaceQueueWithSongs: (songs: Song[]) => void;
   clearQueue: () => void;
   removeSongFromQueue(id: string): void;
-  queue: Song[];
+  queue: SongWithAudio[];
 }
 
 export const PlayerContext = createContext<PlayerContext>({
@@ -44,7 +46,7 @@ const addAudioElements = async (songs: Song[]) => {
     return getStorageHttpUrl(s.url);
   });
   const result = await Promise.all(songUrlPromises);
-  const resolvedSongs = songs.map((s, index) => {
+  const resolvedSongs: SongWithAudio[] = songs.map((s, index) => {
     return {
       ...s,
       audio: new Audio(result[index]),
@@ -61,8 +63,8 @@ const getStorageHttpUrl = async (googleStorageUri: string) => {
 };
 
 export const PlayerProvider = ({ children }: any) => {
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [queue, setQueue] = useState<Song[]>([]);
+  const [currentSong, setCurrentSong] = useState<SongWithAudio | null>(null);
+  const [queue, setQueue] = useState<SongWithAudio[]>([]);
   const [queuePosition, setQueuePosition] = useState<number>(0);
   // const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   const [
@@ -100,6 +102,8 @@ export const PlayerProvider = ({ children }: any) => {
   };
 
   const replaceQueueWithSongs = async (songs: Song[]) => {
+    console.log('replaceQueueWithSongs songs', songs);
+
     const resolvedSongs = await addAudioElements(songs);
 
     const newQueue = [...resolvedSongs];
@@ -110,8 +114,8 @@ export const PlayerProvider = ({ children }: any) => {
     playAudio(newQueue, 0);
   };
 
-  const playSongInQueue = (song: Song) => {
-    const index = queue.findIndex((s: Song) => s.id === song.id);
+  const playSongInQueue = (song: SongWithAudio) => {
+    const index = queue.findIndex((s) => s.id === song.id);
     playAudio(queue, index);
   };
 
@@ -169,7 +173,7 @@ export const PlayerProvider = ({ children }: any) => {
 
   // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
 
-  const playAudio = async (currentQueue: Song[], position: number) => {
+  const playAudio = async (currentQueue: SongWithAudio[], position: number) => {
     if (currentSong && currentSong.audio) {
       currentSong.audio.pause();
       currentSong.audio.currentTime = 0;

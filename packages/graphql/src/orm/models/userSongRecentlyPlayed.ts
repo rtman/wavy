@@ -1,25 +1,44 @@
 import {
-  Column,
-  ForeignKey,
-  Model,
-  Table,
-  PrimaryKey,
-} from 'sequelize-typescript';
+  Entity,
+  PrimaryColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { User } from './user';
 import { Song } from './song';
 
-@Table({ tableName: 'userSongRecentlyPlayed' })
-export class UserSongRecentlyPlayed extends Model<UserSongRecentlyPlayed> {
-  @ForeignKey(() => User)
-  @PrimaryKey
-  @Column
+@Entity('userSongRecentlyPlayed')
+@ObjectType()
+export class UserSongRecentlyPlayed {
+  @Field(() => ID, { nullable: false })
+  @PrimaryColumn()
   userId: string;
 
-  @ForeignKey(() => Song)
-  @PrimaryKey
-  @Column
+  @Field(() => ID, { nullable: false })
+  @PrimaryColumn()
   songId: string;
 
-  @Column
-  timeStamp: Date;
+  @ManyToOne(
+    () => User,
+    (user) => user.recentlyPlayed
+  )
+  @Field(() => User)
+  user!: User;
+
+  @ManyToOne(
+    () => Song,
+    (song) => song.usersRecentlyPlayed
+  )
+  @Field(() => Song)
+  song!: Song;
+
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

@@ -15,10 +15,11 @@ import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
+import { SongWithAudio } from 'screens/home/types';
 
 interface SongRowProps {
-  song: Song;
-  passedOnClickSong?: (song: Song) => Promise<void>;
+  song: SongWithAudio;
+  passedOnClickSong?: (song: SongWithAudio) => Promise<void>;
   secondaryStyle?: boolean;
   enableGoToArtist?: boolean;
 }
@@ -93,7 +94,7 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.favourites.find((f) => f.id === song.id)
+    return userContext?.user?.favourites?.find((f) => f.song.id === song.id)
       ? 'Unfavourite'
       : 'Favourite';
   };
@@ -112,11 +113,14 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const renderPlaylists = () => {
-    const playlistList = userContext?.playlists.map((p: Playlist) => (
-      <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
-        {p.title}
-      </MenuItem>
-    ));
+    const playlistList = userContext?.playlists?.map((playlistInstance) => {
+      const playlist = playlistInstance.playlist;
+      return (
+        <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
+          {playlist.title}
+        </MenuItem>
+      );
+    });
 
     return playlistList;
   };
