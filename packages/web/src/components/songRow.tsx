@@ -113,11 +113,15 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const renderPlaylists = () => {
-    const playlistList = userContext?.playlists.map((p: Playlist) => (
-      <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
-        {p.title}
-      </MenuItem>
-    ));
+    // TODO: fix type for user to include userPlaylist and remove any
+    const playlistList = userContext?.playlists.map((playlistInstance: any) => {
+      const playlist: Playlist = playlistInstance.playlist;
+      return (
+        <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
+          {playlist.title}
+        </MenuItem>
+      );
+    });
 
     return playlistList;
   };

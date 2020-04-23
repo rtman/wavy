@@ -82,7 +82,10 @@ export const ArtistRow = (props: ArtistRowProps) => {
       >
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         <MenuItem onClick={onClickToggleFollow}>
-          {userContext?.user?.following.find((f) => f.id === artist.id)
+          {/* TODO: fix type here */}
+          {userContext?.user?.following.find(
+            (f: any) => f.artist.id === artist.id
+          )
             ? 'Unfollow'
             : 'Follow'}
         </MenuItem>

@@ -109,13 +109,13 @@ export const UserProvider = ({ children }: any) => {
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
     submitAddSongsToPlaylists({
-      variables: { input: { userId: playlistId, songIds } },
+      variables: { input: { id: playlistId, songIds } },
     });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
     submitRemoveSongsFromPlaylist({
-      variables: { input: { userId: playlistId, songIds } },
+      variables: { input: { id: playlistId, songIds } },
     });
   };
 
