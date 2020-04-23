@@ -20,6 +20,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { Playlist } from 'types';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);

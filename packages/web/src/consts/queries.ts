@@ -266,6 +266,7 @@ export const USER_BY_ID = gql`
           id
           title
           image
+          url
           album {
             id
             title

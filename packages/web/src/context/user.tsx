@@ -8,6 +8,7 @@ import React, {
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { AuthContextState } from 'context';
 import * as consts from 'consts';
+import { User, UserPlaylist } from 'types';
 
 interface UserContextProps {
   user: User | undefined;
@@ -16,7 +17,7 @@ interface UserContextProps {
   updateFavourites(id: string): void;
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
-  playlists: Playlist[];
+  playlists: UserPlaylist[];
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -26,7 +27,7 @@ export const UserContext = createContext<UserContextProps | undefined>(
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
-  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [playlists, setPlaylists] = useState<UserPlaylist[]>([]);
   const [getUserById] = useLazyQuery(consts.queries.USER_BY_ID, {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {

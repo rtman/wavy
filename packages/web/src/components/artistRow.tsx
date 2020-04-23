@@ -14,6 +14,7 @@ import {
 import { MoreVert } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'context';
+import { Artist } from 'types';
 
 interface ArtistRowProps {
   artist: Artist;
@@ -82,10 +83,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
       >
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         <MenuItem onClick={onClickToggleFollow}>
-          {/* TODO: fix type here */}
-          {userContext?.user?.following.find(
-            (f: any) => f.artist.id === artist.id
-          )
+          {userContext?.user?.following?.find((f) => f.artist.id === artist.id)
             ? 'Unfollow'
             : 'Follow'}
         </MenuItem>

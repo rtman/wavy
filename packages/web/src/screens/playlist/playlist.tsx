@@ -26,6 +26,7 @@ import {
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
+import { SongPlaylist } from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();
@@ -58,8 +59,7 @@ export const Playlist = () => {
   const renderSongs = () => {
     if (queryData?.playlistById?.songs.length > 0) {
       const songsList = queryData.playlistById.songs.map(
-        // TODO: get proper type for this from orm, not any
-        (songInstance: any, index: number) => {
+        (songInstance: SongPlaylist, index: number) => {
           const song = songInstance.song;
           return (
             <Fragment key={song.id}>
@@ -97,6 +97,14 @@ export const Playlist = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => setPlaylistDescription(event.target.value);
 
+  const onClickPlayNow = () => {
+    const songs = queryData?.playlistById?.songs.map(
+      (songInstance: SongPlaylist) => songInstance.song
+    );
+
+    playerContext.replaceQueueWithSongs(songs);
+  };
+
   console.log('data', queryData);
 
   return (
@@ -116,11 +124,7 @@ export const Playlist = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() =>
-                  playerContext.replaceQueueWithSongs(
-                    queryData?.playlistById?.songs
-                  )
-                }
+                onClick={onClickPlayNow}
               >
                 Play Now
               </Button>

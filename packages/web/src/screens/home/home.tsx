@@ -4,6 +4,7 @@ import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { List, Container, CircularProgress } from '@material-ui/core';
+import { Song } from 'types';
 
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';

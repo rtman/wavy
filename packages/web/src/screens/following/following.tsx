@@ -17,18 +17,15 @@ export const Following = () => {
     // eslint-disable-next-line no-self-compare
     if (userContext?.user?.following?.length ?? 0 > 0) {
       const following = userContext?.user?.following ?? [];
-      // TODO: fix type here, should be userArtistFollowing type from orm not any
-      const artistList = following.map(
-        (followingInstance: any, index: number) => {
-          const artist = followingInstance.artist;
-          return (
-            <Fragment key={artist.id}>
-              <ArtistRow artist={artist} />
-              {index < following.length - 1 ? <Divider /> : null}
-            </Fragment>
-          );
-        }
-      );
+      const artistList = following.map((followingInstance, index: number) => {
+        const artist = followingInstance.artist;
+        return (
+          <Fragment key={artist.id}>
+            <ArtistRow artist={artist} />
+            {index < following.length - 1 ? <Divider /> : null}
+          </Fragment>
+        );
+      });
       return <List>{artistList}</List>;
     } else {
       return null;

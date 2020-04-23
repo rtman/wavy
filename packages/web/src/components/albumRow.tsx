@@ -16,6 +16,7 @@ import * as helpers from 'helpers';
 import { PlayerContext, UserContext } from 'context';
 import { useHistory } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
+import { Album } from 'types';
 
 interface AlbumRowProps {
   album: Album;
@@ -74,11 +75,14 @@ export const AlbumRow = (props: AlbumRowProps) => {
   };
 
   const renderPlaylists = () => {
-    const playlistList = userContext?.playlists.map((p: Playlist) => (
-      <MenuItem key={p.id} onClick={onClickAddToPlaylist(p.id)}>
-        {p.title}
-      </MenuItem>
-    ));
+    const playlistList = userContext?.playlists.map((playlistInstance) => {
+      const playlist = playlistInstance.playlist;
+      return (
+        <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
+          {playlist.title}
+        </MenuItem>
+      );
+    });
 
     return playlistList;
   };

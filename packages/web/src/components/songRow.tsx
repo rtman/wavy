@@ -15,10 +15,11 @@ import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
+import { SongWithAudio } from 'screens/home/types';
 
 interface SongRowProps {
-  song: Song;
-  passedOnClickSong?: (song: Song) => Promise<void>;
+  song: SongWithAudio;
+  passedOnClickSong?: (song: SongWithAudio) => Promise<void>;
   secondaryStyle?: boolean;
   enableGoToArtist?: boolean;
 }
@@ -93,8 +94,7 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const getFavouriteTitle = () => {
-    // TODO: fix type for user to include userSongFavourites and remove any
-    return userContext?.user?.favourites.find((f: any) => f.song.id === song.id)
+    return userContext?.user?.favourites?.find((f) => f.song.id === song.id)
       ? 'Unfavourite'
       : 'Favourite';
   };
@@ -113,9 +113,8 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const renderPlaylists = () => {
-    // TODO: fix type for user to include userPlaylist and remove any
-    const playlistList = userContext?.playlists.map((playlistInstance: any) => {
-      const playlist: Playlist = playlistInstance.playlist;
+    const playlistList = userContext?.playlists?.map((playlistInstance) => {
+      const playlist = playlistInstance.playlist;
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
           {playlist.title}

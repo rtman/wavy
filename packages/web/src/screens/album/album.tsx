@@ -20,6 +20,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
+import { Song } from 'types';
 
 export const Album = () => {
   const { id } = useParams();

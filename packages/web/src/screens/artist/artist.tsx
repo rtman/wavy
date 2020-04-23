@@ -19,6 +19,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { UserContext } from 'context';
+import { Album } from 'types';
 
 export const Artist = () => {
   const { id } = useParams();
@@ -38,8 +39,7 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      // TODO: fix user type to have the correct type for following, UserArtistFollowing, remove any
-      return userContext?.user?.following.find((f: any) => f.artist.id === id)
+      return userContext?.user?.following?.find((f) => f.artist.id === id)
         ? 'Unfollow'
         : 'Follow';
     } else {

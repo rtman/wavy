@@ -1,3 +1,5 @@
+import { Song } from 'types';
+
 type EmailAndPasswordProps = EmailAndPasswordDispatchProps &
   EmailAndPasswordStateProps;
 
@@ -18,31 +20,6 @@ interface EmailAndPasswordStateProps {
 
 type PasswordRequirementStatus = 'done' | 'blank' | 'fail';
 
-interface Song {
-  id: string;
-  artist: Artist;
-  artistId: string;
-  title: string;
-  album: Album;
-  albumId: string;
-  genres: string[];
-  image: string;
-  url: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  release_date: Date;
+interface SongWithAudio extends Song {
   audio?: HTMLAudioElement;
-}
-
-interface Album {
-  id: string;
-  artist_name: string;
-  artist_id: string;
-  title: string;
-  genre: string[];
-  songs: Song[];
-  image: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  date: Date;
 }
