@@ -17,7 +17,15 @@ interface UserContextProps {
   updateFavourites(id: string): void;
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
-  playlists: UserPlaylist[];
+  playlists: UserPlaylist[] | null | undefined;
+}
+
+interface UserByIdData {
+  userById: User;
+}
+
+interface UserByIdVars {
+  id: string;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -27,15 +35,20 @@ export const UserContext = createContext<UserContextProps | undefined>(
 export const UserProvider = ({ children }: any) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
-  const [playlists, setPlaylists] = useState<UserPlaylist[]>([]);
-  const [getUserById] = useLazyQuery(consts.queries.USER_BY_ID, {
-    fetchPolicy: 'no-cache',
-    onCompleted: (data) => {
-      console.log('getUserById data.userById', data.userById);
-      setUser(data.userById);
-      setPlaylists(data.userById.playlists);
-    },
-  });
+  const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
+    []
+  );
+  const [getUserById] = useLazyQuery<UserByIdData, UserByIdVars>(
+    consts.queries.USER_BY_ID,
+    {
+      fetchPolicy: 'no-cache',
+      onCompleted: (data) => {
+        console.log('getUserById data.userById', data.userById);
+        setUser(data.userById);
+        setPlaylists(data.userById.playlists);
+      },
+    }
+  );
   const [submitUpdateFollowing] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
     {
