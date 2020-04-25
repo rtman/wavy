@@ -3,3 +3,6 @@ generates:
   src/types.ts:
     - typescript
     - typescript-resolvers
+hooks:
+  afterAllFileWrite:
+    - prettier --write
