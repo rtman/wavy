@@ -26,7 +26,7 @@ export class AlbumResolvers {
         .getRepository(Models.Album)
         .find();
 
-      if (albums) {
+      if (albums !== undefined) {
         return albums;
       } else {
         console.log('No albums found');
@@ -34,6 +34,7 @@ export class AlbumResolvers {
       }
     } catch (error) {
       console.log('Find albums error', error);
+      return;
     }
   }
   @Query(() => Models.Album)
