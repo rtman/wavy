@@ -26,47 +26,65 @@ import {
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
-import { SongPlaylist } from 'types';
+import { SongPlaylist, Playlist as PlaylistType } from 'types';
+
+interface PlaylistByIdData {
+  playlistById: PlaylistType;
+}
+
+interface PlaylistByIdVars {
+  id: string;
+}
 
 export const Playlist = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-  const [playlistTitle, setPlaylistTitle] = useState<string>('');
-  const [playlistDescription, setPlaylistDescription] = useState<string>('');
+  const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
+  const [newPlaylistDescription, setNewPlaylistDescription] = useState<string>(
+    ''
+  );
   const [
     getPlaylist,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery(consts.queries.PLAYLIST_BY_ID, {
-    fetchPolicy: 'network-only',
-  });
+  ] = useLazyQuery<PlaylistByIdData, PlaylistByIdVars>(
+    consts.queries.PLAYLIST_BY_ID,
+    {
+      fetchPolicy: 'network-only',
+    }
+  );
   const [submitPlaylistInfo] = useMutation(
     consts.mutations.UPDATE_PLAYLIST_INFO,
     {
       onCompleted() {
-        getPlaylist({ variables: { id } });
+        if (id) {
+          getPlaylist({ variables: { id } });
+        }
       },
     }
   );
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(
-    queryData?.playlistById?.image
-  );
+
+  const playlistSongs = queryData?.playlistById?.songs ?? [];
+  const playlistImage = queryData?.playlistById?.image ?? '';
+  const playlistTitle = queryData?.playlistById?.title ?? '';
+  const playlistDescription = queryData?.playlistById?.description ?? '';
+  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(playlistImage);
 
   useEffect(() => {
-    getPlaylist({ variables: { id } });
+    if (id) {
+      getPlaylist({ variables: { id } });
+    }
   }, [getPlaylist, id]);
 
   const renderSongs = () => {
-    if (queryData?.playlistById?.songs.length > 0) {
-      const songsList = queryData.playlistById.songs.map(
+    if (playlistSongs.length > 0) {
+      const songsList = playlistSongs.map(
         (songInstance: SongPlaylist, index: number) => {
           const song = songInstance.song;
           return (
             <Fragment key={song.id}>
               <SongRow song={song} />
-              {index < queryData.playlistById.songs.length - 1 ? (
-                <Divider />
-              ) : null}
+              {index < playlistSongs.length - 1 ? <Divider /> : null}
             </Fragment>
           );
         }
@@ -91,18 +109,20 @@ export const Playlist = () => {
   };
 
   const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPlaylistTitle(event.target.value);
+    setNewPlaylistTitle(event.target.value);
 
   const handleOnChangeDescription = (
     event: React.ChangeEvent<HTMLInputElement>
-  ) => setPlaylistDescription(event.target.value);
+  ) => setNewPlaylistDescription(event.target.value);
 
   const onClickPlayNow = () => {
-    const songs = queryData?.playlistById?.songs.map(
-      (songInstance: SongPlaylist) => songInstance.song
-    );
+    if (playlistSongs.length > 0) {
+      const songs = playlistSongs.map(
+        (songInstance: SongPlaylist) => songInstance.song
+      );
 
-    playerContext.replaceQueueWithSongs(songs);
+      playerContext.replaceQueueWithSongs(songs);
+    }
   };
 
   console.log('data', queryData);
@@ -115,9 +135,7 @@ export const Playlist = () => {
         <ContentContainer>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={playlistImageUrl} />
-            <ProfileHeaderTitle>
-              {queryData?.playlistById?.title}
-            </ProfileHeaderTitle>
+            <ProfileHeaderTitle>{playlistTitle}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <ProfileContainer>
             <RowContainer>
@@ -131,9 +149,7 @@ export const Playlist = () => {
               <Button onClick={onClickEdit(true)}>Edit</Button>
             </RowContainer>
             <Typography variant="h1">Description</Typography>
-            <Typography variant="body1">
-              {queryData?.playlistById?.description}
-            </Typography>
+            <Typography variant="body1">{playlistDescription}</Typography>
             <Typography variant="h1">Songs</Typography>
             {renderSongs()}
           </ProfileContainer>
@@ -153,7 +169,7 @@ export const Playlist = () => {
             label="Title"
             fullWidth={true}
             onChange={handleOnChangeTitle}
-            value={playlistTitle}
+            value={newPlaylistTitle}
           />
           <TextField
             margin="dense"
@@ -162,7 +178,7 @@ export const Playlist = () => {
             multiline={true}
             fullWidth={true}
             onChange={handleOnChangeDescription}
-            value={playlistDescription}
+            value={newPlaylistDescription}
           />
         </DialogContent>
         <DialogActions>

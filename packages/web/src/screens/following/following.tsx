@@ -11,12 +11,12 @@ import { UserContext } from 'context';
 
 export const Following = () => {
   const userContext = useContext(UserContext);
-  console.log('userContext?.user', userContext?.user);
+  const user = userContext?.user;
+  console.log('user', user);
+  const following = userContext?.user?.following ?? [];
 
   const renderArtists = () => {
-    // eslint-disable-next-line no-self-compare
-    if (userContext?.user?.following?.length ?? 0 > 0) {
-      const following = userContext?.user?.following ?? [];
+    if (following.length > 0) {
       const artistList = following.map((followingInstance, index: number) => {
         const artist = followingInstance.artist;
         return (
@@ -34,7 +34,7 @@ export const Following = () => {
 
   return (
     <Screen>
-      {userContext?.user ? (
+      {user ? (
         <Container>
           <Typography variant="h1">Following</Typography>
           {renderArtists()}

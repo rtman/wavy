@@ -22,15 +22,24 @@ interface PlaylistRowProps {
   passedOnClickPlaylist?: (playlist: Playlist) => Promise<void>;
 }
 
+interface PlaylistByIdData {
+  playlistById: Playlist;
+}
+
+interface PlaylistByIdVars {
+  id: string;
+}
+
 export const PlaylistRow = (props: PlaylistRowProps) => {
   const { playlist, passedOnClickPlaylist } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, data }] = useLazyQuery(
-    consts.queries.PLAYLIST_BY_ID
-  );
+  const [submitSearch, { loading, data }] = useLazyQuery<
+    PlaylistByIdData,
+    PlaylistByIdVars
+  >(consts.queries.PLAYLIST_BY_ID);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,8 +56,9 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   };
 
   useEffect(() => {
-    if (!loading && data?.playlistById) {
-      playerContext.replaceQueueWithSongs(data?.playlistById?.songs);
+    if (!loading && data?.playlistById?.songs) {
+      const songs = data?.playlistById?.songs.map((s) => s.song);
+      playerContext.replaceQueueWithSongs(songs);
     }
     // TODO: Re enable and fix deps
     // eslint-disable-next-line react-hooks/exhaustive-deps

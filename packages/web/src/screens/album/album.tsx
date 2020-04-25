@@ -20,26 +20,37 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import { Song } from 'types';
+import { Album as AlbumType, Song } from 'types';
+
+interface AlbumByIdData {
+  albumById: AlbumType;
+}
+
+interface AlbumByIdVars {
+  id: string;
+}
 
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, data } = useQuery(consts.queries.ALBUM_BY_ID, {
-    variables: { id },
-  });
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(
-    data?.albumById?.image
+  const { loading, data } = useQuery<AlbumByIdData, AlbumByIdVars>(
+    consts.queries.ALBUM_BY_ID,
+    {
+      variables: { id: id ?? '' },
+    }
   );
+  const albumImage = data?.albumById?.image ?? '';
+  const albumSongs = data?.albumById?.songs ?? [];
+  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(albumImage);
+  const albumTitle = data?.albumById?.title ?? '';
 
   const renderSongs = () => {
-    if (data?.albumById?.songs.length > 0) {
-      const songs = data?.albumById?.songs;
-      const songsList = songs.map((song: Song, index: number) => {
+    if (albumSongs.length > 0) {
+      const songsList = albumSongs.map((song: Song, index: number) => {
         return (
           <React.Fragment key={song.id}>
             <SongRow song={song} secondaryStyle={true} />
-            {index < songs.length - 1 ? <Divider /> : null}
+            {index < albumSongs.length - 1 ? <Divider /> : null}
           </React.Fragment>
         );
       });
@@ -57,14 +68,12 @@ export const Album = () => {
         <Container>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={albumImageUrl} />
-            <ProfileHeaderTitle>{data?.albumById?.title}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{albumTitle}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <Button
             variant="contained"
             color="primary"
-            onClick={() =>
-              playerContext.replaceQueueWithSongs(data?.albumById?.songs)
-            }
+            onClick={() => playerContext.replaceQueueWithSongs(albumSongs)}
           >
             Play Now
           </Button>
@@ -76,7 +85,7 @@ export const Album = () => {
           <Spacing.BetweenComponents />
           <Typography variant="h1">Songs</Typography>
           <Spacing.BetweenComponents />
-          {data?.albumById?.songs ? renderSongs() : null}
+          {albumSongs ? renderSongs() : null}
           <Spacing.BetweenComponents />
         </Container>
       )}

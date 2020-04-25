@@ -75,7 +75,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
   };
 
   const renderPlaylists = () => {
-    const playlistList = userContext?.playlists.map((playlistInstance) => {
+    const playlistList = userContext?.playlists?.map((playlistInstance) => {
       const playlist = playlistInstance.playlist;
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>

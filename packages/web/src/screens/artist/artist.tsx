@@ -27,9 +27,13 @@ export const Artist = () => {
     variables: { id },
   });
   const userContext = useContext(UserContext);
-  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(
-    data?.artistById?.image
-  );
+  const following = userContext?.user?.following ?? [];
+  const artistImage = data?.artistById?.image ?? '';
+  // const artistSongs = data?.artistById?.songs ?? [];
+  const artistAlbums = data?.artistById?.albums ?? [];
+  const artistName = data?.artistById?.albums ?? '';
+  const artistDescription = data?.artistById?.description ?? '';
+  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(artistImage);
 
   const onClickToggleFollow = () => {
     if (id) {
@@ -39,19 +43,15 @@ export const Artist = () => {
 
   const getFollowTitle = () => {
     if (id) {
-      return userContext?.user?.following?.find((f) => f.artist.id === id)
-        ? 'Unfollow'
-        : 'Follow';
+      return following?.find((f) => f.artist.id === id) ? 'Unfollow' : 'Follow';
     } else {
       return 'Loading';
     }
   };
 
   const renderAlbums = () => {
-    const albums = data?.artistById?.albums;
-
-    if (albums) {
-      const albumsList = albums.map((album: Album) => (
+    if (artistAlbums) {
+      const albumsList = artistAlbums.map((album: Album) => (
         <AlbumWithSongs key={album.id} album={album} />
       ));
       return <List>{albumsList}</List>;
@@ -89,7 +89,7 @@ export const Artist = () => {
         <Container>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={artistImageUrl} />
-            <ProfileHeaderTitle>{data?.artistById?.name}</ProfileHeaderTitle>
+            <ProfileHeaderTitle>{artistName}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
           <Button
             variant="contained"
@@ -101,9 +101,7 @@ export const Artist = () => {
           <Spacing.BetweenComponents />
           <Typography variant="h1">Description</Typography>
           <Spacing.BetweenComponents />
-          <Typography variant="body1">
-            {data?.artistById?.description}
-          </Typography>
+          <Typography variant="body1">{artistDescription}</Typography>
           <Spacing.BetweenComponents />
           <Typography variant="h1">Albums</Typography>
           <Spacing.BetweenComponents />

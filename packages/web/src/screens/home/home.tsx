@@ -6,14 +6,23 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { List, Container, CircularProgress } from '@material-ui/core';
 import { Song } from 'types';
 
+interface SearchSongsData {
+  searchSongs: Song[];
+}
+
+interface SearchSongsVars {
+  query: string;
+}
+
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const [submitSearch, { loading, data }] = useLazyQuery(
-    consts.queries.SEARCH_SONGS_QUERY
-  );
+  const [submitSearch, { loading, data }] = useLazyQuery<
+    SearchSongsData,
+    SearchSongsVars
+  >(consts.queries.SEARCH_SONGS_QUERY);
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);

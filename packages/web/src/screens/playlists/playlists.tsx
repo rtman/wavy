@@ -22,25 +22,39 @@ import {
 } from '@material-ui/core';
 import { Playlist } from 'types';
 
+interface PlaylistsByUserIdData {
+  playlistsByUserId: Playlist[];
+}
+
+interface PlaylistsByUserIdVars {
+  userId: string;
+}
+
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
-  const [playlistTitle, setPlaylistTitle] = useState<string>('');
-  const [playlistDescription, setPlaylistDescription] = useState<string>('');
+  const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
+  const [newPlaylistDescription, setNewPlaylistDescription] = useState<string>(
+    ''
+  );
   const userContext = useContext(UserContext);
-
   const user = userContext?.user;
   // const userId = user?.id;
 
   const [
     getPlaylists,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery(consts.queries.PLAYLISTS_BY_USER_ID, {
-    fetchPolicy: 'network-only',
-  });
+  ] = useLazyQuery<PlaylistsByUserIdData, PlaylistsByUserIdVars>(
+    consts.queries.PLAYLISTS_BY_USER_ID,
+    {
+      fetchPolicy: 'network-only',
+    }
+  );
 
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {
-      getPlaylists({ variables: { userId: userContext?.user?.id } });
+      if (user?.id) {
+        getPlaylists({ variables: { userId: user.id } });
+      }
     },
   });
 
@@ -50,20 +64,17 @@ export const Playlists = () => {
     }
   }, [user, getPlaylists]);
 
+  const playlists = queryData?.playlistsByUserId ?? [];
   const renderPlaylists = () => {
-    if (queryData?.playlistsByUserId?.length > 0) {
-      const playlistsList = queryData.playlistsByUserId.map(
-        (playlist: Playlist, index: number) => {
-          return (
-            <React.Fragment key={playlist.id}>
-              <PlaylistRow playlist={playlist} />
-              {index < queryData.playlistsByUserId.length - 1 ? (
-                <Divider />
-              ) : null}
-            </React.Fragment>
-          );
-        }
-      );
+    if (playlists.length > 0) {
+      const playlistsList = playlists.map((playlist, index: number) => {
+        return (
+          <React.Fragment key={playlist.id}>
+            <PlaylistRow playlist={playlist} />
+            {index < playlists.length - 1 ? <Divider /> : null}
+          </React.Fragment>
+        );
+      });
       return <List>{playlistsList}</List>;
     } else {
       return null;
@@ -78,9 +89,9 @@ export const Playlists = () => {
     createPlaylist({
       variables: {
         input: {
-          userId: userContext?.user?.id,
-          title: playlistTitle,
-          description: playlistDescription,
+          userId: user?.id,
+          title: newPlaylistTitle,
+          description: newPlaylistDescription,
         },
       },
     });
@@ -88,11 +99,11 @@ export const Playlists = () => {
   };
 
   const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPlaylistTitle(event.target.value);
+    setNewPlaylistTitle(event.target.value);
 
   const handleOnChangeDescription = (
     event: React.ChangeEvent<HTMLInputElement>
-  ) => setPlaylistDescription(event.target.value);
+  ) => setNewPlaylistDescription(event.target.value);
 
   return (
     <Screen>
@@ -127,7 +138,7 @@ export const Playlists = () => {
             label="Title"
             fullWidth={true}
             onChange={handleOnChangeTitle}
-            value={playlistTitle}
+            value={newPlaylistTitle}
           />
           <TextField
             margin="dense"
@@ -136,7 +147,7 @@ export const Playlists = () => {
             multiline={true}
             fullWidth={true}
             onChange={handleOnChangeDescription}
-            value={playlistDescription}
+            value={newPlaylistDescription}
           />
         </DialogContent>
         <DialogActions>

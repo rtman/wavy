@@ -11,13 +11,13 @@ import * as consts from 'consts';
 import { User, UserPlaylist } from 'types';
 
 interface UserContextProps {
-  user: User | undefined;
+  user?: User;
   loadUser(id: string): void;
   updateFollowing(id: string): void;
   updateFavourites(id: string): void;
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
-  playlists: UserPlaylist[] | null | undefined;
+  playlists?: UserPlaylist[] | null;
 }
 
 interface UserByIdData {

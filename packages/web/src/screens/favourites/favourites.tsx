@@ -11,11 +11,11 @@ import { UserContext } from 'context';
 
 export const Favourites = () => {
   const userContext = useContext(UserContext);
+  const user = userContext?.user;
+  const favourites = userContext?.user?.favourites ?? [];
 
   const renderSongs = () => {
-    // eslint-disable-next-line no-self-compare
-    if (userContext?.user?.favourites?.length ?? 0 > 0) {
-      const favourites = userContext?.user?.favourites ?? [];
+    if (favourites.length > 0) {
       console.log('favourites', favourites);
       const songsList = favourites.map((favouriteInstance, index: number) => {
         const song = favouriteInstance.song;
@@ -34,7 +34,7 @@ export const Favourites = () => {
 
   return (
     <Screen>
-      {userContext?.user ? (
+      {user ? (
         <Container>
           <Typography variant="h1">Favourites</Typography>
           {renderSongs()}

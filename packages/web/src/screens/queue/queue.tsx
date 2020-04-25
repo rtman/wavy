@@ -12,12 +12,21 @@ import {
 import { PlayerContext } from 'context';
 import { Song } from 'types';
 
+interface SongsByIdData {
+  songsById: Song[];
+}
+
+interface SongsByIdVars {
+  ids: string[];
+}
+
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, data }] = useLazyQuery(
-    consts.queries.SONGS_BY_ID_QUERY
-  );
+  const [submitSongIds, { loading, data }] = useLazyQuery<
+    SongsByIdData,
+    SongsByIdVars
+  >(consts.queries.SONGS_BY_ID_QUERY);
 
   useEffect(() => {
     let songIds_: string[] = [];
@@ -33,14 +42,15 @@ export const Queue = () => {
     submitSongIds({ variables: { ids: songIds } });
   }, [songIds, submitSongIds]);
 
+  const songs = data?.songsById ?? [];
+
   const renderSongs = () => {
-    if (data?.songsById?.length > 0) {
-      const songs = data?.songsById;
+    if (songs.length > 0) {
       const sortedSongs: Song[] = [];
-      songs.forEach((s: Song) => {
+      songs.forEach((s) => {
         sortedSongs[songIds.indexOf(s.id)] = s;
       });
-      const songsList = sortedSongs.map((song: Song, index: number) => {
+      const songsList = sortedSongs.map((song, index: number) => {
         return (
           <Fragment key={song.id}>
             <SongRow song={song} />
