@@ -15,7 +15,7 @@ import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Playlist } from 'types';
+import { Playlist, QueryPlaylistByIdArgs } from 'types';
 
 interface PlaylistRowProps {
   playlist: Playlist;
@@ -26,20 +26,17 @@ interface PlaylistByIdData {
   playlistById: Playlist;
 }
 
-interface PlaylistByIdVars {
-  id: string;
-}
-
 export const PlaylistRow = (props: PlaylistRowProps) => {
   const { playlist, passedOnClickPlaylist } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const imageUrl = helpers.hooks.useGetStorageHttpUrl(playlist.image);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const [submitSearch, { loading, data }] = useLazyQuery<
-    PlaylistByIdData,
-    PlaylistByIdVars
-  >(consts.queries.PLAYLIST_BY_ID);
+  const [
+    getPlaylistById,
+    { loading: queryLoading, data: queryData },
+  ] = useLazyQuery<PlaylistByIdData, QueryPlaylistByIdArgs>(
+    consts.queries.PLAYLIST_BY_ID
+  );
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -51,22 +48,31 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
 
   // TODO: fix, this isnt setup right
   const handleClickPlayNow = () => {
-    submitSearch({ variables: { id: playlist.id } });
+    getPlaylistById({ variables: { id: playlist.id } });
     handleMenuClose();
   };
 
+  const playlistImage = playlist.image ?? '';
+  const playlistTitle = playlist.title ?? '';
+  const playlistDescription = playlist.description ?? '';
+  const playlistId = playlist.id ?? '';
+
+  const playlistSongs = queryData?.playlistById?.songs ?? [];
+
+  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(playlistImage);
+
   useEffect(() => {
-    if (!loading && data?.playlistById?.songs) {
-      const songs = data?.playlistById?.songs.map((s) => s.song);
+    if (!queryLoading && playlistSongs) {
+      const songs = playlistSongs.map((s) => s.song);
       playerContext.replaceQueueWithSongs(songs);
     }
     // TODO: Re enable and fix deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, data]);
-  // }, [loading, data, playerContext]);
+  }, [queryLoading, queryData]);
+  // }, [queryLoading, queryData, playerContext]);
 
   const onClickGoToPlaylist = () => {
-    history.push(`${consts.routes.PLAYLIST}/${playlist.id}`);
+    history.push(`${consts.routes.PLAYLIST}/${playlistId}`);
     handleMenuClose();
   };
 
@@ -83,13 +89,13 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <ButtonBase onClick={() => resolvedOnClick(playlist)}>
-            <Avatar variant="square" src={imageUrl} />
+            <Avatar variant="square" src={playlistImageUrl} />
           </ButtonBase>
         </ListItemAvatar>
         {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
         <StyledListItemText
-          primary={playlist.title}
-          secondary={playlist.description}
+          primary={playlistTitle}
+          secondary={playlistDescription}
           // onClick={secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()}
         />
         {/* </StyledButton> */}

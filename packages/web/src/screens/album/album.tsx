@@ -8,9 +8,9 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   Container,
@@ -20,29 +20,41 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import { Album as AlbumType, Song } from 'types';
+import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
 
 interface AlbumByIdData {
   albumById: AlbumType;
 }
 
-interface AlbumByIdVars {
-  id: string;
-}
-
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const { loading, data } = useQuery<AlbumByIdData, AlbumByIdVars>(
-    consts.queries.ALBUM_BY_ID,
-    {
-      variables: { id: id ?? '' },
-    }
-  );
-  const albumImage = data?.albumById?.image ?? '';
-  const albumSongs = data?.albumById?.songs ?? [];
+  const [album, setAlbum] = useState<AlbumType | undefined>(undefined);
+
+  const [getAlbumById, { loading: queryLoading }] = useLazyQuery<
+    AlbumByIdData,
+    QueryAlbumByIdArgs
+  >(consts.queries.ALBUM_BY_ID, {
+    fetchPolicy: 'network-only',
+    onCompleted: (data) => {
+      setAlbum(data.albumById);
+    },
+  });
+
+  const albumImage = album?.image ?? '';
+  const albumSongs = album?.songs ?? [];
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(albumImage);
-  const albumTitle = data?.albumById?.title ?? '';
+  const albumTitle = album?.title ?? '';
+
+  useEffect(() => {
+    if (id) {
+      getAlbumById({
+        variables: { id },
+      });
+    } else {
+      console.log('album.getAlbumById - no Id');
+    }
+  }, [getAlbumById, id]);
 
   const renderSongs = () => {
     if (albumSongs.length > 0) {
@@ -62,7 +74,7 @@ export const Album = () => {
 
   return (
     <Screen>
-      {loading ? (
+      {queryLoading ? (
         <CircularProgress />
       ) : (
         <Container>
@@ -79,9 +91,7 @@ export const Album = () => {
           </Button>
           <Typography variant="h1">Description</Typography>
           <Spacing.BetweenComponents />
-          <Typography variant="body1">
-            {data?.albumById?.description}
-          </Typography>
+          <Typography variant="body1">{album?.description}</Typography>
           <Spacing.BetweenComponents />
           <Typography variant="h1">Songs</Typography>
           <Spacing.BetweenComponents />

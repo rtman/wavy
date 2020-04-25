@@ -4,14 +4,10 @@ import * as helpers from 'helpers';
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { List, Container, CircularProgress } from '@material-ui/core';
-import { Song } from 'types';
+import { Song, QuerySearchSongsArgs } from 'types';
 
 interface SearchSongsData {
   searchSongs: Song[];
-}
-
-interface SearchSongsVars {
-  query: string;
 }
 
 export const Home = () => {
@@ -19,10 +15,12 @@ export const Home = () => {
 
   const [searchText, setSearchText] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const [submitSearch, { loading, data }] = useLazyQuery<
-    SearchSongsData,
-    SearchSongsVars
-  >(consts.queries.SEARCH_SONGS_QUERY);
+  const [
+    submitSearch,
+    { loading: queryLoading, data: queryData },
+  ] = useLazyQuery<SearchSongsData, QuerySearchSongsArgs>(
+    consts.queries.SEARCH_SONGS_QUERY
+  );
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -39,7 +37,7 @@ export const Home = () => {
 
   useEffect(() => {
     const convertSongUrls = async () => {
-      const songs = data?.searchSongs ?? [];
+      const songs = queryData?.searchSongs ?? [];
 
       const songUrlPromises = songs.map((song: Song) =>
         helpers.getStorageHttpUrl(song.url)
@@ -58,7 +56,7 @@ export const Home = () => {
     };
 
     convertSongUrls();
-  }, [data]);
+  }, [queryData]);
 
   // const onClickArtist = (artist_id: string) => {
   //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
@@ -74,7 +72,7 @@ export const Home = () => {
     return null;
   };
 
-  console.log('data', data);
+  console.log('queryData', queryData);
 
   return (
     <Screen>
@@ -86,7 +84,7 @@ export const Home = () => {
           onKeyDown={onKeyDownSearchBar}
           fullWidth={true}
         />
-        {loading ? <CircularProgress /> : renderSearchResults()}
+        {queryLoading ? <CircularProgress /> : renderSearchResults()}
       </Container>
     </Screen>
   );

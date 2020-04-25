@@ -10,23 +10,21 @@ import {
   Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import { Song } from 'types';
+import { Song, QuerySongsByIdArgs } from 'types';
 
 interface SongsByIdData {
   songsById: Song[];
 }
 
-interface SongsByIdVars {
-  ids: string[];
-}
-
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
   const [songIds, setSongIds] = useState<string[]>([]);
-  const [submitSongIds, { loading, data }] = useLazyQuery<
-    SongsByIdData,
-    SongsByIdVars
-  >(consts.queries.SONGS_BY_ID_QUERY);
+  const [
+    submitSongIds,
+    { loading: queryLoading, data: queryData },
+  ] = useLazyQuery<SongsByIdData, QuerySongsByIdArgs>(
+    consts.queries.SONGS_BY_ID_QUERY
+  );
 
   useEffect(() => {
     let songIds_: string[] = [];
@@ -39,10 +37,14 @@ export const Queue = () => {
   }, [playerContext.queue]);
 
   useEffect(() => {
-    submitSongIds({ variables: { ids: songIds } });
+    if (songIds.length > 0) {
+      submitSongIds({ variables: { ids: songIds } });
+    } else {
+      console.log('queue.submitSongIds - no ids');
+    }
   }, [songIds, submitSongIds]);
 
-  const songs = data?.songsById ?? [];
+  const songs = queryData?.songsById ?? [];
 
   const renderSongs = () => {
     if (songs.length > 0) {
@@ -67,7 +69,7 @@ export const Queue = () => {
 
   return (
     <Screen>
-      {loading ? (
+      {queryLoading ? (
         <CircularProgress />
       ) : (
         <Container>

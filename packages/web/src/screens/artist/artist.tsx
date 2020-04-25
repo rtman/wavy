@@ -8,9 +8,9 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   Container,
@@ -19,21 +19,44 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { UserContext } from 'context';
-import { Album } from 'types';
+import { Album, Artist as ArtistType, QueryArtistByIdArgs } from 'types';
+
+interface ArtistByIdData {
+  artistById: ArtistType;
+}
 
 export const Artist = () => {
   const { id } = useParams();
-  const { loading, data } = useQuery(consts.queries.ARTIST_BY_ID, {
-    variables: { id },
+  const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
+
+  const [getArtistById, { loading: queryLoading }] = useLazyQuery<
+    ArtistByIdData,
+    QueryArtistByIdArgs
+  >(consts.queries.ARTIST_BY_ID, {
+    fetchPolicy: 'network-only',
+    onCompleted: (data) => {
+      setArtist(data.artistById);
+    },
   });
+
   const userContext = useContext(UserContext);
   const following = userContext?.user?.following ?? [];
-  const artistImage = data?.artistById?.image ?? '';
-  // const artistSongs = data?.artistById?.songs ?? [];
-  const artistAlbums = data?.artistById?.albums ?? [];
-  const artistName = data?.artistById?.albums ?? '';
-  const artistDescription = data?.artistById?.description ?? '';
+  const artistImage = artist?.image ?? '';
+  // const artistSongs = artist.songs ?? [];
+  const artistAlbums = artist?.albums ?? [];
+  const artistName = artist?.albums ?? '';
+  const artistDescription = artist?.description ?? '';
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(artistImage);
+
+  useEffect(() => {
+    if (id) {
+      getArtistById({
+        variables: { id },
+      });
+    } else {
+      console.log('artist.getArtistById - no Id');
+    }
+  }, [getArtistById, id]);
 
   const onClickToggleFollow = () => {
     if (id) {
@@ -61,7 +84,7 @@ export const Artist = () => {
   };
 
   // const renderSongs = () => {
-  //   if (data?.artistById?.albums.length > 0) {
+  //   if (artist.albums.length > 0) {
   //     const songs = data.artistById.songs;
   //     console.log('artist renderSongs - songs', songs);
   //     const songsList = songs.map((song: Song, index: number) => {
@@ -79,11 +102,11 @@ export const Artist = () => {
   //   }
   // };
 
-  console.log('artist - data', data);
+  console.log('artist', artist);
 
   return (
     <Screen>
-      {loading ? (
+      {queryLoading ? (
         <CircularProgress />
       ) : (
         <Container>

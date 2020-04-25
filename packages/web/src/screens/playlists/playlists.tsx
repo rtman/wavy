@@ -20,14 +20,10 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Playlist } from 'types';
+import { Playlist, QueryPlaylistsByUserIdArgs } from 'types';
 
 interface PlaylistsByUserIdData {
   playlistsByUserId: Playlist[];
-}
-
-interface PlaylistsByUserIdVars {
-  userId: string;
 }
 
 export const Playlists = () => {
@@ -43,7 +39,7 @@ export const Playlists = () => {
   const [
     getPlaylists,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<PlaylistsByUserIdData, PlaylistsByUserIdVars>(
+  ] = useLazyQuery<PlaylistsByUserIdData, QueryPlaylistsByUserIdArgs>(
     consts.queries.PLAYLISTS_BY_USER_ID,
     {
       fetchPolicy: 'network-only',

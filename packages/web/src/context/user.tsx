@@ -8,7 +8,7 @@ import React, {
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { AuthContextState } from 'context';
 import * as consts from 'consts';
-import { User, UserPlaylist } from 'types';
+import { User, UserPlaylist, QueryUserByIdArgs } from 'types';
 
 interface UserContextProps {
   user?: User;
@@ -18,14 +18,11 @@ interface UserContextProps {
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
   playlists?: UserPlaylist[] | null;
+  loading: boolean;
 }
 
 interface UserByIdData {
   userById: User;
-}
-
-interface UserByIdVars {
-  id: string;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -38,17 +35,17 @@ export const UserProvider = ({ children }: any) => {
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []
   );
-  const [getUserById] = useLazyQuery<UserByIdData, UserByIdVars>(
-    consts.queries.USER_BY_ID,
-    {
-      fetchPolicy: 'no-cache',
-      onCompleted: (data) => {
-        console.log('getUserById data.userById', data.userById);
-        setUser(data.userById);
-        setPlaylists(data.userById.playlists);
-      },
-    }
-  );
+  const [getUserById, { loading: queryLoading }] = useLazyQuery<
+    UserByIdData,
+    QueryUserByIdArgs
+  >(consts.queries.USER_BY_ID, {
+    fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      console.log('getUserById data.userById', data.userById);
+      setUser(data.userById);
+      setPlaylists(data.userById.playlists);
+    },
+  });
   const [submitUpdateFollowing] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
     {
@@ -143,6 +140,7 @@ export const UserProvider = ({ children }: any) => {
         addSongsToPlaylist,
         removeSongsFromPlaylist,
         playlists,
+        loading: queryLoading,
       }}
     >
       {children}
