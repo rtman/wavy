@@ -223,6 +223,49 @@ export const SEARCH_SONGS_QUERY = gql`
   }
 `;
 
+export const SEARCH_ARTISTS_QUERY = gql`
+  query SearchArtists($query: String!) {
+    searchArtists(query: $query) {
+      id
+      name
+      image
+    }
+  }
+`;
+
+export const SEARCH_ALBUMS_QUERY = gql`
+  query SearchAlbums($query: String!) {
+    searchAlbums(query: $query) {
+      id
+      title
+      image
+      artist {
+        id
+        name
+        image
+      }
+    }
+  }
+`;
+
+export const SEARCH_PLAYLISTS_QUERY = gql`
+  query SearchPlaylists($query: String!) {
+    searchPlaylists(query: $query) {
+      id
+      title
+      image
+      users {
+        createdAt
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
 export const SONGS_BY_ID_QUERY = gql`
   query SongsById($ids: [String!]!) {
     songsById(ids: $ids) {

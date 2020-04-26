@@ -1,26 +1,158 @@
-import { Screen, SongRow, TextInput } from 'components';
+import {
+  Screen,
+  SongRow,
+  TextInput,
+  ArtistRow,
+  AlbumRow,
+  PlaylistRow,
+} from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { List, Container, CircularProgress } from '@material-ui/core';
-import { Song, QuerySearchSongsArgs } from 'types';
+import {
+  Container,
+  CircularProgress,
+  List,
+  makeStyles,
+  Paper,
+  Tabs,
+  Tab,
+} from '@material-ui/core';
+import {
+  Song,
+  QuerySearchSongsArgs,
+  QuerySearchAlbumsArgs,
+  QuerySearchPlaylistsArgs,
+  QuerySearchArtistsArgs,
+  Artist,
+  Playlist,
+  Album,
+} from 'types';
 
 interface SearchSongsData {
   searchSongs: Song[];
 }
+interface SearchArtistsData {
+  searchArtists: Artist[];
+}
+interface SearchAlbumsData {
+  searchAlbums: Album[];
+}
+interface SearchPlaylistsData {
+  searchPlaylists: Playlist[];
+}
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    // maxWidth: 500,
+  },
+});
 
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
-
+  const classes = useStyles();
   const [searchText, setSearchText] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<Song[]>([]);
+  const [songSearchResults, setSongSearchResults] = useState<Song[]>([]);
+  const [artistSearchResults, setArtistSearchResults] = useState<Artist[]>([]);
+  const [albumSearchResults, setAlbumSearchResults] = useState<Album[]>([]);
+  const [playlistSearchResults, setPlaylistSearchResults] = useState<
+    Playlist[]
+  >([]);
+  const [currentTab, setCurrentTab] = useState<string>('songs');
+
+  const [submitSongSearch, { loading: songQueryLoading }] = useLazyQuery<
+    SearchSongsData,
+    QuerySearchSongsArgs
+  >(consts.queries.SEARCH_SONGS_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: async (data) => {
+      console.log('songQueryData', data);
+      const songDataWithUrls = await convertSongUrls(data);
+      setSongSearchResults(songDataWithUrls);
+    },
+  });
+
+  const [submitArtistSearch, { loading: artistQueryLoading }] = useLazyQuery<
+    SearchArtistsData,
+    QuerySearchArtistsArgs
+  >(consts.queries.SEARCH_ARTISTS_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: async (data) => {
+      console.log('artistQueryData', data);
+      const artistDataWithUrls = await convertImageUrls(data.searchArtists);
+      setArtistSearchResults(artistDataWithUrls as Artist[]);
+    },
+  });
+  const [submitAlbumSearch, { loading: albumQueryLoading }] = useLazyQuery<
+    SearchAlbumsData,
+    QuerySearchAlbumsArgs
+  >(consts.queries.SEARCH_ALBUMS_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: async (data) => {
+      console.log('albumQueryData', data);
+      const albumDataWithUrls = await convertImageUrls(data.searchAlbums);
+      setAlbumSearchResults(albumDataWithUrls as Album[]);
+    },
+  });
   const [
-    submitSearch,
-    { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<SearchSongsData, QuerySearchSongsArgs>(
-    consts.queries.SEARCH_SONGS_QUERY
+    submitPlaylistSearch,
+    { loading: playlistQueryLoading },
+  ] = useLazyQuery<SearchPlaylistsData, QuerySearchPlaylistsArgs>(
+    consts.queries.SEARCH_PLAYLISTS_QUERY,
+    {
+      fetchPolicy: 'network-only',
+      onCompleted: async (data) => {
+        console.log('playlistQueryData', data);
+        const playlistDataWithUrls = await convertImageUrls(
+          data.searchPlaylists
+        );
+        setPlaylistSearchResults(playlistDataWithUrls as Playlist[]);
+      },
+    }
   );
+
+  const convertImageUrls = async (data: Artist[] | Album[] | Playlist[]) => {
+    const array = data ?? [];
+
+    if (array.length > 0) {
+      const imageUrlPromises: Promise<string>[] = [];
+      array.forEach((element: Artist | Album | Playlist) => {
+        if (element.image) {
+          imageUrlPromises.push(helpers.getStorageHttpUrl(element.image));
+        }
+      });
+      const imageUrls = await Promise.all(imageUrlPromises);
+      const resolvedArray: Artist[] | Album[] | Playlist[] = [];
+      array.forEach((element: any, index: number) => {
+        resolvedArray.push({ ...element, image: imageUrls[index] });
+      });
+
+      return resolvedArray;
+    }
+
+    return array;
+  };
+
+  const convertSongUrls = async (data: SearchSongsData) => {
+    const songs = data?.searchSongs ?? [];
+
+    const songUrlPromises = songs.map((song: Song) =>
+      helpers.getStorageHttpUrl(song.url)
+    );
+    const imageUrlPromises = songs.map((song: Song) =>
+      helpers.getStorageHttpUrl(song.image)
+    );
+    const songUrls = await Promise.all(songUrlPromises);
+    const imageUrls = await Promise.all(imageUrlPromises);
+
+    const resolvedSongs = songs.map((song: any, index: number) => {
+      return { ...song, image: imageUrls[index], url: songUrls[index] };
+    });
+
+    return resolvedSongs;
+  };
 
   const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -31,40 +163,20 @@ export const Home = () => {
   ) => {
     if (event.keyCode === 13) {
       const formattedSearchText = `*${searchText}*`;
-      submitSearch({ variables: { query: formattedSearchText } });
+      submitSongSearch({ variables: { query: formattedSearchText } });
+      submitArtistSearch({ variables: { query: formattedSearchText } });
+      submitAlbumSearch({ variables: { query: formattedSearchText } });
+      submitPlaylistSearch({ variables: { query: formattedSearchText } });
     }
   };
-
-  useEffect(() => {
-    const convertSongUrls = async () => {
-      const songs = queryData?.searchSongs ?? [];
-
-      const songUrlPromises = songs.map((song: Song) =>
-        helpers.getStorageHttpUrl(song.url)
-      );
-      const imageUrlPromises = songs.map((song: Song) =>
-        helpers.getStorageHttpUrl(song.image)
-      );
-      const songUrls = await Promise.all(songUrlPromises);
-      const imageUrls = await Promise.all(imageUrlPromises);
-
-      const resolvedSongs = songs.map((song: any, index: number) => {
-        return { ...song, image: imageUrls[index], url: songUrls[index] };
-      });
-
-      setSearchResults(resolvedSongs);
-    };
-
-    convertSongUrls();
-  }, [queryData]);
 
   // const onClickArtist = (artist_id: string) => {
   //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
   // };
 
-  const renderSearchResults = () => {
-    if (searchResults.length > 0) {
-      const songsList = searchResults.map((song: Song) => {
+  const renderSongResults = () => {
+    if (songSearchResults.length > 0) {
+      const songsList = songSearchResults.map((song: Song) => {
         return <SongRow key={song.id} song={song} />;
       });
       return <List>{songsList}</List>;
@@ -72,7 +184,65 @@ export const Home = () => {
     return null;
   };
 
-  console.log('queryData', queryData);
+  const renderArtistResults = () => {
+    if (artistSearchResults.length > 0) {
+      const artistList = artistSearchResults.map((artist: Artist) => {
+        return <ArtistRow key={artist.id} artist={artist} />;
+      });
+      return <List>{artistList}</List>;
+    }
+    return null;
+  };
+
+  const renderAlbumResults = () => {
+    if (albumSearchResults.length > 0) {
+      const albumList = albumSearchResults.map((album: Album) => {
+        return <AlbumRow key={album.id} album={album} />;
+      });
+      return <List>{albumList}</List>;
+    }
+    return null;
+  };
+
+  const renderPlaylistResults = () => {
+    if (playlistSearchResults.length > 0) {
+      const playlistList = playlistSearchResults.map((playlist: Playlist) => {
+        return <PlaylistRow key={playlist.id} playlist={playlist} />;
+      });
+      return <List>{playlistList}</List>;
+    }
+    return null;
+  };
+
+  const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
+    setCurrentTab(newValue);
+  };
+
+  // console.log('queryData', queryData);
+
+  const renderSearchResults = () => {
+    switch (currentTab) {
+      case 'songs':
+        return renderSongResults();
+      case 'artists':
+        return renderArtistResults();
+      case 'albums':
+        return renderAlbumResults();
+      case 'playlists':
+        return renderPlaylistResults();
+      default:
+        return renderSongResults();
+    }
+  };
+
+  const areQueriesLoading = () => {
+    return [
+      songQueryLoading,
+      artistQueryLoading,
+      albumQueryLoading,
+      playlistQueryLoading,
+    ].includes(true);
+  };
 
   return (
     <Screen>
@@ -84,7 +254,22 @@ export const Home = () => {
           onKeyDown={onKeyDownSearchBar}
           fullWidth={true}
         />
-        {queryLoading ? <CircularProgress /> : renderSearchResults()}
+        <Paper square className={classes.root}>
+          <Tabs
+            value={currentTab}
+            onChange={handleChange}
+            variant="fullWidth"
+            indicatorColor="secondary"
+            textColor="secondary"
+            aria-label="icon label tabs example"
+          >
+            <Tab label="Songs" value="songs" />
+            <Tab label="Artists" value="artists" />
+            <Tab label="Albums" value="albums" />
+            <Tab label="Playlists" value="playlists" />
+          </Tabs>
+        </Paper>
+        {areQueriesLoading() ? <CircularProgress /> : renderSearchResults()}
       </Container>
     </Screen>
   );
