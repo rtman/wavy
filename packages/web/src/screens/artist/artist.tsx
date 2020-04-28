@@ -44,7 +44,7 @@ export const Artist = () => {
   const artistImage = artist?.image ?? '';
   // const artistSongs = artist.songs ?? [];
   const artistAlbums = artist?.albums ?? [];
-  const artistName = artist?.albums ?? '';
+  const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
   const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(artistImage);
 
