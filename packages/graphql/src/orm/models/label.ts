@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
+import { Song } from './song';
 import { ObjectType, Field, ID } from 'type-graphql';
 
 @Entity('label')
@@ -42,6 +43,13 @@ export class Label {
     (album) => album.label
   )
   albums: Album[];
+
+  @Field(() => [Song], { nullable: true })
+  @OneToMany(
+    () => Song,
+    (song) => song.label
+  )
+  songs: Song[];
 
   @Field(() => Date)
   @CreateDateColumn()

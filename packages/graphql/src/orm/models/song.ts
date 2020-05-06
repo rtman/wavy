@@ -14,6 +14,7 @@ import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 import { SongPlaylist } from './songPlaylist';
 import { Artist } from './artist';
 import { Album } from './album';
+import { Label } from './label';
 
 @Entity('song')
 @ObjectType()
@@ -43,6 +44,13 @@ export class Song {
     (album) => album.songs
   )
   album: Album;
+
+  @Field(() => Label, { nullable: true })
+  @ManyToOne(
+    () => Label,
+    (label) => label.songs
+  )
+  label: Label;
 
   // TODO: Figureout genres, most likely a many to many assocation
   // @Column()

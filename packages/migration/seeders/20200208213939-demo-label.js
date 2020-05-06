@@ -21,6 +21,32 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
+        name: 'Cosmic Resonance',
+        description: 'From Toronto!',
+        image: 'gs://groov-development-ddc9d.appspot.com/cosmicResonance.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
+        name: 'SW',
+        description: 'Seb Wildbloods Label',
+        image:
+          'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
+        name: 'Leaving Records',
+        description:
+          'Leaving Records is a homegrown experimental record label started by L.A. experimental musician MatthewDavid + visual artist Jesselisa Moretti. Distribution partnership with Stones Throw Records.',
+        image: 'gs://groov-development-ddc9d.appspot.com/leavingRecords.jpeg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

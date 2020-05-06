@@ -27,6 +27,7 @@ module.exports = {
         id: 'f2028bf3-ed1c-4057-b430-c3374116a959',
         title: 'Proto',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
+        labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         description: 'Released on cosmic resonance',
         image: 'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
         createdAt: new Date(),
@@ -66,6 +67,7 @@ module.exports = {
         id: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         title: 'Foreign Parts',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         description: 'Released on SW',
         image:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
@@ -76,6 +78,7 @@ module.exports = {
         id: '8c587e75-58c0-45e0-a87e-538fbf69848f',
         title: 'Melodic Tools',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         description: 'Released on SW',
         image:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - sw005.jpg',
@@ -86,6 +89,7 @@ module.exports = {
         id: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
         title: 'SW004',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         description: 'Released on SW',
         image:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
@@ -96,6 +100,7 @@ module.exports = {
         id: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
         title: 'Submarine',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         description: 'Released on SW',
         image:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
@@ -106,6 +111,7 @@ module.exports = {
         id: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         title: 'U',
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         description: 'Released on SW',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
         createdAt: new Date(),
@@ -125,6 +131,7 @@ module.exports = {
         id: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         title: `Bene's World`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         description: 'Released on Leaving Records',
         image:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
@@ -135,6 +142,7 @@ module.exports = {
         id: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
         title: `Coolin`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         description: 'Released on Leaving Records',
         image: 'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
         createdAt: new Date(),
