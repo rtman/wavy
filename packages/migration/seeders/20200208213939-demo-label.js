@@ -24,7 +24,8 @@ module.exports = {
       {
         id: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         name: 'Cosmic Resonance',
-        description: 'From Toronto!',
+        description:
+          'Cosmic Resonance is a Toronto vinyl imprint showcasing artists who experiment with music via a cosmic perspective.',
         image: 'gs://groov-development-ddc9d.appspot.com/cosmicResonance.png',
         createdAt: new Date(),
         updatedAt: new Date(),
