@@ -12,7 +12,9 @@ const createOrmConnection = async () => {
     synchronize: true,
     entities: [
       Models.Album,
+      Models.ArtistLabel,
       Models.Artist,
+      Models.Label,
       Models.Playlist,
       Models.User,
       Models.UserSongFavourites,
