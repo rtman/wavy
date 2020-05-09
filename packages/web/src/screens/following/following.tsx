@@ -1,4 +1,4 @@
-import { ArtistRow, Screen } from 'components';
+import { ArtistRow, Screen, Spacing } from 'components';
 import React, { Fragment, useContext } from 'react';
 import {
   CircularProgress,
@@ -36,7 +36,9 @@ export const Following = () => {
     <Screen>
       {user ? (
         <Container>
+          <Spacing.section.Minor />
           <Typography variant="h1">Following</Typography>
+          <Spacing.section.Minor />
           {renderArtists()}
         </Container>
       ) : (

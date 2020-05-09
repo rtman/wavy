@@ -1,30 +1,27 @@
 import {
+  AlbumRow,
+  ArtistRow,
   ProfileContainer,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
   ContentContainer,
   Screen,
-  // SongRow,
   RowContainer,
+  Spacing,
 } from 'components';
 import * as consts from 'consts';
-import React, {
-  // Fragment,
-  // useContext,
-  useEffect,
-  // useState
-} from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
-  // Divider,
-  // List,
+  Divider,
+  List,
   Typography,
 } from '@material-ui/core';
-// import { PlayerContext } from 'context';
+import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
 import { Label as LabelType } from 'types';
 
@@ -38,7 +35,7 @@ interface LabelByIdVars {
 
 export const Label = () => {
   const { id } = useParams();
-  // const playerContext = useContext(PlayerContext);
+  const playerContext = useContext(PlayerContext);
   const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
     LabelByIdData,
     LabelByIdVars
@@ -46,7 +43,9 @@ export const Label = () => {
     fetchPolicy: 'network-only',
   });
 
-  // const labelSongs = queryData?.labelById?.songs ?? [];
+  const labelSongs = queryData?.labelById?.songs ?? [];
+  const labelArtists = queryData?.labelById?.artists ?? [];
+  const labelAlbums = queryData?.labelById?.albums ?? [];
   const labelImage = queryData?.labelById?.image ?? '';
   const labelName = queryData?.labelById?.name ?? '';
   const labelDescription = queryData?.labelById?.description ?? '';
@@ -58,36 +57,45 @@ export const Label = () => {
     }
   }, [getLabel, id]);
 
-  // const renderSongs = () => {
-  //   if (labelSongs.length > 0) {
-  //     const songsList = labelSongs.map(
-  //       (songInstance: SongLabel, index: number) => {
-  //         const song = songInstance.song;
-  //         return (
-  //           <Fragment key={song.id}>
-  //             <SongRow song={song} />
-  //             {index < labelSongs.length - 1 ? <Divider /> : null}
-  //           </Fragment>
-  //         );
-  //       }
-  //     );
-  //     return <List>{songsList}</List>;
-  //   } else {
-  //     return null;
-  //   }
-  // };
+  const renderArtists = () => {
+    if (labelArtists.length > 0) {
+      const artistsList = labelArtists.map((artistInstance, index: number) => {
+        const artist = artistInstance.artist;
+        return (
+          <Fragment key={artist.id}>
+            <ArtistRow artist={artist} />
+            {index < labelArtists.length - 1 ? <Divider /> : null}
+          </Fragment>
+        );
+      });
+      return <List>{artistsList}</List>;
+    } else {
+      return null;
+    }
+  };
 
-  // const onClickPlayNow = () => {
-  //   if (labelSongs.length > 0) {
-  //     const songs = labelSongs.map(
-  //       (songInstance: SongLabel) => songInstance.song
-  //     );
+  const renderAlbums = () => {
+    if (labelAlbums.length > 0) {
+      const albumsList = labelAlbums.map((album, index: number) => {
+        return (
+          <Fragment key={album.id}>
+            <AlbumRow album={album} />
+            {index < labelAlbums.length - 1 ? <Divider /> : null}
+          </Fragment>
+        );
+      });
+      return <List>{albumsList}</List>;
+    } else {
+      return null;
+    }
+  };
 
-  //     playerContext.replaceQueueWithSongs(songs);
-  //   }
-  // };
+  const onClickPlayNow = () => {
+    if (labelSongs.length > 0) {
+      playerContext.replaceQueueWithSongs(labelSongs);
+    }
+  };
 
-  console.log('data', queryData);
   return (
     <Screen>
       {queryLoading ? (
@@ -103,15 +111,21 @@ export const Label = () => {
               <Button
                 variant="contained"
                 color="primary"
-                // onClick={onClickPlayNow}
+                onClick={onClickPlayNow}
               >
                 Play Now
               </Button>
             </RowContainer>
+            <Spacing.section.Minor />
             <Typography variant="h1">Description</Typography>
+            <Spacing.section.Minor />
             <Typography variant="body1">{labelDescription}</Typography>
-            <Typography variant="h1">Songs</Typography>
-            {/* {renderSongs()} */}
+            <Spacing.section.Minor />
+            <Typography variant="h1">Artists</Typography>
+            {renderArtists()}
+            <Spacing.section.Minor />
+            <Typography variant="h1">Albums</Typography>
+            {renderAlbums()}
           </ProfileContainer>
         </ContentContainer>
       )}

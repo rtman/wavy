@@ -3,6 +3,7 @@ import {
   PlaylistRow,
   RowContainer,
   Screen,
+  Spacing,
 } from 'components';
 import { UserContext } from 'context';
 import * as consts from 'consts';
@@ -107,7 +108,9 @@ export const Playlists = () => {
         <CircularProgress />
       ) : (
         <ContentContainer>
+          <Spacing.section.Minor />
           <Typography variant="h1">Playlists</Typography>
+          <Spacing.section.Minor />
           <RowContainer>
             <Button
               variant="contained"
@@ -117,6 +120,7 @@ export const Playlists = () => {
               New
             </Button>
           </RowContainer>
+          <Spacing.section.Minor />
           {renderPlaylists()}
         </ContentContainer>
       )}

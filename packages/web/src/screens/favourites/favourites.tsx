@@ -1,4 +1,4 @@
-import { Screen, SongRow } from 'components';
+import { Screen, SongRow, Spacing } from 'components';
 import React, { Fragment, useContext } from 'react';
 import {
   CircularProgress,
@@ -36,7 +36,9 @@ export const Favourites = () => {
     <Screen>
       {user ? (
         <Container>
+          <Spacing.section.Minor />
           <Typography variant="h1">Favourites</Typography>
+          <Spacing.section.Minor />
           {renderSongs()}
         </Container>
       ) : (

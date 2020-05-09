@@ -3,6 +3,7 @@ import {
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
+  RowContainer,
   Spacing,
   Screen,
 } from 'components';
@@ -114,20 +115,23 @@ export const Artist = () => {
             <ProfileHeaderImage src={artistImageUrl} />
             <ProfileHeaderTitle>{artistName}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onClickToggleFollow}
-          >
-            {getFollowTitle()}
-          </Button>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
+          <RowContainer>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onClickToggleFollow}
+            >
+              {getFollowTitle()}
+            </Button>
+          </RowContainer>
+          <Spacing.section.Minor />
           <Typography variant="h1">Description</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           <Typography variant="body1">{artistDescription}</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           <Typography variant="h1">Albums</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           {renderAlbums()}
         </Container>
       )}
