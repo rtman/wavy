@@ -46,6 +46,17 @@ export const ARTIST_BY_ID = gql`
           }
         }
       }
+      songs {
+        id
+        title
+        url
+        image
+        artist {
+          id
+          name
+          image
+        }
+      }
       usersFollowing {
         createdAt
         user {
@@ -299,11 +310,21 @@ export const LABEL_BY_ID = gql`
         title
         image
         description
+        artist {
+          id
+          name
+          image
+        }
       }
       songs {
         createdAt
         id
         title
+        artist {
+          name
+          id
+          image
+        }
         image
         url
       }

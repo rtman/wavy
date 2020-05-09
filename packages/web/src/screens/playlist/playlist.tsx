@@ -147,7 +147,14 @@ export const Playlist = () => {
               >
                 Play Now
               </Button>
-              <Button onClick={onClickEdit(true)}>Edit</Button>
+              <Spacing.BetweenComponents />
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={onClickEdit(true)}
+              >
+                Edit
+              </Button>
             </RowContainer>
             <Spacing.section.Minor />
             <Typography variant="h1">Description</Typography>

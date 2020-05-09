@@ -19,7 +19,7 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-import { UserContext } from 'context';
+import { UserContext, PlayerContext } from 'context';
 import { Album, Artist as ArtistType, QueryArtistByIdArgs } from 'types';
 
 interface ArtistByIdData {
@@ -41,9 +41,10 @@ export const Artist = () => {
   });
 
   const userContext = useContext(UserContext);
+  const playerContext = useContext(PlayerContext);
   const following = userContext?.user?.following ?? [];
   const artistImage = artist?.image ?? '';
-  // const artistSongs = artist.songs ?? [];
+  const artistSongs = artist?.songs ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
@@ -103,7 +104,11 @@ export const Artist = () => {
   //   }
   // };
 
-  console.log('artist', artist);
+  const onClickPlayNow = () => {
+    if (artistSongs.length > 0) {
+      playerContext.replaceQueueWithSongs(artistSongs);
+    }
+  };
 
   return (
     <Screen>
@@ -119,6 +124,14 @@ export const Artist = () => {
           <RowContainer>
             <Button
               variant="contained"
+              color="primary"
+              onClick={onClickPlayNow}
+            >
+              Play Now
+            </Button>
+            <Spacing.BetweenComponents />
+            <Button
+              variant="outlined"
               color="primary"
               onClick={onClickToggleFollow}
             >

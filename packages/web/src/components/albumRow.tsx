@@ -14,7 +14,7 @@ import {
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
 import { PlayerContext, UserContext } from 'context';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import { Album } from 'types';
 
@@ -29,6 +29,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
   const [menuPosition, setMenuPosition] = useState<any>(null);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
+  const location = useLocation();
   const history = useHistory();
 
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(album.image);
@@ -87,6 +88,11 @@ export const AlbumRow = (props: AlbumRowProps) => {
     return playlistList;
   };
 
+  const onClickGoToArtist = () => {
+    history.push(`${consts.routes.ARTIST}/${album.artist.id}`);
+    handleMenuClose();
+  };
+
   return (
     <>
       <ListItem
@@ -97,7 +103,14 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <ListItemAvatar>
           <Avatar variant="square" src={albumImageUrl} />
         </ListItemAvatar>
-        <ListItemText primary={album.title} />
+        <ListItemText
+          primary={album.title}
+          secondary={
+            location.pathname.includes(consts.routes.LABEL)
+              ? album.artist.name
+              : null
+          }
+        />
         <ListItemSecondaryAction>
           <StyledButton
             aria-controls="simple-menu"
@@ -118,6 +131,9 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
         <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
+        {location.pathname.includes(consts.routes.LABEL) ? (
+          <MenuItem onClick={onClickGoToArtist}>Go To Artist</MenuItem>
+        ) : null}
         {/* eslint-disable-next-line no-self-compare*/}
         {userContext?.playlists?.length ?? 0 > 0 ? (
           <NestedMenuItem

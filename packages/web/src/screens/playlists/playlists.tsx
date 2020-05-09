@@ -1,10 +1,4 @@
-import {
-  ContentContainer,
-  PlaylistRow,
-  RowContainer,
-  Screen,
-  Spacing,
-} from 'components';
+import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
 import { UserContext } from 'context';
 import * as consts from 'consts';
 import React, { useContext, useEffect, useState } from 'react';
@@ -12,6 +6,7 @@ import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -107,7 +102,7 @@ export const Playlists = () => {
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <ContentContainer>
+        <Container>
           <Spacing.section.Minor />
           <Typography variant="h1">Playlists</Typography>
           <Spacing.section.Minor />
@@ -122,7 +117,7 @@ export const Playlists = () => {
           </RowContainer>
           <Spacing.section.Minor />
           {renderPlaylists()}
-        </ContentContainer>
+        </Container>
       )}
       <Dialog
         open={newModalVisible}
