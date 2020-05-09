@@ -20,11 +20,12 @@ import { Album } from 'types';
 
 interface AlbumRowProps {
   album: Album;
+  withSongs?: boolean;
   passedOnClickAlbum?: (album: Album) => Promise<void>;
 }
 
 export const AlbumRow = (props: AlbumRowProps) => {
-  const { album, passedOnClickAlbum } = props;
+  const { album, passedOnClickAlbum, withSongs } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<any>(null);
   const playerContext = useContext(PlayerContext);
@@ -93,6 +94,11 @@ export const AlbumRow = (props: AlbumRowProps) => {
     handleMenuClose();
   };
 
+  const onClickGoToLabel = () => {
+    history.push(`${consts.routes.LABEL}/${album.label?.id}`);
+    handleMenuClose();
+  };
+
   return (
     <>
       <ListItem
@@ -134,6 +140,9 @@ export const AlbumRow = (props: AlbumRowProps) => {
         {location.pathname.includes(consts.routes.LABEL) ? (
           <MenuItem onClick={onClickGoToArtist}>Go To Artist</MenuItem>
         ) : null}
+        {!location.pathname.includes(consts.routes.LABEL) ? (
+          <MenuItem onClick={onClickGoToLabel}>Go To Label</MenuItem>
+        ) : null}
         {/* eslint-disable-next-line no-self-compare*/}
         {userContext?.playlists?.length ?? 0 > 0 ? (
           <NestedMenuItem
@@ -144,7 +153,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
           </NestedMenuItem>
         ) : null}
       </Menu>
-      <Divider variant="inset" component="li" />
+      {withSongs ? <Divider variant="inset" component="li" /> : null}
     </>
   );
 };

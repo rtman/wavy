@@ -85,6 +85,11 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
+  const onClickGoToLabel = () => {
+    history.push(`${consts.routes.LABEL}/${song.label?.id}`);
+    handleMenuClose();
+  };
+
   const resolvedOnClick =
     typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
@@ -124,6 +129,8 @@ export const SongRow = (props: SongRowProps) => {
 
     return playlistList;
   };
+
+  console.log('songRow song', song);
 
   return (
     <>
@@ -185,6 +192,9 @@ export const SongRow = (props: SongRowProps) => {
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
           <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         )}
+        {!location.pathname.includes(consts.routes.LABEL) && song.label ? (
+          <MenuItem onClick={onClickGoToLabel}>Go to Label</MenuItem>
+        ) : null}
 
         <MenuItem onClick={onClickToggleFavourite}>
           {getFavouriteTitle()}

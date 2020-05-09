@@ -49,6 +49,7 @@ export class AlbumResolvers {
             'artist.albums',
             'label',
             'songs',
+            'songs.label',
             'songs.artist',
             'songs.supportingArtists',
             'songs.supportingArtists.artist',

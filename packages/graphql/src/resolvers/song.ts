@@ -88,6 +88,7 @@ export class SongResolvers {
         .findByIds(ids, {
           relations: [
             'album',
+            'album.label',
             'artist',
             'artist.albums',
             'label',

@@ -23,11 +23,21 @@ export const ARTIST_BY_ID = gql`
         id
         title
         image
+        label {
+          id
+          name
+          image
+        }
         songs {
           id
           title
           url
           image
+          label {
+            id
+            name
+            image
+          }
           supportingArtists {
             createdAt
             artist {
@@ -51,6 +61,11 @@ export const ARTIST_BY_ID = gql`
         title
         url
         image
+        label {
+          id
+          name
+          image
+        }
         artist {
           id
           name
@@ -73,17 +88,6 @@ export const ARTIST_BY_ID = gql`
           url
         }
       }
-      # songs {
-      #   id,
-      #   title,
-      #   url,
-      #   image
-      #   album{
-      #     id
-      #     title,
-      #     image
-      #   }
-      # }
     }
   }
 `;
@@ -102,6 +106,11 @@ export const ALBUM_BY_ID = gql`
         image
         artistId
         albumId
+        label {
+          id
+          name
+          image
+        }
         artist {
           id
           name
@@ -310,6 +319,11 @@ export const LABEL_BY_ID = gql`
         title
         image
         description
+        label {
+          id
+          name
+          image
+        }
         artist {
           id
           name
@@ -320,6 +334,11 @@ export const LABEL_BY_ID = gql`
         createdAt
         id
         title
+        label {
+          id
+          name
+          image
+        }
         artist {
           name
           id
@@ -339,6 +358,11 @@ export const SONGS_BY_ID_QUERY = gql`
       title
       url
       image
+      label {
+        id
+        name
+        image
+      }
       artist {
         id
         name
@@ -376,10 +400,20 @@ export const USER_BY_ID = gql`
           title
           image
           url
+          label {
+            id
+            name
+            image
+          }
           album {
             id
             title
             image
+            label {
+              id
+              name
+              image
+            }
           }
           artist {
             id
