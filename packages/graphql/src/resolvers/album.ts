@@ -47,6 +47,7 @@ export class AlbumResolvers {
           relations: [
             'artist',
             'artist.albums',
+            'label',
             'songs',
             'songs.artist',
             'songs.supportingArtists',
@@ -79,6 +80,7 @@ export class AlbumResolvers {
         .select('album')
         .from(Models.Album, 'album')
         .leftJoinAndSelect('album.artist', 'artist')
+        .leftJoinAndSelect('album.label', 'label')
         // Here is the zdb query and syntax
         .where('album ==> :query', { query })
         .getMany();

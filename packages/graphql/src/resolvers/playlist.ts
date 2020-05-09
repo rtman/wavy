@@ -103,6 +103,8 @@ export class PlaylistResolvers {
             'songs.song',
             'songs.song.artist',
             'songs.song.album',
+            'songs.song.album.label',
+            'songs.song.label',
             'songs.song.supportingArtists',
             'songs.song.supportingArtists.artist',
             'users',
@@ -183,6 +185,8 @@ export class PlaylistResolvers {
             'songs.song',
             'songs.song.artist',
             'songs.song.album',
+            'songs.song.album.label',
+            'songs.song.label',
           ],
         });
 

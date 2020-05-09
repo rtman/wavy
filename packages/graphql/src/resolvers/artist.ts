@@ -52,6 +52,8 @@ export class ArtistResolvers {
             'songs.usersFavourited.user',
             'songs.usersRecentlyPlayed',
             'songs.usersRecentlyPlayed.user',
+            'labels',
+            'labels.label',
             'albums',
             'albums.songs',
             'albums.songs.supportingArtists',
@@ -108,6 +110,8 @@ export class ArtistResolvers {
         .from(Models.Artist, 'artist')
         .leftJoinAndSelect('artist.usersFollowing', 'usersFollowing')
         .leftJoinAndSelect('usersFollowing.user', 'user')
+        .leftJoinAndSelect('artist.labels', 'labels')
+        .leftJoinAndSelect('labels.label', 'label')
         // Here is the zdb query and syntax
         .where('artist ==> :query', { query })
         .getMany();

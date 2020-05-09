@@ -45,22 +45,20 @@ export class LabelResolvers {
         .findOne({
           where: { id },
           relations: [
+            'artists',
+            'artists.artist',
+            'albums',
+            'albums.songs',
+            'albums.songs.supportingArtists',
+            'albums.songs.supportingArtists.artist',
             'songs',
             'songs.album',
-            'songs.supportingLabels',
-            'songs.supportingLabels.artist',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
             'songs.usersFavourited',
             'songs.usersFavourited.user',
             'songs.usersRecentlyPlayed',
             'songs.usersRecentlyPlayed.user',
-            'albums',
-            'albums.songs',
-            'albums.songs.supportingLabels',
-            'albums.songs.supportingLabels.artist',
-            'supportingLabelOn',
-            'supportingLabelOn.song',
-            'usersFollowing',
-            'usersFollowing.user',
           ],
         });
 
@@ -84,7 +82,7 @@ export class LabelResolvers {
     try {
       const labels = await getManager()
         .createQueryBuilder()
-        .select('artist')
+        .select('label')
         .from(Models.Label, 'label')
         // Here is the zdb query and syntax
         .where('label ==> :query', { query })
