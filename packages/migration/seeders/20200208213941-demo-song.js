@@ -183,7 +183,7 @@ module.exports = {
       },
       {
         id: '0de438c0-a710-4fb2-ba8e-7aaf55a4e2e4',
-        url: `ggs://groov-development-ddc9d.appspot.com/ESB - Spaneaur.ogg`,
+        url: `gs://groov-development-ddc9d.appspot.com/ESB - Spaneaur.ogg`,
         title: `Spaneaur`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',

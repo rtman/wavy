@@ -46,6 +46,7 @@ export class ArtistResolvers {
           relations: [
             'songs',
             'songs.album',
+            'songs.artist',
             'songs.supportingArtists',
             'songs.supportingArtists.artist',
             'songs.usersFavourited',
