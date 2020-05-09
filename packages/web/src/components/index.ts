@@ -27,6 +27,7 @@ export { Navigator } from './navigation';
 export { TrackPositionSlider } from './trackPositionSlider';
 export { AlbumRow } from './albumRow';
 export { AlbumWithSongs } from './albumWithSongs';
+export { LabelRow } from './labelRow';
 export { PlaylistRow } from './playlistRow';
 export { SongRow } from './songRow';
 export { ArtistRow } from './artistRow';

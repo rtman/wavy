@@ -266,6 +266,51 @@ export const SEARCH_PLAYLISTS_QUERY = gql`
   }
 `;
 
+export const SEARCH_LABELS_QUERY = gql`
+  query SearchLabels($query: String!) {
+    searchLabels(query: $query) {
+      id
+      name
+      image
+    }
+  }
+`;
+
+export const LABEL_BY_ID = gql`
+  query LabelById($id: String!) {
+    labelById(id: $id) {
+      id
+      name
+      description
+      image
+      createdAt
+      updatedAt
+      artists {
+        createdAt
+        artist {
+          name
+          id
+          description
+          image
+        }
+      }
+      albums {
+        id
+        title
+        image
+        description
+      }
+      songs {
+        createdAt
+        id
+        title
+        image
+        url
+      }
+    }
+  }
+`;
+
 export const SONGS_BY_ID_QUERY = gql`
   query SongsById($ids: [String!]!) {
     songsById(ids: $ids) {

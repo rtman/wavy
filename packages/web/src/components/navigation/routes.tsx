@@ -43,6 +43,11 @@ export const Routes = () => {
       />
       <PrivateRoute
         exact={true}
+        path={`${consts.routes.LABEL}/:id?`}
+        component={screens.Label}
+      />
+      <PrivateRoute
+        exact={true}
         path={consts.routes.QUEUE}
         component={screens.Queue}
       />

@@ -1,5 +1,6 @@
 export { Album } from './album';
 export { Artist } from './artist';
+export { Label } from './label';
 export { Home } from './home';
 export { Following } from './following';
 export { Favourites } from './favourites';

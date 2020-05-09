@@ -1,5 +1,6 @@
 export const ARTIST = '/artist';
 export const ALBUM = '/album';
+export const LABEL = '/label';
 export const FOLLOWING = '/following';
 export const FAVOURITES = '/favourites';
 export const HOME = '/home';
