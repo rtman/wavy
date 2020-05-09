@@ -138,7 +138,7 @@ export class ArtistResolvers {
         return artist;
       }
 
-      console.log('CreateUser failed', payload);
+      console.log('CreateArtist failed', payload);
       return;
     } catch (error) {
       console.log('createArtist error', error);
