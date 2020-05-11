@@ -10,6 +10,7 @@ import {
   ListItemSecondaryAction,
   Menu,
   MenuItem,
+  Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
@@ -145,7 +146,16 @@ export const SongRow = (props: SongRowProps) => {
         {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
         <StyledListItemText
           primary={song.title}
-          secondary={secondaryStyle ? null : song.artist.name}
+          secondary={
+            <>
+              {secondaryStyle ? null : (
+                <Typography variant="body2">{song.artist.name}</Typography>
+              )}
+              <Typography variant="caption">
+                {song.label?.name ?? null}
+              </Typography>
+            </>
+          }
           onClick={
             secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()
           }

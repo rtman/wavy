@@ -10,6 +10,7 @@ import {
   ListItemSecondaryAction,
   Menu,
   MenuItem,
+  Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
@@ -112,9 +113,16 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <ListItemText
           primary={album.title}
           secondary={
-            location.pathname.includes(consts.routes.LABEL)
-              ? album.artist.name
-              : null
+            <>
+              {!location.pathname.includes(consts.routes.ARTIST) ? (
+                <Typography variant="body2">{album.artist.name}</Typography>
+              ) : null}
+              {!location.pathname.includes(consts.routes.LABEL) ? (
+                <Typography variant="caption">
+                  {album.label?.name ?? null}
+                </Typography>
+              ) : null}
+            </>
           }
         />
         <ListItemSecondaryAction>

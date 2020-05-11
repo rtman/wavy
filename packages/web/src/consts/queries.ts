@@ -177,6 +177,11 @@ export const PLAYLIST_BY_ID = gql`
             title
             image
           }
+          label {
+            id
+            name
+            image
+          }
         }
       }
     }
@@ -236,6 +241,11 @@ export const SEARCH_SONGS_QUERY = gql`
         title
         image
       }
+      label {
+        id
+        name
+        image
+      }
       url
       image
       releaseDate
@@ -260,6 +270,11 @@ export const SEARCH_ALBUMS_QUERY = gql`
       title
       image
       artist {
+        id
+        name
+        image
+      }
+      label {
         id
         name
         image
