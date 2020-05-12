@@ -1,10 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  Card,
-  CardMedia,
-  GridListTile,
-  Typography,
-} from '@material-ui/core';
+import { Card, CardMedia, GridListTile, Typography } from '@material-ui/core';
 import * as helpers from 'helpers';
 import { PlayerContext } from 'context';
 import { Album } from 'types';
@@ -18,10 +13,10 @@ interface AlbumCardProps {
 const useStyles = makeStyles(() => ({
   root: {
     padding: '1rem',
-    maxWidth: '220px'
+    maxWidth: '220px',
   },
   cardText: {
-    padding: '1rem 1rem 0 1rem'
+    padding: '1rem 1rem 0 1rem',
   },
 }));
 
@@ -43,19 +38,9 @@ export const AlbumCard = (props: AlbumCardProps) => {
 
   return (
     <GridListTile>
-      <Card 
-        className={classes.root}
-        onClick={() => resolvedOnClick(album)}
-      >
-        <CardMedia
-          component="img"
-          image={albumImageUrl}
-          alt={album.title}
-        />
-        <Typography 
-          align="center"
-          className={classes.cardText}
-        >
+      <Card className={classes.root} onClick={() => resolvedOnClick(album)}>
+        <CardMedia component="img" image={albumImageUrl} alt={album.title} />
+        <Typography align="center" className={classes.cardText}>
           {album.title}
         </Typography>
       </Card>
