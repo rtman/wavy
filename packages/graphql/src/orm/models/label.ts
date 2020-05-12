@@ -5,44 +5,22 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToOne,
 } from 'typeorm';
-import { Artist } from './artist';
+import { Album } from './album';
+import { ArtistLabel } from './artistLabel';
 import { Song } from './song';
 import { ObjectType, Field, ID } from 'type-graphql';
-import { Label } from './label';
 
-@Entity('album')
+@Entity('label')
 @ObjectType()
-export class Album {
+export class Label {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => Artist)
-  @ManyToOne(
-    () => Artist,
-    (artist) => artist.albums
-  )
-  artist: Artist;
-
   @Field(() => String)
   @Column()
-  title: string;
-
-  @Field(() => [Song])
-  @OneToMany(
-    () => Song,
-    (song) => song.album
-  )
-  songs: Song[];
-
-  @Field(() => Label, { nullable: true })
-  @ManyToOne(
-    () => Label,
-    (label) => label.albums
-  )
-  label: Label;
+  name: string;
 
   @Field(() => String)
   @Column()
@@ -52,7 +30,26 @@ export class Album {
   @Column()
   description: string;
 
-  // TODO: add supporting artists to album
+  @Field(() => [ArtistLabel], { nullable: true })
+  @OneToMany(
+    () => ArtistLabel,
+    (artistLabel) => artistLabel.label
+  )
+  artists: ArtistLabel[];
+
+  @Field(() => [Album], { nullable: true })
+  @OneToMany(
+    () => Album,
+    (album) => album.label
+  )
+  albums: Album[];
+
+  @Field(() => [Song], { nullable: true })
+  @OneToMany(
+    () => Song,
+    (song) => song.label
+  )
+  songs: Song[];
 
   @Field(() => Date)
   @CreateDateColumn()

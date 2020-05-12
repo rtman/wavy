@@ -6,6 +6,7 @@ import {
   ContentContainer,
   Screen,
   SongRow,
+  Spacing,
   RowContainer,
 } from 'components';
 import * as consts from 'consts';
@@ -146,11 +147,22 @@ export const Playlist = () => {
               >
                 Play Now
               </Button>
-              <Button onClick={onClickEdit(true)}>Edit</Button>
+              <Spacing.BetweenComponents />
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={onClickEdit(true)}
+              >
+                Edit
+              </Button>
             </RowContainer>
+            <Spacing.section.Minor />
             <Typography variant="h1">Description</Typography>
+            <Spacing.section.Minor />
             <Typography variant="body1">{playlistDescription}</Typography>
+            <Spacing.section.Minor />
             <Typography variant="h1">Songs</Typography>
+            <Spacing.section.Minor />
             {renderSongs()}
           </ProfileContainer>
         </ContentContainer>

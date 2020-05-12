@@ -4,6 +4,7 @@ import {
   TextInput,
   ArtistRow,
   AlbumRow,
+  LabelRow,
   PlaylistRow,
 } from 'components';
 import * as consts from 'consts';
@@ -25,9 +26,11 @@ import {
   QuerySearchAlbumsArgs,
   QuerySearchPlaylistsArgs,
   QuerySearchArtistsArgs,
+  QuerySearchLabelsArgs,
   Artist,
   Playlist,
   Album,
+  Label,
 } from 'types';
 
 interface SearchSongsData {
@@ -42,6 +45,12 @@ interface SearchAlbumsData {
 interface SearchPlaylistsData {
   searchPlaylists: Playlist[];
 }
+
+interface SearchLabelsData {
+  searchLabels: Label[];
+}
+
+type DataTypesArrayUnion = Artist[] | Album[] | Playlist[] | Label[];
 
 const useStyles = makeStyles({
   root: {
@@ -60,6 +69,7 @@ export const Home = () => {
   const [playlistSearchResults, setPlaylistSearchResults] = useState<
     Playlist[]
   >([]);
+  const [labelSearchResults, setLabelSearchResults] = useState<Label[]>([]);
   const [currentTab, setCurrentTab] = useState<string>('songs');
 
   const [submitSongSearch, { loading: songQueryLoading }] = useLazyQuery<
@@ -96,6 +106,7 @@ export const Home = () => {
       setAlbumSearchResults(albumDataWithUrls as Album[]);
     },
   });
+
   const [
     submitPlaylistSearch,
     { loading: playlistQueryLoading },
@@ -113,18 +124,30 @@ export const Home = () => {
     }
   );
 
-  const convertImageUrls = async (data: Artist[] | Album[] | Playlist[]) => {
+  const [submitLabelSearch, { loading: labelQueryLoading }] = useLazyQuery<
+    SearchLabelsData,
+    QuerySearchLabelsArgs
+  >(consts.queries.SEARCH_LABELS_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: async (data) => {
+      console.log('labelQueryData', data);
+      const labelDataWithUrls = await convertImageUrls(data.searchLabels);
+      setLabelSearchResults(labelDataWithUrls as Label[]);
+    },
+  });
+
+  const convertImageUrls = async (data: DataTypesArrayUnion) => {
     const array = data ?? [];
 
     if (array.length > 0) {
       const imageUrlPromises: Promise<string>[] = [];
-      array.forEach((element: Artist | Album | Playlist) => {
+      array.forEach((element: Artist | Album | Playlist | Label) => {
         if (element.image) {
           imageUrlPromises.push(helpers.getStorageHttpUrl(element.image));
         }
       });
       const imageUrls = await Promise.all(imageUrlPromises);
-      const resolvedArray: Artist[] | Album[] | Playlist[] = [];
+      const resolvedArray: DataTypesArrayUnion = [];
       array.forEach((element: any, index: number) => {
         resolvedArray.push({ ...element, image: imageUrls[index] });
       });
@@ -167,6 +190,7 @@ export const Home = () => {
       submitArtistSearch({ variables: { query: formattedSearchText } });
       submitAlbumSearch({ variables: { query: formattedSearchText } });
       submitPlaylistSearch({ variables: { query: formattedSearchText } });
+      submitLabelSearch({ variables: { query: formattedSearchText } });
     }
   };
 
@@ -214,6 +238,16 @@ export const Home = () => {
     return null;
   };
 
+  const renderLabelsResults = () => {
+    if (labelSearchResults.length > 0) {
+      const labelList = labelSearchResults.map((label: Label) => {
+        return <LabelRow key={label.id} label={label} />;
+      });
+      return <List>{labelList}</List>;
+    }
+    return null;
+  };
+
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
     setCurrentTab(newValue);
   };
@@ -230,6 +264,8 @@ export const Home = () => {
         return renderAlbumResults();
       case 'playlists':
         return renderPlaylistResults();
+      case 'labels':
+        return renderLabelsResults();
       default:
         return renderSongResults();
     }
@@ -241,6 +277,7 @@ export const Home = () => {
       artistQueryLoading,
       albumQueryLoading,
       playlistQueryLoading,
+      labelQueryLoading,
     ].includes(true);
   };
 
@@ -267,6 +304,7 @@ export const Home = () => {
             <Tab label="Artists" value="artists" />
             <Tab label="Albums" value="albums" />
             <Tab label="Playlists" value="playlists" />
+            <Tab label="Labels" value="labels" />
           </Tabs>
         </Paper>
         {areQueriesLoading() ? <CircularProgress /> : renderSearchResults()}

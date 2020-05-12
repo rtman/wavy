@@ -29,6 +29,7 @@ export { AlbumCard } from './albumCard';
 export { AlbumRow } from './albumRow';
 export { AlbumWithSongs } from './albumWithSongs';
 export { MoreByArtist } from './moreByArtist';
+export { LabelRow } from './labelRow';
 export { PlaylistRow } from './playlistRow';
 export { SongRow } from './songRow';
 export { ArtistRow } from './artistRow';

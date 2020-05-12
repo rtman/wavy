@@ -46,14 +46,20 @@ export class ArtistResolvers {
           relations: [
             'songs',
             'songs.album',
+            'songs.artist',
+            'songs.label',
             'songs.supportingArtists',
             'songs.supportingArtists.artist',
             'songs.usersFavourited',
             'songs.usersFavourited.user',
             'songs.usersRecentlyPlayed',
             'songs.usersRecentlyPlayed.user',
+            'labels',
+            'labels.label',
             'albums',
+            'albums.label',
             'albums.songs',
+            'albums.songs.label',
             'albums.songs.supportingArtists',
             'albums.songs.supportingArtists.artist',
             'supportingArtistOn',
@@ -108,6 +114,8 @@ export class ArtistResolvers {
         .from(Models.Artist, 'artist')
         .leftJoinAndSelect('artist.usersFollowing', 'usersFollowing')
         .leftJoinAndSelect('usersFollowing.user', 'user')
+        .leftJoinAndSelect('artist.labels', 'labels')
+        .leftJoinAndSelect('labels.label', 'label')
         // Here is the zdb query and syntax
         .where('artist ==> :query', { query })
         .getMany();
@@ -138,7 +146,7 @@ export class ArtistResolvers {
         return artist;
       }
 
-      console.log('CreateUser failed', payload);
+      console.log('CreateArtist failed', payload);
       return;
     } catch (error) {
       console.log('createArtist error', error);

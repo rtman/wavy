@@ -53,6 +53,7 @@ export class SongResolvers {
             'album',
             'artist',
             'artist.albums',
+            'label',
             'supportingArtists',
             'supportingArtists.artist',
             'playlists',
@@ -87,8 +88,10 @@ export class SongResolvers {
         .findByIds(ids, {
           relations: [
             'album',
+            'album.label',
             'artist',
             'artist.albums',
+            'label',
             'supportingArtists',
             'supportingArtists.artist',
             'playlists',
@@ -128,6 +131,7 @@ export class SongResolvers {
         .leftJoinAndSelect('supportingArtists.artist', 'supportingArtist')
         .leftJoinAndSelect('song.usersFavourited', 'usersFavourited')
         .leftJoinAndSelect('usersFavourited.user', 'user')
+        .leftJoinAndSelect('song.label', 'label')
         // Here is the zdb query and syntax
         .where('song ==> :query', { query })
         .getMany();

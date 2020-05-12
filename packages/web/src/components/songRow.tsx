@@ -10,6 +10,7 @@ import {
   ListItemSecondaryAction,
   Menu,
   MenuItem,
+  Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
@@ -85,6 +86,11 @@ export const SongRow = (props: SongRowProps) => {
     handleMenuClose();
   };
 
+  const onClickGoToLabel = () => {
+    history.push(`${consts.routes.LABEL}/${song.label?.id}`);
+    handleMenuClose();
+  };
+
   const resolvedOnClick =
     typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
@@ -125,6 +131,8 @@ export const SongRow = (props: SongRowProps) => {
     return playlistList;
   };
 
+  console.log('songRow song', song);
+
   return (
     <>
       <ListItem alignItems="flex-start" dense={true}>
@@ -138,7 +146,16 @@ export const SongRow = (props: SongRowProps) => {
         {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
         <StyledListItemText
           primary={song.title}
-          secondary={secondaryStyle ? null : song.artist.name}
+          secondary={
+            <>
+              {secondaryStyle ? null : (
+                <Typography variant="body2">{song.artist.name}</Typography>
+              )}
+              <Typography variant="caption">
+                {song.label?.name ?? null}
+              </Typography>
+            </>
+          }
           onClick={
             secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()
           }
@@ -185,6 +202,9 @@ export const SongRow = (props: SongRowProps) => {
         {location.pathname.includes(consts.routes.ARTIST) ? null : (
           <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         )}
+        {!location.pathname.includes(consts.routes.LABEL) && song.label ? (
+          <MenuItem onClick={onClickGoToLabel}>Go to Label</MenuItem>
+        ) : null}
 
         <MenuItem onClick={onClickToggleFavourite}>
           {getFavouriteTitle()}

@@ -10,6 +10,7 @@ module.exports = {
         title: 'Gold Coast (House Mix)',
         artistId: '30f65df5-98bb-48cd-83e5-867f707f941d',
         albumId: '6960fd68-732e-4c3c-8995-8d72989f53db',
+        labelId: '85248eee-5f5b-49f8-a9d9-e08418b829b8',
         // genres: ['House', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00', // RFC 3339
         image: 'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
@@ -23,6 +24,7 @@ module.exports = {
         title: 'Exit Point',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Ambient', 'Space'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
@@ -36,6 +38,7 @@ module.exports = {
         title: 'C Quenz',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
@@ -49,6 +52,7 @@ module.exports = {
         title: 'Cruising Speed',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
@@ -62,6 +66,7 @@ module.exports = {
         title: 'Rogue',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
@@ -75,6 +80,7 @@ module.exports = {
         title: 'Pineapple Island',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
+        labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
@@ -88,6 +94,7 @@ module.exports = {
         title: 'Space Strut',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
+        labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
@@ -101,6 +108,7 @@ module.exports = {
         title: 'Why You Gotta',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
+        labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
@@ -113,6 +121,7 @@ module.exports = {
         title: 'On Cue',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
@@ -126,6 +135,7 @@ module.exports = {
         title: 'On Cue (Vakula Remix)',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
@@ -138,6 +148,7 @@ module.exports = {
         title: `Time Won't Forget`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
@@ -150,6 +161,7 @@ module.exports = {
         title: `Terrium`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
@@ -162,6 +174,7 @@ module.exports = {
         title: `Q1`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -170,10 +183,11 @@ module.exports = {
       },
       {
         id: '0de438c0-a710-4fb2-ba8e-7aaf55a4e2e4',
-        url: `ggs://groov-development-ddc9d.appspot.com/ESB - Spaneaur.ogg`,
+        url: `gs://groov-development-ddc9d.appspot.com/ESB - Spaneaur.ogg`,
         title: `Spaneaur`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -186,6 +200,7 @@ module.exports = {
         title: `Whisper Theme`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -198,6 +213,7 @@ module.exports = {
         title: `20% Deeper`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -210,6 +226,7 @@ module.exports = {
         title: `Fixation`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -222,6 +239,7 @@ module.exports = {
         title: `GLWL`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -234,6 +252,7 @@ module.exports = {
         title: `Make It Thru`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -246,6 +265,7 @@ module.exports = {
         title: `Mist Outro`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
@@ -257,8 +277,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 01 Foreign Parts.ogg`,
         title: `Foreign Parts`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -271,8 +291,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 02 Sondag.ogg`,
         title: `Sondag`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -285,8 +305,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
         title: `Gunvor`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -299,8 +319,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 04 Moodlight.ogg`,
         title: `Moodlight`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -313,8 +333,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 05 Brodir.ogg`,
         title: `Brodir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -327,8 +347,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 06 Systir.ogg`,
         title: `Systir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -341,8 +361,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
         title: `Gunvor`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -355,8 +375,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 07 Modir.ogg`,
         title: `Modir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -369,8 +389,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW005 - 01 MT01.ogg`,
         title: `MT01`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -383,8 +403,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW005 - 02 MT02.ogg`,
         title: `MT02`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -397,8 +417,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.ogg`,
         title: `Everybody Looks Good At The Restaurant`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -411,8 +431,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 02 I Will.ogg`,
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -425,8 +445,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.ogg`,
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -439,8 +459,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 04 I Won't.ogg`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -453,8 +473,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 01 Swimmers.ogg`,
         title: `Swimmers`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -467,8 +487,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 02 Mariana Dub.ogg`,
         title: `Mariana Dub`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -481,8 +501,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 03 Submarine.ogg`,
         title: `Submarine`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -495,8 +515,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).ogg`,
         title: `Submarine (Project Pablo Remix)`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -509,8 +529,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 01 I Will.ogg`,
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -522,8 +542,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 02 U.ogg`,
         title: `U`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -535,8 +555,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 03 Lifestyle w- James Booth.ogg`,
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -548,8 +568,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 04 I Won't.ogg`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -561,8 +581,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 05 Bonsai Care.ogg`,
         title: `Bonsai Care`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -574,8 +594,8 @@ module.exports = {
         url: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 06 Crazy Eyes, Eric.ogg`,
         title: `Crazy Eyes, Eric`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
+        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         // genres: ['Electronic', 'House'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
@@ -744,6 +764,7 @@ module.exports = {
         title: `On My Way`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -757,6 +778,7 @@ module.exports = {
         title: `Westin`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -770,6 +792,7 @@ module.exports = {
         title: `Big Nite City (Sax Mix)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -783,6 +806,7 @@ module.exports = {
         title: `Castle 2 Castle`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -796,6 +820,7 @@ module.exports = {
         title: `Ocean Park (feat. Just Tony)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -809,6 +834,7 @@ module.exports = {
         title: `Tuff Luv`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -822,6 +848,7 @@ module.exports = {
         title: `Afterglo`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -835,6 +862,7 @@ module.exports = {
         title: `Sonantine`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image:
@@ -848,6 +876,7 @@ module.exports = {
         title: `Coolin'`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
@@ -860,6 +889,7 @@ module.exports = {
         title: `Ryukyu`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
@@ -872,6 +902,7 @@ module.exports = {
         title: `Voices`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
@@ -884,6 +915,7 @@ module.exports = {
         title: `Angeles Vista`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
+        labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         // genres: ['Funk', 'Electronic'],
         releaseDate: '2014-05-20T07:00:00+00:00',
         image: 'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',

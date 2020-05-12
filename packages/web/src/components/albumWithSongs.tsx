@@ -25,7 +25,7 @@ export const AlbumWithSongs = (props: AlbumWithSongsProps) => {
 
   return (
     <>
-      <AlbumRow album={album} />
+      <AlbumRow album={album} withSongs={true} />
       {renderSongs()}
     </>
   );

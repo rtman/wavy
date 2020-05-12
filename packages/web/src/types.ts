@@ -30,6 +30,7 @@ export type Album = {
   artist: Artist;
   title: Scalars['String'];
   songs: Array<Song>;
+  label?: Maybe<Label>;
   image: Scalars['String'];
   description: Scalars['String'];
   createdAt: Scalars['DateTime'];
@@ -44,8 +45,19 @@ export type Artist = {
   songs: Array<Song>;
   image: Scalars['String'];
   description: Scalars['String'];
+  labels?: Maybe<Array<ArtistLabel>>;
   usersFollowing?: Maybe<Array<UserArtistFollowing>>;
   supportingArtistOn?: Maybe<Array<SongArtistSupportingArtist>>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ArtistLabel = {
+  __typename?: 'ArtistLabel';
+  artistId: Scalars['ID'];
+  labelId: Scalars['ID'];
+  artist: Artist;
+  label: Label;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -59,6 +71,12 @@ export type CreateAlbumArgs = {
 };
 
 export type CreateArtistArgs = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+};
+
+export type CreateLabelArgs = {
   name: Scalars['String'];
   description: Scalars['String'];
   image: Scalars['String'];
@@ -91,12 +109,27 @@ export type DeletePlaylistArgs = {
   playlistId: Scalars['ID'];
 };
 
+export type Label = {
+  __typename?: 'Label';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  image: Scalars['String'];
+  description: Scalars['String'];
+  artists?: Maybe<Array<ArtistLabel>>;
+  albums?: Maybe<Array<Album>>;
+  songs?: Maybe<Array<Song>>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAlbum: Album;
   deleteAlbum: Scalars['Boolean'];
   createArtist: Artist;
   deleteArtist: Scalars['Boolean'];
+  createLabel: Label;
+  deleteLabel: Scalars['Boolean'];
   createSong: Song;
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
@@ -126,6 +159,14 @@ export type MutationCreateArtistArgs = {
 };
 
 export type MutationDeleteArtistArgs = {
+  id: Scalars['String'];
+};
+
+export type MutationCreateLabelArgs = {
+  input: CreateLabelArgs;
+};
+
+export type MutationDeleteLabelArgs = {
   id: Scalars['String'];
 };
 
@@ -206,6 +247,9 @@ export type Query = {
   artistById: Artist;
   artistsById: Array<Artist>;
   searchArtists: Array<Artist>;
+  labels: Array<Label>;
+  labelById: Label;
+  searchLabels: Array<Label>;
   songs: Array<Song>;
   songById: Song;
   songsById: Array<Song>;
@@ -235,6 +279,14 @@ export type QueryArtistsByIdArgs = {
 };
 
 export type QuerySearchArtistsArgs = {
+  query: Scalars['String'];
+};
+
+export type QueryLabelByIdArgs = {
+  id: Scalars['String'];
+};
+
+export type QuerySearchLabelsArgs = {
   query: Scalars['String'];
 };
 
@@ -282,6 +334,7 @@ export type Song = {
   artist: Artist;
   albumId: Scalars['ID'];
   album: Album;
+  label?: Maybe<Label>;
   title: Scalars['String'];
   url: Scalars['String'];
   image: Scalars['String'];
@@ -515,6 +568,8 @@ export type ResolversTypes = {
   Artist: ResolverTypeWrapper<Artist>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Song: ResolverTypeWrapper<Song>;
+  Label: ResolverTypeWrapper<Label>;
+  ArtistLabel: ResolverTypeWrapper<ArtistLabel>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongPlaylist: ResolverTypeWrapper<SongPlaylist>;
@@ -528,6 +583,7 @@ export type ResolversTypes = {
   CreateAlbumArgs: CreateAlbumArgs;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateArtistArgs: CreateArtistArgs;
+  CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
@@ -550,6 +606,8 @@ export type ResolversParentTypes = {
   Artist: Artist;
   String: Scalars['String'];
   Song: Song;
+  Label: Label;
+  ArtistLabel: ArtistLabel;
   DateTime: Scalars['DateTime'];
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongPlaylist: SongPlaylist;
@@ -563,6 +621,7 @@ export type ResolversParentTypes = {
   CreateAlbumArgs: CreateAlbumArgs;
   Boolean: Scalars['Boolean'];
   CreateArtistArgs: CreateArtistArgs;
+  CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
@@ -585,6 +644,7 @@ export type AlbumResolvers<
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -602,6 +662,11 @@ export type ArtistResolvers<
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  labels?: Resolver<
+    Maybe<Array<ResolversTypes['ArtistLabel']>>,
+    ParentType,
+    ContextType
+  >;
   usersFollowing?: Resolver<
     Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
     ParentType,
@@ -617,10 +682,51 @@ export type ArtistResolvers<
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
+export type ArtistLabelResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ArtistLabel'] = ResolversParentTypes['ArtistLabel']
+> = {
+  artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  labelId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
 export interface DateTimeScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
+
+export type LabelResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Label'] = ResolversParentTypes['Label']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  artists?: Resolver<
+    Maybe<Array<ResolversTypes['ArtistLabel']>>,
+    ParentType,
+    ContextType
+  >;
+  albums?: Resolver<
+    Maybe<Array<ResolversTypes['Album']>>,
+    ParentType,
+    ContextType
+  >;
+  songs?: Resolver<
+    Maybe<Array<ResolversTypes['Song']>>,
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
 
 export type MutationResolvers<
   ContextType = any,
@@ -649,6 +755,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteArtistArgs, 'id'>
+  >;
+  createLabel?: Resolver<
+    ResolversTypes['Label'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateLabelArgs, 'input'>
+  >;
+  deleteLabel?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteLabelArgs, 'id'>
   >;
   createSong?: Resolver<
     ResolversTypes['Song'],
@@ -799,6 +917,19 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerySearchArtistsArgs, 'query'>
   >;
+  labels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;
+  labelById?: Resolver<
+    ResolversTypes['Label'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLabelByIdArgs, 'id'>
+  >;
+  searchLabels?: Resolver<
+    Array<ResolversTypes['Label']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchLabelsArgs, 'query'>
+  >;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   songById?: Resolver<
     ResolversTypes['Song'],
@@ -864,6 +995,7 @@ export type SongResolvers<
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   albumId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1008,7 +1140,9 @@ export type UserSongRecentlyPlayedResolvers<
 export type Resolvers<ContextType = any> = {
   Album?: AlbumResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
+  ArtistLabel?: ArtistLabelResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Label?: LabelResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

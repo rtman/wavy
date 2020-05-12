@@ -10,25 +10,28 @@ import {
   ListItemSecondaryAction,
   Menu,
   MenuItem,
+  Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import * as helpers from 'helpers';
 import { PlayerContext, UserContext } from 'context';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import { Album } from 'types';
 
 interface AlbumRowProps {
   album: Album;
+  withSongs?: boolean;
   passedOnClickAlbum?: (album: Album) => Promise<void>;
 }
 
 export const AlbumRow = (props: AlbumRowProps) => {
-  const { album, passedOnClickAlbum } = props;
+  const { album, passedOnClickAlbum, withSongs } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<any>(null);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
+  const location = useLocation();
   const history = useHistory();
 
   const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(album.image);
@@ -87,6 +90,16 @@ export const AlbumRow = (props: AlbumRowProps) => {
     return playlistList;
   };
 
+  const onClickGoToArtist = () => {
+    history.push(`${consts.routes.ARTIST}/${album.artist.id}`);
+    handleMenuClose();
+  };
+
+  const onClickGoToLabel = () => {
+    history.push(`${consts.routes.LABEL}/${album.label?.id}`);
+    handleMenuClose();
+  };
+
   return (
     <>
       <ListItem
@@ -97,7 +110,21 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <ListItemAvatar>
           <Avatar variant="square" src={albumImageUrl} />
         </ListItemAvatar>
-        <ListItemText primary={album.title} />
+        <ListItemText
+          primary={album.title}
+          secondary={
+            <>
+              {!location.pathname.includes(consts.routes.ARTIST) ? (
+                <Typography variant="body2">{album.artist.name}</Typography>
+              ) : null}
+              {!location.pathname.includes(consts.routes.LABEL) ? (
+                <Typography variant="caption">
+                  {album.label?.name ?? null}
+                </Typography>
+              ) : null}
+            </>
+          }
+        />
         <ListItemSecondaryAction>
           <StyledButton
             aria-controls="simple-menu"
@@ -118,6 +145,12 @@ export const AlbumRow = (props: AlbumRowProps) => {
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
         <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
+        {location.pathname.includes(consts.routes.LABEL) ? (
+          <MenuItem onClick={onClickGoToArtist}>Go To Artist</MenuItem>
+        ) : null}
+        {!location.pathname.includes(consts.routes.LABEL) ? (
+          <MenuItem onClick={onClickGoToLabel}>Go To Label</MenuItem>
+        ) : null}
         {/* eslint-disable-next-line no-self-compare*/}
         {userContext?.playlists?.length ?? 0 > 0 ? (
           <NestedMenuItem
@@ -128,7 +161,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
           </NestedMenuItem>
         ) : null}
       </Menu>
-      <Divider variant="inset" component="li" />
+      {withSongs ? <Divider variant="inset" component="li" /> : null}
     </>
   );
 };

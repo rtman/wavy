@@ -1,4 +1,4 @@
-import { Screen, SongRow } from 'components';
+import { Screen, SongRow, Spacing } from 'components';
 import * as consts from 'consts';
 import React, { useEffect, useContext, useState, Fragment } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
@@ -73,7 +73,9 @@ export const Queue = () => {
         <CircularProgress />
       ) : (
         <Container>
+          <Spacing.section.Minor />
           <Typography variant="h1">Queue</Typography>
+          <Spacing.section.Minor />
           {renderSongs()}
         </Container>
       )}

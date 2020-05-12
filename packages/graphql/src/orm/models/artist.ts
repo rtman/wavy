@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Album } from './album';
+import { ArtistLabel } from './artistLabel';
 import { Song } from './song';
 import { UserArtistFollowing } from './userArtistFollowing';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
@@ -44,6 +45,13 @@ export class Artist {
   @Field(() => String)
   @Column()
   description: string;
+
+  @Field(() => [ArtistLabel], { nullable: true })
+  @OneToMany(
+    () => ArtistLabel,
+    (artistLabel) => artistLabel.artist
+  )
+  labels: ArtistLabel[];
 
   @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(

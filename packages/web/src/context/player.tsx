@@ -45,6 +45,7 @@ const addAudioElements = async (songs: Song[]) => {
   const songUrlPromises = songs.map((s) => {
     return getStorageHttpUrl(s.url);
   });
+
   const result = await Promise.all(songUrlPromises);
   const resolvedSongs: SongWithAudio[] = songs.map((s, index) => {
     return {

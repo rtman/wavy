@@ -2,6 +2,7 @@ import {
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
+  RowContainer,
   SongRow,
   Spacing,
   Screen,
@@ -82,21 +83,25 @@ export const Album = () => {
             <ProfileHeaderImage src={albumImageUrl} />
             <ProfileHeaderTitle>{albumTitle}</ProfileHeaderTitle>
           </ProfileHeaderImageContainer>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => playerContext.replaceQueueWithSongs(albumSongs)}
-          >
-            Play Now
-          </Button>
+          <Spacing.section.Minor />
+          <RowContainer>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => playerContext.replaceQueueWithSongs(albumSongs)}
+            >
+              Play Now
+            </Button>
+          </RowContainer>
+          <Spacing.section.Minor />
           <Typography variant="h1">Description</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           <Typography variant="body1">{album?.description}</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           <Typography variant="h1">Songs</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           {albumSongs ? renderSongs() : null}
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
         </Container>
       )}
     </Screen>

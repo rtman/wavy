@@ -23,11 +23,21 @@ export const ARTIST_BY_ID = gql`
         id
         title
         image
+        label {
+          id
+          name
+          image
+        }
         songs {
           id
           title
           url
           image
+          label {
+            id
+            name
+            image
+          }
           supportingArtists {
             createdAt
             artist {
@@ -46,6 +56,22 @@ export const ARTIST_BY_ID = gql`
           }
         }
       }
+      songs {
+        id
+        title
+        url
+        image
+        label {
+          id
+          name
+          image
+        }
+        artist {
+          id
+          name
+          image
+        }
+      }
       usersFollowing {
         createdAt
         user {
@@ -62,17 +88,6 @@ export const ARTIST_BY_ID = gql`
           url
         }
       }
-      # songs {
-      #   id,
-      #   title,
-      #   url,
-      #   image
-      #   album{
-      #     id
-      #     title,
-      #     image
-      #   }
-      # }
     }
   }
 `;
@@ -91,6 +106,11 @@ export const ALBUM_BY_ID = gql`
         image
         artistId
         albumId
+        label {
+          id
+          name
+          image
+        }
         artist {
           id
           name
@@ -157,6 +177,11 @@ export const PLAYLIST_BY_ID = gql`
             title
             image
           }
+          label {
+            id
+            name
+            image
+          }
         }
       }
     }
@@ -216,6 +241,11 @@ export const SEARCH_SONGS_QUERY = gql`
         title
         image
       }
+      label {
+        id
+        name
+        image
+      }
       url
       image
       releaseDate
@@ -244,6 +274,11 @@ export const SEARCH_ALBUMS_QUERY = gql`
         name
         image
       }
+      label {
+        id
+        name
+        image
+      }
     }
   }
 `;
@@ -266,6 +301,71 @@ export const SEARCH_PLAYLISTS_QUERY = gql`
   }
 `;
 
+export const SEARCH_LABELS_QUERY = gql`
+  query SearchLabels($query: String!) {
+    searchLabels(query: $query) {
+      id
+      name
+      image
+    }
+  }
+`;
+
+export const LABEL_BY_ID = gql`
+  query LabelById($id: String!) {
+    labelById(id: $id) {
+      id
+      name
+      description
+      image
+      createdAt
+      updatedAt
+      artists {
+        createdAt
+        artist {
+          name
+          id
+          description
+          image
+        }
+      }
+      albums {
+        id
+        title
+        image
+        description
+        label {
+          id
+          name
+          image
+        }
+        artist {
+          id
+          name
+          image
+        }
+      }
+      songs {
+        createdAt
+        id
+        title
+        label {
+          id
+          name
+          image
+        }
+        artist {
+          name
+          id
+          image
+        }
+        image
+        url
+      }
+    }
+  }
+`;
+
 export const SONGS_BY_ID_QUERY = gql`
   query SongsById($ids: [String!]!) {
     songsById(ids: $ids) {
@@ -273,6 +373,11 @@ export const SONGS_BY_ID_QUERY = gql`
       title
       url
       image
+      label {
+        id
+        name
+        image
+      }
       artist {
         id
         name
@@ -310,10 +415,20 @@ export const USER_BY_ID = gql`
           title
           image
           url
+          label {
+            id
+            name
+            image
+          }
           album {
             id
             title
             image
+            label {
+              id
+              name
+              image
+            }
           }
           artist {
             id
