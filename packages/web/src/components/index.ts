@@ -25,6 +25,7 @@ export { Player } from './player';
 export { ProgressBar } from './progressBar';
 export { Navigator } from './navigation';
 export { TrackPositionSlider } from './trackPositionSlider';
+export { AlbumCard } from './albumCard';
 export { AlbumRow } from './albumRow';
 export { AlbumWithSongs } from './albumWithSongs';
 export { LabelRow } from './labelRow';
