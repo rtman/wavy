@@ -1,6 +1,6 @@
 import {
   AlbumWithSongs,
-  MoreByArtist,
+  AlbumCard,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
@@ -100,7 +100,7 @@ export const Artist = () => {
   const renderMoreBy = () => {
     if (artistAlbums) {
       const albumsList = artistAlbums.map((album: Album) => (
-        <MoreByArtist key={album.id} album={album} />
+        <AlbumCard key={album.id} album={album} />
       ));
       return <GridList className={classes.gridList}>{albumsList}</GridList>;
     } else {
@@ -169,11 +169,11 @@ export const Artist = () => {
           <Typography variant="h1">Albums</Typography>
           <Spacing.section.Minor />
           {renderAlbums()}
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           <Typography variant="h1">More By {artistName}</Typography>
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
           {renderMoreBy()}
-          <Spacing.BetweenComponents />
+          <Spacing.section.Minor />
         </Container>
       )}
     </Screen>
