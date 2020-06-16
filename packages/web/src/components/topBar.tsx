@@ -10,7 +10,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
@@ -20,6 +20,7 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
+import { Flex } from './flex';
 
 const drawerWidth = 240;
 
@@ -65,7 +66,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: '100%',
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
         width: 'auto',
@@ -88,11 +88,16 @@ const useStyles = makeStyles((theme: Theme) =>
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
-      width: '100%',
       [theme.breakpoints.up('sm')]: {
         width: '0ch',
         '&:focus': {
           width: '20ch',
+        },
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: '0ch',
+        '&:focus': {
+          width: '16ch',
         },
       },
     },
@@ -137,19 +142,24 @@ export const TopBar: FunctionComponent<Props> = (props) => {
           <Typography variant="h6" noWrap={true}>
             Oursound
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <Flex alignItems="center">
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+            <IconButton aria-label="account" color="inherit">
+              <AccountCircle />
+            </IconButton>
+          </Flex>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
