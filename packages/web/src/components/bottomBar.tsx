@@ -1,3 +1,4 @@
+import * as consts from 'consts';
 import React, { FunctionComponent } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
       [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - 240px)`,
+        width: `calc(100% - ${consts.drawer.width}px)`,
         marginLeft: 240,
       },
       top: 'auto',

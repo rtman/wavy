@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { MenuDrawer } from 'components';
+import * as consts from 'consts';
+import { Flex, MenuDrawer } from 'components';
 import {
   AppBar,
   CssBaseline,
@@ -20,9 +21,6 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import { Flex } from './flex';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,16 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
     },
+    appBarTitle: {
+      width: '100%',
+    },
     drawer: {
       [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
+        width: consts.drawer.width,
         flexShrink: 0,
       },
     },
     appBar: {
       [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
+        width: `calc(100% - ${consts.drawer.width}px)`,
+        marginLeft: consts.drawer.width,
       },
     },
     menuButton: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
-      width: drawerWidth,
+      width: consts.drawer.width,
     },
     content: {
       flexGrow: 1,
@@ -139,7 +140,11 @@ export const TopBar: FunctionComponent<Props> = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap={true}>
+          <Typography
+            variant="h6"
+            noWrap={true}
+            classes={{ root: classes.appBarTitle }}
+          >
             Oursound
           </Typography>
           <Flex alignItems="center">
