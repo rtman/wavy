@@ -17,7 +17,7 @@ export { useTimer } from './useTimer';
 export { SearchBar } from './searchBar';
 export { Card } from './card';
 export { OldTopBar } from './oldTopBar';
-export { BottomBar } from './bottomBar';
+export { OldBottomBar } from './oldBottomBar';
 export { ContentContainer } from './contentContainer';
 export { TextInput } from './textInput';
 export { RowContainer } from './rowContainer';
@@ -44,5 +44,6 @@ export * from './topBar';
 export * from './menuDrawer';
 export * from './navLink';
 export * from './listItemLink';
+export * from './bottomBar';
 
 export { Alignment, Spacing };
