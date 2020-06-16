@@ -1,9 +1,11 @@
 import {
   AppContainer,
   BottomBar,
+  // ResponsiveDrawer,
   Navigator,
-  NavMenu,
+  // NavMenu,
   Player,
+  // OldTopBar,
   TopBar,
 } from 'components';
 import React, { useContext } from 'react';
@@ -42,11 +44,10 @@ export const App = () => {
         <AppContainer>
           <PlayerProvider>
             <TopBar>
-              <NavMenu />
+              <UserProvider>
+                <Navigator />
+              </UserProvider>
             </TopBar>
-            <UserProvider>
-              <Navigator />
-            </UserProvider>
             <BottomBar>
               <Player />
             </BottomBar>

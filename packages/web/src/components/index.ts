@@ -16,7 +16,7 @@ export { ErrorMessage } from './errorMessage';
 export { useTimer } from './useTimer';
 export { SearchBar } from './searchBar';
 export { Card } from './card';
-export { TopBar } from './topBar';
+export { OldTopBar } from './oldTopBar';
 export { BottomBar } from './bottomBar';
 export { ContentContainer } from './contentContainer';
 export { TextInput } from './textInput';
@@ -40,5 +40,7 @@ export { Modal } from './modal';
 
 export * from './flex';
 export * from './image';
+export * from './topBar';
+export * from './menuDrawer';
 
 export { Alignment, Spacing };

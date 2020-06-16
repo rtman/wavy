@@ -1,7 +1,7 @@
 import * as consts from 'consts';
 import styled from 'styled-components';
 
-export const TopBar = styled.div({
+export const OldTopBar = styled.div({
   backgroundColor: consts.ui.colors.bgWhite,
   border: '1px black solid',
   padding: `15px 32px`,
