@@ -42,5 +42,7 @@ export * from './flex';
 export * from './image';
 export * from './topBar';
 export * from './menuDrawer';
+export * from './navLink';
+export * from './listItemLink';
 
 export { Alignment, Spacing };
