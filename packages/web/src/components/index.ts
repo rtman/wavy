@@ -16,8 +16,6 @@ export { ErrorMessage } from './errorMessage';
 export { useTimer } from './useTimer';
 export { SearchBar } from './searchBar';
 export { Card } from './card';
-export { OldTopBar } from './oldTopBar';
-export { OldBottomBar } from './oldBottomBar';
 export { ContentContainer } from './contentContainer';
 export { TextInput } from './textInput';
 export { RowContainer } from './rowContainer';
@@ -35,7 +33,6 @@ export { ArtistRow } from './artistRow';
 export { StyledAvatar } from './styledAvatar';
 export { StyledListItemText } from './styledListItemText';
 export { StyledButton } from './styledButton';
-export { NavMenu } from './navMenu';
 export { Modal } from './modal';
 
 export * from './flex';
