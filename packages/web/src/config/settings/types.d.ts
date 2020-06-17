@@ -10,7 +10,7 @@ interface Config extends JsConfig {
 
 interface JsConfig extends CommonSettings, BuildFlavorSettings {}
 
-interface CommonSettings {}
+// interface CommonSettings {}
 
 interface BuildFlavorSettings {
   FIREBASE_CONFIG: FirebaseConfig;

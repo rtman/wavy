@@ -1,12 +1,12 @@
 import * as consts from 'consts';
-import React, { useContext, useEffect, useState } from 'react';
-import { RowContainer, StyledButton } from 'components';
-import { PlayArrow, Pause, SkipPrevious, SkipNext } from '@material-ui/icons';
-import { ProgressBar } from 'components';
-import { useHistory } from 'react-router-dom';
 import * as helpers from 'helpers';
-import { SongArtist, SongInfoContainer, SongTitle } from './styles';
+import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import { PlayerContext } from 'context';
+import { ProgressBar } from 'components';
+import { RowContainer, StyledButton } from 'components';
+import { SongArtist, SongInfoContainer, SongTitle } from './styles';
+import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);

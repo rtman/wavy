@@ -9,6 +9,7 @@ module.exports = {
         'jest',
         'prettier',
         'sort-imports-es6-autofix',
+        'simple-import-sort',
       ],
       parserOptions: {
         tsconfigRootDir: __dirname,
@@ -18,6 +19,12 @@ module.exports = {
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         'react-native/no-inline-styles': 'off',
+        // 'simple-import-sort/sort': 'error',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': [
+          'error',
+          { functions: false, variables: false },
+        ],
         'sort-imports-es6-autofix/sort-imports-es6': [
           2,
           {

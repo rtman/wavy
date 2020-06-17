@@ -1,18 +1,18 @@
+import * as consts from 'consts';
 import {
   Button,
   CircularProgress,
   Container,
-  Grid,
   FormControl,
+  Grid,
   TextField,
   Typography,
 } from '@material-ui/core';
-import * as consts from 'consts';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Spacing, Title } from 'components';
-import firebase from 'firebase';
+import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
+import React, { useState } from 'react';
+import firebase from 'firebase';
 
 // interface SignupFieldErrors {
 //   firstName: boolean;

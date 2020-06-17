@@ -1,26 +1,26 @@
+import * as consts from 'consts';
+import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  List,
+  Typography,
+} from '@material-ui/core';
+import { PlayerContext } from 'context';
 import {
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
   RowContainer,
+  Screen,
   SongRow,
   Spacing,
-  Screen,
 } from 'components';
-import * as consts from 'consts';
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
-import {
-  Button,
-  Container,
-  Divider,
-  List,
-  Typography,
-  CircularProgress,
-} from '@material-ui/core';
-import { PlayerContext } from 'context';
-import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
+import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface AlbumByIdData {
   albumById: AlbumType;

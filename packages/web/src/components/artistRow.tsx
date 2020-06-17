@@ -1,6 +1,5 @@
 import * as consts from 'consts';
-import { StyledButton, StyledListItemText } from 'components';
-import React, { useContext } from 'react';
+import { Artist } from 'types';
 import {
   Avatar,
   ButtonBase,
@@ -11,9 +10,10 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { StyledButton, StyledListItemText } from 'components';
 import { UserContext } from 'context';
-import { Artist } from 'types';
+import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
 
 interface ArtistRowProps {
   artist: Artist;

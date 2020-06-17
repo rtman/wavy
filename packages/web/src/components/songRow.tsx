@@ -1,6 +1,4 @@
-import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import React, { useContext, useState } from 'react';
 import {
   Avatar,
   ButtonBase,
@@ -13,9 +11,11 @@ import {
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
+import { SongWithAudio } from 'screens/home/types';
+import { StyledButton, StyledListItemText } from 'components';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
-import { SongWithAudio } from 'screens/home/types';
+import React, { useContext, useState } from 'react';
 
 interface SongRowProps {
   song: SongWithAudio;
@@ -24,10 +24,15 @@ interface SongRowProps {
   enableGoToArtist?: boolean;
 }
 
+interface MenuPosition {
+  top: number;
+  left: number;
+}
+
 export const SongRow = (props: SongRowProps) => {
   const { song, passedOnClickSong, secondaryStyle } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [menuPosition, setMenuPosition] = useState<any>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const history = useHistory();
@@ -50,28 +55,28 @@ export const SongRow = (props: SongRowProps) => {
 
   const handleClickPlayNow = () => {
     if (location.pathname.includes(consts.routes.QUEUE)) {
-      playerContext.playSongInQueue(song);
+      playerContext?.playSongInQueue(song);
     } else {
-      playerContext.replaceQueueWithSongs([song]);
+      playerContext?.replaceQueueWithSongs([song]);
     }
 
     handleMenuClose();
   };
 
   const handleClickAddToQueue = () => {
-    playerContext.addSongsToEndOfQueue([song]);
+    playerContext?.addSongsToEndOfQueue([song]);
 
     handleMenuClose();
   };
 
   const handleClickRemoveFromQueue = () => {
-    playerContext.removeSongFromQueue(song.id);
+    playerContext?.removeSongFromQueue(song.id);
 
     handleMenuClose();
   };
 
   const onClickSong = () => {
-    playerContext.replaceQueueWithSongs([song]);
+    playerContext?.replaceQueueWithSongs([song]);
   };
 
   const onClickGoToArtist = () => {

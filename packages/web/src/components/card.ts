@@ -4,8 +4,8 @@ import styled from 'styled-components';
 export const Card = styled.div({
   backgroundColor: consts.ui.colors.bgWhite,
   border: '1px black solid',
-  padding: `15px 32px`,
-  margin: `8px`,
+  padding: '15px 32px',
+  margin: '8px',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',

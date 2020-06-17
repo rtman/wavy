@@ -1,22 +1,22 @@
 import * as consts from 'consts';
-import { StyledButton } from 'components';
-import React, { useContext, useState } from 'react';
+import { Album } from 'types';
 import {
   Avatar,
   Divider,
   ListItem,
-  ListItemText,
   ListItemAvatar,
   ListItemSecondaryAction,
+  ListItemText,
   Menu,
   MenuItem,
   Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext, UserContext } from 'context';
-import { useLocation, useHistory } from 'react-router-dom';
+import { StyledButton } from 'components';
+import { useHistory, useLocation } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
-import { Album } from 'types';
+import React, { useContext, useState } from 'react';
 
 interface AlbumRowProps {
   album: Album;
@@ -24,10 +24,15 @@ interface AlbumRowProps {
   passedOnClickAlbum?: (album: Album) => Promise<void>;
 }
 
+interface MenuPosition {
+  top: number;
+  left: number;
+}
+
 export const AlbumRow = (props: AlbumRowProps) => {
   const { album, passedOnClickAlbum, withSongs } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [menuPosition, setMenuPosition] = useState<any>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const location = useLocation();
@@ -47,12 +52,12 @@ export const AlbumRow = (props: AlbumRowProps) => {
   };
 
   const handleClickPlayNow = () => {
-    playerContext.replaceQueueWithSongs(album.songs);
+    playerContext?.replaceQueueWithSongs(album.songs);
     handleMenuClose();
   };
 
   const handleClickAddToQueue = () => {
-    playerContext.addSongsToEndOfQueue(album.songs);
+    playerContext?.addSongsToEndOfQueue(album.songs);
     handleMenuClose();
   };
 
@@ -61,7 +66,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
   };
 
   const onClickAlbum = () => {
-    playerContext.replaceQueueWithSongs(album.songs);
+    playerContext?.replaceQueueWithSongs(album.songs);
   };
 
   const resolvedOnClick =
@@ -70,8 +75,8 @@ export const AlbumRow = (props: AlbumRowProps) => {
       : onClickAlbum;
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
-    const song_ids = album.songs.map((s) => s.id);
-    userContext?.addSongsToPlaylist(playlistId, song_ids);
+    const songIds = album.songs.map((s) => s.id);
+    userContext?.addSongsToPlaylist(playlistId, songIds);
   };
 
   const renderPlaylists = () => {

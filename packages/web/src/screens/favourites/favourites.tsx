@@ -1,13 +1,13 @@
-import { Screen, SongRow, Spacing } from 'components';
-import React, { Fragment, useContext } from 'react';
 import {
   CircularProgress,
+  Container,
   Divider,
   List,
-  Container,
   Typography,
 } from '@material-ui/core';
+import { Screen, SongRow, Spacing } from 'components';
 import { UserContext } from 'context';
+import React, { Fragment, useContext } from 'react';
 
 export const Favourites = () => {
   const userContext = useContext(UserContext);

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Switch } from 'react-router-dom';
 import * as consts from 'consts';
 import * as screens from 'screens';
-import { PublicRoute } from './publicRoute';
-import { PrivateRoute } from './privateRoute';
 import { AuthContextState } from 'context';
+import { PrivateRoute } from './privateRoute';
+import { PublicRoute } from './publicRoute';
+import { Switch } from 'react-router-dom';
+import React, { useContext } from 'react';
 
 export const Routes = () => {
   const authContextState = useContext(AuthContextState);

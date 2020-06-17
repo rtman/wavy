@@ -1,37 +1,37 @@
+import * as consts from 'consts';
 import {
+  Album,
+  Artist,
+  Label,
+  Playlist,
+  QuerySearchAlbumsArgs,
+  QuerySearchArtistsArgs,
+  QuerySearchLabelsArgs,
+  QuerySearchPlaylistsArgs,
+  QuerySearchSongsArgs,
+  Song,
+} from 'types';
+import {
+  AlbumRow,
+  ArtistRow,
+  LabelRow,
+  PlaylistRow,
   Screen,
   SongRow,
   TextInput,
-  ArtistRow,
-  AlbumRow,
-  LabelRow,
-  PlaylistRow,
 } from 'components';
-import * as consts from 'consts';
-import { SearchContextState } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import {
-  Container,
   CircularProgress,
+  Container,
   List,
-  makeStyles,
   Paper,
-  Tabs,
   Tab,
+  Tabs,
+  makeStyles,
 } from '@material-ui/core';
-import {
-  Song,
-  QuerySearchSongsArgs,
-  QuerySearchAlbumsArgs,
-  QuerySearchPlaylistsArgs,
-  QuerySearchArtistsArgs,
-  QuerySearchLabelsArgs,
-  Artist,
-  Playlist,
-  Album,
-  Label,
-} from 'types';
+import { SearchContextState } from 'context';
+import { useLazyQuery } from '@apollo/react-hooks';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface SearchSongsData {
   searchSongs: Song[];
@@ -74,8 +74,8 @@ export const Search = () => {
     QuerySearchSongsArgs
   >(consts.queries.SEARCH_SONGS_QUERY, {
     fetchPolicy: 'network-only',
-    onCompleted: async (data) => {
-      setSongSearchResults(data.searchSongs as Song[]);
+    onCompleted: (data) => {
+      setSongSearchResults(data.searchSongs);
     },
   });
 
@@ -84,8 +84,8 @@ export const Search = () => {
     QuerySearchArtistsArgs
   >(consts.queries.SEARCH_ARTISTS_QUERY, {
     fetchPolicy: 'network-only',
-    onCompleted: async (data) => {
-      setArtistSearchResults(data.searchArtists as Artist[]);
+    onCompleted: (data) => {
+      setArtistSearchResults(data.searchArtists);
     },
   });
   const [submitAlbumSearch, { loading: albumQueryLoading }] = useLazyQuery<
@@ -93,8 +93,8 @@ export const Search = () => {
     QuerySearchAlbumsArgs
   >(consts.queries.SEARCH_ALBUMS_QUERY, {
     fetchPolicy: 'network-only',
-    onCompleted: async (data) => {
-      setAlbumSearchResults(data.searchAlbums as Album[]);
+    onCompleted: (data) => {
+      setAlbumSearchResults(data.searchAlbums);
     },
   });
 
@@ -105,8 +105,8 @@ export const Search = () => {
     consts.queries.SEARCH_PLAYLISTS_QUERY,
     {
       fetchPolicy: 'network-only',
-      onCompleted: async (data) => {
-        setPlaylistSearchResults(data.searchPlaylists as Playlist[]);
+      onCompleted: (data) => {
+        setPlaylistSearchResults(data.searchPlaylists);
       },
     }
   );
@@ -116,8 +116,8 @@ export const Search = () => {
     QuerySearchLabelsArgs
   >(consts.queries.SEARCH_LABELS_QUERY, {
     fetchPolicy: 'network-only',
-    onCompleted: async (data) => {
-      setLabelSearchResults(data.searchLabels as Label[]);
+    onCompleted: (data) => {
+      setLabelSearchResults(data.searchLabels);
     },
   });
 

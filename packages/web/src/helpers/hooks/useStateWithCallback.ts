@@ -1,8 +1,8 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 export const useStateWithCallback = (
-  initialState: any,
-  callback: (state: any) => void
+  initialState: unknown,
+  callback: (state: unknown) => void
 ) => {
   const [state, setState] = useState(initialState);
 
@@ -12,8 +12,8 @@ export const useStateWithCallback = (
 };
 
 export const useStateWithCallbackInstant = (
-  initialState: any,
-  callback: (state: any) => void
+  initialState: unknown,
+  callback: (state: unknown) => void
 ) => {
   const [state, setState] = useState(initialState);
 

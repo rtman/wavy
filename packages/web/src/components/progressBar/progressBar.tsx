@@ -1,9 +1,9 @@
+import { PlayerContext } from 'context';
+import { RowContainer, useTimer } from 'components';
+import { TimeText } from './styles';
 import { TrackPositionSlider } from 'components';
 import React, { useContext, useState } from 'react';
-import { RowContainer, useTimer } from 'components';
 import moment from 'moment';
-import { PlayerContext } from 'context';
-import { TimeText } from './styles';
 
 export const ProgressBar = () => {
   // const { audio, duration } = props;

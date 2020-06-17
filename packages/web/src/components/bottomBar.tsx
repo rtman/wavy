@@ -1,7 +1,7 @@
 import * as consts from 'consts';
-import React, { FunctionComponent } from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import React, { FunctionComponent } from 'react';
 
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const BottomBar: FunctionComponent<any> = (props) => {
+export const BottomBar: FunctionComponent = (props) => {
   const classes = useStyles();
 
   return (

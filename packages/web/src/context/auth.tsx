@@ -1,7 +1,7 @@
-import React, { createContext } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from 'firebase';
 import 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import React, { FunctionComponent, createContext } from 'react';
+import firebase from 'firebase';
 
 interface AuthContextStateProps {
   firebaseUser: firebase.User | undefined;
@@ -14,7 +14,7 @@ export const AuthContextState = createContext<
   AuthContextStateProps | undefined
 >(undefined);
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider: FunctionComponent = () => {
   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
 
   const logout = async () => {
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: any) => {
         logout,
       }}
     >
-      {children}
+      {props.children}
     </AuthContextState.Provider>
   );
 };

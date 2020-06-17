@@ -1,6 +1,4 @@
-import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import React, { useContext, useEffect } from 'react';
 import {
   Avatar,
   ButtonBase,
@@ -12,9 +10,11 @@ import {
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
+import { Playlist, QueryPlaylistByIdArgs } from 'types';
+import { StyledButton, StyledListItemText } from 'components';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Playlist, QueryPlaylistByIdArgs } from 'types';
+import React, { useContext, useEffect } from 'react';
 
 interface PlaylistRowProps {
   playlist: Playlist;

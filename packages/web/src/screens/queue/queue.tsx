@@ -1,16 +1,16 @@
-import { Screen, SongRow, Spacing } from 'components';
 import * as consts from 'consts';
-import React, { useEffect, useContext, useState, Fragment } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import {
-  Container,
   CircularProgress,
+  Container,
   Divider,
   List,
   Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import { Song, QuerySongsByIdArgs } from 'types';
+import { QuerySongsByIdArgs, Song } from 'types';
+import { Screen, SongRow, Spacing } from 'components';
+import { useLazyQuery } from '@apollo/react-hooks';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 
 interface SongsByIdData {
   songsById: Song[];
@@ -18,6 +18,7 @@ interface SongsByIdData {
 
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
+  const queue = playerContext?.queue;
   const [songIds, setSongIds] = useState<string[]>([]);
   const [
     submitSongIds,
@@ -27,14 +28,16 @@ export const Queue = () => {
   );
 
   useEffect(() => {
-    let songIds_: string[] = [];
-    console.log('playerContext.queue', playerContext.queue);
+    const songIds_: string[] = [];
+    console.log('queue', queue);
 
-    playerContext.queue.forEach((song: any) => {
-      songIds_.push(song.id);
-    });
-    setSongIds(songIds_);
-  }, [playerContext.queue]);
+    if (queue) {
+      queue.forEach((song: Song) => {
+        songIds_.push(song.id);
+      });
+      setSongIds(songIds_);
+    }
+  }, [queue]);
 
   useEffect(() => {
     if (songIds.length > 0) {

@@ -32,7 +32,7 @@ export const register = (config: any) => {
     }
 
     window.addEventListener('load', () => {
-      const swUrl: string = `${process.env.PUBLIC_URL}/service-worker.ts`;
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.ts`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -108,7 +108,7 @@ const checkValidServiceWorker = (swUrl: string, config: any) => {
       const contentType = response.headers.get('content-type');
       if (
         response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
+        (contentType != null && !contentType.includes('javascript'))
       ) {
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then((registration) => {

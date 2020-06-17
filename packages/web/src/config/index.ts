@@ -5,7 +5,7 @@ const environmentSettings = getEnvironmentSettings(
 );
 
 // Combine native config and generated JS config
-export const config: any = {
+export const config = {
   JS_BUILD_FLAVOR: process.env.REACT_APP_JS_BUILD_FLAVOR,
   ...commonSettings,
   ...environmentSettings,

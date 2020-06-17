@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import { Album } from 'types';
 import { Card, CardMedia, GridListTile, Typography } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import { Album } from 'types';
 import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 
 interface AlbumCardProps {
   album: Album;

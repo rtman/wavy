@@ -3,14 +3,14 @@ import {
   Button,
   CircularProgress,
   Container,
-  Grid,
   FormControl,
+  Grid,
   TextField,
   Typography,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Spacing, Title } from 'components';
+import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import firebase from 'firebase';
 
 // interface SignupFieldErrors {
@@ -36,7 +36,7 @@ export const Login = () => {
     setValueCb(event.target.value);
   };
 
-  const onClickSignup = async () => {
+  const onClickSignup = () => {
     history.push(`${consts.routes.SIGN_UP}`);
   };
 
@@ -79,7 +79,7 @@ export const Login = () => {
         </Button>
         <Spacing.section.Major />
         <Button variant="outlined" color="secondary" onClick={onClickSignup}>
-          {`Don't have an account? Sign in`}
+          {"Don't have an account? Sign in"}
         </Button>
       </Grid>
     </Container>

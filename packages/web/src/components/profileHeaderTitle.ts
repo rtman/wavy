@@ -1,5 +1,5 @@
-import styled, { CSSObject } from 'styled-components';
 import * as consts from 'consts';
+import styled, { CSSObject } from 'styled-components';
 
 export const ProfileHeaderTitle = styled.div(
   (): CSSObject => ({

@@ -35,7 +35,7 @@ export const useMediaState = (audio: HTMLAudioElement) => {
   const addListenerMulti = (
     el: HTMLAudioElement,
     eventArray: string[],
-    fn: (event: any) => void
+    fn: (event: Event) => void
   ) => {
     eventArray.forEach((event) => el.addEventListener(event, fn, false));
   };
@@ -43,13 +43,13 @@ export const useMediaState = (audio: HTMLAudioElement) => {
   const removeListenerMulti = (
     el: HTMLAudioElement,
     eventArray: string[],
-    fn: (event: any) => void
+    fn: (event: Event) => void
   ) => {
     eventArray.forEach((event) => el.removeEventListener(event, fn, false));
   };
 
   useEffect(() => {
-    const callback = (event: any) => {
+    const callback = (event: Event) => {
       setCurrentState(event.type);
     };
     addListenerMulti(audio, events, callback);

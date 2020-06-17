@@ -1,6 +1,6 @@
-import styled, { CSSObject } from 'styled-components';
 import * as consts from 'consts';
 import { Link } from 'react-router-dom';
+import styled, { CSSObject } from 'styled-components';
 
 export const NavLink = styled(Link)(
   (): CSSObject => ({

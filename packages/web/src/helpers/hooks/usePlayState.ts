@@ -36,7 +36,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
   const addListenerMulti = (
     el: HTMLAudioElement,
     eventArray: string[],
-    fn: (event: any) => void
+    fn: (event: Event) => void
   ) => {
     eventArray.forEach((event) => el.addEventListener(event, fn, false));
   };
@@ -44,9 +44,11 @@ export const usePlayState = (audio: HTMLAudioElement) => {
   const removeListenerMulti = (
     el: HTMLAudioElement,
     eventArray: string[],
-    fn: (event: any) => void
+    fn: (event: Event) => void
   ) => {
-    eventArray.forEach((event) => el.removeEventListener(event, fn, false));
+    eventArray.forEach((event: string) =>
+      el.removeEventListener(event, fn, false)
+    );
   };
 
   const filterStates = (type: string) => {
@@ -92,7 +94,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
   };
 
   useEffect(() => {
-    const callback = (event: any) => {
+    const callback = (event: Event) => {
       setLatchedState(filterStates(event.type));
     };
     addListenerMulti(audio, events, callback);

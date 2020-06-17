@@ -1,10 +1,14 @@
-import React, { createContext, useEffect, useState } from 'react';
 import * as helpers from 'helpers';
-import firebase from 'firebase';
 import { Song } from 'types';
 import { SongWithAudio } from 'screens/home/types';
+import React, {
+  FunctionComponent,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 
-interface PlayerContext {
+interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;
   playQueue: () => void;
   playSongInQueue(song: SongWithAudio): void;
@@ -22,48 +26,22 @@ interface PlayerContext {
   queue: SongWithAudio[];
 }
 
-export const PlayerContext = createContext<PlayerContext>({
-  playAudio: undefined,
-  playQueue: () => {},
-  playSongInQueue: () => {},
-  playNextSongInQueue: () => {},
-  playPreviousSongInQueue: () => {},
-  pause: () => {},
-  unPause: () => {},
-  currentSong: null,
-  audio: new Audio(),
-  addSongsToEndOfQueue: () => {},
-  // addSongsToBeginningOfQueue: () => {},
-  replaceQueueWithSongs: () => {},
-  clearQueue: () => {},
-  removeSongFromQueue: () => {},
-  queue: [],
-});
+export const PlayerContext = createContext<PlayerContextType | undefined>(
+  undefined
+);
 
 // TODO: add to helpers
-const addAudioElements = async (songs: Song[]) => {
-  const songUrlPromises = songs.map((s) => {
-    return getStorageHttpUrl(s.url);
-  });
-
-  const result = await Promise.all(songUrlPromises);
-  const resolvedSongs: SongWithAudio[] = songs.map((s, index) => {
+const addAudioElements = (songs: Song[]) => {
+  const resolvedSongs: SongWithAudio[] = songs.map((s) => {
     return {
       ...s,
-      audio: new Audio(result[index]),
+      audio: new Audio(s.url),
     };
   });
   return resolvedSongs;
 };
 
-// TODO: add to helpers
-const getStorageHttpUrl = async (googleStorageUri: string) => {
-  const fileRef = firebase.storage().refFromURL(googleStorageUri);
-  const resolvedUrl = await fileRef.getDownloadURL();
-  return resolvedUrl;
-};
-
-export const PlayerProvider = ({ children }: any) => {
+export const PlayerProvider: FunctionComponent = (props) => {
   const [currentSong, setCurrentSong] = useState<SongWithAudio | null>(null);
   const [queue, setQueue] = useState<SongWithAudio[]>([]);
   const [queuePosition, setQueuePosition] = useState<number>(0);
@@ -79,12 +57,40 @@ export const PlayerProvider = ({ children }: any) => {
 
   let audio = new Audio();
 
+  const playAudio = (currentQueue: SongWithAudio[], position: number) => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.pause();
+      currentSong.audio.currentTime = 0;
+    }
+
+    // might want to check if position in queue exists
+    const songToPlay = currentQueue[position];
+    setCurrentSong(songToPlay);
+
+    if (songToPlay && songToPlay.audio) {
+      setQueuePosition(position);
+      setLocalStorageQueuePosition(position);
+      songToPlay.audio.play();
+      audio = songToPlay.audio;
+    }
+  };
+
+  const unPause = () => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.play();
+    }
+  };
+
+  const pause = () => {
+    if (currentSong && currentSong.audio) {
+      currentSong.audio.pause();
+    }
+  };
+
   useEffect(() => {
-    const loadLocalStorageQueue = async () => {
-      const resolvedLocalStorageQueue = await addAudioElements(
-        localStorageQueue
-      );
-      console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
+    const loadLocalStorageQueue = () => {
+      const resolvedLocalStorageQueue = addAudioElements(localStorageQueue);
+      // console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
       setQueue(resolvedLocalStorageQueue);
       setQueuePosition(localStorageQueuePosition);
       setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
@@ -95,17 +101,17 @@ export const PlayerProvider = ({ children }: any) => {
   }, []);
   // }, [localStorageQueue, localStorageQueuePosition]);
 
-  const addSongsToEndOfQueue = async (songs: Song[]) => {
-    const resolvedSongs = await addAudioElements(songs);
+  const addSongsToEndOfQueue = (songs: Song[]) => {
+    const resolvedSongs = addAudioElements(songs);
     const newQueue = [...queue, ...resolvedSongs];
     setQueue(newQueue);
     setLocalStorageQueue(newQueue);
   };
 
-  const replaceQueueWithSongs = async (songs: Song[]) => {
+  const replaceQueueWithSongs = (songs: Song[]) => {
     console.log('replaceQueueWithSongs songs', songs);
 
-    const resolvedSongs = await addAudioElements(songs);
+    const resolvedSongs = addAudioElements(songs);
 
     const newQueue = [...resolvedSongs];
     setQueue(newQueue);
@@ -174,36 +180,6 @@ export const PlayerProvider = ({ children }: any) => {
 
   // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
 
-  const playAudio = async (currentQueue: SongWithAudio[], position: number) => {
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.pause();
-      currentSong.audio.currentTime = 0;
-    }
-
-    // might want to check if position in queue exists
-    const songToPlay = currentQueue[position];
-    setCurrentSong(songToPlay);
-
-    if (songToPlay && songToPlay.audio) {
-      setQueuePosition(position);
-      setLocalStorageQueuePosition(position);
-      songToPlay.audio.play();
-      audio = songToPlay.audio;
-    }
-  };
-
-  const unPause = () => {
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.play();
-    }
-  };
-
-  const pause = () => {
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.pause();
-    }
-  };
-
   return (
     <PlayerContext.Provider
       value={{
@@ -222,7 +198,7 @@ export const PlayerProvider = ({ children }: any) => {
         queue,
       }}
     >
-      {children}
+      {props.children}
     </PlayerContext.Provider>
   );
 };

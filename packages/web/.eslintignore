@@ -1,2 +1,4 @@
 # dont lint auto generated types 
 src/types.ts
+# auto gen by react
+src/serviceWorker.ts

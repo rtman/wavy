@@ -1,18 +1,4 @@
-import {
-  ProfileContainer,
-  ProfileHeaderImage,
-  ProfileHeaderImageContainer,
-  ProfileHeaderTitle,
-  ContentContainer,
-  Screen,
-  SongRow,
-  Spacing,
-  RowContainer,
-} from 'components';
 import * as consts from 'consts';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -25,8 +11,22 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import {
+  ContentContainer,
+  ProfileContainer,
+  ProfileHeaderImage,
+  ProfileHeaderImageContainer,
+  ProfileHeaderTitle,
+  RowContainer,
+  Screen,
+  SongRow,
+  Spacing,
+} from 'components';
 import { PlayerContext } from 'context';
-import { SongPlaylist, Playlist as PlaylistType } from 'types';
+import { Playlist as PlaylistType, SongPlaylist } from 'types';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 
 interface PlaylistByIdData {
   playlistById: PlaylistType;

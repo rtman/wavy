@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { ListItemLink } from 'components';
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core';
+import { ListItemLink } from 'components';
+import React, { useContext } from 'react';
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import * as consts from 'consts';
 import { AuthContextState } from 'context';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

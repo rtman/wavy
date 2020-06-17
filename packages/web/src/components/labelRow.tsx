@@ -1,6 +1,4 @@
-import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import React, { useContext, useEffect } from 'react';
 import {
   Avatar,
   ButtonBase,
@@ -10,11 +8,13 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
+import { Label, QueryLabelByIdArgs } from 'types';
 import { MoreVert } from '@material-ui/icons';
 import { PlayerContext } from 'context';
+import { StyledButton, StyledListItemText } from 'components';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Label, QueryLabelByIdArgs } from 'types';
+import React, { useContext, useEffect } from 'react';
 
 interface LabelRowProps {
   label: Label;

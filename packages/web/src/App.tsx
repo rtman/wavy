@@ -1,5 +1,4 @@
 import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
-import React, { useContext } from 'react';
 import {
   AuthContextState,
   PlayerProvider,
@@ -8,6 +7,7 @@ import {
 } from 'context';
 import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
 import { makeTheme } from './theme';
+import React, { useContext } from 'react';
 
 import './App.css';
 

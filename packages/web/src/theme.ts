@@ -1,12 +1,12 @@
 import { darken, desaturate, lighten, opacify, transparentize } from 'polished';
 
-import { createMuiTheme } from '@material-ui/core';
+import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { BreakpointValues } from '@material-ui/core/styles/createBreakpoints';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { Overrides as CoreOverrides } from '@material-ui/core/styles/overrides';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 import { TypographyOptions } from '@material-ui/core/styles/createTypography';
-import { Overrides as CoreOverrides } from '@material-ui/core/styles/overrides';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
+import { createMuiTheme } from '@material-ui/core';
 
 const PRIMARY_COLOR = (_darkMode: boolean) => '#00bcd4';
 const PRIMARY_CONTRAST = (_darkMode: boolean) => '#fff';

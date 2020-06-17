@@ -1,5 +1,4 @@
 import { ArtistRow, Screen, Spacing } from 'components';
-import React, { Fragment, useContext } from 'react';
 import {
   CircularProgress,
   Container,
@@ -8,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { UserContext } from 'context';
+import React, { Fragment, useContext } from 'react';
 
 export const Following = () => {
   const userContext = useContext(UserContext);

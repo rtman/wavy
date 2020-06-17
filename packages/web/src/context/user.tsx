@@ -1,14 +1,15 @@
+import * as consts from 'consts';
+import { AuthContextState } from 'context';
+import { QueryUserByIdArgs, User, UserPlaylist } from 'types';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import React, {
+  FunctionComponent,
   createContext,
-  useEffect,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from 'react';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { AuthContextState } from 'context';
-import * as consts from 'consts';
-import { User, UserPlaylist, QueryUserByIdArgs } from 'types';
 
 interface UserContextProps {
   user?: User;
@@ -29,12 +30,13 @@ export const UserContext = createContext<UserContextProps | undefined>(
   undefined
 );
 
-export const UserProvider = ({ children }: any) => {
+export const UserProvider: FunctionComponent = (props) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContextState = useContext(AuthContextState);
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []
   );
+  const [user, setUser] = useState<User | undefined>(undefined);
   const [getUserById, { loading: queryLoading }] = useLazyQuery<
     UserByIdData,
     QueryUserByIdArgs
@@ -46,6 +48,14 @@ export const UserProvider = ({ children }: any) => {
       setPlaylists(data.userById.playlists);
     },
   });
+
+  const loadUser = useCallback(
+    (id: string) => {
+      getUserById({ variables: { id } });
+    },
+    [getUserById]
+  );
+
   const [submitUpdateFollowing] = useMutation(
     consts.mutations.UPDATE_FOLLOWING,
     {
@@ -86,14 +96,6 @@ export const UserProvider = ({ children }: any) => {
         }
       },
     }
-  );
-  const [user, setUser] = useState<User | undefined>(undefined);
-
-  const loadUser = useCallback(
-    (id: string) => {
-      getUserById({ variables: { id } });
-    },
-    [getUserById]
   );
 
   useEffect(() => {
@@ -143,7 +145,7 @@ export const UserProvider = ({ children }: any) => {
         loading: queryLoading,
       }}
     >
-      {children}
+      {props.children}
     </UserContext.Provider>
   );
 };

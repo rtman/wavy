@@ -1,6 +1,6 @@
 import * as consts from 'consts';
-import React, { createContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import React, { FunctionComponent, createContext, useState } from 'react';
 
 interface SearchContextStateProps {
   searchText: string;
@@ -15,7 +15,7 @@ export const SearchContextState = createContext<
   SearchContextStateProps | undefined
 >(undefined);
 
-export const SearchProvider = ({ children }: any) => {
+export const SearchProvider: FunctionComponent = (props) => {
   const [searchText, setSearchText] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const history = useHistory();
@@ -31,9 +31,7 @@ export const SearchProvider = ({ children }: any) => {
     setSearchText('');
   };
 
-  const onKeyDownSearchBar = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
+  const onKeyDownSearchBar = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
       history.push(consts.routes.SEARCH);
       searchInitiated();
@@ -51,7 +49,7 @@ export const SearchProvider = ({ children }: any) => {
         onKeyDownSearchBar,
       }}
     >
-      {children}
+      {props.children}
     </SearchContextState.Provider>
   );
 };
