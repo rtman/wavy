@@ -1,3 +1,5 @@
+import * as components from 'components';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import TrackPlayer, {
   Event,
@@ -5,8 +7,6 @@ import TrackPlayer, {
   usePlaybackState,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import * as components from 'components';
 
 const styles = StyleSheet.create({
   card: {

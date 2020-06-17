@@ -22,6 +22,8 @@
     "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",
     "prettier": "prettier --write 'src/**/*.ts?(x)'",
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
+    "eslint": "eslint 'src/**/*.ts?(x)'",
+    "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
     "build:ts": "yarn tsc --build tsconfig.json",
     "build:env": "sh ./scripts/build-env.sh",
     "install:gems": "(cd ios; bundle check || bundle install; cd -)",

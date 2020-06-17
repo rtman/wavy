@@ -1,6 +1,6 @@
+import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import TrackPlayer from 'react-native-track-player';
-import { StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   progress: {

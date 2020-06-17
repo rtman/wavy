@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 // import StyledComponets from 'styled-components';
-import TrackPlayer, {
-  usePlaybackState,
-  State,
-} from 'react-native-track-player';
-import storage from '@react-native-firebase/storage';
+import * as components from 'components';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import * as components from 'components';
+import TrackPlayer, {
+  State,
+  usePlaybackState,
+} from 'react-native-track-player';
+import storage from '@react-native-firebase/storage';
 
 const SONGS = gql`
   {
