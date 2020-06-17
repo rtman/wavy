@@ -8,8 +8,9 @@ import {
   PlaylistRow,
 } from 'components';
 import * as consts from 'consts';
+import { SearchContextState } from 'context';
 import * as helpers from 'helpers';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Container,
@@ -62,7 +63,8 @@ const useStyles = makeStyles({
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
-  const [searchText, setSearchText] = useState<string>('');
+  const searchContextState = useContext(SearchContextState);
+  // const [searchText, setSearchText] = useState<string>('');
   const [songSearchResults, setSongSearchResults] = useState<Song[]>([]);
   const [artistSearchResults, setArtistSearchResults] = useState<Artist[]>([]);
   const [albumSearchResults, setAlbumSearchResults] = useState<Album[]>([]);
@@ -177,22 +179,38 @@ export const Home = () => {
     return resolvedSongs;
   };
 
-  const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
+  // const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchText(event.target.value);
+  // };
 
-  const onKeyDownSearchBar = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.keyCode === 13) {
-      const formattedSearchText = `*${searchText}*`;
-      submitSongSearch({ variables: { query: formattedSearchText } });
-      submitArtistSearch({ variables: { query: formattedSearchText } });
-      submitAlbumSearch({ variables: { query: formattedSearchText } });
-      submitPlaylistSearch({ variables: { query: formattedSearchText } });
-      submitLabelSearch({ variables: { query: formattedSearchText } });
+  useEffect(() => {
+    if (searchContextState?.searchText && searchContextState?.isSearching) {
+      const formattedSearchText = `*${searchContextState?.searchText}*`;
+      submitSongSearch({
+        variables: { query: formattedSearchText },
+      });
+      submitArtistSearch({
+        variables: { query: formattedSearchText },
+      });
+      submitAlbumSearch({
+        variables: { query: formattedSearchText },
+      });
+      submitPlaylistSearch({
+        variables: { query: formattedSearchText },
+      });
+      submitLabelSearch({
+        variables: { query: formattedSearchText },
+      });
+      searchContextState?.searchComplete();
     }
-  };
+  }, [
+    searchContextState,
+    submitSongSearch,
+    submitArtistSearch,
+    submitAlbumSearch,
+    submitPlaylistSearch,
+    submitLabelSearch,
+  ]);
 
   // const onClickArtist = (artist_id: string) => {
   //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
@@ -281,14 +299,21 @@ export const Home = () => {
     ].includes(true);
   };
 
+  console.log('songQueryLoading', songQueryLoading);
+  console.log('artistQueryLoading', artistQueryLoading);
+  console.log('albumQueryLoading', albumQueryLoading);
+  console.log('playlistQueryLoading', playlistQueryLoading);
+  console.log('labelQueryLoading', labelQueryLoading);
+  console.log('areQueriesLoading', areQueriesLoading());
+
   return (
     <Screen>
       <Container>
         <TextInput
-          onChange={onChangeSearchBar}
-          value={searchText}
+          onChange={searchContextState?.onChangeSearchText}
+          value={searchContextState?.searchText}
           placeholder={'Search'}
-          onKeyDown={onKeyDownSearchBar}
+          onKeyDown={searchContextState?.onKeyDownSearchBar}
           fullWidth={true}
         />
         <Paper square className={classes.root}>
@@ -298,7 +323,7 @@ export const Home = () => {
             variant="fullWidth"
             indicatorColor="secondary"
             textColor="secondary"
-            aria-label="icon label tabs example"
+            aria-label="search tabs"
           >
             <Tab label="Songs" value="songs" />
             <Tab label="Artists" value="artists" />

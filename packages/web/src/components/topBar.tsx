@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import * as consts from 'consts';
 import { Flex, MenuDrawer } from 'components';
 import {
@@ -21,6 +21,11 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
+import {
+  SearchContextState,
+  // SearchProvider
+} from 'context';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,7 +120,9 @@ interface Props {
 
 export const TopBar: FunctionComponent<Props> = (props) => {
   const { window } = props;
+  const location = useLocation();
   const classes = useStyles();
+  const searchContextState = useContext(SearchContextState);
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -148,19 +155,24 @@ export const TopBar: FunctionComponent<Props> = (props) => {
             Oursound
           </Typography>
           <Flex alignItems="center">
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+            {location.pathname.includes(consts.routes.HOME) ? null : (
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  value={searchContextState?.searchText}
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={searchContextState?.onChangeSearchText}
+                  onKeyDown={searchContextState?.onKeyDownSearchBar}
+                />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
+            )}
             <IconButton aria-label="account" color="inherit">
               <AccountCircle />
             </IconButton>
