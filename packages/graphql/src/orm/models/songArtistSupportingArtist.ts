@@ -1,13 +1,13 @@
+import { Artist } from './artist';
 import {
-  Entity,
-  PrimaryColumn,
-  ManyToOne,
   CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { Song } from './song';
-import { Artist } from './artist';
 
 @Entity('songArtistSupportingArtist')
 @ObjectType()

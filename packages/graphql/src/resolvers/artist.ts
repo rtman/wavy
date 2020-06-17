@@ -1,5 +1,5 @@
+import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { Models } from '../orm';
-import { Arg, Field, InputType, Resolver, Query, Mutation } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 @InputType()

@@ -3,9 +3,9 @@ import {
   Field,
   ID,
   InputType,
-  Resolver,
-  Query,
   Mutation,
+  Query,
+  Resolver,
 } from 'type-graphql';
 import { getManager } from 'typeorm';
 //TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue

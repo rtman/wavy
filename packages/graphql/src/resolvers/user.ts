@@ -1,13 +1,13 @@
-import { Models } from '../orm';
 import {
   Arg,
   Field,
   InputType,
-  Resolver,
-  Query,
   Mutation,
+  Query,
+  Resolver,
   // Args,
 } from 'type-graphql';
+import { Models } from '../orm';
 import { getManager } from 'typeorm';
 
 @InputType({ description: 'Create a new user' })

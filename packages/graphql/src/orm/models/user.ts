@@ -1,15 +1,15 @@
 import {
-  Entity,
   Column,
-  PrimaryColumn,
-  OneToMany,
   CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { UserArtistFollowing } from './userArtistFollowing';
 import { UserPlaylist } from './userPlaylist';
 import { UserSongFavourites } from './userSongFavourites';
-import { UserArtistFollowing } from './userArtistFollowing';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 @Entity('user')

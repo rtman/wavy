@@ -1,20 +1,20 @@
+import { Album } from './album';
+import { Artist } from './artist';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
+  Entity,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { Label } from './label';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+import { SongPlaylist } from './songPlaylist';
 import { UserSongFavourites } from './userSongFavourites';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
-import { SongPlaylist } from './songPlaylist';
-import { Artist } from './artist';
-import { Album } from './album';
-import { Label } from './label';
 
 @Entity('song')
 @ObjectType()

@@ -1,17 +1,17 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-} from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { Song } from './song';
-import { UserArtistFollowing } from './userArtistFollowing';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+import { UserArtistFollowing } from './userArtistFollowing';
 
 @Entity('artist')
 @ObjectType()
