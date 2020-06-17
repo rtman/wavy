@@ -9,6 +9,7 @@ export const SongTitle = styled.div(
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+    color: 'black',
   }),
   `
   &:hover {
@@ -24,6 +25,7 @@ export const SongArtist = styled.div(
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+    color: 'black',
   }),
   `
   &:hover {
@@ -36,6 +38,6 @@ export const SongInfoContainer = styled.div(
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    minWidth: `${window.innerWidth * 0.2}px`,
+    // minWidth: '120px',
   })
 );

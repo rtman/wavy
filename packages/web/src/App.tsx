@@ -1,13 +1,11 @@
-import {
-  AppContainer,
-  BottomBar,
-  Navigator,
-  NavMenu,
-  Player,
-  TopBar,
-} from 'components';
+import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
 import React, { useContext } from 'react';
-import { AuthContextState, PlayerProvider, UserProvider } from 'context';
+import {
+  AuthContextState,
+  PlayerProvider,
+  SearchProvider,
+  UserProvider,
+} from 'context';
 import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
 import { makeTheme } from './theme';
 
@@ -41,15 +39,16 @@ export const App = () => {
       <MuiThemeProvider theme={theme}>
         <AppContainer>
           <PlayerProvider>
-            <TopBar>
-              <NavMenu />
-            </TopBar>
-            <UserProvider>
-              <Navigator />
-            </UserProvider>
-            <BottomBar>
-              <Player />
-            </BottomBar>
+            <SearchProvider>
+              <TopBar>
+                <UserProvider>
+                  <Navigator />
+                </UserProvider>
+              </TopBar>
+              <BottomBar>
+                <Player />
+              </BottomBar>
+            </SearchProvider>
           </PlayerProvider>
         </AppContainer>
       </MuiThemeProvider>

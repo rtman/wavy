@@ -131,7 +131,7 @@ export const SongRow = (props: SongRowProps) => {
     return playlistList;
   };
 
-  console.log('songRow song', song);
+  // console.log('songRow song', song);
 
   return (
     <>
