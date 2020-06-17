@@ -13,6 +13,15 @@ module.exports = {
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         'react-native/no-inline-styles': 'off',
+        'sort-imports': [
+          'error',
+          {
+            ignoreCase: false,
+            ignoreDeclarationSort: false,
+            ignoreMemberSort: false,
+            memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+          },
+        ],
       },
       extends: [
         '@react-native-community',
