@@ -1,15 +1,15 @@
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import * as consts from 'consts';
 import { AuthContextState } from 'context';
-import { QueryUserByIdArgs, User, UserPlaylist } from 'types';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import React, {
-  FunctionComponent,
   createContext,
+  FunctionComponent,
   useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react';
+import { QueryUserByIdArgs, User, UserPlaylist } from 'types';
 
 interface UserContextProps {
   user?: User;

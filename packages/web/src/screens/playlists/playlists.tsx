@@ -1,4 +1,4 @@
-import * as consts from 'consts';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -12,11 +12,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Playlist, QueryPlaylistsByUserIdArgs } from 'types';
 import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
+import * as consts from 'consts';
 import { UserContext } from 'context';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import React, { useContext, useEffect, useState } from 'react';
+import { Playlist, QueryPlaylistsByUserIdArgs } from 'types';
 
 interface PlaylistsByUserIdData {
   playlistsByUserId: Playlist[];

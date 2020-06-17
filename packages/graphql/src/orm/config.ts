@@ -1,5 +1,6 @@
-import * as Models from './models';
 import { createConnection } from 'typeorm';
+
+import * as Models from './models';
 
 const createOrmConnection = async () => {
   await createConnection({

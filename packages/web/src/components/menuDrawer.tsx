@@ -1,10 +1,9 @@
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ListItemLink } from 'components';
-import React, { useContext } from 'react';
-
 import * as consts from 'consts';
 import { AuthContextState } from 'context';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

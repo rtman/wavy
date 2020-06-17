@@ -1,7 +1,7 @@
-import { Album, Song } from 'types';
-import { AlbumRow, SongRow } from 'components';
 import { Divider, List } from '@material-ui/core';
+import { AlbumRow, SongRow } from 'components';
 import React from 'react';
+import { Album, Song } from 'types';
 
 interface AlbumWithSongsProps {
   album: Album;

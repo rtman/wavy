@@ -1,5 +1,4 @@
-import * as consts from 'consts';
-import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
+import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -8,7 +7,6 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
-import { PlayerContext } from 'context';
 import {
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
@@ -18,9 +16,11 @@ import {
   SongRow,
   Spacing,
 } from 'components';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
+import * as consts from 'consts';
+import { PlayerContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
 
 interface AlbumByIdData {
   albumById: AlbumType;

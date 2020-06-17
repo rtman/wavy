@@ -1,7 +1,8 @@
 import 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import React, { FunctionComponent, createContext } from 'react';
+
 import firebase from 'firebase';
+import React, { createContext, FunctionComponent } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 interface AuthContextStateProps {
   firebaseUser: firebase.User | undefined;

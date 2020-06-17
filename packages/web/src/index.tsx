@@ -1,23 +1,24 @@
-import * as firebase from 'firebase/app';
-import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
-import { config } from 'config';
-// import * as helpers from 'helpers';
-import * as redux from 'redux';
-import * as sagas from 'sagas';
-import * as serviceWorker from './serviceWorker';
-import * as state from 'state';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { App } from './App';
-import { AuthProvider } from 'context';
 import { CssBaseline } from '@material-ui/core';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createBrowserHistory } from 'history';
 import ApolloClient from 'apollo-boost';
-import Helmet from 'react-helmet';
+import { config } from 'config';
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
+import { AuthProvider } from 'context';
+import * as firebase from 'firebase/app';
+import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Helmet from 'react-helmet';
+import { Provider } from 'react-redux';
+// import * as helpers from 'helpers';
+import * as redux from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import * as sagas from 'sagas';
+import * as state from 'state';
+
+import { App } from './App';
+import * as serviceWorker from './serviceWorker';
 
 export const history = createBrowserHistory();
 

@@ -1,7 +1,7 @@
 import * as consts from 'consts';
 import { AuthContextState } from 'context';
-import { Redirect, Route } from 'react-router-dom';
 import React, { FunctionComponent, useContext } from 'react';
+import { Redirect, Route } from 'react-router-dom';
 
 interface PublicRoute {
   exact: boolean;

@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core';
 import {
   AlignItemsProperty,
   FlexDirectionProperty,
@@ -5,8 +6,6 @@ import {
   JustifyContentProperty,
 } from 'csstype';
 import React, { PropsWithChildren } from 'react';
-
-import { makeStyles } from '@material-ui/core';
 
 const useStyles = (props: FlexProps) =>
   makeStyles({

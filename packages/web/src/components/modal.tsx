@@ -1,15 +1,14 @@
-import React, { PropsWithChildren } from 'react';
-
 import {
   Button,
   Card,
   Container,
   ContainerProps,
+  makeStyles,
   Modal as MaterialUIModal,
   Theme,
-  makeStyles,
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import React, { PropsWithChildren } from 'react';
 
 import * as spacing from './spacing';
 

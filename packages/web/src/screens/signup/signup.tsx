@@ -1,4 +1,4 @@
-import * as consts from 'consts';
+import { useMutation } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -9,10 +9,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Spacing, Title } from 'components';
-import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
-import React, { useState } from 'react';
+import * as consts from 'consts';
 import firebase from 'firebase';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // interface SignupFieldErrors {
 //   firstName: boolean;

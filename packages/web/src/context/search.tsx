@@ -1,6 +1,6 @@
 import * as consts from 'consts';
+import React, { createContext, FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import React, { FunctionComponent, createContext, useState } from 'react';
 
 interface SearchContextStateProps {
   searchText: string;

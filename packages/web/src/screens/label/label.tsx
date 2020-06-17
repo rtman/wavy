@@ -1,4 +1,11 @@
-import * as consts from 'consts';
+import { useLazyQuery } from '@apollo/react-hooks';
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  List,
+  Typography,
+} from '@material-ui/core';
 import {
   AlbumRow,
   ArtistRow,
@@ -11,18 +18,11 @@ import {
   Screen,
   Spacing,
 } from 'components';
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  List,
-  Typography,
-} from '@material-ui/core';
-import { Label as LabelType } from 'types';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
 import React, { Fragment, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Label as LabelType } from 'types';
 
 interface LabelByIdData {
   labelById: LabelType;

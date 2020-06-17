@@ -1,5 +1,13 @@
-import * as consts from 'consts';
-import { Album, Artist as ArtistType, QueryArtistByIdArgs } from 'types';
+import { useLazyQuery } from '@apollo/react-hooks';
+import {
+  Button,
+  CircularProgress,
+  Container,
+  GridList,
+  List,
+  Typography,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   AlbumCard,
   AlbumWithSongs,
@@ -10,19 +18,11 @@ import {
   Screen,
   Spacing,
 } from 'components';
-import {
-  Button,
-  CircularProgress,
-  Container,
-  GridList,
-  List,
-  Typography,
-} from '@material-ui/core';
+import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
-import { makeStyles } from '@material-ui/core/styles';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Album, Artist as ArtistType, QueryArtistByIdArgs } from 'types';
 
 interface ArtistByIdData {
   artistById: ArtistType;

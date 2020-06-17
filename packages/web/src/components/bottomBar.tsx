@@ -1,9 +1,8 @@
-import * as consts from 'consts';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import React, { FunctionComponent } from 'react';
-
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import * as consts from 'consts';
+import React, { FunctionComponent } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,12 +1,12 @@
 import * as helpers from 'helpers';
-import { Song } from 'types';
-import { SongWithAudio } from 'screens/home/types';
 import React, {
-  FunctionComponent,
   createContext,
+  FunctionComponent,
   useEffect,
   useState,
 } from 'react';
+import { SongWithAudio } from 'screens/home/types';
+import { Song } from 'types';
 
 interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;

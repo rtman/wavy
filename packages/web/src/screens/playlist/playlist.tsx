@@ -1,4 +1,4 @@
-import * as consts from 'consts';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -22,11 +22,11 @@ import {
   SongRow,
   Spacing,
 } from 'components';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import { Playlist as PlaylistType, SongPlaylist } from 'types';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Playlist as PlaylistType, SongPlaylist } from 'types';
 
 interface PlaylistByIdData {
   playlistById: PlaylistType;

@@ -1,5 +1,4 @@
-import { Album } from './album';
-import { ArtistLabel } from './artistLabel';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   Column,
   CreateDateColumn,
@@ -8,7 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+
+import { Album } from './album';
+import { ArtistLabel } from './artistLabel';
 import { Song } from './song';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { UserArtistFollowing } from './userArtistFollowing';

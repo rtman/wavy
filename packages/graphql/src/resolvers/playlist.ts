@@ -8,6 +8,7 @@ import {
   Resolver,
 } from 'type-graphql';
 import { getManager } from 'typeorm';
+
 //TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue
 import { Models } from '../orm';
 

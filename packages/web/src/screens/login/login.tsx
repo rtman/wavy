@@ -1,4 +1,3 @@
-import * as consts from 'consts';
 import {
   Button,
   CircularProgress,
@@ -9,9 +8,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Spacing, Title } from 'components';
-import { useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
+import * as consts from 'consts';
 import firebase from 'firebase';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // interface SignupFieldErrors {
 //   email: boolean;

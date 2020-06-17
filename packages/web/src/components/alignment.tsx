@@ -1,6 +1,5 @@
-import React, { PropsWithChildren } from 'react';
-
 import { makeStyles } from '@material-ui/core';
+import React, { PropsWithChildren } from 'react';
 
 const getStyles = (props: { align: 'left' | 'center' | 'right' }) =>
   makeStyles({

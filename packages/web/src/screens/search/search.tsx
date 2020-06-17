@@ -1,4 +1,25 @@
+import { useLazyQuery } from '@apollo/react-hooks';
+import {
+  CircularProgress,
+  Container,
+  List,
+  makeStyles,
+  Paper,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
+import {
+  AlbumRow,
+  ArtistRow,
+  LabelRow,
+  PlaylistRow,
+  Screen,
+  SongRow,
+  TextInput,
+} from 'components';
 import * as consts from 'consts';
+import { SearchContextState } from 'context';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Album,
   Artist,
@@ -11,27 +32,6 @@ import {
   QuerySearchSongsArgs,
   Song,
 } from 'types';
-import {
-  AlbumRow,
-  ArtistRow,
-  LabelRow,
-  PlaylistRow,
-  Screen,
-  SongRow,
-  TextInput,
-} from 'components';
-import {
-  CircularProgress,
-  Container,
-  List,
-  Paper,
-  Tab,
-  Tabs,
-  makeStyles,
-} from '@material-ui/core';
-import { SearchContextState } from 'context';
-import { useLazyQuery } from '@apollo/react-hooks';
-import React, { useContext, useEffect, useState } from 'react';
 
 interface SearchSongsData {
   searchSongs: Song[];

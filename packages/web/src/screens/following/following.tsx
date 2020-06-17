@@ -1,4 +1,3 @@
-import { ArtistRow, Screen, Spacing } from 'components';
 import {
   CircularProgress,
   Container,
@@ -6,6 +5,7 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
+import { ArtistRow, Screen, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
 

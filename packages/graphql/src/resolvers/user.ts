@@ -7,8 +7,9 @@ import {
   Resolver,
   // Args,
 } from 'type-graphql';
-import { Models } from '../orm';
 import { getManager } from 'typeorm';
+
+import { Models } from '../orm';
 
 @InputType({ description: 'Create a new user' })
 class CreateUserArgs implements Partial<Models.User> {

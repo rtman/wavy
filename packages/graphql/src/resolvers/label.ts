@@ -1,6 +1,7 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
-import { Models } from '../orm';
 import { getManager } from 'typeorm';
+
+import { Models } from '../orm';
 
 @InputType()
 class CreateLabelArgs implements Partial<Models.Label> {

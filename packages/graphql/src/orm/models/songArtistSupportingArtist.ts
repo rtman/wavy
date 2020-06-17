@@ -1,4 +1,4 @@
-import { Artist } from './artist';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   CreateDateColumn,
   Entity,
@@ -6,7 +6,8 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+
+import { Artist } from './artist';
 import { Song } from './song';
 
 @Entity('songArtistSupportingArtist')

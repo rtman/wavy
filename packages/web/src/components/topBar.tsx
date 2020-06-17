@@ -1,4 +1,3 @@
-import * as consts from 'consts';
 import {
   AppBar,
   CssBaseline,
@@ -9,20 +8,21 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { Flex, MenuDrawer } from 'components';
-import { SearchContextState } from 'context';
 import {
-  Theme,
   createStyles,
   fade,
   makeStyles,
+  Theme,
   useTheme,
 } from '@material-ui/core/styles';
-import { useLocation } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import React, { FunctionComponent, useContext } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import { Flex, MenuDrawer } from 'components';
+import * as consts from 'consts';
+import { SearchContextState } from 'context';
+import React, { FunctionComponent, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

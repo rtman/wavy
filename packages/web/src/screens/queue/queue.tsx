@@ -1,4 +1,4 @@
-import * as consts from 'consts';
+import { useLazyQuery } from '@apollo/react-hooks';
 import {
   CircularProgress,
   Container,
@@ -6,11 +6,11 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
-import { PlayerContext } from 'context';
-import { QuerySongsByIdArgs, Song } from 'types';
 import { Screen, SongRow, Spacing } from 'components';
-import { useLazyQuery } from '@apollo/react-hooks';
+import * as consts from 'consts';
+import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { QuerySongsByIdArgs, Song } from 'types';
 
 interface SongsByIdData {
   songsById: Song[];

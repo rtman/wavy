@@ -1,5 +1,3 @@
-import * as consts from 'consts';
-import { Album } from 'types';
 import {
   Avatar,
   Divider,
@@ -12,11 +10,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { PlayerContext, UserContext } from 'context';
 import { StyledButton } from 'components';
-import { useHistory, useLocation } from 'react-router-dom';
+import * as consts from 'consts';
+import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Album } from 'types';
 
 interface AlbumRowProps {
   album: Album;

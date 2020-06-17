@@ -1,3 +1,4 @@
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   Column,
   CreateDateColumn,
@@ -6,7 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Field, ID, ObjectType } from 'type-graphql';
+
 import { UserArtistFollowing } from './userArtistFollowing';
 import { UserPlaylist } from './userPlaylist';
 import { UserSongFavourites } from './userSongFavourites';

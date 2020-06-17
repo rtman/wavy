@@ -1,6 +1,5 @@
+import { makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-
-import { Theme, makeStyles } from '@material-ui/core';
 
 const getStyles = (props: { spacingMult: number }) =>
   makeStyles((theme: Theme) => ({

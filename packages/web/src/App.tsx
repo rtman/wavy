@@ -1,3 +1,6 @@
+import './App.css';
+
+import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
 import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
 import {
   AuthContextState,
@@ -5,11 +8,9 @@ import {
   SearchProvider,
   UserProvider,
 } from 'context';
-import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
-import { makeTheme } from './theme';
 import React, { useContext } from 'react';
 
-import './App.css';
+import { makeTheme } from './theme';
 
 export const App = () => {
   const authContextState = useContext(AuthContextState);
