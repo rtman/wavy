@@ -155,7 +155,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
             Oursound
           </Typography>
           <Flex alignItems="center">
-            {location.pathname.includes(consts.routes.HOME) ? null : (
+            {location.pathname.includes(consts.routes.SEARCH) ? null : (
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />

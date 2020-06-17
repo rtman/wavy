@@ -40,6 +40,9 @@ export const MenuDrawer = () => {
         <ListItemLink to={consts.routes.HOME}>
           <ListItemText primary="Home" />
         </ListItemLink>
+        <ListItemLink to={consts.routes.SEARCH}>
+          <ListItemText primary="Search" />
+        </ListItemLink>
         <ListItemLink to={consts.routes.QUEUE}>
           <ListItemText primary="Queue" />
         </ListItemLink>

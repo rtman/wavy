@@ -71,6 +71,11 @@ export const Routes = () => {
         path={consts.routes.FAVOURITES}
         component={screens.Favourites}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.SEARCH}
+        component={screens.Search}
+      />
     </Switch>
   );
 };

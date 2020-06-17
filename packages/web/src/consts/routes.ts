@@ -8,5 +8,6 @@ export const PLAYLISTS = '/playlists';
 export const PLAYLIST = '/playlist';
 export const QUEUE = '/queue';
 export const ROOT = '/';
+export const SEARCH = '/search';
 export const SIGN_UP = '/signup';
 export const LOG_IN = '/login';

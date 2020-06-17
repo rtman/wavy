@@ -35,7 +35,7 @@ export const SearchProvider = ({ children }: any) => {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.keyCode === 13) {
-      history.push(consts.routes.HOME);
+      history.push(consts.routes.SEARCH);
       searchInitiated();
     }
   };

@@ -9,3 +9,4 @@ export { Playlists } from './playlists';
 export { Queue } from './queue';
 export { Signup } from './signup';
 export { Login } from './login';
+export * from './search';
