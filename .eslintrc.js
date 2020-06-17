@@ -4,13 +4,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
-      plugins: [
-        '@typescript-eslint',
-        'jest',
-        'prettier',
-        'sort-imports-es6-autofix',
-        'simple-import-sort',
-      ],
+      plugins: ['@typescript-eslint', 'jest', 'prettier', 'simple-import-sort'],
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: ['./packages/*/tsconfig.json'],
