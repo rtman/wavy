@@ -1,13 +1,4 @@
-import {
-  AppContainer,
-  BottomBar,
-  // ResponsiveDrawer,
-  Navigator,
-  // NavMenu,
-  Player,
-  // OldTopBar,
-  TopBar,
-} from 'components';
+import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
 import React, { useContext } from 'react';
 import {
   AuthContextState,

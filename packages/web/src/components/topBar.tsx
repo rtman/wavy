@@ -21,10 +21,7 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import {
-  SearchContextState,
-  // SearchProvider
-} from 'context';
+import { SearchContextState } from 'context';
 import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>

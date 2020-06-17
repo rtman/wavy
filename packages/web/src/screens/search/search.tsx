@@ -56,7 +56,6 @@ type DataTypesArrayUnion = Artist[] | Album[] | Playlist[] | Label[];
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    // maxWidth: 500,
   },
 });
 
@@ -64,7 +63,6 @@ export const Search = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
   const searchContextState = useContext(SearchContextState);
-  // const [searchText, setSearchText] = useState<string>('');
   const [songSearchResults, setSongSearchResults] = useState<Song[]>([]);
   const [artistSearchResults, setArtistSearchResults] = useState<Artist[]>([]);
   const [albumSearchResults, setAlbumSearchResults] = useState<Album[]>([]);
@@ -298,13 +296,6 @@ export const Search = () => {
       labelQueryLoading,
     ].includes(true);
   };
-
-  console.log('songQueryLoading', songQueryLoading);
-  console.log('artistQueryLoading', artistQueryLoading);
-  console.log('albumQueryLoading', albumQueryLoading);
-  console.log('playlistQueryLoading', playlistQueryLoading);
-  console.log('labelQueryLoading', labelQueryLoading);
-  console.log('areQueriesLoading', areQueriesLoading());
 
   return (
     <Screen>
