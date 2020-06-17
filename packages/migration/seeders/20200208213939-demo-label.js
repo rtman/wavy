@@ -8,7 +8,9 @@ module.exports = {
         name: 'Superconscious Records',
         description:
           'Australian record label run by Francis Inferno Orchestra and Fantastic Man. Distribution by Above Board Distribution.',
-        image: 'gs://groov-development-ddc9d.appspot.com/superconcious.jpg',
+        imageRef: 'gs://groov-development-ddc9d.appspot.com/superconcious.jpg',
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/superconcious.jpg?alt=media&token=a7f5b84b-18f7-4260-9c76-90e0b5be4529',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -17,7 +19,10 @@ module.exports = {
         name: 'Heart to Heart Records',
         description:
           'Label out of western canada, exploring the underground dance floors of the world.',
-        image: 'gs://groov-development-ddc9d.appspot.com/hth_gradient_logo.png',
+        imageRef:
+          'gs://groov-development-ddc9d.appspot.com/hth_gradient_logo.png',
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/hth_gradient_logo.png?alt=media&token=7f5c8380-f39b-4600-b112-24ef108919f3',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -26,7 +31,10 @@ module.exports = {
         name: 'Cosmic Resonance',
         description:
           'Cosmic Resonance is a Toronto vinyl imprint showcasing artists who experiment with music via a cosmic perspective.',
-        image: 'gs://groov-development-ddc9d.appspot.com/cosmicResonance.png',
+        imageRef:
+          'gs://groov-development-ddc9d.appspot.com/cosmicResonance.png',
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cosmicResonance.png?alt=media&token=61afef55-3d27-4862-8722-baaaf63a8015',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -34,8 +42,10 @@ module.exports = {
         id: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         name: 'SW',
         description: 'Seb Wildbloods Label',
-        image:
+        imageRef:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -44,7 +54,10 @@ module.exports = {
         name: 'Leaving Records',
         description:
           'Leaving Records is a homegrown experimental record label started by L.A. experimental musician MatthewDavid + visual artist Jesselisa Moretti. Distribution partnership with Stones Throw Records.',
-        image: 'gs://groov-development-ddc9d.appspot.com/leavingRecords.jpeg',
+        imageRef:
+          'gs://groov-development-ddc9d.appspot.com/leavingRecords.jpeg',
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/leavingRecords.jpeg?alt=media&token=3b607bcb-639a-4c68-a979-079e1f8f9c87',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
