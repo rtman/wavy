@@ -31,7 +31,8 @@ export type Album = {
   title: Scalars['String'];
   songs: Array<Song>;
   label?: Maybe<Label>;
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
   description: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -43,7 +44,8 @@ export type Artist = {
   name: Scalars['String'];
   albums: Array<Album>;
   songs: Array<Song>;
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
   description: Scalars['String'];
   labels?: Maybe<Array<ArtistLabel>>;
   usersFollowing?: Maybe<Array<UserArtistFollowing>>;
@@ -67,32 +69,37 @@ export type CreateAlbumArgs = {
   title: Scalars['String'];
   description: Scalars['String'];
   artistId: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
 };
 
 export type CreateArtistArgs = {
   name: Scalars['String'];
   description: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
 };
 
 export type CreateLabelArgs = {
   name: Scalars['String'];
   description: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
 };
 
 export type CreatePlaylistArgs = {
   userId: Scalars['String'];
   title: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
+  imageRef?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
 };
 
 export type CreateSongArgs = {
   title: Scalars['String'];
   artistId: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
 };
 
 /** Create a new user */
@@ -113,7 +120,8 @@ export type Label = {
   __typename?: 'Label';
   id: Scalars['ID'];
   name: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
   description: Scalars['String'];
   artists?: Maybe<Array<ArtistLabel>>;
   albums?: Maybe<Array<Album>>;
@@ -231,7 +239,8 @@ export type Playlist = {
   id: Scalars['ID'];
   title: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
+  imageRef?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
   songs?: Maybe<Array<SongPlaylist>>;
   users?: Maybe<Array<UserPlaylist>>;
   createdAt: Scalars['DateTime'];
@@ -336,8 +345,10 @@ export type Song = {
   album: Album;
   label?: Maybe<Label>;
   title: Scalars['String'];
+  ref: Scalars['String'];
   url: Scalars['String'];
-  image: Scalars['String'];
+  imageRef: Scalars['String'];
+  imageUrl: Scalars['String'];
   releaseDate: Scalars['DateTime'];
   supportingArtists?: Maybe<Array<SongArtistSupportingArtist>>;
   playlists?: Maybe<Array<SongPlaylist>>;
@@ -381,7 +392,8 @@ export type UpdatePlaylistInfoArgs = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
+  imageRef?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
 };
 
 export type UpdatePlaylistsArgs = {
@@ -645,7 +657,8 @@ export type AlbumResolvers<
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -660,7 +673,8 @@ export type ArtistResolvers<
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   albums?: Resolver<Array<ResolversTypes['Album']>, ParentType, ContextType>;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   labels?: Resolver<
     Maybe<Array<ResolversTypes['ArtistLabel']>>,
@@ -706,7 +720,8 @@ export type LabelResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   artists?: Resolver<
     Maybe<Array<ResolversTypes['ArtistLabel']>>,
@@ -865,7 +880,8 @@ export type PlaylistResolvers<
     ParentType,
     ContextType
   >;
-  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageRef?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   songs?: Resolver<
     Maybe<Array<ResolversTypes['SongPlaylist']>>,
     ParentType,
@@ -997,8 +1013,10 @@ export type SongResolvers<
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ref?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   supportingArtists?: Resolver<
     Maybe<Array<ResolversTypes['SongArtistSupportingArtist']>>,

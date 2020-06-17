@@ -5,7 +5,7 @@ export const ARTISTS_BY_ID = gql`
     artistsById(ids: $ids) {
       id
       name
-      image
+      imageUrl
       description
       album_ids
     }
@@ -18,32 +18,32 @@ export const ARTIST_BY_ID = gql`
       id
       name
       description
-      image
+      imageUrl
       albums {
         id
         title
-        image
+        imageUrl
         label {
           id
           name
-          image
+          imageUrl
         }
         songs {
           id
           title
           url
-          image
+          imageUrl
           label {
             id
             name
-            image
+            imageUrl
           }
           supportingArtists {
             createdAt
             artist {
               id
               name
-              image
+              imageUrl
             }
           }
           usersRecentlyPlayed {
@@ -60,16 +60,16 @@ export const ARTIST_BY_ID = gql`
         id
         title
         url
-        image
+        imageUrl
         label {
           id
           name
-          image
+          imageUrl
         }
         artist {
           id
           name
-          image
+          imageUrl
         }
       }
       usersFollowing {
@@ -97,19 +97,19 @@ export const ALBUM_BY_ID = gql`
     albumById(id: $id) {
       id
       title
-      image
+      imageUrl
       description
       songs {
         id
         title
         url
-        image
+        imageUrl
         artistId
         albumId
         label {
           id
           name
-          image
+          imageUrl
         }
         artist {
           id
@@ -120,7 +120,7 @@ export const ALBUM_BY_ID = gql`
           artist {
             id
             name
-            image
+            imageUrl
           }
         }
         usersFavourited {
@@ -135,11 +135,11 @@ export const ALBUM_BY_ID = gql`
       artist {
         id
         name
-        image
+        imageUrl
         albums {
           title
           id
-          image
+          imageUrl
         }
       }
     }
@@ -151,7 +151,7 @@ export const PLAYLIST_BY_ID = gql`
     playlistById(id: $id) {
       title
       description
-      image
+      imageUrl
       users {
         createdAt
         user {
@@ -166,21 +166,21 @@ export const PLAYLIST_BY_ID = gql`
           id
           title
           url
-          image
+          imageUrl
           artist {
             id
             name
-            image
+            imageUrl
           }
           album {
             id
             title
-            image
+            imageUrl
           }
           label {
             id
             name
-            image
+            imageUrl
           }
         }
       }
@@ -194,7 +194,7 @@ export const PLAYLISTS_BY_USER_ID = gql`
       id
       title
       description
-      image
+      imageUrl
       users {
         createdAt
         user {
@@ -209,16 +209,16 @@ export const PLAYLISTS_BY_USER_ID = gql`
           id
           title
           url
-          image
+          imageUrl
           artist {
             id
             name
-            image
+            imageUrl
           }
           album {
             id
             title
-            image
+            imageUrl
           }
         }
       }
@@ -234,20 +234,20 @@ export const SEARCH_SONGS_QUERY = gql`
       artist {
         id
         name
-        image
+        imageUrl
       }
       album {
         id
         title
-        image
+        imageUrl
       }
       label {
         id
         name
-        image
+        imageUrl
       }
       url
-      image
+      imageUrl
       releaseDate
     }
   }
@@ -258,7 +258,7 @@ export const SEARCH_ARTISTS_QUERY = gql`
     searchArtists(query: $query) {
       id
       name
-      image
+      imageUrl
     }
   }
 `;
@@ -268,16 +268,16 @@ export const SEARCH_ALBUMS_QUERY = gql`
     searchAlbums(query: $query) {
       id
       title
-      image
+      imageUrl
       artist {
         id
         name
-        image
+        imageUrl
       }
       label {
         id
         name
-        image
+        imageUrl
       }
     }
   }
@@ -288,7 +288,7 @@ export const SEARCH_PLAYLISTS_QUERY = gql`
     searchPlaylists(query: $query) {
       id
       title
-      image
+      imageUrl
       users {
         createdAt
         user {
@@ -306,7 +306,7 @@ export const SEARCH_LABELS_QUERY = gql`
     searchLabels(query: $query) {
       id
       name
-      image
+      imageUrl
     }
   }
 `;
@@ -317,7 +317,7 @@ export const LABEL_BY_ID = gql`
       id
       name
       description
-      image
+      imageUrl
       createdAt
       updatedAt
       artists {
@@ -326,23 +326,23 @@ export const LABEL_BY_ID = gql`
           name
           id
           description
-          image
+          imageUrl
         }
       }
       albums {
         id
         title
-        image
+        imageUrl
         description
         label {
           id
           name
-          image
+          imageUrl
         }
         artist {
           id
           name
-          image
+          imageUrl
         }
       }
       songs {
@@ -352,14 +352,14 @@ export const LABEL_BY_ID = gql`
         label {
           id
           name
-          image
+          imageUrl
         }
         artist {
           name
           id
-          image
+          imageUrl
         }
-        image
+        imageUrl
         url
       }
     }
@@ -372,21 +372,21 @@ export const SONGS_BY_ID_QUERY = gql`
       id
       title
       url
-      image
+      imageUrl
       label {
         id
         name
-        image
+        imageUrl
       }
       artist {
         id
         name
-        image
+        imageUrl
       }
       album {
         id
         title
-        image
+        imageUrl
       }
     }
   }
@@ -405,7 +405,7 @@ export const USER_BY_ID = gql`
         artist {
           id
           name
-          image
+          imageUrl
         }
       }
       favourites {
@@ -413,34 +413,34 @@ export const USER_BY_ID = gql`
         song {
           id
           title
-          image
+          imageUrl
           url
           label {
             id
             name
-            image
+            imageUrl
           }
           album {
             id
             title
-            image
+            imageUrl
             label {
               id
               name
-              image
+              imageUrl
             }
           }
           artist {
             id
             name
-            image
+            imageUrl
           }
           supportingArtists {
             createdAt
             artist {
               id
               name
-              image
+              imageUrl
             }
           }
         }
@@ -451,7 +451,7 @@ export const USER_BY_ID = gql`
         playlist {
           id
           title
-          image
+          imageUrl
           description
         }
       }

@@ -9,7 +9,6 @@ import {
   Screen,
 } from 'components';
 import * as consts from 'consts';
-import * as helpers from 'helpers';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
@@ -54,12 +53,11 @@ export const Artist = () => {
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const following = userContext?.user?.following ?? [];
-  const artistImage = artist?.image ?? '';
   const artistSongs = artist?.songs ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
-  const artistImageUrl = helpers.hooks.useGetStorageHttpUrl(artistImage);
+  const artistImageUrl = artist?.imageUrl ?? '';
   const classes = useStyles();
 
   useEffect(() => {

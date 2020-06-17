@@ -11,7 +11,10 @@ class CreateArtistArgs implements Partial<Models.Artist> {
   description: string;
 
   @Field()
-  image: string;
+  imageRef: string;
+
+  @Field()
+  imageUrl: string;
 }
 
 @Resolver(Models.Artist)

@@ -62,11 +62,19 @@ export class Song {
 
   @Field(() => String)
   @Column()
+  ref: string;
+
+  @Field(() => String)
+  @Column()
   url: string;
 
   @Field(() => String)
   @Column()
-  image: string;
+  imageRef: string;
+
+  @Field(() => String)
+  @Column()
+  imageUrl: string;
 
   @Field(() => Date)
   @Column()

@@ -1,7 +1,6 @@
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useState } from 'react';
-import * as helpers from 'helpers';
 import {
   Avatar,
   ButtonBase,
@@ -29,7 +28,6 @@ export const SongRow = (props: SongRowProps) => {
   const { song, passedOnClickSong, secondaryStyle } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<any>(null);
-  const imageUrl = helpers.hooks.useGetStorageHttpUrl(song.image);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const history = useHistory();
@@ -139,7 +137,7 @@ export const SongRow = (props: SongRowProps) => {
         {secondaryStyle ? null : (
           <ListItemAvatar>
             <ButtonBase onClick={() => resolvedOnClick(song)}>
-              <Avatar variant="square" src={imageUrl} />
+              <Avatar variant="square" src={song.imageUrl} />
             </ButtonBase>
           </ListItemAvatar>
         )}

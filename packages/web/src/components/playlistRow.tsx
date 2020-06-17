@@ -1,7 +1,6 @@
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useEffect } from 'react';
-import * as helpers from 'helpers';
 import {
   Avatar,
   ButtonBase,
@@ -52,14 +51,12 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     handleMenuClose();
   };
 
-  const playlistImage = playlist.image ?? '';
+  const playlistImageUrl = playlist.imageUrl ?? '';
   const playlistTitle = playlist.title ?? '';
   const playlistDescription = playlist.description ?? '';
   const playlistId = playlist.id ?? '';
 
   const playlistSongs = queryData?.playlistById?.songs ?? [];
-
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(playlistImage);
 
   useEffect(() => {
     if (!queryLoading && playlistSongs) {

@@ -1,7 +1,6 @@
 import * as consts from 'consts';
 import { StyledButton, StyledListItemText } from 'components';
 import React, { useContext } from 'react';
-import * as helpers from 'helpers';
 import {
   Avatar,
   ButtonBase,
@@ -24,7 +23,6 @@ interface ArtistRowProps {
 export const ArtistRow = (props: ArtistRowProps) => {
   const { artist, passedOnClickArtist } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const imageUrl = helpers.hooks.useGetStorageHttpUrl(artist.image);
   const history = useHistory();
   const userContext = useContext(UserContext);
 
@@ -56,7 +54,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <ButtonBase onClick={() => resolvedOnClick(artist)}>
-            <Avatar variant="square" src={imageUrl} />
+            <Avatar variant="square" src={artist.imageUrl} />
           </ButtonBase>
         </ListItemAvatar>
         <StyledListItemText

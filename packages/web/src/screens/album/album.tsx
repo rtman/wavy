@@ -8,7 +8,6 @@ import {
   Screen,
 } from 'components';
 import * as consts from 'consts';
-import * as helpers from 'helpers';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
@@ -42,9 +41,8 @@ export const Album = () => {
     },
   });
 
-  const albumImage = album?.image ?? '';
   const albumSongs = album?.songs ?? [];
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(albumImage);
+  const albumImageUrl = album?.imageUrl ?? '';
   const albumTitle = album?.title ?? '';
 
   useEffect(() => {

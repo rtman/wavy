@@ -24,7 +24,11 @@ export class Label {
 
   @Field(() => String)
   @Column()
-  image: string;
+  imageRef: string;
+
+  @Field(() => String)
+  @Column()
+  imageUrl: string;
 
   @Field(() => String)
   @Column()

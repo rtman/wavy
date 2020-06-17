@@ -23,7 +23,10 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
   description?: string;
 
   @Field({ nullable: true })
-  image?: string;
+  imageRef?: string;
+
+  @Field({ nullable: true })
+  imageUrl: string;
 }
 
 @InputType()
@@ -38,7 +41,10 @@ class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
   description?: string;
 
   @Field({ nullable: true })
-  image?: string;
+  imageRef?: string;
+
+  @Field({ nullable: true })
+  imageUrl: string;
 }
 
 @InputType()

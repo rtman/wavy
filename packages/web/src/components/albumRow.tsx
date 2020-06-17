@@ -13,7 +13,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import * as helpers from 'helpers';
 import { PlayerContext, UserContext } from 'context';
 import { useLocation, useHistory } from 'react-router-dom';
 import NestedMenuItem from 'material-ui-nested-menu-item';
@@ -33,8 +32,6 @@ export const AlbumRow = (props: AlbumRowProps) => {
   const userContext = useContext(UserContext);
   const location = useLocation();
   const history = useHistory();
-
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(album.image);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -108,7 +105,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
         button={true}
       >
         <ListItemAvatar>
-          <Avatar variant="square" src={albumImageUrl} />
+          <Avatar variant="square" src={album.imageUrl} />
         </ListItemAvatar>
         <ListItemText
           primary={album.title}

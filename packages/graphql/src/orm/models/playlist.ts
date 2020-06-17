@@ -27,7 +27,11 @@ export class Playlist {
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  image: string;
+  imageRef: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  imageUrl: string;
 
   @Field(() => [SongPlaylist], { nullable: true })
   @OneToMany(

@@ -14,7 +14,10 @@ class CreateAlbumArgs implements Partial<Models.Album> {
   artistId: string;
 
   @Field()
-  image: string;
+  imageRef: string;
+
+  @Field()
+  imageUrl: string;
 }
 
 @Resolver(Models.Album)

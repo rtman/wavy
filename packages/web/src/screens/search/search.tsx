@@ -9,7 +9,6 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { SearchContextState } from 'context';
-import * as helpers from 'helpers';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
@@ -51,8 +50,6 @@ interface SearchLabelsData {
   searchLabels: Label[];
 }
 
-type DataTypesArrayUnion = Artist[] | Album[] | Playlist[] | Label[];
-
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -78,9 +75,7 @@ export const Search = () => {
   >(consts.queries.SEARCH_SONGS_QUERY, {
     fetchPolicy: 'network-only',
     onCompleted: async (data) => {
-      console.log('songQueryData', data);
-      const songDataWithUrls = await convertSongUrls(data);
-      setSongSearchResults(songDataWithUrls);
+      setSongSearchResults(data.searchSongs as Song[]);
     },
   });
 
@@ -90,9 +85,7 @@ export const Search = () => {
   >(consts.queries.SEARCH_ARTISTS_QUERY, {
     fetchPolicy: 'network-only',
     onCompleted: async (data) => {
-      console.log('artistQueryData', data);
-      const artistDataWithUrls = await convertImageUrls(data.searchArtists);
-      setArtistSearchResults(artistDataWithUrls as Artist[]);
+      setArtistSearchResults(data.searchArtists as Artist[]);
     },
   });
   const [submitAlbumSearch, { loading: albumQueryLoading }] = useLazyQuery<
@@ -101,9 +94,7 @@ export const Search = () => {
   >(consts.queries.SEARCH_ALBUMS_QUERY, {
     fetchPolicy: 'network-only',
     onCompleted: async (data) => {
-      console.log('albumQueryData', data);
-      const albumDataWithUrls = await convertImageUrls(data.searchAlbums);
-      setAlbumSearchResults(albumDataWithUrls as Album[]);
+      setAlbumSearchResults(data.searchAlbums as Album[]);
     },
   });
 
@@ -115,11 +106,7 @@ export const Search = () => {
     {
       fetchPolicy: 'network-only',
       onCompleted: async (data) => {
-        console.log('playlistQueryData', data);
-        const playlistDataWithUrls = await convertImageUrls(
-          data.searchPlaylists
-        );
-        setPlaylistSearchResults(playlistDataWithUrls as Playlist[]);
+        setPlaylistSearchResults(data.searchPlaylists as Playlist[]);
       },
     }
   );
@@ -130,52 +117,9 @@ export const Search = () => {
   >(consts.queries.SEARCH_LABELS_QUERY, {
     fetchPolicy: 'network-only',
     onCompleted: async (data) => {
-      console.log('labelQueryData', data);
-      const labelDataWithUrls = await convertImageUrls(data.searchLabels);
-      setLabelSearchResults(labelDataWithUrls as Label[]);
+      setLabelSearchResults(data.searchLabels as Label[]);
     },
   });
-
-  const convertImageUrls = async (data: DataTypesArrayUnion) => {
-    const array = data ?? [];
-
-    if (array.length > 0) {
-      const imageUrlPromises: Promise<string>[] = [];
-      array.forEach((element: Artist | Album | Playlist | Label) => {
-        if (element.image) {
-          imageUrlPromises.push(helpers.getStorageHttpUrl(element.image));
-        }
-      });
-      const imageUrls = await Promise.all(imageUrlPromises);
-      const resolvedArray: DataTypesArrayUnion = [];
-      array.forEach((element: any, index: number) => {
-        resolvedArray.push({ ...element, image: imageUrls[index] });
-      });
-
-      return resolvedArray;
-    }
-
-    return array;
-  };
-
-  const convertSongUrls = async (data: SearchSongsData) => {
-    const songs = data?.searchSongs ?? [];
-
-    const songUrlPromises = songs.map((song: Song) =>
-      helpers.getStorageHttpUrl(song.url)
-    );
-    const imageUrlPromises = songs.map((song: Song) =>
-      helpers.getStorageHttpUrl(song.image)
-    );
-    const songUrls = await Promise.all(songUrlPromises);
-    const imageUrls = await Promise.all(imageUrlPromises);
-
-    const resolvedSongs = songs.map((song: any, index: number) => {
-      return { ...song, image: imageUrls[index], url: songUrls[index] };
-    });
-
-    return resolvedSongs;
-  };
 
   // const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setSearchText(event.target.value);

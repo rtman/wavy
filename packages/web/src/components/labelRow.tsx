@@ -1,7 +1,6 @@
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import React, { useContext, useEffect } from 'react';
-import * as helpers from 'helpers';
 import {
   Avatar,
   ButtonBase,
@@ -51,14 +50,12 @@ export const LabelRow = (props: LabelRowProps) => {
     handleMenuClose();
   };
 
-  const labelImage = label.image ?? '';
+  const labelImageUrl = label.imageUrl ?? '';
   const labelName = label.name ?? '';
   const labelDescription = label.description ?? '';
   const labelId = label.id ?? '';
 
   const labelSongs = queryData?.labelById?.songs ?? [];
-
-  const labelImageUrl = helpers.hooks.useGetStorageHttpUrl(labelImage);
 
   useEffect(() => {
     if (!queryLoading && labelSongs) {

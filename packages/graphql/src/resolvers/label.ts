@@ -11,7 +11,10 @@ class CreateLabelArgs implements Partial<Models.Label> {
   description: string;
 
   @Field()
-  image: string;
+  imageRef: string;
+
+  @Field()
+  imageUrl: string;
 }
 
 @Resolver(Models.Label)

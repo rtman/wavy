@@ -22,7 +22,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import * as helpers from 'helpers';
 import { Label as LabelType } from 'types';
 
 interface LabelByIdData {
@@ -46,10 +45,9 @@ export const Label = () => {
   const labelSongs = queryData?.labelById?.songs ?? [];
   const labelArtists = queryData?.labelById?.artists ?? [];
   const labelAlbums = queryData?.labelById?.albums ?? [];
-  const labelImage = queryData?.labelById?.image ?? '';
+  const labelImageUrl = queryData?.labelById?.imageUrl ?? '';
   const labelName = queryData?.labelById?.name ?? '';
   const labelDescription = queryData?.labelById?.description ?? '';
-  const labelImageUrl = helpers.hooks.useGetStorageHttpUrl(labelImage);
 
   useEffect(() => {
     if (id) {

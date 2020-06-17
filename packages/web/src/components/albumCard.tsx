@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Card, CardMedia, GridListTile, Typography } from '@material-ui/core';
-import * as helpers from 'helpers';
 import { PlayerContext } from 'context';
 import { Album } from 'types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +22,6 @@ const useStyles = makeStyles(() => ({
 export const AlbumCard = (props: AlbumCardProps) => {
   const { album, passedOnClickAlbum } = props;
   const playerContext = useContext(PlayerContext);
-  const albumImageUrl = helpers.hooks.useGetStorageHttpUrl(album.image);
 
   const onClickAlbum = () => {
     playerContext.replaceQueueWithSongs(album.songs);
@@ -39,7 +37,7 @@ export const AlbumCard = (props: AlbumCardProps) => {
   return (
     <GridListTile>
       <Card className={classes.root} onClick={() => resolvedOnClick(album)}>
-        <CardMedia component="img" image={albumImageUrl} alt={album.title} />
+        <CardMedia component="img" image={album.imageUrl} alt={album.title} />
         <Typography align="center" className={classes.cardText}>
           {album.title}
         </Typography>

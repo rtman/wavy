@@ -26,7 +26,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { PlayerContext } from 'context';
-import * as helpers from 'helpers';
 import { SongPlaylist, Playlist as PlaylistType } from 'types';
 
 interface PlaylistByIdData {
@@ -66,10 +65,9 @@ export const Playlist = () => {
   );
 
   const playlistSongs = queryData?.playlistById?.songs ?? [];
-  const playlistImage = queryData?.playlistById?.image ?? '';
+  const playlistImageUrl = queryData?.playlistById?.imageUrl ?? '';
   const playlistTitle = queryData?.playlistById?.title ?? '';
   const playlistDescription = queryData?.playlistById?.description ?? '';
-  const playlistImageUrl = helpers.hooks.useGetStorageHttpUrl(playlistImage);
 
   useEffect(() => {
     if (id) {
