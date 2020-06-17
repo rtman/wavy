@@ -1,7 +1,7 @@
-import * as components from 'components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { NavigationContainer } from '@react-navigation/native';
 import ApolloClient from 'apollo-boost';
+import * as components from 'components';
 import React from 'react';
 // import { createHttpLink } from 'apollo-link-http';
 

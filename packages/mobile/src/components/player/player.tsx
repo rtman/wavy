@@ -1,6 +1,6 @@
 import * as components from 'components';
-import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import TrackPlayer, {
   Event,
   State,

@@ -1,7 +1,7 @@
-import * as screens from 'screens';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import * as screens from 'screens';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();

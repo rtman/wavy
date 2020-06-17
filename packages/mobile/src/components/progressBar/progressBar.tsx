@@ -1,5 +1,5 @@
-import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 
 const styles = StyleSheet.create({
