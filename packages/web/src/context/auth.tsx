@@ -14,7 +14,7 @@ export const AuthContextState = createContext<
   AuthContextStateProps | undefined
 >(undefined);
 
-export const AuthProvider: FunctionComponent = () => {
+export const AuthProvider: FunctionComponent = (props) => {
   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
 
   const logout = async () => {
