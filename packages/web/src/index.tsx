@@ -22,8 +22,9 @@ import createSagaMiddleware from 'redux-saga';
 export const history = createBrowserHistory();
 
 console.log('config', config);
-
-firebase.initializeApp(config.FIREBASE_CONFIG);
+if (config.FIREBASE_CONFIG) {
+  firebase.initializeApp(config.FIREBASE_CONFIG);
+}
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
