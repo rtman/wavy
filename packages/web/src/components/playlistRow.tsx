@@ -61,7 +61,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   useEffect(() => {
     if (!queryLoading && playlistSongs) {
       const songs = playlistSongs.map((s) => s.song);
-      playerContext.replaceQueueWithSongs(songs);
+      playerContext?.replaceQueueWithSongs(songs);
     }
     // TODO: Re enable and fix deps
     // eslint-disable-next-line react-hooks/exhaustive-deps

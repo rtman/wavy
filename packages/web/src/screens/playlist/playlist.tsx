@@ -120,7 +120,7 @@ export const Playlist = () => {
         (songInstance: SongPlaylist) => songInstance.song
       );
 
-      playerContext.replaceQueueWithSongs(songs);
+      playerContext?.replaceQueueWithSongs(songs);
     }
   };
 

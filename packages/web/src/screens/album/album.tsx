@@ -86,7 +86,7 @@ export const Album = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => playerContext.replaceQueueWithSongs(albumSongs)}
+              onClick={() => playerContext?.replaceQueueWithSongs(albumSongs)}
             >
               Play Now
             </Button>

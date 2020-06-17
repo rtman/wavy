@@ -90,7 +90,7 @@ export const Label = () => {
 
   const onClickPlayNow = () => {
     if (labelSongs.length > 0) {
-      playerContext.replaceQueueWithSongs(labelSongs);
+      playerContext?.replaceQueueWithSongs(labelSongs);
     }
   };
 

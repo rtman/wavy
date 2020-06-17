@@ -24,7 +24,7 @@ export const AlbumCard = (props: AlbumCardProps) => {
   const playerContext = useContext(PlayerContext);
 
   const onClickAlbum = () => {
-    playerContext.replaceQueueWithSongs(album.songs);
+    playerContext?.replaceQueueWithSongs(album.songs);
   };
 
   const resolvedOnClick =

@@ -12,7 +12,7 @@ export const Player = () => {
   const playerContext = useContext(PlayerContext);
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
 
-  const currentSong = playerContext.currentSong;
+  const currentSong = playerContext?.currentSong;
   const allMediaStates = helpers.hooks.useMediaState(
     currentSong?.audio ?? new Audio()
   );
@@ -38,15 +38,15 @@ export const Player = () => {
 
   const onClickPlay = () => {
     if (filteredMediaState !== 'pause') {
-      playerContext.playQueue();
+      playerContext?.playQueue();
     } else {
-      playerContext.unPause();
+      playerContext?.unPause();
     }
   };
 
   useEffect(() => {
     if (filteredMediaState === 'ended') {
-      playerContext.playNextSongInQueue();
+      playerContext?.playNextSongInQueue();
     }
     // TODO: Re enable and fix deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,17 +55,17 @@ export const Player = () => {
 
   return (
     <RowContainer width={'100%'}>
-      <StyledButton onClick={playerContext.playPreviousSongInQueue}>
+      <StyledButton onClick={playerContext?.playPreviousSongInQueue}>
         <SkipPrevious />
       </StyledButton>
       <StyledButton>
         {filteredMediaState === 'playing' ? (
-          <Pause onClick={playerContext.pause} />
+          <Pause onClick={playerContext?.pause} />
         ) : (
           <PlayArrow onClick={onClickPlay} />
         )}
       </StyledButton>
-      <StyledButton onClick={playerContext.playNextSongInQueue}>
+      <StyledButton onClick={playerContext?.playNextSongInQueue}>
         <SkipNext />
       </StyledButton>
       <ProgressBar />

@@ -127,7 +127,7 @@ export const Artist = () => {
 
   const onClickPlayNow = () => {
     if (artistSongs.length > 0) {
-      playerContext.replaceQueueWithSongs(artistSongs);
+      playerContext?.replaceQueueWithSongs(artistSongs);
     }
   };
 

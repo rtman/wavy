@@ -59,7 +59,7 @@ export const LabelRow = (props: LabelRowProps) => {
 
   useEffect(() => {
     if (!queryLoading && labelSongs) {
-      playerContext.replaceQueueWithSongs(labelSongs);
+      playerContext?.replaceQueueWithSongs(labelSongs);
     }
     // TODO: Re enable and fix deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
