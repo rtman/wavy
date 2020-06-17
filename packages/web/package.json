@@ -48,6 +48,7 @@
     "build:ts": "yarn tsc --build tsconfig.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "eslint": "eslint 'src/**/*.ts?(x)'",
     "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
     "postinstall": "patch-package",
     "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",

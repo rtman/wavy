@@ -1,14 +1,14 @@
-import express from 'express';
+import 'reflect-metadata';
 import * as Resolvers from './resolvers';
 import { ApolloServer } from 'apollo-server-express';
-import { createOrmConnection, Models } from './orm';
-import depthLimit from 'graphql-depth-limit';
+import { GraphQLError, GraphQLSchema } from 'graphql';
+import { Models, createOrmConnection } from './orm';
+import { buildSchema } from 'type-graphql';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import { GraphQLError, GraphQLSchema } from 'graphql';
-import 'reflect-metadata';
-import { buildSchema } from 'type-graphql';
+import depthLimit from 'graphql-depth-limit';
+import express from 'express';
 
 const port = 3000;
 
