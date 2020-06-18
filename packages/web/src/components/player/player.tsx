@@ -23,7 +23,6 @@ export const Player = () => {
     consts.mutations.UPDATE_SONG_PLAY_COUNT,
     {
       onCompleted() {
-        console.log('submitUpdateSongPlayCount completed');
         setIsPlayCountUpdated(true);
       },
     }
@@ -38,7 +37,6 @@ export const Player = () => {
 
   useEffect(() => {
     if (duration) {
-      console.log('duration', duration);
       setMinimumPlayLength(duration * minimumPlayRatio);
     }
   }, [duration]);
