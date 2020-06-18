@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 
-const minimumPlayRatio = 0.1;
+const minimumPlayRatio = 0.2;
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
