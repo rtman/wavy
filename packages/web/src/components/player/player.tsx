@@ -1,22 +1,72 @@
+import { useMutation } from '@apollo/react-hooks';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import { ProgressBar } from 'components';
 import { RowContainer, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import * as helpers from 'helpers';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 
+const minimumPlayRatio = 0.15;
+
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
+  const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
+  const [isPlayCountUpdated, setIsPlayCountUpdated] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  const [submitUpdateSongPlayCount] = useMutation(
+    consts.mutations.UPDATE_SONG_PLAY_COUNT,
+    {
+      onCompleted() {
+        console.log('submitUpdateSongPlayCount completed');
+        setIsPlayCountUpdated(true);
+      },
+    }
+  );
 
   const currentSong = playerContext?.currentSong;
   const allMediaStates = helpers.hooks.useMediaState(
     currentSong?.audio ?? new Audio()
   );
+  const duration = currentSong?.audio?.duration;
+  const playCountTimerRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (duration) {
+      console.log('duration', duration);
+      setMinimumPlayLength(duration * minimumPlayRatio);
+    }
+  }, [duration]);
+
+  // TODO: Figure out how replays of the same song will work,
+  // test if going to the next song will reset this.
+  useEffect(() => {
+    if (filteredMediaState === 'playing' && !isPlaying) {
+      setIsPlaying(true);
+      if (!isPlayCountUpdated) {
+        playCountTimerRef.current = setTimeout(() => {
+          submitUpdateSongPlayCount({
+            variables: { input: { id: currentSong?.id } },
+          });
+        }, minimumPlayLength * 1000);
+      }
+    } else if (filteredMediaState !== 'playing' && isPlaying) {
+      setIsPlaying(false);
+      clearTimeout(playCountTimerRef.current);
+    }
+  }, [
+    filteredMediaState,
+    currentSong,
+    minimumPlayLength,
+    submitUpdateSongPlayCount,
+    isPlaying,
+    isPlayCountUpdated,
+  ]);
 
   useEffect(() => {
     setFilteredMediaState(

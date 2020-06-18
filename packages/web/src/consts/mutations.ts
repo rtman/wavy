@@ -58,3 +58,9 @@ export const UPDATE_RECENTLY_PLAYED = gql`
     updateRecentlyPlayed(input: $input)
   }
 `;
+
+export const UPDATE_SONG_PLAY_COUNT = gql`
+  mutation UpdateSongPlayCount($input: UpdatePlayCountArgs!) {
+    updateSongPlayCount(input: $input)
+  }
+`;

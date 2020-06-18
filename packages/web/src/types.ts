@@ -141,6 +141,7 @@ export type Mutation = {
   createSong: Song;
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
+  updateSongPlayCount: Scalars['Boolean'];
   createPlaylist: Playlist;
   updatePlaylistInfo: Playlist;
   addPlaylistSongs: Scalars['Boolean'];
@@ -188,6 +189,10 @@ export type MutationUpdateSongTitleArgs = {
 
 export type MutationDeleteSongArgs = {
   id: Scalars['String'];
+};
+
+export type MutationUpdateSongPlayCountArgs = {
+  input: UpdatePlayCountArgs;
 };
 
 export type MutationCreatePlaylistArgs = {
@@ -350,6 +355,7 @@ export type Song = {
   imageRef: Scalars['String'];
   imageUrl: Scalars['String'];
   releaseDate: Scalars['DateTime'];
+  playCount: Scalars['Float'];
   supportingArtists?: Maybe<Array<SongArtistSupportingArtist>>;
   playlists?: Maybe<Array<SongPlaylist>>;
   usersFavourited?: Maybe<Array<UserSongFavourites>>;
@@ -386,6 +392,10 @@ export type UpdateFavouritesArgs = {
 export type UpdateFollowingArgs = {
   userId: Scalars['String'];
   artistId: Scalars['String'];
+};
+
+export type UpdatePlayCountArgs = {
+  id: Scalars['String'];
 };
 
 export type UpdatePlaylistInfoArgs = {
@@ -583,6 +593,7 @@ export type ResolversTypes = {
   Label: ResolverTypeWrapper<Label>;
   ArtistLabel: ResolverTypeWrapper<ArtistLabel>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongPlaylist: ResolverTypeWrapper<SongPlaylist>;
   Playlist: ResolverTypeWrapper<Playlist>;
@@ -598,6 +609,7 @@ export type ResolversTypes = {
   CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
+  UpdatePlayCountArgs: UpdatePlayCountArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
   UpdatePlaylistInfoArgs: UpdatePlaylistInfoArgs;
   AddPlaylistSongsArgs: AddPlaylistSongsArgs;
@@ -621,6 +633,7 @@ export type ResolversParentTypes = {
   Label: Label;
   ArtistLabel: ArtistLabel;
   DateTime: Scalars['DateTime'];
+  Float: Scalars['Float'];
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongPlaylist: SongPlaylist;
   Playlist: Playlist;
@@ -636,6 +649,7 @@ export type ResolversParentTypes = {
   CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
+  UpdatePlayCountArgs: UpdatePlayCountArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
   UpdatePlaylistInfoArgs: UpdatePlaylistInfoArgs;
   AddPlaylistSongsArgs: AddPlaylistSongsArgs;
@@ -800,6 +814,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteSongArgs, 'id'>
+  >;
+  updateSongPlayCount?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateSongPlayCountArgs, 'input'>
   >;
   createPlaylist?: Resolver<
     ResolversTypes['Playlist'],
@@ -1018,6 +1038,7 @@ export type SongResolvers<
   imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  playCount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   supportingArtists?: Resolver<
     Maybe<Array<ResolversTypes['SongArtistSupportingArtist']>>,
     ParentType,
