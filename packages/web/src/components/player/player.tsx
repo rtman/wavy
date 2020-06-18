@@ -42,7 +42,7 @@ export const Player = () => {
   }, [duration]);
 
   // TODO: Figure out how replays of the same song will work,
-  // test if going to the next song will reset this.
+  // test if going to the next song will reset this (it should).
   useEffect(() => {
     if (filteredMediaState === 'playing' && !isPlaying) {
       setIsPlaying(true);
