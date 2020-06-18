@@ -81,6 +81,10 @@ export class Song {
   @Column()
   releaseDate: Date;
 
+  @Field(() => Number)
+  @Column()
+  playCount: number;
+
   @Field(() => [SongArtistSupportingArtist], { nullable: true })
   @OneToMany(
     () => SongArtistSupportingArtist,

@@ -27,6 +27,12 @@ class UpdateSongTitleArgs implements Partial<Models.Song> {
   id: string;
 }
 
+@InputType()
+class UpdatePlayCountArgs implements Partial<Models.Song> {
+  @Field()
+  id: string;
+}
+
 @Resolver(Models.Song)
 export class SongResolvers {
   @Query(() => [Models.Song])
@@ -217,6 +223,39 @@ export class SongResolvers {
       }
     } catch (error) {
       console.log('deleteSong error', error);
+
+      return false;
+    }
+  }
+  @Mutation(() => Boolean)
+  async updateSongPlayCount(
+    @Arg('input') payload: UpdatePlayCountArgs
+  ): Promise<boolean> {
+    try {
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Song
+          );
+
+          const songToUpdate = await repository.increment(
+            { id: payload.id },
+            'playCount',
+            1
+          );
+
+          if (songToUpdate) {
+            return true;
+          } else {
+            console.log('updateSongPlayCount - Song not found');
+
+            return false;
+          }
+        }
+      );
+      return result;
+    } catch (error) {
+      console.log('updateSongPlayCount error', error);
 
       return false;
     }
