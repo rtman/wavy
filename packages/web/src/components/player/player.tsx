@@ -10,20 +10,18 @@ import { useHistory } from 'react-router-dom';
 
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 
-const minimumPlayRatio = 0.15;
+const minimumPlayRatio = 0.1;
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
-  const [isPlayCountUpdated, setIsPlayCountUpdated] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const [submitUpdateSongPlayCount] = useMutation(
     consts.mutations.UPDATE_SONG_PLAY_COUNT,
     {
       onCompleted() {
-        setIsPlayCountUpdated(true);
+        console.log('submitUpdatedSongPlayCount onComplete');
       },
     }
   );
@@ -41,29 +39,29 @@ export const Player = () => {
     }
   }, [duration]);
 
-  // TODO: Figure out how replays of the same song will work,
-  // test if going to the next song will reset this (it should).
+  // TODO: come up with a way to pause timer or restart timers with the
+  // time left when a user pauses playback.
   useEffect(() => {
-    if (filteredMediaState === 'playing' && !isPlaying) {
-      setIsPlaying(true);
-      if (!isPlayCountUpdated) {
-        playCountTimerRef.current = setTimeout(() => {
-          submitUpdateSongPlayCount({
-            variables: { input: { id: currentSong?.id } },
-          });
-        }, minimumPlayLength * 1000);
+    if (filteredMediaState === 'playing') {
+      console.log('playCount - playing');
+      playCountTimerRef.current = setTimeout(() => {
+        submitUpdateSongPlayCount({
+          variables: { input: { id: currentSong?.id } },
+        });
+      }, minimumPlayLength * 1000);
+    } else if (filteredMediaState !== 'playing') {
+      console.log('playCount - not playing');
+
+      if (playCountTimerRef.current) {
+        console.log('playCount - reset timer');
+        clearTimeout(playCountTimerRef.current);
       }
-    } else if (filteredMediaState !== 'playing' && isPlaying) {
-      setIsPlaying(false);
-      clearTimeout(playCountTimerRef.current);
     }
   }, [
     filteredMediaState,
     currentSong,
     minimumPlayLength,
     submitUpdateSongPlayCount,
-    isPlaying,
-    isPlayCountUpdated,
   ]);
 
   useEffect(() => {
