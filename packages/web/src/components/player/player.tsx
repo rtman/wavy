@@ -40,10 +40,10 @@ export const Player = () => {
   }, [duration]);
 
   // TODO: come up with a way to pause timer or restart timers with the
-  // time left when a user pauses playback.
+  // time left when a user pauses playback. Take timer start and then when paused
+  // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
     if (filteredMediaState === 'playing') {
-      console.log('playCount - playing');
       playCountTimerRef.current = setTimeout(() => {
         submitUpdateSongPlayCount({
           variables: { input: { id: currentSong?.id } },
