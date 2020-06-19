@@ -4,10 +4,13 @@ import {
   CircularProgress,
   Container,
   Divider,
+  GridList,
   List,
   Typography,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import {
+  AlbumCard,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
@@ -26,10 +29,21 @@ interface AlbumByIdData {
   albumById: AlbumType;
 }
 
+const useStyles = makeStyles(() => ({
+  gridList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+}));
+
 export const Album = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
-  const [album, setAlbum] = useState<AlbumType | undefined>(undefined);
+  const [currentAlbum, setCurrentAlbum] = useState<AlbumType | undefined>(
+    undefined
+  );
+  const classes = useStyles();
 
   const [getAlbumById, { loading: queryLoading }] = useLazyQuery<
     AlbumByIdData,
@@ -37,13 +51,15 @@ export const Album = () => {
   >(consts.queries.ALBUM_BY_ID, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
-      setAlbum(data.albumById);
+      setCurrentAlbum(data.albumById);
     },
   });
 
-  const albumSongs = album?.songs ?? [];
-  const albumImageUrl = album?.imageUrl ?? '';
-  const albumTitle = album?.title ?? '';
+  const albumSongs = currentAlbum?.songs ?? [];
+  const albumImageUrl = currentAlbum?.imageUrl ?? '';
+  const albumTitle = currentAlbum?.title ?? '';
+  const artistAlbums = currentAlbum?.artist.albums ?? [];
+  const artistName = currentAlbum?.artist.name ?? '';
 
   useEffect(() => {
     if (id) {
@@ -51,7 +67,7 @@ export const Album = () => {
         variables: { id },
       });
     } else {
-      console.log('album.getAlbumById - no Id');
+      console.log('currentAlbum.getAlbumById - no Id');
     }
   }, [getAlbumById, id]);
 
@@ -66,6 +82,21 @@ export const Album = () => {
         );
       });
       return <List>{songsList}</List>;
+    } else {
+      return null;
+    }
+  };
+
+  const renderMoreBy = () => {
+    const filteredAlbums = artistAlbums.filter(
+      (album: AlbumType) => album.id !== id
+    );
+
+    if (filteredAlbums.length > 0) {
+      const albumsList = filteredAlbums.map((album: AlbumType) => (
+        <AlbumCard key={album.id} album={album} />
+      ));
+      return <GridList className={classes.gridList}>{albumsList}</GridList>;
     } else {
       return null;
     }
@@ -94,11 +125,15 @@ export const Album = () => {
           <Spacing.section.Minor />
           <Typography variant="h1">Description</Typography>
           <Spacing.section.Minor />
-          <Typography variant="body1">{album?.description}</Typography>
+          <Typography variant="body1">{currentAlbum?.description}</Typography>
           <Spacing.section.Minor />
           <Typography variant="h1">Songs</Typography>
           <Spacing.section.Minor />
           {albumSongs ? renderSongs() : null}
+          <Spacing.section.Minor />
+          <Typography variant="h1">More By {artistName}</Typography>
+          <Spacing.section.Minor />
+          {renderMoreBy()}
           <Spacing.section.Minor />
         </Container>
       )}

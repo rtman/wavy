@@ -4,13 +4,10 @@ import {
   CircularProgress,
   Container,
   Divider,
-  GridList,
   List,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  AlbumCard,
   AlbumWithSongs,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
@@ -29,14 +26,6 @@ import { Album, Artist as ArtistType, QueryArtistByIdArgs, Song } from 'types';
 interface ArtistByIdData {
   artistById: ArtistType;
 }
-
-const useStyles = makeStyles(() => ({
-  gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
-  },
-}));
 
 export const Artist = () => {
   const { id } = useParams();
@@ -60,7 +49,6 @@ export const Artist = () => {
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
   const artistImageUrl = artist?.imageUrl ?? '';
-  const classes = useStyles();
 
   useEffect(() => {
     if (id) {
@@ -120,17 +108,6 @@ export const Artist = () => {
     }
   };
 
-  const renderMoreBy = () => {
-    if (artistAlbums) {
-      const albumsList = artistAlbums.map((album: Album) => (
-        <AlbumCard key={album.id} album={album} />
-      ));
-      return <GridList className={classes.gridList}>{albumsList}</GridList>;
-    } else {
-      return null;
-    }
-  };
-
   const onClickPlayNow = () => {
     if (artistSongs.length > 0) {
       playerContext?.replaceQueueWithSongs(artistSongs);
@@ -177,10 +154,6 @@ export const Artist = () => {
           <Typography variant="h1">Albums</Typography>
           <Spacing.section.Minor />
           {renderAlbums()}
-          <Spacing.section.Minor />
-          <Typography variant="h1">More By {artistName}</Typography>
-          <Spacing.section.Minor />
-          {renderMoreBy()}
           <Spacing.section.Minor />
         </Container>
       )}
