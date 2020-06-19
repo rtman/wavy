@@ -17,8 +17,8 @@ import {
   ProfileHeaderTitle,
   RowContainer,
   Screen,
-  Spacing,
   SongRow,
+  Spacing,
 } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
