@@ -278,22 +278,30 @@ export class PlaylistResolvers {
   @Mutation(() => Models.Playlist)
   async updatePlaylistInfo(
     @Arg('input') payload: UpdatePlaylistInfoArgs
-  ): Promise<Models.Playlist | undefined> {
+  ): Promise<boolean> {
     try {
-      const repository = getManager().getRepository(Models.Playlist);
-      const playlist = await repository.update(payload.id, payload);
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Playlist
+          );
+          const playlist = await repository.update(payload.id, payload);
 
-      if (playlist) {
-        return;
-      }
+          if (playlist) {
+            return true;
+          }
 
-      console.log('updatePlaylistInfo - playlist not found', payload);
+          console.log('updatePlaylistInfo - playlist not found', payload);
 
-      return;
+          return false;
+        }
+      );
+
+      return result;
     } catch (error) {
       console.log('updatePlaylistInfo error', error);
 
-      return;
+      return false;
     }
   }
 
@@ -303,20 +311,29 @@ export class PlaylistResolvers {
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
-      const repository = getManager().getRepository(Models.SongPlaylist);
 
-      const addedSongs = songIds.map((songId) =>
-        repository.create({ playlistId: id, songId })
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.SongPlaylist
+          );
+
+          const addedSongs = songIds.map((songId) =>
+            repository.create({ playlistId: id, songId })
+          );
+
+          if (addedSongs) {
+            await repository.save(addedSongs);
+
+            return true;
+          }
+          console.log('addPlaylistSongs failed', payload);
+
+          return false;
+        }
       );
 
-      if (addedSongs) {
-        await repository.save(addedSongs);
-
-        return true;
-      }
-      console.log('addPlaylistSongs failed', payload);
-
-      return false;
+      return result;
     } catch (error) {
       console.log('addPlaylistSongs error', error);
 
@@ -330,21 +347,32 @@ export class PlaylistResolvers {
   ): Promise<boolean> {
     try {
       const { id, songIds } = payload;
-      const repository = getManager().getRepository(Models.SongPlaylist);
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.SongPlaylist
+          );
 
-      const instances = songIds.map((songId) => {
-        return { playlistId: id, songId };
-      });
-      const removedSongs = await repository.find({ where: instances });
+          const instances = songIds.map((songId) => {
+            return { playlistId: id, songId };
+          });
+          const removedSongs = await repository.find({ where: instances });
 
-      if (removedSongs) {
-        await repository.remove(removedSongs);
-        return true;
-      }
+          if (removedSongs) {
+            await repository.remove(removedSongs);
+            return true;
+          }
 
-      console.log('removePlaylistSongs - no songs found for playlist', payload);
+          console.log(
+            'removePlaylistSongs - no songs found for playlist',
+            payload
+          );
 
-      return false;
+          return false;
+        }
+      );
+
+      return result;
     } catch (error) {
       console.log('addPlaylistSongs error', error);
 
@@ -352,7 +380,7 @@ export class PlaylistResolvers {
     }
   }
 
-  //TODO: If a playlist has multiple users and its deleted by one user, playlist + userPlaylist entries are removed but it still has userPlaylist entries for the other users. Fix.
+  //TODO: If a playlist has multiple users and its deleted by one user, playlist + userPlaylist entries are removed but it still has userPlaylist entries for the other users. Fix. I there are multiple users attached to a playlist, you can only remove yourself.
   @Mutation(() => Boolean)
   async deletePlaylist(
     @Arg('input') payload: DeletePlaylistArgs
