@@ -8,6 +8,7 @@ import {
   SearchProvider,
   UserProvider,
 } from 'context';
+import { SnackbarProvider } from 'notistack';
 import React, { useContext } from 'react';
 
 import { makeTheme } from './theme';
@@ -39,25 +40,29 @@ export const App = () => {
     return (
       <MuiThemeProvider theme={theme}>
         <AppContainer>
-          <PlayerProvider>
-            <SearchProvider>
-              <TopBar>
-                <UserProvider>
-                  <Navigator />
-                </UserProvider>
-              </TopBar>
-              <BottomBar>
-                <Player />
-              </BottomBar>
-            </SearchProvider>
-          </PlayerProvider>
+          <SnackbarProvider maxSnack={3}>
+            <PlayerProvider>
+              <SearchProvider>
+                <TopBar>
+                  <UserProvider>
+                    <Navigator />
+                  </UserProvider>
+                </TopBar>
+                <BottomBar>
+                  <Player />
+                </BottomBar>
+              </SearchProvider>
+            </PlayerProvider>
+          </SnackbarProvider>
         </AppContainer>
       </MuiThemeProvider>
     );
   } else {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navigator />
+        <SnackbarProvider maxSnack={3}>
+          <Navigator />
+        </SnackbarProvider>
       </MuiThemeProvider>
     );
   }
