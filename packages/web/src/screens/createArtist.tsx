@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/react-hooks';
-import * as consts from 'consts';
 import {
   Button,
   CircularProgress,
@@ -8,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Flex, Spacing } from 'components';
+import * as consts from 'consts';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';

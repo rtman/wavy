@@ -5,7 +5,9 @@
   "workspaces": {
     "nohoist": [
       "*react-scripts*",
-      "*react-scripts*/**"
+      "*react-scripts*/**",
+      "*eslint-plugin-react*",
+      "*eslint-plugin-react*/**"
     ]
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "immutability-helper": "^3.0.1",
     "material-ui-nested-menu-item": "^1.0.2",
     "moment": "^2.24.0",
+    "notistack": "^0.9.17",
     "patch-package": "^6.2.0",
     "polished": "3.5.1",
     "react": "^16.12.0",
