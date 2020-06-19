@@ -3,6 +3,7 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   GridList,
   List,
   Typography,
@@ -17,12 +18,13 @@ import {
   RowContainer,
   Screen,
   Spacing,
+  SongRow,
 } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Album, Artist as ArtistType, QueryArtistByIdArgs } from 'types';
+import { Album, Artist as ArtistType, QueryArtistByIdArgs, Song } from 'types';
 
 interface ArtistByIdData {
   artistById: ArtistType;
@@ -84,6 +86,29 @@ export const Artist = () => {
     }
   };
 
+  const renderTopSongs = () => {
+    const artistSongsDesc = artistSongs
+      .sort((a, b) => b.playCount - a.playCount)
+      .slice(0, 5);
+
+    if (
+      artistSongsDesc.length > 0 &&
+      artistSongsDesc.filter((song) => song.playCount > 0).length > 0
+    ) {
+      const songsList = artistSongsDesc.map((song: Song, index: number) => {
+        return (
+          <React.Fragment key={song.id}>
+            <SongRow song={song} secondaryStyle={true} />
+            {index < artistSongsDesc.length - 1 ? <Divider /> : null}
+          </React.Fragment>
+        );
+      });
+      return <List>{songsList}</List>;
+    } else {
+      return null;
+    }
+  };
+
   const renderAlbums = () => {
     if (artistAlbums) {
       const albumsList = artistAlbums.map((album: Album) => (
@@ -105,25 +130,6 @@ export const Artist = () => {
       return null;
     }
   };
-
-  // const renderSongs = () => {
-  //   if (artist.albums.length > 0) {
-  //     const songs = data.artistById.songs;
-  //     console.log('artist renderSongs - songs', songs);
-  //     const songsList = songs.map((song: Song, index: number) => {
-  //       return (
-  //         <React.Fragment key={song.id}>
-  //           <SongRow song={song} />
-  //           {index < songs.length - 1 ? <Divider /> : null}
-  //         </React.Fragment>
-  //       );
-  //     });
-
-  //     return <List>{songsList}</List>;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
   const onClickPlayNow = () => {
     if (artistSongs.length > 0) {
@@ -163,6 +169,10 @@ export const Artist = () => {
           <Typography variant="h1">Description</Typography>
           <Spacing.section.Minor />
           <Typography variant="body1">{artistDescription}</Typography>
+          <Spacing.section.Minor />
+          <Typography variant="h1">Top Songs</Typography>
+          <Spacing.section.Minor />
+          {renderTopSongs()}
           <Spacing.section.Minor />
           <Typography variant="h1">Albums</Typography>
           <Spacing.section.Minor />
