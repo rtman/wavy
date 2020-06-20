@@ -56,6 +56,9 @@ export const CreateArtist = () => {
     setDescription(event.target.value);
 
   const onSubmit = async () => {
+    setImageRef('');
+    setImageUrl('');
+
     await createArtist({
       variables: {
         input: {

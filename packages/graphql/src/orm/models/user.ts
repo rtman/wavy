@@ -8,7 +8,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { UserArtist } from './userArtist';
 import { UserArtistFollowing } from './userArtistFollowing';
+import { UserLabel } from './userLabel';
 import { UserPlaylist } from './userPlaylist';
 import { UserSongFavourites } from './userSongFavourites';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
@@ -63,6 +65,20 @@ export class User {
     (userPlaylist) => userPlaylist.user
   )
   playlists: UserPlaylist[];
+
+  @Field(() => [UserArtist], { nullable: true })
+  @OneToMany(
+    () => UserArtist,
+    (userArtist) => userArtist.user
+  )
+  artists: UserArtist[];
+
+  @Field(() => [UserLabel], { nullable: true })
+  @OneToMany(
+    () => UserLabel,
+    (userLabel) => userLabel.user
+  )
+  labels: UserLabel[];
 
   @Field(() => Date)
   @CreateDateColumn()
