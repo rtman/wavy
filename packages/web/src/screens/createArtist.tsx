@@ -11,11 +11,14 @@ import * as consts from 'consts';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
+// import * as firebase from 'firebase'
+import ImageUploader from 'react-images-upload';
 
 export const CreateArtist = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [image, setImage] = useState<string>('');
   const [imageRef, setImageRef] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   // const [artistImage, setArtistImage] = useState<string>('')
@@ -48,7 +51,6 @@ export const CreateArtist = () => {
       });
     }
   }, [error, enqueueSnackbar]);
-
   const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) =>
     setName(event.target.value);
 
@@ -71,12 +73,26 @@ export const CreateArtist = () => {
       },
     });
   };
+  
+  const onDrop = (files: File[],images: string[]) => {
+    console.log('files',files)
+    console.log('images', images)
+setImage(images[0])
+  }
 
   return (
     <Container>
       <Spacing.section.Minor />
       <Typography variant="h1">New Artist</Typography>
       <Spacing.section.Minor />
+      {image ? <img src={image}/> : 
+      <ImageUploader
+                withIcon={true}
+                buttonText='Select Image'
+                onChange={onDrop}
+                imgExtension={['.jpg', '.png']}
+                maxFileSize={5242880}
+            />}
       <TextField
         autoFocus={true}
         margin="dense"
