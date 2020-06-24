@@ -43,7 +43,7 @@
   "scripts": {
     "psContainer": "docker exec -it postgresql bash",
     "psTerminal": "psql -U groov -D groov",
-    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules && rm yarn.lock "
+    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_module"
   },
   "dependencies": {
     "patch-package": "^6.2.0",

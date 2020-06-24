@@ -67,6 +67,9 @@ export const UPDATE_SONG_PLAY_COUNT = gql`
 
 export const CREATE_ARTIST = gql`
   mutation CreateArtist($input: CreateArtistArgs!) {
-    createArtist(input: $input)
+    createArtist(input: $input) {
+      id
+      name
+    }
   }
 `;
