@@ -24,6 +24,9 @@ export const MenuDrawer = () => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
+        <ListItemLink to={consts.routes.DASHBOARD}>
+          <ListItemText primary="Dashboard" />
+        </ListItemLink>
         <ListItemLink to={consts.routes.CREATE_ARTIST}>
           <ListItemText primary="Create Artist" />
         </ListItemLink>

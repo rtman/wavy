@@ -87,6 +87,11 @@ export const Routes = () => {
         path={consts.routes.CREATE_LABEL}
         component={screens.CreateLabel}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.DASHBOARD}
+        component={screens.Dashboard}
+      />
     </Switch>
   );
 };

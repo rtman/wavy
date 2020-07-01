@@ -91,6 +91,12 @@ export class UserResolvers {
             'following.artist.labels',
             'playlists',
             'playlists.playlist',
+            'artists',
+            'artists.artist',
+            'artists.artist.songs',
+            'labels',
+            'labels.label',
+            'labels.label.songs',
           ],
         });
 

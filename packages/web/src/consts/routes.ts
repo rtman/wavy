@@ -2,6 +2,7 @@ export const ARTIST = '/artist';
 export const ALBUM = '/album';
 export const CREATE_ARTIST = '/createArtist';
 export const CREATE_LABEL = '/createLabel';
+export const DASHBOARD = '/dashboard';
 export const LABEL = '/label';
 export const FOLLOWING = '/following';
 export const FAVOURITES = '/favourites';

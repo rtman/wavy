@@ -11,4 +11,5 @@ export { Signup } from './signup';
 export { Login } from './login';
 export * from './createArtist';
 export * from './createLabel';
+export * from './dashboard';
 export * from './search';

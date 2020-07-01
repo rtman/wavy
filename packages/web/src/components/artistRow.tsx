@@ -10,9 +10,9 @@ import {
 import { MoreVert } from '@material-ui/icons';
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import { UserContext } from 'context';
+import { PlayerContext, UserContext } from 'context';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Artist } from 'types';
 
 interface ArtistRowProps {
@@ -24,7 +24,13 @@ export const ArtistRow = (props: ArtistRowProps) => {
   const { artist, passedOnClickArtist } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const history = useHistory();
+  const location = useLocation();
   const userContext = useContext(UserContext);
+  const playerContext = useContext(PlayerContext);
+
+  const artistSongs = artist.songs;
+
+  console.log('artist', artist);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +38,13 @@ export const ArtistRow = (props: ArtistRowProps) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const onClickPlayNow = () => {
+    if (artistSongs.length > 0) {
+      playerContext?.replaceQueueWithSongs(artistSongs);
+    }
+    handleMenuClose();
   };
 
   const onClickGoToArtist = () => {
@@ -79,12 +92,17 @@ export const ArtistRow = (props: ArtistRowProps) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
+        <MenuItem onClick={onClickPlayNow}>Play now</MenuItem>
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
-        <MenuItem onClick={onClickToggleFollow}>
-          {userContext?.user?.following?.find((f) => f.artist.id === artist.id)
-            ? 'Unfollow'
-            : 'Follow'}
-        </MenuItem>
+        {location.pathname.includes('dashboard') ? null : (
+          <MenuItem onClick={onClickToggleFollow}>
+            {userContext?.user?.following?.find(
+              (f) => f.artist.id === artist.id
+            )
+              ? 'Unfollow'
+              : 'Follow'}
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

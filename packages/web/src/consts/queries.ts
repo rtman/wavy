@@ -401,6 +401,50 @@ export const USER_BY_ID = gql`
       lastName
       email
       password
+      artists {
+        artistId
+        userId
+        createdAt
+        updatedAt
+        artist {
+          id
+          name
+          imageUrl
+          songs {
+            id
+            title
+            imageUrl
+            # supportingArtists {
+            #   artist {
+            #     id
+            #     name
+            #   }
+            # }
+          }
+        }
+      }
+      labels {
+        labelId
+        userId
+        createdAt
+        updatedAt
+        label {
+          id
+          name
+          imageUrl
+          songs {
+            id
+            title
+            imageUrl
+            # supportingArtists {
+            #   artist {
+            #     id
+            #     name
+            #   }
+            # }
+          }
+        }
+      }
       following {
         createdAt
         artist {
