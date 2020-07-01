@@ -6,6 +6,12 @@ import { Models } from '../orm';
 @InputType()
 class CreateArtistArgs implements Partial<Models.Artist> {
   @Field()
+  artistId: string;
+
+  @Field()
+  userId: string;
+
+  @Field()
   name: string;
 
   @Field()
@@ -70,6 +76,8 @@ export class ArtistResolvers {
             'supportingArtistOn.song',
             'usersFollowing',
             'usersFollowing.user',
+            'users',
+            'users.user',
           ],
         });
 
@@ -142,11 +150,19 @@ export class ArtistResolvers {
     @Arg('input') payload: CreateArtistArgs
   ): Promise<Models.Artist | undefined> {
     try {
-      const repository = getManager().getRepository(Models.Artist);
-      const artist = repository.create(payload);
+      const { userId, artistId, ...rest } = payload;
+      const artistRepository = getManager().getRepository(Models.Artist);
+      const artist = artistRepository.create({ id: artistId, ...rest });
 
-      if (artist) {
-        await repository.save(artist);
+      const userArtistRepository = getManager().getRepository(
+        Models.UserArtist
+      );
+      const userArtist = userArtistRepository.create({ userId, artistId });
+
+      if (artist && userArtist) {
+        await artistRepository.save(artist);
+        await userArtistRepository.save(userArtist);
+
         return artist;
       }
 
@@ -159,7 +175,7 @@ export class ArtistResolvers {
   }
 
   // TODO: need to consider where this artist would be referenced
-  // songs, albums
+  // songs, albums, in order to delete all references
   @Mutation(() => Boolean)
   async deleteArtist(@Arg('id') id: string): Promise<boolean> {
     try {

@@ -12,6 +12,7 @@ import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
 import { Song } from './song';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
+import { UserArtist } from './userArtist';
 import { UserArtistFollowing } from './userArtistFollowing';
 
 @Entity('artist')
@@ -71,6 +72,13 @@ export class Artist {
     (songArtistSupportingArtist) => songArtistSupportingArtist.artist
   )
   supportingArtistOn: SongArtistSupportingArtist[];
+
+  @Field(() => [UserArtist], { nullable: true })
+  @OneToMany(
+    () => UserArtist,
+    (userArtist) => userArtist.artist
+  )
+  users: UserArtist[];
 
   @Field(() => Date)
   @CreateDateColumn()

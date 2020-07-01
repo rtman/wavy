@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": {
     "packages": [
+      "packages/@groov/*",
       "packages/*"
     ],
     "nohoist": []
@@ -33,7 +34,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "prettier": "^1.19.1",
@@ -42,7 +43,7 @@
   "scripts": {
     "psContainer": "docker exec -it postgresql bash",
     "psTerminal": "psql -U groov -D groov",
-    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules && rm yarn.lock "
+    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_module"
   },
   "dependencies": {
     "patch-package": "^6.2.0",

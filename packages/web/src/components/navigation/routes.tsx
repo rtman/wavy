@@ -77,6 +77,11 @@ export const Routes = () => {
         path={consts.routes.SEARCH}
         component={screens.Search}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.CREATE_ARTIST}
+        component={screens.CreateArtist}
+      />
     </Switch>
   );
 };
