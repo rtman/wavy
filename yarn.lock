@@ -13650,6 +13650,11 @@ react-helmet@^5.2.1:
     react-fast-compare "^2.0.2"
     react-side-effect "^1.1.0"
 
+react-hook-form@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.0.0.tgz#b51faa638aadfa3d4d9758dc1f8d0f67c2b1aa97"
+  integrity sha512-qFUMMnAMnZ84mcMFu/UZ6zkuEUQg/dAKdb9/wbjmOJ/KOgrobTx15aMGPhZyemzk6yLHwG7NmJCEOusRTV9UMg==
+
 react-images-upload@^1.2.8:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/react-images-upload/-/react-images-upload-1.2.8.tgz#d1e993c50a0ca266aa7a9c7b7456167d80e9e6ab"
