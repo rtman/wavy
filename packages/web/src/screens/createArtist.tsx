@@ -72,7 +72,7 @@ export const CreateArtist = () => {
     if (imageFile) {
       const storageRef = firebase.storage().ref();
       const artistImageRef = storageRef.child(
-        `images/${artistId}/profile.${fileExtension}`
+        `${artistId}/profileImage.${fileExtension}`
       );
       const snapshot = await artistImageRef.put(imageFile);
 
