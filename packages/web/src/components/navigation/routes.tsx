@@ -82,6 +82,11 @@ export const Routes = () => {
         path={consts.routes.CREATE_ARTIST}
         component={screens.CreateArtist}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.CREATE_LABEL}
+        component={screens.CreateLabel}
+      />
     </Switch>
   );
 };

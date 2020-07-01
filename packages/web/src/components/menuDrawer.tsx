@@ -27,6 +27,9 @@ export const MenuDrawer = () => {
         <ListItemLink to={consts.routes.CREATE_ARTIST}>
           <ListItemText primary="Create Artist" />
         </ListItemLink>
+        <ListItemLink to={consts.routes.CREATE_ARTIST}>
+          <ListItemText primary="Create Label" />
+        </ListItemLink>
         <ListItemLink to={consts.routes.HOME}>
           <ListItemText primary="Home" />
         </ListItemLink>
