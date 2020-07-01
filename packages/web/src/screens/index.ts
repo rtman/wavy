@@ -10,4 +10,5 @@ export { Queue } from './queue';
 export { Signup } from './signup';
 export { Login } from './login';
 export * from './createArtist';
+export * from './createLabel';
 export * from './search';

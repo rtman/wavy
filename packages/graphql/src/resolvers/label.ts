@@ -6,6 +6,12 @@ import { Models } from '../orm';
 @InputType()
 class CreateLabelArgs implements Partial<Models.Label> {
   @Field()
+  labelId: string;
+
+  @Field()
+  userId: string;
+
+  @Field()
   name: string;
 
   @Field()
@@ -115,18 +121,24 @@ export class LabelResolvers {
     @Arg('input') payload: CreateLabelArgs
   ): Promise<Models.Label | undefined> {
     try {
-      const repository = getManager().getRepository(Models.Label);
-      const label = repository.create(payload);
+      const { userId, labelId, ...rest } = payload;
+      const labelRepository = getManager().getRepository(Models.Label);
+      const label = labelRepository.create({ id: labelId, ...rest });
 
-      if (label) {
-        await repository.save(label);
+      const userLabelRepository = getManager().getRepository(Models.UserLabel);
+      const userLabel = userLabelRepository.create({ userId, labelId });
+
+      if (label && userLabel) {
+        await labelRepository.save(label);
+        await userLabelRepository.save(userLabel);
+
         return label;
       }
 
-      console.log('createLabel failed', payload);
+      console.log('CreateLabel failed', payload);
       return;
     } catch (error) {
-      console.log('createLabel error', error);
+      console.log('CreateLabel error', error);
       return;
     }
   }

@@ -69,7 +69,14 @@ export const CREATE_ARTIST = gql`
   mutation CreateArtist($input: CreateArtistArgs!) {
     createArtist(input: $input) {
       id
-      name
+    }
+  }
+`;
+
+export const CREATE_LABEL = gql`
+  mutation CreateLabel($input: CreateLabelArgs!) {
+    createLabel(input: $input) {
+      id
     }
   }
 `;
