@@ -13,29 +13,30 @@ import * as firebase from 'firebase';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
+import { useHistory } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 
 export const CreateArtist = () => {
-  const { enqueueSnackbar } = useSnackbar();
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [image, setImage] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | undefined>(undefined);
-  const [imageRef, setImageRef] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
-  // const [artistImage, setArtistImage] = useState<string>('')
+
   const userContext = useContext(UserContext);
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [createArtist, { loading, called, error }] = useMutation(
     consts.mutations.CREATE_ARTIST,
     {
-      onCompleted({ data }) {
+      onCompleted(data) {
         console.log('onCompleted data', data);
-        if (data.artist.id) {
+        if (data.createArtist.id) {
           enqueueSnackbar('Success! Artist Created', {
             variant: 'success',
             autoHideDuration: 4000,
           });
+          history.push(`/artist/${data.createArtist.id}`);
         } else {
           enqueueSnackbar('Error! Artist Not Created', {
             variant: 'error',
@@ -54,6 +55,7 @@ export const CreateArtist = () => {
       });
     }
   }, [error, enqueueSnackbar]);
+
   const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) =>
     setName(event.target.value);
 
@@ -63,15 +65,20 @@ export const CreateArtist = () => {
   const onSubmit = async () => {
     const artistId = uuid();
 
+    let gsUrl = '';
+    let downloadUrl = '';
+    const fileExtension = imageFile?.name.split('.').splice(-1)[0];
+
     if (imageFile) {
       const storageRef = firebase.storage().ref();
-      // TODO: convert the image to preferred type
-      const artistImageRef = storageRef.child(`images/${artistId}/profile.jpg`);
+      const artistImageRef = storageRef.child(
+        `images/${artistId}/profile.${fileExtension}`
+      );
       const snapshot = await artistImageRef.put(imageFile);
+
       if (snapshot) {
-        const downloadUrl = await artistImageRef.getDownloadURL();
-        setImageUrl(downloadUrl);
-        setImageRef(artistImageRef.fullPath);
+        downloadUrl = await artistImageRef.getDownloadURL();
+        gsUrl = artistImageRef.toString();
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',
@@ -88,8 +95,8 @@ export const CreateArtist = () => {
           artistId,
           name,
           description,
-          imageRef,
-          imageUrl,
+          imageRef: gsUrl,
+          imageUrl: downloadUrl,
         },
       },
     });
@@ -97,17 +104,18 @@ export const CreateArtist = () => {
 
   const onDrop = (files: File[], images: string[]) => {
     const imageForUpload = images[0];
+    const fileForUpload = files[0];
 
     const img = new Image();
     img.src = imageForUpload;
+
     img.onload = () => {
-      // console.log('image dimensions', img.naturalWidth, img.naturalHeight);
       const width = img.naturalWidth;
       const height = img.naturalHeight;
 
       if (width > 500 && height > 500) {
         setImage(imageForUpload);
-        setImageFile(files[0]);
+        setImageFile(fileForUpload);
       } else {
         enqueueSnackbar('Error! Image is too small', {
           variant: 'error',
@@ -129,8 +137,9 @@ export const CreateArtist = () => {
           withIcon={true}
           buttonText="Select Image"
           onChange={onDrop}
-          imgExtension={['.jpg', '.png']}
+          imgExtension={['.jpg', '.png', 'jpeg']}
           maxFileSize={5242880}
+          singleImage={true}
         />
       )}
       <TextField
@@ -154,7 +163,11 @@ export const CreateArtist = () => {
 
       <Flex>
         <Button variant="contained" color="primary" onClick={onSubmit}>
-          {called && loading ? <CircularProgress /> : 'Create'}
+          {called || loading ? (
+            <CircularProgress color="secondary" />
+          ) : (
+            'Create'
+          )}
         </Button>
       </Flex>
     </Container>

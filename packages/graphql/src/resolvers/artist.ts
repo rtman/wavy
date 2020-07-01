@@ -175,7 +175,7 @@ export class ArtistResolvers {
   }
 
   // TODO: need to consider where this artist would be referenced
-  // songs, albums
+  // songs, albums, in order to delete all references
   @Mutation(() => Boolean)
   async deleteArtist(@Arg('id') id: string): Promise<boolean> {
     try {
