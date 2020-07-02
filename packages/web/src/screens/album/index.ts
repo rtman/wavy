@@ -1,1 +1,0 @@
-export { Album } from './album';
