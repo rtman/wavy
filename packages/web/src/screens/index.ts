@@ -1,5 +1,6 @@
 export * from './album';
 export * from './artist';
+export * from './artistDashboard';
 export * from './createArtist';
 export * from './createLabel';
 export * from './dashboard';
