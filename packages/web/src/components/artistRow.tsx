@@ -40,13 +40,6 @@ export const ArtistRow = (props: ArtistRowProps) => {
     setAnchorEl(null);
   };
 
-  const onClickPlayNow = () => {
-    if (artistSongs.length > 0) {
-      playerContext?.replaceQueueWithSongs(artistSongs);
-    }
-    handleMenuClose();
-  };
-
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${artist.id}`);
     handleMenuClose();
@@ -92,7 +85,6 @@ export const ArtistRow = (props: ArtistRowProps) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={onClickPlayNow}>Play now</MenuItem>
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         {location.pathname.includes('dashboard') ? null : (
           <MenuItem onClick={onClickToggleFollow}>

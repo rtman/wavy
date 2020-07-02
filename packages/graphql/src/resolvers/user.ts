@@ -93,10 +93,8 @@ export class UserResolvers {
             'playlists.playlist',
             'artists',
             'artists.artist',
-            'artists.artist.songs',
             'labels',
             'labels.label',
-            'labels.label.songs',
           ],
         });
 

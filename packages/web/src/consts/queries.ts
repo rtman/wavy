@@ -410,17 +410,6 @@ export const USER_BY_ID = gql`
           id
           name
           imageUrl
-          songs {
-            id
-            title
-            imageUrl
-            # supportingArtists {
-            #   artist {
-            #     id
-            #     name
-            #   }
-            # }
-          }
         }
       }
       labels {
@@ -432,17 +421,6 @@ export const USER_BY_ID = gql`
           id
           name
           imageUrl
-          songs {
-            id
-            title
-            imageUrl
-            # supportingArtists {
-            #   artist {
-            #     id
-            #     name
-            #   }
-            # }
-          }
         }
       }
       following {
