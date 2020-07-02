@@ -13,7 +13,7 @@ import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Label, QueryLabelByIdArgs } from 'types';
 
 interface LabelRowProps {
@@ -30,6 +30,8 @@ export const LabelRow = (props: LabelRowProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const playerContext = useContext(PlayerContext);
   const history = useHistory();
+  const location = useLocation();
+
   const [
     getLabelById,
     { loading: queryLoading, data: queryData },
@@ -111,7 +113,9 @@ export const LabelRow = (props: LabelRowProps) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
+        {location.pathname.includes('dashboard') ? null : (
+          <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
+        )}
         <MenuItem onClick={onClickGoToLabel}>Go to Label</MenuItem>
       </Menu>
     </>

@@ -10,7 +10,7 @@ import {
 import { MoreVert } from '@material-ui/icons';
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
-import { PlayerContext, UserContext } from 'context';
+import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Artist } from 'types';
@@ -26,9 +26,6 @@ export const ArtistRow = (props: ArtistRowProps) => {
   const history = useHistory();
   const location = useLocation();
   const userContext = useContext(UserContext);
-  const playerContext = useContext(PlayerContext);
-
-  const artistSongs = artist.songs;
 
   console.log('artist', artist);
 
