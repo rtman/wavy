@@ -5,12 +5,7 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
-import {
-  ArtistRow,
-  // Flex,
-  LabelRow,
-  Spacing,
-} from 'components';
+import { ArtistRow, Flex, LabelRow, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -69,47 +64,49 @@ export const Dashboard = () => {
 
   return (
     <Container>
-      <Spacing.section.Minor />
+      <Flex flexDirection="column">
+        <Spacing.section.Major />
 
-      <Typography variant="h1">Creator Dashboard</Typography>
+        <Typography variant="h1">Creator Dashboard</Typography>
 
-      <Spacing.section.Minor />
+        <Spacing.section.Minor />
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => history.push('/createCreatorSelection')}
-      >
-        New Creator Account
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push('/createCreatorSelection')}
+        >
+          New Creator Account
+        </Button>
 
-      {artists.length > 0 ? (
-        <>
-          <Spacing.section.Minor />
+        {artists.length > 0 ? (
+          <>
+            <Spacing.section.Major />
 
-          <Typography variant="h1">Your Artists</Typography>
+            <Typography variant="h1">Your Artists</Typography>
 
-          <Spacing.section.Minor />
+            <Spacing.section.Minor />
 
-          {renderArtists()}
+            {renderArtists()}
 
-          <Spacing.section.Major />
-        </>
-      ) : null}
+            <Spacing.section.Major />
+          </>
+        ) : null}
 
-      {labels.length > 0 ? (
-        <>
-          <Spacing.section.Minor />
+        {labels.length > 0 ? (
+          <>
+            <Spacing.section.Minor />
 
-          <Typography variant="h1">Your Labels</Typography>
+            <Typography variant="h1">Your Labels</Typography>
 
-          <Spacing.section.Minor />
+            <Spacing.section.Minor />
 
-          {renderLabels()}
+            {renderLabels()}
 
-          <Spacing.section.Minor />
-        </>
-      ) : null}
+            <Spacing.section.Minor />
+          </>
+        ) : null}
+      </Flex>
     </Container>
   );
 };

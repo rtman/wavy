@@ -146,6 +146,22 @@ export const ArtistDashboard = () => {
             Create Album
           </IconButton>
 
+          <IconButton
+            color="primary"
+            onClick={() => history.push('/editDiscography')}
+          >
+            <AlbumIcon />
+            Edit Discography
+          </IconButton>
+
+          <IconButton
+            color="primary"
+            onClick={() => history.push(`/artist/${id}`)}
+          >
+            <AlbumIcon />
+            View Artist
+          </IconButton>
+
           <Spacing.section.Major />
 
           <Typography variant="h1">Stats</Typography>
