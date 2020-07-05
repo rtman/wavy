@@ -17,7 +17,7 @@ import { Artist } from 'types';
 
 interface ArtistRowProps {
   artist: Artist;
-  passedOnClickArtist?: (artist: Artist) => Promise<void>;
+  passedOnClickArtist?: (artist: Artist) => void;
 }
 
 export const ArtistRow = (props: ArtistRowProps) => {

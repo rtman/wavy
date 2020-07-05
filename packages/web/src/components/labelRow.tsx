@@ -18,7 +18,7 @@ import { Label, QueryLabelByIdArgs } from 'types';
 
 interface LabelRowProps {
   label: Label;
-  passedOnClickLabel?: (label: Label) => Promise<void>;
+  passedOnClickLabel?: (label: Label) => void;
 }
 
 interface LabelByIdData {

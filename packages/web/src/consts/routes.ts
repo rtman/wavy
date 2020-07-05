@@ -1,6 +1,9 @@
 export const ARTIST = '/artist';
+export const ARTIST_DASHBOARD = '/artistDashboard';
+export const LABEL_DASHBOARD = '/labelDashboard';
 export const ALBUM = '/album';
 export const CREATE_ARTIST = '/createArtist';
+export const CREATE_CREATOR_SELECTION = '/createCreatorSelection';
 export const CREATE_LABEL = '/createLabel';
 export const DASHBOARD = '/dashboard';
 export const LABEL = '/label';

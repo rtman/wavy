@@ -2,6 +2,7 @@ export * from './album';
 export * from './artist';
 export * from './artistDashboard';
 export * from './createArtist';
+export * from './createCreatorSelection';
 export * from './createLabel';
 export * from './dashboard';
 export * from './label';

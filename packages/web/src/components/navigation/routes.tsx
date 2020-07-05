@@ -84,6 +84,11 @@ export const Routes = () => {
       />
       <PrivateRoute
         exact={true}
+        path={consts.routes.CREATE_CREATOR_SELECTION}
+        component={screens.CreateCreatorSelection}
+      />
+      <PrivateRoute
+        exact={true}
         path={consts.routes.CREATE_LABEL}
         component={screens.CreateLabel}
       />
@@ -92,6 +97,16 @@ export const Routes = () => {
         path={consts.routes.DASHBOARD}
         component={screens.Dashboard}
       />
+      <PrivateRoute
+        exact={true}
+        path={`${consts.routes.ARTIST_DASHBOARD}/:id?`}
+        component={screens.ArtistDashboard}
+      />
+      {/* <PrivateRoute
+      exact={true}
+      path={`${consts.routes.LABEL_DASHBOARD}/:id?`}
+      component={screens.LabelDashboard}
+    /> */}
     </Switch>
   );
 };
