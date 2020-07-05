@@ -33,6 +33,7 @@ export const ARTIST_BY_ID = gql`
           title
           url
           imageUrl
+          playCount
           label {
             id
             name

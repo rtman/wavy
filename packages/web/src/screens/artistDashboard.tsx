@@ -85,7 +85,19 @@ export const ArtistDashboard = () => {
     }
   }, [getArtistById, id]);
 
-  // const artistSongs = artist?.songs ?? [];
+  const artistSongs = artist?.songs ?? [];
+
+  const getPlayCount = () => {
+    let totalPlayCount = 0;
+    artistSongs.forEach((song) => {
+      totalPlayCount += song.playCount;
+    });
+    return totalPlayCount;
+  };
+
+  artistSongs.forEach((song) => {
+    return song.playCount;
+  });
   // const artistAlbums = artist?.albums ?? [];
   // const artistName = artist?.name ?? '';
   // const artistDescription = artist?.description ?? '';
@@ -167,6 +179,12 @@ export const ArtistDashboard = () => {
           <Typography variant="h1">Stats</Typography>
 
           <Spacing.section.Minor />
+
+          <Typography variant="h2">Plays</Typography>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="body1">{getPlayCount()}</Typography>
         </Flex>
       )}
     </Container>
