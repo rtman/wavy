@@ -102,6 +102,11 @@ export const Routes = () => {
         path={`${consts.routes.ARTIST_DASHBOARD}/:id?`}
         component={screens.ArtistDashboard}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.CREATE_RELEASE}
+        component={screens.CreateRelease}
+      />
       {/* <PrivateRoute
       exact={true}
       path={`${consts.routes.LABEL_DASHBOARD}/:id?`}

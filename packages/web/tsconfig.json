@@ -12,9 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "baseUrl": "./src",
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "esModuleInterop": true,
     "lib": [
       "es2017",
