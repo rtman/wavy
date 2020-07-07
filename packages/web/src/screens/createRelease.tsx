@@ -6,13 +6,14 @@ import {
   //   FormControl,
   //   FormControlLabel,
   // Grid,
-  // IconButton,
+  IconButton,
   // Link,
   List,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 // import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
 // import * as consts from 'consts';
@@ -82,7 +83,7 @@ export const CreateRelease = () => {
         <List>
           {fields.map((item, index) => {
             return (
-              <React.Fragment key={item.id}>
+              <Flex key={item.id}>
                 {/* <TextField
                     inputRef={register()}
                     defaultValue={`${item.title}`}
@@ -110,24 +111,21 @@ export const CreateRelease = () => {
                   control={control}
                   defaultValue={item.title} // make sure to set up defaultValue
                 />
-                <Button
+                <IconButton
                   type="submit"
-                  fullWidth
-                  variant="contained"
                   color="primary"
                   className={classes.submit}
                   onClick={() => remove(index)}
                 >
-                  Delete
-                </Button>
-              </React.Fragment>
+                  <DeleteIcon />
+                </IconButton>
+              </Flex>
             );
           })}
         </List>
 
         <Button
           type="submit"
-          fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
@@ -140,7 +138,6 @@ export const CreateRelease = () => {
 
         <Button
           type="submit"
-          fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
