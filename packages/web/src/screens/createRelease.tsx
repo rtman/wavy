@@ -68,7 +68,7 @@ export const CreateRelease = () => {
     }
   );
 
-  const onSubmit = (data: any) => console.log('data', data);
+  const onSubmit = (data: { songs: SongInput[] }) => console.log('data', data);
 
   return (
     <Container>
