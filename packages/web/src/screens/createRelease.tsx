@@ -3,12 +3,12 @@ import {
   Button,
   // Button,
   Container,
-  //   List,
   //   FormControl,
   //   FormControlLabel,
   Grid,
   IconButton,
   Link,
+  List,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -78,7 +78,62 @@ export const CreateRelease = () => {
     console.log('Data', data);
   };
 
-  //   const renderSongInputForm = () => {};
+  const renderSongInputForm = () => {
+    const songInputsList: JSX.Element[] = [];
+
+    const makeSongInputs = () => {
+      for (let i = 0; i < numberOfSongs; i++) {
+        songInputsList.push(
+          <React.Fragment key={`group-${numberOfSongs}`}>
+            <TextField
+              inputRef={register}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id={`email-${i}`}
+              label="Email Address"
+              name={`email-${i}`}
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              inputRef={register}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name={`password-${i}`}
+              label="Password"
+              type="password"
+              id={`password-${i}`}
+              autoComplete="current-password"
+            />
+          </React.Fragment>
+        );
+      }
+      return <List>{songInputsList}</List>;
+    };
+
+    return (
+      <form
+        className={classes.form}
+        noValidate
+        onSubmit={handleSubmit((data) => onSubmit(data))}
+      >
+        {makeSongInputs()}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Submit
+        </Button>
+      </form>
+    );
+  };
 
   return (
     <Container>
@@ -96,45 +151,7 @@ export const CreateRelease = () => {
           Add Another
         </IconButton>
 
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit((data) => onSubmit(data))}
-        >
-          <TextField
-            inputRef={register}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            inputRef={register}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Submit
-          </Button>
-        </form>
+        {renderSongInputForm()}
 
         <Spacing.section.Major />
       </Flex>
