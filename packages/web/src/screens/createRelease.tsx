@@ -13,9 +13,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import MoreIcon from '@material-ui/icons/More';
+// import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
-import * as consts from 'consts';
+// import * as consts from 'consts';
 // import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -132,7 +132,7 @@ export const CreateRelease = () => {
           color="primary"
           className={classes.submit}
           onClick={() => {
-            append({ title: 'appendBill' });
+            append({ title: '' });
           }}
         >
           Add Song
