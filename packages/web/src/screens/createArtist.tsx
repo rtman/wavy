@@ -9,22 +9,26 @@ import {
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import * as firebase from 'firebase';
+import * as helpers from 'helpers';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
-import { uuid } from 'uuidv4';
 
 export const CreateArtist = () => {
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [image, setImage] = useState<string>('');
-  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
 
   const userContext = useContext(UserContext);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
+  const {
+    uploadImage,
+    gsUrl,
+    downloadUrl,
+    id: artistId,
+  } = helpers.hooks.useUploadImage(imageFile);
 
   const [createArtist, { loading, called, error }] = useMutation(
     consts.mutations.CREATE_ARTIST,
@@ -63,66 +67,22 @@ export const CreateArtist = () => {
     setDescription(event.target.value);
 
   const onSubmit = async () => {
-    const artistId = uuid();
+    const result = await uploadImage('profileImage');
 
-    let gsUrl = '';
-    let downloadUrl = '';
-    const fileExtension = imageFile?.name.split('.').splice(-1)[0];
-
-    if (imageFile) {
-      const storageRef = firebase.storage().ref();
-      const artistImageRef = storageRef.child(
-        `${artistId}/profileImage.${fileExtension}`
-      );
-      const snapshot = await artistImageRef.put(imageFile);
-
-      if (snapshot) {
-        downloadUrl = await artistImageRef.getDownloadURL();
-        gsUrl = artistImageRef.toString();
-      } else {
-        enqueueSnackbar('Error! Image upload failed', {
-          variant: 'error',
-          autoHideDuration: 4000,
-        });
-        return;
-      }
-    }
-
-    await createArtist({
-      variables: {
-        input: {
-          userId: userContext?.user?.id,
-          artistId,
-          name,
-          description,
-          imageRef: gsUrl,
-          imageUrl: downloadUrl,
+    if (result) {
+      await createArtist({
+        variables: {
+          input: {
+            userId: userContext?.user?.id,
+            artistId,
+            name,
+            description,
+            imageRef: gsUrl,
+            imageUrl: downloadUrl,
+          },
         },
-      },
-    });
-  };
-
-  const onDrop = (files: File[], images: string[]) => {
-    const imageForUpload = images[0];
-    const fileForUpload = files[0];
-
-    const img = new Image();
-    img.src = imageForUpload;
-
-    img.onload = () => {
-      const width = img.naturalWidth;
-      const height = img.naturalHeight;
-
-      if (width > 500 && height > 500) {
-        setImage(imageForUpload);
-        setImageFile(fileForUpload);
-      } else {
-        enqueueSnackbar('Error! Image is too small', {
-          variant: 'error',
-          autoHideDuration: 4000,
-        });
-      }
-    };
+      });
+    }
   };
 
   return (

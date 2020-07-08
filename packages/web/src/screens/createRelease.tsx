@@ -16,10 +16,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
+import * as helpers from 'helpers';
+import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 // import * as consts from 'consts';
 // import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import ImageUploader from 'react-images-upload';
 // import { useHistory, useLocation, useParams } from 'react-router-dom';
 // import { Album } from 'types';
 
@@ -56,6 +59,10 @@ export const CreateRelease = () => {
   //   const location = useLocation();
   //   const { id } = useParams();
   const classes = useStyles();
+  const { onDrop, image, imageFile } = useOnDropImage();
+  const { uploadImage, gsUrl, downloadUrl, id: releaseId } = useUploadImage(
+    imageFile
+  );
 
   const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -76,6 +83,21 @@ export const CreateRelease = () => {
       {/* <Flex flexDirection="column"> */}
       <Spacing.section.Minor />
       <Typography variant="h1">New Release</Typography>
+
+      <Spacing.section.Minor />
+
+      {image ? (
+        <img src={image} width={500} height={500} />
+      ) : (
+        <ImageUploader
+          withIcon={true}
+          buttonText="Select Image"
+          onChange={onDrop}
+          imgExtension={['.jpg', '.png', 'jpeg']}
+          maxFileSize={5242880}
+          singleImage={true}
+        />
+      )}
 
       <Spacing.section.Minor />
 
