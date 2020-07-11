@@ -1,0 +1,85 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: groov
+  labels:
+    app: groov
+    tier: backend
+spec:
+    selector:
+        matchLabels:
+            app: groov
+    replicas: 1 
+    template:
+        metadata:
+            labels:
+                app: groov
+        spec:
+            containers:
+                - name: postgresql
+                    image: gcr.io/groov-development-ddc9d/groov-postgresql
+                    ports:
+                        - containerPort: 5432
+                        name: postgresql
+                    env:
+                        - name: POSTGRES_USER
+                            value: groov
+                        - name: POSTGRES_PASSWORD
+                            value: groov
+                        - name: POSTGRES_DB
+                            value: groov
+
+                - name: graphql
+                    image: gcr.io/groov-development-ddc9d/groov-graphql
+                    ports:
+                        - containerPort: 3000
+                        name: graphql
+                    env:
+                        - name: DATABASE_URL
+                          value: postgresql
+                        - name: DATABASE_USER
+                          value: groov
+                        - name: DATABASE_PASSWORD
+                          value: groov
+                        - name: DATABASE_DB
+                          value: groov
+
+                - name: migration
+                    image: gcr.io/groov-development-ddc9d/groov-migration
+
+                - name: es01
+                    # zombodb requires elasticsearch 5/6
+                    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+                    ulimits:
+                        memlock:
+                            soft: -1
+                            hard: -1
+                    ports:
+                        - containerPort: 9200
+                        name: es01
+                    command: ["elasticsearch", "-Elogger.level=ERROR"]
+                    env:
+                        - name: node.name
+                        value: es01
+                        - name: cluster.name
+                        value: es-docker-cluster
+                        - name: bootstrap.memory_lock
+                        value: true
+                        - name: ES_JAVA_OPTS
+                        value: -Xms512m -Xmx512m
+                        # - name: discovery.seed_hosts
+                        #value: es02,es03
+                        # -name: cluster.initial_master_nodes
+                        # vlaue: es01,es02,es03
+                        #  es 7+ setting below
+                        # -name: cluster.initial_master_nodes
+                        # value: es01 
+                    volumeMounts:
+                        - name: elasticData01
+                            mountPath: /var/www/html
+                    # volumes:
+                    #     - elasticData01:/usr/share/elasticsearch/data
+            volumes:
+                - name: elasticData01
+                    persistentVolumeClaim:
+                    claimName: wp-pv-claim
