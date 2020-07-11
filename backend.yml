@@ -36,7 +36,7 @@ spec:
                 - name: graphql
                     image: gcr.io/groov-development-ddc9d/groov-graphql
                     ports:
-                        - containerPort: 3000
+                        - containerPort: 3001
                         name: graphql
                     env:
                         - name: DATABASE_URL
@@ -100,8 +100,8 @@ metadata:
     tier: backend
 spec:
     ports:
-        - port: 3000
-        targetPort: 3000
+        - port: 3001
+        targetPort: 3001
         selector:
             app: groov
             role: leader

@@ -28,7 +28,7 @@ if (config.FIREBASE_CONFIG) {
 }
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 // helpers.sentry.install();

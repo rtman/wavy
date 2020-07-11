@@ -12,7 +12,7 @@ import { buildSchema } from 'type-graphql';
 import { createOrmConnection, Models } from './orm';
 import * as Resolvers from './resolvers';
 
-const port = 3000;
+const port = 3001;
 
 const initApolloServer = (schema: GraphQLSchema) =>
   // const initApolloServer = (schema: GraphQLSchema) =>

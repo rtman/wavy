@@ -6,7 +6,7 @@ import React from 'react';
 // import { createHttpLink } from 'apollo-link-http';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 export const App: React.FunctionComponent = () => {
