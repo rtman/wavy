@@ -1,20 +1,24 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: groov
-  labels:
+name: groov-backend
+labels:
     app: groov
+    role: leader
     tier: backend
 spec:
+    replicas: 1
     selector:
         matchLabels:
             app: groov
-    replicas: 1 
+
     template:
         metadata:
             labels:
                 app: groov
-        spec:
+                role: leader
+                tier: backend
+        spec: 
             containers:
                 - name: postgresql
                     image: gcr.io/groov-development-ddc9d/groov-postgresql
@@ -36,13 +40,13 @@ spec:
                         name: graphql
                     env:
                         - name: DATABASE_URL
-                          value: postgresql
+                        value: postgresql
                         - name: DATABASE_USER
-                          value: groov
+                        value: groov
                         - name: DATABASE_PASSWORD
-                          value: groov
+                        value: groov
                         - name: DATABASE_DB
-                          value: groov
+                        value: groov
 
                 - name: migration
                     image: gcr.io/groov-development-ddc9d/groov-migration
@@ -83,3 +87,23 @@ spec:
                 - name: elasticData01
                     persistentVolumeClaim:
                     claimName: wp-pv-claim
+
+---
+    
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Service
+metadata:
+    name: groov-backend
+    labels:
+    app: groov
+    role: leader
+    tier: backend
+spec:
+    ports:
+        - port: 3000
+        targetPort: 3000
+        selector:
+            app: groov
+            role: leader
+            tier: backend
+    
