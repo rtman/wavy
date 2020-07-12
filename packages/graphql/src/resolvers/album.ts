@@ -18,6 +18,9 @@ class CreateAlbumSongArgs {
 @InputType({ description: 'Create a new album' })
 class CreateAlbumArgs implements Partial<Models.Album & CreateAlbumSongArgs> {
   @Field()
+  id: string;
+
+  @Field()
   title: string;
 
   @Field()
@@ -124,10 +127,18 @@ export class AlbumResolvers {
   ): Promise<Models.Album | undefined> {
     try {
       const { songsToAdd, ...albumPayload } = payload;
-      const { title, description, artistId, imageRef, imageUrl } = albumPayload;
+      const {
+        id,
+        title,
+        description,
+        artistId,
+        imageRef,
+        imageUrl,
+      } = albumPayload;
 
       if (
         (songsToAdd.length > 0,
+        id,
         title,
         description,
         songsToAdd,

@@ -17,10 +17,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
-import * as helpers from 'helpers';
+// import * as helpers from 'helpers';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
-// import * as consts from 'consts';
 // import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -28,7 +27,7 @@ import ImageUploader from 'react-images-upload';
 import {
   useHistory,
   // useLocation,
-  // useParams
+  useParams,
 } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
 
@@ -56,14 +55,13 @@ export const CreateRelease = () => {
   //   const userContext = useContext(UserContext);
   const history = useHistory();
   //   const location = useLocation();
-  //   const { id } = useParams();
+  const { id } = useParams();
+  console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
 
   const classes = useStyles();
   const { onDrop, image, imageFile } = useOnDropImage();
-  const { uploadImage, gsUrl, downloadUrl, id: releaseId } = useUploadImage(
-    imageFile
-  );
+  const { uploadImage } = useUploadImage(imageFile);
 
   const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -103,7 +101,7 @@ export const CreateRelease = () => {
     songs: CreateAlbumSongArgs[];
   }) => {
     const result = await uploadImage({
-      parentId: '',
+      parentId: id,
       parentDir: 'album',
       fileName: 'profileImage',
     });
@@ -113,6 +111,11 @@ export const CreateRelease = () => {
         variables: {
           input: {
             ...data.album,
+            description: '',
+            id: result.id,
+            artistId: id,
+            imageRef: result.gsUrl,
+            imageUrl: result.downloadUrl,
             songsToAdd: data.songs,
           },
         },

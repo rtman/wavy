@@ -5,8 +5,6 @@ import { uuid } from 'uuidv4';
 
 export const useUploadImage = (imageFile: File | undefined) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [gsUrl, setGsUrl] = useState<string>('');
-  const [downloadUrl, setDownloadUrl] = useState<string>('');
   const [id, setId] = useState<string>('');
 
   const uploadImage = async (data: {
@@ -34,10 +32,10 @@ export const useUploadImage = (imageFile: File | undefined) => {
 
       if (snapshot) {
         const result = await artistImageRef.getDownloadURL();
-        setDownloadUrl(result);
-        setGsUrl(artistImageRef.toString());
+        const downloadUrl = result;
+        const gsUrl = artistImageRef.toString();
 
-        return true;
+        return { id, downloadUrl, gsUrl };
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',
@@ -51,5 +49,5 @@ export const useUploadImage = (imageFile: File | undefined) => {
     }
   };
 
-  return { uploadImage, gsUrl, downloadUrl, id };
+  return { uploadImage };
 };

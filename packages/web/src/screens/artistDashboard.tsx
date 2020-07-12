@@ -152,7 +152,7 @@ export const ArtistDashboard = () => {
 
           <IconButton
             color="primary"
-            onClick={() => history.push('/createRelease')}
+            onClick={() => history.push(`/createRelease/${id}`)}
           >
             <AlbumIcon />
             Create Release
@@ -160,7 +160,7 @@ export const ArtistDashboard = () => {
 
           <IconButton
             color="primary"
-            onClick={() => history.push('/manageDiscography')}
+            onClick={() => history.push(`/manageDiscography/${id}`)}
           >
             <AlbumIcon />
             Manage Discography

@@ -104,7 +104,7 @@ export const Routes = () => {
       />
       <PrivateRoute
         exact={true}
-        path={consts.routes.CREATE_RELEASE}
+        path={`${consts.routes.CREATE_RELEASE}/:id?`}
         component={screens.CreateRelease}
       />
       {/* <PrivateRoute

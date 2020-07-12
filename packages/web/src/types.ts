@@ -68,6 +68,7 @@ export type ArtistLabel = {
 
 /** Create a new album */
 export type CreateAlbumArgs = {
+  id: Scalars['String'];
   title: Scalars['String'];
   description: Scalars['String'];
   songsToAdd: Array<NewSongArgs>;
