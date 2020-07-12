@@ -70,9 +70,14 @@ export type ArtistLabel = {
 export type CreateAlbumArgs = {
   title: Scalars['String'];
   description: Scalars['String'];
+  songsToAdd: Array<NewSongArgs>;
   artistId: Scalars['String'];
   imageRef: Scalars['String'];
   imageUrl: Scalars['String'];
+};
+
+export type CreateAlbumSongArgs = {
+  songsToAdd: Array<NewSongArgs>;
 };
 
 export type CreateArtistArgs = {
@@ -244,6 +249,10 @@ export type MutationUpdateRecentlyPlayedArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['String'];
+};
+
+export type NewSongArgs = {
+  title: Scalars['String'];
 };
 
 export type Playlist = {
@@ -642,6 +651,7 @@ export type ResolversTypes = {
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
+  NewSongArgs: NewSongArgs;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
@@ -658,6 +668,7 @@ export type ResolversTypes = {
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   UpdateRecentlyPlayedArgs: UpdateRecentlyPlayedArgs;
+  CreateAlbumSongArgs: CreateAlbumSongArgs;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -684,6 +695,7 @@ export type ResolversParentTypes = {
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
+  NewSongArgs: NewSongArgs;
   Boolean: Scalars['Boolean'];
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
@@ -700,6 +712,7 @@ export type ResolversParentTypes = {
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   UpdateRecentlyPlayedArgs: UpdateRecentlyPlayedArgs;
+  CreateAlbumSongArgs: CreateAlbumSongArgs;
 };
 
 export type AlbumResolvers<

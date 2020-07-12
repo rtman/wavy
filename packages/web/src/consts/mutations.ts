@@ -80,3 +80,11 @@ export const CREATE_LABEL = gql`
     }
   }
 `;
+
+export const CREATE_ALBUM = gql`
+  mutation CreateAlbum($input: CreateAlbumArgs!) {
+    createAlbum(input: $input) {
+      id
+    }
+  }
+`;

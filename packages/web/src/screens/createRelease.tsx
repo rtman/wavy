@@ -16,22 +16,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
+import * as consts from 'consts';
 import * as helpers from 'helpers';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
+import { useSnackbar } from 'notistack';
 // import * as consts from 'consts';
 // import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
-// import { useHistory, useLocation, useParams } from 'react-router-dom';
-// import { Album } from 'types';
-
-interface SongInput {
-  title: string;
-  // genres: string[];
-  // releaseDate: Date;
-  // supportingArtists: string[];
-}
+import {
+  useHistory,
+  // useLocation,
+  // useParams
+} from 'react-router-dom';
+import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,9 +54,11 @@ const useStyles = makeStyles((theme) => ({
 
 export const CreateRelease = () => {
   //   const userContext = useContext(UserContext);
-  //   const history = useHistory();
+  const history = useHistory();
   //   const location = useLocation();
   //   const { id } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
+
   const classes = useStyles();
   const { onDrop, image, imageFile } = useOnDropImage();
   const { uploadImage, gsUrl, downloadUrl, id: releaseId } = useUploadImage(
@@ -76,7 +77,48 @@ export const CreateRelease = () => {
     }
   );
 
-  const onSubmit = (data: { songs: SongInput[] }) => console.log('data', data);
+  const [createAlbum, { loading, called, error }] = useMutation(
+    consts.mutations.CREATE_ALBUM,
+    {
+      onCompleted(data) {
+        console.log('onCompleted data', data);
+        if (data.createAlbum.id) {
+          enqueueSnackbar('Success! Artist Created', {
+            variant: 'success',
+            autoHideDuration: 4000,
+          });
+          history.push(`/artist/${data.createArtist.id}`);
+        } else {
+          enqueueSnackbar('Error! Artist Not Created', {
+            variant: 'error',
+            autoHideDuration: 4000,
+          });
+        }
+      },
+    }
+  );
+
+  const onSubmit = async (data: {
+    album: CreateAlbumArgs;
+    songs: CreateAlbumSongArgs[];
+  }) => {
+    const result = await uploadImage({
+      parentId: '',
+      parentDir: 'album',
+      fileName: 'profileImage',
+    });
+
+    if (result) {
+      await createAlbum({
+        variables: {
+          input: {
+            ...data.album,
+            songsToAdd: data.songs,
+          },
+        },
+      });
+    }
+  };
 
   return (
     <Container>
@@ -100,6 +142,19 @@ export const CreateRelease = () => {
       )}
 
       <Spacing.section.Minor />
+
+      <TextField
+        inputRef={register()}
+        // defaultValue={`${item.title}`}
+        variant="outlined"
+        margin="normal"
+        required={true}
+        fullWidth={true}
+        name={'album.title'}
+        label="Release Title"
+        id={'album.title'}
+        autoComplete="album title"
+      />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <List>
@@ -157,6 +212,8 @@ export const CreateRelease = () => {
         >
           Add Song
         </Button>
+
+        <Spacing.BetweenComponents />
 
         <Button
           type="submit"

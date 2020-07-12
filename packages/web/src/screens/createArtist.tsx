@@ -67,7 +67,7 @@ export const CreateArtist = () => {
     setDescription(event.target.value);
 
   const onSubmit = async () => {
-    const result = await uploadImage('profileImage');
+    const result = await uploadImage({ fileName: 'profileImage' });
 
     if (result) {
       await createArtist({

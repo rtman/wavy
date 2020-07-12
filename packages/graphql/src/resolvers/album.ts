@@ -3,13 +3,28 @@ import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
 
+@InputType()
+class NewSongArgs implements Partial<Models.Song> {
+  @Field()
+  title: string;
+}
+
+@InputType()
+class CreateAlbumSongArgs {
+  @Field(() => [NewSongArgs])
+  songsToAdd: NewSongArgs[];
+}
+
 @InputType({ description: 'Create a new album' })
-class CreateAlbumArgs implements Partial<Models.Album> {
+class CreateAlbumArgs implements Partial<Models.Album & CreateAlbumSongArgs> {
   @Field()
   title: string;
 
   @Field()
   description: string;
+
+  @Field(() => [NewSongArgs])
+  songsToAdd: NewSongArgs[];
 
   @Field()
   artistId: string;
@@ -108,16 +123,37 @@ export class AlbumResolvers {
     @Arg('input') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
-      const repository = getManager().getRepository(Models.Album);
-      const album = repository.create(payload);
+      const { songsToAdd, ...albumPayload } = payload;
+      const { title, description, artistId, imageRef, imageUrl } = albumPayload;
 
-      if (album) {
-        await repository.save(album);
-        return album;
+      if (
+        (songsToAdd.length > 0,
+        title,
+        description,
+        songsToAdd,
+        artistId,
+        imageRef,
+        imageUrl)
+      ) {
+        const albumRepository = getManager().getRepository(Models.Album);
+        const songRepository = getManager().getRepository(Models.Song);
+
+        const album = albumRepository.create(albumPayload);
+        await songRepository.insert(songsToAdd);
+
+        if (album) {
+          await albumRepository.save(album);
+
+          return album;
+        }
+        console.log('CreateAlbum failed', payload);
+
+        return;
+      } else {
+        console.log('CreateAlbum failed: not all input params valid');
+
+        return;
       }
-
-      console.log('CreateUser failed', payload);
-      return;
     } catch (error) {
       console.log('createAlbum error', error);
       return;

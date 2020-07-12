@@ -9,13 +9,27 @@ export const useUploadImage = (imageFile: File | undefined) => {
   const [downloadUrl, setDownloadUrl] = useState<string>('');
   const [id, setId] = useState<string>('');
 
-  const uploadImage = async (path: string) => {
+  const uploadImage = async (data: {
+    parentId?: string;
+    parentDir?: string;
+    fileName: string;
+  }) => {
+    const { parentId, parentDir, fileName } = data;
+
     setId(uuid());
     const fileExtension = imageFile?.name.split('.').splice(-1)[0];
 
     if (imageFile) {
       const storageRef = firebase.storage().ref();
-      const artistImageRef = storageRef.child(`${id}/${path}.${fileExtension}`);
+
+      let storagePath = '';
+      if (parentId) storagePath += `${parentId}/`;
+      if (parentDir) storagePath += `${parentDir}/`;
+      // storagePath + parentId ? `${parentId}/` : '';
+      // storagePath + parentDir ? `${parentDir}/` : '';
+      storagePath += `${id}/${fileName}.${fileExtension}`;
+
+      const artistImageRef = storageRef.child(storagePath);
       const snapshot = await artistImageRef.put(imageFile);
 
       if (snapshot) {
