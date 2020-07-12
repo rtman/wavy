@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: groov
+    role: leader
+    tier: frontend
+spec:
+  replicas: 2
+  # restartPolicy: Always
+  selector:
+    matchLabels:
+      app: groov
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: groov
+        role: leader
+        tier: frontend
+    spec:
+      containers:
+        - name: web-app
+          image: gcr.io/groov-development-ddc9d/groov-web
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: groov
+    role: leader
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+    - port: 80
+  selector:
+    app: groov
+    tier: frontend

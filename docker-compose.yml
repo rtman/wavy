@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   postgresql:
@@ -10,15 +10,17 @@ services:
       - POSTGRES_PASSWORD=groov
       - POSTGRES_DB=groov
     ports:
-      - '5432:5432'
+      - "5432:5432"
 
   migration:
     container_name: migration
-    build: ./packages/migration 
+    build: ./packages/migration
     links:
       - postgresql
     depends_on:
+      - es01
       - postgresql
+      - graphql
 
   graphql:
     container_name: graphql
@@ -30,11 +32,32 @@ services:
       - DATABASE_PASSWORD=groov
       - DATABASE_DB=groov
     ports:
-      - '3001:3001'
+      - "3001:3001"
     depends_on:
       - postgresql
 
-# https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html
+  web:
+    container_name: web
+    restart: always
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    links:
+      - graphql
+    depends_on:
+      - postgresql
+      - graphql
+      - migration
+      - es01
+    volumes:
+      - "./packages/web:/web"
+      - "/web/node_modules"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  # https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html
   es01:
     # zombodb requires elasticsearch 5/6
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
@@ -45,7 +68,7 @@ services:
       # - discovery.seed_hosts=es02,es03
       # - cluster.initial_master_nodes=es01,es02,es03
       #  es 7+ setting below
-      # - cluster.initial_master_nodes=es01 
+      # - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -80,13 +103,14 @@ services:
   #     - elastic
 
 volumes:
+  front:
+    driver: local
   data01:
     driver: local
   # data02:
   #   driver: local
   # data03:
   #   driver: local
-
 # networks:
 #   elastic:
 #     driver: bridge
