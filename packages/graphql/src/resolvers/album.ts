@@ -127,6 +127,7 @@ export class AlbumResolvers {
   ): Promise<Models.Album | undefined> {
     try {
       const { songsToAdd, ...albumPayload } = payload;
+      console.log('payload', payload);
       const {
         id,
         title,
@@ -135,6 +136,8 @@ export class AlbumResolvers {
         imageRef,
         imageUrl,
       } = albumPayload;
+
+      console.log('albumPayload', albumPayload);
 
       if (
         (songsToAdd.length > 0,
@@ -150,13 +153,29 @@ export class AlbumResolvers {
         const songRepository = getManager().getRepository(Models.Song);
 
         const album = albumRepository.create(albumPayload);
-        await songRepository.insert(songsToAdd);
 
         if (album) {
           await albumRepository.save(album);
 
+          const resolvedSongsToAdd = songsToAdd.map((song) => {
+            return {
+              artistId,
+              albumId: id,
+              title: song.title,
+              ref: '', //TODO: add song ref
+              url: '', //TODO: add song url
+              imageRef,
+              imageUrl,
+              releaseDate: new Date(), //TODO: releaseDate
+              playCount: 0,
+            };
+          });
+
+          await songRepository.insert(resolvedSongsToAdd);
+
           return album;
         }
+
         console.log('CreateAlbum failed', payload);
 
         return;

@@ -46,6 +46,10 @@ export class Song {
   )
   album: Album;
 
+  @Field(() => ID, { nullable: true })
+  @Column()
+  labelId: string;
+
   @Field(() => Label, { nullable: true })
   @ManyToOne(
     () => Label,

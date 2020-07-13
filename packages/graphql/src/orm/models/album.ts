@@ -20,6 +20,10 @@ export class Album {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field(() => ID)
+  @Column()
+  artistId: string;
+
   @Field(() => Artist)
   @ManyToOne(
     () => Artist,
@@ -37,6 +41,10 @@ export class Album {
     (song) => song.album
   )
   songs: Song[];
+
+  @Field(() => ID, { nullable: true })
+  @Column()
+  labelId: string;
 
   @Field(() => Label, { nullable: true })
   @ManyToOne(

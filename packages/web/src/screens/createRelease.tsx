@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/react-hooks';
 import {
   Button,
   // Button,
+  CircularProgress,
   Container,
   //   FormControl,
   //   FormControlLabel,
@@ -81,13 +82,13 @@ export const CreateRelease = () => {
       onCompleted(data) {
         console.log('onCompleted data', data);
         if (data.createAlbum.id) {
-          enqueueSnackbar('Success! Artist Created', {
+          enqueueSnackbar('Success! Release Created', {
             variant: 'success',
             autoHideDuration: 4000,
           });
-          history.push(`/artist/${data.createArtist.id}`);
+          history.push(`/album/${data.createAlbum.id}`);
         } else {
-          enqueueSnackbar('Error! Artist Not Created', {
+          enqueueSnackbar('Error! Release Not Created', {
             variant: 'error',
             autoHideDuration: 4000,
           });
@@ -105,6 +106,8 @@ export const CreateRelease = () => {
       parentDir: 'album',
       fileName: 'profileImage',
     });
+
+    console.log('result', result);
 
     if (result) {
       await createAlbum({
@@ -224,7 +227,7 @@ export const CreateRelease = () => {
           color="primary"
           className={classes.submit}
         >
-          Submit
+          {loading ? <CircularProgress /> : 'Submit'}
         </Button>
       </form>
       {/* </Flex> */}

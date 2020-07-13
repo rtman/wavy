@@ -1,11 +1,9 @@
 import * as firebase from 'firebase';
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
 import { uuid } from 'uuidv4';
 
 export const useUploadImage = (imageFile: File | undefined) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [id, setId] = useState<string>('');
 
   const uploadImage = async (data: {
     parentId?: string;
@@ -14,7 +12,7 @@ export const useUploadImage = (imageFile: File | undefined) => {
   }) => {
     const { parentId, parentDir, fileName } = data;
 
-    setId(uuid());
+    const id = uuid();
     const fileExtension = imageFile?.name.split('.').splice(-1)[0];
 
     if (imageFile) {
