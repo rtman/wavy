@@ -47,7 +47,7 @@ export class Song {
   album: Album;
 
   @Field(() => ID, { nullable: true })
-  @Column()
+  @Column({ nullable: true })
   labelId: string;
 
   @Field(() => Label, { nullable: true })

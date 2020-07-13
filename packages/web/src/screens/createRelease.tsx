@@ -1,35 +1,23 @@
 import { useMutation } from '@apollo/react-hooks';
 import {
   Button,
-  // Button,
   CircularProgress,
   Container,
-  //   FormControl,
-  //   FormControlLabel,
-  // Grid,
   IconButton,
-  // Link,
   List,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import MoreIcon from '@material-ui/icons/More';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
-// import * as helpers from 'helpers';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
-// import { UserContext } from 'context';
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
-import {
-  useHistory,
-  // useLocation,
-  useParams,
-} from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,9 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CreateRelease = () => {
-  //   const userContext = useContext(UserContext);
   const history = useHistory();
-  //   const location = useLocation();
   const { id } = useParams();
   console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
@@ -64,17 +50,15 @@ export const CreateRelease = () => {
   const { onDrop, image, imageFile } = useOnDropImage();
   const { uploadImage } = useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit } = useForm({
     defaultValues: {
       songs: [{ title: '' }],
     },
   });
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control,
-      name: 'songs',
-    }
-  );
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'songs',
+  });
 
   const [createAlbum, { loading, called, error }] = useMutation(
     consts.mutations.CREATE_ALBUM,
@@ -96,6 +80,15 @@ export const CreateRelease = () => {
       },
     }
   );
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar('Error! Release Not Created', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    }
+  }, [error, enqueueSnackbar]);
 
   const onSubmit = async (data: {
     album: CreateAlbumArgs;
@@ -167,22 +160,8 @@ export const CreateRelease = () => {
           {fields.map((item, index) => {
             return (
               <Flex key={item.id}>
-                {/* <TextField
-                    inputRef={register()}
-                    defaultValue={`${item.title}`}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name={`[${index}].title`}
-                    label="Title"
-                    id={`[${index}].title`}
-                    autoComplete="title"
-                  /> */}
-
                 <Controller
                   as={<TextField />}
-                  // inputRef={register()}
                   variant="outlined"
                   margin="normal"
                   required={true}
@@ -192,7 +171,7 @@ export const CreateRelease = () => {
                   id={`songs[${index}].title`}
                   autoComplete="title"
                   control={control}
-                  defaultValue={item.title} // make sure to set up defaultValue
+                  defaultValue={item.title} // make sure to set up
                 />
                 <IconButton
                   type="submit"
@@ -227,7 +206,7 @@ export const CreateRelease = () => {
           color="primary"
           className={classes.submit}
         >
-          {loading ? <CircularProgress /> : 'Submit'}
+          {called || loading ? <CircularProgress /> : 'Submit'}
         </Button>
       </form>
       {/* </Flex> */}
