@@ -8,13 +8,14 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { makeStyles, WithTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
+import UploadIcon from '@material-ui/icons/CloudUpload';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
@@ -22,6 +23,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
 
 import { DropzoneContainer } from './styles';
+import { CloudUpload } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -167,6 +169,21 @@ export const CreateRelease = () => {
     return '#eeeeee';
   };
 
+  const removeSong = (index: number) => {
+    remove(index);
+
+    acceptedFiles.splice(index, 1);
+  };
+
+  const addSong = () => {
+    append({ title: '' });
+  };
+
+  const addFileToAddedSong = (index: number) => {
+    console.log('*debug* addFileToAddedSong', index);
+    // TODO: need a file open dialog here to select the file of the right type audio/* and then add it to acceptedFiles
+  };
+
   console.log('*debug* acceptedFiles', acceptedFiles);
   console.log('*debug* fileRejections', fileRejections);
 
@@ -213,24 +230,36 @@ export const CreateRelease = () => {
               {fields.map((item, index) => {
                 return (
                   <Flex key={item.id}>
-                    <Controller
-                      as={<TextField />}
-                      variant="outlined"
-                      margin="normal"
-                      required={true}
-                      fullWidth={true}
-                      name={`songs[${index}].title`}
-                      label="Title"
-                      id={`songs[${index}].title`}
-                      autoComplete="title"
-                      control={control}
-                      defaultValue={item.title} // make sure to set up
-                    />
+                    <Flex flexDirection="column">
+                      <Controller
+                        as={<TextField />}
+                        variant="outlined"
+                        margin="normal"
+                        required={true}
+                        fullWidth={true}
+                        name={`songs[${index}].title`}
+                        label="Title"
+                        id={`songs[${index}].title`}
+                        autoComplete="title"
+                        control={control}
+                        defaultValue={item.title} // make sure to set up
+                      />
+                      {acceptedFiles[index] === undefined ? (
+                        <IconButton
+                          type="submit"
+                          color="primary"
+                          className={classes.submit}
+                          onClick={() => addFileToAddedSong(index)}
+                        >
+                          <CloudUpload />
+                        </IconButton>
+                      ) : null}
+                    </Flex>
                     <IconButton
                       type="submit"
                       color="primary"
                       className={classes.submit}
-                      onClick={() => remove(index)}
+                      onClick={() => removeSong(index)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -244,9 +273,7 @@ export const CreateRelease = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => {
-                append({ title: '' });
-              }}
+              onClick={addSong}
             >
               Add Song
             </Button>
