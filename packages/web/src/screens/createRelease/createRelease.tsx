@@ -56,6 +56,7 @@ export const CreateRelease = () => {
     getInputProps,
     open,
     acceptedFiles,
+    fileRejections,
     isDragAccept,
     isDragActive,
     isDragReject,
@@ -70,7 +71,7 @@ export const CreateRelease = () => {
 
   const { uploadImage } = useUploadImage(imageFile);
 
-  const { register, control, handleSubmit } = useForm({
+  const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
       songs: [{ title: '' }],
     },
@@ -79,6 +80,20 @@ export const CreateRelease = () => {
     control,
     name: 'songs',
   });
+
+  useEffect(() => {
+    const populateForm = () => {
+      if (acceptedFiles.length > 0) {
+        return acceptedFiles.map((file) => {
+          return { title: file.name };
+        });
+      }
+
+      return undefined;
+    };
+
+    reset({ songs: populateForm() });
+  }, [acceptedFiles, reset]);
 
   const [createAlbum, { loading, called, error }] = useMutation(
     consts.mutations.CREATE_ALBUM,
@@ -153,6 +168,7 @@ export const CreateRelease = () => {
   };
 
   console.log('*debug* acceptedFiles', acceptedFiles);
+  console.log('*debug* fileRejections', fileRejections);
 
   return (
     <Container>
@@ -162,15 +178,7 @@ export const CreateRelease = () => {
 
       <Spacing.section.Minor />
 
-      {acceptedFiles.length === 0 ? (
-        <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
-          <input {...getInputProps()} />
-          <p>Drag 'n' drop some files here</p>
-          <button type="button" onClick={open}>
-            Open File Dialog
-          </button>
-        </DropzoneContainer>
-      ) : (
+      {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
         <>
           {image ? (
             <img src={image} width={500} height={500} />
@@ -256,6 +264,14 @@ export const CreateRelease = () => {
           </form>
           {/* </Flex> */}
         </>
+      ) : (
+        <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
+          <input {...getInputProps()} />
+          <p>Drag 'n' drop some files here</p>
+          <button type="button" onClick={open}>
+            Open File Dialog
+          </button>
+        </DropzoneContainer>
       )}
     </Container>
   );
