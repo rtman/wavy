@@ -11,12 +11,12 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Flex, Spacing } from 'components';
+import { Flex, Spacing, FileUploadButton } from 'components';
 import * as consts from 'consts';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import Dropzone, { useDropzone, FileRejection } from 'react-dropzone';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
@@ -180,7 +180,13 @@ export const CreateRelease = () => {
     append({ title: '' });
   };
 
-  const addFileToAddedSong = (index: number) => {
+  const addFileToAddedSong = (
+    fileAccepted: File[],
+    fileRejected: FileRejection[],
+    index: number
+  ) => {
+    console.log('*debug* addFileToAddedSong fileAccepted', fileAccepted);
+    console.log('*debug* addFileToAddedSong fileRejected', fileRejected);
     console.log('*debug* addFileToAddedSong', index);
     // TODO: need a file open dialog here to select the file of the right type audio/* and then add it to acceptedFiles
   };
@@ -246,35 +252,16 @@ export const CreateRelease = () => {
                         defaultValue={item.title} // make sure to set up
                       />
                       {acceptedFiles[index] === undefined ? (
-                        <Dropzone
-                          onDrop={(fileAccepted, fileRejected) => {
-                            console.log('*debug* fileAccepted', fileAccepted);
-                            console.log('*debug* fileRejected', fileRejected);
-                          }}
-                          multiple={false}
-                          noClick={true}
-                          noKeyboard={true}
-                          accept="audio/*"
-                        >
-                          {({
-                            getRootProps: rootProps,
-                            getInputProps: inputProps,
-                            open: openThis,
-                          }) => (
-                            <div {...rootProps()}>
-                              <input {...inputProps()} />
-                              <IconButton
-                                type="submit"
-                                color="primary"
-                                className={classes.submit}
-                                // onClick={() => addFileToAddedSong(index)}
-                                onClick={openThis}
-                              >
-                                <UploadIcon />
-                              </IconButton>
-                            </div>
-                          )}
-                        </Dropzone>
+                        <FileUploadButton
+                          acceptedTypes="audio/*"
+                          onDrop={(fileAccepted, fileRejected) =>
+                            addFileToAddedSong(
+                              fileAccepted,
+                              fileRejected,
+                              index
+                            )
+                          }
+                        />
                       ) : null}
                     </Flex>
                     <IconButton

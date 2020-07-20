@@ -10,6 +10,7 @@ import React, { PropsWithChildren } from 'react';
 const useStyles = (props: FlexProps) =>
   makeStyles({
     root: {
+      flex: 1,
       display: 'flex',
       flexDirection: props.flexDirection,
       flexWrap: props.flexWrap,
