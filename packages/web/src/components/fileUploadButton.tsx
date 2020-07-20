@@ -32,7 +32,7 @@ export const FileUploadButton = (props: FileUploadProps) => {
     // acceptedFiles,
     // isDragActive,
   } = useDropzone({
-    accept: acceptedTypes ?? '*',
+    accept: acceptedTypes,
     noClick: noClick ?? true,
     noKeyboard: noKeyboard ?? true,
     multiple: multiple ?? false,
