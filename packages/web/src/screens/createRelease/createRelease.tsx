@@ -9,18 +9,17 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import UploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Flex, Spacing, FileUploadButton } from 'components';
+import { FileUploadButton, Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import Dropzone, { useDropzone, FileRejection } from 'react-dropzone';
+import { FileRejection, useDropzone } from 'react-dropzone';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
-import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
+import { CreateAlbumArgs, CreateAlbumSongArgs, NewSongArgs } from 'types';
 
 import { DropzoneContainer } from './styles';
 
@@ -44,11 +43,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface SongsForUpload {
+  title: string;
+  file?: File;
+  uploadDone: boolean;
+  uploadError?: boolean;
+  uploadProgress: number;
+}
+
 export const CreateRelease = () => {
   const history = useHistory();
   const { id } = useParams();
   console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
+  const [songsForUpload, setSongsForUpload] = useState<SongsForUpload[]>([]);
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
@@ -74,7 +82,7 @@ export const CreateRelease = () => {
 
   const { uploadImage } = useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       songs: [{ title: '' }],
     },
@@ -83,20 +91,6 @@ export const CreateRelease = () => {
     control,
     name: 'songs',
   });
-
-  useEffect(() => {
-    const populateForm = () => {
-      if (acceptedFiles.length > 0) {
-        return acceptedFiles.map((file) => {
-          return { title: file.name };
-        });
-      }
-
-      return undefined;
-    };
-
-    reset({ songs: populateForm() });
-  }, [acceptedFiles, reset]);
 
   const [createAlbum, { loading, called, error }] = useMutation(
     consts.mutations.CREATE_ALBUM,
@@ -128,35 +122,6 @@ export const CreateRelease = () => {
     }
   }, [error, enqueueSnackbar]);
 
-  const onSubmit = async (data: {
-    album: CreateAlbumArgs;
-    songs: CreateAlbumSongArgs[];
-  }) => {
-    const result = await uploadImage({
-      parentId: id,
-      parentDir: 'album',
-      fileName: 'profileImage',
-    });
-
-    console.log('result', result);
-
-    if (result) {
-      await createAlbum({
-        variables: {
-          input: {
-            ...data.album,
-            description: '',
-            id: result.id,
-            artistId: id,
-            imageRef: result.gsUrl,
-            imageUrl: result.downloadUrl,
-            songsToAdd: data.songs,
-          },
-        },
-      });
-    }
-  };
-
   const getColor = () => {
     if (isDragAccept) {
       return '#00e676';
@@ -170,25 +135,128 @@ export const CreateRelease = () => {
     return '#eeeeee';
   };
 
+  useEffect(() => {
+    if (acceptedFiles.length > 0) {
+      const makeFormFromDropzone = () =>
+        acceptedFiles.map((file) => {
+          if (file.name.lastIndexOf('.') !== -1) {
+            const titleWithoutExtension = file.name.substring(
+              0,
+              file.name.lastIndexOf('.')
+            );
+            return { title: titleWithoutExtension.trim() };
+          } else {
+            return { title: file.name.trim() };
+          }
+        });
+
+      const makeSongsForUpload = () =>
+        acceptedFiles.map((file) => {
+          return {
+            title: file.name.trim(),
+            file: file,
+            uploadDone: false,
+            uploadError: false,
+            uploadProgress: 0,
+          };
+        });
+
+      setSongsForUpload(makeSongsForUpload());
+      reset({ songs: makeFormFromDropzone() });
+    }
+  }, [acceptedFiles, reset]);
+
   const removeSong = (index: number) => {
     remove(index);
 
-    acceptedFiles.splice(index, 1);
+    const resolvedSongsForUpload = [...songsForUpload];
+    resolvedSongsForUpload.splice(index, 1);
+    setSongsForUpload(resolvedSongsForUpload);
+
+    if (resolvedSongsForUpload.length === 0) {
+      acceptedFiles.splice(0, acceptedFiles.length);
+    }
+    // acceptedFiles.splice(index, 1);
   };
 
-  const addSong = () => {
-    append({ title: '' });
-  };
-
-  const addFileToAddedSong = (
-    fileAccepted: File[],
-    fileRejected: FileRejection[],
-    index: number
-  ) => {
+  const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
     console.log('*debug* addFileToAddedSong fileAccepted', fileAccepted);
     console.log('*debug* addFileToAddedSong fileRejected', fileRejected);
-    console.log('*debug* addFileToAddedSong', index);
-    // TODO: need a file open dialog here to select the file of the right type audio/* and then add it to acceptedFiles
+    if (fileAccepted.length > 0) {
+      const newFile = fileAccepted[0];
+      const resolvedSongsForUpload = [...songsForUpload];
+
+      if (newFile.name.lastIndexOf('.') !== -1) {
+        const titleWithoutExtension = newFile.name.substring(
+          0,
+          newFile.name.lastIndexOf('.')
+        );
+        append({ title: titleWithoutExtension.trim() });
+      } else {
+        append({ title: newFile.name.trim() });
+      }
+
+      resolvedSongsForUpload.push({
+        title: newFile.name.trim(),
+        file: newFile,
+        uploadDone: false,
+        uploadProgress: 0,
+        uploadError: false,
+      });
+
+      setSongsForUpload(resolvedSongsForUpload);
+    }
+
+    if (fileRejected.length > 0) {
+      enqueueSnackbar('Error! Wrong file type please try again', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    }
+  };
+
+  const onSubmit = async (data: {
+    album: CreateAlbumArgs;
+    songs: NewSongArgs[];
+  }) => {
+    console.log('*debug* onSubmit album', data.album);
+    console.log('*debug* onSubmit songs', data.songs);
+
+    const resolvedSongsForUpload = songsForUpload.map((song, index) => {
+      return {
+        ...song,
+        title: data.songs[index].title.trim(),
+      };
+    });
+
+    console.log(
+      '*debug* onSubmit resolvedSongsForUpload',
+      resolvedSongsForUpload
+    );
+
+    // const result = await uploadImage({
+    //   parentId: id,
+    //   parentDir: 'album',
+    //   fileName: 'profileImage',
+    // });
+
+    // console.log('result', result);
+
+    // if (result) {
+    //   await createAlbum({
+    //     variables: {
+    //       input: {
+    //         ...data.album,
+    //         description: '',
+    //         id: result.id,
+    //         artistId: id,
+    //         imageRef: result.gsUrl,
+    //         imageUrl: result.downloadUrl,
+    //         songsToAdd: data.songs,
+    //       },
+    //     },
+    //   });
+    // }
   };
 
   console.log('*debug* acceptedFiles', acceptedFiles);
@@ -251,18 +319,6 @@ export const CreateRelease = () => {
                         control={control}
                         defaultValue={item.title} // make sure to set up
                       />
-                      {acceptedFiles[index] === undefined ? (
-                        <FileUploadButton
-                          acceptedTypes="audio/*"
-                          onDrop={(fileAccepted, fileRejected) =>
-                            addFileToAddedSong(
-                              fileAccepted,
-                              fileRejected,
-                              index
-                            )
-                          }
-                        />
-                      ) : null}
                     </Flex>
                     <IconButton
                       type="submit"
@@ -277,15 +333,12 @@ export const CreateRelease = () => {
               })}
             </List>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={addSong}
-            >
-              Add Song
-            </Button>
+            <FileUploadButton
+              acceptedTypes="audio/*"
+              onDrop={(fileAccepted, fileRejected) =>
+                addSong(fileAccepted, fileRejected)
+              }
+            />
 
             <Spacing.BetweenComponents />
 
@@ -295,7 +348,11 @@ export const CreateRelease = () => {
               color="primary"
               className={classes.submit}
             >
-              {called || loading ? <CircularProgress /> : 'Submit'}
+              {called || loading ? (
+                <CircularProgress />
+              ) : (
+                <Typography variant="body2">Submit</Typography>
+              )}
             </Button>
           </form>
           {/* </Flex> */}

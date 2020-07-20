@@ -1,17 +1,6 @@
-import { IconButton, makeStyles, Theme } from '@material-ui/core';
-import UploadIcon from '@material-ui/icons/CloudUpload';
+import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
-
-// const useStyles = makeStyles((theme: Theme) => ({
-//   activeDropTarget: {
-//     boxSizing: 'border-box',
-//     border: `2px dotted ${theme.palette.divider}`,
-//     borderRadius: theme.shape.borderRadius * 2,
-//     margin: -2 - theme.spacing(2),
-//     padding: theme.spacing(2),
-//   },
-// }));
 
 interface FileUploadProps {
   acceptedTypes?: 'audio/*' | 'image/*';
@@ -40,11 +29,11 @@ export const FileUploadButton = (props: FileUploadProps) => {
   });
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <IconButton type="submit" color="primary" onClick={open}>
-        <UploadIcon />
-      </IconButton>
-    </div>
+    <Button type="submit" variant="outlined" color="primary" onClick={open}>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <Typography variant="body2">Add Song</Typography>
+      </div>
+    </Button>
   );
 };

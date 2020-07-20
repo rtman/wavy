@@ -77,9 +77,7 @@ export type CreateAlbumArgs = {
   imageUrl: Scalars['String'];
 };
 
-export type CreateAlbumSongArgs = {
-  songsToAdd: Array<NewSongArgs>;
-};
+export type CreateAlbumSongArgs = Array<NewSongArgs>;
 
 export type CreateArtistArgs = {
   artistId: Scalars['String'];
