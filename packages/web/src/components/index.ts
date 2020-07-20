@@ -42,5 +42,6 @@ export * from './menuDrawer';
 export * from './navLink';
 export * from './listItemLink';
 export * from './bottomBar';
+export * from './fileUploadButton';
 
 export { Alignment, Spacing };

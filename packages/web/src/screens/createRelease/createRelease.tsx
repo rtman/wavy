@@ -9,21 +9,20 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
 import UploadIcon from '@material-ui/icons/CloudUpload';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
-import React, { useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useEffect, useState } from 'react';
+import Dropzone, { useDropzone } from 'react-dropzone';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs } from 'types';
 
 import { DropzoneContainer } from './styles';
-import { CloudUpload } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,6 +49,8 @@ export const CreateRelease = () => {
   const { id } = useParams();
   console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
+  // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
+  // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
   const classes = useStyles();
   const { onDrop, image, imageFile } = useOnDropImage();
@@ -245,14 +246,35 @@ export const CreateRelease = () => {
                         defaultValue={item.title} // make sure to set up
                       />
                       {acceptedFiles[index] === undefined ? (
-                        <IconButton
-                          type="submit"
-                          color="primary"
-                          className={classes.submit}
-                          onClick={() => addFileToAddedSong(index)}
+                        <Dropzone
+                          onDrop={(fileAccepted, fileRejected) => {
+                            console.log('*debug* fileAccepted', fileAccepted);
+                            console.log('*debug* fileRejected', fileRejected);
+                          }}
+                          multiple={false}
+                          noClick={true}
+                          noKeyboard={true}
+                          accept="audio/*"
                         >
-                          <CloudUpload />
-                        </IconButton>
+                          {({
+                            getRootProps: rootProps,
+                            getInputProps: inputProps,
+                            open: openThis,
+                          }) => (
+                            <div {...rootProps()}>
+                              <input {...inputProps()} />
+                              <IconButton
+                                type="submit"
+                                color="primary"
+                                className={classes.submit}
+                                // onClick={() => addFileToAddedSong(index)}
+                                onClick={openThis}
+                              >
+                                <UploadIcon />
+                              </IconButton>
+                            </div>
+                          )}
+                        </Dropzone>
                       ) : null}
                     </Flex>
                     <IconButton
@@ -295,6 +317,12 @@ export const CreateRelease = () => {
         <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
           <input {...getInputProps()} />
           <p>Drag 'n' drop some files here</p>
+          {fileRejections.length > 0 ? (
+            <Typography variant="body1">
+              Some files were rejected, please check you are submitting audio
+              files.
+            </Typography>
+          ) : null}
           <button type="button" onClick={open}>
             Open File Dialog
           </button>
