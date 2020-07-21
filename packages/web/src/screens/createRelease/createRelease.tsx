@@ -61,6 +61,7 @@ export const CreateRelease = () => {
   const [uploadTasks, setUploadTasks] = useState<firebase.storage.UploadTask[]>(
     []
   );
+  const [transferred, setTransferred] = useState<number>(0);
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
@@ -277,12 +278,25 @@ export const CreateRelease = () => {
 
   console.log('*debug* acceptedFiles', acceptedFiles);
   console.log('*debug* fileRejections', fileRejections);
+  console.log('*debug* uploadTasks', uploadTasks);
+  if (uploadTasks[0]?.snapshot.bytesTransferred) {
+    console.log(
+      '*debug* uploadTasks[0]',
+      uploadTasks[0].snapshot.bytesTransferred
+    );
+  }
+
+  useEffect(() => {
+    if (uploadTasks[0]) {
+      setTransferred(uploadTasks[0].snapshot.bytesTransferred);
+    }
+  }, [uploadTasks]);
 
   return (
     <Container>
       {/* <Flex flexDirection="column"> */}
       <Spacing.section.Minor />
-      <Typography variant="h1">New Release</Typography>
+      <Typography variant="h1">{transferred}</Typography>
 
       <Spacing.section.Minor />
 
