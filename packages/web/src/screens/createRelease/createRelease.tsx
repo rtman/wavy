@@ -12,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { FileUploadButton, Flex, Spacing } from 'components';
 import * as consts from 'consts';
+import * as firebase from 'firebase';
+import * as helpers from 'helpers';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
@@ -19,8 +21,6 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs, NewSongArgs } from 'types';
-import * as firebase from 'firebase';
-import * as helpers from 'helpers';
 
 import { DropzoneContainer } from './styles';
 
