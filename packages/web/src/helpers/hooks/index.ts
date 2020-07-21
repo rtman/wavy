@@ -5,3 +5,4 @@ export * from './useOnDropImage';
 export { usePlayState } from './usePlayState';
 export { useStateWithCallback } from './useStateWithCallback';
 export * from './useUploadImage';
+export * from './useFirebaseStorageUpload';

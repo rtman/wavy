@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { FileUploadButton, Flex, Spacing } from 'components';
 import * as consts from 'consts';
-import { useOnDropImage, useUploadImage } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
@@ -20,6 +19,8 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import { CreateAlbumArgs, CreateAlbumSongArgs, NewSongArgs } from 'types';
+import * as firebase from 'firebase';
+import * as helpers from 'helpers';
 
 import { DropzoneContainer } from './styles';
 
@@ -57,11 +58,15 @@ export const CreateRelease = () => {
   console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
   const [songsForUpload, setSongsForUpload] = useState<SongsForUpload[]>([]);
+  const [uploadTasks, setUploadTasks] = useState<firebase.storage.UploadTask[]>(
+    []
+  );
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
   const classes = useStyles();
-  const { onDrop, image, imageFile } = useOnDropImage();
+  const uploadFile = helpers.hooks.useFirebaseStorageUpload();
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const {
     getRootProps,
     getInputProps,
@@ -80,7 +85,7 @@ export const CreateRelease = () => {
     // preventDropOnDocument: true,
   });
 
-  const { uploadImage } = useUploadImage(imageFile);
+  const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
   const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
@@ -233,6 +238,17 @@ export const CreateRelease = () => {
       '*debug* onSubmit resolvedSongsForUpload',
       resolvedSongsForUpload
     );
+
+    songsForUpload.forEach((song) => {
+      if (song.file) {
+        const newUploadTask = uploadFile({
+          rootDir: id,
+          parentDir: 'albums',
+          file: song.file,
+        });
+        setUploadTasks([...uploadTasks, newUploadTask]);
+      }
+    });
 
     // const result = await uploadImage({
     //   parentId: id,
