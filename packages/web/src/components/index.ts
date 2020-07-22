@@ -43,5 +43,6 @@ export * from './navLink';
 export * from './listItemLink';
 export * from './bottomBar';
 export * from './fileUploadButton';
+export * from './songUploadField';
 
 export { Alignment, Spacing };

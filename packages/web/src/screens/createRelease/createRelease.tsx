@@ -10,17 +10,22 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { FileUploadButton, Flex, Spacing } from 'components';
+import { FileUploadButton, Flex, SongUploadField, Spacing } from 'components';
 import * as consts from 'consts';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 import * as helpers from 'helpers';
+import { UploadStatus } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
-import { CreateAlbumArgs, CreateAlbumSongArgs, NewSongArgs } from 'types';
+import {
+  CreateAlbumArgs,
+  // CreateAlbumSongArgs,
+  NewSongArgs,
+} from 'types';
 
 import { DropzoneContainer } from './styles';
 
@@ -44,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface SongsForUpload {
+export interface SongForUpload {
   title: string;
   file?: File;
   uploadDone: boolean;
@@ -57,16 +62,13 @@ export const CreateRelease = () => {
   const { id } = useParams();
   console.log('id', id);
   const { enqueueSnackbar } = useSnackbar();
-  const [songsForUpload, setSongsForUpload] = useState<SongsForUpload[]>([]);
-  const [uploadTasks, setUploadTasks] = useState<firebase.storage.UploadTask[]>(
-    []
-  );
-  const [transferred, setTransferred] = useState<number>(0);
+  const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
+  const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
   const classes = useStyles();
-  const uploadFile = helpers.hooks.useFirebaseStorageUpload();
+  // const uploadFile = helpers.hooks.useFirebaseStorageUpload();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const {
     getRootProps,
@@ -221,6 +223,12 @@ export const CreateRelease = () => {
     }
   };
 
+  const setUploadStatus = (newUploadStatus: UploadStatus, index: number) => {
+    const uploadStatusesCloned = [...uploadStatuses];
+    uploadStatusesCloned[index] = newUploadStatus;
+    setUploadStatuses(uploadStatusesCloned);
+  };
+
   const onSubmit = async (data: {
     album: CreateAlbumArgs;
     songs: NewSongArgs[];
@@ -239,17 +247,6 @@ export const CreateRelease = () => {
       '*debug* onSubmit resolvedSongsForUpload',
       resolvedSongsForUpload
     );
-
-    songsForUpload.forEach((song) => {
-      if (song.file) {
-        const newUploadTask = uploadFile({
-          rootDir: id,
-          parentDir: 'albums',
-          file: song.file,
-        });
-        setUploadTasks([...uploadTasks, newUploadTask]);
-      }
-    });
 
     // const result = await uploadImage({
     //   parentId: id,
@@ -278,25 +275,14 @@ export const CreateRelease = () => {
 
   console.log('*debug* acceptedFiles', acceptedFiles);
   console.log('*debug* fileRejections', fileRejections);
-  console.log('*debug* uploadTasks', uploadTasks);
-  if (uploadTasks[0]?.snapshot.bytesTransferred) {
-    console.log(
-      '*debug* uploadTasks[0]',
-      uploadTasks[0].snapshot.bytesTransferred
-    );
-  }
-
-  useEffect(() => {
-    if (uploadTasks[0]) {
-      setTransferred(uploadTasks[0].snapshot.bytesTransferred);
-    }
-  }, [uploadTasks]);
+  console.log('*debug* uploadStatuses', uploadStatuses);
+  console.log('*debug* songsForUpload', songsForUpload);
 
   return (
     <Container>
       {/* <Flex flexDirection="column"> */}
       <Spacing.section.Minor />
-      <Typography variant="h1">{transferred}</Typography>
+      <Typography variant="h1">New Release</Typography>
 
       <Spacing.section.Minor />
 
@@ -330,61 +316,47 @@ export const CreateRelease = () => {
             autoComplete="album title"
           />
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <List>
-              {fields.map((item, index) => {
-                return (
-                  <Flex key={item.id}>
-                    <Flex flexDirection="column">
-                      <Controller
-                        as={<TextField />}
-                        variant="outlined"
-                        margin="normal"
-                        required={true}
-                        fullWidth={true}
-                        name={`songs[${index}].title`}
-                        label="Title"
-                        id={`songs[${index}].title`}
-                        autoComplete="title"
-                        control={control}
-                        defaultValue={item.title} // make sure to set up
-                      />
-                    </Flex>
-                    <IconButton
-                      type="submit"
-                      color="primary"
-                      className={classes.submit}
-                      onClick={() => removeSong(index)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Flex>
-                );
-              })}
-            </List>
+          {songsForUpload.length > 0 ? (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <List>
+                {fields.map((item, index) => {
+                  return (
+                    <SongUploadField
+                      creatorId={id}
+                      songData={songsForUpload[index]}
+                      formData={item}
+                      index={index}
+                      setUploadStatusCallback={setUploadStatus}
+                      control={control}
+                      removeSong={() => removeSong(index)}
+                    />
+                  );
+                })}
+              </List>
 
-            <FileUploadButton
-              acceptedTypes="audio/*"
-              onDrop={(fileAccepted, fileRejected) =>
-                addSong(fileAccepted, fileRejected)
-              }
-            />
+              <FileUploadButton
+                acceptedTypes="audio/*"
+                onDrop={(fileAccepted, fileRejected) =>
+                  addSong(fileAccepted, fileRejected)
+                }
+              />
 
-            <Spacing.BetweenComponents />
+              <Spacing.BetweenComponents />
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {called || loading ? (
-                <CircularProgress />
-              ) : (
-                <Typography variant="body2">Submit</Typography>
-              )}
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                {called || loading ? (
+                  <CircularProgress />
+                ) : (
+                  <Typography variant="body2">Submit</Typography>
+                )}
+              </Button>
+            </form>
+          ) : null}
           {/* </Flex> */}
         </>
       ) : (

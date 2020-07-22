@@ -1,108 +1,158 @@
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
+import { useCallback, useEffect, useState } from 'react';
 import { uuid } from 'uuidv4';
 
-export const useFirebaseStorageUpload = () => {
-  //   const { enqueueSnackbar } = useSnackbar();
+export interface UploadStatus {
+  progress?: number;
+  error?: firebase.FirebaseError;
+  complete: boolean;
+  running: boolean;
+  paused: boolean;
+  data?: UploadCompleteData;
+}
 
-  const uploadFile = (props: {
-    rootDir?: string;
-    parentDir?: string;
-    childDir?: string;
-    file: File;
-  }) => {
+export interface UploadCompleteData {
+  id: string;
+  gsUrl: string;
+  downloadUrl: string;
+}
+
+export interface UseFirebaseStorageUploadInputProps {
+  rootDir?: string;
+  parentDir?: string;
+  childDir?: string;
+  file?: File;
+}
+
+export const useFirebaseStorageUpload = (
+  props: UseFirebaseStorageUploadInputProps
+) => {
+  //   const { enqueueSnackbar } = useSnackbar();
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>({
+    progress: 0,
+    error: undefined,
+    complete: false,
+    running: false,
+    paused: false,
+    data: undefined,
+  });
+
+  const uploadFile = useCallback(() => {
     const { rootDir, parentDir, childDir, file } = props;
 
-    const id = uuid();
-    const fileNameWithoutExtension = file.name.substring(
-      0,
-      file.name.lastIndexOf('.')
-    );
-    const fileExtension = file.name.substring(
-      file.name.lastIndexOf('.'),
-      file.name.length
-    );
+    if (file) {
+      const id = uuid();
+      const fileNameWithoutExtension = file.name.substring(
+        0,
+        file.name.lastIndexOf('.')
+      );
+      const fileExtension = file.name.substring(
+        file.name.lastIndexOf('.'),
+        file.name.length
+      );
 
-    const storageRef = firebase.storage().ref();
+      const storageRef = firebase.storage().ref();
 
-    let storagePath = '';
-    rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
-    parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
-    childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
+      let storagePath = '';
+      rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
+      parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
+      childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
 
-    storagePath += `${id}/${fileNameWithoutExtension}.${fileExtension}`;
+      storagePath += `${id}/${fileNameWithoutExtension}.${fileExtension}`;
 
-    const fileStorageRef = storageRef.child(storagePath);
-    const uploadTask = fileStorageRef.put(file);
+      const fileStorageRef = storageRef.child(storagePath);
+      const uploadTask = fileStorageRef.put(file);
 
-    uploadTask.on(
-      firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('*debug* Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log('*debug* Upload is paused');
-            break;
-          case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log('*debug* Upload is running');
-            return {
-              progress,
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const uploadProgress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('*debug* Upload is ' + uploadProgress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('*debug* Upload is paused');
+              setUploadStatus({
+                progress: uploadProgress,
+                error: undefined,
+                complete: false,
+                running: false,
+                paused: true,
+                data: undefined,
+              });
+              break;
+
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('*debug* Upload is running');
+              setUploadStatus({
+                progress: uploadProgress,
+                error: undefined,
+                complete: false,
+                running: true,
+                paused: false,
+                data: undefined,
+              });
+              break;
+          }
+        },
+        (error) => {
+          const firebaseError = error as firebase.FirebaseError;
+
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (firebaseError.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+
+              break;
+
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+          setUploadStatus({
+            progress: undefined,
+            error: firebaseError,
+            complete: false,
+            running: false,
+            paused: false,
+            data: undefined,
+          });
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          const uploadComplete = async () => {
+            console.log('*debug* upload complete');
+
+            const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+            const gsUrl = uploadTask.snapshot.ref.toString();
+
+            setUploadStatus({
+              progress: 100,
               error: undefined,
-              complete: false,
-              running: true,
-              data: undefined,
-            };
+              complete: true,
+              running: false,
+              paused: false,
+              data: { id, downloadUrl, gsUrl },
+            });
+          };
+          uploadComplete();
         }
-      },
-      (error) => {
-        const firebaseError = error as firebase.FirebaseError;
+      );
+    }
+  }, []);
 
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (firebaseError.code) {
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
+  useEffect(() => {
+    if (props.file) {
+      uploadFile();
+    }
+  }, [props.file, uploadFile]);
 
-            break;
-
-          case 'storage/canceled':
-            // User canceled the upload
-            break;
-
-          case 'storage/unknown':
-            // Unknown error occurred, inspect error.serverResponse
-            break;
-        }
-        return {
-          progress: undefined,
-          error: error,
-          complete: false,
-          running: false,
-          data: undefined,
-        };
-      },
-      () => {
-        // Upload completed successfully, now we can get the download URL
-
-        console.log('*debug* upload complete');
-
-        const downloadUrl = uploadTask.snapshot.ref.getDownloadURL();
-        const gsUrl = uploadTask.snapshot.ref.toString();
-
-        return {
-          progress: 100,
-          error: undefined,
-          complete: true,
-          running: false,
-          data: { id, downloadUrl, gsUrl },
-        };
-      }
-    );
-    return uploadTask;
-  };
-
-  return uploadFile;
+  return { uploadStatus };
 };
