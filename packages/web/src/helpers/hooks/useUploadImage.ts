@@ -1,29 +1,29 @@
 import * as firebase from 'firebase';
 import { useSnackbar } from 'notistack';
-import { uuid } from 'uuidv4';
 
 export const useUploadImage = (imageFile: File | undefined) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const uploadImage = async (data: {
-    parentId?: string;
+    rootDir?: string;
     parentDir?: string;
+    childDir?: string;
     fileName: string;
   }) => {
-    const { parentId, parentDir, fileName } = data;
+    const { rootDir, parentDir, childDir, fileName } = data;
 
-    const id = uuid();
     const fileExtension = imageFile?.name.split('.').splice(-1)[0];
 
     if (imageFile) {
       const storageRef = firebase.storage().ref();
 
       let storagePath = '';
-      if (parentId) storagePath += `${parentId}/`;
-      if (parentDir) storagePath += `${parentDir}/`;
+      rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
+      parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
+      childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
       // storagePath + parentId ? `${parentId}/` : '';
       // storagePath + parentDir ? `${parentDir}/` : '';
-      storagePath += `${id}/${fileName}.${fileExtension}`;
+      storagePath += `${fileName}.${fileExtension}`;
 
       const artistImageRef = storageRef.child(storagePath);
       const snapshot = await artistImageRef.put(imageFile);
@@ -33,7 +33,7 @@ export const useUploadImage = (imageFile: File | undefined) => {
         const downloadUrl = result;
         const gsUrl = artistImageRef.toString();
 
-        return { id, downloadUrl, gsUrl };
+        return { id: childDir, downloadUrl, gsUrl };
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',

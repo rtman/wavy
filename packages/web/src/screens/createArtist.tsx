@@ -14,10 +14,12 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
+import { uuid } from 'uuidv4';
 
 export const CreateArtist = () => {
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [artistId, setArtistId] = useState<string>('');
 
   const userContext = useContext(UserContext);
   const history = useHistory();
@@ -47,6 +49,10 @@ export const CreateArtist = () => {
   );
 
   useEffect(() => {
+    setArtistId(uuid());
+  }, []);
+
+  useEffect(() => {
     if (error) {
       enqueueSnackbar('Error! Artist Not Created', {
         variant: 'error',
@@ -63,6 +69,7 @@ export const CreateArtist = () => {
 
   const onSubmit = async () => {
     const result = await uploadImage({
+      rootDir: artistId,
       fileName: 'profileImage',
     });
 
