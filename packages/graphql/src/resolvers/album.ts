@@ -167,7 +167,6 @@ export class AlbumResolvers {
               imageRef,
               imageUrl,
               // releaseDate: new Date(), //TODO: releaseDate, default to new Date() for now
-              playCount: 0,
             };
           });
 

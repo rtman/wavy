@@ -54,7 +54,9 @@ const useStyles = makeStyles((theme) => ({
 
 export interface SongForUpload {
   title: string;
-  file?: File;
+  ref?: string;
+  url?: string;
+  file: File;
 }
 
 export const CreateRelease = () => {
@@ -168,9 +170,6 @@ export const CreateRelease = () => {
           return {
             title: file.name.trim(),
             file: file,
-            uploadDone: false,
-            uploadError: false,
-            uploadProgress: 0,
           };
         });
 
@@ -251,13 +250,18 @@ export const CreateRelease = () => {
     album: CreateAlbumArgs;
     songs: NewSongArgs[];
   }) => {
-    console.log('*debug* onSubmit album', data.album);
-    console.log('*debug* onSubmit songs', data.songs);
+    console.log('*debug* onSubmit data.album', data.album);
+    console.log('*debug* onSubmit data.songs', data.songs);
 
     const resolvedSongsForUpload = songsForUpload.map((song, index) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { file, ...rest } = song;
+
       return {
-        ...song,
+        ...rest,
         title: data.songs[index].title.trim(),
+        ref: uploadStatuses[index].data?.gsUrl,
+        url: uploadStatuses[index].data?.downloadUrl,
       };
     });
 
@@ -279,12 +283,12 @@ export const CreateRelease = () => {
         variables: {
           input: {
             ...data.album,
-            description: '',
+            description: '', //TODO: description field, undefined uses default ''
             id: result.id,
             artistId: id,
             imageRef: result.gsUrl,
             imageUrl: result.downloadUrl,
-            songsToAdd: data.songs,
+            songsToAdd: resolvedSongsForUpload,
           },
         },
       });

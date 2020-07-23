@@ -62,7 +62,7 @@ export class Album {
   imageUrl: string;
 
   @Field(() => String)
-  @Column()
+  @Column({ default: '' })
   description: string;
 
   // TODO: add supporting artists to album
