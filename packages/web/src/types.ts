@@ -28,9 +28,11 @@ export type AddPlaylistSongsArgs = {
 export type Album = {
   __typename?: 'Album';
   id: Scalars['ID'];
+  artistId: Scalars['ID'];
   artist: Artist;
   title: Scalars['String'];
   songs: Array<Song>;
+  labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
   imageRef: Scalars['String'];
   imageUrl: Scalars['String'];
@@ -76,8 +78,6 @@ export type CreateAlbumArgs = {
   imageRef: Scalars['String'];
   imageUrl: Scalars['String'];
 };
-
-export type CreateAlbumSongArgs = Array<NewSongArgs>;
 
 export type CreateArtistArgs = {
   artistId: Scalars['String'];
@@ -252,6 +252,8 @@ export type MutationDeleteUserArgs = {
 
 export type NewSongArgs = {
   title: Scalars['String'];
+  ref: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type Playlist = {
@@ -363,6 +365,7 @@ export type Song = {
   artist: Artist;
   albumId: Scalars['ID'];
   album: Album;
+  labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
   title: Scalars['String'];
   ref: Scalars['String'];
@@ -667,7 +670,6 @@ export type ResolversTypes = {
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   UpdateRecentlyPlayedArgs: UpdateRecentlyPlayedArgs;
-  CreateAlbumSongArgs: CreateAlbumSongArgs;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -711,7 +713,6 @@ export type ResolversParentTypes = {
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   UpdateRecentlyPlayedArgs: UpdateRecentlyPlayedArgs;
-  CreateAlbumSongArgs: CreateAlbumSongArgs;
 };
 
 export type AlbumResolvers<
@@ -719,9 +720,11 @@ export type AlbumResolvers<
   ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   imageRef?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1093,6 +1096,7 @@ export type SongResolvers<
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   albumId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
+  labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ref?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

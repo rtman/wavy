@@ -15,14 +15,8 @@ class NewSongArgs implements Partial<Models.Song> {
   url: string;
 }
 
-@InputType()
-class CreateAlbumSongArgs {
-  @Field(() => [NewSongArgs])
-  songsToAdd: NewSongArgs[];
-}
-
 @InputType({ description: 'Create a new album' })
-class CreateAlbumArgs implements Partial<Models.Album & CreateAlbumSongArgs> {
+class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
   @Field()
   id: string;
 
@@ -172,7 +166,7 @@ export class AlbumResolvers {
               url: song.url,
               imageRef,
               imageUrl,
-              releaseDate: new Date(), //TODO: releaseDate
+              // releaseDate: new Date(), //TODO: releaseDate, default to new Date() for now
               playCount: 0,
             };
           });
