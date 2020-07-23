@@ -7,6 +7,12 @@ import { Models } from '../orm';
 class NewSongArgs implements Partial<Models.Song> {
   @Field()
   title: string;
+
+  @Field()
+  ref: string;
+
+  @Field()
+  url: string;
 }
 
 @InputType()
@@ -162,8 +168,8 @@ export class AlbumResolvers {
               artistId,
               albumId: id,
               title: song.title,
-              ref: '', //TODO: add song ref
-              url: '', //TODO: add song url
+              ref: song.ref,
+              url: song.url,
               imageRef,
               imageUrl,
               releaseDate: new Date(), //TODO: releaseDate

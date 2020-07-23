@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface UploadStatus {
   progress?: number;
@@ -9,6 +9,7 @@ export interface UploadStatus {
   running: boolean;
   paused: boolean;
   data?: UploadCompleteData;
+  task?: firebase.storage.UploadTask;
 }
 
 export interface UploadCompleteData {
@@ -35,6 +36,7 @@ export const useFirebaseStorageUpload = (
     running: false,
     paused: false,
     data: undefined,
+    task: undefined,
   });
 
   const { rootDir, parentDir, childDir, file } = props;
@@ -79,6 +81,7 @@ export const useFirebaseStorageUpload = (
                   running: false,
                   paused: true,
                   data: undefined,
+                  task: uploadTask,
                 });
                 break;
 
@@ -90,6 +93,7 @@ export const useFirebaseStorageUpload = (
                   running: true,
                   paused: false,
                   data: undefined,
+                  task: uploadTask,
                 });
                 break;
             }
@@ -120,6 +124,7 @@ export const useFirebaseStorageUpload = (
               running: false,
               paused: false,
               data: undefined,
+              task: uploadTask,
             });
           },
           () => {
@@ -135,6 +140,7 @@ export const useFirebaseStorageUpload = (
                 running: false,
                 paused: false,
                 data: { id: childDir, downloadUrl, gsUrl },
+                task: uploadTask,
               });
             };
             uploadComplete();

@@ -8,7 +8,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { FileUploadButton, Flex, SongUploadField, Spacing } from 'components';
+import {
+  FileUploadButton,
+  // Flex,
+  SongUploadField,
+  Spacing,
+} from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
@@ -50,9 +55,6 @@ const useStyles = makeStyles((theme) => ({
 export interface SongForUpload {
   title: string;
   file?: File;
-  uploadDone: boolean;
-  uploadError?: boolean;
-  uploadProgress: number;
 }
 
 export const CreateRelease = () => {
@@ -89,7 +91,7 @@ export const CreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset, setValue } = useForm({
+  const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
       songs: [{ title: '' }],
     },
@@ -177,17 +179,35 @@ export const CreateRelease = () => {
     }
   }, [acceptedFiles, reset]);
 
+  // TODO: fix issue with changing index number, restarting/bugging out upload
+  // if you remove an element anywhere but the end of the array it assigns a different index to the
+  // child components this seems to re mount the component (or restart the process).
   const removeSong = (index: number) => {
-    remove(index);
+    if (uploadStatuses[index]) {
+      const upload = uploadStatuses[index];
 
-    const resolvedSongsForUpload = [...songsForUpload];
-    resolvedSongsForUpload.splice(index, 1);
-    setSongsForUpload(resolvedSongsForUpload);
+      if (upload.complete && upload.task) {
+        upload.task.snapshot.ref.delete();
+      }
 
-    if (resolvedSongsForUpload.length === 0) {
-      acceptedFiles.splice(0, acceptedFiles.length);
+      if (upload.running && !upload.complete && upload.task) {
+        upload.task.cancel();
+      }
+
+      const resolvedSongsForUpload = [...songsForUpload];
+      resolvedSongsForUpload.splice(index, 1);
+      setSongsForUpload(resolvedSongsForUpload);
+
+      if (resolvedSongsForUpload.length === 0) {
+        acceptedFiles.splice(0, acceptedFiles.length);
+      }
+
+      const resolvedUploadStatuses = [...uploadStatuses];
+      resolvedUploadStatuses.splice(index, 1);
+      setUploadStatuses(resolvedUploadStatuses);
+
+      remove(index);
     }
-    // acceptedFiles.splice(index, 1);
   };
 
   const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
@@ -206,9 +226,6 @@ export const CreateRelease = () => {
       resolvedSongsForUpload.push({
         title: newFile.name.trim(),
         file: newFile,
-        uploadDone: false,
-        uploadProgress: 0,
-        uploadError: false,
       });
 
       setSongsForUpload(resolvedSongsForUpload);
@@ -249,29 +266,29 @@ export const CreateRelease = () => {
       resolvedSongsForUpload
     );
 
-    // const result = await uploadImage({
-    //   parentId: id,
-    //   parentDir: 'album',
-    //   fileName: 'profileImage',
-    // });
+    const result = await uploadImage({
+      parentId: id,
+      parentDir: 'album',
+      fileName: 'profileImage',
+    });
 
-    // console.log('result', result);
+    console.log('result', result);
 
-    // if (result) {
-    //   await createAlbum({
-    //     variables: {
-    //       input: {
-    //         ...data.album,
-    //         description: '',
-    //         id: result.id,
-    //         artistId: id,
-    //         imageRef: result.gsUrl,
-    //         imageUrl: result.downloadUrl,
-    //         songsToAdd: data.songs,
-    //       },
-    //     },
-    //   });
-    // }
+    if (result) {
+      await createAlbum({
+        variables: {
+          input: {
+            ...data.album,
+            description: '',
+            id: result.id,
+            artistId: id,
+            imageRef: result.gsUrl,
+            imageUrl: result.downloadUrl,
+            songsToAdd: data.songs,
+          },
+        },
+      });
+    }
   };
 
   console.log('*debug* acceptedFiles', acceptedFiles);

@@ -82,11 +82,11 @@ export class Song {
   imageUrl: string;
 
   @Field(() => Date)
-  @Column()
+  @Column({ default: new Date() })
   releaseDate: Date;
 
   @Field(() => Number)
-  @Column()
+  @Column({ default: 0 })
   playCount: number;
 
   @Field(() => [SongArtistSupportingArtist], { nullable: true })

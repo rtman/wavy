@@ -7,8 +7,9 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Flex } from 'components';
 import * as helpers from 'helpers';
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { ArrayField } from 'react-hook-form/dist/types/form';
 
 import { SongForUpload } from '../screens/createRelease/createRelease';
 
@@ -16,8 +17,8 @@ interface SongUploadFieldProps {
   creatorId: string;
   releaseId: string;
   songData: SongForUpload;
-  // formData: Partial<Record<string, any>, 'id'>;
-  formData: any;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formData: Partial<ArrayField<Record<string, any>, 'id'>>;
   index: number;
   setUploadStatusCallback: (
     uploadStatus: helpers.hooks.UploadStatus,
