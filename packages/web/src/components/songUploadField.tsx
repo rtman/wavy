@@ -1,4 +1,10 @@
-import { IconButton, TextField, Typography } from '@material-ui/core';
+import {
+  LinearProgress,
+  IconButton,
+  TextField,
+  Typography,
+  makeStyles,
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Flex } from 'components';
 import * as helpers from 'helpers';
@@ -22,6 +28,12 @@ interface SongUploadFieldProps {
   removeSong: (index: number) => void;
 }
 
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+  },
+});
+
 export const SongUploadField = (props: SongUploadFieldProps) => {
   const {
     creatorId,
@@ -33,6 +45,8 @@ export const SongUploadField = (props: SongUploadFieldProps) => {
     songData,
     removeSong,
   } = props;
+
+  const classes = useStyles();
 
   const { uploadStatus } = helpers.hooks.useFirebaseStorageUpload({
     rootDir: creatorId,
@@ -58,31 +72,34 @@ export const SongUploadField = (props: SongUploadFieldProps) => {
   console.log('*debug* uploadStatus', uploadStatus);
 
   return (
-    <Flex key={formData.id}>
-      <Flex flexDirection="column">
-        <Controller
-          as={<TextField />}
-          variant="outlined"
-          margin="normal"
-          required={true}
-          fullWidth={true}
-          name={`songs[${index}].title`}
-          label="Title"
-          id={`songs[${index}].title`}
-          autoComplete="title"
-          control={control}
-          defaultValue={formData.title} // make sure to set up
-        />
+    <div className={classes.root} key={formData.id}>
+      <LinearProgress variant="determinate" value={uploadStatus.progress} />
+      <Flex>
+        <Flex flexDirection="column">
+          <Controller
+            as={<TextField />}
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth={true}
+            name={`songs[${index}].title`}
+            label="Title"
+            id={`songs[${index}].title`}
+            autoComplete="title"
+            control={control}
+            defaultValue={formData.title} // make sure to set up
+          />
+        </Flex>
+
+        <IconButton
+          type="submit"
+          color="primary"
+          // className={classes.submit}
+          onClick={() => removeSong(index)}
+        >
+          <DeleteIcon />
+        </IconButton>
       </Flex>
-      <Typography variant="body2">{uploadStatus.progress}</Typography>
-      <IconButton
-        type="submit"
-        color="primary"
-        // className={classes.submit}
-        onClick={() => removeSong(index)}
-      >
-        <DeleteIcon />
-      </IconButton>
-    </Flex>
+    </div>
   );
 };

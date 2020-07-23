@@ -61,7 +61,7 @@ export interface SongForUpload {
 export const CreateRelease = () => {
   const history = useHistory();
   const { id } = useParams();
-  console.log('id', id);
+
   const { enqueueSnackbar } = useSnackbar();
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
   const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
