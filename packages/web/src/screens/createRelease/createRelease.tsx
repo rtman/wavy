@@ -28,6 +28,7 @@ import {
 } from 'types';
 
 import { DropzoneContainer } from './styles';
+import { uuid } from 'uuidv4';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,6 +65,7 @@ export const CreateRelease = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
   const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
+  const [releaseId, setReleaseId] = useState<string>('');
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
@@ -120,6 +122,10 @@ export const CreateRelease = () => {
       },
     }
   );
+
+  useEffect(() => {
+    setReleaseId(uuid());
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -194,14 +200,10 @@ export const CreateRelease = () => {
       const newFile = fileAccepted[0];
       const resolvedSongsForUpload = [...songsForUpload];
 
+      let title = newFile.name.trim();
+
       if (newFile.name.lastIndexOf('.') !== -1) {
-        const titleWithoutExtension = newFile.name.substring(
-          0,
-          newFile.name.lastIndexOf('.')
-        );
-        append({ title: titleWithoutExtension.trim() });
-      } else {
-        append({ title: newFile.name.trim() });
+        title = newFile.name.substring(0, newFile.name.lastIndexOf('.')).trim();
       }
 
       resolvedSongsForUpload.push({
@@ -213,6 +215,8 @@ export const CreateRelease = () => {
       });
 
       setSongsForUpload(resolvedSongsForUpload);
+
+      append({ title });
     }
 
     if (fileRejected.length > 0) {
@@ -323,6 +327,7 @@ export const CreateRelease = () => {
                   return (
                     <SongUploadField
                       creatorId={id}
+                      releaseId={releaseId}
                       songData={songsForUpload[index]}
                       formData={item}
                       index={index}

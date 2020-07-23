@@ -9,6 +9,7 @@ import { SongForUpload } from '../screens/createRelease/createRelease';
 
 interface SongUploadFieldProps {
   creatorId: string;
+  releaseId: string;
   songData: SongForUpload;
   // formData: Partial<Record<string, any>, 'id'>;
   formData: any;
@@ -24,6 +25,7 @@ interface SongUploadFieldProps {
 export const SongUploadField = (props: SongUploadFieldProps) => {
   const {
     creatorId,
+    releaseId,
     setUploadStatusCallback,
     index,
     control,
@@ -35,6 +37,7 @@ export const SongUploadField = (props: SongUploadFieldProps) => {
   const { uploadStatus } = helpers.hooks.useFirebaseStorageUpload({
     rootDir: creatorId,
     parentDir: 'albums',
+    childDir: releaseId,
     file: songData.file,
   });
 

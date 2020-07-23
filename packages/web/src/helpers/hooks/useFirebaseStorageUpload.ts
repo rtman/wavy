@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
-import { uuid } from 'uuidv4';
 
 export interface UploadStatus {
   progress?: number;
@@ -13,7 +12,7 @@ export interface UploadStatus {
 }
 
 export interface UploadCompleteData {
-  id: string;
+  id?: string;
   gsUrl: string;
   downloadUrl: string;
 }
@@ -42,7 +41,6 @@ export const useFirebaseStorageUpload = (
     const { rootDir, parentDir, childDir, file } = props;
 
     if (file) {
-      const id = uuid();
       const fileNameWithoutExtension = file.name.substring(
         0,
         file.name.lastIndexOf('.')
@@ -59,7 +57,7 @@ export const useFirebaseStorageUpload = (
       parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
       childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
 
-      storagePath += `${id}/${fileNameWithoutExtension}.${fileExtension}`;
+      storagePath += `${fileNameWithoutExtension}.${fileExtension}`;
 
       const fileStorageRef = storageRef.child(storagePath);
       const uploadTask = fileStorageRef.put(file);
@@ -139,7 +137,7 @@ export const useFirebaseStorageUpload = (
               complete: true,
               running: false,
               paused: false,
-              data: { id, downloadUrl, gsUrl },
+              data: { id: childDir, downloadUrl, gsUrl },
             });
           };
           uploadComplete();
