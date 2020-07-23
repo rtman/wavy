@@ -1,8 +1,6 @@
 import { WithTheme } from '@material-ui/core/styles';
 import styled, { CSSObject } from 'styled-components';
 
-import { Flex } from '../../components/flex';
-
 export const DropzoneContainer = styled.div(
   (props: { borderColor: string } & WithTheme): CSSObject => ({
     flex: 1,
