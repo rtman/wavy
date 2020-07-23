@@ -272,7 +272,7 @@ export const CreateRelease = () => {
 
     const result = await uploadImage({
       parentId: id,
-      parentDir: 'album',
+      parentDir: 'albums',
       fileName: 'profileImage',
     });
 
