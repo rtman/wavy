@@ -3,22 +3,19 @@ import {
   Button,
   CircularProgress,
   Container,
-  IconButton,
   List,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { FileUploadButton, Flex, SongUploadField, Spacing } from 'components';
 import * as consts from 'consts';
-// import * as firebase from 'firebase';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import {
@@ -26,9 +23,9 @@ import {
   // CreateAlbumSongArgs,
   NewSongArgs,
 } from 'types';
+import { uuid } from 'uuidv4';
 
 import { DropzoneContainer } from './styles';
-import { uuid } from 'uuidv4';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

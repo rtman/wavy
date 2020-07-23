@@ -1,14 +1,13 @@
 import {
-  LinearProgress,
   IconButton,
-  TextField,
-  Typography,
+  LinearProgress,
   makeStyles,
+  TextField,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Flex } from 'components';
 import * as helpers from 'helpers';
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { SongForUpload } from '../screens/createRelease/createRelease';
@@ -55,21 +54,13 @@ export const SongUploadField = (props: SongUploadFieldProps) => {
     file: songData.file,
   });
 
-  // useEffect(() => {
-  //   if (songData && songData.file) {
-  //     uploadFile({
-  //       rootDir: creatorId,
-  //       parentDir: 'albums',
-  //       file: songData.file,
-  //     });
-  //   }
-  // }, [songData, uploadFile, creatorId]);
-
-  // useEffect(() => {
-  //   setUploadStatusCallback(uploadStatus, index);
-  // }, [uploadStatus, setUploadStatusCallback, index]);
-
   console.log('*debug* uploadStatus', uploadStatus);
+
+  useEffect(() => {
+    setUploadStatusCallback(uploadStatus, index);
+    // Disabling for now,  including setUploadStatusCallback in the deps array causes constant re rendering
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadStatus, index]);
 
   return (
     <div className={classes.root} key={formData.id}>
