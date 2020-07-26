@@ -41,6 +41,14 @@
     "typescript-styled-plugin": "^0.15.0"
   },
   "scripts": {
+    "buildImages": "./scripts/build_images.sh",
+    "pushImages": "./scripts/push_images.sh",
+    "createClusters": "./scripts/createClusters.sh",
+    "deploy": "./scripts/deploy.sh",
+    "buildPushImages": "yarn buildImages && yarn pushImages",
+    "fullDeploy": "yarn buildImages && yarn pushImages && yarn createClusters && yarn deploy",
+    "deployDocker": "./scripts/deploy.sh",
+    "deleteClusters": "./scripts/deleteClusters.sh",
     "psContainer": "docker exec -it postgresql bash",
     "psTerminal": "psql -U groov -d groov",
     "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_module"

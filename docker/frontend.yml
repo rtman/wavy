@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: groov-frontend
   labels:
     app: groov
     role: leader
     tier: frontend
 spec:
-  replicas: 2
+  replicas: 1
   # restartPolicy: Always
   selector:
     matchLabels:
@@ -23,6 +23,10 @@ spec:
       containers:
         - name: web-app
           image: gcr.io/groov-development-ddc9d/groov-web
+          env:
+            # determines how this service gets the hostnames of other services
+            - name: GET_HOSTS_FROM
+              value: "dns"
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -31,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: groov-frontend
   labels:
     app: groov
     role: leader

@@ -27,8 +27,13 @@ if (config.FIREBASE_CONFIG) {
   firebase.initializeApp(config.FIREBASE_CONFIG);
 }
 
+const graphqlUri =
+  process.env.NODE_ENV === 'production'
+    ? `${process.env.REACT_APP_GROOV_BACKEND_SERVICE}:3001/graphql`
+    : 'http://localhost:3001/graphql';
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
+  uri: graphqlUri,
 });
 
 // helpers.sentry.install();

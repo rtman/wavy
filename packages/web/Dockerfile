@@ -1,6 +1,13 @@
+FROM node:10 as builder
+
+WORKDIR /app
+COPY ./package*.json /app/
+RUN yarn install
+COPY ./ /app/
+RUN yarn build
+
 FROM nginx:alpine
 
-RUN yarn build
-COPY build/ /usr/share/nginx/html
+COPY --from=builder /app/build/ /usr/share/nginx/html
 EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]

@@ -21,11 +21,19 @@ spec:
     spec:
       volumes:
         - name: data-01
-          persistentVolumeClaim:
-            claimName: wp-pv-claim
+          # persistentVolumeClaim:
+          #   claimName: data-01-claim
+          #   may require own persistentVolumeClaim yml
       containers:
+        # - resources:
+        #   requests:
         - name: postgresql
           image: gcr.io/groov-development-ddc9d/groov-postgresql
+          resources:
+            limits:
+              cpu: "200m"
+            requests:
+              cpu: "100m"
           ports:
             - containerPort: 5432
               name: postgresql
@@ -38,6 +46,11 @@ spec:
               value: groov
         - name: graphql
           image: gcr.io/groov-development-ddc9d/groov-graphql
+          resources:
+            limits:
+              cpu: "200m"
+            requests:
+              cpu: "100m"
           ports:
             - containerPort: 3001
               name: graphql
@@ -52,9 +65,21 @@ spec:
               value: groov
         - name: migration
           image: gcr.io/groov-development-ddc9d/groov-migration
+          resources:
+            limits:
+              cpu: "200m"
+            requests:
+              cpu: "100m"
         - name: es01
           # zombodb requires elasticsearch 5/6
           image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "1000Mi"
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
           # need to figure out how to implement this
           # ulimits:
           #   memlock:
