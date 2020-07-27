@@ -14,9 +14,17 @@ services:
 
   migration:
     container_name: migration
-    build: ./packages/migration
+    build:
+      context: ./packages/migration
+      dockerfile: Dockerfile.dev
     links:
       - postgresql
+    environment:
+      - DATABASE_USER=groov
+      - DATABASE_PASSWORD=groov
+      - DATABASE_DB=groov
+      - DATABASE_HOST=postgresql
+      - ELASTICSEARCH_HOST=es01
     depends_on:
       - es01
       - postgresql
@@ -25,12 +33,15 @@ services:
   graphql:
     container_name: graphql
     restart: always
-    build: ./packages/graphql
+    build:
+      context: ./packages/graphql
+      dockerfile: Dockerfile.dev
     environment:
       - DATABASE_URL=postgresql
       - DATABASE_USER=groov
       - DATABASE_PASSWORD=groov
       - DATABASE_DB=groov
+      - DATABASE_HOST=postgresql
     ports:
       - "3001:3001"
     depends_on:

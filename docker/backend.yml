@@ -19,11 +19,20 @@ spec:
         role: leader
         tier: backend
     spec:
+      securityContext:
+        fsGroup: 1000
       volumes:
         - name: data-01
           # persistentVolumeClaim:
           #   claimName: data-01-claim
           #   may require own persistentVolumeClaim yml
+      initContainers:
+        - name: init-sysctl
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          command: ["sysctl", "-w", "vm.max_map_count=262144"]
       containers:
         # - resources:
         #   requests:
@@ -63,6 +72,8 @@ spec:
               value: groov
             - name: DATABASE_DB
               value: groov
+            - name: DATABASE_HOST
+              value: '127.0.0.1'
         - name: migration
           image: gcr.io/groov-development-ddc9d/groov-migration
           resources:
@@ -70,17 +81,38 @@ spec:
               cpu: "200m"
             requests:
               cpu: "100m"
+          env:
+            - name: DATABASE_USER
+              value: groov
+            - name: DATABASE_PASSWORD
+              value: groov
+            - name: DATABASE_DB
+              value: groov
+            - name: DATABASE_HOST
+              value: '127.0.0.1'
+            - name: ELASTICSEARCH_HOST
+              value: '127.0.0.1'
         - name: es01
           # zombodb requires elasticsearch 5/6
           image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
           resources:
             limits:
               cpu: "200m"
-              memory: "1000Mi"
+              memory: "1024Mi"
             requests:
               cpu: "100m"
               memory: "512Mi"
-          # need to figure out how to implement this
+              # https://github.com/kubernetes/kubernetes/issues/3595#issuecomment-287692878
+              # https://rancher.com/blog/2018/2018-11-22-deploying-elasticsearch/
+          securityContext:
+            privileged: true
+            runAsUser: 1000
+            capabilities:
+              add:
+              - IPC_LOCK
+              - SYS_RESOURCE
+          # need to figure out how to implement this in k8s
+          # https://github.com/elastic/elasticsearch-docker/issues/152#issuecomment-372903395
           # ulimits:
           #   memlock:
           #     soft: -1
@@ -88,14 +120,17 @@ spec:
           ports:
             - containerPort: 9200
               name: es01
-          command: ["elasticsearch", "-Elogger.level=ERROR"]
+          # command: ["elasticsearch", "-Elogger.level=ERROR"]
           env:
             - name: node.name
               value: es01
             - name: cluster.name
               value: es-docker-cluster
+              # this is something to research more
+              # https://www.elastic.co/guide/en/elasticsearch/reference/6.7/setup-configuration-memory.html
+              # Doesnt work on k8s but works on docker-compose
             - name: bootstrap.memory_lock
-              value: "true"
+              value: "false"
             - name: ES_JAVA_OPTS
               value: -Xms512m -Xmx512m
           # - name: discovery.seed_hosts
