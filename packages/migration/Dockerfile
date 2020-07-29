@@ -8,7 +8,7 @@ COPY . .
 RUN chmod +x /migration/wait-for-it.sh
 # need to run make sure that es,postgresql, graphql are running before migrations
 # also need to make sure the zombodb extension and the table are created (created in graphql), then seeded, then the index is created
-CMD ["sh","-c", "./wait-for-it.sh -t 30 127.0.0.1:9200 && ./wait-for-it.sh 127.0.0.1:5432 && ./wait-for-it.sh 127.0.0.1:3001 && yarn run seed && yarn run migrate "]
+CMD ["sh","-c", "./wait-for-it-while.sh groov-backend:9200 && ./wait-for-it-while.sh groov-backend:5432 && ./wait-for-it-while.sh groov-backend:3001 && yarn run seed && yarn run migrate "]
 
 # CMD ["yarn run seed && yarn run migrate"]
 

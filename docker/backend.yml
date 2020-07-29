@@ -3,21 +3,16 @@ kind: Deployment
 metadata:
   name: groov-backend
   labels:
-    app: groov
-    role: leader
-    tier: backend
+    app: groov-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: groov
-
+      app: groov-backend
   template:
     metadata:
       labels:
-        app: groov
-        role: leader
-        tier: backend
+        app: groov-backend
     spec:
       securityContext:
         fsGroup: 1000
@@ -37,7 +32,7 @@ spec:
         # - resources:
         #   requests:
         - name: postgresql
-          image: gcr.io/groov-development-ddc9d/groov-postgresql
+          image: gcr.io/groov-development-ddc9d/groov-postgresql:latest
           resources:
             limits:
               cpu: "200m"
@@ -54,7 +49,7 @@ spec:
             - name: POSTGRES_DB
               value: groov
         - name: graphql
-          image: gcr.io/groov-development-ddc9d/groov-graphql
+          image: gcr.io/groov-development-ddc9d/groov-graphql:latest
           resources:
             limits:
               cpu: "200m"
@@ -73,25 +68,25 @@ spec:
             - name: DATABASE_DB
               value: groov
             - name: DATABASE_HOST
-              value: '127.0.0.1'
-        - name: migration
-          image: gcr.io/groov-development-ddc9d/groov-migration
-          resources:
-            limits:
-              cpu: "200m"
-            requests:
-              cpu: "100m"
-          env:
-            - name: DATABASE_USER
-              value: groov
-            - name: DATABASE_PASSWORD
-              value: groov
-            - name: DATABASE_DB
-              value: groov
-            - name: DATABASE_HOST
-              value: '127.0.0.1'
-            - name: ELASTICSEARCH_HOST
-              value: '127.0.0.1'
+              value: "127.0.0.1"
+        # - name: migration
+        #   image: gcr.io/groov-development-ddc9d/groov-migration:latest
+        #   resources:
+        #     limits:
+        #       cpu: "200m"
+        #     requests:
+        #       cpu: "100m"
+        #   env:
+        #     - name: DATABASE_USER
+        #       value: groov
+        #     - name: DATABASE_PASSWORD
+        #       value: groov
+        #     - name: DATABASE_DB
+        #       value: groov
+        #     - name: DATABASE_HOST
+        #       value: "127.0.0.1"
+        #     - name: ELASTICSEARCH_HOST
+        #       value: "127.0.0.1"
         - name: es01
           # zombodb requires elasticsearch 5/6
           image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
@@ -109,8 +104,8 @@ spec:
             runAsUser: 1000
             capabilities:
               add:
-              - IPC_LOCK
-              - SYS_RESOURCE
+                - IPC_LOCK
+                - SYS_RESOURCE
           # need to figure out how to implement this in k8s
           # https://github.com/elastic/elasticsearch-docker/issues/152#issuecomment-372903395
           # ulimits:
@@ -152,14 +147,20 @@ kind: Service
 metadata:
   name: groov-backend
   labels:
-    app: groov
-    role: leader
-    tier: backend
+    app: groov-backend
 spec:
   ports:
-    - port: 3001
+    - name: graphql
+      protocol: TCP
+      port: 3001
       targetPort: 3001
+    - name: es01
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+    - name: postgresql
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
   selector:
-    app: groov
-    role: leader
-    tier: backend
+    app: groov-backend

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: web-app
-          image: gcr.io/groov-development-ddc9d/groov-web
+          image: gcr.io/groov-development-ddc9d/groov-web:latest
           env:
             # determines how this service gets the hostnames of other services
             - name: GET_HOSTS_FROM
@@ -43,8 +43,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    # the port that this service should serve on
+    # the port that this service should serve on, shoudl this be 3000? targetPort: 3000 as well?
     - port: 80
   selector:
     app: groov
+    role: leader
     tier: frontend
