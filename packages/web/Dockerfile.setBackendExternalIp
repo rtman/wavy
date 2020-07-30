@@ -1,0 +1,8 @@
+FROM node:10
+
+COPY ./scripts/setBackendLoadBalancerIp.js .
+RUN yarn add @kubernetes/client-node
+# CMD ["sh","-c", "yarn setBackendLoadBalancerIp"]
+
+# CMD ["sh", "-c", 'apt-get update && apt-get install jq && curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://kubernetes/api/v1/namespaces/default/services/']
+

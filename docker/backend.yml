@@ -1,3 +1,4 @@
+# TODO: investigate statefulSet kind, for dbs and es
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -69,24 +70,6 @@ spec:
               value: groov
             - name: DATABASE_HOST
               value: "127.0.0.1"
-        # - name: migration
-        #   image: gcr.io/groov-development-ddc9d/groov-migration:latest
-        #   resources:
-        #     limits:
-        #       cpu: "200m"
-        #     requests:
-        #       cpu: "100m"
-        #   env:
-        #     - name: DATABASE_USER
-        #       value: groov
-        #     - name: DATABASE_PASSWORD
-        #       value: groov
-        #     - name: DATABASE_DB
-        #       value: groov
-        #     - name: DATABASE_HOST
-        #       value: "127.0.0.1"
-        #     - name: ELASTICSEARCH_HOST
-        #       value: "127.0.0.1"
         - name: es01
           # zombodb requires elasticsearch 5/6
           image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
@@ -145,10 +128,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: groov-backend
+  name: groov-backend-private
   labels:
     app: groov-backend
 spec:
+  type: ClusterIP
   ports:
     - name: graphql
       protocol: TCP
@@ -162,5 +146,22 @@ spec:
       protocol: TCP
       port: 5432
       targetPort: 5432
+  selector:
+    app: groov-backend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: groov-backend-public
+  labels:
+    app: groov-backend
+spec:
+  type: LoadBalancer
+  ports:
+    - name: graphql
+      protocol: TCP
+      port: 3001
+      targetPort: 3001
   selector:
     app: groov-backend
