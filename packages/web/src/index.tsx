@@ -29,7 +29,7 @@ if (config.FIREBASE_CONFIG) {
 
 const graphqlUri =
   process.env.NODE_ENV === 'production'
-    ? `http://${process.env.REACT_APP_GROOV_BACKEND_SERVICE_DNS_NAME}:3001/graphql`
+    ? `http://${process.env.REACT_APP_GRAPHQL_IP}:3001/graphql`
     : 'http://localhost:3001/graphql';
 
 const client = new ApolloClient({

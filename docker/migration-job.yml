@@ -18,6 +18,6 @@ spec:
             - name: DATABASE_DB
               value: groov
             - name: DATABASE_HOST
-              value: "groov-backend"
+              value: "groov-backend-private"
             - name: ELASTICSEARCH_HOST
-              value: "groov-backend"
+              value: "groov-backend-private"
