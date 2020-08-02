@@ -30,8 +30,6 @@ spec:
             privileged: true
           command: ["sysctl", "-w", "vm.max_map_count=262144"]
       containers:
-        # - resources:
-        #   requests:
         - name: postgresql
           image: gcr.io/groov-development-ddc9d/groov-postgresql:latest
           resources:

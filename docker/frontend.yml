@@ -8,7 +8,6 @@ metadata:
     tier: frontend
 spec:
   replicas: 1
-  # restartPolicy: Always
   selector:
     matchLabels:
       app: groov
@@ -29,52 +28,16 @@ spec:
               "-c",
               "until nslookup groov-backend-public; do echo waiting for groov-backend-public; sleep 2; done;",
             ]
-        # TODO: decide which way to go with getting the external IP. 1. use k8s api in app to fetch the ip at run time. 2. use react-env to insert ip at runtime as a run time env var (assuming react-env has access to docker env vars and you can pull an env var from a shared volume at container boot). 3. script this via sh script using kubectl commands (spin up backend, get ip, insert into react .env, build/push web image, spin up web) 4. ?
-        # - name: set-backend-external-ip
-        #   # image: gcr.io/groov-development-ddc9d/groov-web-set-backend-external-ip:latest
-        #   image: alpine:latest
-        #   # command: ["sh", "-c", "./setBackendExternalIp.js"]
-        #   command:
-        #     [
-        #       "sh",
-        #       "-c",
-        #       'apk add --no-cache jq curl && echo -n "REACT_APP_GRAPHQL_IP=" > /work/backendExternalIp && curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://kubernetes/api/v1/namespaces/default/services/groov-backend-public | jq .status.loadBalancer.ingress[0].ip >> /work/backendExternalIp',
-        #     ]
-        #   volumeMounts:
-        #     - name: work
-        #       mountPath: /work/
-        # - name: build-web-app
-        #   image: gcr.io/groov-development-ddc9d/groov-web-build:latest
-        #   command: ["sh", "-c", "yarn build && cp -rf /app/build /work/build"]
-        #   resources:
-        #     limits:
-        #       cpu: "200m"
-        #       memory: "1024Mi"
-        #     requests:
-        #       cpu: "100m"
-        #       memory: "512Mi"
-        #   volumeMounts:
-        #     - name: work
-        #       mountPath: /work/
       containers:
         - name: web-app
           image: gcr.io/groov-development-ddc9d/groov-web:latest
-          # image: nginx:alpine
           env:
             # determines how this service gets the hostnames of other services
             - name: GET_HOSTS_FROM
               value: "dns"
           imagePullPolicy: Always
-          # command: ["sh", "-c", 'sed -e '/REACT_APP_GRAPHQL_IP/ {' -e 'r test' -e 'd' -e '}' .env > tmp && cp tmp .env && cp -rf .env* /var/www/ && nginx -g "daemon off;"']
           ports:
             - containerPort: 80
-          # volumeMounts:
-          #   - name: work
-          #     mountPath: /work/
-      # serviceAccountName: groov-frontend-service-account
-      # volumes:
-      #   - name: work
-      #     emptyDir: {}
 
 ---
 apiVersion: v1
