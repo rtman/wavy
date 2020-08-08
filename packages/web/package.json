@@ -51,7 +51,6 @@
   },
   "scripts": {
     "generate": "yarn graphql-codegen",
-    "prestart": "react-env",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:ts": "yarn tsc --build tsconfig.json",

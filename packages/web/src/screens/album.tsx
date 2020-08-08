@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  AlbumCard,
+  ItemCard,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
@@ -94,7 +94,7 @@ export const Album = () => {
 
     if (filteredAlbums.length > 0) {
       const albumsList = filteredAlbums.map((album: AlbumType) => (
-        <AlbumCard key={album.id} album={album} />
+        <ItemCard key={album.id} item={album} />
       ));
       return <GridList className={classes.gridList}>{albumsList}</GridList>;
     } else {
