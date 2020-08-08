@@ -1,20 +1,9 @@
-import { useLazyQuery } from '@apollo/react-hooks';
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  GridList,
-  List,
-  Typography,
-} from '@material-ui/core';
+import { Container, GridList, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ItemCard, RowContainer, Spacing } from 'components';
-import * as consts from 'consts';
-import { UserContext, PlayerContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Album, Playlist, Artist, QueryAlbumByIdArgs, Song } from 'types';
+import { ItemCard, Spacing } from 'components';
+import { UserContext } from 'context';
+import React, { useContext } from 'react';
+import { Artist, Playlist, Song } from 'types';
 
 type Item = Artist | Song | Playlist;
 
