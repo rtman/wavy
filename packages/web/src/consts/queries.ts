@@ -1,5 +1,87 @@
 import { gql } from 'apollo-boost';
 
+export const NEW_ARTISTS = gql`
+  query NewArtists {
+    newArtists {
+      id
+      name
+      description
+      imageUrl
+      albums {
+        id
+        title
+        imageUrl
+        label {
+          id
+          name
+          imageUrl
+        }
+        songs {
+          id
+          title
+          url
+          imageUrl
+          playCount
+          label {
+            id
+            name
+            imageUrl
+          }
+          supportingArtists {
+            createdAt
+            artist {
+              id
+              name
+              imageUrl
+            }
+          }
+          usersRecentlyPlayed {
+            createdAt
+            user {
+              id
+              firstName
+              lastName
+            }
+          }
+        }
+      }
+      songs {
+        id
+        title
+        url
+        imageUrl
+        playCount
+        label {
+          id
+          name
+          imageUrl
+        }
+        artist {
+          id
+          name
+          imageUrl
+        }
+      }
+      usersFollowing {
+        createdAt
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+      supportingArtistOn {
+        createdAt
+        song {
+          id
+          title
+          url
+        }
+      }
+    }
+  }
+`;
+
 export const ARTISTS_BY_ID = gql`
   query ArtistsByID($ids: [ID]!) {
     artistsById(ids: $ids) {
@@ -309,6 +391,61 @@ export const SEARCH_LABELS_QUERY = gql`
       id
       name
       imageUrl
+    }
+  }
+`;
+
+export const NEW_LABELS = gql`
+  query NewLabels {
+    newLabels {
+      id
+      name
+      description
+      imageUrl
+      createdAt
+      updatedAt
+      artists {
+        createdAt
+        artist {
+          name
+          id
+          description
+          imageUrl
+        }
+      }
+      albums {
+        id
+        title
+        imageUrl
+        description
+        label {
+          id
+          name
+          imageUrl
+        }
+        artist {
+          id
+          name
+          imageUrl
+        }
+      }
+      songs {
+        createdAt
+        id
+        title
+        label {
+          id
+          name
+          imageUrl
+        }
+        artist {
+          name
+          id
+          imageUrl
+        }
+        imageUrl
+        url
+      }
     }
   }
 `;

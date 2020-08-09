@@ -47,6 +47,53 @@ export class LabelResolvers {
     }
   }
 
+  @Query(() => [Models.Label])
+  async newLabels(): Promise<Models.Label[] | undefined> {
+    try {
+      const labels = await getManager()
+        .getRepository(Models.Label)
+        .find({
+          order: {
+            createdAt: 'DESC',
+          },
+          take: 20,
+          relations: [
+            'artists',
+            'artists.artist',
+            'albums',
+            'albums.artist',
+            'albums.label',
+            'albums.songs',
+            'albums.songs.label',
+            'albums.songs.supportingArtists',
+            'albums.songs.supportingArtists.artist',
+            'songs',
+            'songs.artist',
+            'songs.album',
+            'songs.label',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            'songs.usersFavourited',
+            'songs.usersFavourited.user',
+            'songs.usersRecentlyPlayed',
+            'songs.usersRecentlyPlayed.user',
+          ],
+        });
+
+      if (labels) {
+        return labels;
+      } else {
+        console.log('No labels found');
+
+        return;
+      }
+    } catch (error) {
+      console.log('Find labels error', error);
+
+      return;
+    }
+  }
+
   @Query(() => Models.Label)
   async labelById(@Arg('id') id: string): Promise<Models.Label | undefined> {
     try {

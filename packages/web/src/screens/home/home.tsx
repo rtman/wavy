@@ -1,11 +1,26 @@
-import { Container, GridList, Typography } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
+import * as consts from 'consts';
+import {
+  Container,
+  GridList,
+  Typography,
+  CircularProgress,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ItemCard, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
-import { Artist, Playlist, Song } from 'types';
+import { Artist, Label, Playlist, Song } from 'types';
 
-type Item = Artist | Song | Playlist;
+type Item = Artist | Label | Song | Playlist;
+
+interface NewArtistsData {
+  newArtists: Artist[];
+}
+
+interface NewLabelsData {
+  newLabels: Label[];
+}
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -24,6 +39,20 @@ export const Home = () => {
   const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
   const following = user?.following?.map((f) => f.artist) ?? [];
 
+  const {
+    loading: newArtistsLoading,
+    error: newArtistsError,
+    data: newArtistsData,
+  } = useQuery<NewArtistsData>(consts.queries.NEW_ARTISTS);
+  const {
+    loading: newLabelsLoading,
+    error: newLabelsError,
+    data: newLabelsData,
+  } = useQuery<NewLabelsData>(consts.queries.NEW_LABELS);
+
+  const newArtists = newArtistsData?.newArtists ?? [];
+  const newLabels = newLabelsData?.newLabels ?? [];
+
   const renderCardList = (items: Item[]) => {
     if (items?.length ?? 0 > 0) {
       const itemsList: JSX.Element[] = [];
@@ -38,6 +67,22 @@ export const Home = () => {
 
   return (
     <Container>
+      <Spacing.section.Minor />
+
+      <Typography variant="h1">New Labels</Typography>
+
+      <Spacing.section.Minor />
+
+      {newLabelsLoading ? <CircularProgress /> : renderCardList(newLabels)}
+
+      <Spacing.section.Minor />
+
+      <Typography variant="h1">New Artists</Typography>
+
+      <Spacing.section.Minor />
+
+      {newArtistsLoading ? <CircularProgress /> : renderCardList(newArtists)}
+
       <Spacing.section.Minor />
 
       <Typography variant="h1">Playlists</Typography>

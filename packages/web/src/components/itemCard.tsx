@@ -2,9 +2,9 @@ import { Card, CardMedia, GridListTile, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PlayerContext } from 'context';
 import React, { useContext } from 'react';
-import { Album, Artist, Playlist, Song } from 'types';
+import { Album, Artist, Label, Playlist, Song } from 'types';
 
-type Item = Album | Artist | Playlist | Song;
+type Item = Album | Artist | Label | Playlist | Song;
 interface ItemCardProps {
   item: Item;
   passedOnClick?: (item: Item) => Promise<void>;
@@ -32,8 +32,12 @@ export const ItemCard = (props: ItemCardProps) => {
     if (item.__typename === 'Playlist') {
       return item?.songs?.map((s) => s.song) ?? [];
     }
-    if (item.__typename === 'Album' || item.__typename === 'Artist') {
-      return item.songs;
+    if (
+      item.__typename === 'Album' ||
+      item.__typename === 'Artist' ||
+      item.__typename === 'Label'
+    ) {
+      return item.songs ?? [];
     }
     if (item.__typename === 'Song') {
       return [item];

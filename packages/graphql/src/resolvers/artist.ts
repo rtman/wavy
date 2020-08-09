@@ -46,6 +46,57 @@ export class ArtistResolvers {
       return;
     }
   }
+
+  @Query(() => [Models.Artist])
+  async newArtists(): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .getRepository(Models.Artist)
+        .find({
+          order: {
+            createdAt: 'DESC',
+          },
+          take: 20,
+          relations: [
+            'songs',
+            'songs.album',
+            'songs.artist',
+            'songs.label',
+            'songs.supportingArtists',
+            'songs.supportingArtists.artist',
+            'songs.usersFavourited',
+            'songs.usersFavourited.user',
+            'songs.usersRecentlyPlayed',
+            'songs.usersRecentlyPlayed.user',
+            'labels',
+            'labels.label',
+            'albums',
+            'albums.label',
+            'albums.songs',
+            'albums.songs.label',
+            'albums.songs.supportingArtists',
+            'albums.songs.supportingArtists.artist',
+            'supportingArtistOn',
+            'supportingArtistOn.song',
+            'usersFollowing',
+            'usersFollowing.user',
+          ],
+        });
+
+      if (artists) {
+        return artists;
+      } else {
+        console.log('No artists found');
+
+        return;
+      }
+    } catch (error) {
+      console.log('Find artists error', error);
+
+      return;
+    }
+  }
+
   @Query(() => Models.Artist)
   async artistById(@Arg('id') id: string): Promise<Models.Artist | undefined> {
     try {
