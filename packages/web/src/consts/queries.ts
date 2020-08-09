@@ -567,6 +567,13 @@ export const USER_BY_ID = gql`
           id
           name
           imageUrl
+          songs {
+            id
+            title
+            url
+            imageUrl
+            playCount
+          }
         }
       }
       favourites {
@@ -614,6 +621,15 @@ export const USER_BY_ID = gql`
           title
           imageUrl
           description
+          songs {
+            song {
+              id
+              title
+              url
+              imageUrl
+              playCount
+            }
+          }
         }
       }
     }
