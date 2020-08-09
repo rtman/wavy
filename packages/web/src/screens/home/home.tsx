@@ -1,17 +1,16 @@
 import { useQuery } from '@apollo/react-hooks';
-import * as consts from 'consts';
 import {
+  CircularProgress,
   Container,
   GridList,
   Typography,
-  CircularProgress,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ItemCard, Spacing } from 'components';
+import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Artist, Label, Playlist, Song } from 'types';
-import { NEW_LABELS } from 'consts/queries';
 
 type Item = Artist | Label | Song | Playlist;
 
