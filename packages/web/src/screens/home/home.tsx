@@ -11,6 +11,7 @@ import { ItemCard, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { Artist, Label, Playlist, Song } from 'types';
+import { NEW_LABELS } from 'consts/queries';
 
 type Item = Artist | Label | Song | Playlist;
 
@@ -65,49 +66,58 @@ export const Home = () => {
     }
   };
 
+  const renderSection = ({
+    title,
+    data,
+    loading,
+  }: {
+    title: string;
+    data: Item[];
+    loading?: boolean;
+  }) => {
+    return !loading && data.length > 0 ? (
+      <>
+        <Typography variant="h1">{title}</Typography>
+
+        <Spacing.section.Minor />
+
+        {loading ? <CircularProgress /> : renderCardList(data)}
+
+        <Spacing.section.Minor />
+      </>
+    ) : null;
+  };
+
   return (
     <Container>
       <Spacing.section.Minor />
 
-      <Typography variant="h1">New Labels</Typography>
+      {renderSection({
+        title: 'New Labels',
+        data: newLabels,
+        loading: newLabelsLoading,
+      })}
 
-      <Spacing.section.Minor />
+      {renderSection({
+        title: 'New Artists',
+        data: newArtists,
+        loading: newArtistsLoading,
+      })}
 
-      {newLabelsLoading ? <CircularProgress /> : renderCardList(newLabels)}
+      {renderSection({
+        title: 'Playlists',
+        data: playlists,
+      })}
 
-      <Spacing.section.Minor />
+      {renderSection({
+        title: 'Favourites',
+        data: favourites,
+      })}
 
-      <Typography variant="h1">New Artists</Typography>
-
-      <Spacing.section.Minor />
-
-      {newArtistsLoading ? <CircularProgress /> : renderCardList(newArtists)}
-
-      <Spacing.section.Minor />
-
-      <Typography variant="h1">Playlists</Typography>
-
-      <Spacing.section.Minor />
-
-      {renderCardList(playlists)}
-
-      <Spacing.section.Minor />
-
-      <Typography variant="h1">Favourites</Typography>
-
-      <Spacing.section.Minor />
-
-      {renderCardList(favourites)}
-
-      <Spacing.section.Minor />
-
-      <Typography variant="h1">Following</Typography>
-
-      <Spacing.section.Minor />
-
-      {renderCardList(following)}
-
-      <Spacing.section.Minor />
+      {renderSection({
+        title: 'Following',
+        data: following,
+      })}
     </Container>
   );
 };
