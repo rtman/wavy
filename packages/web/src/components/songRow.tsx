@@ -136,6 +136,7 @@ export const SongRow = (props: SongRowProps) => {
 
   // console.log('songRow song', song);
 
+  // TODO: update to more closely match itemCard. The location stuff may not be necessary. Same with other row types
   return (
     <>
       <ListItem alignItems="flex-start" dense={true}>

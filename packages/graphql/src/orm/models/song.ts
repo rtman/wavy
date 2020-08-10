@@ -14,6 +14,7 @@ import { Artist } from './artist';
 import { Label } from './label';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { SongPlaylist } from './songPlaylist';
+import { SongTag } from './songTag';
 import { UserSongFavourites } from './userSongFavourites';
 import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
@@ -56,10 +57,6 @@ export class Song {
     (label) => label.songs
   )
   label: Label;
-
-  // TODO: Figureout genres, most likely a many to many assocation
-  // @Column()
-  // genres: string[];
 
   @Field(() => String)
   @Column()
@@ -116,6 +113,13 @@ export class Song {
     (userSongRecentlyPlayed) => userSongRecentlyPlayed.song
   )
   usersRecentlyPlayed: UserSongRecentlyPlayed[];
+
+  @Field(() => [SongTag], { nullable: true })
+  @OneToMany(
+    () => SongTag,
+    (songTag) => songTag.song
+  )
+  tags: SongTag[];
 
   @Field(() => Date)
   @CreateDateColumn()

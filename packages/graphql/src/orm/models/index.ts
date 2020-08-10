@@ -13,3 +13,5 @@ export * from './userSongFavourites';
 export * from './songPlaylist';
 export * from './songArtistSupportingArtist';
 export * from './song';
+export * from './songTag';
+export * from './tag';

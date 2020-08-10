@@ -27,6 +27,8 @@ const createOrmConnection = async () => {
       Models.Song,
       Models.SongPlaylist,
       Models.SongArtistSupportingArtist,
+      Models.SongTag,
+      Models.Tag,
     ],
   });
 };
