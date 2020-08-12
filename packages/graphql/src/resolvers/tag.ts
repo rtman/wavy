@@ -7,7 +7,7 @@ import {
   Query,
   Resolver,
 } from 'type-graphql';
-import { getManager } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 
 //TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue
 import { Models } from '../orm';
@@ -23,6 +23,9 @@ class AddTagToSongArgs implements Partial<Models.Tag> {
   @Field(() => ID)
   id: string;
 
+  @Field(() => String)
+  title: string;
+
   @Field(() => ID)
   songId: string;
 }
@@ -31,6 +34,9 @@ class AddTagToSongArgs implements Partial<Models.Tag> {
 class RemoveTagFromSongArgs implements Partial<Models.Tag> {
   @Field(() => ID)
   id: string;
+
+  @Field(() => String)
+  title: string;
 
   @Field(() => ID)
   songId: string;
@@ -169,17 +175,49 @@ export class TagResolvers {
     @Arg('input') payload: AddTagToSongArgs
   ): Promise<boolean> {
     try {
-      const { id: tagId, songId } = payload;
+      const { id: tagId, title, songId } = payload;
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
-          const repository = transactionalEntityManager.getRepository(
+          const tagRepository = transactionalEntityManager.getRepository(
             Models.SongTag
           );
+          const songRepository = transactionalEntityManager.getRepository(
+            Models.Song
+          );
 
-          const addedTag = repository.create({ tagId, songId });
+          const addedTagSongRelation = tagRepository.create({ tagId, songId });
+          const songToUpdate = await songRepository.findOne(songId);
 
-          if (addedTag) {
-            await repository.save(addedTag);
+          const addTagToTagSearchString = ({
+            tagSearchString,
+            newTag,
+          }: {
+            tagSearchString: string;
+            newTag: string;
+          }) => {
+            if (tagSearchString.length > 0) {
+              return tagSearchString + `,${newTag}`;
+            }
+            if (tagSearchString.length === 0) {
+              return newTag;
+            }
+          };
+
+          if (addedTagSongRelation && songToUpdate) {
+            songToUpdate?.tagSearchString;
+
+            await tagRepository.save(addedTagSongRelation);
+
+            if (!songToUpdate.tagSearchString.includes(title)) {
+              const newTagSearchString = addTagToTagSearchString({
+                tagSearchString: songToUpdate.tagSearchString,
+                newTag: title,
+              });
+
+              await songRepository.update(songToUpdate, {
+                tagSearchString: newTagSearchString,
+              });
+            }
 
             return true;
           }
@@ -202,19 +240,36 @@ export class TagResolvers {
     @Arg('input') payload: RemoveTagFromSongArgs
   ): Promise<boolean> {
     try {
-      const { id: tagId, songId } = payload;
+      const { id: tagId, title, songId } = payload;
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
           const repository = transactionalEntityManager.getRepository(
             Models.SongTag
           );
+          const songRepository = transactionalEntityManager.getRepository(
+            Models.Song
+          );
 
-          const removedTag = await repository.find({
+          const removedSongTagRelation = await repository.findOne({
             where: { tagId, songId },
           });
+          const songToUpdate = await songRepository.findOne(songId);
 
-          if (removedTag) {
-            await repository.remove(removedTag);
+          const removeTagFromTagSearchString = (tagSearchString: string) =>
+            tagSearchString
+              .split(',')
+              .filter((t) => t !== title)
+              .join();
+
+          if (removedSongTagRelation && songToUpdate) {
+            await repository.remove(removedSongTagRelation);
+            const { tagSearchString } = songToUpdate;
+
+            if (tagSearchString.length > 0 && tagSearchString.includes(title)) {
+              songRepository.update(songToUpdate, {
+                tagSearchString: removeTagFromTagSearchString(tagSearchString),
+              });
+            }
             return true;
           }
 

@@ -121,6 +121,10 @@ export class Song {
   )
   tags: SongTag[];
 
+  @Field(() => String)
+  @Column({ default: '' })
+  tagSearchString: string;
+
   @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
