@@ -11,43 +11,29 @@ import {
 import { Spacing, Title } from 'components';
 import * as consts from 'consts';
 import firebase from 'firebase';
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
-// interface SignupFieldErrors {
-//   firstName: boolean;
-//   lastName: boolean;
-//   email: boolean;
-//   password: boolean;
-//   confirmPassword: boolean;
-// }
+interface SignUpForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export const Signup = () => {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [createUser, { loading }] = useMutation(consts.mutations.CREATE_USER);
+  const { register, handleSubmit, getValues, errors } = useForm<SignUpForm>();
 
   const history = useHistory();
 
-  //   const [fieldErrors, setFieldErrors] = useState({
-  //     firstName: false,
-  //     lastName: false,
-  //     email: false,
-  //     password: false,
-  //     confirmPassword: false
-  //   });
+  const onClickSignup = async (data: SignUpForm) => {
+    const { firstName, lastName, email, password } = data;
 
-  const onTextFieldChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setValueCb: (value: string) => void
-  ) => {
-    setValueCb(event.target.value);
-  };
+    console.log('*debug* onClickSignup', data);
 
-  const onClickSignup = async () => {
     const firebaseCredential = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
@@ -78,61 +64,105 @@ export const Signup = () => {
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
             <TextField
-              value={firstName}
+              inputRef={register({
+                required: 'Required',
+                minLength: {
+                  value: 2,
+                  message: 'Enter at least 2 characters',
+                },
+                pattern: {
+                  value: /^[A-Za-z]+$/i,
+                  message: 'Only letters allowed',
+                },
+              })}
               label="First Name"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onTextFieldChange(event, setFirstName)
-              }
+              name="firstName"
+              helperText={errors.firstName?.message}
+              error={errors.firstName !== undefined}
             />
           </FormControl>
         </Grid>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
             <TextField
-              value={lastName}
+              inputRef={register({
+                required: 'Required',
+                minLength: {
+                  value: 2,
+                  message: 'Enter at least 2 characters',
+                },
+                pattern: {
+                  value: /^[A-Za-z]+$/i,
+                  message: 'Only letters allowed',
+                },
+              })}
               label="Last Name"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onTextFieldChange(event, setLastName)
-              }
+              name="lastName"
+              helperText={errors.lastName?.message}
+              error={errors.lastName !== undefined}
             />
           </FormControl>
         </Grid>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
             <TextField
-              value={email}
+              inputRef={register({
+                required: 'Required',
+                pattern: {
+                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Enter a valid email',
+                },
+              })}
               label="Email"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onTextFieldChange(event, setEmail)
-              }
+              name="email"
+              helperText={errors.email?.message}
+              error={errors.email !== undefined}
             />
           </FormControl>
         </Grid>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
             <TextField
-              value={password}
+              inputRef={register({
+                required: 'Required',
+                minLength: {
+                  value: 6,
+                  message: 'Enter atleast 6 characters',
+                },
+              })}
               type="password"
               label="Password"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onTextFieldChange(event, setPassword)
-              }
+              name="password"
+              helperText={errors.password?.message}
+              error={errors.password !== undefined}
             />
           </FormControl>
         </Grid>
         <Grid item={true} xs={12}>
           <FormControl fullWidth={true}>
             <TextField
-              value={confirmPassword}
+              inputRef={register({
+                required: 'Required',
+                minLength: {
+                  value: 6,
+                  message: 'Enter atleast 6 characters',
+                },
+                validate: (value) =>
+                  value === getValues('password') || 'Passwords must match',
+              })}
               type="password"
               label="Confirm Password"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onTextFieldChange(event, setConfirmPassword)
-              }
+              name="confirmPassword"
+              helperText={errors.confirmPassword?.message}
+              error={errors.confirmPassword !== undefined}
             />
           </FormControl>
         </Grid>
-        <Button variant="contained" color="primary" onClick={onClickSignup}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit(onClickSignup)}
+        >
           {loading ? <CircularProgress color="secondary" /> : 'Sign up'}
         </Button>
         <Spacing.section.Major />
