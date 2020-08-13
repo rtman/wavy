@@ -46,7 +46,7 @@ export const Login = () => {
               inputRef={register({
                 required: 'Required',
                 pattern: {
-                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   message: 'Enter a valid email',
                 },
               })}
@@ -84,7 +84,7 @@ export const Login = () => {
         </Button>
         <Spacing.section.Major />
         <Button variant="outlined" color="secondary" onClick={onClickSignup}>
-          {"Don't have an account? Sign in"}
+          {"Don't have an account? Sign up"}
         </Button>
       </Grid>
     </Container>
