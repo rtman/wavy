@@ -48,66 +48,77 @@ export const Login = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Title>Welcome to AppName</Title>
-      <Typography variant="h1">Login</Typography>
-      <Grid container={true} spacing={2}>
-        <Grid item={true} xs={12}>
-          <FormControl fullWidth={true}>
-            <TextField
-              inputRef={register({
-                required: 'Required',
-                pattern: {
-                  value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Enter a valid email',
-                },
-              })}
-              label="Email"
-              name="email"
-              helperText={errors.email?.message}
-              error={errors.email !== undefined}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item={true} xs={12}>
-          <FormControl fullWidth={true}>
-            <TextField
-              inputRef={register({
-                required: 'Required',
-                minLength: {
-                  value: 6,
-                  message: 'Enter atleast 6 characters',
-                },
-              })}
-              type="password"
-              label="Password"
-              name="password"
-              helperText={errors.password?.message}
-              error={errors.password !== undefined}
-            />
-          </FormControl>
-        </Grid>
-        {authError ? (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Container maxWidth="md">
+        <Title>Welcome to AppName</Title>
+        <Typography variant="h1">Login</Typography>
+        <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
-            <Typography color="error" variant="body1">
-              {authError.message}
-            </Typography>
+            <FormControl fullWidth={true}>
+              <TextField
+                inputRef={register({
+                  required: 'Required',
+                  pattern: {
+                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: 'Enter a valid email',
+                  },
+                })}
+                label="Email"
+                name="email"
+                helperText={errors.email?.message}
+                error={errors.email !== undefined}
+              />
+            </FormControl>
           </Grid>
-        ) : null}
-        <Grid item={true} xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit(onClickLogin)}
-          >
-            {loading ? <CircularProgress color="secondary" /> : 'Log in'}
-          </Button>
-          <Spacing.section.Major />
-          <Button variant="outlined" color="secondary" onClick={onClickSignup}>
-            Don't have an account? Sign up
-          </Button>
+          <Grid item={true} xs={12}>
+            <FormControl fullWidth={true}>
+              <TextField
+                inputRef={register({
+                  required: 'Required',
+                  minLength: {
+                    value: 6,
+                    message: 'Enter atleast 6 characters',
+                  },
+                })}
+                type="password"
+                label="Password"
+                name="password"
+                helperText={errors.password?.message}
+                error={errors.password !== undefined}
+              />
+            </FormControl>
+          </Grid>
+          {authError ? (
+            <Grid item={true} xs={12}>
+              <Typography color="error" variant="body1">
+                {authError.message}
+              </Typography>
+            </Grid>
+          ) : null}
+          <Grid item={true} xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit(onClickLogin)}
+            >
+              {loading ? <CircularProgress color="secondary" /> : 'Log in'}
+            </Button>
+
+            <Spacing.BetweenComponents />
+
+            <Button variant="text" color="secondary" onClick={onClickSignup}>
+              Don't have an account? Sign up
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Grid>
   );
 };
