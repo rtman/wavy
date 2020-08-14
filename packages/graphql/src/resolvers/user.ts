@@ -67,8 +67,28 @@ class UpdateRecentlyPlayedArgs
   songId: string;
 }
 
-@Resolver(Models.User)
+@Resolver(Boolean)
 export class UserResolvers {
+  @Query(() => Boolean)
+  async userIdExists(@Arg('id') id: string): Promise<boolean> {
+    try {
+      const user = await getManager()
+        .getRepository(Models.User)
+        .findOne({
+          where: { id },
+        });
+
+      if (user === undefined) {
+        console.log('userId does not exist', id);
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.log('userIdExists error', error);
+      return false;
+    }
+  }
+
   @Query(() => Models.User)
   async userById(@Arg('id') id: string): Promise<Models.User | undefined> {
     try {

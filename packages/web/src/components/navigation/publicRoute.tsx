@@ -12,14 +12,14 @@ interface PublicRoute {
 export const PublicRoute = (props: PublicRoute) => {
   const { component: Component, ...rest } = props;
   const authContext = useContext(AuthContext);
-  const firebaseUser = authContext?.firebaseUser;
+  const { firebaseUser, signedIn } = authContext ?? {};
 
   const renderComponent = () => {
     return Component ? <Component /> : undefined;
   };
 
   const doRoute = () => {
-    if (firebaseUser) {
+    if (firebaseUser && signedIn) {
       return <Redirect to={consts.routes.HOME} />;
     } else {
       if (props.path === consts.routes.ROOT) {

@@ -12,14 +12,15 @@ interface PrivateRoute {
 export const PrivateRoute = (props: PrivateRoute) => {
   const { component: Component, ...rest } = props;
   const authContext = useContext(AuthContext);
-  const firebaseUser = authContext?.firebaseUser;
+
+  const { firebaseUser, signedIn } = authContext ?? {};
 
   const renderComponent = () => {
     return Component ? <Component /> : undefined;
   };
 
   const doRoute = () => {
-    if (firebaseUser) {
+    if (firebaseUser && signedIn) {
       if ([consts.routes.SIGN_UP, consts.routes.LOG_IN].includes(props.path)) {
         return <Redirect to={consts.routes.HOME} />;
       }

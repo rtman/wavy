@@ -23,11 +23,16 @@ export interface SignUpForm {
 }
 
 export const Signup = () => {
-  const { register, handleSubmit, getValues, errors } = useForm<SignUpForm>();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    errors: signupFormErrors,
+  } = useForm<SignUpForm>();
   const history = useHistory();
 
   const authContext = useContext(AuthContext);
-  const { loading, error, signup } = authContext ?? {};
+  const { loading, error: authError, signup } = authContext ?? {};
 
   const onClickSignup = async (data: SignUpForm) => {
     if (signup) {
@@ -68,8 +73,8 @@ export const Signup = () => {
                 })}
                 label="First Name"
                 name="firstName"
-                helperText={errors.firstName?.message}
-                error={errors.firstName !== undefined}
+                helperText={signupFormErrors.firstName?.message}
+                error={signupFormErrors.firstName !== undefined}
               />
             </FormControl>
           </Grid>
@@ -89,8 +94,8 @@ export const Signup = () => {
                 })}
                 label="Last Name"
                 name="lastName"
-                helperText={errors.lastName?.message}
-                error={errors.lastName !== undefined}
+                helperText={signupFormErrors.lastName?.message}
+                error={signupFormErrors.lastName !== undefined}
               />
             </FormControl>
           </Grid>
@@ -106,8 +111,8 @@ export const Signup = () => {
                 })}
                 label="Email"
                 name="email"
-                helperText={errors.email?.message}
-                error={errors.email !== undefined}
+                helperText={signupFormErrors.email?.message}
+                error={signupFormErrors.email !== undefined}
               />
             </FormControl>
           </Grid>
@@ -124,8 +129,8 @@ export const Signup = () => {
                 type="password"
                 label="Password"
                 name="password"
-                helperText={errors.password?.message}
-                error={errors.password !== undefined}
+                helperText={signupFormErrors.password?.message}
+                error={signupFormErrors.password !== undefined}
               />
             </FormControl>
           </Grid>
@@ -144,15 +149,15 @@ export const Signup = () => {
                 type="password"
                 label="Confirm Password"
                 name="confirmPassword"
-                helperText={errors.confirmPassword?.message}
-                error={errors.confirmPassword !== undefined}
+                helperText={signupFormErrors.confirmPassword?.message}
+                error={signupFormErrors.confirmPassword !== undefined}
               />
             </FormControl>
           </Grid>
-          {error ? (
+          {authError ? (
             <Grid item={true} xs={12}>
               <Typography color="error" variant="body1">
-                {error?.message}
+                {authError?.message}
               </Typography>
             </Grid>
           ) : null}

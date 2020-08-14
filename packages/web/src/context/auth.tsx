@@ -1,9 +1,14 @@
 import 'firebase/auth';
 
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import {
+  useApolloClient,
+  // useLazyQuery,
+  useMutation,
+} from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-boost';
 import * as consts from 'consts';
 import firebase from 'firebase';
+import { GraphQLError } from 'graphql';
 import React, {
   createContext,
   FunctionComponent,
@@ -19,7 +24,7 @@ interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
   initialising: boolean;
   loading: boolean;
-  error: firebase.auth.Error | ApolloError | undefined;
+  error: firebase.auth.Error | ApolloError | GraphQLError | undefined;
   signup: (data: SignUpForm) => Promise<void>;
   login: (data: LoginForm) => Promise<void>;
   logout: () => Promise<void>;
@@ -27,7 +32,7 @@ interface AuthContextProps {
 }
 
 interface UserIdExistsData {
-  userIdExists: User;
+  userIdExists: boolean;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -38,28 +43,15 @@ export const AuthProvider: FunctionComponent = (props) => {
   const [firebaseUser, initialising] = useAuthState(firebase.auth());
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<
-    firebase.auth.Error | ApolloError | undefined
+    firebase.auth.Error | ApolloError | GraphQLError | undefined
   >(undefined);
   const [signedIn, setSignedIn] = useState<boolean>(false);
 
-  const [createUser] = useMutation(consts.mutations.CREATE_USER, {
-    onError: (e) => setError(e),
-    // onCompleted: () => setSign,
-  });
+  const apolloClient = useApolloClient();
 
-  const [userIdExists, { loading: userIdExistsLoading }] = useLazyQuery<
-    UserIdExistsData,
-    QueryUserIdExistsArgs
-  >(consts.queries.USER_ID_EXISTS, {
-    fetchPolicy: 'no-cache',
-    onCompleted: () => setSignedIn(true),
-  });
-
-  useEffect(() => {
-    if (firebaseUser) {
-      userIdExists({ variables: { id: firebaseUser.uid } });
-    }
-  }, [firebaseUser, userIdExists]);
+  const [createUser, { error: createUserError }] = useMutation(
+    consts.mutations.CREATE_USER
+  );
 
   const signup = async (data: SignUpForm) => {
     const { firstName, lastName, email, password } = data;
@@ -84,15 +76,16 @@ export const AuthProvider: FunctionComponent = (props) => {
           },
         });
 
-        if (error) {
+        if (createUserError) {
+          setError(createUserError);
           logout();
         }
       }
     } catch (error_) {
-      const signupError = error_ as firebase.auth.Error | ApolloError;
-      setError(signupError);
-    } finally {
-      setLoading(false);
+      setError(error_);
+      if (firebaseUser) {
+        logout();
+      }
     }
   };
 
@@ -106,26 +99,61 @@ export const AuthProvider: FunctionComponent = (props) => {
     } catch (error_) {
       const loginError = error_ as firebase.auth.Error;
       setError(loginError);
-    } finally {
-      setLoading(false);
     }
   };
 
   const logout = async () => {
     try {
       setLoading(true);
-      setError(undefined);
 
       await firebase.auth().signOut();
+
+      setSignedIn(false);
     } catch (error_) {
-      const signupError = error_ as firebase.auth.Error;
-      setError(signupError);
+      const logoutError = error_ as firebase.auth.Error;
+      setError(logoutError);
     } finally {
       setLoading(false);
     }
   };
 
-  console.log('*debug* error', error);
+  // verifies user has user table entry on signin
+  useEffect(() => {
+    const userExists = async (id: string) => {
+      try {
+        setLoading(true);
+        setError(undefined);
+        const result = await apolloClient.query<
+          UserIdExistsData,
+          QueryUserIdExistsArgs
+        >({
+          query: consts.queries.USER_ID_EXISTS,
+          variables: { id },
+        });
+
+        if (result.data) {
+          setSignedIn(result.data.userIdExists);
+        }
+
+        if (result.errors) {
+          setSignedIn(false);
+          setError(result.errors[0]);
+          logout();
+        }
+      } catch (error_) {
+        setError(error_);
+        if (firebaseUser) {
+          logout();
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (firebaseUser) {
+      userExists(firebaseUser.uid);
+    }
+  }, [firebaseUser, apolloClient]);
 
   return (
     <AuthContext.Provider

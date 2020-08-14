@@ -17,15 +17,15 @@ export const App = () => {
   const authContext = useContext(AuthContext);
   const theme = makeTheme();
 
-  const { initialising, firebaseUser, signedIn } = authContext ?? {};
+  const { initialising, firebaseUser, signedIn, loading } = authContext ?? {};
 
-  console.log('App, firebaseUser', firebaseUser);
-  console.log('App, initialising', initialising);
-  console.log('App, signedIn', signedIn);
+  console.log('*debug* App, firebaseUser', firebaseUser);
+  console.log('*debug* App, loading', loading);
+  console.log('*debug* App, initialising', initialising);
+  console.log('*debug* App, signedIn', signedIn);
 
-  // User table + firebaseUser means user is signed in. Need to load
-  // implement check for initial load of userContext
-  if (initialising && !signedIn) {
+  // Loading App
+  if ((initialising || loading) && !signedIn) {
     return (
       <Grid
         container={true}
@@ -42,6 +42,7 @@ export const App = () => {
     );
   }
 
+  // Signed In
   if (firebaseUser && signedIn) {
     return (
       <MuiThemeProvider theme={theme}>
@@ -63,13 +64,14 @@ export const App = () => {
         </AppContainer>
       </MuiThemeProvider>
     );
-  } else {
-    return (
-      <MuiThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={3}>
-          <Navigator />
-        </SnackbarProvider>
-      </MuiThemeProvider>
-    );
   }
+
+  // Sign up / log in
+  return (
+    <MuiThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={3}>
+        <Navigator />
+      </SnackbarProvider>
+    </MuiThemeProvider>
+  );
 };
