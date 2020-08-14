@@ -13,6 +13,7 @@ import firebase from 'firebase';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { ApolloError } from 'apollo-boost';
 
 interface LoginForm {
   email: string;
@@ -21,6 +22,9 @@ interface LoginForm {
 
 export const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<
+    firebase.FirebaseError | ApolloError | undefined
+  >(undefined);
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm<LoginForm>();
 
@@ -30,9 +34,17 @@ export const Login = () => {
 
   const onClickLogin = async (data: LoginForm) => {
     const { email, password } = data;
-    setLoading(true);
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-    setLoading(false);
+    try {
+      setLoading(true);
+      setAuthError(undefined);
+
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      const loginError = error as firebase.FirebaseError | ApolloError;
+      setAuthError(loginError);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -75,17 +87,26 @@ export const Login = () => {
             />
           </FormControl>
         </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit(onClickLogin)}
-        >
-          {loading ? <CircularProgress color="secondary" /> : 'Log in'}
-        </Button>
-        <Spacing.section.Major />
-        <Button variant="outlined" color="secondary" onClick={onClickSignup}>
-          {"Don't have an account? Sign up"}
-        </Button>
+        {authError ? (
+          <Grid item={true} xs={12}>
+            <Typography color="error" variant="body1">
+              {authError.message}
+            </Typography>
+          </Grid>
+        ) : null}
+        <Grid item={true} xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit(onClickLogin)}
+          >
+            {loading ? <CircularProgress color="secondary" /> : 'Log in'}
+          </Button>
+          <Spacing.section.Major />
+          <Button variant="outlined" color="secondary" onClick={onClickSignup}>
+            Don't have an account? Sign up
+          </Button>
+        </Grid>
       </Grid>
     </Container>
   );

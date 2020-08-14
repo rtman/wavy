@@ -11,9 +11,10 @@ import {
 import { Spacing, Title } from 'components';
 import * as consts from 'consts';
 import firebase from 'firebase';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { ApolloError } from 'apollo-boost';
 
 interface SignUpForm {
   firstName: string;
@@ -24,31 +25,47 @@ interface SignUpForm {
 }
 
 export const Signup = () => {
-  const [createUser, { loading }] = useMutation(consts.mutations.CREATE_USER);
+  const [
+    createUser,
+    { loading: createUserLoading, error: createUserError },
+  ] = useMutation(consts.mutations.CREATE_USER);
   const { register, handleSubmit, getValues, errors } = useForm<SignUpForm>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<
+    firebase.FirebaseError | ApolloError | undefined
+  >(undefined);
 
   const history = useHistory();
 
   const onClickSignup = async (data: SignUpForm) => {
     const { firstName, lastName, email, password } = data;
+    setLoading(true);
+    setAuthError(undefined);
 
     console.log('*debug* onClickSignup', data);
+    try {
+      const firebaseCredential = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
 
-    const firebaseCredential = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-    if (firebaseCredential?.user) {
-      createUser({
-        variables: {
-          input: {
-            firstName,
-            lastName,
-            email,
-            password,
-            id: firebaseCredential.user.uid,
+      if (firebaseCredential?.user) {
+        createUser({
+          variables: {
+            input: {
+              firstName,
+              lastName,
+              email,
+              password,
+              id: firebaseCredential.user.uid,
+            },
           },
-        },
-      });
+        });
+      }
+    } catch (error) {
+      const signupError = error as firebase.FirebaseError | ApolloError;
+      setAuthError(signupError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -158,17 +175,26 @@ export const Signup = () => {
             />
           </FormControl>
         </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit(onClickSignup)}
-        >
-          {loading ? <CircularProgress color="secondary" /> : 'Sign up'}
-        </Button>
-        <Spacing.section.Major />
-        <Button variant="outlined" color="secondary" onClick={onClickLogin}>
-          {'Already have an Account? Log in'}
-        </Button>
+        {authError ? (
+          <Grid item={true} xs={12}>
+            <Typography color="error" variant="body1">
+              {authError.message}
+            </Typography>
+          </Grid>
+        ) : null}
+        <Grid item={true} xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit(onClickSignup)}
+          >
+            {loading ? <CircularProgress color="secondary" /> : 'Sign up'}
+          </Button>
+          <Spacing.section.Major />
+          <Button variant="outlined" color="secondary" onClick={onClickLogin}>
+            Already have an Account? Log in
+          </Button>
+        </Grid>
       </Grid>
     </Container>
   );
