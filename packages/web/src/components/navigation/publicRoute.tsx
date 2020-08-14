@@ -1,5 +1,5 @@
 import * as consts from 'consts';
-import { AuthContextState } from 'context';
+import { AuthContext } from 'context';
 import React, { FunctionComponent, useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
@@ -11,8 +11,8 @@ interface PublicRoute {
 
 export const PublicRoute = (props: PublicRoute) => {
   const { component: Component, ...rest } = props;
-  const authContextState = useContext(AuthContextState);
-  const firebaseUser = authContextState?.firebaseUser;
+  const authContext = useContext(AuthContext);
+  const firebaseUser = authContext?.firebaseUser;
 
   const renderComponent = () => {
     return Component ? <Component /> : undefined;

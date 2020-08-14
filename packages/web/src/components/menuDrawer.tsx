@@ -2,7 +2,7 @@ import { Divider, List, ListItem, ListItemText } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ListItemLink } from 'components';
 import * as consts from 'consts';
-import { AuthContextState } from 'context';
+import { AuthContext } from 'context';
 import React, { useContext } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export const MenuDrawer = () => {
   const classes = useStyles();
   // const theme = useTheme();
-  const authContextState = useContext(AuthContextState);
+  const authContext = useContext(AuthContext);
 
-  const onClickLogout = () => authContextState?.logout();
+  const onClickLogout = () => authContext?.logout();
 
   return (
     <div>

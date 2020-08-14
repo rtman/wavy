@@ -3,7 +3,7 @@ import './App.css';
 import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
 import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
 import {
-  AuthContextState,
+  AuthContext,
   PlayerProvider,
   SearchProvider,
   UserProvider,
@@ -14,12 +14,18 @@ import React, { useContext } from 'react';
 import { makeTheme } from './theme';
 
 export const App = () => {
-  const authContextState = useContext(AuthContextState);
+  const authContext = useContext(AuthContext);
   const theme = makeTheme();
-  console.log('App, firebaseUser', authContextState?.firebaseUser);
-  console.log('App, initialising', authContextState?.initialising);
 
-  if (authContextState?.initialising) {
+  const { initialising, firebaseUser, signedIn } = authContext ?? {};
+
+  console.log('App, firebaseUser', firebaseUser);
+  console.log('App, initialising', initialising);
+  console.log('App, signedIn', signedIn);
+
+  // User table + firebaseUser means user is signed in. Need to load
+  // implement check for initial load of userContext
+  if (initialising && !signedIn) {
     return (
       <Grid
         container={true}
@@ -36,7 +42,7 @@ export const App = () => {
     );
   }
 
-  if (authContextState?.firebaseUser) {
+  if (firebaseUser && signedIn) {
     return (
       <MuiThemeProvider theme={theme}>
         <AppContainer>

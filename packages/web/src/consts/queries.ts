@@ -531,6 +531,14 @@ export const SONGS_BY_ID_QUERY = gql`
   }
 `;
 
+export const USER_ID_EXISTS = gql`
+  query userIdExists($id: String!) {
+    userIdExists(id: $id) {
+      id
+    }
+  }
+`;
+
 export const USER_BY_ID = gql`
   query userById($id: String!) {
     userById(id: $id) {

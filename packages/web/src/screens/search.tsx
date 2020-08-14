@@ -18,7 +18,7 @@ import {
   TextInput,
 } from 'components';
 import * as consts from 'consts';
-import { SearchContextState } from 'context';
+import { SearchContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Album,
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 export const Search = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
-  const searchContextState = useContext(SearchContextState);
+  const searchContext = useContext(SearchContext);
   const [songSearchResults, setSongSearchResults] = useState<Song[]>([]);
   const [artistSearchResults, setArtistSearchResults] = useState<Artist[]>([]);
   const [albumSearchResults, setAlbumSearchResults] = useState<Album[]>([]);
@@ -126,8 +126,8 @@ export const Search = () => {
   // };
 
   useEffect(() => {
-    if (searchContextState?.searchText && searchContextState?.isSearching) {
-      const formattedSearchText = `*${searchContextState?.searchText}*`;
+    if (searchContext?.searchText && searchContext?.isSearching) {
+      const formattedSearchText = `*${searchContext?.searchText}*`;
       submitSongSearch({
         variables: { query: formattedSearchText },
       });
@@ -143,10 +143,10 @@ export const Search = () => {
       submitLabelSearch({
         variables: { query: formattedSearchText },
       });
-      searchContextState?.searchComplete();
+      searchContext?.searchComplete();
     }
   }, [
-    searchContextState,
+    searchContext,
     submitSongSearch,
     submitArtistSearch,
     submitAlbumSearch,
@@ -245,10 +245,10 @@ export const Search = () => {
     <Screen>
       <Container>
         <TextInput
-          onChange={searchContextState?.onChangeSearchText}
-          value={searchContextState?.searchText}
+          onChange={searchContext?.onChangeSearchText}
+          value={searchContext?.searchText}
           placeholder={'Search'}
-          onKeyDown={searchContextState?.onKeyDownSearchBar}
+          onKeyDown={searchContext?.onKeyDownSearchBar}
           fullWidth={true}
         />
         <Paper square className={classes.root}>

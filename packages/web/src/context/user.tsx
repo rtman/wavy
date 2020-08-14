@@ -1,6 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import * as consts from 'consts';
-import { AuthContextState } from 'context';
 import React, {
   createContext,
   FunctionComponent,
@@ -10,6 +9,8 @@ import React, {
   useState,
 } from 'react';
 import { QueryUserByIdArgs, User, UserPlaylist } from 'types';
+
+import { AuthContext } from './auth';
 
 interface UserContextProps {
   user?: User;
@@ -32,7 +33,7 @@ export const UserContext = createContext<UserContextProps | undefined>(
 
 export const UserProvider: FunctionComponent = (props) => {
   //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
-  const authContextState = useContext(AuthContextState);
+  const authContext = useContext(AuthContext);
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []
   );
@@ -100,13 +101,13 @@ export const UserProvider: FunctionComponent = (props) => {
 
   useEffect(() => {
     console.log(
-      'authContextState?.firebaseUser?.uid',
-      authContextState?.firebaseUser?.uid
+      'authContext?.firebaseUser?.uid',
+      authContext?.firebaseUser?.uid
     );
-    if (authContextState?.firebaseUser?.uid) {
-      loadUser(authContextState?.firebaseUser?.uid);
+    if (authContext?.firebaseUser?.uid) {
+      loadUser(authContext?.firebaseUser?.uid);
     }
-  }, [authContextState, loadUser]);
+  }, [authContext, loadUser]);
 
   const updateFollowing = (artistId: string) => {
     submitUpdateFollowing({

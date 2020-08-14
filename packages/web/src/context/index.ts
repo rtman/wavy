@@ -1,4 +1,4 @@
 export { PlayerContext, PlayerProvider } from './player';
 export { UserContext, UserProvider } from './user';
-export { AuthContextState, AuthProvider } from './auth';
-export { SearchContextState, SearchProvider } from './search';
+export { AuthContext, AuthProvider } from './auth';
+export { SearchContext, SearchProvider } from './search';

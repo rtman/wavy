@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -8,15 +7,14 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { ApolloError } from 'apollo-boost';
 import { Spacing, Title } from 'components';
 import * as consts from 'consts';
-import firebase from 'firebase';
-import React, { useState } from 'react';
+import { AuthContext } from 'context';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
-interface SignUpForm {
+export interface SignUpForm {
   firstName: string;
   lastName: string;
   email: string;
@@ -25,47 +23,15 @@ interface SignUpForm {
 }
 
 export const Signup = () => {
-  const [
-    createUser,
-    { loading: createUserLoading, error: createUserError },
-  ] = useMutation(consts.mutations.CREATE_USER);
   const { register, handleSubmit, getValues, errors } = useForm<SignUpForm>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [authError, setAuthError] = useState<
-    firebase.FirebaseError | ApolloError | undefined
-  >(undefined);
-
   const history = useHistory();
 
+  const authContext = useContext(AuthContext);
+  const { loading, error, signup } = authContext ?? {};
+
   const onClickSignup = async (data: SignUpForm) => {
-    const { firstName, lastName, email, password } = data;
-    setLoading(true);
-    setAuthError(undefined);
-
-    console.log('*debug* onClickSignup', data);
-    try {
-      const firebaseCredential = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-
-      if (firebaseCredential?.user) {
-        createUser({
-          variables: {
-            input: {
-              firstName,
-              lastName,
-              email,
-              password,
-              id: firebaseCredential.user.uid,
-            },
-          },
-        });
-      }
-    } catch (error) {
-      const signupError = error as firebase.FirebaseError | ApolloError;
-      setAuthError(signupError);
-    } finally {
-      setLoading(false);
+    if (signup) {
+      await signup(data);
     }
   };
 
@@ -183,10 +149,10 @@ export const Signup = () => {
               />
             </FormControl>
           </Grid>
-          {authError ? (
+          {error ? (
             <Grid item={true} xs={12}>
               <Typography color="error" variant="body1">
-                {authError.message}
+                {error?.message}
               </Typography>
             </Grid>
           ) : null}

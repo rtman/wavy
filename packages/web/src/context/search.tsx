@@ -11,9 +11,9 @@ interface SearchContextStateProps {
   onKeyDownSearchBar: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const SearchContextState = createContext<
-  SearchContextStateProps | undefined
->(undefined);
+export const SearchContext = createContext<SearchContextStateProps | undefined>(
+  undefined
+);
 
 export const SearchProvider: FunctionComponent = (props) => {
   const [searchText, setSearchText] = useState<string>('');
@@ -39,7 +39,7 @@ export const SearchProvider: FunctionComponent = (props) => {
   };
 
   return (
-    <SearchContextState.Provider
+    <SearchContext.Provider
       value={{
         searchText,
         onChangeSearchText,
@@ -50,6 +50,6 @@ export const SearchProvider: FunctionComponent = (props) => {
       }}
     >
       {props.children}
-    </SearchContextState.Provider>
+    </SearchContext.Provider>
   );
 };

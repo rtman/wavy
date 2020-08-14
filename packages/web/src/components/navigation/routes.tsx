@@ -1,5 +1,5 @@
 import * as consts from 'consts';
-import { AuthContextState } from 'context';
+import { AuthContext } from 'context';
 import React, { useContext } from 'react';
 import { Switch } from 'react-router-dom';
 import * as screens from 'screens';
@@ -8,10 +8,10 @@ import { PrivateRoute } from './privateRoute';
 import { PublicRoute } from './publicRoute';
 
 export const Routes = () => {
-  const authContextState = useContext(AuthContextState);
+  const authContext = useContext(AuthContext);
   console.log(
-    'Navigator - authContextState.firebaseUser',
-    authContextState?.firebaseUser
+    'Navigator - authContext.firebaseUser',
+    authContext?.firebaseUser
   );
 
   return (

@@ -7,44 +7,33 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { ApolloError } from 'apollo-boost';
 import { Spacing, Title } from 'components';
 import * as consts from 'consts';
-import firebase from 'firebase';
-import React, { useState } from 'react';
+import { AuthContext } from 'context';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
-interface LoginForm {
+export interface LoginForm {
   email: string;
   password: string;
 }
 
 export const Login = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [authError, setAuthError] = useState<
-    firebase.FirebaseError | ApolloError | undefined
-  >(undefined);
+  const { register, handleSubmit, errors: formErrors } = useForm<LoginForm>();
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm<LoginForm>();
+
+  const authContext = useContext(AuthContext);
+  const { loading, error: authError, login } = authContext ?? {};
+
+  const onClickLogin = async (data: LoginForm) => {
+    if (login) {
+      await login(data);
+    }
+  };
 
   const onClickSignup = () => {
     history.push(`${consts.routes.SIGN_UP}`);
-  };
-
-  const onClickLogin = async (data: LoginForm) => {
-    const { email, password } = data;
-    try {
-      setLoading(true);
-      setAuthError(undefined);
-
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      const loginError = error as firebase.FirebaseError | ApolloError;
-      setAuthError(loginError);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -72,8 +61,8 @@ export const Login = () => {
                 })}
                 label="Email"
                 name="email"
-                helperText={errors.email?.message}
-                error={errors.email !== undefined}
+                helperText={formErrors.email?.message}
+                error={formErrors.email !== undefined}
               />
             </FormControl>
           </Grid>
@@ -90,8 +79,8 @@ export const Login = () => {
                 type="password"
                 label="Password"
                 name="password"
-                helperText={errors.password?.message}
-                error={errors.password !== undefined}
+                helperText={formErrors.password?.message}
+                error={formErrors.password !== undefined}
               />
             </FormControl>
           </Grid>

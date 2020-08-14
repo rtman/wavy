@@ -20,7 +20,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Flex, MenuDrawer } from 'components';
 import * as consts from 'consts';
-import { SearchContextState } from 'context';
+import { SearchContext } from 'context';
 import React, { FunctionComponent, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -119,7 +119,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
   const { window } = props;
   const location = useLocation();
   const classes = useStyles();
-  const searchContextState = useContext(SearchContextState);
+  const searchContext = useContext(SearchContext);
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -159,14 +159,14 @@ export const TopBar: FunctionComponent<Props> = (props) => {
                 </div>
                 <InputBase
                   placeholder="Search…"
-                  value={searchContextState?.searchText}
+                  value={searchContext?.searchText}
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput,
                   }}
                   inputProps={{ 'aria-label': 'search' }}
-                  onChange={searchContextState?.onChangeSearchText}
-                  onKeyDown={searchContextState?.onKeyDownSearchBar}
+                  onChange={searchContext?.onChangeSearchText}
+                  onKeyDown={searchContext?.onKeyDownSearchBar}
                 />
               </div>
             )}

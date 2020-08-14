@@ -275,10 +275,12 @@ export type Query = {
   albumById: Album;
   searchAlbums: Array<Album>;
   artists: Array<Artist>;
+  newArtists: Array<Artist>;
   artistById: Artist;
   artistsById: Array<Artist>;
   searchArtists: Array<Artist>;
   labels: Array<Label>;
+  newLabels: Array<Label>;
   labelById: Label;
   searchLabels: Array<Label>;
   songs: Array<Song>;
@@ -290,6 +292,7 @@ export type Query = {
   playlistsById: Array<Playlist>;
   playlistsByUserId: Array<Playlist>;
   searchPlaylists: Array<Playlist>;
+  userIdExists: User;
   userById: User;
 };
 
@@ -349,6 +352,10 @@ export type QuerySearchPlaylistsArgs = {
   query: Scalars['String'];
 };
 
+export type QueryUserIdExistsArgs = {
+  id: Scalars['String'];
+};
+
 export type QueryUserByIdArgs = {
   id: Scalars['String'];
 };
@@ -378,6 +385,8 @@ export type Song = {
   playlists?: Maybe<Array<SongPlaylist>>;
   usersFavourited?: Maybe<Array<UserSongFavourites>>;
   usersRecentlyPlayed?: Maybe<Array<UserSongRecentlyPlayed>>;
+  tags?: Maybe<Array<SongTag>>;
+  tagSearchString: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -398,6 +407,25 @@ export type SongPlaylist = {
   playlistId: Scalars['ID'];
   song: Song;
   playlist: Playlist;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type SongTag = {
+  __typename?: 'SongTag';
+  songId: Scalars['ID'];
+  tagId: Scalars['ID'];
+  song: Song;
+  tag: Tag;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type Tag = {
+  __typename?: 'Tag';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  songs?: Maybe<Array<SongTag>>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -651,6 +679,8 @@ export type ResolversTypes = {
   UserArtist: ResolverTypeWrapper<UserArtist>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
+  SongTag: ResolverTypeWrapper<SongTag>;
+  Tag: ResolverTypeWrapper<Tag>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
@@ -694,6 +724,8 @@ export type ResolversParentTypes = {
   UserArtist: UserArtist;
   Float: Scalars['Float'];
   SongArtistSupportingArtist: SongArtistSupportingArtist;
+  SongTag: SongTag;
+  Tag: Tag;
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
@@ -1000,6 +1032,11 @@ export type QueryResolvers<
     RequireFields<QuerySearchAlbumsArgs, 'query'>
   >;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  newArtists?: Resolver<
+    Array<ResolversTypes['Artist']>,
+    ParentType,
+    ContextType
+  >;
   artistById?: Resolver<
     ResolversTypes['Artist'],
     ParentType,
@@ -1019,6 +1056,7 @@ export type QueryResolvers<
     RequireFields<QuerySearchArtistsArgs, 'query'>
   >;
   labels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;
+  newLabels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;
   labelById?: Resolver<
     ResolversTypes['Label'],
     ParentType,
@@ -1079,6 +1117,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerySearchPlaylistsArgs, 'query'>
   >;
+  userIdExists?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryUserIdExistsArgs, 'id'>
+  >;
   userById?: Resolver<
     ResolversTypes['User'],
     ParentType,
@@ -1125,6 +1169,12 @@ export type SongResolvers<
     ParentType,
     ContextType
   >;
+  tags?: Resolver<
+    Maybe<Array<ResolversTypes['SongTag']>>,
+    ParentType,
+    ContextType
+  >;
+  tagSearchString?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1151,6 +1201,35 @@ export type SongPlaylistResolvers<
   playlistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   song?: Resolver<ResolversTypes['Song'], ParentType, ContextType>;
   playlist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type SongTagResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SongTag'] = ResolversParentTypes['SongTag']
+> = {
+  songId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  tagId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  song?: Resolver<ResolversTypes['Song'], ParentType, ContextType>;
+  tag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type TagResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  songs?: Resolver<
+    Maybe<Array<ResolversTypes['SongTag']>>,
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1290,6 +1369,8 @@ export type Resolvers<ContextType = any> = {
   Song?: SongResolvers<ContextType>;
   SongArtistSupportingArtist?: SongArtistSupportingArtistResolvers<ContextType>;
   SongPlaylist?: SongPlaylistResolvers<ContextType>;
+  SongTag?: SongTagResolvers<ContextType>;
+  Tag?: TagResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserArtist?: UserArtistResolvers<ContextType>;
   UserArtistFollowing?: UserArtistFollowingResolvers<ContextType>;
