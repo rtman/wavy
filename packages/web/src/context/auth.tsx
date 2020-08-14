@@ -18,7 +18,7 @@ import React, {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginForm } from 'screens/login';
 import { SignUpForm } from 'screens/signup';
-import { QueryUserIdExistsArgs, User } from 'types';
+import { Query, QueryUserIdExistsArgs } from 'types';
 
 interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
@@ -29,10 +29,6 @@ interface AuthContextProps {
   login: (data: LoginForm) => Promise<void>;
   logout: () => Promise<void>;
   signedIn?: boolean;
-}
-
-interface UserIdExistsData {
-  userIdExists: boolean;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -124,7 +120,7 @@ export const AuthProvider: FunctionComponent = (props) => {
         setLoading(true);
         setError(undefined);
         const result = await apolloClient.query<
-          UserIdExistsData,
+          Pick<Query, 'userIdExists'>,
           QueryUserIdExistsArgs
         >({
           query: consts.queries.USER_ID_EXISTS,

@@ -292,7 +292,7 @@ export type Query = {
   playlistsById: Array<Playlist>;
   playlistsByUserId: Array<Playlist>;
   searchPlaylists: Array<Playlist>;
-  userIdExists: User;
+  userIdExists: Scalars['Boolean'];
   userById: User;
 };
 
@@ -681,10 +681,10 @@ export type ResolversTypes = {
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
@@ -726,10 +726,10 @@ export type ResolversParentTypes = {
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
+  Boolean: Scalars['Boolean'];
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
-  Boolean: Scalars['Boolean'];
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   CreateSongArgs: CreateSongArgs;
@@ -1118,7 +1118,7 @@ export type QueryResolvers<
     RequireFields<QuerySearchPlaylistsArgs, 'query'>
   >;
   userIdExists?: Resolver<
-    ResolversTypes['User'],
+    ResolversTypes['Boolean'],
     ParentType,
     ContextType,
     RequireFields<QueryUserIdExistsArgs, 'id'>
