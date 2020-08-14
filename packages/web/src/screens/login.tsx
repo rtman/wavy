@@ -7,13 +7,13 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { ApolloError } from 'apollo-boost';
 import { Spacing, Title } from 'components';
 import * as consts from 'consts';
 import firebase from 'firebase';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { ApolloError } from 'apollo-boost';
 
 interface LoginForm {
   email: string;
