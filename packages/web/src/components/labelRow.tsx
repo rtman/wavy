@@ -14,7 +14,7 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Query, Label, QueryLabelByIdArgs } from 'types';
+import { Label, Query, QueryLabelByIdArgs } from 'types';
 
 interface LabelRowProps {
   label: Label;

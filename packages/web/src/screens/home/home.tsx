@@ -10,17 +10,9 @@ import { ItemCard, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
-import { Artist, Label, Playlist, Song } from 'types';
+import { Artist, Label, Playlist, Query, Song } from 'types';
 
 type Item = Artist | Label | Song | Playlist;
-
-interface NewArtistsData {
-  newArtists: Artist[];
-}
-
-interface NewLabelsData {
-  newLabels: Label[];
-}
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -41,14 +33,14 @@ export const Home = () => {
 
   const {
     loading: newArtistsLoading,
-    error: newArtistsError,
+    // error: newArtistsError,
     data: newArtistsData,
-  } = useQuery<NewArtistsData>(consts.queries.NEW_ARTISTS);
+  } = useQuery<Pick<Query, 'newArtists'>>(consts.queries.NEW_ARTISTS);
   const {
     loading: newLabelsLoading,
-    error: newLabelsError,
+    // error: newLabelsError,
     data: newLabelsData,
-  } = useQuery<NewLabelsData>(consts.queries.NEW_LABELS);
+  } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.NEW_LABELS);
 
   const newArtists = newArtistsData?.newArtists ?? [];
   const newLabels = newLabelsData?.newLabels ?? [];
