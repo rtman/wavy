@@ -32,7 +32,6 @@ export const UserContext = createContext<UserContextProps | undefined>(
 );
 
 export const UserProvider: FunctionComponent = (props) => {
-  //   const [firebaseUser, initialising, error] = useAuthState(firebase.auth());
   const authContext = useContext(AuthContext);
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []

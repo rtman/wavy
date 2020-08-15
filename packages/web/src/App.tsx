@@ -17,12 +17,7 @@ export const App = () => {
   const authContext = useContext(AuthContext);
   const theme = makeTheme();
 
-  const { initialising, firebaseUser, signedIn, loading } = authContext ?? {};
-
-  console.log('*debug* App, firebaseUser', firebaseUser);
-  console.log('*debug* App, loading', loading);
-  console.log('*debug* App, initialising', initialising);
-  console.log('*debug* App, signedIn', signedIn);
+  const { initialising, signedIn, loading } = authContext ?? {};
 
   // Loading App
   if (initialising || loading) {

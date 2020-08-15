@@ -227,7 +227,7 @@ module.exports = {
       },
       {
         tagId: 'd50949eb-1d6c-411d-bcb8-6e3d1f2049d1',
-        songId: 'f454fd6-dde9-4412-b4f8-e932a2dc389a',
+        songId: '3f454fd6-dde9-4412-b4f8-e932a2dc389a',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -365,7 +365,7 @@ module.exports = {
       },
       {
         tagId: 'e1a9e5c6-5c1d-4e0a-87a8-ea97d64d182e',
-        songId: '56ba9f7-af5a-49e8-a6a5-a35446be59cf',
+        songId: '556ba9f7-af5a-49e8-a6a5-a35446be59cf',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
