@@ -1,10 +1,6 @@
 import 'firebase/auth';
 
-import {
-  useApolloClient,
-  // useLazyQuery,
-  useMutation,
-} from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-boost';
 import * as consts from 'consts';
 import firebase from 'firebase';
@@ -12,6 +8,7 @@ import { GraphQLError } from 'graphql';
 import React, {
   createContext,
   FunctionComponent,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -42,7 +39,7 @@ export const AuthProvider: FunctionComponent = (props) => {
     firebase.auth.Error | ApolloError | GraphQLError | undefined
   >(undefined);
   const [signedIn, setSignedIn] = useState<boolean>(false);
-
+  const [firstSession, setFirstSession] = useState<boolean>(true);
   const apolloClient = useApolloClient();
 
   const [createUser, { error: createUserError }] = useMutation(
@@ -60,7 +57,7 @@ export const AuthProvider: FunctionComponent = (props) => {
         .createUserWithEmailAndPassword(email, password);
 
       if (firebaseCredential?.user) {
-        await createUser({
+        const result = await createUser({
           variables: {
             input: {
               firstName,
@@ -72,16 +69,21 @@ export const AuthProvider: FunctionComponent = (props) => {
           },
         });
 
-        if (createUserError) {
+        if (result.errors) {
           setError(createUserError);
           logout();
+          return;
         }
+
+        setSignedIn(true);
       }
     } catch (error_) {
       setError(error_);
       if (firebaseUser) {
         logout();
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,9 +94,17 @@ export const AuthProvider: FunctionComponent = (props) => {
       setError(undefined);
 
       await firebase.auth().signInWithEmailAndPassword(email, password);
+
+      if (firebaseUser) {
+        const result = await userIdExists(firebaseUser?.uid);
+        setSignedIn(result.data);
+        setError(result.error);
+      }
     } catch (error_) {
       const loginError = error_ as firebase.auth.Error;
       setError(loginError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -113,12 +123,9 @@ export const AuthProvider: FunctionComponent = (props) => {
     }
   };
 
-  // verifies user has user table entry on signin
-  useEffect(() => {
-    const userExists = async (id: string) => {
+  const userIdExists = useCallback(
+    async (id: string) => {
       try {
-        setLoading(true);
-        setError(undefined);
         const result = await apolloClient.query<
           Pick<Query, 'userIdExists'>,
           QueryUserIdExistsArgs
@@ -127,29 +134,36 @@ export const AuthProvider: FunctionComponent = (props) => {
           variables: { id },
         });
 
-        if (result.data) {
-          setSignedIn(result.data.userIdExists);
+        if (result.errors) {
+          return { ok: true, data: false, error: result.errors[0] };
         }
 
-        if (result.errors) {
-          setSignedIn(false);
-          setError(result.errors[0]);
-          logout();
-        }
+        return { ok: true, data: true };
       } catch (error_) {
-        setError(error_);
-        if (firebaseUser) {
-          logout();
-        }
-      } finally {
+        return { ok: true, data: false, error: error_ };
+      }
+    },
+    [apolloClient]
+  );
+
+  // only runs on opening a session that is already has firebaseUser (already loggedin/signednup)
+  useEffect(() => {
+    const userExistsInTable = async () => {
+      if (firebaseUser && !signedIn && firstSession) {
+        setFirstSession(false);
+        setLoading(true);
+        setError(undefined);
+
+        const result = await userIdExists(firebaseUser.uid);
+
+        setSignedIn(result.data);
+        setError(result.error);
         setLoading(false);
       }
     };
 
-    if (firebaseUser) {
-      userExists(firebaseUser.uid);
-    }
-  }, [firebaseUser, apolloClient]);
+    userExistsInTable();
+  }, [firebaseUser, signedIn, apolloClient, userIdExists, firstSession]);
 
   return (
     <AuthContext.Provider

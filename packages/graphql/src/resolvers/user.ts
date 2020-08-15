@@ -67,7 +67,7 @@ class UpdateRecentlyPlayedArgs
   songId: string;
 }
 
-@Resolver(Boolean)
+@Resolver(Models.User)
 export class UserResolvers {
   @Query(() => Boolean)
   async userIdExists(@Arg('id') id: string): Promise<boolean> {
@@ -86,6 +86,24 @@ export class UserResolvers {
     } catch (error) {
       console.log('userIdExists error', error);
       return false;
+    }
+  }
+
+  @Query(() => Boolean)
+  async users(): Promise<Models.User[] | undefined> {
+    try {
+      const users = await getManager()
+        .getRepository(Models.User)
+        .find();
+
+      if (users === undefined) {
+        console.log('users does not exist');
+        return;
+      }
+      return users;
+    } catch (error) {
+      console.log('users error', error);
+      return;
     }
   }
 

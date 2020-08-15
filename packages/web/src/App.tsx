@@ -25,7 +25,7 @@ export const App = () => {
   console.log('*debug* App, signedIn', signedIn);
 
   // Loading App
-  if ((initialising || loading) && !signedIn) {
+  if (initialising || loading) {
     return (
       <Grid
         container={true}
@@ -43,7 +43,7 @@ export const App = () => {
   }
 
   // Signed In
-  if (firebaseUser && signedIn) {
+  if (signedIn) {
     return (
       <MuiThemeProvider theme={theme}>
         <AppContainer>
@@ -64,14 +64,14 @@ export const App = () => {
         </AppContainer>
       </MuiThemeProvider>
     );
+  } else {
+    // Sign up / log in
+    return (
+      <MuiThemeProvider theme={theme}>
+        <SnackbarProvider maxSnack={3}>
+          <Navigator />
+        </SnackbarProvider>
+      </MuiThemeProvider>
+    );
   }
-
-  // Sign up / log in
-  return (
-    <MuiThemeProvider theme={theme}>
-      <SnackbarProvider maxSnack={3}>
-        <Navigator />
-      </SnackbarProvider>
-    </MuiThemeProvider>
-  );
 };
