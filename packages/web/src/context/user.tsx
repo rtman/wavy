@@ -8,7 +8,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { QueryUserByIdArgs, User, UserPlaylist } from 'types';
+import { Query, QueryUserByIdArgs, User, UserPlaylist } from 'types';
 
 import { AuthContext } from './auth';
 
@@ -23,10 +23,6 @@ interface UserContextProps {
   loading: boolean;
 }
 
-interface UserByIdData {
-  userById: User;
-}
-
 export const UserContext = createContext<UserContextProps | undefined>(
   undefined
 );
@@ -38,7 +34,7 @@ export const UserProvider: FunctionComponent = (props) => {
   );
   const [user, setUser] = useState<User | undefined>(undefined);
   const [getUserById, { loading: queryLoading }] = useLazyQuery<
-    UserByIdData,
+    Pick<Query, 'userById'>,
     QueryUserByIdArgs
   >(consts.queries.USER_BY_ID, {
     fetchPolicy: 'no-cache',

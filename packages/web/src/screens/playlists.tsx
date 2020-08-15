@@ -16,11 +16,7 @@ import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
-import { Playlist, QueryPlaylistsByUserIdArgs } from 'types';
-
-interface PlaylistsByUserIdData {
-  playlistsByUserId: Playlist[];
-}
+import { Query, QueryPlaylistsByUserIdArgs } from 'types';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
@@ -35,12 +31,12 @@ export const Playlists = () => {
   const [
     getPlaylists,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<PlaylistsByUserIdData, QueryPlaylistsByUserIdArgs>(
-    consts.queries.PLAYLISTS_BY_USER_ID,
-    {
-      fetchPolicy: 'network-only',
-    }
-  );
+  ] = useLazyQuery<
+    Pick<Query, 'playlistsByUserId'>,
+    QueryPlaylistsByUserIdArgs
+  >(consts.queries.PLAYLISTS_BY_USER_ID, {
+    fetchPolicy: 'network-only',
+  });
 
   const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {

@@ -21,18 +21,20 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Album, Artist as ArtistType, QueryArtistByIdArgs, Song } from 'types';
-
-interface ArtistByIdData {
-  artistById: ArtistType;
-}
+import {
+  Album,
+  Artist as ArtistType,
+  Query,
+  QueryArtistByIdArgs,
+  Song,
+} from 'types';
 
 export const Artist = () => {
   const { id } = useParams();
   const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
 
   const [getArtistById, { loading: queryLoading }] = useLazyQuery<
-    ArtistByIdData,
+    Pick<Query, 'artistById'>,
     QueryArtistByIdArgs
   >(consts.queries.ARTIST_BY_ID, {
     fetchPolicy: 'network-only',

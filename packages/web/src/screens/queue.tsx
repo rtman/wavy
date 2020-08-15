@@ -10,11 +10,7 @@ import { Screen, SongRow, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { QuerySongsByIdArgs, Song } from 'types';
-
-interface SongsByIdData {
-  songsById: Song[];
-}
+import { Query, QuerySongsByIdArgs, Song } from 'types';
 
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
@@ -23,7 +19,7 @@ export const Queue = () => {
   const [
     submitSongIds,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<SongsByIdData, QuerySongsByIdArgs>(
+  ] = useLazyQuery<Pick<Query, 'songsById'>, QuerySongsByIdArgs>(
     consts.queries.SONGS_BY_ID_QUERY
   );
 

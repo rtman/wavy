@@ -26,15 +26,7 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Playlist as PlaylistType, SongPlaylist } from 'types';
-
-interface PlaylistByIdData {
-  playlistById: PlaylistType;
-}
-
-interface PlaylistByIdVars {
-  id: string;
-}
+import { Query, QueryPlaylistByIdArgs, SongPlaylist } from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();
@@ -47,7 +39,7 @@ export const Playlist = () => {
   const [
     getPlaylist,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<PlaylistByIdData, PlaylistByIdVars>(
+  ] = useLazyQuery<Pick<Query, 'playlistById'>, QueryPlaylistByIdArgs>(
     consts.queries.PLAYLIST_BY_ID,
     {
       fetchPolicy: 'network-only',

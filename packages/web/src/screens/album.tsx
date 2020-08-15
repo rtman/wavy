@@ -23,11 +23,7 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Album as AlbumType, QueryAlbumByIdArgs, Song } from 'types';
-
-interface AlbumByIdData {
-  albumById: AlbumType;
-}
+import { Album as AlbumType, Query, QueryAlbumByIdArgs, Song } from 'types';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -46,7 +42,7 @@ export const Album = () => {
   const classes = useStyles();
 
   const [getAlbumById, { loading: queryLoading }] = useLazyQuery<
-    AlbumByIdData,
+    Pick<Query, 'albumById'>,
     QueryAlbumByIdArgs
   >(consts.queries.ALBUM_BY_ID, {
     fetchPolicy: 'network-only',

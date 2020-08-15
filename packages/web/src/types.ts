@@ -293,6 +293,7 @@ export type Query = {
   playlistsByUserId: Array<Playlist>;
   searchPlaylists: Array<Playlist>;
   userIdExists: Scalars['Boolean'];
+  users: Scalars['Boolean'];
   userById: User;
 };
 
@@ -1123,6 +1124,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryUserIdExistsArgs, 'id'>
   >;
+  users?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   userById?: Resolver<
     ResolversTypes['User'],
     ParentType,

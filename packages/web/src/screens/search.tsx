@@ -25,6 +25,7 @@ import {
   Artist,
   Label,
   Playlist,
+  Query,
   QuerySearchAlbumsArgs,
   QuerySearchArtistsArgs,
   QuerySearchLabelsArgs,
@@ -32,23 +33,6 @@ import {
   QuerySearchSongsArgs,
   Song,
 } from 'types';
-
-interface SearchSongsData {
-  searchSongs: Song[];
-}
-interface SearchArtistsData {
-  searchArtists: Artist[];
-}
-interface SearchAlbumsData {
-  searchAlbums: Album[];
-}
-interface SearchPlaylistsData {
-  searchPlaylists: Playlist[];
-}
-
-interface SearchLabelsData {
-  searchLabels: Label[];
-}
 
 const useStyles = makeStyles({
   root: {
@@ -70,7 +54,7 @@ export const Search = () => {
   const [currentTab, setCurrentTab] = useState<string>('songs');
 
   const [submitSongSearch, { loading: songQueryLoading }] = useLazyQuery<
-    SearchSongsData,
+    Pick<Query, 'searchSongs'>,
     QuerySearchSongsArgs
   >(consts.queries.SEARCH_SONGS_QUERY, {
     fetchPolicy: 'network-only',
@@ -80,7 +64,7 @@ export const Search = () => {
   });
 
   const [submitArtistSearch, { loading: artistQueryLoading }] = useLazyQuery<
-    SearchArtistsData,
+    Pick<Query, 'searchArtists'>,
     QuerySearchArtistsArgs
   >(consts.queries.SEARCH_ARTISTS_QUERY, {
     fetchPolicy: 'network-only',
@@ -89,7 +73,7 @@ export const Search = () => {
     },
   });
   const [submitAlbumSearch, { loading: albumQueryLoading }] = useLazyQuery<
-    SearchAlbumsData,
+    Pick<Query, 'searchAlbums'>,
     QuerySearchAlbumsArgs
   >(consts.queries.SEARCH_ALBUMS_QUERY, {
     fetchPolicy: 'network-only',
@@ -101,7 +85,7 @@ export const Search = () => {
   const [
     submitPlaylistSearch,
     { loading: playlistQueryLoading },
-  ] = useLazyQuery<SearchPlaylistsData, QuerySearchPlaylistsArgs>(
+  ] = useLazyQuery<Pick<Query, 'searchPlaylists'>, QuerySearchPlaylistsArgs>(
     consts.queries.SEARCH_PLAYLISTS_QUERY,
     {
       fetchPolicy: 'network-only',
@@ -112,7 +96,7 @@ export const Search = () => {
   );
 
   const [submitLabelSearch, { loading: labelQueryLoading }] = useLazyQuery<
-    SearchLabelsData,
+    Pick<Query, 'searchLabels'>,
     QuerySearchLabelsArgs
   >(consts.queries.SEARCH_LABELS_QUERY, {
     fetchPolicy: 'network-only',

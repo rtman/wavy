@@ -14,15 +14,11 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Playlist, QueryPlaylistByIdArgs } from 'types';
+import { Playlist, Query, QueryPlaylistByIdArgs } from 'types';
 
 interface PlaylistRowProps {
   playlist: Playlist;
   passedOnClickPlaylist?: (playlist: Playlist) => Promise<void>;
-}
-
-interface PlaylistByIdData {
-  playlistById: Playlist;
 }
 
 export const PlaylistRow = (props: PlaylistRowProps) => {
@@ -33,7 +29,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
   const [
     getPlaylistById,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<PlaylistByIdData, QueryPlaylistByIdArgs>(
+  ] = useLazyQuery<Pick<Query, 'playlistById'>, QueryPlaylistByIdArgs>(
     consts.queries.PLAYLIST_BY_ID
   );
 

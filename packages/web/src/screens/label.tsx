@@ -22,22 +22,14 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Label as LabelType } from 'types';
-
-interface LabelByIdData {
-  labelById: LabelType;
-}
-
-interface LabelByIdVars {
-  id: string;
-}
+import { Query, QueryLabelByIdArgs } from 'types';
 
 export const Label = () => {
   const { id } = useParams();
   const playerContext = useContext(PlayerContext);
   const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
-    LabelByIdData,
-    LabelByIdVars
+    Pick<Query, 'labelById'>,
+    QueryLabelByIdArgs
   >(consts.queries.LABEL_BY_ID, {
     fetchPolicy: 'network-only',
   });

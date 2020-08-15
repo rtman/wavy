@@ -14,15 +14,11 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Label, QueryLabelByIdArgs } from 'types';
+import { Query, Label, QueryLabelByIdArgs } from 'types';
 
 interface LabelRowProps {
   label: Label;
   passedOnClickLabel?: (label: Label) => void;
-}
-
-interface LabelByIdData {
-  labelById: Label;
 }
 
 export const LabelRow = (props: LabelRowProps) => {
@@ -35,7 +31,7 @@ export const LabelRow = (props: LabelRowProps) => {
   const [
     getLabelById,
     { loading: queryLoading, data: queryData },
-  ] = useLazyQuery<LabelByIdData, QueryLabelByIdArgs>(
+  ] = useLazyQuery<Pick<Query, 'labelById'>, QueryLabelByIdArgs>(
     consts.queries.LABEL_BY_ID
   );
 
