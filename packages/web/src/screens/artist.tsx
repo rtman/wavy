@@ -13,7 +13,6 @@ import {
   ProfileHeaderImageContainer,
   ProfileHeaderTitle,
   RowContainer,
-  Screen,
   SongRow,
   Spacing,
 } from 'components';
@@ -117,11 +116,11 @@ export const Artist = () => {
   };
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Container>
+        <>
           <ProfileHeaderImageContainer>
             <ProfileHeaderImage src={artistImageUrl} />
             <ProfileHeaderTitle>{artistName}</ProfileHeaderTitle>
@@ -157,8 +156,8 @@ export const Artist = () => {
           <Spacing.section.Minor />
           {renderAlbums()}
           <Spacing.section.Minor />
-        </Container>
+        </>
       )}
-    </Screen>
+    </Container>
   );
 };
