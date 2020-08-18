@@ -7,7 +7,6 @@ export * from './user';
 export * from './userArtist';
 export * from './userLabel';
 export * from './userPlaylist';
-export * from './userSongRecentlyPlayed';
 export * from './userArtistFollowing';
 export * from './userSongFavourites';
 export * from './songPlaylist';

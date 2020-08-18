@@ -261,38 +261,6 @@ export class UserResolvers {
     }
   }
 
-  @Mutation(() => Boolean)
-  async updateRecentlyPlayed(
-    @Arg('input') payload: UpdateRecentlyPlayedArgs
-    // @Ctx() ctx: Context
-  ): Promise<boolean> {
-    try {
-      const { userId, songId } = payload;
-      const repository = getManager().getRepository(
-        Models.UserSongRecentlyPlayed
-      );
-
-      const recentlyPlayed = await repository.findOne({
-        where: {
-          userId,
-          songId,
-        },
-      });
-
-      if (recentlyPlayed) {
-        repository.remove(recentlyPlayed);
-      } else {
-        const created = repository.create({ userId, songId });
-        await repository.save(created);
-      }
-      // TODO: Improve return type to show succesful creation or removal
-      return true;
-    } catch (error) {
-      console.log('updateRecentlyPlayed error', error);
-      return false;
-    }
-  }
-
   // TODO: need to consider where this user would be referenced
   // favourites, following, playlists, recentlyplayed etc
   @Mutation(() => Boolean)

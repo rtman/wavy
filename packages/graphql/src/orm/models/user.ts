@@ -52,13 +52,6 @@ export class User {
   )
   following: UserArtistFollowing[];
 
-  @Field(() => [UserSongRecentlyPlayed], { nullable: true })
-  @OneToMany(
-    () => UserSongRecentlyPlayed,
-    (userSongRecentlyPlayed) => userSongRecentlyPlayed.user
-  )
-  recentlyPlayed: UserSongRecentlyPlayed[];
-
   @Field(() => [UserPlaylist], { nullable: true })
   @OneToMany(
     () => UserPlaylist,

@@ -23,7 +23,6 @@ const createOrmConnection = async () => {
       Models.UserLabel,
       Models.UserPlaylist,
       Models.UserSongFavourites,
-      Models.UserSongRecentlyPlayed,
       Models.Song,
       Models.SongPlaylist,
       Models.SongArtistSupportingArtist,

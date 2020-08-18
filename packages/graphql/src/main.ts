@@ -4,6 +4,7 @@ import { ApolloServer } from 'apollo-server-express';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
+import * as admin from 'firebase-admin';
 import { GraphQLError, GraphQLSchema } from 'graphql';
 import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
@@ -11,6 +12,11 @@ import { buildSchema } from 'type-graphql';
 
 import { createOrmConnection, Models } from './orm';
 import * as Resolvers from './resolvers';
+
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://groov-development-ddc9d.firebaseio.com',
+});
 
 const port = 3001;
 

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as admin from 'firebase-admin';
 import moment from 'moment';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -14,7 +14,7 @@ class UpdateUserSongListeningStatsArgs {
   songId: string;
 
   @Field()
-  geoPoint: firebase.firestore.GeoPoint;
+  geoPoint: admin.firestore.GeoPoint;
 }
 
 @InputType()
@@ -68,7 +68,7 @@ interface UserListeningStats {
   userId: string;
   plays: number;
   skips: number;
-  location: firebase.firestore.GeoPoint;
+  location: admin.firestore.GeoPoint;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -82,7 +82,7 @@ export class ListeningStatsResolvers {
     const { field, value } = payload;
 
     try {
-      const userListeningStatsRef = firebase
+      const userListeningStatsRef = admin
         .firestore()
         .collectionGroup('userStats')
         .where(field, '==', value);
@@ -111,7 +111,7 @@ export class ListeningStatsResolvers {
     const { field, value, numberOfMonths } = payload;
 
     try {
-      const userListeningStatsRef = firebase
+      const userListeningStatsRef = admin
         .firestore()
         .collectionGroup('userStats')
         .where(field, '==', value)
@@ -146,7 +146,7 @@ export class ListeningStatsResolvers {
     const { field1, value1, field2, value2 } = payload;
 
     try {
-      const userListeningStatsRef = firebase
+      const userListeningStatsRef = admin
         .firestore()
         .collectionGroup('userStats')
         .where(field1, '==', value1)
@@ -181,7 +181,7 @@ export class ListeningStatsResolvers {
     try {
       const { userId, songId, geoPoint } = payload;
 
-      const userStatsRef = firebase
+      const userStatsRef = admin
         .firestore()
         .collection('listeningStats')
         .doc(songId)
@@ -197,7 +197,7 @@ export class ListeningStatsResolvers {
       if (song) {
         if (userStats.exists) {
           await userStatsRef.update({
-            plays: firebase.firestore.FieldValue.increment(1),
+            plays: admin.firestore.FieldValue.increment(1),
             geoPoint,
             updatedAt: new Date(),
           });
@@ -237,7 +237,7 @@ export class ListeningStatsResolvers {
     try {
       const { userId, songId, geoPoint } = payload;
 
-      const userStatsRef = firebase
+      const userStatsRef = admin
         .firestore()
         .collection('listeningStats')
         .doc(songId)
@@ -253,7 +253,7 @@ export class ListeningStatsResolvers {
       if (song) {
         if (userStats.exists) {
           await userStatsRef.update({
-            skips: firebase.firestore.FieldValue.increment(1),
+            skips: admin.firestore.FieldValue.increment(1),
             // geoPoint,
             updatedAt: new Date(),
           });

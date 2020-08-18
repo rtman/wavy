@@ -42,6 +42,7 @@ services:
       - DATABASE_PASSWORD=groov
       - DATABASE_DB=groov
       - DATABASE_HOST=postgresql
+      - GOOGLE_APPLICATION_CREDENTIALS=secrets/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json
     ports:
       - "3001:3001"
     depends_on:

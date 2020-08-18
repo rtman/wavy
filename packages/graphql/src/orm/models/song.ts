@@ -16,7 +16,7 @@ import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { SongPlaylist } from './songPlaylist';
 import { SongTag } from './songTag';
 import { UserSongFavourites } from './userSongFavourites';
-import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
+// import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 @Entity('song')
 @ObjectType()
@@ -106,13 +106,6 @@ export class Song {
     (userSongFavourites) => userSongFavourites.song
   )
   usersFavourited: UserSongFavourites[];
-
-  @Field(() => [UserSongRecentlyPlayed], { nullable: true })
-  @OneToMany(
-    () => UserSongRecentlyPlayed,
-    (userSongRecentlyPlayed) => userSongRecentlyPlayed.song
-  )
-  usersRecentlyPlayed: UserSongRecentlyPlayed[];
 
   @Field(() => [SongTag], { nullable: true })
   @OneToMany(
