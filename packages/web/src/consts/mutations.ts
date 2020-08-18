@@ -59,6 +59,12 @@ export const UPDATE_SONG_PLAY_COUNT = gql`
   }
 `;
 
+export const USER_PLAYED_SONG = gql`
+  mutation UserPlayedSong($input: UserPlayedSongArgs!) {
+    userPlayedSong(input: $input)
+  }
+`;
+
 export const CREATE_ARTIST = gql`
   mutation CreateArtist($input: CreateArtistArgs!) {
     createArtist(input: $input) {

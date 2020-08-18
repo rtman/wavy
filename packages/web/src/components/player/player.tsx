@@ -3,10 +3,15 @@ import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import { ProgressBar } from 'components';
 import { RowContainer, StyledButton } from 'components';
 import * as consts from 'consts';
-import { PlayerContext } from 'context';
+import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  Mutation,
+  MutationUpdateSongPlayCountArgs,
+  MutationUserPlayedSongArgs,
+} from 'types';
 
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 
@@ -14,17 +19,27 @@ const minimumPlayRatio = 0.2;
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
+  const userContext = useContext(UserContext);
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
 
-  const [submitUpdateSongPlayCount] = useMutation(
-    consts.mutations.UPDATE_SONG_PLAY_COUNT,
-    {
-      onCompleted() {
-        console.log('submitUpdatedSongPlayCount onComplete');
-      },
-    }
-  );
+  const [submitUpdateSongPlayCount] = useMutation<
+    Pick<Mutation, 'updateSongPlayCount'>,
+    MutationUpdateSongPlayCountArgs
+  >(consts.mutations.UPDATE_SONG_PLAY_COUNT, {
+    onCompleted() {
+      console.log('submitUpdatedSongPlayCount onComplete');
+    },
+  });
+
+  const [userPlayedSong] = useMutation<
+    Pick<Mutation, 'userPlayedSong'>,
+    MutationUserPlayedSongArgs
+  >(consts.mutations.USER_PLAYED_SONG, {
+    onCompleted() {
+      console.log('userPlayedSong onComplete');
+    },
+  });
 
   const currentSong = playerContext?.currentSong;
   const allMediaStates = helpers.hooks.useMediaState(
@@ -47,6 +62,17 @@ export const Player = () => {
       playCountTimerRef.current = setTimeout(() => {
         submitUpdateSongPlayCount({
           variables: { input: { id: currentSong?.id } },
+        });
+        userPlayedSong({
+          variables: {
+            userId: userContext?.user?.id,
+            songId: currentSong?.id,
+            city: userContext?.geoLocation?.city,
+            geoPoint: {
+              lat: userContext?.geoLocation?.lat,
+              lng: userContext?.geoLocation?.lng,
+            },
+          },
         });
       }, minimumPlayLength * 1000);
     } else if (filteredMediaState !== 'playing') {

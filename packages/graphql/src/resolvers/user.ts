@@ -57,16 +57,6 @@ class UpdatePlaylistsArgs implements Partial<Models.UserPlaylist> {
   playlistId: string;
 }
 
-@InputType()
-class UpdateRecentlyPlayedArgs
-  implements Partial<Models.UserSongRecentlyPlayed> {
-  @Field()
-  userId: string;
-
-  @Field()
-  songId: string;
-}
-
 @Resolver(Models.User)
 export class UserResolvers {
   @Query(() => Boolean)

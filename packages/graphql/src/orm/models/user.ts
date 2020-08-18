@@ -13,7 +13,6 @@ import { UserArtistFollowing } from './userArtistFollowing';
 import { UserLabel } from './userLabel';
 import { UserPlaylist } from './userPlaylist';
 import { UserSongFavourites } from './userSongFavourites';
-import { UserSongRecentlyPlayed } from './userSongRecentlyPlayed';
 
 @Entity('user')
 @ObjectType()

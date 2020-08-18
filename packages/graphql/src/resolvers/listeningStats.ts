@@ -1,9 +1,36 @@
 import * as admin from 'firebase-admin';
 import moment from 'moment';
-import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Field,
+  InputType,
+  Mutation,
+  Query,
+  registerEnumType,
+  Resolver,
+} from 'type-graphql';
 import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
+
+enum ListeningStatsQueryField {
+  songId = 'songId',
+  albumId = 'albumId',
+  artistId = 'artistId',
+  labelId = 'labelId',
+  userId = 'userId',
+}
+
+// type listeningStatsQueryFields =
+//   | 'songId'
+//   | 'albumId'
+//   | 'artistId'
+//   | 'labelId'
+//   | 'userId';
+
+registerEnumType(ListeningStatsQueryField, {
+  name: 'ListeningStatsQueryField', // this one is mandatory
+});
 
 @InputType()
 class UpdateUserSongListeningStatsArgs {
@@ -14,13 +41,16 @@ class UpdateUserSongListeningStatsArgs {
   songId: string;
 
   @Field()
+  city: string;
+
+  @Field()
   geoPoint: admin.firestore.GeoPoint;
 }
 
 @InputType()
 class QueryStatsByField {
-  @Field()
-  field: listeningStatsQueryFields;
+  @Field(() => ListeningStatsQueryField)
+  field: ListeningStatsQueryField;
 
   @Field()
   value: string;
@@ -28,8 +58,8 @@ class QueryStatsByField {
 
 @InputType()
 class QueryStatsByFieldAndNumberOfMonths {
-  @Field()
-  field: listeningStatsQueryFields;
+  @Field(() => ListeningStatsQueryField)
+  field: ListeningStatsQueryField;
 
   @Field()
   value: string;
@@ -40,25 +70,18 @@ class QueryStatsByFieldAndNumberOfMonths {
 
 @InputType()
 class QueryStatsForCompoundQuery {
-  @Field()
-  field1: listeningStatsQueryFields;
+  @Field(() => ListeningStatsQueryField)
+  field1: ListeningStatsQueryField;
 
   @Field()
   value1: string;
 
-  @Field()
-  field2: listeningStatsQueryFields;
+  @Field(() => ListeningStatsQueryField)
+  field2: ListeningStatsQueryField;
 
   @Field()
   value2: string;
 }
-
-type listeningStatsQueryFields =
-  | 'songId'
-  | 'albumId'
-  | 'artistId'
-  | 'labelId'
-  | 'userId';
 
 interface UserListeningStats {
   songId: string;
@@ -179,7 +202,7 @@ export class ListeningStatsResolvers {
     @Arg('input') payload: UpdateUserSongListeningStatsArgs
   ): Promise<boolean> {
     try {
-      const { userId, songId, geoPoint } = payload;
+      const { city, userId, songId, geoPoint } = payload;
 
       const userStatsRef = admin
         .firestore()
@@ -198,21 +221,23 @@ export class ListeningStatsResolvers {
         if (userStats.exists) {
           await userStatsRef.update({
             plays: admin.firestore.FieldValue.increment(1),
-            geoPoint,
+            location: geoPoint,
+            city,
             updatedAt: new Date(),
           });
 
           return true;
         } else {
           await userStatsRef.set({
-            songId: songId,
+            songId,
             albumId: song?.albumId,
             artistId: song?.artistId,
             labelId: song?.labelId,
-            userId: userId,
+            userId,
             plays: 1,
             skips: 0,
             location: geoPoint,
+            city,
             createdAt: new Date(),
             updatedAt: new Date(),
           });

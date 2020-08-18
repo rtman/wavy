@@ -8,6 +8,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import * as services from 'services';
 import { Query, QueryUserByIdArgs, User, UserPlaylist } from 'types';
 
 import { AuthContext } from './auth';
@@ -21,6 +22,8 @@ interface UserContextProps {
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
   playlists?: UserPlaylist[] | null;
   loading: boolean;
+  ipAddress?: string;
+  geoLocation?: services.IpifyLocation;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -33,6 +36,10 @@ export const UserProvider: FunctionComponent = (props) => {
     []
   );
   const [user, setUser] = useState<User | undefined>(undefined);
+  const [ipAddress, setIpAddress] = useState<string | undefined>(undefined);
+  const [geoLocation, setGeoLocation] = useState<
+    services.IpifyLocation | undefined
+  >(undefined);
   const [getUserById, { loading: queryLoading }] = useLazyQuery<
     Pick<Query, 'userById'>,
     QueryUserByIdArgs
@@ -128,6 +135,23 @@ export const UserProvider: FunctionComponent = (props) => {
     });
   };
 
+  useEffect(() => {
+    const getClientGeoLocation = async () => {
+      const getIpAddressResponse = await services.getIpAddress();
+      if (getIpAddressResponse.ok && getIpAddressResponse.data) {
+        setIpAddress(getIpAddressResponse.data.ip);
+        const getGeoLocationresponse = await services.getGeoLocation(
+          getIpAddressResponse.data.ip
+        );
+        if (getGeoLocationresponse.ok && getGeoLocationresponse.data) {
+          setGeoLocation(getGeoLocationresponse.data);
+        }
+      }
+    };
+
+    getClientGeoLocation();
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
@@ -139,6 +163,8 @@ export const UserProvider: FunctionComponent = (props) => {
         removeSongsFromPlaylist,
         playlists,
         loading: queryLoading,
+        ipAddress,
+        geoLocation,
       }}
     >
       {props.children}

@@ -15,6 +15,7 @@ interface JsConfig extends CommonSettings, BuildFlavorSettings {}
 
 interface BuildFlavorSettings {
   FIREBASE_CONFIG: FirebaseConfig;
+  IP_IFY_API_KEY: string;
 }
 
 interface FirebaseConfig {
