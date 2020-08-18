@@ -141,6 +141,31 @@ export type Label = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type ListeningStats = {
+  __typename?: 'ListeningStats';
+  songId: Scalars['ID'];
+  albumId: Scalars['ID'];
+  artistId: Scalars['ID'];
+  labelId: Scalars['ID'];
+  userId: Scalars['String'];
+  plays: Scalars['Float'];
+  skips: Scalars['Float'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+  lat: Scalars['Float'];
+  lng: Scalars['Float'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export enum ListeningStatsQueryField {
+  SongId = 'songId',
+  AlbumId = 'albumId',
+  ArtistId = 'artistId',
+  LabelId = 'labelId',
+  UserId = 'userId',
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAlbum: Album;
@@ -149,6 +174,8 @@ export type Mutation = {
   deleteArtist: Scalars['Boolean'];
   createLabel: Label;
   deleteLabel: Scalars['Boolean'];
+  userPlayedSong: Scalars['Boolean'];
+  userSkippedSong: Scalars['Boolean'];
   createSong: Song;
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
@@ -187,6 +214,14 @@ export type MutationCreateLabelArgs = {
 
 export type MutationDeleteLabelArgs = {
   id: Scalars['String'];
+};
+
+export type MutationUserPlayedSongArgs = {
+  input: UserPlayedSongArgs;
+};
+
+export type MutationUserSkippedSongArgs = {
+  input: UserSkippedSongArgs;
 };
 
 export type MutationCreateSongArgs = {
@@ -278,6 +313,9 @@ export type Query = {
   newLabels: Array<Label>;
   labelById: Label;
   searchLabels: Array<Label>;
+  queryStatsByField: Array<ListeningStats>;
+  queryStatsByFieldForNumberOfMonths: Array<ListeningStats>;
+  queryStatsForCompoundQuery: Array<ListeningStats>;
   songs: Array<Song>;
   songById: Song;
   songsById: Array<Song>;
@@ -320,6 +358,18 @@ export type QuerySearchLabelsArgs = {
   query: Scalars['String'];
 };
 
+export type QueryQueryStatsByFieldArgs = {
+  input: QueryStatsByField;
+};
+
+export type QueryQueryStatsByFieldForNumberOfMonthsArgs = {
+  input: QueryStatsByFieldAndNumberOfMonths;
+};
+
+export type QueryQueryStatsForCompoundQueryArgs = {
+  input: QueryStatsForCompoundQuery;
+};
+
 export type QuerySongByIdArgs = {
   id: Scalars['String'];
 };
@@ -354,6 +404,24 @@ export type QueryUserIdExistsArgs = {
 
 export type QueryUserByIdArgs = {
   id: Scalars['String'];
+};
+
+export type QueryStatsByField = {
+  field: ListeningStatsQueryField;
+  value: Scalars['String'];
+};
+
+export type QueryStatsByFieldAndNumberOfMonths = {
+  field: ListeningStatsQueryField;
+  value: Scalars['String'];
+  numberOfMonths: Scalars['Float'];
+};
+
+export type QueryStatsForCompoundQuery = {
+  field1: ListeningStatsQueryField;
+  value1: Scalars['String'];
+  field2: ListeningStatsQueryField;
+  value2: Scalars['String'];
 };
 
 export type RemovePlaylistSongsArgs = {
@@ -503,6 +571,15 @@ export type UserLabel = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type UserPlayedSongArgs = {
+  userId: Scalars['String'];
+  songId: Scalars['String'];
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  lat?: Maybe<Scalars['Float']>;
+  lng?: Maybe<Scalars['Float']>;
+};
+
 export type UserPlaylist = {
   __typename?: 'UserPlaylist';
   userId: Scalars['ID'];
@@ -511,6 +588,11 @@ export type UserPlaylist = {
   playlist: Playlist;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type UserSkippedSongArgs = {
+  userId: Scalars['String'];
+  songId: Scalars['String'];
 };
 
 export type UserSongFavourites = {
@@ -659,12 +741,19 @@ export type ResolversTypes = {
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
+  QueryStatsByField: QueryStatsByField;
+  ListeningStatsQueryField: ListeningStatsQueryField;
+  ListeningStats: ResolverTypeWrapper<ListeningStats>;
+  QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
+  QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
+  UserPlayedSongArgs: UserPlayedSongArgs;
+  UserSkippedSongArgs: UserSkippedSongArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
@@ -702,12 +791,18 @@ export type ResolversParentTypes = {
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
+  QueryStatsByField: QueryStatsByField;
+  ListeningStats: ListeningStats;
+  QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
+  QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Boolean: Scalars['Boolean'];
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
   NewSongArgs: NewSongArgs;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
+  UserPlayedSongArgs: UserPlayedSongArgs;
+  UserSkippedSongArgs: UserSkippedSongArgs;
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
@@ -829,6 +924,26 @@ export type LabelResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type ListeningStatsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ListeningStats'] = ResolversParentTypes['ListeningStats']
+> = {
+  songId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  albumId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  labelId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  plays?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  skips?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  lng?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
@@ -868,6 +983,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteLabelArgs, 'id'>
+  >;
+  userPlayedSong?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUserPlayedSongArgs, 'input'>
+  >;
+  userSkippedSong?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUserSkippedSongArgs, 'input'>
   >;
   createSong?: Resolver<
     ResolversTypes['Song'],
@@ -1037,6 +1164,24 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QuerySearchLabelsArgs, 'query'>
+  >;
+  queryStatsByField?: Resolver<
+    Array<ResolversTypes['ListeningStats']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryQueryStatsByFieldArgs, 'input'>
+  >;
+  queryStatsByFieldForNumberOfMonths?: Resolver<
+    Array<ResolversTypes['ListeningStats']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryQueryStatsByFieldForNumberOfMonthsArgs, 'input'>
+  >;
+  queryStatsForCompoundQuery?: Resolver<
+    Array<ResolversTypes['ListeningStats']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryQueryStatsForCompoundQueryArgs, 'input'>
   >;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   songById?: Resolver<
@@ -1310,6 +1455,7 @@ export type Resolvers<ContextType = any> = {
   ArtistLabel?: ArtistLabelResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Label?: LabelResolvers<ContextType>;
+  ListeningStats?: ListeningStatsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

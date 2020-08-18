@@ -7,6 +7,7 @@ interface BuildFlavorsObject {
 interface Config extends JsConfig {
   JS_BUILD_FLAVOUR?: string;
   FIREBASE_CONFIG?: FirebaseConfig;
+  IP_IFY_API_KEY?: string;
 }
 
 interface JsConfig extends CommonSettings, BuildFlavorSettings {}

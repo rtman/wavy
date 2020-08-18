@@ -23,6 +23,9 @@ export const Player = () => {
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
 
+  const { user, geoLocation } = userContext ?? {};
+  const { id: userId } = user ?? {};
+
   const [submitUpdateSongPlayCount] = useMutation<
     Pick<Mutation, 'updateSongPlayCount'>,
     MutationUpdateSongPlayCountArgs
@@ -58,19 +61,21 @@ export const Player = () => {
   // time left when a user pauses playback. Take timer start and then when paused
   // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
-    if (filteredMediaState === 'playing') {
+    if (filteredMediaState === 'playing' && userId && currentSong?.id) {
       playCountTimerRef.current = setTimeout(() => {
         submitUpdateSongPlayCount({
           variables: { input: { id: currentSong?.id } },
         });
+
         userPlayedSong({
           variables: {
-            userId: userContext?.user?.id,
-            songId: currentSong?.id,
-            city: userContext?.geoLocation?.city,
-            geoPoint: {
-              lat: userContext?.geoLocation?.lat,
-              lng: userContext?.geoLocation?.lng,
+            input: {
+              userId,
+              songId: currentSong?.id,
+              city: geoLocation?.city,
+              country: geoLocation?.country,
+              lat: geoLocation?.lat,
+              lng: geoLocation?.lng,
             },
           },
         });
@@ -88,6 +93,9 @@ export const Player = () => {
     currentSong,
     minimumPlayLength,
     submitUpdateSongPlayCount,
+    userPlayedSong,
+    userId,
+    geoLocation,
   ]);
 
   useEffect(() => {
