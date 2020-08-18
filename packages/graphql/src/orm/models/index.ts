@@ -8,6 +8,7 @@ export * from './userArtist';
 export * from './userLabel';
 export * from './userPlaylist';
 export * from './userArtistFollowing';
+export * from './listeningStats';
 export * from './userSongFavourites';
 export * from './songPlaylist';
 export * from './songArtistSupportingArtist';

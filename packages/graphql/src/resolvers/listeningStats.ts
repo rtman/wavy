@@ -33,18 +33,33 @@ registerEnumType(ListeningStatsQueryField, {
 });
 
 @InputType()
-class UpdateUserSongListeningStatsArgs {
+class UserSkippedSongArgs {
+  @Field()
+  userId: string;
+
+  @Field()
+  songId: string;
+}
+
+@InputType()
+class UserPlayedSongArgs {
   @Field()
   userId: string;
 
   @Field()
   songId: string;
 
-  @Field()
+  @Field({ nullable: true })
   city: string;
 
-  @Field()
-  geoPoint: admin.firestore.GeoPoint;
+  @Field({ nullable: true })
+  country: string;
+
+  @Field(() => Number, { nullable: true })
+  lat: number;
+
+  @Field(() => Number, { nullable: true })
+  lng: number;
 }
 
 @InputType()
@@ -83,25 +98,12 @@ class QueryStatsForCompoundQuery {
   value2: string;
 }
 
-interface UserListeningStats {
-  songId: string;
-  albumId: string;
-  artistId: string;
-  labelId: string;
-  userId: string;
-  plays: number;
-  skips: number;
-  location: admin.firestore.GeoPoint;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 @Resolver()
 export class ListeningStatsResolvers {
-  @Query(() => [])
+  @Query(() => [Models.ListeningStats])
   async queryStatsByField(
     @Arg('input') payload: QueryStatsByField
-  ): Promise<UserListeningStats[] | undefined> {
+  ): Promise<Models.ListeningStats[] | undefined> {
     const { field, value } = payload;
 
     try {
@@ -113,7 +115,7 @@ export class ListeningStatsResolvers {
       const result = await userListeningStatsRef.get();
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
-        const data = (result.docs as unknown) as UserListeningStats[];
+        const data = (result.docs as unknown) as Models.ListeningStats[];
         return data;
       } else {
         console.log(`No queryStatsByField found for ${field} == ${value}`);
@@ -127,10 +129,10 @@ export class ListeningStatsResolvers {
     }
   }
 
-  @Query(() => [])
+  @Query(() => [Models.ListeningStats])
   async queryStatsByFieldForNumberOfMonths(
     @Arg('input') payload: QueryStatsByFieldAndNumberOfMonths
-  ): Promise<UserListeningStats[] | undefined> {
+  ): Promise<Models.ListeningStats[] | undefined> {
     const { field, value, numberOfMonths } = payload;
 
     try {
@@ -143,7 +145,7 @@ export class ListeningStatsResolvers {
       const result = await userListeningStatsRef.get();
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
-        const data = (result.docs as unknown) as UserListeningStats[];
+        const data = (result.docs as unknown) as Models.ListeningStats[];
         return data;
       } else {
         console.log(
@@ -162,10 +164,10 @@ export class ListeningStatsResolvers {
     }
   }
 
-  @Query(() => [])
+  @Query(() => [Models.ListeningStats])
   async queryStatsForCompoundQuery(
     @Arg('input') payload: QueryStatsForCompoundQuery
-  ): Promise<UserListeningStats[] | undefined> {
+  ): Promise<Models.ListeningStats[] | undefined> {
     const { field1, value1, field2, value2 } = payload;
 
     try {
@@ -178,7 +180,7 @@ export class ListeningStatsResolvers {
       const result = await userListeningStatsRef.get();
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
-        const data = (result.docs as unknown) as UserListeningStats[];
+        const data = (result.docs as unknown) as Models.ListeningStats[];
         return data;
       } else {
         console.log(
@@ -199,10 +201,10 @@ export class ListeningStatsResolvers {
 
   @Mutation(() => Boolean)
   async userPlayedSong(
-    @Arg('input') payload: UpdateUserSongListeningStatsArgs
+    @Arg('input') payload: UserPlayedSongArgs
   ): Promise<boolean> {
     try {
-      const { city, userId, songId, geoPoint } = payload;
+      const { city, country, userId, songId, ...geoLocation } = payload;
 
       const userStatsRef = admin
         .firestore()
@@ -221,8 +223,9 @@ export class ListeningStatsResolvers {
         if (userStats.exists) {
           await userStatsRef.update({
             plays: admin.firestore.FieldValue.increment(1),
-            location: geoPoint,
+            geoLocation,
             city,
+            country,
             updatedAt: new Date(),
           });
 
@@ -236,8 +239,9 @@ export class ListeningStatsResolvers {
             userId,
             plays: 1,
             skips: 0,
-            location: geoPoint,
+            geoLocation,
             city,
+            country,
             createdAt: new Date(),
             updatedAt: new Date(),
           });
@@ -257,10 +261,10 @@ export class ListeningStatsResolvers {
 
   @Mutation(() => Boolean)
   async userSkippedSong(
-    @Arg('input') payload: UpdateUserSongListeningStatsArgs
+    @Arg('input') payload: UserSkippedSongArgs
   ): Promise<boolean> {
     try {
-      const { userId, songId, geoPoint } = payload;
+      const { userId, songId } = payload;
 
       const userStatsRef = admin
         .firestore()
@@ -279,7 +283,6 @@ export class ListeningStatsResolvers {
         if (userStats.exists) {
           await userStatsRef.update({
             skips: admin.firestore.FieldValue.increment(1),
-            // geoPoint,
             updatedAt: new Date(),
           });
 
@@ -293,7 +296,6 @@ export class ListeningStatsResolvers {
             userId: userId,
             plays: 0,
             skips: 1,
-            location: geoPoint,
             createdAt: new Date(),
             updatedAt: new Date(),
           });
