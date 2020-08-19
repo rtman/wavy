@@ -9,7 +9,17 @@ import React, {
   useState,
 } from 'react';
 import * as services from 'services';
-import { Query, QueryUserByIdArgs, User, UserPlaylist } from 'types';
+import {
+  Mutation,
+  MutationAddPlaylistSongsArgs,
+  MutationRemovePlaylistSongsArgs,
+  MutationUpdateFavouritesArgs,
+  MutationUpdateFollowingArgs,
+  Query,
+  QueryUserByIdArgs,
+  User,
+  UserPlaylist,
+} from 'types';
 
 import { AuthContext } from './auth';
 
@@ -59,47 +69,47 @@ export const UserProvider: FunctionComponent = (props) => {
     [getUserById]
   );
 
-  const [submitUpdateFollowing] = useMutation(
-    consts.mutations.UPDATE_FOLLOWING,
-    {
-      onCompleted: () => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
-      },
-    }
-  );
-  const [submitUpdateFavourites] = useMutation(
-    consts.mutations.UPDATE_FAVOURITES,
-    {
-      onCompleted: () => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
-      },
-    }
-  );
-  const [submitAddSongsToPlaylists] = useMutation(
-    consts.mutations.ADD_PLAYLIST_SONGS,
-    {
-      onCompleted: () => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
-      },
-    }
-  );
+  const [submitUpdateFollowing] = useMutation<
+    Pick<Mutation, 'updateFollowing'>,
+    MutationUpdateFollowingArgs
+  >(consts.mutations.UPDATE_FOLLOWING, {
+    onCompleted: () => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    },
+  });
+  const [submitUpdateFavourites] = useMutation<
+    Pick<Mutation, 'updateFavourites'>,
+    MutationUpdateFavouritesArgs
+  >(consts.mutations.UPDATE_FAVOURITES, {
+    onCompleted: () => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    },
+  });
+  const [submitAddSongsToPlaylists] = useMutation<
+    Pick<Mutation, 'addPlaylistSongs'>,
+    MutationAddPlaylistSongsArgs
+  >(consts.mutations.ADD_PLAYLIST_SONGS, {
+    onCompleted: () => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    },
+  });
 
-  const [submitRemoveSongsFromPlaylist] = useMutation(
-    consts.mutations.REMOVE_PLAYLIST_SONGS,
-    {
-      onCompleted: () => {
-        if (user?.id) {
-          loadUser(user?.id);
-        }
-      },
-    }
-  );
+  const [submitRemoveSongsFromPlaylist] = useMutation<
+    Pick<Mutation, 'removePlaylistSongs'>,
+    MutationRemovePlaylistSongsArgs
+  >(consts.mutations.REMOVE_PLAYLIST_SONGS, {
+    onCompleted: () => {
+      if (user?.id) {
+        loadUser(user?.id);
+      }
+    },
+  });
 
   useEffect(() => {
     console.log(
@@ -112,15 +122,19 @@ export const UserProvider: FunctionComponent = (props) => {
   }, [authContext, loadUser]);
 
   const updateFollowing = (artistId: string) => {
-    submitUpdateFollowing({
-      variables: { input: { userId: user?.id, artistId } },
-    });
+    if (user?.id) {
+      submitUpdateFollowing({
+        variables: { input: { userId: user?.id, artistId } },
+      });
+    }
   };
 
   const updateFavourites = (songId: string) => {
-    submitUpdateFavourites({
-      variables: { input: { userId: user?.id, songId } },
-    });
+    if (user?.id) {
+      submitUpdateFavourites({
+        variables: { input: { userId: user?.id, songId } },
+      });
+    }
   };
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {

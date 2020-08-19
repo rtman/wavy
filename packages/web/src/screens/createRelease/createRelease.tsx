@@ -25,7 +25,8 @@ import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import {
   CreateAlbumArgs,
-  // CreateAlbumSongArgs,
+  Mutation,
+  MutationCreateAlbumArgs,
   NewSongArgs,
 } from 'types';
 import { uuid } from 'uuidv4';
@@ -103,26 +104,26 @@ export const CreateRelease = () => {
     name: 'songs',
   });
 
-  const [createAlbum, { loading, called, error }] = useMutation(
-    consts.mutations.CREATE_ALBUM,
-    {
-      onCompleted(data) {
-        console.log('onCompleted data', data);
-        if (data.createAlbum.id) {
-          enqueueSnackbar('Success! Release Created', {
-            variant: 'success',
-            autoHideDuration: 4000,
-          });
-          history.push(`/album/${data.createAlbum.id}`);
-        } else {
-          enqueueSnackbar('Error! Release Not Created', {
-            variant: 'error',
-            autoHideDuration: 4000,
-          });
-        }
-      },
-    }
-  );
+  const [createAlbum, { loading, called, error }] = useMutation<
+    Pick<Mutation, 'createAlbum'>,
+    MutationCreateAlbumArgs
+  >(consts.mutations.CREATE_ALBUM, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.createAlbum.id) {
+        enqueueSnackbar('Success! Release Created', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+        history.push(`/album/${data.createAlbum.id}`);
+      } else {
+        enqueueSnackbar('Error! Release Not Created', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    },
+  });
 
   useEffect(() => {
     setReleaseId(uuid());
@@ -279,7 +280,7 @@ export const CreateRelease = () => {
 
     console.log('result', result);
 
-    if (result) {
+    if (result && result.id && resolvedSongsForUpload.length > 0) {
       await createAlbum({
         variables: {
           input: {

@@ -16,7 +16,12 @@ import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
-import { Query, QueryPlaylistsByUserIdArgs } from 'types';
+import {
+  Mutation,
+  MutationCreatePlaylistArgs,
+  Query,
+  QueryPlaylistsByUserIdArgs,
+} from 'types';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
@@ -25,8 +30,8 @@ export const Playlists = () => {
     ''
   );
   const userContext = useContext(UserContext);
-  const user = userContext?.user;
-  // const userId = user?.id;
+  const { user } = userContext ?? {};
+  const { id: userId } = user ?? {};
 
   const [
     getPlaylists,
@@ -38,19 +43,22 @@ export const Playlists = () => {
     fetchPolicy: 'network-only',
   });
 
-  const [createPlaylist] = useMutation(consts.mutations.CREATE_PLAYLIST, {
+  const [createPlaylist] = useMutation<
+    Pick<Mutation, 'createPlaylist'>,
+    MutationCreatePlaylistArgs
+  >(consts.mutations.CREATE_PLAYLIST, {
     onCompleted() {
-      if (user?.id) {
-        getPlaylists({ variables: { userId: user.id } });
+      if (userId) {
+        getPlaylists({ variables: { userId } });
       }
     },
   });
 
   useEffect(() => {
-    if (user?.id) {
-      getPlaylists({ variables: { userId: user.id } });
+    if (userId) {
+      getPlaylists({ variables: { userId } });
     }
-  }, [user, getPlaylists]);
+  }, [userId, getPlaylists]);
 
   const playlists = queryData?.playlistsByUserId ?? [];
   const renderPlaylists = () => {
@@ -74,16 +82,18 @@ export const Playlists = () => {
   };
 
   const onClickSave = () => {
-    createPlaylist({
-      variables: {
-        input: {
-          userId: user?.id,
-          title: newPlaylistTitle,
-          description: newPlaylistDescription,
+    if (userId) {
+      createPlaylist({
+        variables: {
+          input: {
+            userId,
+            title: newPlaylistTitle,
+            description: newPlaylistDescription,
+          },
         },
-      },
-    });
-    setNewModalVisible(false);
+      });
+      setNewModalVisible(false);
+    }
   };
 
   const handleOnChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>

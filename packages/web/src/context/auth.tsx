@@ -15,7 +15,12 @@ import React, {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginForm } from 'screens/login';
 import { SignUpForm } from 'screens/signup';
-import { Query, QueryUserIdExistsArgs } from 'types';
+import {
+  Mutation,
+  MutationCreateUserArgs,
+  Query,
+  QueryUserIdExistsArgs,
+} from 'types';
 
 interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
@@ -42,9 +47,10 @@ export const AuthProvider: FunctionComponent = (props) => {
   const [firstSession, setFirstSession] = useState<boolean>(true);
   const apolloClient = useApolloClient();
 
-  const [createUser, { error: createUserError }] = useMutation(
-    consts.mutations.CREATE_USER
-  );
+  const [createUser, { error: createUserError }] = useMutation<
+    Pick<Mutation, 'createUser'>,
+    MutationCreateUserArgs
+  >(consts.mutations.CREATE_USER);
 
   const signup = async (data: SignUpForm) => {
     const { firstName, lastName, email, password } = data;

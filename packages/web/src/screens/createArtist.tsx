@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
+import { Mutation, MutationCreateArtistArgs } from 'types';
 import { uuid } from 'uuidv4';
 
 export const CreateArtist = () => {
@@ -27,26 +28,29 @@ export const CreateArtist = () => {
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const [createArtist, { loading, called, error }] = useMutation(
-    consts.mutations.CREATE_ARTIST,
-    {
-      onCompleted(data) {
-        console.log('onCompleted data', data);
-        if (data.createArtist.id) {
-          enqueueSnackbar('Success! Artist Created', {
-            variant: 'success',
-            autoHideDuration: 4000,
-          });
-          history.push(`/artist/${data.createArtist.id}`);
-        } else {
-          enqueueSnackbar('Error! Artist Not Created', {
-            variant: 'error',
-            autoHideDuration: 4000,
-          });
-        }
-      },
-    }
-  );
+  const { user } = userContext ?? {};
+  const { id: userId } = user ?? {};
+
+  const [createArtist, { loading, called, error }] = useMutation<
+    Pick<Mutation, 'createArtist'>,
+    MutationCreateArtistArgs
+  >(consts.mutations.CREATE_ARTIST, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.createArtist.id) {
+        enqueueSnackbar('Success! Artist Created', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+        history.push(`/artist/${data.createArtist.id}`);
+      } else {
+        enqueueSnackbar('Error! Artist Not Created', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    },
+  });
 
   useEffect(() => {
     setArtistId(uuid());
@@ -73,11 +77,11 @@ export const CreateArtist = () => {
       fileName: 'profileImage',
     });
 
-    if (result) {
+    if (result && result.id && userId) {
       await createArtist({
         variables: {
           input: {
-            userId: userContext?.user?.id,
+            userId,
             artistId: result.id,
             name,
             description,

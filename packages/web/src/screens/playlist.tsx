@@ -26,7 +26,13 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Query, QueryPlaylistByIdArgs, SongPlaylist } from 'types';
+import {
+  Mutation,
+  MutationUpdatePlaylistInfoArgs,
+  Query,
+  QueryPlaylistByIdArgs,
+  SongPlaylist,
+} from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();
@@ -45,16 +51,16 @@ export const Playlist = () => {
       fetchPolicy: 'network-only',
     }
   );
-  const [submitPlaylistInfo] = useMutation(
-    consts.mutations.UPDATE_PLAYLIST_INFO,
-    {
-      onCompleted() {
-        if (id) {
-          getPlaylist({ variables: { id } });
-        }
-      },
-    }
-  );
+  const [submitPlaylistInfo] = useMutation<
+    Pick<Mutation, 'updatePlaylistInfo'>,
+    MutationUpdatePlaylistInfoArgs
+  >(consts.mutations.UPDATE_PLAYLIST_INFO, {
+    onCompleted() {
+      if (id) {
+        getPlaylist({ variables: { id } });
+      }
+    },
+  });
 
   const playlistSongs = queryData?.playlistById?.songs ?? [];
   const playlistImageUrl = queryData?.playlistById?.imageUrl ?? '';

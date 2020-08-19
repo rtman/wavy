@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
+import { Mutation, MutationCreateLabelArgs } from 'types';
 import { uuid } from 'uuidv4';
 
 export const CreateLabel = () => {
@@ -26,26 +27,29 @@ export const CreateLabel = () => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [createLabel, { loading, called, error }] = useMutation(
-    consts.mutations.CREATE_LABEL,
-    {
-      onCompleted(data) {
-        console.log('onCompleted data', data);
-        if (data.createLabel.id) {
-          enqueueSnackbar('Success! Label Created', {
-            variant: 'success',
-            autoHideDuration: 4000,
-          });
-          history.push(`/label/${data.createLabel.id}`);
-        } else {
-          enqueueSnackbar('Error! Label Not Created', {
-            variant: 'error',
-            autoHideDuration: 4000,
-          });
-        }
-      },
-    }
-  );
+  const { user } = userContext ?? {};
+  const { id: userId } = user ?? {};
+
+  const [createLabel, { loading, called, error }] = useMutation<
+    Pick<Mutation, 'createLabel'>,
+    MutationCreateLabelArgs
+  >(consts.mutations.CREATE_LABEL, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.createLabel.id) {
+        enqueueSnackbar('Success! Label Created', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+        history.push(`/label/${data.createLabel.id}`);
+      } else {
+        enqueueSnackbar('Error! Label Not Created', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    },
+  });
 
   useEffect(() => {
     if (error) {
@@ -88,18 +92,20 @@ export const CreateLabel = () => {
       }
     }
 
-    await createLabel({
-      variables: {
-        input: {
-          userId: userContext?.user?.id,
-          labelId,
-          name,
-          description,
-          imageRef: gsUrl,
-          imageUrl: downloadUrl,
+    if (userId) {
+      await createLabel({
+        variables: {
+          input: {
+            userId,
+            labelId,
+            name,
+            description,
+            imageRef: gsUrl,
+            imageUrl: downloadUrl,
+          },
         },
-      },
-    });
+      });
+    }
   };
 
   const onDrop = (files: File[], images: string[]) => {
