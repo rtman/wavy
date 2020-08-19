@@ -70,8 +70,8 @@ export class SongResolvers {
             'playlists.playlist',
             'usersFavourited',
             'usersFavourited.user',
-            'usersRecentlyPlayed',
-            'usersRecentlyPlayed.user',
+            // 'usersRecentlyPlayed',
+            // 'usersRecentlyPlayed.user',
           ],
         });
 
@@ -108,8 +108,8 @@ export class SongResolvers {
             'playlists.playlist',
             'usersFavourited',
             'usersFavourited.user',
-            'usersRecentlyPlayed',
-            'usersRecentlyPlayed.user',
+            // 'usersRecentlyPlayed',
+            // 'usersRecentlyPlayed.user',
           ],
         });
       if (songs) {

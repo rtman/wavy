@@ -35,14 +35,14 @@ export const NEW_ARTISTS = gql`
               imageUrl
             }
           }
-          usersRecentlyPlayed {
-            createdAt
-            user {
-              id
-              firstName
-              lastName
-            }
-          }
+          # usersRecentlyPlayed {
+          #   createdAt
+          #   user {
+          #     id
+          #     firstName
+          #     lastName
+          #   }
+          # }
         }
       }
       songs {
@@ -129,14 +129,14 @@ export const ARTIST_BY_ID = gql`
               imageUrl
             }
           }
-          usersRecentlyPlayed {
-            createdAt
-            user {
-              id
-              firstName
-              lastName
-            }
-          }
+          # usersRecentlyPlayed {
+          #   createdAt
+          #   user {
+          #     id
+          #     firstName
+          #     lastName
+          #   }
+          # }
         }
       }
       songs {

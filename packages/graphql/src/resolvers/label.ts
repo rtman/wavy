@@ -75,8 +75,8 @@ export class LabelResolvers {
             'songs.supportingArtists.artist',
             'songs.usersFavourited',
             'songs.usersFavourited.user',
-            'songs.usersRecentlyPlayed',
-            'songs.usersRecentlyPlayed.user',
+            // 'songs.usersRecentlyPlayed',
+            // 'songs.usersRecentlyPlayed.user',
           ],
         });
 
@@ -119,8 +119,8 @@ export class LabelResolvers {
             'songs.supportingArtists.artist',
             'songs.usersFavourited',
             'songs.usersFavourited.user',
-            'songs.usersRecentlyPlayed',
-            'songs.usersRecentlyPlayed.user',
+            // 'songs.usersRecentlyPlayed',
+            // 'songs.usersRecentlyPlayed.user',
           ],
         });
 
