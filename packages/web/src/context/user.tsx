@@ -56,7 +56,7 @@ export const UserProvider: FunctionComponent = (props) => {
   >(consts.queries.USER_BY_ID, {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
-      console.log('getUserById data.userById', data.userById);
+      console.log('*debug* getUserById data.userById', data.userById);
       setUser(data.userById);
       setPlaylists(data.userById.playlists);
     },
@@ -152,11 +152,15 @@ export const UserProvider: FunctionComponent = (props) => {
   useEffect(() => {
     const getClientGeoLocation = async () => {
       const getIpAddressResponse = await services.getIpAddress();
+      console.log('*debug* getIpAddressResponse', getIpAddressResponse);
+
       if (getIpAddressResponse.ok && getIpAddressResponse.data) {
         setIpAddress(getIpAddressResponse.data.ip);
         const getGeoLocationresponse = await services.getGeoLocation(
           getIpAddressResponse.data.ip
         );
+        console.log('*debug* getGeoLocationresponse', getGeoLocationresponse);
+
         if (getGeoLocationresponse.ok && getGeoLocationresponse.data) {
           setGeoLocation(getGeoLocationresponse.data);
         }

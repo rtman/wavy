@@ -290,7 +290,7 @@ export const CreateRelease = () => {
             artistId: id,
             imageRef: result.gsUrl,
             imageUrl: result.downloadUrl,
-            songsToAdd: resolvedSongsForUpload,
+            songsToAdd: resolvedSongsForUpload ?? { title: '', ref: '' },
           },
         },
       });

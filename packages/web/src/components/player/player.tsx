@@ -61,8 +61,15 @@ export const Player = () => {
   // time left when a user pauses playback. Take timer start and then when paused
   // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
+    console.log('*debug* filteredMediaState', filteredMediaState);
+    console.log('*debug* userId', userId);
+    console.log('*debug* currentSong?.id', currentSong?.id);
+    console.log('*debug* geoLocation', geoLocation);
     if (filteredMediaState === 'playing' && userId && currentSong?.id) {
+      console.log('*debug* playcount timerSet');
       playCountTimerRef.current = setTimeout(() => {
+        console.log('*debug* playcount callback');
+
         submitUpdateSongPlayCount({
           variables: { input: { id: currentSong?.id } },
         });
@@ -81,10 +88,13 @@ export const Player = () => {
         });
       }, minimumPlayLength * 1000);
     } else if (filteredMediaState !== 'playing') {
-      console.log('playCount - not playing');
+      console.log(
+        '*debug* playCount - not playing playCountTimerRef',
+        playCountTimerRef
+      );
 
       if (playCountTimerRef.current) {
-        console.log('playCount - reset timer');
+        console.log('*debug* playCount - reset timer');
         clearTimeout(playCountTimerRef.current);
       }
     }

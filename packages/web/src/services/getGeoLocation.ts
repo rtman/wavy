@@ -18,10 +18,9 @@ interface IpIfyGeoLocationResponse {
 export const getGeoLocation = async (ipAddress: string) => {
   try {
     const response = await fetch(
-      `https://geo.ipify.org/api/v1?apiKey=${config.IP_IFY_API_KEY}`,
+      `https://geo.ipify.org/api/v1?apiKey=${config.IP_IFY_API_KEY}&ipAddress=${ipAddress}`,
       {
         method: 'get',
-        body: JSON.stringify({ ipAddress }),
       }
     );
 

@@ -51,7 +51,9 @@ export const App = () => {
                   </UserProvider>
                 </TopBar>
                 <BottomBar>
-                  <Player />
+                  <UserProvider>
+                    <Player />
+                  </UserProvider>
                 </BottomBar>
               </SearchProvider>
             </PlayerProvider>

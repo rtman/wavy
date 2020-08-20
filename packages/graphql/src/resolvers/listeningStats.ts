@@ -113,9 +113,12 @@ export class ListeningStatsResolvers {
         .where(field, '==', value);
 
       const result = await userListeningStatsRef.get();
+
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
-        const data = (result.docs as unknown) as Models.ListeningStats[];
+        const data = result.docs.map(
+          (snapshot) => (snapshot.data() as unknown) as Models.ListeningStats
+        );
         return data;
       } else {
         console.log(`No queryStatsByField found for ${field} == ${value}`);
@@ -145,7 +148,9 @@ export class ListeningStatsResolvers {
       const result = await userListeningStatsRef.get();
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
-        const data = (result.docs as unknown) as Models.ListeningStats[];
+        const data = result.docs.map(
+          (snapshot) => (snapshot.data() as unknown) as Models.ListeningStats
+        );
         return data;
       } else {
         console.log(
@@ -204,7 +209,7 @@ export class ListeningStatsResolvers {
     @Arg('input') payload: UserPlayedSongArgs
   ): Promise<boolean> {
     try {
-      const { city, country, userId, songId, ...geoLocation } = payload;
+      const { city, country, userId, songId, lat, lng } = payload;
 
       const userStatsRef = admin
         .firestore()
@@ -223,7 +228,7 @@ export class ListeningStatsResolvers {
         if (userStats.exists) {
           await userStatsRef.update({
             plays: admin.firestore.FieldValue.increment(1),
-            geoLocation,
+            geoLocation: new admin.firestore.GeoPoint(lat, lng),
             city,
             country,
             updatedAt: new Date(),
@@ -239,7 +244,7 @@ export class ListeningStatsResolvers {
             userId,
             plays: 1,
             skips: 0,
-            geoLocation,
+            geoLocation: new admin.firestore.GeoPoint(lat, lng),
             city,
             country,
             createdAt: new Date(),
