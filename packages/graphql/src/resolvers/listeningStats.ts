@@ -13,7 +13,10 @@ import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
 
-interface RecentlyPlayed {
+export interface PlayHistoryUserDoc {
+  playHistory?: PlayHistoryItem[];
+}
+export interface PlayHistoryItem {
   songId: string;
   createdAt: Date;
 }
@@ -26,15 +29,8 @@ enum ListeningStatsQueryField {
   userId = 'userId',
 }
 
-// type listeningStatsQueryFields =
-//   | 'songId'
-//   | 'albumId'
-//   | 'artistId'
-//   | 'labelId'
-//   | 'userId';
-
 registerEnumType(ListeningStatsQueryField, {
-  name: 'ListeningStatsQueryField', // this one is mandatory
+  name: 'ListeningStatsQueryField',
 });
 
 @InputType()
@@ -55,16 +51,16 @@ class UserPlayedSongArgs {
   songId: string;
 
   @Field({ nullable: true })
-  city: string;
+  city?: string;
 
   @Field({ nullable: true })
-  country: string;
+  country?: string;
 
   @Field(() => Number, { nullable: true })
-  lat: number;
+  lat?: number;
 
   @Field(() => Number, { nullable: true })
-  lng: number;
+  lng?: number;
 }
 
 @InputType()
@@ -223,9 +219,9 @@ export class ListeningStatsResolvers {
         .collection('userStats')
         .doc(userId);
 
-      const userRecentlyPlayedRef = admin
+      const userPlayHistoryRef = admin
         .firestore()
-        .collection('recentlyPlayed')
+        .collection('playHistory')
         .doc(userId);
 
       const song = await getManager()
@@ -233,36 +229,42 @@ export class ListeningStatsResolvers {
         .findOne();
 
       const userStatsPromise = userStatsRef.get();
-      const userRecentlyPlayedPromise = userRecentlyPlayedRef.get();
+      const userPlayHistoryPromise = userPlayHistoryRef.get();
 
-      const firestorePromises = [userStatsPromise, userRecentlyPlayedPromise];
+      const firestorePromises = [userStatsPromise, userPlayHistoryPromise];
 
       const results = await Promise.all(firestorePromises);
-      const [userStats, userRecentlyPlayed] = results;
+      const [userStats, userPlayHistory] = results;
 
       if (song) {
-        const recentlyPlayed: RecentlyPlayed[] = userRecentlyPlayed.data()
-          ?.songs;
+        // set firestore doc type
+        const userPlayHistoryData: PlayHistoryUserDoc =
+          userPlayHistory.data() ?? {};
 
-        if (recentlyPlayed !== undefined) {
-          recentlyPlayed.unshift({
+        const { playHistory } = userPlayHistoryData;
+
+        if (playHistory !== undefined) {
+          playHistory.unshift({
             songId,
             createdAt: new Date(),
           });
-          if (recentlyPlayed.length > 99) {
-            recentlyPlayed.pop();
+          if (playHistory.length > 99) {
+            playHistory.pop();
           }
-          await userRecentlyPlayedRef.set({ songs: recentlyPlayed });
+          await userPlayHistoryRef.set({ playHistory });
         } else {
-          await userRecentlyPlayedRef.set({
-            songs: [{ songId, createdAt: new Date() }],
+          await userPlayHistoryRef.set({
+            playHistory: [{ songId, createdAt: new Date() }],
           });
         }
 
         if (userStats.exists) {
           await userStatsRef.update({
             plays: admin.firestore.FieldValue.increment(1),
-            geoLocation: new admin.firestore.GeoPoint(lat, lng),
+            geoLocation:
+              lat !== undefined && lng !== undefined
+                ? new admin.firestore.GeoPoint(lat, lng)
+                : undefined,
             city,
             country,
             updatedAt: new Date(),
@@ -278,7 +280,10 @@ export class ListeningStatsResolvers {
             userId,
             plays: 1,
             skips: 0,
-            geoLocation: new admin.firestore.GeoPoint(lat, lng),
+            geoLocation:
+              lat !== undefined && lng !== undefined
+                ? new admin.firestore.GeoPoint(lat, lng)
+                : undefined,
             city,
             country,
             createdAt: new Date(),

@@ -1,3 +1,4 @@
+import * as admin from 'firebase-admin';
 import {
   Arg,
   Ctx,
@@ -6,12 +7,12 @@ import {
   Mutation,
   Query,
   Resolver,
-  // Args,
 } from 'type-graphql';
 import { getManager } from 'typeorm';
 
-// import { Context } from '../main';
+import { Context } from '../main';
 import { Models } from '../orm';
+import { PlayHistoryUserDoc } from './listeningStats';
 
 @InputType({ description: 'Create a new user' })
 class CreateUserArgs implements Partial<Models.User> {
@@ -102,11 +103,10 @@ export class UserResolvers {
   @Query(() => Models.User)
   async userById(
     @Arg('id') id: string,
-    @Ctx() ctx: any
+    @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
       console.log('*debug* ctx.req.ip', ctx.req.ip);
-      console.log('*debug* ctx.req.clientIp', ctx.req.clientIp);
 
       const user = await getManager()
         .getRepository(Models.User)
@@ -148,10 +148,120 @@ export class UserResolvers {
     }
   }
 
+  @Query(() => [Models.Song])
+  async playHistory(@Arg('id') id: string): Promise<Models.Song[] | undefined> {
+    try {
+      const userListeningStatsRef = admin
+        .firestore()
+        .collection('playHistory')
+        .doc(id);
+
+      const result = await userListeningStatsRef.get();
+
+      if (result.exists) {
+        const recentlyPlayedUserDoc: PlayHistoryUserDoc = result.data() ?? {};
+        const { playHistory } = recentlyPlayedUserDoc;
+
+        if (playHistory) {
+          const songIds = playHistory.map((entry) => entry.songId);
+
+          const songs = await getManager()
+            .getRepository(Models.Song)
+            .findByIds(songIds, {
+              relations: [
+                'album',
+                'album.label',
+                'artist',
+                'artist.albums',
+                'label',
+                'supportingArtists',
+                'supportingArtists.artist',
+                'playlists',
+                'playlists.playlist',
+                'usersFavourited',
+                'usersFavourited.user',
+              ],
+            });
+
+          if (songs) {
+            return songs;
+          } else {
+            return;
+          }
+        } else {
+          console.log(`PlayHistory is falsy for this user ${id}`);
+
+          return;
+        }
+      } else {
+        console.log(`No recentlyPlayed document exists for this user ${id}`);
+
+        return;
+      }
+    } catch (error) {
+      console.log(`Error recentlyPlayed ${id}`, error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Song])
+  async topSongs(@Arg('id') id: string): Promise<Models.Song[] | undefined> {
+    try {
+      const topSongsref = admin
+        .firestore()
+        .collectionGroup('userStats')
+        .where('userId', '==', id)
+        .orderBy('plays', 'desc')
+        .limit(50);
+
+      const result = await topSongsref.get();
+
+      if (!result.empty) {
+        const songIds = result.docs.map((snapshot) => {
+          // We know what the firestore data shape is so this is ok
+          const data = (snapshot.data() as unknown) as Models.ListeningStats;
+          return data.songId;
+        });
+
+        const songs = await getManager()
+          .getRepository(Models.Song)
+          .findByIds(songIds, {
+            relations: [
+              'album',
+              'album.label',
+              'artist',
+              'artist.albums',
+              'label',
+              'supportingArtists',
+              'supportingArtists.artist',
+              'playlists',
+              'playlists.playlist',
+              'usersFavourited',
+              'usersFavourited.user',
+            ],
+          });
+
+        if (songs) {
+          return songs;
+        } else {
+          return;
+        }
+      } else {
+        console.log(`No listening stats exist for this user ${id}`);
+
+        return;
+      }
+    } catch (error) {
+      console.log(`Error topSongs ${id}`, error);
+
+      return;
+    }
+  }
+
   @Mutation(() => Models.User)
   async createUser(
     @Arg('input') payload: CreateUserArgs
-    // @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
       const repository = getManager().getRepository(Models.User);
