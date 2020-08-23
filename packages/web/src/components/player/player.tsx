@@ -71,7 +71,7 @@ export const Player = () => {
         console.log('*debug* playcount callback');
 
         submitUpdateSongPlayCount({
-          variables: { input: { id: currentSong?.id } },
+          variables: { input: { songId: currentSong?.id } },
         });
 
         userPlayedSong({

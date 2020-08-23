@@ -321,6 +321,7 @@ export type Query = {
   songById: Song;
   songsById: Array<Song>;
   searchSongs: Array<Song>;
+  topSongs: Array<Song>;
   playlists: Array<Playlist>;
   playlistById: Playlist;
   playlistsById: Array<Playlist>;
@@ -330,7 +331,7 @@ export type Query = {
   users: Scalars['Boolean'];
   userById: User;
   playHistory: Array<Song>;
-  topSongs: Array<Song>;
+  usersTopSongs: Array<Song>;
 };
 
 export type QueryAlbumByIdArgs = {
@@ -417,7 +418,7 @@ export type QueryPlayHistoryArgs = {
   userId: Scalars['String'];
 };
 
-export type QueryTopSongsArgs = {
+export type QueryUsersTopSongsArgs = {
   userId: Scalars['String'];
 };
 
@@ -1234,6 +1235,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerySearchSongsArgs, 'query'>
   >;
+  topSongs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   playlists?: Resolver<
     Array<ResolversTypes['Playlist']>,
     ParentType,
@@ -1282,11 +1284,11 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryPlayHistoryArgs, 'userId'>
   >;
-  topSongs?: Resolver<
+  usersTopSongs?: Resolver<
     Array<ResolversTypes['Song']>,
     ParentType,
     ContextType,
-    RequireFields<QueryTopSongsArgs, 'userId'>
+    RequireFields<QueryUsersTopSongsArgs, 'userId'>
   >;
 };
 

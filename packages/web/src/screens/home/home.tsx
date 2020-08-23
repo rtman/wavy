@@ -41,11 +41,38 @@ export const Home = () => {
     // error: newLabelsError,
     data: newLabelsData,
   } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.label.NEW_LABELS);
+  const {
+    loading: usersTopSongsLoading,
+    // error: newLabelsError,
+    data: usersTopSongsData,
+  } = useQuery<Pick<Query, 'usersTopSongs'>>(
+    consts.queries.user.USERS_TOP_SONGS,
+    {
+      variables: { userId: user?.id },
+    }
+  );
+  const {
+    loading: playHistoryLoading,
+    // error: newLabelsError,
+    data: playHistoryData,
+  } = useQuery<Pick<Query, 'playHistory'>>(consts.queries.user.PLAY_HISTORY, {
+    variables: { userId: user?.id },
+  });
+  const {
+    loading: topSongsLoading,
+    // error: newLabelsError,
+    data: topSongsData,
+  } = useQuery<Pick<Query, 'topSongs'>>(consts.queries.song.TOP_SONGS);
 
   const newArtists = newArtistsData?.newArtists ?? [];
   const newLabels = newLabelsData?.newLabels ?? [];
+  const usersTopSongs = usersTopSongsData?.usersTopSongs ?? [];
+  const topSongs = topSongsData?.topSongs ?? [];
+  // already uniquefied by typeORM findByIds
+  const playHistory = playHistoryData?.playHistory ?? [];
 
   const renderCardList = (items: Item[]) => {
+    //eslint-disable-next-line no-self-compare
     if (items?.length ?? 0 > 0) {
       const itemsList: JSX.Element[] = [];
       items.forEach((item: Item) =>
@@ -93,6 +120,24 @@ export const Home = () => {
         title: 'New Artists',
         data: newArtists,
         loading: newArtistsLoading,
+      })}
+
+      {renderSection({
+        title: 'Top Songs',
+        data: topSongs,
+        loading: topSongsLoading,
+      })}
+
+      {renderSection({
+        title: 'Your Top Songs',
+        data: usersTopSongs,
+        loading: usersTopSongsLoading,
+      })}
+
+      {renderSection({
+        title: 'Play History',
+        data: playHistory,
+        loading: playHistoryLoading,
       })}
 
       {renderSection({

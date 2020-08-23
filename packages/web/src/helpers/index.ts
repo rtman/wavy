@@ -1,6 +1,7 @@
 import * as hooks from './hooks';
 
-export { getStorageHttpUrl } from './getStorageHttpUrl';
-export { filterMediaStates } from './filterMediaStates';
+export * from './getStorageHttpUrl';
+export * from './getUniqueArrayOfObjects';
+export * from './filterMediaStates';
 
 export { hooks };

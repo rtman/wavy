@@ -70,7 +70,7 @@ export const AuthProvider: FunctionComponent = (props) => {
               lastName,
               email,
               password,
-              id: firebaseCredential.user.uid,
+              userId: firebaseCredential.user.uid,
             },
           },
         });
@@ -130,14 +130,14 @@ export const AuthProvider: FunctionComponent = (props) => {
   };
 
   const userIdExists = useCallback(
-    async (id: string) => {
+    async (userId: string) => {
       try {
         const result = await apolloClient.query<
           Pick<Query, 'userIdExists'>,
           QueryUserIdExistsArgs
         >({
           query: consts.queries.user.USER_ID_EXISTS,
-          variables: { id },
+          variables: { userId },
         });
 
         if (result.errors) {

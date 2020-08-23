@@ -292,7 +292,7 @@ export const CreateRelease = () => {
             input: {
               ...data.album,
               description: '', //TODO: description field, undefined uses default ''
-              id: result.id,
+              albumId: result.id,
               artistId: id,
               imageRef: result.gsUrl,
               imageUrl: result.downloadUrl,

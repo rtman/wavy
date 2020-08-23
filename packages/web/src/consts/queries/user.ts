@@ -26,9 +26,9 @@ export const PLAY_HISTORY = gql`
   }
 `;
 
-export const TOP_SONGS = gql`
-  query topSongs($userId: String!) {
-    topSongs(userId: $userId) {
+export const USERS_TOP_SONGS = gql`
+  query usersTopSongs($userId: String!) {
+    usersTopSongs(userId: $userId) {
       id
       title
       url

@@ -1,3 +1,4 @@
+import * as admin from 'firebase-admin';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 
@@ -157,6 +158,59 @@ export class SongResolvers {
       return;
     } catch (error) {
       console.log('searchSongs error', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Song])
+  async topSongs(): Promise<Models.Song[] | undefined> {
+    try {
+      const topSongsRef = admin
+        .firestore()
+        .collectionGroup('userStats')
+        .orderBy('plays')
+        .limit(50);
+
+      const result = await topSongsRef.get();
+
+      if (!result.empty) {
+        const songIds = result.docs.map((snapshot) => {
+          // We know what the firestore data shape is so this is ok
+          const data = (snapshot.data() as unknown) as Models.ListeningStats;
+          return data.songId;
+        });
+
+        const songs = await getManager()
+          .getRepository(Models.Song)
+          .findByIds(songIds, {
+            relations: [
+              'album',
+              'album.label',
+              'artist',
+              'artist.albums',
+              'label',
+              'supportingArtists',
+              'supportingArtists.artist',
+              'playlists',
+              'playlists.playlist',
+              'usersFavourited',
+              'usersFavourited.user',
+            ],
+          });
+
+        if (songs) {
+          return songs;
+        } else {
+          return;
+        }
+      } else {
+        console.log('No listening stats were found');
+
+        return;
+      }
+    } catch (error) {
+      console.log('Error topSongs', error);
 
       return;
     }

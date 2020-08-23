@@ -208,18 +208,18 @@ export class UserResolvers {
   }
 
   @Query(() => [Models.Song])
-  async topSongs(
+  async usersTopSongs(
     @Arg('userId') userId: string
   ): Promise<Models.Song[] | undefined> {
     try {
-      const topSongsref = admin
+      const usersTopSongsRef = admin
         .firestore()
         .collectionGroup('userStats')
         .where('userId', '==', userId)
         .orderBy('plays', 'desc')
         .limit(50);
 
-      const result = await topSongsref.get();
+      const result = await usersTopSongsRef.get();
 
       if (!result.empty) {
         const songIds = result.docs.map((snapshot) => {
@@ -257,7 +257,7 @@ export class UserResolvers {
         return;
       }
     } catch (error) {
-      console.log(`Error topSongs ${userId}`, error);
+      console.log(`Error usersTopSongs ${userId}`, error);
 
       return;
     }

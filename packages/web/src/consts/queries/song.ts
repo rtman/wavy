@@ -52,3 +52,29 @@ export const SEARCH_SONGS_QUERY = gql`
     }
   }
 `;
+
+export const TOP_SONGS = gql`
+  query topSongs {
+    topSongs {
+      id
+      title
+      url
+      imageUrl
+      label {
+        id
+        name
+        imageUrl
+      }
+      artist {
+        id
+        name
+        imageUrl
+      }
+      album {
+        id
+        title
+        imageUrl
+      }
+    }
+  }
+`;

@@ -48,26 +48,26 @@ services:
     depends_on:
       - postgresql
 
-  web:
-    container_name: web
-    restart: always
-    build:
-      context: ./packages/web
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    links:
-      - graphql
-    depends_on:
-      - postgresql
-      - graphql
-      - migration
-      - es01
-    volumes:
-      - "./packages/web:/web"
-      - "/web/node_modules"
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+  # web:
+  #   container_name: web
+  #   restart: always
+  #   build:
+  #     context: ./packages/web
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - graphql
+  #   depends_on:
+  #     - postgresql
+  #     - graphql
+  #     - migration
+  #     - es01
+  #   volumes:
+  #     - "./packages/web:/web"
+  #     - "/web/node_modules"
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
 
   # https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html
   es01:
