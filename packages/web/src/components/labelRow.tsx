@@ -32,7 +32,7 @@ export const LabelRow = (props: LabelRowProps) => {
     getLabelById,
     { loading: queryLoading, data: queryData },
   ] = useLazyQuery<Pick<Query, 'labelById'>, QueryLabelByIdArgs>(
-    consts.queries.LABEL_BY_ID
+    consts.queries.label.LABEL_BY_ID
   );
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,7 +44,7 @@ export const LabelRow = (props: LabelRowProps) => {
   };
 
   const handleClickPlayNow = () => {
-    getLabelById({ variables: { id: label.id } });
+    getLabelById({ variables: { labelId: label.id } });
     handleMenuClose();
   };
 

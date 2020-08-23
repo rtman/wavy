@@ -66,7 +66,7 @@ export const ArtistDashboard = () => {
   const [getArtistById, { loading: queryLoading }] = useLazyQuery<
     ArtistByIdData,
     QueryArtistByIdArgs
-  >(consts.queries.ARTIST_BY_ID, {
+  >(consts.queries.artist.ARTIST_BY_ID, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
       setArtist(data.artistById);
@@ -78,7 +78,7 @@ export const ArtistDashboard = () => {
   useEffect(() => {
     if (id) {
       getArtistById({
-        variables: { id },
+        variables: { artistId: id },
       });
     } else {
       console.log('artist.getArtistById - no Id');

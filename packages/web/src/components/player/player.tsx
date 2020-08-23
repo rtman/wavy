@@ -29,7 +29,7 @@ export const Player = () => {
   const [submitUpdateSongPlayCount] = useMutation<
     Pick<Mutation, 'updateSongPlayCount'>,
     MutationUpdateSongPlayCountArgs
-  >(consts.mutations.UPDATE_SONG_PLAY_COUNT, {
+  >(consts.mutations.song.UPDATE_SONG_PLAY_COUNT, {
     onCompleted() {
       console.log('submitUpdatedSongPlayCount onComplete');
     },
@@ -38,7 +38,7 @@ export const Player = () => {
   const [userPlayedSong] = useMutation<
     Pick<Mutation, 'userPlayedSong'>,
     MutationUserPlayedSongArgs
-  >(consts.mutations.USER_PLAYED_SONG, {
+  >(consts.mutations.song.USER_PLAYED_SONG, {
     onCompleted() {
       console.log('userPlayedSong onComplete');
     },

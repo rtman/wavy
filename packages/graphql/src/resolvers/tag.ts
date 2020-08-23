@@ -21,7 +21,7 @@ class CreateTagArgs implements Partial<Models.Tag> {
 @InputType()
 class AddTagToSongArgs implements Partial<Models.Tag> {
   @Field(() => ID)
-  id: string;
+  tagId: string;
 
   @Field(() => String)
   title: string;
@@ -33,7 +33,7 @@ class AddTagToSongArgs implements Partial<Models.Tag> {
 @InputType()
 class RemoveTagFromSongArgs implements Partial<Models.Tag> {
   @Field(() => ID)
-  id: string;
+  tagId: string;
 
   @Field(() => String)
   title: string;
@@ -64,12 +64,12 @@ export class TagResolvers {
   }
 
   @Query(() => Models.Tag)
-  async tagById(@Arg('id') id: string): Promise<Models.Tag | undefined> {
+  async tagById(@Arg('tagId') tagId: string): Promise<Models.Tag | undefined> {
     try {
       const tag = await getManager()
         .getRepository(Models.Tag)
         .findOne({
-          where: { id },
+          where: { id: tagId },
           relations: [
             'songs',
             'songs.song',
@@ -86,7 +86,7 @@ export class TagResolvers {
         return tag;
       }
 
-      console.log('Tag not found', id);
+      console.log('Tag not found', tagId);
 
       return;
     } catch (error) {
@@ -98,14 +98,14 @@ export class TagResolvers {
 
   @Query(() => [Models.Tag])
   async tagsById(
-    @Arg('ids', () => [String]) ids: string[]
+    @Arg('tagIds', () => [String]) tagIds: string[]
   ): Promise<Models.Tag[] | undefined> {
     try {
       const tags = await getManager()
         .getRepository(Models.Tag)
         .find({
           where: {
-            id: ids,
+            id: tagIds,
           },
         });
 
@@ -175,17 +175,20 @@ export class TagResolvers {
     @Arg('input') payload: AddTagToSongArgs
   ): Promise<boolean> {
     try {
-      const { id: tagId, title, songId } = payload;
+      const { tagId, title, songId } = payload;
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
-          const tagRepository = transactionalEntityManager.getRepository(
+          const songTagRepository = transactionalEntityManager.getRepository(
             Models.SongTag
           );
           const songRepository = transactionalEntityManager.getRepository(
             Models.Song
           );
 
-          const addedTagSongRelation = tagRepository.create({ tagId, songId });
+          const addedTagSongRelation = songTagRepository.create({
+            tagId,
+            songId,
+          });
           const songToUpdate = await songRepository.findOne(songId);
 
           const addTagToTagSearchString = ({
@@ -206,7 +209,7 @@ export class TagResolvers {
           if (addedTagSongRelation && songToUpdate) {
             songToUpdate?.tagSearchString;
 
-            await tagRepository.save(addedTagSongRelation);
+            await songTagRepository.save(addedTagSongRelation);
 
             if (!songToUpdate.tagSearchString.includes(title)) {
               const newTagSearchString = addTagToTagSearchString({
@@ -240,7 +243,7 @@ export class TagResolvers {
     @Arg('input') payload: RemoveTagFromSongArgs
   ): Promise<boolean> {
     try {
-      const { id: tagId, title, songId } = payload;
+      const { tagId, title, songId } = payload;
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
           const repository = transactionalEntityManager.getRepository(

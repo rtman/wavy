@@ -33,7 +33,7 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
 @InputType()
 class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
   @Field(() => ID)
-  id: string;
+  playlistId: string;
 
   @Field({ nullable: true })
   title?: string;
@@ -49,18 +49,18 @@ class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
 }
 
 @InputType()
-class AddPlaylistSongsArgs implements Partial<Models.Playlist> {
+class AddPlaylistSongsArgs {
   @Field(() => ID)
-  id: string;
+  playlistId: string;
 
   @Field(() => [ID])
   songIds: string[];
 }
 
 @InputType()
-class RemovePlaylistSongsArgs implements Partial<Models.Playlist> {
+class RemovePlaylistSongsArgs {
   @Field(() => ID)
-  id: string;
+  playlistId: string;
 
   @Field(() => [ID])
   songIds: string[];
@@ -98,13 +98,13 @@ export class PlaylistResolvers {
 
   @Query(() => Models.Playlist)
   async playlistById(
-    @Arg('id') id: string
+    @Arg('playlistId') playlistId: string
   ): Promise<Models.Playlist | undefined> {
     try {
       const playlist = await getManager()
         .getRepository(Models.Playlist)
         .findOne({
-          where: { id },
+          where: { id: playlistId },
           relations: [
             'songs',
             'songs.song',
@@ -123,7 +123,7 @@ export class PlaylistResolvers {
         return playlist;
       }
 
-      console.log('Playlist not found', id);
+      console.log('Playlist not found', playlistId);
 
       return;
     } catch (error) {
@@ -135,14 +135,14 @@ export class PlaylistResolvers {
 
   @Query(() => [Models.Playlist])
   async playlistsById(
-    @Arg('ids', () => [String]) ids: string[]
+    @Arg('playlistIds', () => [String]) playlistIds: string[]
   ): Promise<Models.Playlist[] | undefined> {
     try {
       const playlists = await getManager()
         .getRepository(Models.Playlist)
         .find({
           where: {
-            id: ids,
+            id: playlistIds,
           },
         });
 
@@ -242,19 +242,21 @@ export class PlaylistResolvers {
     @Arg('input') payload: CreatePlaylistArgs
   ): Promise<Models.Playlist | undefined> {
     try {
-      const playlistRepo = getManager().getRepository(Models.Playlist);
-      const playlist = playlistRepo.create(payload);
+      const { userId } = payload;
 
-      if (!playlist) {
-        console.log('CreatePlaylist playlist failed', payload);
+      const playlistRepo = getManager().getRepository(Models.Playlist);
+      const newPlaylist = playlistRepo.create(payload);
+
+      if (!newPlaylist) {
+        console.log('CreatePlaylist failed', payload);
       }
 
-      await playlistRepo.save(playlist);
+      await playlistRepo.save(newPlaylist);
 
       const userPlaylistRepo = getManager().getRepository(Models.UserPlaylist);
       const userPlaylistPayload = {
-        userId: payload.userId,
-        playlistId: playlist.id,
+        userId,
+        playlistId: newPlaylist.id,
       };
       const userPlaylist = userPlaylistRepo.create(userPlaylistPayload);
 
@@ -267,7 +269,7 @@ export class PlaylistResolvers {
 
       await userPlaylistRepo.save(userPlaylist);
 
-      return playlist;
+      return newPlaylist;
     } catch (error) {
       console.log('createPlaylist error', error);
 
@@ -280,12 +282,14 @@ export class PlaylistResolvers {
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
     try {
+      const { playlistId } = payload;
+
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
           const repository = transactionalEntityManager.getRepository(
             Models.Playlist
           );
-          const playlist = await repository.update(payload.id, payload);
+          const playlist = await repository.update(playlistId, payload);
 
           if (playlist) {
             return true;
@@ -310,20 +314,20 @@ export class PlaylistResolvers {
     @Arg('input') payload: AddPlaylistSongsArgs
   ): Promise<boolean> {
     try {
-      const { id, songIds } = payload;
+      const { playlistId, songIds } = payload;
 
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
-          const repository = transactionalEntityManager.getRepository(
+          const songPlaylistRepository = transactionalEntityManager.getRepository(
             Models.SongPlaylist
           );
 
           const addedSongs = songIds.map((songId) =>
-            repository.create({ playlistId: id, songId })
+            songPlaylistRepository.create({ playlistId, songId })
           );
 
           if (addedSongs) {
-            await repository.save(addedSongs);
+            await songPlaylistRepository.save(addedSongs);
 
             return true;
           }
@@ -346,7 +350,7 @@ export class PlaylistResolvers {
     @Arg('input') payload: RemovePlaylistSongsArgs
   ): Promise<boolean> {
     try {
-      const { id, songIds } = payload;
+      const { playlistId, songIds } = payload;
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
           const repository = transactionalEntityManager.getRepository(
@@ -354,7 +358,7 @@ export class PlaylistResolvers {
           );
 
           const instances = songIds.map((songId) => {
-            return { playlistId: id, songId };
+            return { playlistId, songId };
           });
           const removedSongs = await repository.find({ where: instances });
 
@@ -386,9 +390,11 @@ export class PlaylistResolvers {
     @Arg('input') payload: DeletePlaylistArgs
   ): Promise<boolean> {
     try {
+      const { playlistId } = payload;
+
       const playlistRepo = getManager().getRepository(Models.Playlist);
       const playlistToDelete = await playlistRepo.findOne({
-        where: { id: payload.playlistId },
+        where: { id: playlistId },
       });
 
       if (playlistToDelete) {

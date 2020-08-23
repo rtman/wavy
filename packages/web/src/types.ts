@@ -21,7 +21,7 @@ export type Scalars = {
 };
 
 export type AddPlaylistSongsArgs = {
-  id: Scalars['ID'];
+  playlistId: Scalars['ID'];
   songIds: Array<Scalars['ID']>;
 };
 
@@ -70,7 +70,7 @@ export type ArtistLabel = {
 
 /** Create a new album */
 export type CreateAlbumArgs = {
-  id: Scalars['String'];
+  albumId: Scalars['String'];
   title: Scalars['String'];
   description: Scalars['String'];
   songsToAdd: Array<NewSongArgs>;
@@ -114,7 +114,7 @@ export type CreateSongArgs = {
 
 /** Create a new user */
 export type CreateUserArgs = {
-  id: Scalars['String'];
+  userId: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   email: Scalars['String'];
@@ -197,7 +197,7 @@ export type MutationCreateAlbumArgs = {
 };
 
 export type MutationDeleteAlbumArgs = {
-  id: Scalars['String'];
+  albumId: Scalars['String'];
 };
 
 export type MutationCreateArtistArgs = {
@@ -205,7 +205,7 @@ export type MutationCreateArtistArgs = {
 };
 
 export type MutationDeleteArtistArgs = {
-  id: Scalars['String'];
+  artistId: Scalars['String'];
 };
 
 export type MutationCreateLabelArgs = {
@@ -213,7 +213,7 @@ export type MutationCreateLabelArgs = {
 };
 
 export type MutationDeleteLabelArgs = {
-  id: Scalars['String'];
+  labelId: Scalars['String'];
 };
 
 export type MutationUserPlayedSongArgs = {
@@ -233,7 +233,7 @@ export type MutationUpdateSongTitleArgs = {
 };
 
 export type MutationDeleteSongArgs = {
-  id: Scalars['String'];
+  songId: Scalars['String'];
 };
 
 export type MutationUpdateSongPlayCountArgs = {
@@ -277,7 +277,7 @@ export type MutationUpdatePlaylistsArgs = {
 };
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type NewSongArgs = {
@@ -316,6 +316,7 @@ export type Query = {
   queryStatsByField: Array<ListeningStats>;
   queryStatsByFieldForNumberOfMonths: Array<ListeningStats>;
   queryStatsForCompoundQuery: Array<ListeningStats>;
+  searchAll: Search;
   songs: Array<Song>;
   songById: Song;
   songsById: Array<Song>;
@@ -328,10 +329,12 @@ export type Query = {
   userIdExists: Scalars['Boolean'];
   users: Scalars['Boolean'];
   userById: User;
+  playHistory: Array<Song>;
+  topSongs: Array<Song>;
 };
 
 export type QueryAlbumByIdArgs = {
-  id: Scalars['String'];
+  albumId: Scalars['String'];
 };
 
 export type QuerySearchAlbumsArgs = {
@@ -339,11 +342,11 @@ export type QuerySearchAlbumsArgs = {
 };
 
 export type QueryArtistByIdArgs = {
-  id: Scalars['String'];
+  artistId: Scalars['String'];
 };
 
 export type QueryArtistsByIdArgs = {
-  ids: Array<Scalars['String']>;
+  artistIds: Array<Scalars['String']>;
 };
 
 export type QuerySearchArtistsArgs = {
@@ -351,7 +354,7 @@ export type QuerySearchArtistsArgs = {
 };
 
 export type QueryLabelByIdArgs = {
-  id: Scalars['String'];
+  labelId: Scalars['String'];
 };
 
 export type QuerySearchLabelsArgs = {
@@ -370,12 +373,16 @@ export type QueryQueryStatsForCompoundQueryArgs = {
   input: QueryStatsForCompoundQuery;
 };
 
+export type QuerySearchAllArgs = {
+  query: Scalars['String'];
+};
+
 export type QuerySongByIdArgs = {
-  id: Scalars['String'];
+  songId: Scalars['String'];
 };
 
 export type QuerySongsByIdArgs = {
-  ids: Array<Scalars['String']>;
+  songIds: Array<Scalars['String']>;
 };
 
 export type QuerySearchSongsArgs = {
@@ -383,11 +390,11 @@ export type QuerySearchSongsArgs = {
 };
 
 export type QueryPlaylistByIdArgs = {
-  id: Scalars['String'];
+  playlistId: Scalars['String'];
 };
 
 export type QueryPlaylistsByIdArgs = {
-  ids: Array<Scalars['String']>;
+  playlistIds: Array<Scalars['String']>;
 };
 
 export type QueryPlaylistsByUserIdArgs = {
@@ -399,11 +406,19 @@ export type QuerySearchPlaylistsArgs = {
 };
 
 export type QueryUserIdExistsArgs = {
-  id: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type QueryUserByIdArgs = {
-  id: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type QueryPlayHistoryArgs = {
+  userId: Scalars['String'];
+};
+
+export type QueryTopSongsArgs = {
+  userId: Scalars['String'];
 };
 
 export type QueryStatsByField = {
@@ -425,8 +440,17 @@ export type QueryStatsForCompoundQuery = {
 };
 
 export type RemovePlaylistSongsArgs = {
-  id: Scalars['ID'];
+  playlistId: Scalars['ID'];
   songIds: Array<Scalars['ID']>;
+};
+
+export type Search = {
+  __typename?: 'Search';
+  albums: Array<Album>;
+  artists: Array<Artist>;
+  labels: Array<Label>;
+  playlists: Array<Playlist>;
+  songs: Array<Song>;
 };
 
 export type Song = {
@@ -504,11 +528,11 @@ export type UpdateFollowingArgs = {
 };
 
 export type UpdatePlayCountArgs = {
-  id: Scalars['String'];
+  songId: Scalars['String'];
 };
 
 export type UpdatePlaylistInfoArgs = {
-  id: Scalars['ID'];
+  playlistId: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   imageRef?: Maybe<Scalars['String']>;
@@ -522,7 +546,7 @@ export type UpdatePlaylistsArgs = {
 
 export type UpdateSongTitleArgs = {
   title: Scalars['String'];
-  id: Scalars['String'];
+  songId: Scalars['String'];
 };
 
 export type User = {
@@ -746,6 +770,7 @@ export type ResolversTypes = {
   ListeningStats: ResolverTypeWrapper<ListeningStats>;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
+  Search: ResolverTypeWrapper<Search>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
@@ -795,6 +820,7 @@ export type ResolversParentTypes = {
   ListeningStats: ListeningStats;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
+  Search: Search;
   Boolean: Scalars['Boolean'];
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
@@ -958,7 +984,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationDeleteAlbumArgs, 'id'>
+    RequireFields<MutationDeleteAlbumArgs, 'albumId'>
   >;
   createArtist?: Resolver<
     ResolversTypes['Artist'],
@@ -970,7 +996,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationDeleteArtistArgs, 'id'>
+    RequireFields<MutationDeleteArtistArgs, 'artistId'>
   >;
   createLabel?: Resolver<
     ResolversTypes['Label'],
@@ -982,7 +1008,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationDeleteLabelArgs, 'id'>
+    RequireFields<MutationDeleteLabelArgs, 'labelId'>
   >;
   userPlayedSong?: Resolver<
     ResolversTypes['Boolean'],
@@ -1012,7 +1038,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationDeleteSongArgs, 'id'>
+    RequireFields<MutationDeleteSongArgs, 'songId'>
   >;
   updateSongPlayCount?: Resolver<
     ResolversTypes['Boolean'],
@@ -1078,7 +1104,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationDeleteUserArgs, 'id'>
+    RequireFields<MutationDeleteUserArgs, 'userId'>
   >;
 };
 
@@ -1119,7 +1145,7 @@ export type QueryResolvers<
     ResolversTypes['Album'],
     ParentType,
     ContextType,
-    RequireFields<QueryAlbumByIdArgs, 'id'>
+    RequireFields<QueryAlbumByIdArgs, 'albumId'>
   >;
   searchAlbums?: Resolver<
     Array<ResolversTypes['Album']>,
@@ -1137,13 +1163,13 @@ export type QueryResolvers<
     ResolversTypes['Artist'],
     ParentType,
     ContextType,
-    RequireFields<QueryArtistByIdArgs, 'id'>
+    RequireFields<QueryArtistByIdArgs, 'artistId'>
   >;
   artistsById?: Resolver<
     Array<ResolversTypes['Artist']>,
     ParentType,
     ContextType,
-    RequireFields<QueryArtistsByIdArgs, 'ids'>
+    RequireFields<QueryArtistsByIdArgs, 'artistIds'>
   >;
   searchArtists?: Resolver<
     Array<ResolversTypes['Artist']>,
@@ -1157,7 +1183,7 @@ export type QueryResolvers<
     ResolversTypes['Label'],
     ParentType,
     ContextType,
-    RequireFields<QueryLabelByIdArgs, 'id'>
+    RequireFields<QueryLabelByIdArgs, 'labelId'>
   >;
   searchLabels?: Resolver<
     Array<ResolversTypes['Label']>,
@@ -1183,18 +1209,24 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryQueryStatsForCompoundQueryArgs, 'input'>
   >;
+  searchAll?: Resolver<
+    ResolversTypes['Search'],
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchAllArgs, 'query'>
+  >;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   songById?: Resolver<
     ResolversTypes['Song'],
     ParentType,
     ContextType,
-    RequireFields<QuerySongByIdArgs, 'id'>
+    RequireFields<QuerySongByIdArgs, 'songId'>
   >;
   songsById?: Resolver<
     Array<ResolversTypes['Song']>,
     ParentType,
     ContextType,
-    RequireFields<QuerySongsByIdArgs, 'ids'>
+    RequireFields<QuerySongsByIdArgs, 'songIds'>
   >;
   searchSongs?: Resolver<
     Array<ResolversTypes['Song']>,
@@ -1211,13 +1243,13 @@ export type QueryResolvers<
     ResolversTypes['Playlist'],
     ParentType,
     ContextType,
-    RequireFields<QueryPlaylistByIdArgs, 'id'>
+    RequireFields<QueryPlaylistByIdArgs, 'playlistId'>
   >;
   playlistsById?: Resolver<
     Array<ResolversTypes['Playlist']>,
     ParentType,
     ContextType,
-    RequireFields<QueryPlaylistsByIdArgs, 'ids'>
+    RequireFields<QueryPlaylistsByIdArgs, 'playlistIds'>
   >;
   playlistsByUserId?: Resolver<
     Array<ResolversTypes['Playlist']>,
@@ -1235,15 +1267,43 @@ export type QueryResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<QueryUserIdExistsArgs, 'id'>
+    RequireFields<QueryUserIdExistsArgs, 'userId'>
   >;
   users?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   userById?: Resolver<
     ResolversTypes['User'],
     ParentType,
     ContextType,
-    RequireFields<QueryUserByIdArgs, 'id'>
+    RequireFields<QueryUserByIdArgs, 'userId'>
   >;
+  playHistory?: Resolver<
+    Array<ResolversTypes['Song']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryPlayHistoryArgs, 'userId'>
+  >;
+  topSongs?: Resolver<
+    Array<ResolversTypes['Song']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTopSongsArgs, 'userId'>
+  >;
+};
+
+export type SearchResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Search'] = ResolversParentTypes['Search']
+> = {
+  albums?: Resolver<Array<ResolversTypes['Album']>, ParentType, ContextType>;
+  artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  labels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;
+  playlists?: Resolver<
+    Array<ResolversTypes['Playlist']>,
+    ParentType,
+    ContextType
+  >;
+  songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type SongResolvers<
@@ -1459,6 +1519,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Search?: SearchResolvers<ContextType>;
   Song?: SongResolvers<ContextType>;
   SongArtistSupportingArtist?: SongArtistSupportingArtistResolvers<ContextType>;
   SongPlaylist?: SongPlaylistResolvers<ContextType>;

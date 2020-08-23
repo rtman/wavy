@@ -20,7 +20,7 @@ export const Queue = () => {
     submitSongIds,
     { loading: queryLoading, data: queryData },
   ] = useLazyQuery<Pick<Query, 'songsById'>, QuerySongsByIdArgs>(
-    consts.queries.SONGS_BY_ID_QUERY
+    consts.queries.song.SONGS_BY_ID_QUERY
   );
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export const Queue = () => {
 
   useEffect(() => {
     if (songIds.length > 0) {
-      submitSongIds({ variables: { ids: songIds } });
+      submitSongIds({ variables: { songIds } });
     } else {
       console.log('queue.submitSongIds - no ids');
     }

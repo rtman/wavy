@@ -46,7 +46,7 @@ export const Playlist = () => {
     getPlaylist,
     { loading: queryLoading, data: queryData },
   ] = useLazyQuery<Pick<Query, 'playlistById'>, QueryPlaylistByIdArgs>(
-    consts.queries.PLAYLIST_BY_ID,
+    consts.queries.playlist.PLAYLIST_BY_ID,
     {
       fetchPolicy: 'network-only',
     }
@@ -54,10 +54,10 @@ export const Playlist = () => {
   const [submitPlaylistInfo] = useMutation<
     Pick<Mutation, 'updatePlaylistInfo'>,
     MutationUpdatePlaylistInfoArgs
-  >(consts.mutations.UPDATE_PLAYLIST_INFO, {
+  >(consts.mutations.playlist.UPDATE_PLAYLIST_INFO, {
     onCompleted() {
       if (id) {
-        getPlaylist({ variables: { id } });
+        getPlaylist({ variables: { playlistId: id } });
       }
     },
   });
@@ -69,7 +69,7 @@ export const Playlist = () => {
 
   useEffect(() => {
     if (id) {
-      getPlaylist({ variables: { id } });
+      getPlaylist({ variables: { playlistId: id } });
     }
   }, [getPlaylist, id]);
 
@@ -99,7 +99,11 @@ export const Playlist = () => {
   const onClickSave = () => {
     submitPlaylistInfo({
       variables: {
-        input: { title: playlistTitle, description: playlistDescription, id },
+        input: {
+          title: playlistTitle,
+          description: playlistDescription,
+          playlistId: id,
+        },
       },
     });
     setEditModalVisible(false);

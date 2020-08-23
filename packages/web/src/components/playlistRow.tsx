@@ -30,7 +30,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     getPlaylistById,
     { loading: queryLoading, data: queryData },
   ] = useLazyQuery<Pick<Query, 'playlistById'>, QueryPlaylistByIdArgs>(
-    consts.queries.PLAYLIST_BY_ID
+    consts.queries.playlist.PLAYLIST_BY_ID
   );
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -43,7 +43,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
 
   // TODO: fix, this isnt setup right
   const handleClickPlayNow = () => {
-    getPlaylistById({ variables: { id: playlist.id } });
+    getPlaylistById({ variables: { playlistId: playlist.id } });
     handleMenuClose();
   };
 

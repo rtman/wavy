@@ -30,7 +30,7 @@ export const Label = () => {
   const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
     Pick<Query, 'labelById'>,
     QueryLabelByIdArgs
-  >(consts.queries.LABEL_BY_ID, {
+  >(consts.queries.label.LABEL_BY_ID, {
     fetchPolicy: 'network-only',
   });
 
@@ -43,7 +43,7 @@ export const Label = () => {
 
   useEffect(() => {
     if (id) {
-      getLabel({ variables: { id } });
+      getLabel({ variables: { labelId: id } });
     }
   }, [getLabel, id]);
 

@@ -17,7 +17,7 @@ import { PlayHistoryUserDoc } from './listeningStats';
 @InputType({ description: 'Create a new user' })
 class CreateUserArgs implements Partial<Models.User> {
   @Field()
-  id: string;
+  userId: string;
 
   @Field()
   firstName: string;
@@ -63,16 +63,16 @@ class UpdatePlaylistsArgs implements Partial<Models.UserPlaylist> {
 @Resolver(Models.User)
 export class UserResolvers {
   @Query(() => Boolean)
-  async userIdExists(@Arg('id') id: string): Promise<boolean> {
+  async userIdExists(@Arg('userId') userId: string): Promise<boolean> {
     try {
       const user = await getManager()
         .getRepository(Models.User)
         .findOne({
-          where: { id },
+          where: { id: userId },
         });
 
       if (user === undefined) {
-        console.log('userId does not exist', id);
+        console.log('userId does not exist', userId);
         return false;
       }
       return true;
@@ -102,7 +102,7 @@ export class UserResolvers {
 
   @Query(() => Models.User)
   async userById(
-    @Arg('id') id: string,
+    @Arg('userId') userId: string,
     @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
@@ -111,7 +111,7 @@ export class UserResolvers {
       const user = await getManager()
         .getRepository(Models.User)
         .findOne({
-          where: { id },
+          where: { id: userId },
           relations: [
             'favourites',
             'favourites.song',
@@ -138,7 +138,7 @@ export class UserResolvers {
         });
 
       if (user === undefined) {
-        console.log('User not found', id);
+        console.log('User not found', userId);
         return;
       }
       return user;
@@ -268,8 +268,10 @@ export class UserResolvers {
     @Arg('input') payload: CreateUserArgs
   ): Promise<Models.User | undefined> {
     try {
+      const { userId, ...rest } = payload;
+
       const repository = getManager().getRepository(Models.User);
-      const user = repository.create(payload);
+      const user = repository.create({ id: userId, ...rest });
 
       if (user) {
         await repository.save(user);
@@ -290,9 +292,11 @@ export class UserResolvers {
   ): Promise<boolean> {
     try {
       const { userId, artistId } = payload;
-      const repository = getManager().getRepository(Models.UserArtistFollowing);
+      const userArtistFollowingRepository = getManager().getRepository(
+        Models.UserArtistFollowing
+      );
 
-      const following = await repository.findOne({
+      const following = await userArtistFollowingRepository.findOne({
         where: {
           userId,
           artistId,
@@ -300,10 +304,13 @@ export class UserResolvers {
       });
 
       if (following) {
-        await repository.remove(following);
+        await userArtistFollowingRepository.remove(following);
       } else {
-        const created = repository.create({ userId, artistId });
-        await repository.save(created);
+        const created = userArtistFollowingRepository.create({
+          userId,
+          artistId,
+        });
+        await userArtistFollowingRepository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
       return true;
@@ -320,9 +327,11 @@ export class UserResolvers {
   ): Promise<boolean> {
     try {
       const { userId, songId } = payload;
-      const repository = getManager().getRepository(Models.UserSongFavourites);
+      const userSongFavouritesRepository = getManager().getRepository(
+        Models.UserSongFavourites
+      );
 
-      const favourited = await repository.findOne({
+      const favourited = await userSongFavouritesRepository.findOne({
         where: {
           userId,
           songId,
@@ -330,10 +339,10 @@ export class UserResolvers {
       });
 
       if (favourited) {
-        await repository.remove(favourited);
+        await userSongFavouritesRepository.remove(favourited);
       } else {
-        const created = repository.create({ userId, songId });
-        await repository.save(created);
+        const created = userSongFavouritesRepository.create({ userId, songId });
+        await userSongFavouritesRepository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
       return true;
@@ -350,9 +359,11 @@ export class UserResolvers {
   ): Promise<boolean> {
     try {
       const { userId, playlistId } = payload;
-      const repository = getManager().getRepository(Models.UserPlaylist);
+      const userPlaylistRepository = getManager().getRepository(
+        Models.UserPlaylist
+      );
 
-      const playlist = await repository.findOne({
+      const playlist = await userPlaylistRepository.findOne({
         where: {
           userId,
           playlistId,
@@ -360,10 +371,10 @@ export class UserResolvers {
       });
 
       if (playlist) {
-        await repository.remove(playlist);
+        await userPlaylistRepository.remove(playlist);
       } else {
-        const created = repository.create({ userId, playlistId });
-        await repository.save(created);
+        const created = userPlaylistRepository.create({ userId, playlistId });
+        await userPlaylistRepository.save(created);
       }
       // TODO: Improve return type to show succesful creation or removal
       return true;
@@ -376,10 +387,10 @@ export class UserResolvers {
   // TODO: need to consider where this user would be referenced
   // favourites, following, playlists, playHistory etc
   @Mutation(() => Boolean)
-  async deleteUser(@Arg('id') id: string): Promise<boolean> {
+  async deleteUser(@Arg('userId') userId: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.User);
-      const userToDelete = await repository.findOne({ where: { id } });
+      const userToDelete = await repository.findOne({ where: { id: userId } });
       if (userToDelete) {
         await repository.remove(userToDelete);
         return true;

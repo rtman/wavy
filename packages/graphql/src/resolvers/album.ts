@@ -18,7 +18,7 @@ class NewSongArgs implements Partial<Models.Song> {
 @InputType({ description: 'Create a new album' })
 class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
   @Field()
-  id: string;
+  albumId: string;
 
   @Field()
   title: string;
@@ -60,12 +60,14 @@ export class AlbumResolvers {
     }
   }
   @Query(() => Models.Album)
-  async albumById(@Arg('id') id: string): Promise<Models.Album | undefined> {
+  async albumById(
+    @Arg('albumId') albumId: string
+  ): Promise<Models.Album | undefined> {
     try {
       const album = await getManager()
         .getRepository(Models.Album)
         .findOne({
-          where: { id },
+          where: { id: albumId },
           relations: [
             'artist',
             'artist.albums',
@@ -83,7 +85,7 @@ export class AlbumResolvers {
         });
 
       if (album === undefined) {
-        console.log('Album not found', id);
+        console.log('Album not found', albumId);
         return;
       }
       return album;
@@ -126,22 +128,14 @@ export class AlbumResolvers {
     @Arg('input') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
-      const { songsToAdd, ...albumPayload } = payload;
-      console.log('payload', payload);
-      const {
-        id,
-        title,
-        description,
-        artistId,
-        imageRef,
-        imageUrl,
-      } = albumPayload;
+      const { songsToAdd, albumId, ...albumPayload } = payload;
+      const { title, description, artistId, imageRef, imageUrl } = albumPayload;
 
       console.log('albumPayload', albumPayload);
 
       if (
         (songsToAdd.length > 0,
-        id,
+        albumId,
         title,
         description,
         songsToAdd,
@@ -152,7 +146,7 @@ export class AlbumResolvers {
         const albumRepository = getManager().getRepository(Models.Album);
         const songRepository = getManager().getRepository(Models.Song);
 
-        const album = albumRepository.create(albumPayload);
+        const album = albumRepository.create({ id: albumId, ...albumPayload });
 
         if (album) {
           await albumRepository.save(album);
@@ -160,7 +154,7 @@ export class AlbumResolvers {
           const resolvedSongsToAdd = songsToAdd.map((song) => {
             return {
               artistId,
-              albumId: id,
+              albumId,
               title: song.title,
               ref: song.ref,
               url: song.url,
@@ -192,10 +186,12 @@ export class AlbumResolvers {
   //TODO: If an album is deleted, the corresponding songs must also
   // be deleted, and anything linked to those songs (favourites etc)
   @Mutation(() => Boolean)
-  async deleteAlbum(@Arg('id') id: string): Promise<boolean> {
+  async deleteAlbum(@Arg('albumId') albumId: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Album);
-      const albumToDelete = await repository.findOne({ where: { id } });
+      const albumToDelete = await repository.findOne({
+        where: { id: albumId },
+      });
       if (albumToDelete) {
         await repository.remove(albumToDelete);
         return true;

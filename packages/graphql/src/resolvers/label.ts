@@ -95,12 +95,14 @@ export class LabelResolvers {
   }
 
   @Query(() => Models.Label)
-  async labelById(@Arg('id') id: string): Promise<Models.Label | undefined> {
+  async labelById(
+    @Arg('labelId') labelId: string
+  ): Promise<Models.Label | undefined> {
     try {
       const label = await getManager()
         .getRepository(Models.Label)
         .findOne({
-          where: { id },
+          where: { id: labelId },
           relations: [
             'artists',
             'artists.artist',
@@ -127,7 +129,7 @@ export class LabelResolvers {
       if (label) {
         return label;
       }
-      console.log('Label not found', id);
+      console.log('Label not found', labelId);
 
       return label;
     } catch (error) {
@@ -192,10 +194,12 @@ export class LabelResolvers {
 
   // TODO: need to consider where this label would be referenced
   @Mutation(() => Boolean)
-  async deleteLabel(@Arg('id') id: string): Promise<boolean> {
+  async deleteLabel(@Arg('labelId') labelId: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Label);
-      const labelToDelete = await repository.findOne({ where: { id } });
+      const labelToDelete = await repository.findOne({
+        where: { id: labelId },
+      });
       if (labelToDelete) {
         await repository.remove(labelToDelete);
         return true;

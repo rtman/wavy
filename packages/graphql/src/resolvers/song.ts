@@ -24,13 +24,13 @@ class UpdateSongTitleArgs implements Partial<Models.Song> {
   title: string;
 
   @Field()
-  id: string;
+  songId: string;
 }
 
 @InputType()
-class UpdatePlayCountArgs implements Partial<Models.Song> {
+class UpdatePlayCountArgs {
   @Field()
-  id: string;
+  songId: string;
 }
 
 @Resolver(Models.Song)
@@ -53,12 +53,14 @@ export class SongResolvers {
     }
   }
   @Query(() => Models.Song)
-  async songById(@Arg('id') id: string): Promise<Models.Song | undefined> {
+  async songById(
+    @Arg('songId') songId: string
+  ): Promise<Models.Song | undefined> {
     try {
       const song = await getManager()
         .getRepository(Models.Song)
         .findOne({
-          where: { id },
+          where: { id: songId },
           relations: [
             'album',
             'artist',
@@ -78,7 +80,7 @@ export class SongResolvers {
       if (song) {
         return song;
       }
-      console.log('songById - Song not found', id);
+      console.log('songById - Song not found', songId);
 
       return song;
     } catch (error) {
@@ -90,12 +92,12 @@ export class SongResolvers {
 
   @Query(() => [Models.Song])
   async songsById(
-    @Arg('ids', () => [String]) ids: string[]
+    @Arg('songIds', () => [String]) songIds: string[]
   ): Promise<Models.Song[] | undefined> {
     try {
       const songs = await getManager()
         .getRepository(Models.Song)
-        .findByIds(ids, {
+        .findByIds(songIds, {
           relations: [
             'album',
             'album.label',
@@ -115,10 +117,11 @@ export class SongResolvers {
       if (songs) {
         return songs;
       } else {
+        console.log(`songsById songIds ${songIds} not found`);
         return;
       }
     } catch (error) {
-      console.log('songsById error', error);
+      console.log(`songsById songIds ${songIds} - error`, error);
 
       return;
     }
@@ -188,7 +191,7 @@ export class SongResolvers {
   ): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);
-      const song = await repository.update(payload.id, {
+      const song = await repository.update(payload.songId, {
         title: payload.title,
       });
 
@@ -208,10 +211,10 @@ export class SongResolvers {
   // TODO: need to consider where this song would be referenced
   // favourites, playlists etc
   @Mutation(() => Boolean)
-  async deleteSong(@Arg('id') id: string): Promise<boolean> {
+  async deleteSong(@Arg('songId') songId: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Song);
-      const songToDelete = await repository.findOne({ where: { id } });
+      const songToDelete = await repository.findOne({ where: { id: songId } });
       if (songToDelete) {
         await repository.remove(songToDelete);
 
@@ -239,7 +242,7 @@ export class SongResolvers {
           );
 
           const songToUpdate = await repository.increment(
-            { id: payload.id },
+            { id: payload.songId },
             'playCount',
             1
           );

@@ -34,7 +34,7 @@ export const CreateArtist = () => {
   const [createArtist, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createArtist'>,
     MutationCreateArtistArgs
-  >(consts.mutations.CREATE_ARTIST, {
+  >(consts.mutations.artist.CREATE_ARTIST, {
     onCompleted(data) {
       console.log('onCompleted data', data);
       if (data.createArtist.id) {

@@ -35,12 +35,12 @@ export const Home = () => {
     loading: newArtistsLoading,
     // error: newArtistsError,
     data: newArtistsData,
-  } = useQuery<Pick<Query, 'newArtists'>>(consts.queries.NEW_ARTISTS);
+  } = useQuery<Pick<Query, 'newArtists'>>(consts.queries.artist.NEW_ARTISTS);
   const {
     loading: newLabelsLoading,
     // error: newLabelsError,
     data: newLabelsData,
-  } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.NEW_LABELS);
+  } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.label.NEW_LABELS);
 
   const newArtists = newArtistsData?.newArtists ?? [];
   const newLabels = newLabelsData?.newLabels ?? [];

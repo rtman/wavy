@@ -10,6 +10,7 @@ export * from './userPlaylist';
 export * from './userArtistFollowing';
 export * from './listeningStats';
 export * from './userSongFavourites';
+export * from './search';
 export * from './songPlaylist';
 export * from './songArtistSupportingArtist';
 export * from './song';

@@ -35,7 +35,7 @@ export const Artist = () => {
   const [getArtistById, { loading: queryLoading }] = useLazyQuery<
     Pick<Query, 'artistById'>,
     QueryArtistByIdArgs
-  >(consts.queries.ARTIST_BY_ID, {
+  >(consts.queries.artist.ARTIST_BY_ID, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
       setArtist(data.artistById);
@@ -54,7 +54,7 @@ export const Artist = () => {
   useEffect(() => {
     if (id) {
       getArtistById({
-        variables: { id },
+        variables: { artistId: id },
       });
     } else {
       console.log('artist.getArtistById - no Id');

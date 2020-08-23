@@ -44,7 +44,7 @@ export const Album = () => {
   const [getAlbumById, { loading: queryLoading }] = useLazyQuery<
     Pick<Query, 'albumById'>,
     QueryAlbumByIdArgs
-  >(consts.queries.ALBUM_BY_ID, {
+  >(consts.queries.album.ALBUM_BY_ID, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
       setCurrentAlbum(data.albumById);
@@ -60,7 +60,7 @@ export const Album = () => {
   useEffect(() => {
     if (id) {
       getAlbumById({
-        variables: { id },
+        variables: { albumId: id },
       });
     } else {
       console.log('currentAlbum.getAlbumById - no Id');

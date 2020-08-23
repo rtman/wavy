@@ -39,14 +39,14 @@ export const Playlists = () => {
   ] = useLazyQuery<
     Pick<Query, 'playlistsByUserId'>,
     QueryPlaylistsByUserIdArgs
-  >(consts.queries.PLAYLISTS_BY_USER_ID, {
+  >(consts.queries.playlist.PLAYLISTS_BY_USER_ID, {
     fetchPolicy: 'network-only',
   });
 
   const [createPlaylist] = useMutation<
     Pick<Mutation, 'createPlaylist'>,
     MutationCreatePlaylistArgs
-  >(consts.mutations.CREATE_PLAYLIST, {
+  >(consts.mutations.playlist.CREATE_PLAYLIST, {
     onCompleted() {
       if (userId) {
         getPlaylists({ variables: { userId } });

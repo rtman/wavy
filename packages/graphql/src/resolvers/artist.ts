@@ -98,12 +98,14 @@ export class ArtistResolvers {
   }
 
   @Query(() => Models.Artist)
-  async artistById(@Arg('id') id: string): Promise<Models.Artist | undefined> {
+  async artistById(
+    @Arg('artistId') artistId: string
+  ): Promise<Models.Artist | undefined> {
     try {
       const artist = await getManager()
         .getRepository(Models.Artist)
         .findOne({
-          where: { id },
+          where: { id: artistId },
           relations: [
             'songs',
             'songs.album',
@@ -135,7 +137,7 @@ export class ArtistResolvers {
       if (artist) {
         return artist;
       }
-      console.log('Artist not found', id);
+      console.log('Artist not found', artistId);
 
       return artist;
     } catch (error) {
@@ -147,16 +149,16 @@ export class ArtistResolvers {
 
   @Query(() => [Models.Artist])
   async artistsById(
-    @Arg('ids', () => [String]) ids: string[]
+    @Arg('artistIds', () => [String]) artistIds: string[]
   ): Promise<Models.Artist[] | undefined> {
     try {
       const artists = await getManager()
         .getRepository(Models.Artist)
-        .findByIds(ids);
+        .findByIds(artistIds);
       if (artists) {
         return artists;
       } else {
-        console.log('artistsById - no artists found', ids);
+        console.log('artistsById - no artists found', artistIds);
 
         return;
       }
@@ -228,10 +230,12 @@ export class ArtistResolvers {
   // TODO: need to consider where this artist would be referenced
   // songs, albums, in order to delete all references
   @Mutation(() => Boolean)
-  async deleteArtist(@Arg('id') id: string): Promise<boolean> {
+  async deleteArtist(@Arg('artistId') artistId: string): Promise<boolean> {
     try {
       const repository = getManager().getRepository(Models.Artist);
-      const artistToDelete = await repository.findOne({ where: { id } });
+      const artistToDelete = await repository.findOne({
+        where: { id: artistId },
+      });
       if (artistToDelete) {
         await repository.remove(artistToDelete);
         return true;

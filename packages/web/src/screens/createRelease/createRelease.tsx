@@ -107,7 +107,7 @@ export const CreateRelease = () => {
   const [createAlbum, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
     MutationCreateAlbumArgs
-  >(consts.mutations.CREATE_ALBUM, {
+  >(consts.mutations.album.CREATE_ALBUM, {
     onCompleted(data) {
       console.log('onCompleted data', data);
       if (data.createAlbum.id) {

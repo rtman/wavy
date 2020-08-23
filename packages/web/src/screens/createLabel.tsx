@@ -33,7 +33,7 @@ export const CreateLabel = () => {
   const [createLabel, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createLabel'>,
     MutationCreateLabelArgs
-  >(consts.mutations.CREATE_LABEL, {
+  >(consts.mutations.label.CREATE_LABEL, {
     onCompleted(data) {
       console.log('onCompleted data', data);
       if (data.createLabel.id) {

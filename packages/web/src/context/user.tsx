@@ -53,7 +53,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const [getUserById, { loading: queryLoading }] = useLazyQuery<
     Pick<Query, 'userById'>,
     QueryUserByIdArgs
-  >(consts.queries.USER_BY_ID, {
+  >(consts.queries.user.USER_BY_ID, {
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
       console.log('*debug* getUserById data.userById', data.userById);
@@ -63,8 +63,8 @@ export const UserProvider: FunctionComponent = (props) => {
   });
 
   const loadUser = useCallback(
-    (id: string) => {
-      getUserById({ variables: { id } });
+    (userId: string) => {
+      getUserById({ variables: { userId } });
     },
     [getUserById]
   );
@@ -72,7 +72,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const [submitUpdateFollowing] = useMutation<
     Pick<Mutation, 'updateFollowing'>,
     MutationUpdateFollowingArgs
-  >(consts.mutations.UPDATE_FOLLOWING, {
+  >(consts.mutations.user.UPDATE_FOLLOWING, {
     onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
@@ -82,7 +82,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const [submitUpdateFavourites] = useMutation<
     Pick<Mutation, 'updateFavourites'>,
     MutationUpdateFavouritesArgs
-  >(consts.mutations.UPDATE_FAVOURITES, {
+  >(consts.mutations.user.UPDATE_FAVOURITES, {
     onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
@@ -92,7 +92,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const [submitAddSongsToPlaylists] = useMutation<
     Pick<Mutation, 'addPlaylistSongs'>,
     MutationAddPlaylistSongsArgs
-  >(consts.mutations.ADD_PLAYLIST_SONGS, {
+  >(consts.mutations.playlist.ADD_PLAYLIST_SONGS, {
     onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
@@ -103,7 +103,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const [submitRemoveSongsFromPlaylist] = useMutation<
     Pick<Mutation, 'removePlaylistSongs'>,
     MutationRemovePlaylistSongsArgs
-  >(consts.mutations.REMOVE_PLAYLIST_SONGS, {
+  >(consts.mutations.playlist.REMOVE_PLAYLIST_SONGS, {
     onCompleted: () => {
       if (user?.id) {
         loadUser(user?.id);
@@ -139,13 +139,13 @@ export const UserProvider: FunctionComponent = (props) => {
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
     submitAddSongsToPlaylists({
-      variables: { input: { id: playlistId, songIds } },
+      variables: { input: { playlistId, songIds } },
     });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
     submitRemoveSongsFromPlaylist({
-      variables: { input: { id: playlistId, songIds } },
+      variables: { input: { playlistId, songIds } },
     });
   };
 

@@ -50,7 +50,7 @@ export const AuthProvider: FunctionComponent = (props) => {
   const [createUser, { error: createUserError }] = useMutation<
     Pick<Mutation, 'createUser'>,
     MutationCreateUserArgs
-  >(consts.mutations.CREATE_USER);
+  >(consts.mutations.user.CREATE_USER);
 
   const signup = async (data: SignUpForm) => {
     const { firstName, lastName, email, password } = data;
@@ -136,7 +136,7 @@ export const AuthProvider: FunctionComponent = (props) => {
           Pick<Query, 'userIdExists'>,
           QueryUserIdExistsArgs
         >({
-          query: consts.queries.USER_ID_EXISTS,
+          query: consts.queries.user.USER_ID_EXISTS,
           variables: { id },
         });
 

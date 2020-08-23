@@ -26,11 +26,7 @@ import {
   Label,
   Playlist,
   Query,
-  QuerySearchAlbumsArgs,
-  QuerySearchArtistsArgs,
-  QuerySearchLabelsArgs,
-  QuerySearchPlaylistsArgs,
-  QuerySearchSongsArgs,
+  QuerySearchAllArgs,
   Song,
 } from 'types';
 
@@ -44,64 +40,22 @@ export const Search = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
   const searchContext = useContext(SearchContext);
-  const [songSearchResults, setSongSearchResults] = useState<Song[]>([]);
-  const [artistSearchResults, setArtistSearchResults] = useState<Artist[]>([]);
-  const [albumSearchResults, setAlbumSearchResults] = useState<Album[]>([]);
-  const [playlistSearchResults, setPlaylistSearchResults] = useState<
-    Playlist[]
-  >([]);
-  const [labelSearchResults, setLabelSearchResults] = useState<Label[]>([]);
+  const [searchResults, setSearchResults] = useState<Query['searchAll']>({
+    albums: [],
+    artists: [],
+    labels: [],
+    playlists: [],
+    songs: [],
+  });
   const [currentTab, setCurrentTab] = useState<string>('songs');
 
-  const [submitSongSearch, { loading: songQueryLoading }] = useLazyQuery<
-    Pick<Query, 'searchSongs'>,
-    QuerySearchSongsArgs
-  >(consts.queries.SEARCH_SONGS_QUERY, {
+  const [submitSearchAll, { loading: searchLoading }] = useLazyQuery<
+    Pick<Query, 'searchAll'>,
+    QuerySearchAllArgs
+  >(consts.queries.search.SEARCH_ALL, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
-      setSongSearchResults(data.searchSongs);
-    },
-  });
-
-  const [submitArtistSearch, { loading: artistQueryLoading }] = useLazyQuery<
-    Pick<Query, 'searchArtists'>,
-    QuerySearchArtistsArgs
-  >(consts.queries.SEARCH_ARTISTS_QUERY, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setArtistSearchResults(data.searchArtists);
-    },
-  });
-  const [submitAlbumSearch, { loading: albumQueryLoading }] = useLazyQuery<
-    Pick<Query, 'searchAlbums'>,
-    QuerySearchAlbumsArgs
-  >(consts.queries.SEARCH_ALBUMS_QUERY, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setAlbumSearchResults(data.searchAlbums);
-    },
-  });
-
-  const [
-    submitPlaylistSearch,
-    { loading: playlistQueryLoading },
-  ] = useLazyQuery<Pick<Query, 'searchPlaylists'>, QuerySearchPlaylistsArgs>(
-    consts.queries.SEARCH_PLAYLISTS_QUERY,
-    {
-      fetchPolicy: 'network-only',
-      onCompleted: (data) => {
-        setPlaylistSearchResults(data.searchPlaylists);
-      },
-    }
-  );
-
-  const [submitLabelSearch, { loading: labelQueryLoading }] = useLazyQuery<
-    Pick<Query, 'searchLabels'>,
-    QuerySearchLabelsArgs
-  >(consts.queries.SEARCH_LABELS_QUERY, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setLabelSearchResults(data.searchLabels);
+      setSearchResults(data.searchAll);
     },
   });
 
@@ -112,39 +66,20 @@ export const Search = () => {
   useEffect(() => {
     if (searchContext?.searchText && searchContext?.isSearching) {
       const formattedSearchText = `*${searchContext?.searchText}*`;
-      submitSongSearch({
-        variables: { query: formattedSearchText },
-      });
-      submitArtistSearch({
-        variables: { query: formattedSearchText },
-      });
-      submitAlbumSearch({
-        variables: { query: formattedSearchText },
-      });
-      submitPlaylistSearch({
-        variables: { query: formattedSearchText },
-      });
-      submitLabelSearch({
+      submitSearchAll({
         variables: { query: formattedSearchText },
       });
       searchContext?.searchComplete();
     }
-  }, [
-    searchContext,
-    submitSongSearch,
-    submitArtistSearch,
-    submitAlbumSearch,
-    submitPlaylistSearch,
-    submitLabelSearch,
-  ]);
+  }, [searchContext, submitSearchAll]);
 
   // const onClickArtist = (artist_id: string) => {
   //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
   // };
 
   const renderSongResults = () => {
-    if (songSearchResults.length > 0) {
-      const songsList = songSearchResults.map((song: Song) => {
+    if (searchResults.songs.length > 0) {
+      const songsList = searchResults.songs.map((song: Song) => {
         return <SongRow key={song.id} song={song} />;
       });
       return <List>{songsList}</List>;
@@ -153,8 +88,8 @@ export const Search = () => {
   };
 
   const renderArtistResults = () => {
-    if (artistSearchResults.length > 0) {
-      const artistList = artistSearchResults.map((artist: Artist) => {
+    if (searchResults.artists.length > 0) {
+      const artistList = searchResults.artists.map((artist: Artist) => {
         return <ArtistRow key={artist.id} artist={artist} />;
       });
       return <List>{artistList}</List>;
@@ -163,8 +98,8 @@ export const Search = () => {
   };
 
   const renderAlbumResults = () => {
-    if (albumSearchResults.length > 0) {
-      const albumList = albumSearchResults.map((album: Album) => {
+    if (searchResults.albums.length > 0) {
+      const albumList = searchResults.albums.map((album: Album) => {
         return <AlbumRow key={album.id} album={album} />;
       });
       return <List>{albumList}</List>;
@@ -173,8 +108,8 @@ export const Search = () => {
   };
 
   const renderPlaylistResults = () => {
-    if (playlistSearchResults.length > 0) {
-      const playlistList = playlistSearchResults.map((playlist: Playlist) => {
+    if (searchResults.playlists.length > 0) {
+      const playlistList = searchResults.playlists.map((playlist: Playlist) => {
         return <PlaylistRow key={playlist.id} playlist={playlist} />;
       });
       return <List>{playlistList}</List>;
@@ -183,8 +118,8 @@ export const Search = () => {
   };
 
   const renderLabelsResults = () => {
-    if (labelSearchResults.length > 0) {
-      const labelList = labelSearchResults.map((label: Label) => {
+    if (searchResults.labels.length > 0) {
+      const labelList = searchResults.labels.map((label: Label) => {
         return <LabelRow key={label.id} label={label} />;
       });
       return <List>{labelList}</List>;
@@ -215,16 +150,6 @@ export const Search = () => {
     }
   };
 
-  const areQueriesLoading = () => {
-    return [
-      songQueryLoading,
-      artistQueryLoading,
-      albumQueryLoading,
-      playlistQueryLoading,
-      labelQueryLoading,
-    ].includes(true);
-  };
-
   return (
     <Screen>
       <Container>
@@ -251,7 +176,7 @@ export const Search = () => {
             <Tab label="Labels" value="labels" />
           </Tabs>
         </Paper>
-        {areQueriesLoading() ? <CircularProgress /> : renderSearchResults()}
+        {searchLoading ? <CircularProgress /> : renderSearchResults()}
       </Container>
     </Screen>
   );

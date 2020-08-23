@@ -231,10 +231,16 @@ export class ListeningStatsResolvers {
       const userStatsPromise = userStatsRef.get();
       const userPlayHistoryPromise = userPlayHistoryRef.get();
 
-      const firestorePromises = [userStatsPromise, userPlayHistoryPromise];
-
-      const results = await Promise.all(firestorePromises);
-      const [userStats, userPlayHistory] = results;
+      const results = await Promise.all([
+        // songPromise,
+        userStatsPromise,
+        userPlayHistoryPromise,
+      ]);
+      const [
+        // song,
+        userStats,
+        userPlayHistory,
+      ] = results;
 
       if (song) {
         // set firestore doc type
