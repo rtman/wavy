@@ -100,3 +100,56 @@ var userIdPlayedInTheLastMonth = db.collectionGroup('user').where('userId', '=='
 
 
             
+collection
+listeningStats
+
+            document
+            userId
+                songId: uid
+                albumId: uid
+                artistId: uid
+                labelId: uid
+                userId: uid
+                plays: number
+                skips: number
+                location: geoLocation
+                createdAt: Date
+                updatedAt: Date
+
+collection
+stats
+    document
+    listeningStats
+        collection
+        usersListeningStats
+            document
+            userId
+                songId: uid
+                albumId: uid
+                artistId: uid
+                labelId: uid
+                userId: uid
+                plays: number
+                skips: number
+                location: geoLocation
+                createdAt: Date
+                updatedAt: Date
+    document
+    recentlyPlayed
+        collection
+        users
+            document
+            userId
+                array : [{
+                    songId: uid,
+                    createdAt: Date
+                }]
+
+collection
+recentlyPlayed
+    document
+    userId
+        array : [{
+            songId: uid,
+            createdAt: Date
+        }]      

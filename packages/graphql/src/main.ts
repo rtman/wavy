@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import { ApolloServer } from 'apollo-server-express';
+import { ExpressContext } from 'apollo-server-express/src/ApolloServer';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
@@ -12,6 +13,10 @@ import { buildSchema } from 'type-graphql';
 
 import { createOrmConnection, Models } from './orm';
 import * as Resolvers from './resolvers';
+
+export interface Context extends ExpressContext {
+  models: typeof Models;
+}
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
@@ -43,19 +48,17 @@ const initApolloServer = (schema: GraphQLSchema) =>
         message,
       };
     },
-    context: ({ req }) => {
+    context: ({ req, res, connection }) => {
       // context: async ({ req, connection }) => {
 
-      // console.log('Apollo server req', req);s
-      // console.log('Apollo server connection', connection);
       if (req) {
         return {
+          req,
+          res,
+          connection,
           models: Models,
         };
       }
-
-      // if (connection) {
-      // }
     },
     validationRules: [depthLimit(7)],
   });
@@ -65,10 +68,13 @@ const app = express();
 app.use('*', cors());
 app.use(compression());
 
+app.set('trust proxy', true);
+
 const runServer = async () => {
   try {
     await createOrmConnection();
     console.log('TypeORM connected to postgres');
+    // this builds the tables in postgres
     const schema = await buildSchema({
       resolvers: [
         Resolvers.UserResolvers,
@@ -79,7 +85,6 @@ const runServer = async () => {
       ],
     });
 
-    // const server = initApolloServer(schema);
     const server = initApolloServer(schema);
     server.applyMiddleware({ app, path: '/graphql' });
 

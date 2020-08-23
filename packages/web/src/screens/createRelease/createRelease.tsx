@@ -253,46 +253,58 @@ export const CreateRelease = () => {
   }) => {
     console.log('*debug* onSubmit data.album', data.album);
     console.log('*debug* onSubmit data.songs', data.songs);
+    if (
+      uploadStatuses.find((upload) => upload.data === undefined) === undefined
+    ) {
+      const resolvedSongsForUpload = songsForUpload.map((song, index) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { file, ...rest } = song;
 
-    const resolvedSongsForUpload = songsForUpload.map((song, index) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { file, ...rest } = song;
+        // data is checked above for undefined in the find
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const uploadData = uploadStatuses[index].data!;
 
-      return {
-        ...rest,
-        title: data.songs[index].title.trim(),
-        ref: uploadStatuses[index].data?.gsUrl,
-        url: uploadStatuses[index].data?.downloadUrl,
-      };
-    });
+        return {
+          ...rest,
+          title: data.songs[index].title.trim(),
+          ref: uploadData.gsUrl,
+          url: uploadData.downloadUrl,
+        };
+      });
 
-    console.log(
-      '*debug* onSubmit resolvedSongsForUpload',
-      resolvedSongsForUpload
-    );
+      console.log(
+        '*debug* onSubmit resolvedSongsForUpload',
+        resolvedSongsForUpload
+      );
 
-    const result = await uploadImage({
-      rootDir: id,
-      parentDir: 'albums',
-      childDir: releaseId,
-      fileName: 'albumImage',
-    });
+      const result = await uploadImage({
+        rootDir: id,
+        parentDir: 'albums',
+        childDir: releaseId,
+        fileName: 'albumImage',
+      });
 
-    console.log('result', result);
+      console.log('result', result);
 
-    if (result && result.id && resolvedSongsForUpload.length > 0) {
-      await createAlbum({
-        variables: {
-          input: {
-            ...data.album,
-            description: '', //TODO: description field, undefined uses default ''
-            id: result.id,
-            artistId: id,
-            imageRef: result.gsUrl,
-            imageUrl: result.downloadUrl,
-            songsToAdd: resolvedSongsForUpload ?? { title: '', ref: '' },
+      if (result && result.id && resolvedSongsForUpload.length > 0) {
+        await createAlbum({
+          variables: {
+            input: {
+              ...data.album,
+              description: '', //TODO: description field, undefined uses default ''
+              id: result.id,
+              artistId: id,
+              imageRef: result.gsUrl,
+              imageUrl: result.downloadUrl,
+              songsToAdd: resolvedSongsForUpload ?? { title: '', ref: '' },
+            },
           },
-        },
+        });
+      }
+    } else {
+      enqueueSnackbar("Error! Files aren't done uploading", {
+        variant: 'error',
+        autoHideDuration: 4000,
       });
     }
   };

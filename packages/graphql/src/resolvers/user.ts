@@ -1,5 +1,6 @@
 import {
   Arg,
+  Ctx,
   Field,
   InputType,
   Mutation,
@@ -9,6 +10,7 @@ import {
 } from 'type-graphql';
 import { getManager } from 'typeorm';
 
+// import { Context } from '../main';
 import { Models } from '../orm';
 
 @InputType({ description: 'Create a new user' })
@@ -98,8 +100,14 @@ export class UserResolvers {
   }
 
   @Query(() => Models.User)
-  async userById(@Arg('id') id: string): Promise<Models.User | undefined> {
+  async userById(
+    @Arg('id') id: string,
+    @Ctx() ctx: any
+  ): Promise<Models.User | undefined> {
     try {
+      console.log('*debug* ctx.req.ip', ctx.req.ip);
+      console.log('*debug* ctx.req.clientIp', ctx.req.clientIp);
+
       const user = await getManager()
         .getRepository(Models.User)
         .findOne({

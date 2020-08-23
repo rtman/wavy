@@ -13,6 +13,11 @@ import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
 
+interface RecentlyPlayed {
+  songId: string;
+  createdAt: Date;
+}
+
 enum ListeningStatsQueryField {
   songId = 'songId',
   albumId = 'albumId',
@@ -218,13 +223,42 @@ export class ListeningStatsResolvers {
         .collection('userStats')
         .doc(userId);
 
+      const userRecentlyPlayedRef = admin
+        .firestore()
+        .collection('recentlyPlayed')
+        .doc(userId);
+
       const song = await getManager()
         .getRepository(Models.Song)
         .findOne();
 
-      const userStats = await userStatsRef.get();
+      const userStatsPromise = userStatsRef.get();
+      const userRecentlyPlayedPromise = userRecentlyPlayedRef.get();
+
+      const firestorePromises = [userStatsPromise, userRecentlyPlayedPromise];
+
+      const results = await Promise.all(firestorePromises);
+      const [userStats, userRecentlyPlayed] = results;
 
       if (song) {
+        const recentlyPlayed: RecentlyPlayed[] = userRecentlyPlayed.data()
+          ?.songs;
+
+        if (recentlyPlayed !== undefined) {
+          recentlyPlayed.unshift({
+            songId,
+            createdAt: new Date(),
+          });
+          if (recentlyPlayed.length > 99) {
+            recentlyPlayed.pop();
+          }
+          await userRecentlyPlayedRef.set({ songs: recentlyPlayed });
+        } else {
+          await userRecentlyPlayedRef.set({
+            songs: [{ songId, createdAt: new Date() }],
+          });
+        }
+
         if (userStats.exists) {
           await userStatsRef.update({
             plays: admin.firestore.FieldValue.increment(1),
