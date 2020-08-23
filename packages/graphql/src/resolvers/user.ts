@@ -149,23 +149,25 @@ export class UserResolvers {
   }
 
   @Query(() => [Models.Song])
-  async playHistory(@Arg('id') id: string): Promise<Models.Song[] | undefined> {
+  async playHistory(
+    @Arg('userId') userId: string
+  ): Promise<Models.Song[] | undefined> {
     try {
       const userListeningStatsRef = admin
         .firestore()
         .collection('playHistory')
-        .doc(id);
+        .doc(userId);
 
       const result = await userListeningStatsRef.get();
 
       if (result.exists) {
-        const recentlyPlayedUserDoc: PlayHistoryUserDoc = result.data() ?? {};
-        const { playHistory } = recentlyPlayedUserDoc;
+        const playHistoryUserDoc: PlayHistoryUserDoc = result.data() ?? {};
+        const { songs } = playHistoryUserDoc;
 
-        if (playHistory) {
-          const songIds = playHistory.map((entry) => entry.songId);
+        if (songs) {
+          const songIds = songs.map((entry) => entry.songId);
 
-          const songs = await getManager()
+          const songsData = await getManager()
             .getRepository(Models.Song)
             .findByIds(songIds, {
               relations: [
@@ -183,35 +185,37 @@ export class UserResolvers {
               ],
             });
 
-          if (songs) {
-            return songs;
+          if (songsData) {
+            return songsData;
           } else {
             return;
           }
         } else {
-          console.log(`PlayHistory is falsy for this user ${id}`);
+          console.log(`playHistory is falsy for this user ${userId}`);
 
           return;
         }
       } else {
-        console.log(`No recentlyPlayed document exists for this user ${id}`);
+        console.log(`No playHistory document exists for this user ${userId}`);
 
         return;
       }
     } catch (error) {
-      console.log(`Error recentlyPlayed ${id}`, error);
+      console.log(`Error playHistory ${userId}`, error);
 
       return;
     }
   }
 
   @Query(() => [Models.Song])
-  async topSongs(@Arg('id') id: string): Promise<Models.Song[] | undefined> {
+  async topSongs(
+    @Arg('userId') userId: string
+  ): Promise<Models.Song[] | undefined> {
     try {
       const topSongsref = admin
         .firestore()
         .collectionGroup('userStats')
-        .where('userId', '==', id)
+        .where('userId', '==', userId)
         .orderBy('plays', 'desc')
         .limit(50);
 
@@ -248,12 +252,12 @@ export class UserResolvers {
           return;
         }
       } else {
-        console.log(`No listening stats exist for this user ${id}`);
+        console.log(`No listening stats exist for this user ${userId}`);
 
         return;
       }
     } catch (error) {
-      console.log(`Error topSongs ${id}`, error);
+      console.log(`Error topSongs ${userId}`, error);
 
       return;
     }
@@ -370,7 +374,7 @@ export class UserResolvers {
   }
 
   // TODO: need to consider where this user would be referenced
-  // favourites, following, playlists, recentlyplayed etc
+  // favourites, following, playlists, playHistory etc
   @Mutation(() => Boolean)
   async deleteUser(@Arg('id') id: string): Promise<boolean> {
     try {

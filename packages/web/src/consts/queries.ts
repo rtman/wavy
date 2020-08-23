@@ -531,6 +531,58 @@ export const SONGS_BY_ID_QUERY = gql`
   }
 `;
 
+export const PLAY_HISTORY = gql`
+  query playHistory($userId: String!) {
+    playHistory(userId: $userId) {
+      id
+      title
+      url
+      imageUrl
+      label {
+        id
+        name
+        imageUrl
+      }
+      artist {
+        id
+        name
+        imageUrl
+      }
+      album {
+        id
+        title
+        imageUrl
+      }
+    }
+  }
+`;
+
+export const TOP_SONGS = gql`
+  query topSongs($userId: String!) {
+    topSongs(userId: $userId) {
+      id
+      title
+      url
+      imageUrl
+      label {
+        id
+        name
+        imageUrl
+      }
+      artist {
+        id
+        name
+        imageUrl
+      }
+      album {
+        id
+        title
+        imageUrl
+      }
+    }
+  }
+`;
+
 export const USER_ID_EXISTS = gql`
   query userIdExists($id: String!) {
     userIdExists(id: $id)

@@ -14,7 +14,7 @@ import { getManager } from 'typeorm';
 import { Models } from '../orm';
 
 export interface PlayHistoryUserDoc {
-  playHistory?: PlayHistoryItem[];
+  songs?: PlayHistoryItem[];
 }
 export interface PlayHistoryItem {
   songId: string;
@@ -241,20 +241,20 @@ export class ListeningStatsResolvers {
         const userPlayHistoryData: PlayHistoryUserDoc =
           userPlayHistory.data() ?? {};
 
-        const { playHistory } = userPlayHistoryData;
+        const { songs } = userPlayHistoryData;
 
-        if (playHistory !== undefined) {
-          playHistory.unshift({
+        if (songs !== undefined) {
+          songs.unshift({
             songId,
             createdAt: new Date(),
           });
-          if (playHistory.length > 99) {
-            playHistory.pop();
+          if (songs.length > 99) {
+            songs.pop();
           }
-          await userPlayHistoryRef.set({ playHistory });
+          await userPlayHistoryRef.set({ songs });
         } else {
           await userPlayHistoryRef.set({
-            playHistory: [{ songId, createdAt: new Date() }],
+            songs: [{ songId, createdAt: new Date() }],
           });
         }
 
