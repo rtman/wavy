@@ -322,6 +322,8 @@ export type Query = {
   songsById: Array<Song>;
   searchSongs: Array<Song>;
   topSongs: Array<Song>;
+  topSongsByTagId: Array<Song>;
+  topSongsByTagName: Array<Song>;
   playlists: Array<Playlist>;
   playlistById: Playlist;
   playlistsById: Array<Playlist>;
@@ -388,6 +390,14 @@ export type QuerySongsByIdArgs = {
 
 export type QuerySearchSongsArgs = {
   query: Scalars['String'];
+};
+
+export type QueryTopSongsByTagIdArgs = {
+  tagId: Scalars['String'];
+};
+
+export type QueryTopSongsByTagNameArgs = {
+  tagName: Scalars['String'];
 };
 
 export type QueryPlaylistByIdArgs = {
@@ -1236,6 +1246,18 @@ export type QueryResolvers<
     RequireFields<QuerySearchSongsArgs, 'query'>
   >;
   topSongs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  topSongsByTagId?: Resolver<
+    Array<ResolversTypes['Song']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTopSongsByTagIdArgs, 'tagId'>
+  >;
+  topSongsByTagName?: Resolver<
+    Array<ResolversTypes['Song']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTopSongsByTagNameArgs, 'tagName'>
+  >;
   playlists?: Resolver<
     Array<ResolversTypes['Playlist']>,
     ParentType,

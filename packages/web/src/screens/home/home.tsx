@@ -63,6 +63,22 @@ export const Home = () => {
     // error: newLabelsError,
     data: topSongsData,
   } = useQuery<Pick<Query, 'topSongs'>>(consts.queries.song.TOP_SONGS);
+  const {
+    loading: topJazzSongsLoading,
+    // error: newLabelsError,
+    data: topJazzSongsData,
+  } = useQuery<Pick<Query, 'topSongsByTagName'>>(
+    consts.queries.song.TOP_SONGS_BY_TAG_NAME,
+    { variables: { tagName: 'jazz' } }
+  );
+  const {
+    loading: topHouseSongsLoading,
+    // error: newLabelsError,
+    data: topHouseSongsData,
+  } = useQuery<Pick<Query, 'topSongsByTagName'>>(
+    consts.queries.song.TOP_SONGS_BY_TAG_NAME,
+    { variables: { tagName: 'house' } }
+  );
 
   const newArtists = newArtistsData?.newArtists ?? [];
   const newLabels = newLabelsData?.newLabels ?? [];
@@ -70,6 +86,8 @@ export const Home = () => {
   const topSongs = topSongsData?.topSongs ?? [];
   // already uniquefied by typeORM findByIds
   const playHistory = playHistoryData?.playHistory ?? [];
+  const topJazzSongs = topJazzSongsData?.topSongsByTagName ?? [];
+  const topHouseSongs = topHouseSongsData?.topSongsByTagName ?? [];
 
   const renderCardList = (items: Item[]) => {
     //eslint-disable-next-line no-self-compare
@@ -126,6 +144,18 @@ export const Home = () => {
         title: 'Top Songs',
         data: topSongs,
         loading: topSongsLoading,
+      })}
+
+      {renderSection({
+        title: 'Top Jazz',
+        data: topJazzSongs,
+        loading: topJazzSongsLoading,
+      })}
+
+      {renderSection({
+        title: 'Top House',
+        data: topHouseSongs,
+        loading: topHouseSongsLoading,
       })}
 
       {renderSection({

@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
-import { getManager } from 'typeorm';
+import { getManager, Like } from 'typeorm';
 
 import { Models } from '../orm';
 
@@ -211,6 +211,92 @@ export class SongResolvers {
       }
     } catch (error) {
       console.log('Error topSongs', error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Song])
+  async topSongsByTagId(
+    @Arg('tagId', () => String) tagId: string
+  ): Promise<Models.Song[] | undefined> {
+    try {
+      const songs = await getManager()
+        .getRepository(Models.Song)
+        .find({
+          where: {
+            tagSearchString: {},
+          },
+          order: {
+            playCount: 'DESC',
+          },
+          take: 50,
+          relations: [
+            'album',
+            'album.label',
+            'artist',
+            'artist.albums',
+            'label',
+            'supportingArtists',
+            'supportingArtists.artist',
+            'playlists',
+            'playlists.playlist',
+            'usersFavourited',
+            'usersFavourited.user',
+          ],
+        });
+
+      if (songs) {
+        return songs;
+      } else {
+        console.log(`No songs for tagId - ${tagId}`);
+        return;
+      }
+    } catch (error) {
+      console.log(`topSongsByTagId - tagId ${tagId} - error`, error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Song])
+  async topSongsByTagName(
+    @Arg('tagName', () => String) tagName: string
+  ): Promise<Models.Song[] | undefined> {
+    try {
+      const songs = await getManager()
+        .getRepository(Models.Song)
+        .find({
+          where: {
+            tagSearchString: Like(`%${tagName}%`),
+          },
+          order: {
+            playCount: 'DESC',
+          },
+          take: 50,
+          relations: [
+            'album',
+            'album.label',
+            'artist',
+            'artist.albums',
+            'label',
+            'supportingArtists',
+            'supportingArtists.artist',
+            'playlists',
+            'playlists.playlist',
+            'usersFavourited',
+            'usersFavourited.user',
+          ],
+        });
+
+      if (songs) {
+        return songs;
+      } else {
+        console.log(`No songs for tagId - ${tagName}`);
+        return;
+      }
+    } catch (error) {
+      console.log(`topSongsByTagId - tagId ${tagName} - error`, error);
 
       return;
     }

@@ -78,3 +78,55 @@ export const TOP_SONGS = gql`
     }
   }
 `;
+
+export const TOP_SONGS_BY_TAG_ID = gql`
+  query topSongsByTag($tagId: String!) {
+    topSongsByTag(tagId: $tagId) {
+      id
+      title
+      url
+      imageUrl
+      label {
+        id
+        name
+        imageUrl
+      }
+      artist {
+        id
+        name
+        imageUrl
+      }
+      album {
+        id
+        title
+        imageUrl
+      }
+    }
+  }
+`;
+
+export const TOP_SONGS_BY_TAG_NAME = gql`
+  query topSongsByTagName($tagName: String!) {
+    topSongsByTagName(tagName: $tagName) {
+      id
+      title
+      url
+      imageUrl
+      label {
+        id
+        name
+        imageUrl
+      }
+      artist {
+        id
+        name
+        imageUrl
+      }
+      album {
+        id
+        title
+        imageUrl
+      }
+    }
+  }
+`;
