@@ -72,7 +72,8 @@ export class Label {
   )
   usersFollowing: UserLabelFollowing[];
 
-  @Field(() => Number, { defaultValue: 0 })
+  @Field(() => Number)
+  @Column({ default: 0 })
   followers: number;
 
   @Field(() => Date)

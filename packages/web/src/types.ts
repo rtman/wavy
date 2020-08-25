@@ -52,6 +52,7 @@ export type Artist = {
   description: Scalars['String'];
   labels?: Maybe<Array<ArtistLabel>>;
   usersFollowing?: Maybe<Array<UserArtistFollowing>>;
+  followers: Scalars['Float'];
   supportingArtistOn?: Maybe<Array<SongArtistSupportingArtist>>;
   users?: Maybe<Array<UserArtist>>;
   createdAt: Scalars['DateTime'];
@@ -137,6 +138,8 @@ export type Label = {
   albums?: Maybe<Array<Album>>;
   songs?: Maybe<Array<Song>>;
   users?: Maybe<Array<UserLabel>>;
+  usersFollowing?: Maybe<Array<UserLabelFollowing>>;
+  followers: Scalars['Float'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -186,6 +189,8 @@ export type Mutation = {
   removePlaylistSongs: Scalars['Boolean'];
   deletePlaylist: Scalars['Boolean'];
   createUser: User;
+  updateArtistFollowing: Scalars['Boolean'];
+  updateLabelFollowing: Scalars['Boolean'];
   updateFollowing: Scalars['Boolean'];
   updateFavourites: Scalars['Boolean'];
   updatePlaylists: Scalars['Boolean'];
@@ -264,6 +269,14 @@ export type MutationCreateUserArgs = {
   input: CreateUserArgs;
 };
 
+export type MutationUpdateArtistFollowingArgs = {
+  input: UpdateArtistFollowingArgs;
+};
+
+export type MutationUpdateLabelFollowingArgs = {
+  input: UpdateLabelFollowingArgs;
+};
+
 export type MutationUpdateFollowingArgs = {
   input: UpdateFollowingArgs;
 };
@@ -295,6 +308,8 @@ export type Playlist = {
   imageUrl?: Maybe<Scalars['String']>;
   songs?: Maybe<Array<SongPlaylist>>;
   users?: Maybe<Array<UserPlaylist>>;
+  usersFollowing?: Maybe<Array<UserPlaylistFollowing>>;
+  followers: Scalars['Float'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -528,6 +543,11 @@ export type Tag = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type UpdateArtistFollowingArgs = {
+  userId: Scalars['String'];
+  artistId: Scalars['String'];
+};
+
 export type UpdateFavouritesArgs = {
   userId: Scalars['String'];
   songId: Scalars['String'];
@@ -535,7 +555,19 @@ export type UpdateFavouritesArgs = {
 
 export type UpdateFollowingArgs = {
   userId: Scalars['String'];
-  artistId: Scalars['String'];
+  id: Scalars['String'];
+  type: UpdateFollowingType;
+};
+
+export enum UpdateFollowingType {
+  Artist = 'artist',
+  Label = 'label',
+  Playlist = 'playlist',
+}
+
+export type UpdateLabelFollowingArgs = {
+  userId: Scalars['String'];
+  labelId: Scalars['String'];
 };
 
 export type UpdatePlayCountArgs = {
@@ -567,8 +599,10 @@ export type User = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
-  favourites?: Maybe<Array<UserSongFavourites>>;
-  following?: Maybe<Array<UserArtistFollowing>>;
+  songFavourites?: Maybe<Array<UserSongFavourites>>;
+  followingArtists?: Maybe<Array<UserArtistFollowing>>;
+  followingLabels?: Maybe<Array<UserArtistFollowing>>;
+  followingPlaylists?: Maybe<Array<UserPlaylistFollowing>>;
   playlists?: Maybe<Array<UserPlaylist>>;
   artists?: Maybe<Array<UserArtist>>;
   labels?: Maybe<Array<UserLabel>>;
@@ -606,6 +640,16 @@ export type UserLabel = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type UserLabelFollowing = {
+  __typename?: 'UserLabelFollowing';
+  userId: Scalars['ID'];
+  labelId: Scalars['ID'];
+  user: User;
+  label: Label;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type UserPlayedSongArgs = {
   userId: Scalars['String'];
   songId: Scalars['String'];
@@ -617,6 +661,16 @@ export type UserPlayedSongArgs = {
 
 export type UserPlaylist = {
   __typename?: 'UserPlaylist';
+  userId: Scalars['ID'];
+  playlistId: Scalars['ID'];
+  user: User;
+  playlist: Playlist;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type UserPlaylistFollowing = {
+  __typename?: 'UserPlaylistFollowing';
   userId: Scalars['ID'];
   playlistId: Scalars['ID'];
   user: User;
@@ -768,11 +822,13 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   UserSongFavourites: ResolverTypeWrapper<UserSongFavourites>;
   UserArtistFollowing: ResolverTypeWrapper<UserArtistFollowing>;
-  UserPlaylist: ResolverTypeWrapper<UserPlaylist>;
+  UserPlaylistFollowing: ResolverTypeWrapper<UserPlaylistFollowing>;
   Playlist: ResolverTypeWrapper<Playlist>;
   SongPlaylist: ResolverTypeWrapper<SongPlaylist>;
-  UserArtist: ResolverTypeWrapper<UserArtist>;
+  UserPlaylist: ResolverTypeWrapper<UserPlaylist>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  UserArtist: ResolverTypeWrapper<UserArtist>;
+  UserLabelFollowing: ResolverTypeWrapper<UserLabelFollowing>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -799,7 +855,10 @@ export type ResolversTypes = {
   RemovePlaylistSongsArgs: RemovePlaylistSongsArgs;
   DeletePlaylistArgs: DeletePlaylistArgs;
   CreateUserArgs: CreateUserArgs;
+  UpdateArtistFollowingArgs: UpdateArtistFollowingArgs;
+  UpdateLabelFollowingArgs: UpdateLabelFollowingArgs;
   UpdateFollowingArgs: UpdateFollowingArgs;
+  UpdateFollowingType: UpdateFollowingType;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
 };
@@ -819,11 +878,13 @@ export type ResolversParentTypes = {
   User: User;
   UserSongFavourites: UserSongFavourites;
   UserArtistFollowing: UserArtistFollowing;
-  UserPlaylist: UserPlaylist;
+  UserPlaylistFollowing: UserPlaylistFollowing;
   Playlist: Playlist;
   SongPlaylist: SongPlaylist;
-  UserArtist: UserArtist;
+  UserPlaylist: UserPlaylist;
   Float: Scalars['Float'];
+  UserArtist: UserArtist;
+  UserLabelFollowing: UserLabelFollowing;
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
@@ -849,6 +910,8 @@ export type ResolversParentTypes = {
   RemovePlaylistSongsArgs: RemovePlaylistSongsArgs;
   DeletePlaylistArgs: DeletePlaylistArgs;
   CreateUserArgs: CreateUserArgs;
+  UpdateArtistFollowingArgs: UpdateArtistFollowingArgs;
+  UpdateLabelFollowingArgs: UpdateLabelFollowingArgs;
   UpdateFollowingArgs: UpdateFollowingArgs;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
@@ -894,6 +957,7 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
+  followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   supportingArtistOn?: Resolver<
     Maybe<Array<ResolversTypes['SongArtistSupportingArtist']>>,
     ParentType,
@@ -956,6 +1020,12 @@ export type LabelResolvers<
     ParentType,
     ContextType
   >;
+  usersFollowing?: Resolver<
+    Maybe<Array<ResolversTypes['UserLabelFollowing']>>,
+    ParentType,
+    ContextType
+  >;
+  followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1093,6 +1163,18 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateUserArgs, 'input'>
   >;
+  updateArtistFollowing?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateArtistFollowingArgs, 'input'>
+  >;
+  updateLabelFollowing?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateLabelFollowingArgs, 'input'>
+  >;
   updateFollowing?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -1142,6 +1224,12 @@ export type PlaylistResolvers<
     ParentType,
     ContextType
   >;
+  usersFollowing?: Resolver<
+    Maybe<Array<ResolversTypes['UserPlaylistFollowing']>>,
+    ParentType,
+    ContextType
+  >;
+  followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1438,13 +1526,23 @@ export type UserResolvers<
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  favourites?: Resolver<
+  songFavourites?: Resolver<
     Maybe<Array<ResolversTypes['UserSongFavourites']>>,
     ParentType,
     ContextType
   >;
-  following?: Resolver<
+  followingArtists?: Resolver<
     Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
+    ParentType,
+    ContextType
+  >;
+  followingLabels?: Resolver<
+    Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
+    ParentType,
+    ContextType
+  >;
+  followingPlaylists?: Resolver<
+    Maybe<Array<ResolversTypes['UserPlaylistFollowing']>>,
     ParentType,
     ContextType
   >;
@@ -1507,9 +1605,35 @@ export type UserLabelResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type UserLabelFollowingResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserLabelFollowing'] = ResolversParentTypes['UserLabelFollowing']
+> = {
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  labelId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type UserPlaylistResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['UserPlaylist'] = ResolversParentTypes['UserPlaylist']
+> = {
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  playlistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  playlist?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserPlaylistFollowingResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserPlaylistFollowing'] = ResolversParentTypes['UserPlaylistFollowing']
 > = {
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   playlistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -1553,7 +1677,9 @@ export type Resolvers<ContextType = any> = {
   UserArtist?: UserArtistResolvers<ContextType>;
   UserArtistFollowing?: UserArtistFollowingResolvers<ContextType>;
   UserLabel?: UserLabelResolvers<ContextType>;
+  UserLabelFollowing?: UserLabelFollowingResolvers<ContextType>;
   UserPlaylist?: UserPlaylistResolvers<ContextType>;
+  UserPlaylistFollowing?: UserPlaylistFollowingResolvers<ContextType>;
   UserSongFavourites?: UserSongFavouritesResolvers<ContextType>;
 };
 

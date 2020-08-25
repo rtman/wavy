@@ -17,6 +17,7 @@ import {
   MutationUpdateFollowingArgs,
   Query,
   QueryUserByIdArgs,
+  UpdateFollowingArgs,
   User,
   UserPlaylist,
 } from 'types';
@@ -26,7 +27,7 @@ import { AuthContext } from './auth';
 interface UserContextProps {
   user?: User;
   loadUser(id: string): void;
-  updateFollowing(id: string): void;
+  updateFollowing(args: Omit<UpdateFollowingArgs, 'userId'>): void;
   updateFavourites(id: string): void;
   addSongsToPlaylist(id: string, songIds: string[]): void;
   removeSongsFromPlaylist(id: string, songIds: string[]): void;
@@ -121,10 +122,16 @@ export const UserProvider: FunctionComponent = (props) => {
     }
   }, [authContext, loadUser]);
 
-  const updateFollowing = (artistId: string) => {
+  const updateFollowing = ({
+    id,
+    type,
+  }: {
+    id: string;
+    type: UpdateFollowingArgs['type'];
+  }) => {
     if (user?.id) {
       submitUpdateFollowing({
-        variables: { input: { userId: user?.id, artistId } },
+        variables: { input: { userId: user?.id, id, type } },
       });
     }
   };

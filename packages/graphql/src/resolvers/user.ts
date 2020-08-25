@@ -6,6 +6,7 @@ import {
   InputType,
   Mutation,
   Query,
+  registerEnumType,
   Resolver,
 } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -52,14 +53,26 @@ export class UpdateLabelFollowingArgs
   labelId: string;
 }
 
+enum UpdateFollowingType {
+  artist = 'artist',
+  label = 'label',
+  playlist = 'playlist',
+}
+
+registerEnumType(UpdateFollowingType, {
+  name: 'UpdateFollowingType',
+});
+
 @InputType()
-export class UpdatePlaylistFollowingArgs
-  implements Partial<Models.UserPlaylistFollowing> {
+export class UpdateFollowingArgs {
   @Field()
   userId: string;
 
   @Field()
-  playlistId: string;
+  id: string;
+
+  @Field(() => UpdateFollowingType)
+  type: UpdateFollowingType;
 }
 
 @InputType()
@@ -415,55 +428,71 @@ export class UserResolvers {
   }
 
   @Mutation(() => Boolean)
-  async updatePlaylistFollowing(
-    @Arg('input') payload: UpdatePlaylistFollowingArgs
+  async updateFollowing(
+    @Arg('input') payload: UpdateFollowingArgs
   ): Promise<boolean> {
-    try {
-      const { userId, playlistId } = payload;
+    const { userId, id, type } = payload;
 
+    const inputTypes = {
+      artist: {
+        model: Models.Artist,
+        followModel: Models.UserArtistFollowing,
+        idField: 'artistId',
+      },
+      label: {
+        model: Models.Label,
+        followModel: Models.UserLabelFollowing,
+        idField: 'labelId',
+      },
+      playlist: {
+        model: Models.Playlist,
+        followModel: Models.UserPlaylistFollowing,
+        idField: 'playlistId',
+      },
+    };
+
+    const { model, followModel, idField } = inputTypes[type];
+
+    try {
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
-          const repository = transactionalEntityManager.getRepository(
-            Models.Playlist
-          );
+          const repository = transactionalEntityManager.getRepository(model);
 
-          const userPlaylistFollowingRepository = getManager().getRepository(
-            Models.UserPlaylistFollowing
-          );
-          const following = await userPlaylistFollowingRepository.findOne({
+          const followingRepository = getManager().getRepository(followModel);
+          const following = await followingRepository.findOne({
             where: {
               userId,
-              playlistId,
+              [idField]: id,
             },
           });
 
           if (following) {
-            await userPlaylistFollowingRepository.remove(following);
-            const playlistToUpdate = await repository.decrement(
-              { id: payload.playlistId },
+            await followingRepository.remove(following);
+            const entityToUpdate = await repository.decrement(
+              { id },
               'followers',
               1
             );
-            return playlistToUpdate ? true : false;
+            return entityToUpdate ? true : false;
           } else {
-            const created = userPlaylistFollowingRepository.create({
+            const entityCreated = followingRepository.create({
               userId,
-              playlistId,
+              [idField]: id,
             });
-            await userPlaylistFollowingRepository.save(created);
-            const playlistToUpdate = await repository.increment(
-              { id: payload.playlistId },
+            await followingRepository.save(entityCreated);
+            const entityToUpdate = await repository.increment(
+              { id },
               'followers',
               1
             );
-            return playlistToUpdate ? true : false;
+            return entityToUpdate ? true : false;
           }
         }
       );
 
       return result;
     } catch (error) {
-      console.log('UpdatePlaylistFollowing error', error);
+      console.log(`UpdateFollowing id - ${id} - type ${type} - error`, error);
       return false;
     }
   }

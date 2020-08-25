@@ -23,7 +23,7 @@ export class UserSongFavourites {
 
   @ManyToOne(
     () => User,
-    (user) => user.favourites
+    (user) => user.songFavourites
   )
   @Field(() => User)
   user!: User;

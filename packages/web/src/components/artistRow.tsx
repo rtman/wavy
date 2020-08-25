@@ -13,7 +13,7 @@ import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Artist } from 'types';
+import { Artist, UpdateFollowingType } from 'types';
 
 interface ArtistRowProps {
   artist: Artist;
@@ -43,7 +43,10 @@ export const ArtistRow = (props: ArtistRowProps) => {
   };
 
   const onClickToggleFollow = () => {
-    userContext?.updateFollowing(artist.id.toString());
+    userContext?.updateFollowing({
+      id: artist.id.toString(),
+      type: UpdateFollowingType.Artist,
+    });
     handleMenuClose();
   };
 
@@ -85,7 +88,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         {location.pathname.includes('dashboard') ? null : (
           <MenuItem onClick={onClickToggleFollow}>
-            {userContext?.user?.following?.find(
+            {userContext?.user?.followingArtists?.find(
               (f) => f.artist.id === artist.id
             )
               ? 'Unfollow'

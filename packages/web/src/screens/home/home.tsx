@@ -27,9 +27,9 @@ export const Home = () => {
   const classes = useStyles();
   const userContext = useContext(UserContext);
   const user = userContext?.user;
-  const favourites = user?.favourites?.map((f) => f.song) ?? [];
+  const songFavourites = user?.songFavourites?.map((f) => f.song) ?? [];
   const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
-  const following = user?.following?.map((f) => f.artist) ?? [];
+  const artistsFollowing = user?.followingArtists?.map((f) => f.artist) ?? [];
 
   const {
     loading: newArtistsLoading,
@@ -177,12 +177,12 @@ export const Home = () => {
 
       {renderSection({
         title: 'Favourites',
-        data: favourites,
+        data: songFavourites,
       })}
 
       {renderSection({
-        title: 'Following',
-        data: following,
+        title: 'Artists Following',
+        data: artistsFollowing,
       })}
     </Container>
   );

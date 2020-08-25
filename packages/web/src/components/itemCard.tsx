@@ -97,7 +97,7 @@ export const ItemCard = (props: ItemCardProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.favourites?.find((f) => f.song.id === item.id)
+    return userContext?.user?.songFavourites?.find((f) => f.song.id === item.id)
       ? 'Unfavourite'
       : 'Favourite';
   };
