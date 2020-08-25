@@ -10,6 +10,7 @@ import {
 
 import { SongPlaylist } from './songPlaylist';
 import { UserPlaylist } from './userPlaylist';
+import { UserPlaylistFollowing } from './userPlaylistFollowing';
 
 @Entity('playlist')
 @ObjectType()
@@ -47,6 +48,13 @@ export class Playlist {
     (userPlaylist) => userPlaylist.playlist
   )
   users: UserPlaylist[];
+
+  @Field(() => [UserPlaylistFollowing], { nullable: true })
+  @OneToMany(
+    () => UserPlaylistFollowing,
+    (userPlaylistFollowing) => userPlaylistFollowing.playlist
+  )
+  usersFollowing: UserPlaylistFollowing[];
 
   @Field(() => Date)
   @CreateDateColumn()

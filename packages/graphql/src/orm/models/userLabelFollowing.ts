@@ -7,33 +7,33 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Artist } from './artist';
+import { Label } from './label';
 import { User } from './user';
 
-@Entity('userArtistFollowing')
+@Entity('userLabelFollowing')
 @ObjectType()
-export class UserArtistFollowing {
+export class UserLabelFollowing {
   @Field(() => ID, { nullable: false })
   @PrimaryColumn()
   userId: string;
 
   @Field(() => ID, { nullable: false })
   @PrimaryColumn()
-  artistId: string;
+  labelId: string;
 
   @ManyToOne(
     () => User,
-    (user) => user.followingArtists
+    (user) => user.followingLabels
   )
   @Field(() => User)
   user!: User;
 
   @ManyToOne(
-    () => Artist,
-    (artist) => artist.usersFollowing
+    () => Label,
+    (label) => label.usersFollowing
   )
-  @Field(() => Artist)
-  artist!: Artist;
+  @Field(() => Label)
+  label!: Label;
 
   @Field(() => Date)
   @CreateDateColumn()

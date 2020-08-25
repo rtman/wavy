@@ -11,7 +11,9 @@ import {
 import { UserArtist } from './userArtist';
 import { UserArtistFollowing } from './userArtistFollowing';
 import { UserLabel } from './userLabel';
+import { UserLabelFollowing } from './userLabelFollowing';
 import { UserPlaylist } from './userPlaylist';
+import { UserPlaylistFollowing } from './userPlaylistFollowing';
 import { UserSongFavourites } from './userSongFavourites';
 
 @Entity('user')
@@ -42,14 +44,28 @@ export class User {
     () => UserSongFavourites,
     (userSongFavourites) => userSongFavourites.user
   )
-  favourites: UserSongFavourites[];
+  songFavourites: UserSongFavourites[];
 
   @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(
     () => UserArtistFollowing,
     (userArtistFollowing) => userArtistFollowing.user
   )
-  following: UserArtistFollowing[];
+  followingArtists: UserArtistFollowing[];
+
+  @Field(() => [UserArtistFollowing], { nullable: true })
+  @OneToMany(
+    () => UserLabelFollowing,
+    (userLabelFollowing) => userLabelFollowing.user
+  )
+  followingLabels: UserLabelFollowing[];
+
+  @Field(() => [UserPlaylistFollowing], { nullable: true })
+  @OneToMany(
+    () => UserPlaylistFollowing,
+    (userPlaylistFollowing) => userPlaylistFollowing.user
+  )
+  followingPlaylists: UserPlaylistFollowing[];
 
   @Field(() => [UserPlaylist], { nullable: true })
   @OneToMany(

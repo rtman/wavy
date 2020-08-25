@@ -12,6 +12,7 @@ import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
 import { Song } from './song';
 import { UserLabel } from './userLabel';
+import { UserLabelFollowing } from './userLabelFollowing';
 
 @Entity('label')
 @ObjectType()
@@ -63,6 +64,13 @@ export class Label {
     (userLabel) => userLabel.label
   )
   users: UserLabel[];
+
+  @Field(() => [UserLabelFollowing], { nullable: true })
+  @OneToMany(
+    () => UserLabelFollowing,
+    (userLabelFollowing) => userLabelFollowing.label
+  )
+  usersFollowing: UserLabelFollowing[];
 
   @Field(() => Date)
   @CreateDateColumn()
