@@ -66,6 +66,9 @@ export class Artist {
   )
   usersFollowing: UserArtistFollowing[];
 
+  @Field(() => Number, { defaultValue: 0 })
+  followers: number;
+
   @Field(() => [SongArtistSupportingArtist], { nullable: true })
   @OneToMany(
     () => SongArtistSupportingArtist,

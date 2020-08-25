@@ -13,6 +13,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/esb%20live%20PR%20(filtre).jpg?alt=media&token=f95f227e-3471-4611-9338-32ecce29b7eb',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 100,
       },
       {
         id: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc10',
@@ -24,6 +25,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/esb%20live%20PR%20(filtre).jpg?alt=media&token=f95f227e-3471-4611-9338-32ecce29b7eb',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 101,
       },
       {
         id: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc11',
@@ -35,6 +37,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/esb%20live%20PR%20(filtre).jpg?alt=media&token=f95f227e-3471-4611-9338-32ecce29b7eb',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 20,
       },
     ]);
   },

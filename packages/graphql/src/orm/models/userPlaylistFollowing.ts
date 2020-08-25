@@ -19,7 +19,7 @@ export class UserPlaylistFollowing {
 
   @Field(() => ID, { nullable: false })
   @PrimaryColumn()
-  labelId: string;
+  playlistId: string;
 
   @ManyToOne(
     () => User,

@@ -33,13 +33,33 @@ class CreateUserArgs implements Partial<Models.User> {
 }
 
 @InputType()
-export class UpdateFollowingArgs
+export class UpdateArtistFollowingArgs
   implements Partial<Models.UserArtistFollowing> {
   @Field()
   userId: string;
 
   @Field()
   artistId: string;
+}
+
+@InputType()
+export class UpdateLabelFollowingArgs
+  implements Partial<Models.UserLabelFollowing> {
+  @Field()
+  userId: string;
+
+  @Field()
+  labelId: string;
+}
+
+@InputType()
+export class UpdatePlaylistFollowingArgs
+  implements Partial<Models.UserPlaylistFollowing> {
+  @Field()
+  userId: string;
+
+  @Field()
+  playlistId: string;
 }
 
 @InputType()
@@ -287,35 +307,163 @@ export class UserResolvers {
   }
 
   @Mutation(() => Boolean)
-  async updateFollowing(
-    @Arg('input') payload: UpdateFollowingArgs
+  async updateArtistFollowing(
+    @Arg('input') payload: UpdateArtistFollowingArgs
   ): Promise<boolean> {
     try {
       const { userId, artistId } = payload;
-      const userArtistFollowingRepository = getManager().getRepository(
-        Models.UserArtistFollowing
+
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Artist
+          );
+
+          const userArtistFollowingRepository = getManager().getRepository(
+            Models.UserArtistFollowing
+          );
+          const following = await userArtistFollowingRepository.findOne({
+            where: {
+              userId,
+              artistId,
+            },
+          });
+
+          if (following) {
+            await userArtistFollowingRepository.remove(following);
+            const artistToUpdate = await repository.decrement(
+              { id: payload.artistId },
+              'followers',
+              1
+            );
+            return artistToUpdate ? true : false;
+          } else {
+            const created = userArtistFollowingRepository.create({
+              userId,
+              artistId,
+            });
+            await userArtistFollowingRepository.save(created);
+            const artistToUpdate = await repository.increment(
+              { id: payload.artistId },
+              'followers',
+              1
+            );
+            return artistToUpdate ? true : false;
+          }
+        }
       );
 
-      const following = await userArtistFollowingRepository.findOne({
-        where: {
-          userId,
-          artistId,
-        },
-      });
-
-      if (following) {
-        await userArtistFollowingRepository.remove(following);
-      } else {
-        const created = userArtistFollowingRepository.create({
-          userId,
-          artistId,
-        });
-        await userArtistFollowingRepository.save(created);
-      }
-      // TODO: Improve return type to show succesful creation or removal
-      return true;
+      return result;
     } catch (error) {
-      console.log('UpdateFollowing error', error);
+      console.log('UpdateArtistFollowing error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updateLabelFollowing(
+    @Arg('input') payload: UpdateLabelFollowingArgs
+  ): Promise<boolean> {
+    try {
+      const { userId, labelId } = payload;
+
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Label
+          );
+
+          const userLabelFollowingRepository = getManager().getRepository(
+            Models.UserLabelFollowing
+          );
+          const following = await userLabelFollowingRepository.findOne({
+            where: {
+              userId,
+              labelId,
+            },
+          });
+
+          if (following) {
+            await userLabelFollowingRepository.remove(following);
+            const labelToUpdate = await repository.decrement(
+              { id: payload.labelId },
+              'followers',
+              1
+            );
+            return labelToUpdate ? true : false;
+          } else {
+            const created = userLabelFollowingRepository.create({
+              userId,
+              labelId,
+            });
+            await userLabelFollowingRepository.save(created);
+            const labelToUpdate = await repository.increment(
+              { id: payload.labelId },
+              'followers',
+              1
+            );
+            return labelToUpdate ? true : false;
+          }
+        }
+      );
+
+      return result;
+    } catch (error) {
+      console.log('UpdateLabelFollowing error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updatePlaylistFollowing(
+    @Arg('input') payload: UpdatePlaylistFollowingArgs
+  ): Promise<boolean> {
+    try {
+      const { userId, playlistId } = payload;
+
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Playlist
+          );
+
+          const userPlaylistFollowingRepository = getManager().getRepository(
+            Models.UserPlaylistFollowing
+          );
+          const following = await userPlaylistFollowingRepository.findOne({
+            where: {
+              userId,
+              playlistId,
+            },
+          });
+
+          if (following) {
+            await userPlaylistFollowingRepository.remove(following);
+            const playlistToUpdate = await repository.decrement(
+              { id: payload.playlistId },
+              'followers',
+              1
+            );
+            return playlistToUpdate ? true : false;
+          } else {
+            const created = userPlaylistFollowingRepository.create({
+              userId,
+              playlistId,
+            });
+            await userPlaylistFollowingRepository.save(created);
+            const playlistToUpdate = await repository.increment(
+              { id: payload.playlistId },
+              'followers',
+              1
+            );
+            return playlistToUpdate ? true : false;
+          }
+        }
+      );
+
+      return result;
+    } catch (error) {
+      console.log('UpdatePlaylistFollowing error', error);
       return false;
     }
   }

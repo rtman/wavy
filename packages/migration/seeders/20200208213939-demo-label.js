@@ -13,6 +13,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/superconcious.jpg?alt=media&token=a7f5b84b-18f7-4260-9c76-90e0b5be4529',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 100,
       },
       {
         id: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
@@ -25,6 +26,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/hth_gradient_logo.png?alt=media&token=7f5c8380-f39b-4600-b112-24ef108919f3',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 99,
       },
       {
         id: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
@@ -37,6 +39,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cosmicResonance.png?alt=media&token=61afef55-3d27-4862-8722-baaaf63a8015',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 98,
       },
       {
         id: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
@@ -48,6 +51,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 1000,
       },
       {
         id: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
@@ -60,6 +64,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/leavingRecords.jpeg?alt=media&token=3b607bcb-639a-4c68-a979-079e1f8f9c87',
         createdAt: new Date(),
         updatedAt: new Date(),
+        followers: 250,
       },
     ]);
   },

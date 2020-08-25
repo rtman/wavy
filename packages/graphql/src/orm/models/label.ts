@@ -72,6 +72,9 @@ export class Label {
   )
   usersFollowing: UserLabelFollowing[];
 
+  @Field(() => Number, { defaultValue: 0 })
+  followers: number;
+
   @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
