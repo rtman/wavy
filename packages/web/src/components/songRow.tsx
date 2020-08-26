@@ -103,7 +103,7 @@ export const SongRow = (props: SongRowProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.favourites?.find((f) => f.song.id === song.id)
+    return userContext?.user?.songFavourites?.find((f) => f.song.id === song.id)
       ? 'Unfavourite'
       : 'Favourite';
   };

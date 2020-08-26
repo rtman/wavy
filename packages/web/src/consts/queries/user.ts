@@ -88,7 +88,7 @@ export const USER_BY_ID = gql`
           imageUrl
         }
       }
-      following {
+      artistFollows {
         createdAt
         artist {
           id
@@ -103,7 +103,7 @@ export const USER_BY_ID = gql`
           }
         }
       }
-      favourites {
+      songFavourites {
         createdAt
         song {
           id

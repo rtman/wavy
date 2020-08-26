@@ -88,7 +88,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
         <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
         {location.pathname.includes('dashboard') ? null : (
           <MenuItem onClick={onClickToggleFollow}>
-            {userContext?.user?.followingArtists?.find(
+            {userContext?.user?.artistFollows?.find(
               (f) => f.artist.id === artist.id
             )
               ? 'Unfollow'

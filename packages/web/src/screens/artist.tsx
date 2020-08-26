@@ -44,7 +44,7 @@ export const Artist = () => {
 
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
-  const following = userContext?.user?.followingArtists ?? [];
+  const following = userContext?.user?.artistFollows ?? [];
   const artistSongs = artist?.songs ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';

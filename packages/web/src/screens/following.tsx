@@ -13,7 +13,7 @@ export const Following = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
   console.log('user', user);
-  const following = userContext?.user?.followingArtists ?? [];
+  const following = userContext?.user?.artistFollows ?? [];
 
   const renderArtists = () => {
     if (following.length > 0) {

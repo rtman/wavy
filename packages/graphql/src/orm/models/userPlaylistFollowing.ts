@@ -23,7 +23,7 @@ export class UserPlaylistFollowing {
 
   @ManyToOne(
     () => User,
-    (user) => user.followingLabels
+    (user) => user.labelFollows
   )
   @Field(() => User)
   user!: User;

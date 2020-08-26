@@ -51,21 +51,21 @@ export class User {
     () => UserArtistFollowing,
     (userArtistFollowing) => userArtistFollowing.user
   )
-  followingArtists: UserArtistFollowing[];
+  artistFollows: UserArtistFollowing[];
 
   @Field(() => [UserArtistFollowing], { nullable: true })
   @OneToMany(
     () => UserLabelFollowing,
     (userLabelFollowing) => userLabelFollowing.user
   )
-  followingLabels: UserLabelFollowing[];
+  labelFollows: UserLabelFollowing[];
 
   @Field(() => [UserPlaylistFollowing], { nullable: true })
   @OneToMany(
     () => UserPlaylistFollowing,
     (userPlaylistFollowing) => userPlaylistFollowing.user
   )
-  followingPlaylists: UserPlaylistFollowing[];
+  playlistFollows: UserPlaylistFollowing[];
 
   @Field(() => [UserPlaylist], { nullable: true })
   @OneToMany(

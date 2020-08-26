@@ -600,9 +600,9 @@ export type User = {
   email: Scalars['String'];
   password: Scalars['String'];
   songFavourites?: Maybe<Array<UserSongFavourites>>;
-  followingArtists?: Maybe<Array<UserArtistFollowing>>;
-  followingLabels?: Maybe<Array<UserArtistFollowing>>;
-  followingPlaylists?: Maybe<Array<UserPlaylistFollowing>>;
+  artistFollows?: Maybe<Array<UserArtistFollowing>>;
+  labelFollows?: Maybe<Array<UserArtistFollowing>>;
+  playlistFollows?: Maybe<Array<UserPlaylistFollowing>>;
   playlists?: Maybe<Array<UserPlaylist>>;
   artists?: Maybe<Array<UserArtist>>;
   labels?: Maybe<Array<UserLabel>>;
@@ -1531,17 +1531,17 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
-  followingArtists?: Resolver<
+  artistFollows?: Resolver<
     Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
     ParentType,
     ContextType
   >;
-  followingLabels?: Resolver<
+  labelFollows?: Resolver<
     Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
     ParentType,
     ContextType
   >;
-  followingPlaylists?: Resolver<
+  playlistFollows?: Resolver<
     Maybe<Array<ResolversTypes['UserPlaylistFollowing']>>,
     ParentType,
     ContextType

@@ -29,7 +29,7 @@ export const Home = () => {
   const user = userContext?.user;
   const songFavourites = user?.songFavourites?.map((f) => f.song) ?? [];
   const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
-  const artistsFollowing = user?.followingArtists?.map((f) => f.artist) ?? [];
+  const artistsFollowing = user?.artistFollows?.map((f) => f.artist) ?? [];
 
   const {
     loading: newArtistsLoading,
@@ -181,7 +181,7 @@ export const Home = () => {
       })}
 
       {renderSection({
-        title: 'Artists Following',
+        title: 'Artists You Follow',
         data: artistsFollowing,
       })}
     </Container>
