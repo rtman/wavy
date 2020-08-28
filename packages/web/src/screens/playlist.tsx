@@ -23,7 +23,7 @@ import {
   Spacing,
 } from 'components';
 import * as consts from 'consts';
-import { PlayerContext } from 'context';
+import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -32,10 +32,12 @@ import {
   Query,
   QueryPlaylistByIdArgs,
   SongPlaylist,
+  UpdateFollowingType,
 } from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();
+  const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
@@ -62,16 +64,40 @@ export const Playlist = () => {
     },
   });
 
+  const playlistFollows = userContext?.user?.playlistFollows ?? [];
   const playlistSongs = queryData?.playlistById?.songs ?? [];
   const playlistImageUrl = queryData?.playlistById?.imageUrl ?? '';
   const playlistTitle = queryData?.playlistById?.title ?? '';
   const playlistDescription = queryData?.playlistById?.description ?? '';
+  const playlistUsers = queryData?.playlistById?.users ?? [];
+
+  const userIsPlaylistOwner = playlistUsers.find(
+    (user) => userContext?.user?.id === user.userId
+  )
+    ? true
+    : false;
 
   useEffect(() => {
     if (id) {
       getPlaylist({ variables: { playlistId: id } });
     }
   }, [getPlaylist, id]);
+
+  const onClickToggleFollow = () => {
+    if (id) {
+      userContext?.updateFollowing({ id, type: UpdateFollowingType.Playlist });
+    }
+  };
+
+  const getFollowTitle = () => {
+    if (id) {
+      return playlistFollows?.find((f) => f.playlist.id === id)
+        ? 'Unfollow'
+        : 'Follow';
+    } else {
+      return 'Loading';
+    }
+  };
 
   const renderSongs = () => {
     if (playlistSongs.length > 0) {
@@ -126,8 +152,6 @@ export const Playlist = () => {
     }
   };
 
-  console.log('data', queryData);
-
   return (
     <Screen>
       {queryLoading ? (
@@ -148,13 +172,23 @@ export const Playlist = () => {
                 Play Now
               </Button>
               <Spacing.BetweenComponents />
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={onClickEdit(true)}
-              >
-                Edit
-              </Button>
+              {userIsPlaylistOwner ? (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={onClickEdit(true)}
+                >
+                  Edit
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={onClickToggleFollow}
+                >
+                  {getFollowTitle()}
+                </Button>
+              )}
             </RowContainer>
             <Spacing.section.Minor />
             <Typography variant="h1">Description</Typography>

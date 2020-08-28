@@ -53,7 +53,7 @@ export class User {
   )
   artistFollows: UserArtistFollowing[];
 
-  @Field(() => [UserArtistFollowing], { nullable: true })
+  @Field(() => [UserLabelFollowing], { nullable: true })
   @OneToMany(
     () => UserLabelFollowing,
     (userLabelFollowing) => userLabelFollowing.user

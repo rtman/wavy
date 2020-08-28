@@ -19,13 +19,14 @@ import {
   Spacing,
 } from 'components';
 import * as consts from 'consts';
-import { PlayerContext } from 'context';
+import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Query, QueryLabelByIdArgs } from 'types';
+import { Query, QueryLabelByIdArgs, UpdateFollowingType } from 'types';
 
 export const Label = () => {
   const { id } = useParams();
+  const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
     Pick<Query, 'labelById'>,
@@ -34,6 +35,7 @@ export const Label = () => {
     fetchPolicy: 'network-only',
   });
 
+  const labelFollows = userContext?.user?.labelFollows ?? [];
   const labelSongs = queryData?.labelById?.songs ?? [];
   const labelArtists = queryData?.labelById?.artists ?? [];
   const labelAlbums = queryData?.labelById?.albums ?? [];
@@ -46,6 +48,22 @@ export const Label = () => {
       getLabel({ variables: { labelId: id } });
     }
   }, [getLabel, id]);
+
+  const onClickToggleFollow = () => {
+    if (id) {
+      userContext?.updateFollowing({ id, type: UpdateFollowingType.Label });
+    }
+  };
+
+  const getFollowTitle = () => {
+    if (id) {
+      return labelFollows?.find((f) => f.label.id === id)
+        ? 'Unfollow'
+        : 'Follow';
+    } else {
+      return 'Loading';
+    }
+  };
 
   const renderArtists = () => {
     if (labelArtists.length > 0) {
@@ -104,6 +122,13 @@ export const Label = () => {
                 onClick={onClickPlayNow}
               >
                 Play Now
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={onClickToggleFollow}
+              >
+                {getFollowTitle()}
               </Button>
             </RowContainer>
             <Spacing.section.Minor />

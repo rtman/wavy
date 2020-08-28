@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import * as admin from 'firebase-admin';
 import {
   Arg,
@@ -302,15 +303,52 @@ export class UserResolvers {
     }
   }
 
+  @Query(() => Models.User)
+  async login(
+    @Arg('userId') userId: string,
+    @Arg('password') password: string
+  ): Promise<Models.User | undefined> {
+    try {
+      //TODO: This is rudimentary, need to flesh out server auth. Proper server auth errors need to be returned to the client
+
+      const userRepository = getManager().getRepository(Models.User);
+      const user = await userRepository.findOne({ where: { userId } });
+      if (user) {
+        const result = await bcrypt.compare(password, user?.password);
+
+        if (result) {
+          return user;
+        }
+
+        console.log('login - passwordHash didnt match');
+        return;
+      }
+      console.log('login - userId not found', userId);
+
+      return;
+    } catch (error) {
+      console.log('login error', error);
+
+      return;
+    }
+  }
+
   @Mutation(() => Models.User)
   async createUser(
     @Arg('input') payload: CreateUserArgs
   ): Promise<Models.User | undefined> {
     try {
-      const { userId, ...rest } = payload;
+      const { userId, password, ...rest } = payload;
 
       const repository = getManager().getRepository(Models.User);
-      const user = repository.create({ id: userId, ...rest });
+
+      const passwordHash = await bcrypt.hash(password, 10);
+
+      const user = repository.create({
+        id: userId,
+        password: passwordHash,
+        ...rest,
+      });
 
       if (user) {
         await repository.save(user);

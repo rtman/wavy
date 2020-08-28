@@ -26,6 +26,7 @@ import {
   Query,
   QueryArtistByIdArgs,
   Song,
+  UpdateFollowingType,
 } from 'types';
 
 export const Artist = () => {
@@ -44,7 +45,7 @@ export const Artist = () => {
 
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
-  const following = userContext?.user?.artistFollows ?? [];
+  const artistFollows = userContext?.user?.artistFollows ?? [];
   const artistSongs = artist?.songs ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
@@ -63,13 +64,15 @@ export const Artist = () => {
 
   const onClickToggleFollow = () => {
     if (id) {
-      userContext?.updateFollowing(id);
+      userContext?.updateFollowing({ id, type: UpdateFollowingType.Artist });
     }
   };
 
   const getFollowTitle = () => {
     if (id) {
-      return following?.find((f) => f.artist.id === id) ? 'Unfollow' : 'Follow';
+      return artistFollows?.find((f) => f.artist.id === id)
+        ? 'Unfollow'
+        : 'Follow';
     } else {
       return 'Loading';
     }

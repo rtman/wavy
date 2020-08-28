@@ -601,7 +601,7 @@ export type User = {
   password: Scalars['String'];
   songFavourites?: Maybe<Array<UserSongFavourites>>;
   artistFollows?: Maybe<Array<UserArtistFollowing>>;
-  labelFollows?: Maybe<Array<UserArtistFollowing>>;
+  labelFollows?: Maybe<Array<UserLabelFollowing>>;
   playlistFollows?: Maybe<Array<UserPlaylistFollowing>>;
   playlists?: Maybe<Array<UserPlaylist>>;
   artists?: Maybe<Array<UserArtist>>;
