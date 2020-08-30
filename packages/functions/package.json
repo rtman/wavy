@@ -1,11 +1,14 @@
 {
   "name": "functions",
+  "version": "0.0.1",
   "workspaces": {
     "nohoist": [
       "*fluent-ffmpeg*",
       "*fluent-ffmpeg*/**",
       "*ffmpeg-static*",
-      "*ffmpeg-static*/**"
+      "*ffmpeg-static*/**",
+      "*sharp*",
+      "*sharp*/**"
     ]
   },
   "scripts": {
@@ -18,14 +21,15 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@google-cloud/storage": "^5.3.0",
     "fluent-ffmpeg": "^2.1.2",
     "ffmpeg-static": "^4.2.7",
-    "firebase-admin": "^8.6.0",
-    "firebase-functions": "^3.3.0",
+    "firebase-admin": "^9.1.1",
+    "firebase-functions": "^3.11.0",
     "sharp": "^0.26.0"
   },
   "devDependencies": {

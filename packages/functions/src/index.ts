@@ -1,10 +1,4 @@
-import * as admin from 'firebase-admin';
-
-import * as config from './config';
-// const emailConfig = require('./src/initEmailConfig');
-import { processImage } from './processImage';
 import { processAudio } from './processAudio';
+import { processImage } from './processImage';
 
-admin.initializeApp(config.firebaseConfig);
-
-export { processImage };
+export { processAudio, processImage };
