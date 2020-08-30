@@ -1,119 +1,135 @@
-import * as gcs from '@google-cloud/storage';
+import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import * as sharp from 'sharp';
 
 import { initConfig } from './config';
 
-const config = initConfig();
-const gcsClient = new gcs.Storage();
+initConfig();
 
 interface ProcessImageData {
   filePath: string;
+  imageType: 'banner' | 'profile';
 }
 
 const IMAGE_SIZES = {
-  L: { H: 1000, W: 1000 },
-  // M: { H: 750, W: 750 },
-  // S: { H: 500, W: 500 },
-  THUMB: { H: 250, W: 250 },
+  profile: {
+    L: { H: 750, W: 750 },
+    // M: { H: 750, W: 750 },
+    // S: { H: 500, W: 500 },
+    THUMB: { H: 250, W: 250 },
+  },
+  banner: {
+    L: { H: 1140, W: 2660 },
+    // M: { H: 750, W: 750 },
+    // S: { H: 500, W: 500 },
+    THUMB: { H: 285, W: 665 },
+  },
 };
+
+const CONTENT_TYPE = 'image/jpeg';
 
 export const processImage = functions.https.onCall(
   async (data: ProcessImageData, context) => {
     try {
-      const { filePath } = data;
-      const fileBucket = config?.firebaseConfig.storageBucket; // The Storage bucket that contains the file.
+      const { filePath, imageType } = data;
 
-      if (fileBucket) {
-        // Get the file name.
-        const fileName = path.basename(filePath);
+      const fileName = path.basename(filePath);
+      const bucket = admin.storage().bucket();
 
-        const metaDataResponse = await gcsClient
-          .bucket(fileBucket)
-          .file(filePath)
-          .getMetadata();
+      const metaDataResponse = await bucket.file(filePath).getMetadata();
 
-        const [metaData] = metaDataResponse;
+      const [metaData] = metaDataResponse;
 
-        // const filePath = metaData.name; // File path in the bucket.
-        const contentType = metaData.contentType; // File content type.
+      const contentType = metaData.contentType;
 
-        // Exit if this is triggered on a file that is not an image.
-        if (!contentType.startsWith('image/')) {
-          console.log('This is not an image.');
-          return null;
-        }
-
-        // Download file from bucket.
-        const bucket = gcsClient.bucket(fileBucket);
-
-        const metadata = {
-          contentType: contentType,
-        };
-
-        const largeImageFileName = `${fileName}`;
-        const thumbImageFileName = `${fileName}_thumb`;
-        const largeImageFilePath = path.join(
-          path.dirname(filePath),
-          largeImageFileName
-        );
-        const thumbImageFilePath = path.join(
-          path.dirname(filePath),
-          thumbImageFileName
-        );
-
-        // Create write streams
-        const largeImageUploadStream = bucket
-          .file(largeImageFilePath)
-          .createWriteStream({ metadata });
-        const thumbImageUploadStream = bucket
-          .file(thumbImageFilePath)
-          .createWriteStream({ metadata });
-
-        // Create Sharp pipeline for resizing the image and use pipe to read from bucket read stream
-        const pipeline = sharp();
-
-        pipeline
-          .resize(IMAGE_SIZES.L.W, IMAGE_SIZES.L.H)
-          .toFormat('jpeg')
-          .pipe(largeImageUploadStream);
-
-        bucket
-          .file(largeImageFilePath)
-          .createReadStream()
-          .pipe(pipeline);
-
-        pipeline
-          .resize(IMAGE_SIZES.THUMB.W, IMAGE_SIZES.THUMB.H)
-          .toFormat('jpeg')
-          .pipe(thumbImageUploadStream);
-
-        bucket
-          .file(thumbImageFilePath)
-          .createReadStream()
-          .pipe(pipeline);
-
-        const largeImagePromise = new Promise((resolve, reject) =>
-          largeImageUploadStream.on('finish', resolve).on('error', reject)
-        );
-
-        const thumbImagePromise = new Promise((resolve, reject) =>
-          thumbImageUploadStream.on('finish', resolve).on('error', reject)
-        );
-
-        const promises = [largeImagePromise, thumbImagePromise];
-
-        return {
-          ok: true,
-          data: await Promise.all(promises),
-        };
+      if (!contentType.startsWith('image/')) {
+        console.log('This is not an image.');
+        return null;
       }
 
-      return {
-        ok: false,
-        error: 'config?.firebaseConfig.storageBucket === undefined',
+      const metadata = {
+        contentType: CONTENT_TYPE,
       };
+
+      const largeImageFileName = `${fileName}_large`;
+      const thumbImageFileName = `${fileName}_thumb`;
+
+      const largeLocalTempFilePath = path.join(os.tmpdir(), largeImageFileName);
+      const thumbLocalTempFilePath = path.join(os.tmpdir(), thumbImageFileName);
+
+      const largeStorageFilePath = path.join(
+        path.dirname(filePath),
+        largeImageFileName
+      );
+      const thumbStorageFilePath = path.join(
+        path.dirname(filePath),
+        thumbImageFileName
+      );
+
+      const localTempOriginalFilePath = path.join(os.tmpdir(), fileName);
+
+      await bucket
+        .file(filePath)
+        .download({ destination: localTempOriginalFilePath });
+
+      const convertLargeImage = sharp(localTempOriginalFilePath)
+        .resize(IMAGE_SIZES[imageType].L.W, IMAGE_SIZES[imageType].L.H)
+        .toFormat('jpeg')
+        .toFile(largeLocalTempFilePath);
+
+      const convertThumbImage = sharp(localTempOriginalFilePath)
+        .resize(IMAGE_SIZES[imageType].THUMB.W, IMAGE_SIZES[imageType].THUMB.H)
+        .toFormat('jpeg')
+        .toFile(thumbLocalTempFilePath);
+
+      const [largeConversionResult, thumbConversionResult] = await Promise.all([
+        convertLargeImage,
+        convertThumbImage,
+      ]);
+
+      if (largeConversionResult && thumbConversionResult) {
+        const largeUploadPromise = bucket.upload(largeLocalTempFilePath, {
+          destination: largeStorageFilePath,
+          metadata,
+        });
+        const thumbUploadPromise = bucket.upload(thumbLocalTempFilePath, {
+          destination: thumbStorageFilePath,
+          metadata,
+        });
+        const deleteOriginalImagePromise = bucket.file(filePath).delete();
+
+        const [
+          largeUploadResult,
+          thumbUploadResult,
+          deleteOriginalResult,
+        ] = await Promise.all([
+          largeUploadPromise,
+          thumbUploadPromise,
+          deleteOriginalImagePromise,
+        ]);
+
+        if (largeUploadResult && thumbUploadResult && deleteOriginalResult) {
+          fs.unlinkSync(largeLocalTempFilePath);
+          fs.unlinkSync(thumbLocalTempFilePath);
+
+          console.log(
+            'Temporary files removed.',
+            largeLocalTempFilePath,
+            thumbLocalTempFilePath
+          );
+
+          return {
+            ok: true,
+            data: { largeFilePath: '', thumbFilePath: '' },
+          };
+        }
+        return { ok: false, error: 'Uploads failed' };
+      }
+
+      return { ok: false, error: 'Image conversion failed' };
     } catch (error) {
       return {
         ok: false,

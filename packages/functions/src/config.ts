@@ -1,5 +1,3 @@
-import 'firebase-functions';
-
 import * as admin from 'firebase-admin';
 
 interface FirebaseConfig {
@@ -18,20 +16,13 @@ export const initConfig = () => {
       const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
       switch (firebaseConfig.projectId) {
         case 'groov-development-ddc9d':
-          // production
+          // dev
           return {
-            // serviceAccount: require('../firebase_environments/production/get-it-a1b2d-firebase-adminsdk-t21os-25ffa935bf.json'),
             firebaseConfig,
-            credential: admin.credential.cert(serviceAccount),
-
-            // Include a Service Account Key to use a Signed URL
-
-            // gcs: require('@google-cloud/storage')({
-            //   keyFilename:
-            //     '../firebase_environments/production/get-it-a1b2d-firebase-adminsdk-t21os-25ffa935bf.json',
-            // }),
+            credential: admin.credential.cert(
+              '../environments/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json'
+            ),
           };
-        // oAuthConfig =  require('../firebase_environments/production/oAuth.json');
       }
     }
 
@@ -40,7 +31,10 @@ export const initConfig = () => {
 
   const config_ = makeConfig();
 
-  admin.initializeApp();
+  admin.initializeApp({
+    credential: config_?.credential,
+    storageBucket: config_?.firebaseConfig.storageBucket,
+  });
 
   return config_;
 };
