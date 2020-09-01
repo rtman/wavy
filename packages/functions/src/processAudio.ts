@@ -54,7 +54,7 @@ export const processAudio = functions.https.onCall(
         return null;
       }
 
-      const tempOriginalFilePath = path.join(os.tmpdir(), originalFileName);
+      const originalTempFilePath = path.join(os.tmpdir(), originalFileName);
       const targetFileName =
         originalFileName.replace(/\.[^/.]+$/, '') +
         `_output.${AUDIO_FILE_TYPE}`;
@@ -66,11 +66,11 @@ export const processAudio = functions.https.onCall(
 
       await bucket
         .file(filePath)
-        .download({ destination: tempOriginalFilePath });
-      console.log('Audio downloaded locally to', tempOriginalFilePath);
+        .download({ destination: originalTempFilePath });
+      console.log('Audio downloaded locally to', originalTempFilePath);
       // Convert the audio to mono channel using FFMPEG.
 
-      const command = ffmpeg(tempOriginalFilePath)
+      const command = ffmpeg(originalTempFilePath)
         .setFfmpegPath(ffmpegStatic)
         .audioFrequency(SAMPLE_RATE)
         .format(AUDIO_FILE_TYPE)
@@ -79,7 +79,7 @@ export const processAudio = functions.https.onCall(
       await promisifyCommand(command);
       console.log('Output audio created at', targetTempFilePath);
       // Uploading the audio.
-      await bucket.upload(targetTempFilePath, {
+      const upload = await bucket.upload(targetTempFilePath, {
         destination: targetStorageFilePath,
         metadata: { contentType: CONTENT_TYPE },
       });
@@ -89,18 +89,27 @@ export const processAudio = functions.https.onCall(
       await bucket.file(filePath).delete();
 
       // Once the audio has been uploaded delete the local file to free up disk space.
-      fs.unlinkSync(tempOriginalFilePath);
+      fs.unlinkSync(originalTempFilePath);
       fs.unlinkSync(targetTempFilePath);
 
       console.log(
         'Temporary files removed.',
-        tempOriginalFilePath,
+        originalTempFilePath,
         targetTempFilePath
       );
 
+      const signedUrlsResponse = await upload[0].getSignedUrl({
+        action: 'read',
+        expires: '03-09-2491',
+      });
+
       return {
         ok: true,
-        data: { filePath: targetStorageFilePath },
+        data: {
+          filePath: targetStorageFilePath,
+          // TODO: get download url
+          downloadUrl: signedUrlsResponse[0],
+        },
       };
     } catch (error) {
       return {

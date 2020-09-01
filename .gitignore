@@ -61,3 +61,5 @@ packages/mobile/ios/Pods/
 #Secrets
 secrets/
 environments/
+
+firebase-debug.log

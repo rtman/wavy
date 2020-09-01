@@ -69,18 +69,18 @@ export const processImage = functions.https.onCall(
         thumbImageFileName
       );
 
-      const localTempOriginalFilePath = path.join(os.tmpdir(), fileName);
+      const originalLocalTempFilePath = path.join(os.tmpdir(), fileName);
 
       await bucket
         .file(filePath)
-        .download({ destination: localTempOriginalFilePath });
+        .download({ destination: originalLocalTempFilePath });
 
-      const convertLargeImage = sharp(localTempOriginalFilePath)
+      const convertLargeImage = sharp(originalLocalTempFilePath)
         .resize(IMAGE_SIZES[imageType].L.W, IMAGE_SIZES[imageType].L.H)
         .toFormat('jpeg')
         .toFile(largeLocalTempFilePath);
 
-      const convertThumbImage = sharp(localTempOriginalFilePath)
+      const convertThumbImage = sharp(originalLocalTempFilePath)
         .resize(IMAGE_SIZES[imageType].THUMB.W, IMAGE_SIZES[imageType].THUMB.H)
         .toFormat('jpeg')
         .toFile(thumbLocalTempFilePath);
@@ -112,6 +112,21 @@ export const processImage = functions.https.onCall(
         ]);
 
         if (largeUploadResult && thumbUploadResult && deleteOriginalResult) {
+          const largeSignedUrlsResponse = await largeUploadResult[0].getSignedUrl(
+            {
+              action: 'read',
+              expires: '03-09-2491',
+            }
+          );
+
+          const thumbSignedUrlsResponse = await thumbUploadResult[0].getSignedUrl(
+            {
+              action: 'read',
+              expires: '03-09-2491',
+            }
+          );
+
+          fs.unlinkSync(originalLocalTempFilePath);
           fs.unlinkSync(largeLocalTempFilePath);
           fs.unlinkSync(thumbLocalTempFilePath);
 
@@ -123,7 +138,17 @@ export const processImage = functions.https.onCall(
 
           return {
             ok: true,
-            data: { largeFilePath: '', thumbFilePath: '' },
+            // TODO: get download urls
+            data: {
+              large: {
+                path: largeStorageFilePath,
+                url: largeSignedUrlsResponse[0],
+              },
+              thumb: {
+                path: thumbStorageFilePath,
+                url: thumbSignedUrlsResponse[0],
+              },
+            },
           };
         }
         return { ok: false, error: 'Uploads failed' };
