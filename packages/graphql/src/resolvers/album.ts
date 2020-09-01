@@ -2,6 +2,7 @@ import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
+import * as services from '../services';
 
 @InputType()
 class NewSongArgs implements Partial<Models.Song> {
@@ -180,6 +181,20 @@ export class AlbumResolvers {
     } catch (error) {
       console.log('createAlbum error', error);
       return;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async testProcessAudio(@Arg('ref') ref: string): Promise<boolean> {
+    try {
+      const result = await services.processAudio({ filePath: ref });
+
+      console.log('*debug* testProcessAudio result', result);
+
+      return true;
+    } catch (error) {
+      console.log('createAlbum error', error);
+      return false;
     }
   }
 

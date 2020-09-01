@@ -275,7 +275,7 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Playlist)
+  @Mutation(() => Boolean)
   async updatePlaylistInfo(
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
@@ -320,7 +320,7 @@ export class PlaylistResolvers {
     }
   }
 
-  @Mutation(() => Models.Playlist)
+  @Mutation(() => Boolean)
   async testProcessImage(
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {

@@ -172,6 +172,7 @@ export enum ListeningStatsQueryField {
 export type Mutation = {
   __typename?: 'Mutation';
   createAlbum: Album;
+  testProcessAudio: Album;
   deleteAlbum: Scalars['Boolean'];
   createArtist: Artist;
   deleteArtist: Scalars['Boolean'];
@@ -184,7 +185,8 @@ export type Mutation = {
   deleteSong: Scalars['Boolean'];
   updateSongPlayCount: Scalars['Boolean'];
   createPlaylist: Playlist;
-  updatePlaylistInfo: Playlist;
+  updatePlaylistInfo: Scalars['Boolean'];
+  testProcessImage: Scalars['Boolean'];
   addPlaylistSongs: Scalars['Boolean'];
   removePlaylistSongs: Scalars['Boolean'];
   deletePlaylist: Scalars['Boolean'];
@@ -199,6 +201,10 @@ export type Mutation = {
 
 export type MutationCreateAlbumArgs = {
   input: CreateAlbumArgs;
+};
+
+export type MutationTestProcessAudioArgs = {
+  ref: Scalars['String'];
 };
 
 export type MutationDeleteAlbumArgs = {
@@ -250,6 +256,10 @@ export type MutationCreatePlaylistArgs = {
 };
 
 export type MutationUpdatePlaylistInfoArgs = {
+  input: UpdatePlaylistInfoArgs;
+};
+
+export type MutationTestProcessImageArgs = {
   input: UpdatePlaylistInfoArgs;
 };
 
@@ -349,6 +359,7 @@ export type Query = {
   userById: User;
   playHistory: Array<Song>;
   usersTopSongs: Array<Song>;
+  login: User;
 };
 
 export type QueryAlbumByIdArgs = {
@@ -444,6 +455,11 @@ export type QueryPlayHistoryArgs = {
 };
 
 export type QueryUsersTopSongsArgs = {
+  userId: Scalars['String'];
+};
+
+export type QueryLoginArgs = {
+  password: Scalars['String'];
   userId: Scalars['String'];
 };
 
@@ -579,7 +595,6 @@ export type UpdatePlaylistInfoArgs = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   imageRef?: Maybe<Scalars['String']>;
-  imageUrl?: Maybe<Scalars['String']>;
 };
 
 export type UpdatePlaylistsArgs = {
@@ -822,13 +837,13 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   UserSongFavourites: ResolverTypeWrapper<UserSongFavourites>;
   UserArtistFollowing: ResolverTypeWrapper<UserArtistFollowing>;
+  UserLabelFollowing: ResolverTypeWrapper<UserLabelFollowing>;
   UserPlaylistFollowing: ResolverTypeWrapper<UserPlaylistFollowing>;
   Playlist: ResolverTypeWrapper<Playlist>;
   SongPlaylist: ResolverTypeWrapper<SongPlaylist>;
   UserPlaylist: ResolverTypeWrapper<UserPlaylist>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   UserArtist: ResolverTypeWrapper<UserArtist>;
-  UserLabelFollowing: ResolverTypeWrapper<UserLabelFollowing>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -878,13 +893,13 @@ export type ResolversParentTypes = {
   User: User;
   UserSongFavourites: UserSongFavourites;
   UserArtistFollowing: UserArtistFollowing;
+  UserLabelFollowing: UserLabelFollowing;
   UserPlaylistFollowing: UserPlaylistFollowing;
   Playlist: Playlist;
   SongPlaylist: SongPlaylist;
   UserPlaylist: UserPlaylist;
   Float: Scalars['Float'];
   UserArtist: UserArtist;
-  UserLabelFollowing: UserLabelFollowing;
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
@@ -1061,6 +1076,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateAlbumArgs, 'input'>
   >;
+  testProcessAudio?: Resolver<
+    ResolversTypes['Album'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationTestProcessAudioArgs, 'ref'>
+  >;
   deleteAlbum?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -1134,10 +1155,16 @@ export type MutationResolvers<
     RequireFields<MutationCreatePlaylistArgs, 'input'>
   >;
   updatePlaylistInfo?: Resolver<
-    ResolversTypes['Playlist'],
+    ResolversTypes['Boolean'],
     ParentType,
     ContextType,
     RequireFields<MutationUpdatePlaylistInfoArgs, 'input'>
+  >;
+  testProcessImage?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationTestProcessImageArgs, 'input'>
   >;
   addPlaylistSongs?: Resolver<
     ResolversTypes['Boolean'],
@@ -1400,6 +1427,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryUsersTopSongsArgs, 'userId'>
   >;
+  login?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLoginArgs, 'password' | 'userId'>
+  >;
 };
 
 export type SearchResolvers<
@@ -1537,7 +1570,7 @@ export type UserResolvers<
     ContextType
   >;
   labelFollows?: Resolver<
-    Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
+    Maybe<Array<ResolversTypes['UserLabelFollowing']>>,
     ParentType,
     ContextType
   >;

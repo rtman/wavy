@@ -19,8 +19,8 @@ interface ProcessAudioData {
 }
 
 const SAMPLE_RATE = 44100;
-const AUDIO_FILE_TYPE = 'ogg';
-const CONTENT_TYPE = `audio/${AUDIO_FILE_TYPE}`;
+const FILE_TYPE = 'ogg';
+const CONTENT_TYPE = `audio/${FILE_TYPE}`;
 
 export const processAudio = async (data: ProcessAudioData) => {
   try {
@@ -43,14 +43,14 @@ export const processAudio = async (data: ProcessAudioData) => {
     const originalFileName = path.basename(filePath);
 
     // Exit if the audio is already converted.
-    if (originalFileName.endsWith('_output.ogg')) {
-      console.log('Already a converted audio.');
+    if (originalFileName.endsWith(`_output.${FILE_TYPE}`)) {
+      console.log('Already a converted audio file.');
       return null;
     }
 
     const originalTempFilePath = path.join(os.tmpdir(), originalFileName);
     const targetFileName =
-      originalFileName.replace(/\.[^/.]+$/, '') + `_output.${AUDIO_FILE_TYPE}`;
+      originalFileName.replace(/\.[^/.]+$/, '') + `_output.${FILE_TYPE}`;
     const targetTempFilePath = path.join(os.tmpdir(), targetFileName);
     const targetStorageFilePath = path.join(
       path.dirname(filePath),
@@ -64,7 +64,7 @@ export const processAudio = async (data: ProcessAudioData) => {
     const command = ffmpeg(originalTempFilePath)
       .setFfmpegPath(ffmpegStatic)
       .audioFrequency(SAMPLE_RATE)
-      .format(AUDIO_FILE_TYPE)
+      .format(FILE_TYPE)
       .output(targetTempFilePath);
 
     await promisifyCommand(command);
@@ -98,7 +98,6 @@ export const processAudio = async (data: ProcessAudioData) => {
       ok: true,
       data: {
         filePath: targetStorageFilePath,
-        // TODO: get download url
         downloadUrl: signedUrlsResponse[0],
       },
     };

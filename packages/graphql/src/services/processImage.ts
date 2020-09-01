@@ -23,14 +23,14 @@ const IMAGE_SIZES = {
     THUMB: { H: 285, W: 665 },
   },
 };
-
-const CONTENT_TYPE = 'image/jpeg';
+const FILE_TYPE = 'jpeg';
+const CONTENT_TYPE = `image/${FILE_TYPE}`;
 
 export const processImage = async (data: ProcessImageData) => {
   try {
     const { filePath, imageType } = data;
 
-    const fileName = path.basename(filePath);
+    const fileName = path.parse(filePath).name;
     const bucket = admin.storage().bucket();
 
     const metaDataResponse = await bucket.file(filePath).getMetadata();
@@ -52,8 +52,8 @@ export const processImage = async (data: ProcessImageData) => {
       contentType: CONTENT_TYPE,
     };
 
-    const largeImageFileName = `${fileName}_large`;
-    const thumbImageFileName = `${fileName}_thumb`;
+    const largeImageFileName = `${fileName}_large.${FILE_TYPE}`;
+    const thumbImageFileName = `${fileName}_thumb.${FILE_TYPE}`;
 
     const largeLocalTempFilePath = path.join(os.tmpdir(), largeImageFileName);
     const thumbLocalTempFilePath = path.join(os.tmpdir(), thumbImageFileName);
@@ -136,7 +136,6 @@ export const processImage = async (data: ProcessImageData) => {
 
         return {
           ok: true,
-          // TODO: get download urls
           data: {
             large: {
               path: largeStorageFilePath,
