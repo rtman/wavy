@@ -5,10 +5,6 @@ import * as os from 'os';
 import * as path from 'path';
 import * as sharp from 'sharp';
 
-import { initConfig } from './config';
-
-initConfig();
-
 interface ProcessImageData {
   filePath: string;
   imageType: 'banner' | 'profile';

@@ -6,8 +6,6 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { initConfig } from './config';
-
 const promisifyCommand = (command: any) => {
   return new Promise((resolve, reject) => {
     command
@@ -24,8 +22,6 @@ interface ProcessAudioData {
 const SAMPLE_RATE = 44100;
 const AUDIO_FILE_TYPE = 'ogg';
 const CONTENT_TYPE = `audio/${AUDIO_FILE_TYPE}`;
-
-initConfig();
 
 export const processAudio = functions.https.onCall(
   async (data: ProcessAudioData, context) => {

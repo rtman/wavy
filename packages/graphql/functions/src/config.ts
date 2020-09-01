@@ -20,7 +20,7 @@ export const initConfig = () => {
           return {
             firebaseConfig,
             credential: admin.credential.cert(
-              '../environments/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json'
+              'secrets/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json'
             ),
           };
       }

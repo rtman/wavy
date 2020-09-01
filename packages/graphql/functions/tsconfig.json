@@ -7,9 +7,13 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
+    "skipLibCheck": true,
     "resolveJsonModule": true
   },
   "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src"
   ]

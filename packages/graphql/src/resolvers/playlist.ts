@@ -11,6 +11,7 @@ import { getManager } from 'typeorm';
 
 //TODO: figure out why importing the dir without ../ doesnt work, tsconfig issue
 import { Models } from '../orm';
+import * as services from '../services';
 
 @InputType()
 class CreatePlaylistArgs implements Partial<Models.Playlist> {
@@ -31,7 +32,7 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
 }
 
 @InputType()
-class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
+class UpdatePlaylistInfoArgs {
   @Field(() => ID)
   playlistId: string;
 
@@ -43,9 +44,6 @@ class UpdatePlaylistInfoArgs implements Partial<Models.Playlist> {
 
   @Field({ nullable: true })
   imageRef?: string;
-
-  @Field({ nullable: true })
-  imageUrl: string;
 }
 
 @InputType()
@@ -282,7 +280,20 @@ export class PlaylistResolvers {
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
     try {
-      const { playlistId } = payload;
+      const { playlistId, imageRef } = payload;
+      console.log('*debug* updatePlaylistInfo payload', payload);
+
+      if (imageRef === undefined) {
+        console.log('imageRef is undefined');
+        return false;
+      }
+
+      const imageProcessingResult = await services.processImage({
+        filePath: imageRef,
+        imageType: 'profile',
+      });
+
+      console.log('*debug* imageProcessingResult', imageProcessingResult);
 
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
@@ -304,6 +315,37 @@ export class PlaylistResolvers {
       return result;
     } catch (error) {
       console.log('updatePlaylistInfo error', error);
+
+      return false;
+    }
+  }
+
+  @Mutation(() => Models.Playlist)
+  async testProcessImage(
+    @Arg('input') payload: UpdatePlaylistInfoArgs
+  ): Promise<boolean> {
+    try {
+      const { imageRef } = payload;
+      console.log('*debug* testProcessImage payload', payload);
+
+      if (imageRef === undefined) {
+        console.log('imageRef is undefined');
+        return false;
+      }
+
+      const imageProcessingResult = await services.processImage({
+        filePath: imageRef,
+        imageType: 'profile',
+      });
+
+      console.log(
+        '*debug* testProcessImage imageProcessingResult',
+        imageProcessingResult
+      );
+
+      return true;
+    } catch (error) {
+      console.log('testProcessImage error', error);
 
       return false;
     }

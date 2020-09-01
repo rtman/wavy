@@ -20,7 +20,9 @@ export interface Context extends ExpressContext {
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
+  // TODO: add more envs
   databaseURL: 'https://groov-development-ddc9d.firebaseio.com',
+  storageBucket: 'groov-development-ddc9d.appspot.com',
 });
 
 const port = 3001;
