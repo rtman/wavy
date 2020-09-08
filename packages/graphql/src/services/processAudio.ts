@@ -72,18 +72,18 @@ export const processAudio = async (data: ProcessAudioData) => {
       .download({ destination: originalTempFilePath });
     console.log('Audio downloaded locally to', originalTempFilePath);
 
-    const conversionFileSettings = conversionConfig.map((qualityLevel) =>
-      prepFilesForConversion({
+    const conversionFileDetails = conversionConfig.map((qualityLevel) =>
+      prepFileForConversion({
         originalStoragePath,
         originalFileName,
         qualityLevel,
       })
     );
 
-    const conversionPromises = conversionFileSettings.map((instance, index) =>
+    const conversionPromises = conversionFileDetails.map((details, index) =>
       convertAudio({
         originalTempFilePath,
-        targetTempFilePath: instance.tempFilePath,
+        targetTempFilePath: details.tempFilePath,
         qualityLevel: conversionConfig[index],
       })
     );
@@ -94,9 +94,9 @@ export const processAudio = async (data: ProcessAudioData) => {
 
     // Uploading the audio.
 
-    const uploadPromises = conversionFileSettings.map((instance) => {
-      return bucket.upload(instance.tempFilePath, {
-        destination: instance.storageFilePath,
+    const uploadPromises = conversionFileDetails.map((details) => {
+      return bucket.upload(details.tempFilePath, {
+        destination: details.storageFilePath,
         metadata: { contentType: CONTENT_TYPE },
       });
     });
@@ -121,14 +121,14 @@ export const processAudio = async (data: ProcessAudioData) => {
     // Once the audio has been uploaded delete the local file to free up disk space.
     fs.unlinkSync(originalTempFilePath);
     console.log('Temporary files removed.', originalTempFilePath);
-    for (const instance of conversionFileSettings) {
-      fs.unlinkSync(instance.tempFilePath);
-      console.log('Temporary files removed.', instance.tempFilePath);
+    for (const details of conversionFileDetails) {
+      fs.unlinkSync(details.tempFilePath);
+      console.log('Temporary files removed.', details.tempFilePath);
     }
 
-    const returnData = conversionFileSettings.map((settings, index) => {
+    const returnData = conversionFileDetails.map((details, index) => {
       return {
-        filePath: settings.storageFilePath,
+        filePath: details.storageFilePath,
         downloadUrl: signedUrlResults[index][0],
         audioQuality: conversionConfig[index],
       };
@@ -146,7 +146,7 @@ export const processAudio = async (data: ProcessAudioData) => {
   }
 };
 
-const prepFilesForConversion = ({
+const prepFileForConversion = ({
   originalStoragePath,
   originalFileName,
   qualityLevel,
