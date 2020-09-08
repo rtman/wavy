@@ -187,7 +187,7 @@ export class AlbumResolvers {
   @Mutation(() => Boolean)
   async testProcessAudio(@Arg('ref') ref: string): Promise<boolean> {
     try {
-      const result = await services.processAudio({ filePath: ref });
+      const result = await services.processAudio({ storagePath: ref });
 
       console.log('*debug* testProcessAudio result', result);
 

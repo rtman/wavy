@@ -5,7 +5,7 @@ import path from 'path';
 import sharp from 'sharp';
 
 interface ProcessImageData {
-  originalStoragePath: string;
+  storagePath: string;
   imageType: ImageType;
 }
 
@@ -16,11 +16,12 @@ enum ImageSize {
   THUMB = 'thumb',
 }
 
-enum ImageType {
+export enum ImageType {
   PROFILE = 'profile',
   BANNER = 'banner',
 }
 
+//TODO: decide on final image sizes
 const IMAGE_SIZES = {
   profile: {
     large: { H: 750, W: 750 },
@@ -42,14 +43,12 @@ const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
 
 export const processImage = async (data: ProcessImageData) => {
   try {
-    const { originalStoragePath, imageType } = data;
+    const { storagePath: inputStoragePath, imageType } = data;
 
-    const originalFileName = path.parse(originalStoragePath).name;
+    const inputFileName = path.parse(inputStoragePath).name;
     const bucket = admin.storage().bucket();
 
-    const metaDataResponse = await bucket
-      .file(originalStoragePath)
-      .getMetadata();
+    const metaDataResponse = await bucket.file(inputStoragePath).getMetadata();
 
     if (!metaDataResponse) {
       return { ok: false, error: 'File not found' };
@@ -68,42 +67,42 @@ export const processImage = async (data: ProcessImageData) => {
       contentType: CONTENT_TYPE,
     };
 
-    const originalTempFilePath = path.join(os.tmpdir(), originalFileName);
+    const inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
-      .file(originalStoragePath)
-      .download({ destination: originalTempFilePath });
+      .file(inputStoragePath)
+      .download({ destination: inputTempFilePath });
 
     const conversionFileDetails = conversionConfig.map((size) =>
       prepFileForConversion({
-        originalStoragePath,
-        originalFileName,
+        inputStoragePath,
+        inputFileName,
         size,
       })
     );
 
     const imageConversionPromises = conversionFileDetails.map((detail, index) =>
       convertImage({
-        originalTempFilePath,
-        tempFilePath: detail.tempFilePath,
+        inputTempFilePath,
+        outputTempFilePath: detail.outputTempFilePath,
         imageType,
         size: conversionConfig[index],
       })
     );
 
-    const imageConversionResults = await Promise.all(imageConversionPromises);
-    // TODO: Need a check to determine if conversion was successful
+    await Promise.all(imageConversionPromises);
+    console.log('image conversion complete');
 
     const uploadPromises = conversionFileDetails.map((details) =>
-      bucket.upload(details.tempFilePath, {
-        destination: details.storageFilePath,
+      bucket.upload(details.outputTempFilePath, {
+        destination: details.outputStorageFilePath,
         metadata,
       })
     );
 
     const uploadResults = await Promise.all(uploadPromises);
 
-    await bucket.file(originalStoragePath).delete();
+    await bucket.file(inputStoragePath).delete();
 
     const signedUrlPromises = uploadResults.map((uploadResult) =>
       uploadResult[0].getSignedUrl({
@@ -114,16 +113,16 @@ export const processImage = async (data: ProcessImageData) => {
 
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
-    fs.unlinkSync(originalTempFilePath);
-    console.log('Temporary files removed.', originalTempFilePath);
+    fs.unlinkSync(inputTempFilePath);
+    console.log('Temporary files removed.', inputTempFilePath);
     for (const details of conversionFileDetails) {
-      fs.unlinkSync(details.tempFilePath);
-      console.log('Temporary files removed.', details.tempFilePath);
+      fs.unlinkSync(details.outputTempFilePath);
+      console.log('Temporary files removed.', details.outputTempFilePath);
     }
 
     const returnData = conversionFileDetails.map((details, index) => {
       return {
-        filePath: details.storageFilePath,
+        filePath: details.outputStorageFilePath,
         downloadUrl: signedUrlResults[index][0],
         size: conversionConfig[index],
       };
@@ -142,42 +141,40 @@ export const processImage = async (data: ProcessImageData) => {
 };
 
 const prepFileForConversion = ({
-  originalStoragePath,
-  originalFileName,
+  inputStoragePath,
+  inputFileName,
   size,
 }: {
-  originalStoragePath: string;
-  originalFileName: string;
+  inputStoragePath: string;
+  inputFileName: string;
   size: ImageSize;
 }) => {
-  const fileName = `${originalFileName}_${size}.${FILE_TYPE}`;
-
-  const tempFilePath = path.join(os.tmpdir(), originalFileName);
-
-  const storageFilePath = path.join(
-    path.dirname(originalStoragePath),
-    fileName
+  const outputFileName = `${inputFileName}_${size}.${FILE_TYPE}`;
+  const outputTempFilePath = path.join(os.tmpdir(), outputFileName);
+  const outputStorageFilePath = path.join(
+    path.dirname(inputStoragePath),
+    outputFileName
   );
   return {
-    fileName,
-    tempFilePath,
-    storageFilePath,
+    outputFileName,
+    outputTempFilePath,
+    outputStorageFilePath,
   };
 };
 
 const convertImage = ({
-  originalTempFilePath,
-  tempFilePath,
+  inputTempFilePath,
+  outputTempFilePath,
   imageType,
   size,
 }: {
-  originalTempFilePath: string;
-  tempFilePath: string;
+  inputTempFilePath: string;
+  outputTempFilePath: string;
   imageType: ImageType;
   size: ImageSize;
 }) => {
-  return sharp(originalTempFilePath)
+  return sharp(inputTempFilePath)
     .resize(IMAGE_SIZES[imageType][size].W, IMAGE_SIZES[imageType][size].H)
     .toFormat(FILE_TYPE)
-    .toFile(tempFilePath);
+    .toFile(outputTempFilePath);
 };

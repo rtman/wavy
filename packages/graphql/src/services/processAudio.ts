@@ -15,10 +15,10 @@ const promisifyCommand = (command: any) => {
 };
 
 interface ProcessAudioData {
-  originalStoragePath: string;
+  storagePath: string;
 }
 
-enum AudioQuality {
+export enum AudioQuality {
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low',
@@ -39,12 +39,10 @@ const conversionConfig = [
 
 export const processAudio = async (data: ProcessAudioData) => {
   try {
-    const { originalStoragePath } = data;
+    const { storagePath: inputStoragePath } = data;
     const bucket = admin.storage().bucket();
 
-    const metaDataResponse = await bucket
-      .file(originalStoragePath)
-      .getMetadata();
+    const metaDataResponse = await bucket.file(inputStoragePath).getMetadata();
 
     const [metaData] = metaDataResponse;
 
@@ -57,53 +55,53 @@ export const processAudio = async (data: ProcessAudioData) => {
     }
 
     // Get the file name.
-    const originalFileName = path.basename(originalStoragePath);
+    const inputFileName = path.basename(inputStoragePath);
 
     // Exit if the audio is already converted.
-    if (originalFileName.endsWith(`_output.${FILE_TYPE}`)) {
+    if (inputFileName.endsWith(`_output.${FILE_TYPE}`)) {
       console.log('Already a converted audio file.');
       return { ok: false, error: 'File is already converted' };
     }
 
-    const originalTempFilePath = path.join(os.tmpdir(), originalFileName);
+    const inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
-      .file(originalStoragePath)
-      .download({ destination: originalTempFilePath });
-    console.log('Audio downloaded locally to', originalTempFilePath);
+      .file(inputStoragePath)
+      .download({ destination: inputTempFilePath });
+    console.log('Audio downloaded locally to', inputTempFilePath);
 
     const conversionFileDetails = conversionConfig.map((qualityLevel) =>
       prepFileForConversion({
-        originalStoragePath,
-        originalFileName,
+        inputStoragePath,
+        inputFileName,
         qualityLevel,
       })
     );
 
     const conversionPromises = conversionFileDetails.map((details, index) =>
       convertAudio({
-        originalTempFilePath,
-        targetTempFilePath: details.tempFilePath,
+        inputTempFilePath,
+        outputTempFilePath: details.outputTempFilePath,
         qualityLevel: conversionConfig[index],
       })
     );
 
-    const conversionResults = await Promise.all(conversionPromises);
+    await Promise.all(conversionPromises);
 
-    console.log('Output audio created at', conversionResults);
+    console.log('Output audio created');
 
     // Uploading the audio.
 
     const uploadPromises = conversionFileDetails.map((details) => {
-      return bucket.upload(details.tempFilePath, {
-        destination: details.storageFilePath,
+      return bucket.upload(details.outputTempFilePath, {
+        destination: details.outputStorageFilePath,
         metadata: { contentType: CONTENT_TYPE },
       });
     });
 
     const uploadResults = await Promise.all(uploadPromises);
 
-    console.log('Output audio uploaded to', uploadResults);
+    console.log('Output audio uploaded');
 
     const signedUrlPromises = uploadResults.map((uploadResult) =>
       uploadResult[0].getSignedUrl({
@@ -114,21 +112,21 @@ export const processAudio = async (data: ProcessAudioData) => {
 
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
-    // delete original
-    // TODO: Decide if original is needed or not, if we are doing for sale downloads then it will be.
-    // await bucket.file(originalFilePath).delete();
+    // delete input
+    // TODO: Decide if input is needed or not, if we are doing for sale downloads then it will be.
+    // await bucket.file(inputFilePath).delete();
 
     // Once the audio has been uploaded delete the local file to free up disk space.
-    fs.unlinkSync(originalTempFilePath);
-    console.log('Temporary files removed.', originalTempFilePath);
+    fs.unlinkSync(inputTempFilePath);
+    console.log('Temporary files removed.', inputTempFilePath);
     for (const details of conversionFileDetails) {
-      fs.unlinkSync(details.tempFilePath);
-      console.log('Temporary files removed.', details.tempFilePath);
+      fs.unlinkSync(details.outputTempFilePath);
+      console.log('Temporary files removed.', details.outputTempFilePath);
     }
 
     const returnData = conversionFileDetails.map((details, index) => {
       return {
-        filePath: details.storageFilePath,
+        filePath: details.outputStorageFilePath,
         downloadUrl: signedUrlResults[index][0],
         audioQuality: conversionConfig[index],
       };
@@ -147,37 +145,37 @@ export const processAudio = async (data: ProcessAudioData) => {
 };
 
 const prepFileForConversion = ({
-  originalStoragePath,
-  originalFileName,
+  inputStoragePath,
+  inputFileName,
   qualityLevel,
 }: {
-  originalStoragePath: string;
-  originalFileName: string;
+  inputStoragePath: string;
+  inputFileName: string;
   qualityLevel: AudioQuality;
 }) => {
-  const fileName =
-    originalFileName.replace(/\.[^/.]+$/, '') +
+  const outputFileName =
+    inputFileName.replace(/\.[^/.]+$/, '') +
     `_output_${qualityLevel}.${FILE_TYPE}`;
-  const tempFilePath = path.join(os.tmpdir(), fileName);
-  const storageFilePath = path.join(
-    path.dirname(originalStoragePath),
-    fileName
+  const outputTempFilePath = path.join(os.tmpdir(), outputFileName);
+  const outputStorageFilePath = path.join(
+    path.dirname(inputStoragePath),
+    outputFileName
   );
 
   return {
-    fileName,
-    tempFilePath,
-    storageFilePath,
+    outputFileName,
+    outputTempFilePath,
+    outputStorageFilePath,
   };
 };
 
 const convertAudio = ({
-  originalTempFilePath,
-  targetTempFilePath,
+  inputTempFilePath,
+  outputTempFilePath,
   qualityLevel,
 }: {
-  originalTempFilePath: string;
-  targetTempFilePath: string;
+  inputTempFilePath: string;
+  outputTempFilePath: string;
   qualityLevel: AudioQuality;
 }) => {
   const makeAudioQuality = () => {
@@ -193,13 +191,13 @@ const convertAudio = ({
     }
   };
 
-  const ffmpegConvert = ffmpeg(originalTempFilePath)
+  const ffmpegConvert = ffmpeg(inputTempFilePath)
     .setFfmpegPath(ffmpegStatic)
     // .audioFrequency(NORMAL_SAMPLE_RATE)
     // .audioBitrate(LOW_BIT_RATE)
     .audioQuality(makeAudioQuality())
     .format(FILE_TYPE)
-    .output(targetTempFilePath);
+    .output(outputTempFilePath);
 
   return promisifyCommand(ffmpegConvert);
 };

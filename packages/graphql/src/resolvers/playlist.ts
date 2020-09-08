@@ -289,8 +289,8 @@ export class PlaylistResolvers {
       }
 
       const imageProcessingResult = await services.processImage({
-        filePath: imageRef,
-        imageType: 'profile',
+        storagePath: imageRef,
+        imageType: services.ImageType.PROFILE,
       });
 
       console.log('*debug* imageProcessingResult', imageProcessingResult);
@@ -334,8 +334,8 @@ export class PlaylistResolvers {
       }
 
       const imageProcessingResult = await services.processImage({
-        filePath: imageRef,
-        imageType: 'profile',
+        storagePath: imageRef,
+        imageType: services.ImageType.PROFILE,
       });
 
       console.log(
