@@ -31,6 +31,8 @@ export enum AudioQuality {
 const FILE_TYPE = 'ogg';
 const CONTENT_TYPE = `audio/${FILE_TYPE}`;
 
+// This sets the audio qualities selected for conversion
+
 const conversionConfig = [
   AudioQuality.HIGH,
   AudioQuality.MEDIUM,

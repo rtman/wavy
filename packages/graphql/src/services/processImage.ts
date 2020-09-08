@@ -39,6 +39,7 @@ const IMAGE_SIZES = {
 const FILE_TYPE = 'jpeg';
 const CONTENT_TYPE = `image/${FILE_TYPE}`;
 
+// This sets the sizes selected for conversion
 const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
 
 export const processImage = async (data: ProcessImageData) => {
