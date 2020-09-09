@@ -42,11 +42,23 @@ export class Artist {
 
   @Field(() => String)
   @Column()
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field(() => String)
   @Column()
-  imageUrl: string;
+  profileImageUrlLarge: string;
+
+  @Field(() => String)
+  @Column()
+  profileImageUrlMedium: string;
+
+  @Field(() => String)
+  @Column()
+  profileImageUrlSmall: string;
+
+  @Field(() => String)
+  @Column()
+  profileImageUrlThumb: string;
 
   @Field(() => String)
   @Column()

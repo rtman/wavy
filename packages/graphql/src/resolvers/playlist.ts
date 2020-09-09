@@ -27,8 +27,8 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
   @Field({ nullable: true })
   imageRef?: string;
 
-  @Field({ nullable: true })
-  imageUrl: string;
+  @Field(() => Models.ImageUrls, { nullable: true })
+  imageUrl: Models.ImageUrls;
 }
 
 @InputType()

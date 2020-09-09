@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { ImageUrls } from './song';
 import { SongPlaylist } from './songPlaylist';
 import { UserPlaylist } from './userPlaylist';
 import { UserPlaylistFollowing } from './userPlaylistFollowing';
@@ -29,11 +30,23 @@ export class Playlist {
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  imageUrl: string;
+  profileImageUrlLarge: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlMedium: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlSmall: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlThumb: string;
 
   @Field(() => [SongPlaylist], { nullable: true })
   @OneToMany(
