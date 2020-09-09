@@ -1,24 +1,40 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme, Theme } from '@material-ui/core';
 import { BreakpointValues } from '@material-ui/core/styles/createBreakpoints';
-import { PaletteOptions } from '@material-ui/core/styles/createPalette';
+import {
+  Palette,
+  PaletteColor,
+  PaletteOptions,
+} from '@material-ui/core/styles/createPalette';
 import { TypographyOptions } from '@material-ui/core/styles/createTypography';
 import { Overrides as CoreOverrides } from '@material-ui/core/styles/overrides';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { darken, desaturate, lighten, opacify, transparentize } from 'polished';
 
-const PRIMARY_COLOR = (_darkMode: boolean) => '#00bcd4';
+const PRIMARY_COLOR = (_darkMode: boolean) => '##00bcd4';
 const PRIMARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const PRIMARY_BLACK = (_darkMode: boolean) => '#000';
 const PRIMARY_BACKGROUND_COLOR = (_darkMode: boolean) => '#fff';
 const PRIMARY_WHITE = (_darkMode: boolean) => '#fff';
-const SECONDARY_COLOR = (_darkMode: boolean) => '#00838f';
+const SECONDARY_COLOR = (_darkMode: boolean) => 'rgb(14, 201, 101)';
 const SECONDARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const ERROR_COLOR = (_darkMode: boolean) => 'rgb(253, 136, 114)';
 const ERROR_CONTRAST = (_darkMode: boolean) => '#fff';
-const DIVIDER_COLOR = (_useDarkMode: boolean) => 'rgba(0, 0, 0, 0.1)';
+const DIVIDER_COLOR = (_useDarkMode: boolean) => 'rgba(0, 0, 0, 0.05)';
 
 const defaultTheme = createMuiTheme();
+
+export interface CustomTheme extends Theme {
+  palette: CustomPalette;
+}
+
+export interface CustomPalette extends Palette {
+  emphasizedAction: PaletteColor;
+  heroText: PaletteColor;
+  positiveAction: PaletteColor;
+  neutralAction: PaletteColor;
+  negativeAction: PaletteColor;
+}
 
 export const makeTheme = () => {
   const useDarkMode = false; // useMediaQuery('(prefers-color-scheme: dark)');
@@ -106,7 +122,6 @@ export const makeTheme = () => {
       fontWeight: 400,
     },
     h5: {
-      color: defaultTheme.palette.grey['500'],
       fontSize: 12,
       fontWeight: 700,
       lineHeight: 2,
@@ -135,7 +150,7 @@ export const makeTheme = () => {
 
   const breakpoints = {
     xs: 0,
-    sm: 320 + totalScreenPadding,
+    sm: 360 + totalScreenPadding,
     md: 720 + totalScreenPadding,
     lg: 1024 + totalScreenPadding,
     xl: 1280 + totalScreenPadding,
@@ -147,7 +162,35 @@ export const makeTheme = () => {
       values: breakpoints,
     },
     overrides: makeThemeOverrides({ useDarkMode, breakpoints, ...basicTheme }),
-  });
+  }) as CustomTheme;
+
+  // Upgrading theme to CustomTheme type by adding missing values
+  const darkBlue = {
+    contrastText: '#fff',
+    dark: '#3e5aae',
+    main: '#3e5aae',
+    light: '#3e5aae',
+  };
+  output.palette.emphasizedAction = darkBlue;
+  output.palette.heroText = darkBlue;
+  output.palette.positiveAction = {
+    contrastText: '#fff',
+    dark: '#58D58B',
+    main: '#58D58B',
+    light: '#58D58B',
+  };
+  output.palette.neutralAction = {
+    contrastText: PRIMARY_CONTRAST(useDarkMode),
+    dark: PRIMARY_COLOR(true),
+    main: PRIMARY_COLOR(false),
+    light: PRIMARY_COLOR(useDarkMode),
+  };
+  output.palette.negativeAction = {
+    contrastText: '#fff',
+    dark: '#FF7858',
+    main: '#FF7858',
+    light: '#FF7858',
+  };
 
   return output;
 };
@@ -205,8 +248,8 @@ const makeThemeOverrides = ({
   },
   MuiDivider: {
     root: {
-      marginBottom: defaultTheme.spacing(2),
-      marginTop: defaultTheme.spacing(2),
+      marginBottom: defaultTheme.spacing(4),
+      marginTop: defaultTheme.spacing(4),
     },
   },
   MuiDrawer: {
