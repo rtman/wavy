@@ -13,7 +13,7 @@ class CreateSongArgs implements Partial<Models.Song> {
   artistId: string;
 
   @Field()
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field()
   imageUrl: string;

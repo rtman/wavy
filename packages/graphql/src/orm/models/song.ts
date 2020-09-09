@@ -1,4 +1,4 @@
-import { Field, ID, InterfaceType, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   Column,
   CreateDateColumn,
@@ -64,7 +64,15 @@ export class Song {
 
   @Field(() => String)
   @Column()
-  storagePath: string;
+  storagePathHigh: string;
+
+  @Field(() => String)
+  @Column()
+  storagePathMedium: string;
+
+  @Field(() => String)
+  @Column()
+  storagePathLow: string;
 
   @Field(() => String)
   @Column()
@@ -80,15 +88,19 @@ export class Song {
 
   @Field(() => String)
   @Column()
-  profileImageStoragePath: string;
+  profileImageStoragePathLarge: string;
+
+  @Field(() => String)
+  @Column()
+  profileImageStoragePathSmall: string;
+
+  @Field(() => String)
+  @Column()
+  profileImageStoragePathThumb: string;
 
   @Field(() => String)
   @Column()
   profileImageUrlLarge: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageUrlMedium: string;
 
   @Field(() => String)
   @Column()

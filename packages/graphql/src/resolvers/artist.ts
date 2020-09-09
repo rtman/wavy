@@ -18,7 +18,7 @@ class CreateArtistArgs implements Partial<Models.Artist> {
   description: string;
 
   @Field()
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field()
   imageUrl: string;

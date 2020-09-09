@@ -17,15 +17,15 @@ export const useUploadImage = (imageFile: File | undefined) => {
     if (imageFile) {
       const storageRef = firebase.storage().ref();
 
-      let storagePath = '';
-      rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
-      parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
-      childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
-      // storagePath + parentId ? `${parentId}/` : '';
-      // storagePath + parentDir ? `${parentDir}/` : '';
-      storagePath += `${fileName}.${fileExtension}`;
+      let storageDirPath = '';
+      rootDir ? (storageDirPath += `${rootDir}/`) : (storageDirPath += '');
+      parentDir ? (storageDirPath += `${parentDir}/`) : (storageDirPath += '');
+      childDir ? (storageDirPath += `${childDir}/`) : (storageDirPath += '');
+      // storageDirPath + parentId ? `${parentId}/` : '';
+      // storageDirPath + parentDir ? `${parentDir}/` : '';
+      storageDirPath += `${fileName}.${fileExtension}`;
 
-      const artistImageRef = storageRef.child(storagePath);
+      const artistImageRef = storageRef.child(storageDirPath);
       const snapshot = await artistImageRef.put(imageFile);
 
       if (snapshot) {

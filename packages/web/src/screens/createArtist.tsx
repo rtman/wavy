@@ -85,7 +85,7 @@ export const CreateArtist = () => {
             artistId: result.id,
             name,
             description,
-            imageRef: result.gsUrl,
+            profileImageStoragePath: result.gsUrl,
             imageUrl: result.downloadUrl,
           },
         },

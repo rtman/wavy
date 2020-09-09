@@ -18,7 +18,7 @@ class CreateLabelArgs implements Partial<Models.Label> {
   description: string;
 
   @Field()
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field()
   imageUrl: string;

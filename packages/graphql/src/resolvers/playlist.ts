@@ -25,10 +25,7 @@ class CreatePlaylistArgs implements Partial<Models.Playlist> {
   description?: string;
 
   @Field({ nullable: true })
-  imageRef?: string;
-
-  @Field(() => Models.ImageUrls, { nullable: true })
-  imageUrl: Models.ImageUrls;
+  profileImageStoragePath?: string;
 }
 
 @InputType()
@@ -43,7 +40,7 @@ class UpdatePlaylistInfoArgs {
   description?: string;
 
   @Field({ nullable: true })
-  imageRef?: string;
+  profileImageStoragePath?: string;
 }
 
 @InputType()
@@ -280,16 +277,16 @@ export class PlaylistResolvers {
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
     try {
-      const { playlistId, imageRef } = payload;
+      const { playlistId, profileImageStoragePath } = payload;
       console.log('*debug* updatePlaylistInfo payload', payload);
 
-      if (imageRef === undefined) {
-        console.log('imageRef is undefined');
+      if (profileImageStoragePath === undefined) {
+        console.log('profileImageStoragePath is undefined');
         return false;
       }
 
       const imageProcessingResult = await services.processImage({
-        storagePath: imageRef,
+        storagePath: profileImageStoragePath,
         imageType: services.ImageType.PROFILE,
       });
 
@@ -325,16 +322,16 @@ export class PlaylistResolvers {
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
     try {
-      const { imageRef } = payload;
+      const { profileImageStoragePath } = payload;
       console.log('*debug* testProcessImage payload', payload);
 
-      if (imageRef === undefined) {
-        console.log('imageRef is undefined');
+      if (profileImageStoragePath === undefined) {
+        console.log('profileImageStoragePath is undefined');
         return false;
       }
 
       const imageProcessingResult = await services.processImage({
-        storagePath: imageRef,
+        storagePath: profileImageStoragePath,
         imageType: services.ImageType.PROFILE,
       });
 

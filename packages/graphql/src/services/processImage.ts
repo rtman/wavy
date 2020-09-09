@@ -24,15 +24,14 @@ export enum ImageType {
 //TODO: decide on final image sizes
 const IMAGE_SIZES = {
   profile: {
-    large: { H: 750, W: 750 },
-    // medium: { H: 750, W: 750 },
-    // small: { H: 500, W: 500 },
+    large: { H: 1500, W: 1500 },
+    small: { H: 500, W: 500 },
     thumb: { H: 250, W: 250 },
   },
+  // TODO: banner is currently unused, but would like to include it in the future.
   banner: {
     large: { H: 1140, W: 2660 },
-    // medium: { H: 750, W: 750 },
-    // small: { H: 500, W: 500 },
+    small: { H: 500, W: 1166 },
     thumb: { H: 285, W: 665 },
   },
 };
@@ -77,8 +76,8 @@ export const processImage = async (data: ProcessImageData) => {
     const conversionFileDetails = conversionConfig.map((size) =>
       prepFileForConversion({
         inputStoragePath,
-        inputFileName,
         size,
+        imageType,
       })
     );
 
@@ -143,14 +142,14 @@ export const processImage = async (data: ProcessImageData) => {
 
 const prepFileForConversion = ({
   inputStoragePath,
-  inputFileName,
   size,
+  imageType,
 }: {
   inputStoragePath: string;
-  inputFileName: string;
   size: ImageSize;
+  imageType: ImageType;
 }) => {
-  const outputFileName = `${inputFileName}_${size}.${FILE_TYPE}`;
+  const outputFileName = `${imageType}_${size}.${FILE_TYPE}`;
   const outputTempFilePath = path.join(os.tmpdir(), outputFileName);
   const outputStorageFilePath = path.join(
     path.dirname(inputStoragePath),

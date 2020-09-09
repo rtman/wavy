@@ -53,14 +53,14 @@ export const processAudio = async (data: ProcessAudioData) => {
     // Exit if this is triggered on a file that is not an audio.
     if (!contentType.startsWith('audio/')) {
       console.log('Not an audio file.');
-      return null;
+      return { ok: false, error: 'Not an audio file' };
     }
 
     // Get the file name.
     const inputFileName = path.basename(inputStoragePath);
 
     // Exit if the audio is already converted.
-    if (inputFileName.endsWith(`_output.${FILE_TYPE}`)) {
+    if (inputFileName.includes('__output__')) {
       console.log('Already a converted audio file.');
       return { ok: false, error: 'File is already converted' };
     }
@@ -74,8 +74,8 @@ export const processAudio = async (data: ProcessAudioData) => {
 
     const conversionFileDetails = conversionConfig.map((qualityLevel) =>
       prepFileForConversion({
-        inputStoragePath,
         inputFileName,
+        inputStoragePath,
         qualityLevel,
       })
     );
@@ -126,13 +126,14 @@ export const processAudio = async (data: ProcessAudioData) => {
       console.log('Temporary files removed.', details.outputTempFilePath);
     }
 
-    const returnData = conversionFileDetails.map((details, index) => {
-      return {
-        filePath: details.outputStorageFilePath,
-        downloadUrl: signedUrlResults[index][0],
-        audioQuality: conversionConfig[index],
-      };
-    });
+    const returnData = {
+      storagePathHigh: conversionFileDetails[0].outputStorageFilePath,
+      urlHigh: signedUrlResults[0][0],
+      storagePathMedium: conversionFileDetails[1].outputStorageFilePath,
+      urlMedium: signedUrlResults[1][0],
+      storagePathLow: conversionFileDetails[2].outputStorageFilePath,
+      urlLow: signedUrlResults[2][0],
+    };
 
     return {
       ok: true,
@@ -147,17 +148,17 @@ export const processAudio = async (data: ProcessAudioData) => {
 };
 
 const prepFileForConversion = ({
-  inputStoragePath,
   inputFileName,
+  inputStoragePath,
   qualityLevel,
 }: {
-  inputStoragePath: string;
   inputFileName: string;
+  inputStoragePath: string;
   qualityLevel: AudioQuality;
 }) => {
-  const outputFileName =
-    inputFileName.replace(/\.[^/.]+$/, '') +
-    `_output_${qualityLevel}.${FILE_TYPE}`;
+  // TODO: Add processing here to remove (replace?) whitespaces and lowercase.
+  const lowerCaseFileName = inputFileName.toLocaleLowerCase();
+  const outputFileName = `${lowerCaseFileName}__output__${qualityLevel}.${FILE_TYPE}`;
   const outputTempFilePath = path.join(os.tmpdir(), outputFileName);
   const outputStorageFilePath = path.join(
     path.dirname(inputStoragePath),

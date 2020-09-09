@@ -10,10 +10,7 @@ class NewSongArgs implements Partial<Models.Song> {
   title: string;
 
   @Field()
-  ref: string;
-
-  @Field()
-  url: string;
+  storagePath: string;
 }
 
 @InputType({ description: 'Create a new album' })
@@ -34,7 +31,7 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
   artistId: string;
 
   @Field()
-  imageRef: string;
+  profileImageStoragePath: string;
 
   @Field()
   imageUrl: string;
@@ -130,7 +127,13 @@ export class AlbumResolvers {
   ): Promise<Models.Album | undefined> {
     try {
       const { songsToAdd, albumId, ...albumPayload } = payload;
-      const { title, description, artistId, imageRef, imageUrl } = albumPayload;
+      const {
+        title,
+        description,
+        artistId,
+        profileImageStoragePath,
+        imageUrl,
+      } = albumPayload;
 
       console.log('albumPayload', albumPayload);
 
@@ -141,7 +144,7 @@ export class AlbumResolvers {
         description,
         songsToAdd,
         artistId,
-        imageRef,
+        profileImageStoragePath,
         imageUrl)
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
@@ -152,17 +155,46 @@ export class AlbumResolvers {
         if (album) {
           await albumRepository.save(album);
 
-          const resolvedSongsToAdd = songsToAdd.map((song) => {
-            return {
-              artistId,
-              albumId,
-              title: song.title,
-              ref: song.ref,
-              url: song.url,
-              imageRef,
-              imageUrl,
-              // releaseDate: new Date(), //TODO: releaseDate, default to new Date() for now
-            };
+          const processSongsPromises = [];
+
+          for (const song of songsToAdd) {
+            processSongsPromises.push(
+              services.processAudio({
+                storagePath: song.storagePath,
+              })
+            );
+          }
+
+          const processSongsResults = await Promise.all(processSongsPromises);
+
+          const resolvedSongsToAdd = songsToAdd.map((song, index) => {
+            const processedSongData = processSongsResults[index].data;
+
+            if (processedSongData !== undefined) {
+              const {
+                urlHigh,
+                urlMedium,
+                urlLow,
+                storagePathHigh,
+                storagePathMedium,
+                storagePathLow,
+              } = processedSongData;
+
+              return {
+                artistId,
+                albumId,
+                title: song.title,
+                storagePathHigh,
+                storagePathMedium,
+                storagePathLow,
+                urlHigh,
+                urlMedium,
+                urlLow,
+                profileImageStoragePath,
+                imageUrl,
+                // releaseDate: new Date(), //TODO: releaseDate, default to new Date() for now
+              };
+            }
           });
 
           await songRepository.insert(resolvedSongsToAdd);
@@ -185,9 +217,11 @@ export class AlbumResolvers {
   }
 
   @Mutation(() => Boolean)
-  async testProcessAudio(@Arg('ref') ref: string): Promise<boolean> {
+  async testProcessAudio(
+    @Arg('storagePath') storagePath: string
+  ): Promise<boolean> {
     try {
-      const result = await services.processAudio({ storagePath: ref });
+      const result = await services.processAudio({ storagePath });
 
       console.log('*debug* testProcessAudio result', result);
 

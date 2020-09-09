@@ -100,7 +100,7 @@ export const CreateLabel = () => {
             labelId,
             name,
             description,
-            imageRef: gsUrl,
+            profileImageStoragePath: gsUrl,
             imageUrl: downloadUrl,
           },
         },

@@ -267,7 +267,7 @@ export const CreateRelease = () => {
         return {
           ...rest,
           title: data.songs[index].title.trim(),
-          ref: uploadData.gsUrl,
+          storageDirPath: uploadData.gsUrl,
           url: uploadData.downloadUrl,
         };
       });
@@ -294,9 +294,12 @@ export const CreateRelease = () => {
               description: '', //TODO: description field, undefined uses default ''
               albumId: result.id,
               artistId: id,
-              imageRef: result.gsUrl,
+              profileImageStoragePath: result.gsUrl,
               imageUrl: result.downloadUrl,
-              songsToAdd: resolvedSongsForUpload ?? { title: '', ref: '' },
+              songsToAdd: resolvedSongsForUpload ?? {
+                title: '',
+                storageDirPath: '',
+              },
             },
           },
         });
