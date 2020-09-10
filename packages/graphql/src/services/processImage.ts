@@ -21,6 +21,26 @@ export enum ImageType {
   BANNER = 'banner',
 }
 
+interface Data {
+  storagePathLarge: string;
+  storagePathSmall: string;
+  storagePathThumb: string;
+  urlLarge: string;
+  urlSmall: string;
+  urlThumb: string;
+}
+
+export interface ProcessImageSuccessResponse {
+  ok: true;
+  data: Data;
+}
+
+interface ProcessImageFailResponse {
+  ok: false;
+  error: string;
+}
+type Output = ProcessImageSuccessResponse | ProcessImageFailResponse;
+
 //TODO: decide on final image sizes
 const IMAGE_SIZES = {
   profile: {
@@ -41,7 +61,7 @@ const CONTENT_TYPE = `image/${FILE_TYPE}`;
 // This sets the sizes selected for conversion
 const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
 
-export const processImage = async (data: ProcessImageData) => {
+export const processImage = async (data: ProcessImageData): Promise<Output> => {
   try {
     const { storagePath: inputStoragePath, imageType } = data;
 
@@ -120,13 +140,14 @@ export const processImage = async (data: ProcessImageData) => {
       console.log('Temporary files removed.', details.outputTempFilePath);
     }
 
-    const returnData = conversionFileDetails.map((details, index) => {
-      return {
-        filePath: details.outputStorageFilePath,
-        downloadUrl: signedUrlResults[index][0],
-        size: conversionConfig[index],
-      };
-    });
+    const returnData: Data = {
+      storagePathLarge: conversionFileDetails[0].outputStorageFilePath,
+      urlLarge: signedUrlResults[0][0],
+      storagePathSmall: conversionFileDetails[1].outputStorageFilePath,
+      urlSmall: signedUrlResults[1][0],
+      storagePathThumb: conversionFileDetails[2].outputStorageFilePath,
+      urlThumb: signedUrlResults[2][0],
+    };
 
     return {
       ok: true,

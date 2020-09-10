@@ -24,6 +24,26 @@ export enum AudioQuality {
   LOW = 'low',
 }
 
+interface Data {
+  storagePathHigh: string;
+  storagePathMedium: string;
+  storagePathLow: string;
+  urlHigh: string;
+  urlMedium: string;
+  urlLow: string;
+}
+
+export interface ProcessAudioSuccessResponse {
+  ok: true;
+  data: Data;
+}
+
+interface ProcessAudioFailResponse {
+  ok: false;
+  error: string;
+}
+type Output = ProcessAudioSuccessResponse | ProcessAudioFailResponse;
+
 // const NORMAL_SAMPLE_RATE = 44100;
 // const LOW_SAMPLE_RATE = 44100;
 // const NORMAL_BIT_RATE = 320000;
@@ -39,7 +59,7 @@ const conversionConfig = [
   AudioQuality.LOW,
 ];
 
-export const processAudio = async (data: ProcessAudioData) => {
+export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
   try {
     const { storagePath: inputStoragePath } = data;
     const bucket = admin.storage().bucket();
@@ -94,12 +114,12 @@ export const processAudio = async (data: ProcessAudioData) => {
 
     // Uploading the audio.
 
-    const uploadPromises = conversionFileDetails.map((details) => {
-      return bucket.upload(details.outputTempFilePath, {
+    const uploadPromises = conversionFileDetails.map((details) =>
+      bucket.upload(details.outputTempFilePath, {
         destination: details.outputStorageFilePath,
         metadata: { contentType: CONTENT_TYPE },
-      });
-    });
+      })
+    );
 
     const uploadResults = await Promise.all(uploadPromises);
 
