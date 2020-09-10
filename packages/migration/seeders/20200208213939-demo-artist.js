@@ -35,6 +35,10 @@ module.exports = {
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf.jpg?alt=media&token=08f44863-e81c-416c-a8ae-64679975e4cb',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 200,
@@ -51,6 +55,10 @@ module.exports = {
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/esb%20live%20PR%20(filtre).jpg?alt=media&token=f95f227e-3471-4611-9338-32ecce29b7eb',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 300,
@@ -67,6 +75,10 @@ module.exports = {
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood.jpg?alt=media&token=748fc364-7c25-423d-97ca-4bffb05e76de',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 250,
@@ -83,6 +95,10 @@ module.exports = {
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/bbng.jpeg?alt=media&token=3fb89f69-7358-4f3a-955e-a1b9e740dc9d',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 1000,
@@ -99,6 +115,10 @@ module.exports = {
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek.jpeg?alt=media&token=c9268b77-c4d7-470f-b3ac-9a5895a7d6e9',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 225,

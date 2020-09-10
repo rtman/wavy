@@ -1,8 +1,8 @@
-import * as services from 'services';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
+import * as services from '../services';
 
 @InputType()
 class CreateArtistArgs implements Partial<Models.Artist> {
