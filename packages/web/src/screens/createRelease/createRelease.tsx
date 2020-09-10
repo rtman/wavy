@@ -55,8 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export interface SongForUpload {
   title: string;
-  ref?: string;
-  url?: string;
+  storagePath?: string;
   file: File;
 }
 
@@ -267,7 +266,7 @@ export const CreateRelease = () => {
         return {
           ...rest,
           title: data.songs[index].title.trim(),
-          storageDirPath: uploadData.gsUrl,
+          storagePath: uploadData.gsUrl,
           url: uploadData.downloadUrl,
         };
       });
@@ -295,10 +294,9 @@ export const CreateRelease = () => {
               albumId: result.id,
               artistId: id,
               profileImageStoragePath: result.gsUrl,
-              imageUrl: result.downloadUrl,
               songsToAdd: resolvedSongsForUpload ?? {
                 title: '',
-                storageDirPath: '',
+                storagePath: '',
               },
             },
           },

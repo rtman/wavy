@@ -101,7 +101,6 @@ export const CreateLabel = () => {
             name,
             description,
             profileImageStoragePath: gsUrl,
-            imageUrl: downloadUrl,
           },
         },
       });

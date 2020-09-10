@@ -62,7 +62,7 @@ export const ItemCard = (props: ItemCardProps) => {
 
   const title = 'title' in item ? item.title : item.name;
 
-  const imageUrl = item.imageUrl ?? '';
+  const imageUrl = item.profileImageUrlLarge ?? '';
 
   const getSongs = () => {
     if (item.__typename === 'Playlist') {

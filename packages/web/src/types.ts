@@ -34,7 +34,9 @@ export type Album = {
   songs: Array<Song>;
   labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
-  profileImageStorageDirPath: Scalars['String'];
+  profileImageStoragePathLarge: Scalars['String'];
+  profileImageStoragePathSmall: Scalars['String'];
+  profileImageStoragePathThumb: Scalars['String'];
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
@@ -49,7 +51,9 @@ export type Artist = {
   name: Scalars['String'];
   albums: Array<Album>;
   songs: Array<Song>;
-  profileImageStorageDirPath: Scalars['String'];
+  profileImageStoragePathLarge: Scalars['String'];
+  profileImageStoragePathSmall: Scalars['String'];
+  profileImageStoragePathThumb: Scalars['String'];
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
@@ -81,7 +85,6 @@ export type CreateAlbumArgs = {
   songsToAdd: Array<NewSongArgs>;
   artistId: Scalars['String'];
   profileImageStoragePath: Scalars['String'];
-  imageUrl: Scalars['String'];
 };
 
 export type CreateArtistArgs = {
@@ -90,7 +93,6 @@ export type CreateArtistArgs = {
   name: Scalars['String'];
   description: Scalars['String'];
   profileImageStoragePath: Scalars['String'];
-  imageUrl: Scalars['String'];
 };
 
 export type CreateLabelArgs = {
@@ -99,7 +101,6 @@ export type CreateLabelArgs = {
   name: Scalars['String'];
   description: Scalars['String'];
   profileImageStoragePath: Scalars['String'];
-  imageUrl: Scalars['String'];
 };
 
 export type CreatePlaylistArgs = {
@@ -112,7 +113,7 @@ export type CreatePlaylistArgs = {
 export type CreateSongArgs = {
   title: Scalars['String'];
   artistId: Scalars['String'];
-  profileImageStorageDirPath: Scalars['String'];
+  profileImageStoragePath: Scalars['String'];
   imageUrl: Scalars['String'];
 };
 
@@ -134,7 +135,9 @@ export type Label = {
   __typename?: 'Label';
   id: Scalars['ID'];
   name: Scalars['String'];
-  profileImageStorageDirPath: Scalars['String'];
+  profileImageStoragePathLarge: Scalars['String'];
+  profileImageStoragePathSmall: Scalars['String'];
+  profileImageStoragePathThumb: Scalars['String'];
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
@@ -209,7 +212,7 @@ export type MutationCreateAlbumArgs = {
 };
 
 export type MutationTestProcessAudioArgs = {
-  storageDirPath: Scalars['String'];
+  storagePath: Scalars['String'];
 };
 
 export type MutationDeleteAlbumArgs = {
@@ -310,8 +313,7 @@ export type MutationDeleteUserArgs = {
 
 export type NewSongArgs = {
   title: Scalars['String'];
-  storageDirPath: Scalars['String'];
-  url: Scalars['String'];
+  storagePath: Scalars['String'];
 };
 
 export type Playlist = {
@@ -319,7 +321,9 @@ export type Playlist = {
   id: Scalars['ID'];
   title: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  profileImageStorageDirPath?: Maybe<Scalars['String']>;
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
   profileImageUrlLarge?: Maybe<Scalars['String']>;
   profileImageUrlSmall?: Maybe<Scalars['String']>;
   profileImageUrlThumb?: Maybe<Scalars['String']>;
@@ -512,11 +516,15 @@ export type Song = {
   labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
   title: Scalars['String'];
-  storageDirPath: Scalars['String'];
+  storagePathHigh: Scalars['String'];
+  storagePathMedium: Scalars['String'];
+  storagePathLow: Scalars['String'];
   urlHigh: Scalars['String'];
   urlMedium: Scalars['String'];
   urlLow: Scalars['String'];
-  profileImageStorageDirPath: Scalars['String'];
+  profileImageStoragePathLarge: Scalars['String'];
+  profileImageStoragePathSmall: Scalars['String'];
+  profileImageStoragePathThumb: Scalars['String'];
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
@@ -605,7 +613,7 @@ export type UpdatePlaylistInfoArgs = {
   playlistId: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  profileImageStorageDirPath?: Maybe<Scalars['String']>;
+  profileImageStoragePath?: Maybe<Scalars['String']>;
 };
 
 export type UpdatePlaylistsArgs = {
@@ -954,7 +962,17 @@ export type AlbumResolvers<
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
   labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
-  profileImageStorageDirPath?: Resolver<
+  profileImageStoragePathLarge?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathSmall?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathThumb?: Resolver<
     ResolversTypes['String'],
     ParentType,
     ContextType
@@ -988,7 +1006,17 @@ export type ArtistResolvers<
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   albums?: Resolver<Array<ResolversTypes['Album']>, ParentType, ContextType>;
   songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
-  profileImageStorageDirPath?: Resolver<
+  profileImageStoragePathLarge?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathSmall?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathThumb?: Resolver<
     ResolversTypes['String'],
     ParentType,
     ContextType
@@ -1059,7 +1087,17 @@ export type LabelResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  profileImageStorageDirPath?: Resolver<
+  profileImageStoragePathLarge?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathSmall?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathThumb?: Resolver<
     ResolversTypes['String'],
     ParentType,
     ContextType
@@ -1145,7 +1183,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationTestProcessAudioArgs, 'ref'>
+    RequireFields<MutationTestProcessAudioArgs, 'storagePath'>
   >;
   deleteAlbum?: Resolver<
     ResolversTypes['Boolean'],
@@ -1304,7 +1342,17 @@ export type PlaylistResolvers<
     ParentType,
     ContextType
   >;
-  profileImageStorageDirPath?: Resolver<
+  profileImageStoragePathLarge?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathSmall?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathThumb?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
@@ -1546,11 +1594,27 @@ export type SongResolvers<
   labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  storageDirPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  storagePathHigh?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  storagePathMedium?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  storagePathLow?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlHigh?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlMedium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlLow?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  profileImageStorageDirPath?: Resolver<
+  profileImageStoragePathLarge?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathSmall?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  profileImageStoragePathThumb?: Resolver<
     ResolversTypes['String'],
     ParentType,
     ContextType

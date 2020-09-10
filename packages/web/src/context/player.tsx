@@ -35,7 +35,7 @@ const addAudioElements = (songs: Song[]) => {
   const resolvedSongs: SongWithAudio[] = songs.map((s) => {
     return {
       ...s,
-      audio: new Audio(s.url),
+      audio: new Audio(s.urlHigh),
     };
   });
   return resolvedSongs;

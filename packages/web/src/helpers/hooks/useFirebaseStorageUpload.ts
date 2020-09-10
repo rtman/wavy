@@ -55,16 +55,14 @@ export const useFirebaseStorageUpload = (
 
         const storageRef = firebase.storage().ref();
 
-        let storageDirPath = '';
-        rootDir ? (storageDirPath += `${rootDir}/`) : (storageDirPath += '');
-        parentDir
-          ? (storageDirPath += `${parentDir}/`)
-          : (storageDirPath += '');
-        childDir ? (storageDirPath += `${childDir}/`) : (storageDirPath += '');
+        let storagePath = '';
+        rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
+        parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
+        childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
 
-        storageDirPath += `${fileNameWithoutExtension}.${fileExtension}`;
+        storagePath += `${fileNameWithoutExtension}.${fileExtension}`;
 
-        const fileStorageRef = storageRef.child(storageDirPath);
+        const fileStorageRef = storageRef.child(storagePath);
         const uploadTask = fileStorageRef.put(file);
 
         uploadTask.on(

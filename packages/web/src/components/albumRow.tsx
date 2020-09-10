@@ -110,7 +110,7 @@ export const AlbumRow = (props: AlbumRowProps) => {
         button={true}
       >
         <ListItemAvatar>
-          <Avatar variant="square" src={album.imageUrl} />
+          <Avatar variant="square" src={album.profileImageUrlLarge} />
         </ListItemAvatar>
         <ListItemText
           primary={album.title}

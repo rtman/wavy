@@ -39,7 +39,7 @@ export const Label = () => {
   const labelSongs = queryData?.labelById?.songs ?? [];
   const labelArtists = queryData?.labelById?.artists ?? [];
   const labelAlbums = queryData?.labelById?.albums ?? [];
-  const labelImageUrl = queryData?.labelById?.imageUrl ?? '';
+  const labelImageUrl = queryData?.labelById?.profileImageUrlLarge ?? '';
   const labelName = queryData?.labelById?.name ?? '';
   const labelDescription = queryData?.labelById?.description ?? '';
 

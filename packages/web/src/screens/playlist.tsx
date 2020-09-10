@@ -66,7 +66,7 @@ export const Playlist = () => {
 
   const playlistFollows = userContext?.user?.playlistFollows ?? [];
   const playlistSongs = queryData?.playlistById?.songs ?? [];
-  const playlistImageUrl = queryData?.playlistById?.imageUrl ?? '';
+  const playlistImageUrl = queryData?.playlistById?.profileImageUrlLarge ?? '';
   const playlistTitle = queryData?.playlistById?.title ?? '';
   const playlistDescription = queryData?.playlistById?.description ?? '';
   const playlistUsers = queryData?.playlistById?.users ?? [];

@@ -52,7 +52,7 @@ export const Album = () => {
   });
 
   const albumSongs = currentAlbum?.songs ?? [];
-  const albumImageUrl = currentAlbum?.imageUrl ?? '';
+  const albumImageUrl = currentAlbum?.profileImageUrlLarge ?? '';
   const albumTitle = currentAlbum?.title ?? '';
   const artistAlbums = currentAlbum?.artist.albums ?? [];
   const artistName = currentAlbum?.artist.name ?? '';

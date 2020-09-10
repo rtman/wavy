@@ -50,7 +50,7 @@ export const Artist = () => {
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
-  const artistImageUrl = artist?.imageUrl ?? '';
+  const artistImageUrl = artist?.profileImageUrlLarge ?? '';
 
   useEffect(() => {
     if (id) {

@@ -48,7 +48,7 @@ export const LabelRow = (props: LabelRowProps) => {
     handleMenuClose();
   };
 
-  const labelImageUrl = label.imageUrl ?? '';
+  const labelImageUrl = label.profileImageUrlLarge ?? '';
   const labelName = label.name ?? '';
   const labelDescription = label.description ?? '';
   const labelId = label.id ?? '';

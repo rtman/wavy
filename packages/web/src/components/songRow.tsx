@@ -143,7 +143,7 @@ export const SongRow = (props: SongRowProps) => {
         {secondaryStyle ? null : (
           <ListItemAvatar>
             <ButtonBase onClick={() => resolvedOnClick(song)}>
-              <Avatar variant="square" src={song.imageUrl} />
+              <Avatar variant="square" src={song.profileImageUrlLarge} />
             </ButtonBase>
           </ListItemAvatar>
         )}
