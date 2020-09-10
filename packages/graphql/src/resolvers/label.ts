@@ -1,3 +1,4 @@
+import * as services from 'services';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 
@@ -19,9 +20,6 @@ class CreateLabelArgs implements Partial<Models.Label> {
 
   @Field()
   profileImageStoragePath: string;
-
-  @Field()
-  imageUrl: string;
 }
 
 @Resolver(Models.Label)
@@ -170,9 +168,24 @@ export class LabelResolvers {
     @Arg('input') payload: CreateLabelArgs
   ): Promise<Models.Label | undefined> {
     try {
-      const { userId, labelId, ...rest } = payload;
+      const { userId, labelId, profileImageStoragePath, ...rest } = payload;
       const labelRepository = getManager().getRepository(Models.Label);
-      const label = labelRepository.create({ id: labelId, ...rest });
+
+      const processImageResult = await services.processImage({
+        storagePath: profileImageStoragePath,
+        imageType: services.ImageType.PROFILE,
+      });
+
+      if (!processImageResult.ok) {
+        console.log('processing Image failed', processImageResult);
+        return;
+      }
+
+      const label = labelRepository.create({
+        id: labelId,
+        ...rest,
+        ...processImageResult.data,
+      });
 
       const userLabelRepository = getManager().getRepository(Models.UserLabel);
       const userLabel = userLabelRepository.create({ userId, labelId });

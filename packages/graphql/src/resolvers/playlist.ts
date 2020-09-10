@@ -237,10 +237,27 @@ export class PlaylistResolvers {
     @Arg('input') payload: CreatePlaylistArgs
   ): Promise<Models.Playlist | undefined> {
     try {
-      const { userId } = payload;
+      const { userId, profileImageStoragePath, ...rest } = payload;
 
       const playlistRepo = getManager().getRepository(Models.Playlist);
-      const newPlaylist = playlistRepo.create(payload);
+
+      const processImageResult =
+        profileImageStoragePath !== undefined
+          ? await services.processImage({
+              storagePath: profileImageStoragePath,
+              imageType: services.ImageType.PROFILE,
+            })
+          : undefined;
+
+      if (processImageResult && !processImageResult.ok) {
+        console.log('processing Image failed', processImageResult);
+        return;
+      }
+
+      const newPlaylist = playlistRepo.create({
+        ...rest,
+        ...processImageResult?.data,
+      });
 
       if (!newPlaylist) {
         console.log('CreatePlaylist failed', payload);
@@ -277,27 +294,31 @@ export class PlaylistResolvers {
     @Arg('input') payload: UpdatePlaylistInfoArgs
   ): Promise<boolean> {
     try {
-      const { playlistId, profileImageStoragePath } = payload;
-      console.log('*debug* updatePlaylistInfo payload', payload);
-
-      if (profileImageStoragePath === undefined) {
-        console.log('profileImageStoragePath is undefined');
-        return false;
-      }
-
-      const imageProcessingResult = await services.processImage({
-        storagePath: profileImageStoragePath,
-        imageType: services.ImageType.PROFILE,
-      });
-
-      console.log('*debug* imageProcessingResult', imageProcessingResult);
+      const { playlistId, profileImageStoragePath, ...rest } = payload;
 
       const result = await getManager().transaction(
         async (transactionalEntityManager) => {
           const repository = transactionalEntityManager.getRepository(
             Models.Playlist
           );
-          const playlist = await repository.update(playlistId, payload);
+
+          const processImageResult =
+            profileImageStoragePath !== undefined
+              ? await services.processImage({
+                  storagePath: profileImageStoragePath,
+                  imageType: services.ImageType.PROFILE,
+                })
+              : undefined;
+
+          if (processImageResult && !processImageResult.ok) {
+            console.log('processing Image failed', processImageResult);
+            return false;
+          }
+
+          const playlist = await repository.update(playlistId, {
+            ...rest,
+            ...processImageResult?.data,
+          });
 
           if (playlist) {
             return true;

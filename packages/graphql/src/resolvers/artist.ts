@@ -1,3 +1,4 @@
+import * as services from 'services';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 
@@ -19,9 +20,6 @@ class CreateArtistArgs implements Partial<Models.Artist> {
 
   @Field()
   profileImageStoragePath: string;
-
-  @Field()
-  imageUrl: string;
 }
 
 @Resolver(Models.Artist)
@@ -203,14 +201,33 @@ export class ArtistResolvers {
     @Arg('input') payload: CreateArtistArgs
   ): Promise<Models.Artist | undefined> {
     try {
-      const { userId, artistId, ...rest } = payload;
+      const { userId, artistId, profileImageStoragePath, ...rest } = payload;
       const artistRepository = getManager().getRepository(Models.Artist);
-      const artist = artistRepository.create({ id: artistId, ...rest });
+
+      const processImageResult = await services.processImage({
+        storagePath: profileImageStoragePath,
+        imageType: services.ImageType.PROFILE,
+      });
+
+      if (!processImageResult.ok) {
+        console.log('processing Image failed', processImageResult);
+        return;
+      }
+
+      const artist = artistRepository.create({
+        id: artistId,
+        ...rest,
+        ...processImageResult.data,
+      });
 
       const userArtistRepository = getManager().getRepository(
         Models.UserArtist
       );
-      const userArtist = userArtistRepository.create({ userId, artistId });
+
+      const userArtist = userArtistRepository.create({
+        userId,
+        artistId,
+      });
 
       if (artist && userArtist) {
         await artistRepository.save(artist);
