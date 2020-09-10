@@ -22,7 +22,11 @@ module.exports = {
         albumId: '6960fd68-732e-4c3c-8995-8d72989f53db',
         labelId: '85248eee-5f5b-49f8-a9d9-e08418b829b8',
         releaseDate: '2014-05-20T07:00:00+00:00', // RFC 3339
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
@@ -54,8 +58,12 @@ module.exports = {
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
         profileImageUrlSmall:
@@ -86,8 +94,12 @@ module.exports = {
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
         profileImageUrlSmall:
@@ -118,8 +130,12 @@ module.exports = {
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
         profileImageUrlSmall:
@@ -150,8 +166,12 @@ module.exports = {
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH013 art.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
         profileImageUrlSmall:
@@ -182,8 +202,12 @@ module.exports = {
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
         labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf%20reza%20-%20proto.jpg?alt=media&token=b26858a3-232e-43b8-a47d-dd2e644d1b63',
         profileImageUrlSmall:
@@ -214,8 +238,12 @@ module.exports = {
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
         labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf%20reza%20-%20proto.jpg?alt=media&token=b26858a3-232e-43b8-a47d-dd2e644d1b63',
         profileImageUrlSmall:
@@ -246,8 +274,12 @@ module.exports = {
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
         labelId: 'b587201a-ccd8-4ac7-a9c7-fba9c369e7da',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/raf reza - proto.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf%20reza%20-%20proto.jpg?alt=media&token=b26858a3-232e-43b8-a47d-dd2e644d1b63',
         profileImageUrlSmall:
@@ -278,8 +310,12 @@ module.exports = {
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlSmall:
@@ -310,8 +346,12 @@ module.exports = {
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlSmall:
@@ -340,8 +380,12 @@ module.exports = {
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlSmall:
@@ -371,8 +415,12 @@ module.exports = {
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH002_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlSmall:
@@ -402,8 +450,12 @@ module.exports = {
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -433,8 +485,12 @@ module.exports = {
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -464,8 +520,12 @@ module.exports = {
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -495,8 +555,12 @@ module.exports = {
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -526,8 +590,12 @@ module.exports = {
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -557,8 +625,12 @@ module.exports = {
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -588,8 +660,12 @@ module.exports = {
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -619,8 +695,12 @@ module.exports = {
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
         profileImageUrlSmall:
@@ -650,8 +730,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -681,8 +765,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -712,8 +800,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -743,8 +835,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -774,8 +870,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -805,8 +905,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -836,8 +940,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -867,8 +975,12 @@ module.exports = {
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - foreign parts.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20foreign%20parts.jpg?alt=media&token=1d91232b-acc9-4a73-ad96-29f21e1d6e9a',
         profileImageUrlSmall:
@@ -898,8 +1010,12 @@ module.exports = {
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - sw005.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20sw005.jpg?alt=media&token=040ac5ea-1d47-44bf-aa88-fbbe3fa5bfaf',
         profileImageUrlSmall:
@@ -929,8 +1045,12 @@ module.exports = {
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - sw005.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20sw005.jpg?alt=media&token=040ac5ea-1d47-44bf-aa88-fbbe3fa5bfaf',
         profileImageUrlSmall:
@@ -960,8 +1080,12 @@ module.exports = {
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         profileImageUrlSmall:
@@ -991,8 +1115,12 @@ module.exports = {
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         profileImageUrlSmall:
@@ -1022,8 +1150,12 @@ module.exports = {
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         profileImageUrlSmall:
@@ -1052,8 +1184,12 @@ module.exports = {
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood  - sw 004.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20%20-%20sw%20004.jpg?alt=media&token=d3f80a0b-83bb-4827-ac86-f7da6adc9688',
         profileImageUrlSmall:
@@ -1083,8 +1219,12 @@ module.exports = {
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20submarine.jpg?alt=media&token=9e6fd534-7467-4362-bad9-d9015e90c870',
         profileImageUrlSmall:
@@ -1114,8 +1254,12 @@ module.exports = {
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20submarine.jpg?alt=media&token=9e6fd534-7467-4362-bad9-d9015e90c870',
         profileImageUrlSmall:
@@ -1145,8 +1289,12 @@ module.exports = {
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20submarine.jpg?alt=media&token=9e6fd534-7467-4362-bad9-d9015e90c870',
         profileImageUrlSmall:
@@ -1176,8 +1324,12 @@ module.exports = {
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/seb wildblood - submarine.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood%20-%20submarine.jpg?alt=media&token=9e6fd534-7467-4362-bad9-d9015e90c870',
         profileImageUrlSmall:
@@ -1207,8 +1359,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1238,8 +1394,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1269,8 +1429,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1299,8 +1463,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1330,8 +1498,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1361,8 +1533,12 @@ module.exports = {
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
         labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/sebwildblood - u.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/sebwildblood%20-%20u.jpg?alt=media&token=15bd72c7-c5e6-43a3-afae-42eccecefea0',
         profileImageUrlSmall:
@@ -1391,8 +1567,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1421,8 +1601,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1451,8 +1635,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1481,8 +1669,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1511,8 +1703,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1541,8 +1737,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1571,8 +1771,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1601,8 +1805,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1631,8 +1839,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1661,8 +1873,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1690,8 +1906,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1720,8 +1940,12 @@ module.exports = {
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - cover.png',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%20cover.png?alt=media&token=a3c25e5f-0ce0-4d30-aa3c-b3d542743bb9',
         profileImageUrlSmall:
@@ -1750,8 +1974,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1780,8 +2008,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1810,8 +2042,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1840,8 +2076,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1870,8 +2110,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1900,8 +2144,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1930,8 +2178,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1960,8 +2212,12 @@ module.exports = {
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - benes world.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20benes%20world.jpg?alt=media&token=3ea5ae8f-b379-4cbb-8940-1166a63ec5f6',
         profileImageUrlSmall:
@@ -1990,8 +2246,12 @@ module.exports = {
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlSmall:
@@ -2020,8 +2280,12 @@ module.exports = {
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlSmall:
@@ -2050,8 +2314,12 @@ module.exports = {
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlSmall:
@@ -2080,8 +2348,12 @@ module.exports = {
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
         labelId: 'a70c7da8-a350-40ad-a7d2-d5ba1a7bbe65',
         releaseDate: '2014-05-20T07:00:00+00:00',
-        profileImageStoragePathHigh:
+        profileImageStoragePathLarge:
           'gs://groov-development-ddc9d.appspot.com/benedek - coolin.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlSmall:
