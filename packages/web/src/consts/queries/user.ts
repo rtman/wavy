@@ -5,22 +5,22 @@ export const PLAY_HISTORY = gql`
     playHistory(userId: $userId) {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
@@ -31,22 +31,22 @@ export const USERS_TOP_SONGS = gql`
     usersTopSongs(userId: $userId) {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
@@ -74,7 +74,7 @@ export const USER_BY_ID = gql`
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       labels {
@@ -85,7 +85,7 @@ export const USER_BY_ID = gql`
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       artistFollows {
@@ -93,12 +93,12 @@ export const USER_BY_ID = gql`
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
           songs {
             id
             title
-            url
-            imageUrl
+            urlHigh
+            profileImageUrlLarge
             playCount
           }
         }
@@ -108,34 +108,34 @@ export const USER_BY_ID = gql`
         song {
           id
           title
-          imageUrl
-          url
+          profileImageUrlLarge
+          urlHigh
           label {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           album {
             id
             title
-            imageUrl
+            profileImageUrlLarge
             label {
               id
               name
-              imageUrl
+              profileImageUrlLarge
             }
           }
           artist {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           supportingArtists {
             createdAt
             artist {
               id
               name
-              imageUrl
+              profileImageUrlLarge
             }
           }
         }
@@ -146,14 +146,14 @@ export const USER_BY_ID = gql`
         playlist {
           id
           title
-          imageUrl
+          profileImageUrlLarge
           description
           songs {
             song {
               id
               title
-              url
-              imageUrl
+              urlHigh
+              profileImageUrlLarge
               playCount
             }
           }

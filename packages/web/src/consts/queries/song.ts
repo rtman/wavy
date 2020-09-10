@@ -5,22 +5,22 @@ export const SONGS_BY_ID_QUERY = gql`
     songsById(songIds: $songIds) {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
@@ -34,20 +34,20 @@ export const SEARCH_SONGS_QUERY = gql`
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       releaseDate
     }
   }
@@ -58,22 +58,22 @@ export const TOP_SONGS = gql`
     topSongs {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
@@ -84,22 +84,22 @@ export const TOP_SONGS_BY_TAG_ID = gql`
     topSongsByTag(tagId: $tagId) {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
@@ -110,22 +110,22 @@ export const TOP_SONGS_BY_TAG_NAME = gql`
     topSongsByTagName(tagName: $tagName) {
       id
       title
-      url
-      imageUrl
+      urlHigh
+      profileImageUrlLarge
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       album {
         id
         title
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }

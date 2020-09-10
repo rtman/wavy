@@ -5,7 +5,7 @@ export const PLAYLIST_BY_ID = gql`
     playlistById(playlistId: $playlistId) {
       title
       description
-      imageUrl
+      profileImageUrlLarge
       users {
         createdAt
         user {
@@ -19,22 +19,22 @@ export const PLAYLIST_BY_ID = gql`
         song {
           id
           title
-          url
-          imageUrl
+          urlHigh
+          profileImageUrlLarge
           artist {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           album {
             id
             title
-            imageUrl
+            profileImageUrlLarge
           }
           label {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
         }
       }
@@ -48,7 +48,7 @@ export const PLAYLISTS_BY_USER_ID = gql`
       id
       title
       description
-      imageUrl
+      profileImageUrlLarge
       users {
         createdAt
         user {
@@ -62,17 +62,17 @@ export const PLAYLISTS_BY_USER_ID = gql`
         song {
           id
           title
-          url
-          imageUrl
+          urlHigh
+          profileImageUrlLarge
           artist {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           album {
             id
             title
-            imageUrl
+            profileImageUrlLarge
           }
         }
       }
@@ -85,7 +85,7 @@ export const SEARCH_PLAYLISTS_QUERY = gql`
     searchPlaylists(query: $query) {
       id
       title
-      imageUrl
+      profileImageUrlLarge
       users {
         createdAt
         user {

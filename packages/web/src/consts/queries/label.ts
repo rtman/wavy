@@ -6,7 +6,7 @@ export const NEW_LABELS = gql`
       id
       name
       description
-      imageUrl
+      profileImageUrlLarge
       createdAt
       updatedAt
       artists {
@@ -15,23 +15,23 @@ export const NEW_LABELS = gql`
           name
           id
           description
-          imageUrl
+          profileImageUrlLarge
         }
       }
       albums {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         description
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       songs {
@@ -41,15 +41,15 @@ export const NEW_LABELS = gql`
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           name
           id
-          imageUrl
+          profileImageUrlLarge
         }
-        imageUrl
-        url
+        profileImageUrlLarge
+        urlHigh
       }
     }
   }
@@ -61,7 +61,7 @@ export const LABEL_BY_ID = gql`
       id
       name
       description
-      imageUrl
+      profileImageUrlLarge
       createdAt
       updatedAt
       artists {
@@ -70,23 +70,23 @@ export const LABEL_BY_ID = gql`
           name
           id
           description
-          imageUrl
+          profileImageUrlLarge
         }
       }
       albums {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         description
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       songs {
@@ -96,15 +96,15 @@ export const LABEL_BY_ID = gql`
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           name
           id
-          imageUrl
+          profileImageUrlLarge
         }
-        imageUrl
-        url
+        profileImageUrlLarge
+        urlHigh
       }
     }
   }
@@ -115,7 +115,7 @@ export const SEARCH_LABELS_QUERY = gql`
     searchLabels(query: $query) {
       id
       name
-      imageUrl
+      profileImageUrlLarge
     }
   }
 `;

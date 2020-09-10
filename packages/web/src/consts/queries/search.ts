@@ -6,32 +6,32 @@ export const SEARCH_ALL = gql`
       albums {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       artists {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       labels {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       playlists {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         users {
           createdAt
           user {
@@ -47,20 +47,20 @@ export const SEARCH_ALL = gql`
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         album {
           id
           title
-          imageUrl
+          profileImageUrlLarge
         }
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
-        url
-        imageUrl
+        urlHigh
+        profileImageUrlLarge
         releaseDate
       }
     }

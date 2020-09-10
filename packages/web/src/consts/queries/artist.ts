@@ -5,7 +5,7 @@ export const ARTISTS_BY_ID = gql`
     artistsById(artistIds: $artistIds) {
       id
       name
-      imageUrl
+      profileImageUrlLarge
       description
       album_ids
     }
@@ -18,33 +18,33 @@ export const ARTIST_BY_ID = gql`
       id
       name
       description
-      imageUrl
+      profileImageUrlLarge
       albums {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         songs {
           id
           title
-          url
-          imageUrl
+          urlHigh
+          profileImageUrlLarge
           playCount
           label {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           supportingArtists {
             createdAt
             artist {
               id
               name
-              imageUrl
+              profileImageUrlLarge
             }
           }
           # usersRecentlyPlayed {
@@ -60,18 +60,18 @@ export const ARTIST_BY_ID = gql`
       songs {
         id
         title
-        url
-        imageUrl
+        urlHigh
+        profileImageUrlLarge
         playCount
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       usersFollowing {
@@ -87,7 +87,7 @@ export const ARTIST_BY_ID = gql`
         song {
           id
           title
-          url
+          urlHigh
         }
       }
     }
@@ -100,33 +100,33 @@ export const NEW_ARTISTS = gql`
       id
       name
       description
-      imageUrl
+      profileImageUrlLarge
       albums {
         id
         title
-        imageUrl
+        profileImageUrlLarge
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         songs {
           id
           title
-          url
-          imageUrl
+          urlHigh
+          profileImageUrlLarge
           playCount
           label {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
           supportingArtists {
             createdAt
             artist {
               id
               name
-              imageUrl
+              profileImageUrlLarge
             }
           }
           # usersRecentlyPlayed {
@@ -142,18 +142,18 @@ export const NEW_ARTISTS = gql`
       songs {
         id
         title
-        url
-        imageUrl
+        urlHigh
+        profileImageUrlLarge
         playCount
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
       }
       usersFollowing {
@@ -169,7 +169,7 @@ export const NEW_ARTISTS = gql`
         song {
           id
           title
-          url
+          urlHigh
         }
       }
     }
@@ -181,7 +181,7 @@ export const SEARCH_ARTISTS_QUERY = gql`
     searchArtists(query: $query) {
       id
       name
-      imageUrl
+      profileImageUrlLarge
     }
   }
 `;

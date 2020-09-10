@@ -5,19 +5,19 @@ export const ALBUM_BY_ID = gql`
     albumById(albumId: $albumId) {
       id
       title
-      imageUrl
+      profileImageUrlLarge
       description
       songs {
         id
         title
-        url
-        imageUrl
+        urlHigh
+        profileImageUrlLarge
         artistId
         albumId
         label {
           id
           name
-          imageUrl
+          profileImageUrlLarge
         }
         artist {
           id
@@ -28,7 +28,7 @@ export const ALBUM_BY_ID = gql`
           artist {
             id
             name
-            imageUrl
+            profileImageUrlLarge
           }
         }
         usersFavourited {
@@ -43,11 +43,11 @@ export const ALBUM_BY_ID = gql`
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
         albums {
           title
           id
-          imageUrl
+          profileImageUrlLarge
         }
       }
     }
@@ -59,16 +59,16 @@ export const SEARCH_ALBUMS_QUERY = gql`
     searchAlbums(query: $query) {
       id
       title
-      imageUrl
+      profileImageUrlLarge
       artist {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
       label {
         id
         name
-        imageUrl
+        profileImageUrlLarge
       }
     }
   }
