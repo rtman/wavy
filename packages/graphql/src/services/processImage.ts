@@ -62,6 +62,10 @@ const CONTENT_TYPE = `image/${FILE_TYPE}`;
 const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
 
 export const processImage = async (data: ProcessImageData): Promise<Output> => {
+  let conversionFileDetails:
+    | ReturnType<typeof prepFileForConversion>[]
+    | undefined;
+  let inputTempFilePath: string | undefined;
   try {
     const { storagePath: inputStoragePath, imageType } = data;
 
@@ -87,13 +91,13 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
       contentType: CONTENT_TYPE,
     };
 
-    const inputTempFilePath = path.join(os.tmpdir(), inputFileName);
+    inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
       .file(inputStoragePath)
       .download({ destination: inputTempFilePath });
 
-    const conversionFileDetails = conversionConfig.map((size) =>
+    conversionFileDetails = conversionConfig.map((size) =>
       prepFileForConversion({
         inputStoragePath,
         size,
@@ -103,7 +107,8 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
 
     const imageConversionPromises = conversionFileDetails.map((detail, index) =>
       convertImage({
-        inputTempFilePath,
+        // path.join can only return a string so its ok to cast it here
+        inputTempFilePath: inputTempFilePath as string,
         outputTempFilePath: detail.outputTempFilePath,
         imageType,
         size: conversionConfig[index],
@@ -133,13 +138,6 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
 
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
-    fs.unlinkSync(inputTempFilePath);
-    console.log('Temporary files removed.', inputTempFilePath);
-    for (const details of conversionFileDetails) {
-      fs.unlinkSync(details.outputTempFilePath);
-      console.log('Temporary files removed.', details.outputTempFilePath);
-    }
-
     const returnData: Data = {
       storagePathLarge: conversionFileDetails[0].outputStorageFilePath,
       urlLarge: signedUrlResults[0][0],
@@ -158,6 +156,19 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
       ok: false,
       error,
     };
+  } finally {
+    // Once the audio has been uploaded delete the local file to free up disk space.
+    if (inputTempFilePath !== undefined) {
+      fs.unlinkSync(inputTempFilePath);
+      console.log('Temporary files removed.', inputTempFilePath);
+    }
+
+    if (conversionFileDetails !== undefined) {
+      for (const details of conversionFileDetails) {
+        fs.unlinkSync(details.outputTempFilePath);
+        console.log('Temporary files removed.', details.outputTempFilePath);
+      }
+    }
   }
 };
 

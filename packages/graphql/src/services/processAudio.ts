@@ -60,6 +60,11 @@ const conversionConfig = [
 ];
 
 export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
+  let conversionFileDetails:
+    | ReturnType<typeof prepFileForConversion>[]
+    | undefined;
+  let inputTempFilePath: string | undefined;
+
   try {
     const { storagePath: inputStoragePath } = data;
     const bucket = admin.storage().bucket();
@@ -85,14 +90,14 @@ export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
       return { ok: false, error: 'File is already converted' };
     }
 
-    const inputTempFilePath = path.join(os.tmpdir(), inputFileName);
+    inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
       .file(inputStoragePath)
       .download({ destination: inputTempFilePath });
     console.log('Audio downloaded locally to', inputTempFilePath);
 
-    const conversionFileDetails = conversionConfig.map((qualityLevel) =>
+    conversionFileDetails = conversionConfig.map((qualityLevel) =>
       prepFileForConversion({
         inputFileName,
         inputStoragePath,
@@ -102,7 +107,8 @@ export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
 
     const conversionPromises = conversionFileDetails.map((details, index) =>
       convertAudio({
-        inputTempFilePath,
+        // path.join can only return a string so its ok to cast it here
+        inputTempFilePath: inputTempFilePath as string,
         outputTempFilePath: details.outputTempFilePath,
         qualityLevel: conversionConfig[index],
       })
@@ -138,14 +144,6 @@ export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
     // TODO: Decide if input is needed or not, if we are doing for sale downloads then it will be.
     // await bucket.file(inputFilePath).delete();
 
-    // Once the audio has been uploaded delete the local file to free up disk space.
-    fs.unlinkSync(inputTempFilePath);
-    console.log('Temporary files removed.', inputTempFilePath);
-    for (const details of conversionFileDetails) {
-      fs.unlinkSync(details.outputTempFilePath);
-      console.log('Temporary files removed.', details.outputTempFilePath);
-    }
-
     const returnData = {
       storagePathHigh: conversionFileDetails[0].outputStorageFilePath,
       urlHigh: signedUrlResults[0][0],
@@ -164,6 +162,19 @@ export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
       ok: false,
       error,
     };
+  } finally {
+    // Once the audio has been uploaded delete the local file to free up disk space.
+    if (inputTempFilePath !== undefined) {
+      fs.unlinkSync(inputTempFilePath);
+      console.log('Temporary files removed.', inputTempFilePath);
+    }
+
+    if (conversionFileDetails !== undefined) {
+      for (const details of conversionFileDetails) {
+        fs.unlinkSync(details.outputTempFilePath);
+        console.log('Temporary files removed.', details.outputTempFilePath);
+      }
+    }
   }
 };
 
