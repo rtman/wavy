@@ -1,4 +1,8 @@
+import handlebars from 'handlebars';
+import * as helpers from 'helpers';
 import nodemailer from 'nodemailer';
+import { Models } from 'orm';
+import * as services from 'services';
 import {
   Arg,
   createUnionType,
@@ -10,9 +14,6 @@ import {
 } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-
-import { Models } from '../orm';
-import * as services from '../services';
 
 @InputType()
 class NewSupportingArtist {
@@ -71,6 +72,9 @@ class AddSongsToAlbumArgs implements Partial<Models.Song> {
 
   @Field(() => [NewSongArgs])
   songsToAdd: NewSongArgs[];
+
+  @Field()
+  userName: string;
 }
 
 @InputType({ description: 'Create a new album' })
@@ -248,7 +252,7 @@ export class AlbumResolvers {
     @Arg('input') payload: AddSongsToAlbumArgs
   ): Promise<boolean> {
     try {
-      const { songsToAdd, albumId, artistId } = payload;
+      const { songsToAdd, albumId, artistId, userName } = payload;
 
       if ((songsToAdd.length > 0, albumId, songsToAdd, artistId)) {
         const songRepository = getManager().getRepository(Models.Song);
@@ -258,7 +262,7 @@ export class AlbumResolvers {
         );
         const artistRepository = getManager().getRepository(Models.Artist);
 
-        const testAccount = await nodemailer.createTestAccount();
+        // const testAccount = await nodemailer.createTestAccount();
         const transporter = nodemailer.createTransport({
           host: 'smtp.ethereal.email',
           port: 587,
@@ -268,6 +272,12 @@ export class AlbumResolvers {
             pass: testAccount.pass, // generated ethereal password
           },
         });
+
+        const artistInviteEmail = await helpers.readHTMLFile(
+          '../emailTemplates/artistInvite.html'
+        );
+
+        const template = handlebars.compile(artistInviteEmail);
 
         const processSongsPromises = [];
 
@@ -328,14 +338,18 @@ export class AlbumResolvers {
                   artistId,
                 });
 
-                // TODO: setup email properly with an html email.
+                const templatedArtistInviteEmail = template({
+                  userName,
+                  artistName: supportingArtist.name,
+                });
+
                 newArtistEmailPromises.push(
                   transporter.sendMail({
+                    // TODO: setup sending email address properly
                     from: '"Fred Foo 👻" <foo@example.com>', // sender address
                     to: supportingArtist.email, // list of receivers
-                    subject: 'Hello ✔', // Subject line
-                    text: 'Hello world?', // plain text body
-                    html: '<b>Hello world?</b>', // html body
+                    subject: "You've been invited to OurSound!", // Subject line
+                    html: templatedArtistInviteEmail, // html body
                   })
                 );
               }
