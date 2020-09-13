@@ -62,7 +62,19 @@ export const ItemCard = (props: ItemCardProps) => {
 
   const title = 'title' in item ? item.title : item.name;
 
-  const imageUrl = item.profileImageUrlLarge ?? '';
+  const getImageUrl = () => {
+    if (item.__typename === 'Song') {
+      return item.album.profileImageUrlLarge;
+    }
+    if (
+      item.__typename === 'Album' ||
+      item.__typename === 'Artist' ||
+      item.__typename === 'Label' ||
+      item.__typename === 'Playlist'
+    ) {
+      return item.profileImageUrlLarge ?? '';
+    }
+  };
 
   const getSongs = () => {
     if (item.__typename === 'Playlist') {
@@ -141,7 +153,7 @@ export const ItemCard = (props: ItemCardProps) => {
           <CardMedia
             onClick={onClickGoTo}
             component="img"
-            image={imageUrl}
+            image={getImageUrl()}
             alt={title}
           />
         </CardActionArea>

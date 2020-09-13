@@ -6,7 +6,6 @@ export const PLAY_HISTORY = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name
@@ -32,7 +31,6 @@ export const USERS_TOP_SONGS = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name
@@ -98,7 +96,6 @@ export const USER_BY_ID = gql`
             id
             title
             urlHigh
-            profileImageUrlLarge
             playCount
           }
         }
@@ -108,7 +105,6 @@ export const USER_BY_ID = gql`
         song {
           id
           title
-          profileImageUrlLarge
           urlHigh
           label {
             id
@@ -153,8 +149,12 @@ export const USER_BY_ID = gql`
               id
               title
               urlHigh
-              profileImageUrlLarge
               playCount
+              album {
+                id
+                title
+                profileImageUrlLarge
+              }
             }
           }
         }

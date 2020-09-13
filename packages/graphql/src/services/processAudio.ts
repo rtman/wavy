@@ -14,8 +14,9 @@ const promisifyCommand = (command: any) => {
   });
 };
 
-interface ProcessAudioData {
+interface Input {
   storagePath: string;
+  deleteOriginal?: boolean;
 }
 
 export enum AudioQuality {
@@ -24,7 +25,7 @@ export enum AudioQuality {
   LOW = 'low',
 }
 
-interface Data {
+interface SucessData {
   storagePathHigh: string;
   storagePathMedium: string;
   storagePathLow: string;
@@ -35,7 +36,7 @@ interface Data {
 
 export interface ProcessAudioSuccessResponse {
   ok: true;
-  data: Data;
+  data: SucessData;
 }
 
 interface ProcessAudioFailResponse {
@@ -59,14 +60,14 @@ const conversionConfig = [
   AudioQuality.LOW,
 ];
 
-export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
+export const processAudio = async (props: Input): Promise<Output> => {
   let conversionFileDetails:
     | ReturnType<typeof prepFileForConversion>[]
     | undefined;
   let inputTempFilePath: string | undefined;
 
   try {
-    const { storagePath: inputStoragePath } = data;
+    const { storagePath: inputStoragePath, deleteOriginal } = props;
     const bucket = admin.storage().bucket();
 
     const metaDataResponse = await bucket.file(inputStoragePath).getMetadata();
@@ -141,8 +142,9 @@ export const processAudio = async (data: ProcessAudioData): Promise<Output> => {
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
     // delete input
-    // TODO: Decide if input is needed or not, if we are doing for sale downloads then it will be.
-    // await bucket.file(inputFilePath).delete();
+    if (deleteOriginal) {
+      await bucket.file(inputStoragePath).delete();
+    }
 
     const returnData = {
       storagePathHigh: conversionFileDetails[0].outputStorageFilePath,

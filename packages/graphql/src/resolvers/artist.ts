@@ -125,6 +125,7 @@ export class ArtistResolvers {
             'albums.songs.supportingArtists.artist',
             'supportingArtistOn',
             'supportingArtistOn.song',
+            'supportingArtistOn.song.album',
             'usersFollowing',
             'usersFollowing.user',
             'users',

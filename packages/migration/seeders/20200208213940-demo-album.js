@@ -21,6 +21,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras-untitled.jpg?alt=media&token=41452af7-dfec-4c7c-abf5-edfe8f56bbd9',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -42,6 +43,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH013%20art.png?alt=media&token=3be2fff8-e75f-4dba-a18f-0ac6e7a850e5',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -63,6 +65,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf%20reza%20-%20proto.jpg?alt=media&token=b26858a3-232e-43b8-a47d-dd2e644d1b63',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf%20reza%20-%20proto.jpg?alt=media&token=b26858a3-232e-43b8-a47d-dd2e644d1b63',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -84,6 +87,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -105,6 +109,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH002_A_digital.png?alt=media&token=2bbcf80a-2a4b-4b1f-b3b0-85f9046676b3',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -126,6 +131,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -147,6 +153,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -168,6 +175,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -189,6 +197,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -210,6 +219,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -231,6 +241,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -251,6 +262,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -272,6 +284,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -293,6 +306,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        releaseDate: '2014-05-20T07:00:00+00:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

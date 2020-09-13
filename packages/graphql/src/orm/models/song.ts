@@ -86,10 +86,6 @@ export class Song {
   @Column()
   urlLow: string;
 
-  @Field(() => Date)
-  @Column({ default: new Date() })
-  releaseDate: Date;
-
   @Field(() => Number)
   @Column({ default: 0 })
   playCount: number;

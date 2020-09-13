@@ -1,5 +1,3 @@
-import { Song } from 'types';
-
 type EmailAndPasswordProps = EmailAndPasswordDispatchProps &
   EmailAndPasswordStateProps;
 
@@ -19,7 +17,3 @@ interface EmailAndPasswordStateProps {
 // type EmailAndPasswordDispatchProps = typeof import('./EmailAndPasswordContainer').mapDispatchToProps;
 
 type PasswordRequirementStatus = 'done' | 'blank' | 'fail';
-
-interface SongWithAudio extends Song {
-  audio?: HTMLAudioElement;
-}

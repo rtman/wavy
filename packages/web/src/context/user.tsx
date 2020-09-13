@@ -114,7 +114,7 @@ export const UserProvider: FunctionComponent = (props) => {
 
   useEffect(() => {
     console.log(
-      'authContext?.firebaseUser?.uid',
+      '*debug* authContext?.firebaseUser?.uid',
       authContext?.firebaseUser?.uid
     );
     if (authContext?.firebaseUser?.uid) {

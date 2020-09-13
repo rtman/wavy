@@ -6,7 +6,6 @@ export const SONGS_BY_ID_QUERY = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name
@@ -47,7 +46,6 @@ export const SEARCH_SONGS_QUERY = gql`
         profileImageUrlLarge
       }
       urlHigh
-      profileImageUrlLarge
       releaseDate
     }
   }
@@ -59,7 +57,6 @@ export const TOP_SONGS = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name
@@ -85,7 +82,6 @@ export const TOP_SONGS_BY_TAG_ID = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name
@@ -111,7 +107,6 @@ export const TOP_SONGS_BY_TAG_NAME = gql`
       id
       title
       urlHigh
-      profileImageUrlLarge
       label {
         id
         name

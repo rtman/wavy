@@ -56,6 +56,7 @@ export const Album = () => {
   const albumTitle = currentAlbum?.title ?? '';
   const artistAlbums = currentAlbum?.artist.albums ?? [];
   const artistName = currentAlbum?.artist.name ?? '';
+  const albumProcessing = currentAlbum?.processing ?? true;
 
   useEffect(() => {
     if (id) {
@@ -68,6 +69,14 @@ export const Album = () => {
   }, [getAlbumById, id]);
 
   const renderSongs = () => {
+    if (albumProcessing) {
+      return (
+        <Typography variant="h3">
+          This album is still processing, please check back later
+        </Typography>
+      );
+    }
+
     if (albumSongs.length > 0) {
       const songsList = albumSongs.map((song: Song, index: number) => {
         return (
@@ -113,6 +122,7 @@ export const Album = () => {
             <Button
               variant="contained"
               color="primary"
+              disabled={albumProcessing}
               onClick={() => playerContext?.replaceQueueWithSongs(albumSongs)}
             >
               Play Now

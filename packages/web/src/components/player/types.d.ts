@@ -1,4 +1,5 @@
-import { SongWithAudio } from 'screens/home/types';
+import { SongWithAudio } from 'commonTypes';
+
 interface Player {
   audio: HTMLAudioElement;
   currentSong: SongWithAudio | null;

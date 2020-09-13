@@ -81,6 +81,10 @@ export class Album {
   @Column({ default: '' })
   description: string;
 
+  @Field(() => Date)
+  @Column()
+  releaseDate: Date;
+
   // TODO: add supporting artists to album
 
   @Field(() => Date)

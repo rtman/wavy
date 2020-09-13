@@ -32,7 +32,6 @@ export const ARTIST_BY_ID = gql`
           id
           title
           urlHigh
-          profileImageUrlLarge
           playCount
           label {
             id
@@ -57,23 +56,6 @@ export const ARTIST_BY_ID = gql`
           # }
         }
       }
-      songs {
-        id
-        title
-        urlHigh
-        profileImageUrlLarge
-        playCount
-        label {
-          id
-          name
-          profileImageUrlLarge
-        }
-        artist {
-          id
-          name
-          profileImageUrlLarge
-        }
-      }
       usersFollowing {
         createdAt
         user {
@@ -88,6 +70,11 @@ export const ARTIST_BY_ID = gql`
           id
           title
           urlHigh
+          album {
+            id
+            title
+            profileImageUrlLarge
+          }
         }
       }
     }
@@ -114,13 +101,7 @@ export const NEW_ARTISTS = gql`
           id
           title
           urlHigh
-          profileImageUrlLarge
           playCount
-          label {
-            id
-            name
-            profileImageUrlLarge
-          }
           supportingArtists {
             createdAt
             artist {
@@ -143,7 +124,6 @@ export const NEW_ARTISTS = gql`
         id
         title
         urlHigh
-        profileImageUrlLarge
         playCount
         label {
           id

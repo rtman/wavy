@@ -11,9 +11,6 @@ class NewSongArgs implements Partial<Models.Song> {
 
   @Field()
   storagePath: string;
-
-  @Field(() => Date)
-  releaseDate: Date;
 }
 
 @InputType()
@@ -44,6 +41,9 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
 
   @Field()
   profileImageStoragePath: string;
+
+  @Field(() => Date)
+  releaseDate: Date;
 }
 
 @Resolver(Models.Album)
@@ -135,7 +135,12 @@ export class AlbumResolvers {
     @Arg('input') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
-      const { albumId, profileImageStoragePath, ...albumPayload } = payload;
+      const {
+        albumId,
+        profileImageStoragePath,
+        releaseDate,
+        ...albumPayload
+      } = payload;
 
       const { title, description, artistId } = albumPayload;
 
@@ -162,6 +167,7 @@ export class AlbumResolvers {
 
         const newAlbum = {
           id: albumId,
+          releseDate: releaseDate ?? new Date(),
           ...processImageResult.data,
           ...albumPayload,
           processing: true,
@@ -230,7 +236,6 @@ export class AlbumResolvers {
             artistId,
             albumId,
             title: song.title,
-            releaseDate: song.releaseDate ?? new Date(),
             ...processedSongResponse.data,
           };
         });

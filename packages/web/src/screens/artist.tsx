@@ -46,7 +46,8 @@ export const Artist = () => {
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
-  const artistSongs = artist?.songs ?? [];
+  const artistSongs =
+    artist?.albums.map((album) => album.songs.reduce((song) => song)) ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';

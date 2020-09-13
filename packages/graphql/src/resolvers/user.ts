@@ -170,6 +170,7 @@ export class UserResolvers {
             'playlists.playlist',
             'playlists.playlist.songs',
             'playlists.playlist.songs.song',
+            'playlists.playlist.songs.song.album',
             'artists',
             'artists.artist',
             'labels',

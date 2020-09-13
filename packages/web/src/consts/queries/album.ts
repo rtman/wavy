@@ -11,7 +11,6 @@ export const ALBUM_BY_ID = gql`
         id
         title
         urlHigh
-        profileImageUrlLarge
         artistId
         albumId
         label {

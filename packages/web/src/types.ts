@@ -47,6 +47,7 @@ export type Album = {
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
   description: Scalars['String'];
+  releaseDate: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   processing: Scalars['Boolean'];
@@ -91,6 +92,7 @@ export type CreateAlbumArgs = {
   description: Scalars['String'];
   artistId: Scalars['String'];
   profileImageStoragePath: Scalars['String'];
+  releaseDate: Scalars['DateTime'];
 };
 
 export type CreateArtistArgs = {
@@ -325,7 +327,6 @@ export type MutationDeleteUserArgs = {
 export type NewSongArgs = {
   title: Scalars['String'];
   storagePath: Scalars['String'];
-  releaseDate: Scalars['DateTime'];
 };
 
 export type Playlist = {
@@ -534,7 +535,6 @@ export type Song = {
   urlHigh: Scalars['String'];
   urlMedium: Scalars['String'];
   urlLow: Scalars['String'];
-  releaseDate: Scalars['DateTime'];
   playCount: Scalars['Float'];
   supportingArtists?: Maybe<Array<SongArtistSupportingArtist>>;
   playlists?: Maybe<Array<SongPlaylist>>;
@@ -1001,6 +1001,7 @@ export type AlbumResolvers<
     ContextType
   >;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   processing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -1619,7 +1620,6 @@ export type SongResolvers<
   urlHigh?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlMedium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlLow?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   playCount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   supportingArtists?: Resolver<
     Maybe<Array<ResolversTypes['SongArtistSupportingArtist']>>,

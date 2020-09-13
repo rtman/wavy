@@ -48,7 +48,6 @@ export const NEW_LABELS = gql`
           id
           profileImageUrlLarge
         }
-        profileImageUrlLarge
         urlHigh
       }
     }
@@ -103,7 +102,6 @@ export const LABEL_BY_ID = gql`
           id
           profileImageUrlLarge
         }
-        profileImageUrlLarge
         urlHigh
       }
     }

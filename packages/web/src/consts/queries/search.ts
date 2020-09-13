@@ -60,8 +60,6 @@ export const SEARCH_ALL = gql`
           profileImageUrlLarge
         }
         urlHigh
-        profileImageUrlLarge
-        releaseDate
       }
     }
   }

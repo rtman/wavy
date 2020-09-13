@@ -26,6 +26,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import {
   CreateAlbumArgs,
   Mutation,
+  MutationAddSongsToAlbumArgs,
   MutationCreateAlbumArgs,
   NewSongArgs,
 } from 'types';
@@ -323,14 +324,9 @@ export const CreateRelease = () => {
           variables: {
             input: {
               ...data.album,
-              description: '', //TODO: description field, undefined uses default ''
               albumId: result.id,
               artistId: id,
               profileImageStoragePath: result.gsUrl,
-              songsToAdd: resolvedSongsForUpload ?? {
-                title: '',
-                storagePath: '',
-              },
             },
           },
         });

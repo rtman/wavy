@@ -20,7 +20,6 @@ export const PLAYLIST_BY_ID = gql`
           id
           title
           urlHigh
-          profileImageUrlLarge
           artist {
             id
             name
@@ -63,7 +62,6 @@ export const PLAYLISTS_BY_USER_ID = gql`
           id
           title
           urlHigh
-          profileImageUrlLarge
           artist {
             id
             name

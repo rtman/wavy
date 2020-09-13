@@ -4,9 +4,10 @@ import os from 'os';
 import path from 'path';
 import sharp from 'sharp';
 
-interface ProcessImageData {
+interface Input {
   storagePath: string;
   imageType: ImageType;
+  deleteOriginal?: boolean;
 }
 
 enum ImageSize {
@@ -21,7 +22,7 @@ export enum ImageType {
   BANNER = 'banner',
 }
 
-interface Data {
+interface SucessData {
   storagePathLarge: string;
   storagePathSmall: string;
   storagePathThumb: string;
@@ -32,7 +33,7 @@ interface Data {
 
 export interface ProcessImageSuccessResponse {
   ok: true;
-  data: Data;
+  data: SucessData;
 }
 
 interface ProcessImageFailResponse {
@@ -61,13 +62,18 @@ const CONTENT_TYPE = `image/${FILE_TYPE}`;
 // This sets the sizes selected for conversion
 const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
 
-export const processImage = async (data: ProcessImageData): Promise<Output> => {
+export const processImage = async (props: Input): Promise<Output> => {
   let conversionFileDetails:
     | ReturnType<typeof prepFileForConversion>[]
     | undefined;
   let inputTempFilePath: string | undefined;
   try {
-    const { storagePath: inputStoragePath, imageType } = data;
+    const {
+      storagePath: inputStoragePath,
+      imageType,
+      // Don't think we need the original images
+      deleteOriginal = true,
+    } = props;
 
     const inputFileName = path.parse(inputStoragePath).name;
     const bucket = admin.storage().bucket();
@@ -127,7 +133,9 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
 
     const uploadResults = await Promise.all(uploadPromises);
 
-    await bucket.file(inputStoragePath).delete();
+    if (deleteOriginal) {
+      await bucket.file(inputStoragePath).delete();
+    }
 
     const signedUrlPromises = uploadResults.map((uploadResult) =>
       uploadResult[0].getSignedUrl({
@@ -138,7 +146,7 @@ export const processImage = async (data: ProcessImageData): Promise<Output> => {
 
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
-    const returnData: Data = {
+    const returnData: SucessData = {
       storagePathLarge: conversionFileDetails[0].outputStorageFilePath,
       urlLarge: signedUrlResults[0][0],
       storagePathSmall: conversionFileDetails[1].outputStorageFilePath,
