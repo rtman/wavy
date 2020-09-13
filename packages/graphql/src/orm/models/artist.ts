@@ -64,7 +64,7 @@ export class Artist {
   @Column()
   profileImageUrlThumb: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column()
   description: string;
 

@@ -1,8 +1,53 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
+import nodemailer from 'nodemailer';
+import {
+  Arg,
+  createUnionType,
+  Field,
+  InputType,
+  Mutation,
+  Query,
+  Resolver,
+} from 'type-graphql';
 import { getManager } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Models } from '../orm';
 import * as services from '../services';
+
+@InputType()
+class NewSupportingArtist {
+  @Field()
+  new: true;
+
+  @Field()
+  name: string;
+
+  @Field()
+  email: string;
+}
+@InputType()
+class ExistingSupportingArtist {
+  @Field()
+  new: false;
+
+  @Field()
+  id: string;
+}
+
+const AddSupportingArtist = createUnionType({
+  name: 'AddSupportingArtist',
+  types: () => [NewSupportingArtist, ExistingSupportingArtist] as const,
+  // our implementation of detecting returned object type
+  resolveType: (value) => {
+    if ('id' in value) {
+      return ExistingSupportingArtist; // we can return object type class (the one with `@ObjectType()`)
+    }
+    if ('email' in value) {
+      return NewSupportingArtist; // or the schema name of the type as a string
+    }
+    return undefined;
+  },
+});
 
 @InputType()
 class NewSongArgs implements Partial<Models.Song> {
@@ -11,6 +56,9 @@ class NewSongArgs implements Partial<Models.Song> {
 
   @Field()
   storagePath: string;
+
+  @Field(() => [AddSupportingArtist], { nullable: true })
+  supportingArtist?: (NewSupportingArtist | ExistingSupportingArtist)[];
 }
 
 @InputType()
@@ -205,6 +253,21 @@ export class AlbumResolvers {
       if ((songsToAdd.length > 0, albumId, songsToAdd, artistId)) {
         const songRepository = getManager().getRepository(Models.Song);
         const albumRepository = getManager().getRepository(Models.Album);
+        const supportingArtistRespository = getManager().getRepository(
+          Models.SongArtistSupportingArtist
+        );
+        const artistRepository = getManager().getRepository(Models.Artist);
+
+        const testAccount = await nodemailer.createTestAccount();
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.ethereal.email',
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: testAccount.user, // generated ethereal user
+            pass: testAccount.pass, // generated ethereal password
+          },
+        });
 
         const processSongsPromises = [];
 
@@ -225,6 +288,14 @@ export class AlbumResolvers {
           return false;
         }
 
+        const supportingArtistsToAdd: Partial<
+          Models.SongArtistSupportingArtist
+        >[] = [];
+        const newArtistsToCreate: Partial<Models.Artist>[] = [];
+        const newArtistEmailPromises: Promise<
+          ReturnType<typeof transporter.sendMail>
+        >[] = [];
+
         const resolvedSongsToAdd = songsToAdd.map((song, index) => {
           // Typescript cant seem to infer the specific type of the results
           // checked above for any fail responses, safe to cast to success
@@ -232,7 +303,47 @@ export class AlbumResolvers {
             index
           ] as services.ProcessAudioSuccessResponse;
 
+          const songId = uuidv4();
+
+          // create supporting artist entries/new artists
+          if (
+            song.supportingArtist !== undefined &&
+            song.supportingArtist?.length > 0
+          ) {
+            for (const supportingArtist of song.supportingArtist) {
+              if (supportingArtist.new === false) {
+                supportingArtistsToAdd.push({
+                  songId,
+                  artistId: supportingArtist.id,
+                });
+              } else {
+                const newArtistId = uuidv4();
+
+                newArtistsToCreate.push({
+                  name: supportingArtist.name,
+                  id: newArtistId,
+                });
+                supportingArtistsToAdd.push({
+                  songId,
+                  artistId,
+                });
+
+                // TODO: setup email properly with an html email.
+                newArtistEmailPromises.push(
+                  transporter.sendMail({
+                    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+                    to: supportingArtist.email, // list of receivers
+                    subject: 'Hello ✔', // Subject line
+                    text: 'Hello world?', // plain text body
+                    html: '<b>Hello world?</b>', // html body
+                  })
+                );
+              }
+            }
+          }
+
           return {
+            id: songId,
             artistId,
             albumId,
             title: song.title,
@@ -242,6 +353,18 @@ export class AlbumResolvers {
 
         await songRepository.insert(resolvedSongsToAdd);
         await albumRepository.update(albumId, { processing: false });
+
+        if (supportingArtistsToAdd.length > 0) {
+          await supportingArtistRespository.insert(supportingArtistsToAdd);
+        }
+        if (newArtistsToCreate.length > 0) {
+          await artistRepository.insert(newArtistsToCreate);
+        }
+
+        if (newArtistEmailPromises.length > 0) {
+          await Promise.all(newArtistEmailPromises);
+          console.log('emails sent to new artists');
+        }
 
         return true;
       }
