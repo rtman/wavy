@@ -7,3 +7,9 @@ export const CREATE_ALBUM = gql`
     }
   }
 `;
+
+export const ADD_SONGS_ALBUM = gql`
+  mutation AddSongsToAlbum($input: AddSongsToAlbumArgs!) {
+    addSongsToAlbum(input: $input)
+  }
+`;

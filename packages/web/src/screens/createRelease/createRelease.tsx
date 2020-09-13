@@ -110,7 +110,7 @@ export const CreateRelease = () => {
     onCompleted(data) {
       console.log('onCompleted data', data);
       if (data.createAlbum.id) {
-        enqueueSnackbar('Success! Release Created', {
+        enqueueSnackbar('Success! Release Created, songs are processing', {
           variant: 'success',
           autoHideDuration: 4000,
         });
@@ -121,6 +121,39 @@ export const CreateRelease = () => {
           autoHideDuration: 4000,
         });
       }
+    },
+  });
+
+  const [
+    addSongsToAlbum,
+    {
+      loading: addSongsToAlbumLoading,
+      called: addSongsToAlbumCalled,
+      error: addSongsToAlbumError,
+    },
+  ] = useMutation<
+    Pick<Mutation, 'addSongsToAlbum'>,
+    MutationAddSongsToAlbumArgs
+  >(consts.mutations.album.ADD_SONGS_ALBUM, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.addSongsToAlbum) {
+        enqueueSnackbar('Processing complete', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+      } else {
+        enqueueSnackbar('Error! Processing failed', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    },
+    onError() {
+      enqueueSnackbar('Error! Processing failed', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
     },
   });
 
@@ -294,6 +327,20 @@ export const CreateRelease = () => {
               albumId: result.id,
               artistId: id,
               profileImageStoragePath: result.gsUrl,
+              songsToAdd: resolvedSongsForUpload ?? {
+                title: '',
+                storagePath: '',
+              },
+            },
+          },
+        });
+        // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
+        // the album is tagged as processing and will be viewable but disabled until processing is completed
+        addSongsToAlbum({
+          variables: {
+            input: {
+              albumId: result.id,
+              artistId: id,
               songsToAdd: resolvedSongsForUpload ?? {
                 title: '',
                 storagePath: '',

@@ -90,4 +90,7 @@ export class Album {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @Field(() => Boolean)
+  processing: boolean;
 }

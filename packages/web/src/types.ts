@@ -25,6 +25,12 @@ export type AddPlaylistSongsArgs = {
   songIds: Array<Scalars['ID']>;
 };
 
+export type AddSongsToAlbumArgs = {
+  albumId: Scalars['String'];
+  artistId: Scalars['String'];
+  songsToAdd: Array<NewSongArgs>;
+};
+
 export type Album = {
   __typename?: 'Album';
   id: Scalars['ID'];
@@ -43,6 +49,7 @@ export type Album = {
   description: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  processing: Scalars['Boolean'];
 };
 
 export type Artist = {
@@ -82,7 +89,6 @@ export type CreateAlbumArgs = {
   albumId: Scalars['String'];
   title: Scalars['String'];
   description: Scalars['String'];
-  songsToAdd: Array<NewSongArgs>;
   artistId: Scalars['String'];
   profileImageStoragePath: Scalars['String'];
 };
@@ -180,6 +186,7 @@ export enum ListeningStatsQueryField {
 export type Mutation = {
   __typename?: 'Mutation';
   createAlbum: Album;
+  addSongsToAlbum: Scalars['Boolean'];
   testProcessAudio: Scalars['Boolean'];
   deleteAlbum: Scalars['Boolean'];
   createArtist: Artist;
@@ -209,6 +216,10 @@ export type Mutation = {
 
 export type MutationCreateAlbumArgs = {
   input: CreateAlbumArgs;
+};
+
+export type MutationAddSongsToAlbumArgs = {
+  input: AddSongsToAlbumArgs;
 };
 
 export type MutationTestProcessAudioArgs = {
@@ -314,6 +325,7 @@ export type MutationDeleteUserArgs = {
 export type NewSongArgs = {
   title: Scalars['String'];
   storagePath: Scalars['String'];
+  releaseDate: Scalars['DateTime'];
 };
 
 export type Playlist = {
@@ -522,12 +534,6 @@ export type Song = {
   urlHigh: Scalars['String'];
   urlMedium: Scalars['String'];
   urlLow: Scalars['String'];
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
   releaseDate: Scalars['DateTime'];
   playCount: Scalars['Float'];
   supportingArtists?: Maybe<Array<SongArtistSupportingArtist>>;
@@ -866,15 +872,16 @@ export type ResolversTypes = {
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   QueryStatsByField: QueryStatsByField;
   ListeningStatsQueryField: ListeningStatsQueryField;
   ListeningStats: ResolverTypeWrapper<ListeningStats>;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Search: ResolverTypeWrapper<Search>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
   CreateAlbumArgs: CreateAlbumArgs;
+  AddSongsToAlbumArgs: AddSongsToAlbumArgs;
   NewSongArgs: NewSongArgs;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
@@ -922,14 +929,15 @@ export type ResolversParentTypes = {
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
+  Boolean: Scalars['Boolean'];
   QueryStatsByField: QueryStatsByField;
   ListeningStats: ListeningStats;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Search: Search;
-  Boolean: Scalars['Boolean'];
   Mutation: {};
   CreateAlbumArgs: CreateAlbumArgs;
+  AddSongsToAlbumArgs: AddSongsToAlbumArgs;
   NewSongArgs: NewSongArgs;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
@@ -995,6 +1003,7 @@ export type AlbumResolvers<
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  processing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1178,6 +1187,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateAlbumArgs, 'input'>
+  >;
+  addSongsToAlbum?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddSongsToAlbumArgs, 'input'>
   >;
   testProcessAudio?: Resolver<
     ResolversTypes['Boolean'],
@@ -1604,36 +1619,6 @@ export type SongResolvers<
   urlHigh?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlMedium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   urlLow?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
   releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   playCount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   supportingArtists?: Resolver<

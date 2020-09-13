@@ -86,30 +86,6 @@ export class Song {
   @Column()
   urlLow: string;
 
-  @Field(() => String)
-  @Column()
-  profileImageStoragePathLarge: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageStoragePathSmall: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageStoragePathThumb: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageUrlLarge: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageUrlSmall: string;
-
-  @Field(() => String)
-  @Column()
-  profileImageUrlThumb: string;
-
   @Field(() => Date)
   @Column({ default: new Date() })
   releaseDate: Date;

@@ -30,7 +30,6 @@ interface MenuPosition {
 }
 
 export const SongRow = (props: SongRowProps) => {
-  const { song, passedOnClickSong, secondaryStyle } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const playerContext = useContext(PlayerContext);
@@ -38,6 +37,8 @@ export const SongRow = (props: SongRowProps) => {
   const history = useHistory();
   const location = useLocation();
   const { id } = useParams();
+
+  const { song, passedOnClickSong, secondaryStyle } = props;
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -143,7 +144,7 @@ export const SongRow = (props: SongRowProps) => {
         {secondaryStyle ? null : (
           <ListItemAvatar>
             <ButtonBase onClick={() => resolvedOnClick(song)}>
-              <Avatar variant="square" src={song.profileImageUrlLarge} />
+              <Avatar variant="square" src={song.album.profileImageUrlLarge} />
             </ButtonBase>
           </ListItemAvatar>
         )}

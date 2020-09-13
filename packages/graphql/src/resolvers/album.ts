@@ -11,6 +11,21 @@ class NewSongArgs implements Partial<Models.Song> {
 
   @Field()
   storagePath: string;
+
+  @Field(() => Date)
+  releaseDate: Date;
+}
+
+@InputType()
+class AddSongsToAlbumArgs implements Partial<Models.Song> {
+  @Field()
+  albumId: string;
+
+  @Field()
+  artistId: string;
+
+  @Field(() => [NewSongArgs])
+  songsToAdd: NewSongArgs[];
 }
 
 @InputType({ description: 'Create a new album' })
@@ -23,9 +38,6 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
 
   @Field()
   description: string;
-
-  @Field(() => [NewSongArgs])
-  songsToAdd: NewSongArgs[];
 
   @Field()
   artistId: string;
@@ -123,28 +135,20 @@ export class AlbumResolvers {
     @Arg('input') payload: CreateAlbumArgs
   ): Promise<Models.Album | undefined> {
     try {
-      const {
-        songsToAdd,
-        albumId,
-        profileImageStoragePath,
-        ...albumPayload
-      } = payload;
+      const { albumId, profileImageStoragePath, ...albumPayload } = payload;
 
       const { title, description, artistId } = albumPayload;
 
       console.log('albumPayload', albumPayload);
 
       if (
-        (songsToAdd.length > 0,
-        albumId,
-        title,
-        description,
-        songsToAdd,
-        artistId,
-        profileImageStoragePath)
+        albumId &&
+        title &&
+        description &&
+        artistId &&
+        profileImageStoragePath
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
-        const songRepository = getManager().getRepository(Models.Song);
 
         const processImageResult = await services.processImage({
           storagePath: profileImageStoragePath,
@@ -160,54 +164,13 @@ export class AlbumResolvers {
           id: albumId,
           ...processImageResult.data,
           ...albumPayload,
+          processing: true,
         };
 
         const album = albumRepository.create(newAlbum);
 
         if (album) {
           await albumRepository.save(album);
-
-          const processSongsPromises = [];
-
-          for (const song of songsToAdd) {
-            processSongsPromises.push(
-              services.processAudio({
-                storagePath: song.storagePath,
-              })
-            );
-          }
-
-          const processSongsResults = await Promise.all(processSongsPromises);
-          // check for any failures
-          const failures = processSongsResults.filter((result) => !result.ok);
-
-          if (failures) {
-            console.log(
-              'There was a failure in the audio processing',
-              failures
-            );
-            return;
-          }
-
-          const resolvedSongsToAdd = songsToAdd.map((song, index) => {
-            // Typescript cant seem to infer the specific type of the results
-            // checked above for any fail responses, safe to cast to success
-            const processedSongResponse = processSongsResults[
-              index
-            ] as services.ProcessAudioSuccessResponse;
-
-            return {
-              artistId,
-              albumId,
-              title: song.title,
-              ...processedSongResponse.data,
-              profileImageStoragePath,
-              ...processImageResult.data,
-              // releaseDate: new Date(), //TODO: releaseDate, default to new Date() for now
-            };
-          });
-
-          await songRepository.insert(resolvedSongsToAdd);
 
           return album;
         }
@@ -223,6 +186,67 @@ export class AlbumResolvers {
     } catch (error) {
       console.log('createAlbum error', error);
       return;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async addSongsToAlbum(
+    @Arg('input') payload: AddSongsToAlbumArgs
+  ): Promise<boolean> {
+    try {
+      const { songsToAdd, albumId, artistId } = payload;
+
+      if ((songsToAdd.length > 0, albumId, songsToAdd, artistId)) {
+        const songRepository = getManager().getRepository(Models.Song);
+        const albumRepository = getManager().getRepository(Models.Album);
+
+        const processSongsPromises = [];
+
+        for (const song of songsToAdd) {
+          processSongsPromises.push(
+            services.processAudio({
+              storagePath: song.storagePath,
+            })
+          );
+        }
+
+        const processSongsResults = await Promise.all(processSongsPromises);
+        // check for any failures
+        const failures = processSongsResults.filter((result) => !result.ok);
+
+        if (failures) {
+          console.log('There was a failure in the audio processing', failures);
+          return false;
+        }
+
+        const resolvedSongsToAdd = songsToAdd.map((song, index) => {
+          // Typescript cant seem to infer the specific type of the results
+          // checked above for any fail responses, safe to cast to success
+          const processedSongResponse = processSongsResults[
+            index
+          ] as services.ProcessAudioSuccessResponse;
+
+          return {
+            artistId,
+            albumId,
+            title: song.title,
+            releaseDate: song.releaseDate ?? new Date(),
+            ...processedSongResponse.data,
+          };
+        });
+
+        await songRepository.insert(resolvedSongsToAdd);
+        await albumRepository.update(albumId, { processing: false });
+
+        return true;
+      }
+
+      console.log('addSongsToAlbum failed', payload);
+
+      return false;
+    } catch (error) {
+      console.log('addSongsToAlbum error', error);
+      return false;
     }
   }
 
