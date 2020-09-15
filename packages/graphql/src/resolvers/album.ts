@@ -1,54 +1,27 @@
 import handlebars from 'handlebars';
-import * as helpers from 'helpers';
 import nodemailer from 'nodemailer';
-import { Models } from 'orm';
-import * as services from 'services';
-import {
-  Arg,
-  createUnionType,
-  Field,
-  InputType,
-  Mutation,
-  Query,
-  Resolver,
-} from 'type-graphql';
+import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
+import * as helpers from '../helpers';
+import { Models } from '../orm';
+import * as services from '../services';
+
 @InputType()
-class NewSupportingArtist {
+class SupportingArtistInput {
   @Field()
-  new: true;
+  new: boolean;
 
-  @Field()
-  name: string;
+  @Field({ nullable: true })
+  name?: string;
 
-  @Field()
-  email: string;
+  @Field({ nullable: true })
+  email?: string;
+
+  @Field({ nullable: true })
+  id?: string;
 }
-@InputType()
-class ExistingSupportingArtist {
-  @Field()
-  new: false;
-
-  @Field()
-  id: string;
-}
-
-const AddSupportingArtist = createUnionType({
-  name: 'AddSupportingArtist',
-  types: () => [NewSupportingArtist, ExistingSupportingArtist] as const,
-  // our implementation of detecting returned object type
-  resolveType: (value) => {
-    if ('id' in value) {
-      return ExistingSupportingArtist; // we can return object type class (the one with `@ObjectType()`)
-    }
-    if ('email' in value) {
-      return NewSupportingArtist; // or the schema name of the type as a string
-    }
-    return undefined;
-  },
-});
 
 @InputType()
 class NewSongArgs implements Partial<Models.Song> {
@@ -58,8 +31,8 @@ class NewSongArgs implements Partial<Models.Song> {
   @Field()
   storagePath: string;
 
-  @Field(() => [AddSupportingArtist], { nullable: true })
-  supportingArtist?: (NewSupportingArtist | ExistingSupportingArtist)[];
+  @Field(() => [SupportingArtistInput], { nullable: true })
+  supportingArtist?: SupportingArtistInput[];
 }
 
 @InputType()
@@ -262,7 +235,8 @@ export class AlbumResolvers {
         );
         const artistRepository = getManager().getRepository(Models.Artist);
 
-        // const testAccount = await nodemailer.createTestAccount();
+        // Implement real account credentials
+        const testAccount = await nodemailer.createTestAccount();
         const transporter = nodemailer.createTransport({
           host: 'smtp.ethereal.email',
           port: 587,
@@ -346,7 +320,7 @@ export class AlbumResolvers {
                 newArtistEmailPromises.push(
                   transporter.sendMail({
                     // TODO: setup sending email address properly
-                    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+                    from: '"Team" <team@oursound.io>', // sender address
                     to: supportingArtist.email, // list of receivers
                     subject: "You've been invited to OurSound!", // Subject line
                     html: templatedArtistInviteEmail, // html body

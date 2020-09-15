@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
@@ -15,10 +15,11 @@ import {
   Spacing,
 } from 'components';
 import * as consts from 'consts';
+import { UserContext } from 'context';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
@@ -29,6 +30,7 @@ import {
   MutationAddSongsToAlbumArgs,
   MutationCreateAlbumArgs,
   NewSongArgs,
+  Query,
 } from 'types';
 import { uuid } from 'uuidv4';
 
@@ -60,9 +62,20 @@ export interface SongForUpload {
   file: File;
 }
 
+export interface Tag {
+  id: string;
+  title: string;
+}
+
+export interface SongInputFields {
+  title: '';
+  supportingArtists: Tag[];
+}
+
 export const CreateRelease = () => {
   const history = useHistory();
   const { id } = useParams();
+  const userContext = useContext(UserContext);
 
   const { enqueueSnackbar } = useSnackbar();
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
@@ -71,38 +84,11 @@ export const CreateRelease = () => {
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
-  const classes = useStyles();
-  // const uploadFile = helpers.hooks.useFirebaseStorageUpload();
-  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const {
-    getRootProps,
-    getInputProps,
-    open,
-    acceptedFiles,
-    fileRejections,
-    isDragAccept,
-    isDragActive,
-    isDragReject,
-  } = useDropzone({
-    // Disable click and keydown behavior
-    // noClick: true,
-    // noKeyboard: true,
-    accept: 'audio/*',
-    // noDragEventsBubbling: true,
-    // preventDropOnDocument: true,
-  });
-
-  const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
-
-  const { register, control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      songs: [{ title: '' }],
-    },
-  });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'songs',
-  });
+    loading: artistsLoading,
+    error: artistsError,
+    data: artistsData,
+  } = useQuery<Pick<Query, 'artists'>>(consts.queries.artist.ARTISTS);
 
   const [createAlbum, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
@@ -156,6 +142,39 @@ export const CreateRelease = () => {
         autoHideDuration: 4000,
       });
     },
+  });
+
+  const classes = useStyles();
+  // const uploadFile = helpers.hooks.useFirebaseStorageUpload();
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
+  const {
+    getRootProps,
+    getInputProps,
+    open,
+    acceptedFiles,
+    fileRejections,
+    isDragAccept,
+    isDragActive,
+    isDragReject,
+  } = useDropzone({
+    // Disable click and keydown behavior
+    // noClick: true,
+    // noKeyboard: true,
+    accept: 'audio/*',
+    // noDragEventsBubbling: true,
+    // preventDropOnDocument: true,
+  });
+
+  const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
+
+  const { register, control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      songs: [{ title: '', supportingArtists: [] }],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'songs',
   });
 
   useEffect(() => {
@@ -335,6 +354,7 @@ export const CreateRelease = () => {
         addSongsToAlbum({
           variables: {
             input: {
+              userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
               albumId: result.id,
               artistId: id,
               songsToAdd: resolvedSongsForUpload ?? {
@@ -410,6 +430,7 @@ export const CreateRelease = () => {
                       setUploadStatusCallback={setUploadStatus}
                       control={control}
                       removeSong={() => removeSong(index)}
+                      artists={artistsData?.artists ?? []}
                     />
                   );
                 })}

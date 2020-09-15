@@ -29,6 +29,7 @@ export type AddSongsToAlbumArgs = {
   albumId: Scalars['String'];
   artistId: Scalars['String'];
   songsToAdd: Array<NewSongArgs>;
+  userName: Scalars['String'];
 };
 
 export type Album = {
@@ -65,7 +66,7 @@ export type Artist = {
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
-  description: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   labels?: Maybe<Array<ArtistLabel>>;
   usersFollowing?: Maybe<Array<UserArtistFollowing>>;
   followers: Scalars['Float'];
@@ -327,6 +328,7 @@ export type MutationDeleteUserArgs = {
 export type NewSongArgs = {
   title: Scalars['String'];
   storagePath: Scalars['String'];
+  supportingArtist?: Maybe<Array<SupportingArtistInput>>;
 };
 
 export type Playlist = {
@@ -573,6 +575,13 @@ export type SongTag = {
   tag: Tag;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type SupportingArtistInput = {
+  new: Scalars['Boolean'];
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
 };
 
 export type Tag = {
@@ -883,6 +892,7 @@ export type ResolversTypes = {
   CreateAlbumArgs: CreateAlbumArgs;
   AddSongsToAlbumArgs: AddSongsToAlbumArgs;
   NewSongArgs: NewSongArgs;
+  SupportingArtistInput: SupportingArtistInput;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
@@ -939,6 +949,7 @@ export type ResolversParentTypes = {
   CreateAlbumArgs: CreateAlbumArgs;
   AddSongsToAlbumArgs: AddSongsToAlbumArgs;
   NewSongArgs: NewSongArgs;
+  SupportingArtistInput: SupportingArtistInput;
   CreateArtistArgs: CreateArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
@@ -1046,7 +1057,11 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   labels?: Resolver<
     Maybe<Array<ResolversTypes['ArtistLabel']>>,
     ParentType,

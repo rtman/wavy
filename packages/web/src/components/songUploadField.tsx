@@ -5,15 +5,17 @@ import {
   TextField,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Flex } from 'components';
+import { Flex, TagInput } from 'components';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { ArrayField } from 'react-hook-form/dist/types/form';
+import { Artist } from 'types';
 
 import { SongForUpload } from '../screens/createRelease/createRelease';
 
 interface SongUploadFieldProps {
+  artists?: Artist[];
   creatorId: string;
   releaseId: string;
   songData: SongForUpload;
@@ -36,6 +38,7 @@ const useStyles = makeStyles({
 
 export const SongUploadField = (props: SongUploadFieldProps) => {
   const {
+    artists,
     creatorId,
     releaseId,
     setUploadStatusCallback,
@@ -80,6 +83,19 @@ export const SongUploadField = (props: SongUploadFieldProps) => {
             autoComplete="title"
             control={control}
             defaultValue={formData.title} // make sure to set up
+          />
+          <Controller
+            as={<TagInput data={artists ?? []} />}
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth={true}
+            name={`songs[${index}].supportingArtists`}
+            label="Supporting Artists"
+            id={`songs[${index}].supportingArtists`}
+            autoComplete="suppporting artists"
+            control={control}
+            defaultValue={formData.supportingArtists} // make sure to set up
           />
         </Flex>
 

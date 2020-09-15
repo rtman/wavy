@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "noUnusedLocals": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": true,

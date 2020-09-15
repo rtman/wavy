@@ -50,7 +50,7 @@
     "uuidv4": "^6.1.0"
   },
   "scripts": {
-    "generate": "yarn graphql-codegen",
+    "generate-types": "yarn graphql-codegen",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:ts": "yarn tsc --build tsconfig.json",

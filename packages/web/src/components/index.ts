@@ -37,6 +37,7 @@ export { Modal } from './modal';
 
 export * from './flex';
 export * from './image';
+export * from './tagInput';
 export * from './topBar';
 export * from './menuDrawer';
 export * from './navLink';

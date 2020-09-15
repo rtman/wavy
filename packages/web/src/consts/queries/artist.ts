@@ -1,5 +1,14 @@
 import { gql } from 'apollo-boost';
 
+export const ARTISTS = gql`
+  query Artists {
+    artists {
+      id
+      name
+    }
+  }
+`;
+
 export const ARTISTS_BY_ID = gql`
   query ArtistsByID($artistIds: [ID]!) {
     artistsById(artistIds: $artistIds) {
