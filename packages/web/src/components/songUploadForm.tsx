@@ -12,9 +12,9 @@ import { Control, Controller } from 'react-hook-form';
 import { ArrayField } from 'react-hook-form/dist/types/form';
 import { Artist } from 'types';
 
-import { SongForUpload } from '../screens/createRelease/createRelease';
+import { SongForUpload } from '../screens/artistCreateRelease';
 
-interface SongUploadFieldProps {
+interface SongUploadFormProps {
   artists?: Artist[];
   creatorId: string;
   releaseId: string;
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const SongUploadField = (props: SongUploadFieldProps) => {
+export const SongUploadForm = (props: SongUploadFormProps) => {
   const {
     artists,
     creatorId,

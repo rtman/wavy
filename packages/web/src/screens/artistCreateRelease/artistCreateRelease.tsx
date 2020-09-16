@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   FileUploadButton,
   // Flex,
-  SongUploadField,
+  SongUploadForm,
   Spacing,
 } from 'components';
 import * as consts from 'consts';
@@ -72,7 +72,7 @@ export interface SongInputFields {
   supportingArtists: Tag[];
 }
 
-export const CreateRelease = () => {
+export const ArtistCreateRelease = () => {
   const history = useHistory();
   const { id } = useParams();
   const userContext = useContext(UserContext);
@@ -421,7 +421,7 @@ export const CreateRelease = () => {
               <List>
                 {fields.map((item, index) => {
                   return (
-                    <SongUploadField
+                    <SongUploadForm
                       creatorId={id}
                       releaseId={releaseId}
                       songData={songsForUpload[index]}

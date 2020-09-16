@@ -1,5 +1,4 @@
-import handlebars from 'handlebars';
-import nodemailer from 'nodemailer';
+import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
@@ -235,23 +234,10 @@ export class AlbumResolvers {
         );
         const artistRepository = getManager().getRepository(Models.Artist);
 
-        // Implement real account credentials
-        const testAccount = await nodemailer.createTestAccount();
-        const transporter = nodemailer.createTransport({
-          host: 'smtp.ethereal.email',
-          port: 587,
-          secure: false, // true for 465, false for other ports
-          auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass, // generated ethereal password
-          },
-        });
-
-        const artistInviteEmail = await helpers.readHTMLFile(
+        const transporter = await helpers.makeEmailTransporter();
+        const templateEmail = await helpers.makeHtmlTemplate(
           '../emailTemplates/artistInvite.html'
         );
-
-        const template = handlebars.compile(artistInviteEmail);
 
         const processSongsPromises = [];
 
@@ -272,10 +258,10 @@ export class AlbumResolvers {
           return false;
         }
 
-        const supportingArtistsToAdd: Partial<
+        const supportingArtistsModels: Partial<
           Models.SongArtistSupportingArtist
         >[] = [];
-        const newArtistsToCreate: Partial<Models.Artist>[] = [];
+        const newArtistModels: Partial<Models.Artist>[] = [];
         const newArtistEmailPromises: Promise<
           ReturnType<typeof transporter.sendMail>
         >[] = [];
@@ -290,45 +276,22 @@ export class AlbumResolvers {
           const songId = uuidv4();
 
           // create supporting artist entries/new artists
-          if (
-            song.supportingArtist !== undefined &&
-            song.supportingArtist?.length > 0
-          ) {
-            for (const supportingArtist of song.supportingArtist) {
-              if (supportingArtist.new === false) {
-                supportingArtistsToAdd.push({
-                  songId,
-                  artistId: supportingArtist.id,
-                });
-              } else {
-                const newArtistId = uuidv4();
+          const addSupportingArtistResult = addSupportingArtists({
+            supportingArtists: song.supportingArtist,
+            songId,
+            allNewArtistModels: newArtistModels,
+            userName,
+            templateEmail,
+            transporter,
+          });
 
-                newArtistsToCreate.push({
-                  name: supportingArtist.name,
-                  id: newArtistId,
-                });
-                supportingArtistsToAdd.push({
-                  songId,
-                  artistId,
-                });
-
-                const templatedArtistInviteEmail = template({
-                  userName,
-                  artistName: supportingArtist.name,
-                });
-
-                newArtistEmailPromises.push(
-                  transporter.sendMail({
-                    // TODO: setup sending email address properly
-                    from: '"Team" <team@oursound.io>', // sender address
-                    to: supportingArtist.email, // list of receivers
-                    subject: "You've been invited to OurSound!", // Subject line
-                    html: templatedArtistInviteEmail, // html body
-                  })
-                );
-              }
-            }
-          }
+          supportingArtistsModels.push(
+            ...addSupportingArtistResult.supportingArtistsModels
+          );
+          newArtistModels.push(...addSupportingArtistResult.newArtistModels);
+          newArtistEmailPromises.push(
+            ...addSupportingArtistResult.newArtistEmailPromises
+          );
 
           return {
             id: songId,
@@ -342,11 +305,13 @@ export class AlbumResolvers {
         await songRepository.insert(resolvedSongsToAdd);
         await albumRepository.update(albumId, { processing: false });
 
-        if (supportingArtistsToAdd.length > 0) {
-          await supportingArtistRespository.insert(supportingArtistsToAdd);
+        // need to add any new artists first before adding them as supporting artists
+        if (newArtistModels.length > 0) {
+          await artistRepository.insert(newArtistModels);
         }
-        if (newArtistsToCreate.length > 0) {
-          await artistRepository.insert(newArtistsToCreate);
+
+        if (supportingArtistsModels.length > 0) {
+          await supportingArtistRespository.insert(supportingArtistsModels);
         }
 
         if (newArtistEmailPromises.length > 0) {
@@ -404,3 +369,83 @@ export class AlbumResolvers {
     }
   }
 }
+
+// Private types
+
+interface AddSupportingArtists {
+  supportingArtists: NewSongArgs['supportingArtist'];
+  songId: string;
+  allNewArtistModels: Partial<Models.Artist>[];
+  userName: string;
+  templateEmail: HandlebarsTemplateDelegate;
+  transporter: Mail;
+}
+
+// Private Functions
+
+const addSupportingArtists = (props: AddSupportingArtists) => {
+  const {
+    supportingArtists,
+    songId,
+    allNewArtistModels,
+    userName,
+    templateEmail,
+    transporter,
+  } = props;
+
+  const supportingArtistsModels: Partial<
+    Models.SongArtistSupportingArtist
+  >[] = [];
+  const localNewArtistModels: Partial<Models.Artist>[] = [];
+  const newArtistEmailPromises: Promise<
+    ReturnType<typeof transporter.sendMail>
+  >[] = [];
+
+  if (supportingArtists !== undefined && supportingArtists.length > 0) {
+    for (const supportingArtist of supportingArtists) {
+      if (supportingArtist.new === false) {
+        supportingArtistsModels.push({
+          songId,
+          artistId: supportingArtist.id,
+        });
+      } else {
+        const previouslyAddedNewArtist = allNewArtistModels.find(
+          (artist) => artist.name === supportingArtist.name
+        );
+        const newArtistId = previouslyAddedNewArtist?.id ?? uuidv4();
+
+        if (previouslyAddedNewArtist === undefined) {
+          localNewArtistModels.push({
+            name: supportingArtist.name,
+            id: newArtistId,
+          });
+        }
+
+        supportingArtistsModels.push({
+          songId,
+          artistId: newArtistId,
+        });
+
+        const templatedArtistInviteEmail = templateEmail({
+          userName,
+          artistName: supportingArtist.name,
+        });
+
+        newArtistEmailPromises.push(
+          transporter.sendMail({
+            // TODO: setup sending email address properly
+            from: '"Team" <team@oursound.io>', // sender address
+            to: supportingArtist.email, // list of receivers
+            subject: "You've been invited to OurSound!", // Subject line
+            html: templatedArtistInviteEmail, // html body
+          })
+        );
+      }
+    }
+  }
+  return {
+    supportingArtistsModels,
+    newArtistModels: localNewArtistModels,
+    newArtistEmailPromises,
+  };
+};

@@ -152,7 +152,7 @@ export const ArtistDashboard = () => {
 
           <IconButton
             color="primary"
-            onClick={() => history.push(`/createRelease/${id}`)}
+            onClick={() => history.push(`/artistCreateRelease/${id}`)}
           >
             <AlbumIcon />
             Create Release
