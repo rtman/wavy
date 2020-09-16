@@ -1,3 +1,4 @@
+import { resolve } from 'bluebird';
 import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -60,8 +61,20 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
   @Field()
   description: string;
 
+  @Field({ nullable: true })
+  artistId?: string;
+
+  @Field({ nullable: true })
+  artistName?: string;
+
+  @Field({ nullable: true })
+  artistEmail?: string;
+
   @Field()
-  artistId: string;
+  newArtist: boolean;
+
+  @Field({ nullable: true })
+  userName?: string;
 
   @Field()
   profileImageStoragePath: string;
@@ -163,21 +176,79 @@ export class AlbumResolvers {
         albumId,
         profileImageStoragePath,
         releaseDate,
+        artistName,
+        newArtist,
+        artistId,
+        userName,
+        artistEmail,
         ...albumPayload
       } = payload;
 
-      const { title, description, artistId } = albumPayload;
+      const { title, description } = albumPayload;
 
       console.log('albumPayload', albumPayload);
 
       if (
-        albumId &&
-        title &&
-        description &&
-        artistId &&
-        profileImageStoragePath
+        albumId.length > 0 &&
+        title.length > 0 &&
+        description.length > 0 &&
+        profileImageStoragePath.length > 0
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
+        const artistRepository = getManager().getRepository(Models.Artist);
+
+        let resolvedArtistId = artistId;
+
+        if (
+          newArtist &&
+          artistName !== undefined &&
+          artistName.length > 0 &&
+          userName !== undefined &&
+          userName.length > 0 &&
+          artistEmail !== undefined &&
+          artistEmail.length > 0
+        ) {
+          resolvedArtistId = uuidv4();
+
+          const artistToCreate = artistRepository.create({
+            id: resolvedArtistId,
+            name: artistName,
+          });
+
+          if (newArtist) {
+            await artistRepository.save(artistToCreate);
+
+            const transporter = await helpers.makeEmailTransporter();
+            const templateEmail = await helpers.makeHtmlTemplate(
+              '../emailTemplates/artistInvite.html'
+            );
+            const templatedArtistInviteEmail = templateEmail({
+              userName,
+              artistName,
+              artistId: resolvedArtistId,
+            });
+
+            await transporter.sendMail({
+              // TODO: setup sending email address properly
+              from: '"Team" <team@oursound.io>', // sender address
+              to: artistEmail, // list of receivers
+              subject: "You've been invited to OurSound!", // Subject line
+              html: templatedArtistInviteEmail, // html body
+            });
+          } else {
+            console.log(
+              'CreateAlbum failed while creating new artist',
+              payload
+            );
+          }
+        } else {
+          console.log(
+            'Error, new Arist submitted with incorrect payload',
+            payload
+          );
+
+          return;
+        }
 
         const processImageResult = await services.processImage({
           storagePath: profileImageStoragePath,
@@ -191,6 +262,7 @@ export class AlbumResolvers {
 
         const newAlbum = {
           id: albumId,
+          artistId: resolvedArtistId,
           releseDate: releaseDate ?? new Date(),
           ...processImageResult.data,
           ...albumPayload,
@@ -429,6 +501,7 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
         const templatedArtistInviteEmail = templateEmail({
           userName,
           artistName: supportingArtist.name,
+          artistId: newArtistId,
         });
 
         newArtistEmailPromises.push(
