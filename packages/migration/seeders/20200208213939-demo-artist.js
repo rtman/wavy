@@ -4,6 +4,26 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('artist', [
       {
+        id: '30f65df5-98bb-48cd-83e5-867f707f941z',
+        name: 'Various Artists',
+        description: '',
+        profileImageStoragePathLarge:
+          'gs://groov-development-ddc9d.appspot.com/andras.jpg',
+        profileImageStoragePathSmall:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageStoragePathThumb:
+          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+        profileImageUrlLarge:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras.jpg?alt=media&token=452f75aa-2329-4f08-9be1-cc7fbb2e17aa',
+        profileImageUrlSmall:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        profileImageUrlThumb:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        followers: 0,
+      },
+      {
         id: '30f65df5-98bb-48cd-83e5-867f707f941d',
         name: 'András',
         description: 'András Fox is a musician from australia!',
