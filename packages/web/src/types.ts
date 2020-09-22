@@ -91,7 +91,12 @@ export type CreateAlbumArgs = {
   albumId: Scalars['String'];
   title: Scalars['String'];
   description: Scalars['String'];
-  artistId: Scalars['String'];
+  artistId?: Maybe<Scalars['String']>;
+  artistName?: Maybe<Scalars['String']>;
+  artistEmail?: Maybe<Scalars['String']>;
+  newArtist?: Maybe<Scalars['Boolean']>;
+  userName?: Maybe<Scalars['String']>;
+  variousArtists?: Maybe<Scalars['Boolean']>;
   profileImageStoragePath: Scalars['String'];
   releaseDate: Scalars['DateTime'];
 };

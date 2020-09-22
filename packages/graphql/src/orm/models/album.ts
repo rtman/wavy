@@ -96,5 +96,6 @@ export class Album {
   updatedAt!: Date;
 
   @Field(() => Boolean)
+  @Column()
   processing: boolean;
 }

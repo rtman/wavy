@@ -1,4 +1,3 @@
-import { resolve } from 'bluebird';
 import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -70,11 +69,14 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
   @Field({ nullable: true })
   artistEmail?: string;
 
-  @Field()
-  newArtist: boolean;
+  @Field({ nullable: true })
+  newArtist?: boolean;
 
   @Field({ nullable: true })
   userName?: string;
+
+  @Field({ nullable: true })
+  variousArtists?: boolean;
 
   @Field()
   profileImageStoragePath: string;
@@ -181,6 +183,7 @@ export class AlbumResolvers {
         artistId,
         userName,
         artistEmail,
+        variousArtists,
         ...albumPayload
       } = payload;
 
@@ -248,6 +251,13 @@ export class AlbumResolvers {
           );
 
           return;
+        }
+
+        if (variousArtists) {
+          const variousArtistsEntity = await artistRepository.findOne({
+            where: { name: 'Various Artists' },
+          });
+          resolvedArtistId = variousArtistsEntity?.id;
         }
 
         const processImageResult = await services.processImage({
@@ -330,7 +340,7 @@ export class AlbumResolvers {
           return false;
         }
 
-        const supportingArtistsModels: Partial<
+        const supportingArtistModels: Partial<
           Models.SongArtistSupportingArtist
         >[] = [];
         const newArtistModels: Partial<Models.Artist>[] = [];
@@ -351,14 +361,14 @@ export class AlbumResolvers {
           const addSupportingArtistResult = addSupportingArtists({
             supportingArtists: song.supportingArtist,
             songId,
-            allNewArtistModels: newArtistModels,
+            globalNewArtistModels: newArtistModels,
             userName,
             templateEmail,
             transporter,
           });
 
-          supportingArtistsModels.push(
-            ...addSupportingArtistResult.supportingArtistsModels
+          supportingArtistModels.push(
+            ...addSupportingArtistResult.supportingArtistModels
           );
           newArtistModels.push(...addSupportingArtistResult.newArtistModels);
           newArtistEmailPromises.push(
@@ -382,8 +392,8 @@ export class AlbumResolvers {
           await artistRepository.insert(newArtistModels);
         }
 
-        if (supportingArtistsModels.length > 0) {
-          await supportingArtistRespository.insert(supportingArtistsModels);
+        if (supportingArtistModels.length > 0) {
+          await supportingArtistRespository.insert(supportingArtistModels);
         }
 
         if (newArtistEmailPromises.length > 0) {
@@ -447,7 +457,7 @@ export class AlbumResolvers {
 interface AddSupportingArtists {
   supportingArtists: NewSongArgs['supportingArtist'];
   songId: string;
-  allNewArtistModels: Partial<Models.Artist>[];
+  globalNewArtistModels: Partial<Models.Artist>[];
   userName: string;
   templateEmail: HandlebarsTemplateDelegate;
   transporter: Mail;
@@ -459,13 +469,13 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
   const {
     supportingArtists,
     songId,
-    allNewArtistModels,
+    globalNewArtistModels,
     userName,
     templateEmail,
     transporter,
   } = props;
 
-  const supportingArtistsModels: Partial<
+  const supportingArtistModels: Partial<
     Models.SongArtistSupportingArtist
   >[] = [];
   const localNewArtistModels: Partial<Models.Artist>[] = [];
@@ -476,12 +486,13 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
   if (supportingArtists !== undefined && supportingArtists.length > 0) {
     for (const supportingArtist of supportingArtists) {
       if (supportingArtist.new === false) {
-        supportingArtistsModels.push({
+        supportingArtistModels.push({
           songId,
           artistId: supportingArtist.id,
         });
       } else {
-        const previouslyAddedNewArtist = allNewArtistModels.find(
+        // check to see if the artist was created in another instance
+        const previouslyAddedNewArtist = globalNewArtistModels.find(
           (artist) => artist.name === supportingArtist.name
         );
         const newArtistId = previouslyAddedNewArtist?.id ?? uuidv4();
@@ -493,7 +504,7 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
           });
         }
 
-        supportingArtistsModels.push({
+        supportingArtistModels.push({
           songId,
           artistId: newArtistId,
         });
@@ -517,7 +528,7 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
     }
   }
   return {
-    supportingArtistsModels,
+    supportingArtistModels,
     newArtistModels: localNewArtistModels,
     newArtistEmailPromises,
   };

@@ -167,7 +167,7 @@ export const ArtistCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       songs: [{ title: '', supportingArtists: [] }],
     },
@@ -431,6 +431,7 @@ export const ArtistCreateRelease = () => {
                       control={control}
                       removeSong={() => removeSong(index)}
                       artists={artistsData?.artists ?? []}
+                      setValue={setValue}
                     />
                   );
                 })}

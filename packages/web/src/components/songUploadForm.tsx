@@ -4,6 +4,7 @@ import {
   makeStyles,
   TextField,
 } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Flex, TagInput } from 'components';
 import * as helpers from 'helpers';
@@ -27,6 +28,7 @@ interface SongUploadFormProps {
     index: number
   ) => void;
   control: Control;
+  setValue: any;
   removeSong: (index: number) => void;
 }
 
@@ -42,6 +44,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     creatorId,
     releaseId,
     setUploadStatusCallback,
+    setValue,
     index,
     control,
     formData,
@@ -84,18 +87,29 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
             control={control}
             defaultValue={formData.title} // make sure to set up
           />
+
           <Controller
-            as={<TagInput data={artists ?? []} />}
-            variant="outlined"
-            margin="normal"
-            required={true}
-            fullWidth={true}
-            name={`songs[${index}].supportingArtists`}
-            label="Supporting Artists"
-            id={`songs[${index}].supportingArtists`}
-            autoComplete="suppporting artists"
+            render={(controllerProps) => (
+              <Autocomplete
+                {...controllerProps}
+                multiple={true}
+                options={artists ?? []}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Supporting Artists"
+                    variant="outlined"
+                  />
+                )}
+                value={controllerProps.value}
+                onChange={(e: any, values: any) =>
+                  setValue(`songs[${index}].supportingArtists`, values)
+                }
+              />
+            )}
+            name="country"
             control={control}
-            defaultValue={formData.supportingArtists} // make sure to set up
           />
         </Flex>
 

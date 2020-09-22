@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('artist', [
       {
-        id: '30f65df5-98bb-48cd-83e5-867f707f941z',
+        id: '0b600e0a-96d0-4ec0-bc94-2587a6b3507a',
         name: 'Various Artists',
         description: '',
         profileImageStoragePathLarge:

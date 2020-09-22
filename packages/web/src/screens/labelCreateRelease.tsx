@@ -3,11 +3,14 @@ import {
   Button,
   CircularProgress,
   Container,
+  FormControlLabel,
   List,
+  Switch,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
+import { Autocomplete } from '@material-ui/lab';
 import {
   FileUploadButton,
   // Flex,
@@ -55,18 +58,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface SongForUpload {
+interface SongForUpload {
   title: string;
   storagePath?: string;
   file: File;
 }
 
-export interface Tag {
+interface Tag {
   id: string;
   title: string;
 }
 
-export interface SongInputFields {
+interface SongInputFields {
   title: '';
   supportingArtists: Tag[];
 }
@@ -82,6 +85,22 @@ export const LabelCreateRelease = () => {
   const [releaseId, setReleaseId] = useState<string>('');
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [artistAutocompleteOpen, setArtistAutoCompleteOpen] = useState<boolean>(
+    false
+  );
+  const handleOpenArtistAutocomplete = () =>
+    inputValue.length > 1 ? setArtistAutoCompleteOpen(true) : null;
+
+  const handleInputChange = (
+    _event: React.ChangeEvent<{}>,
+    newInputValue: string
+  ) => {
+    setInputValue(newInputValue);
+    newInputValue.length > 1
+      ? setArtistAutoCompleteOpen(true)
+      : setArtistAutoCompleteOpen(false);
+  };
 
   const {
     loading: artistsLoading,
@@ -166,7 +185,7 @@ export const LabelCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       songs: [{ title: '', supportingArtists: [] }],
     },
@@ -304,72 +323,72 @@ export const LabelCreateRelease = () => {
   }) => {
     console.log('*debug* onSubmit data.album', data.album);
     console.log('*debug* onSubmit data.songs', data.songs);
-    if (
-      uploadStatuses.find((upload) => upload.data === undefined) === undefined
-    ) {
-      const resolvedSongsForUpload = songsForUpload.map((song, index) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { file, ...rest } = song;
+    // if (
+    //   uploadStatuses.find((upload) => upload.data === undefined) === undefined
+    // ) {
+    //   const resolvedSongsForUpload = songsForUpload.map((song, index) => {
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     const { file, ...rest } = song;
 
-        // data is checked above for undefined in the find
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const uploadData = uploadStatuses[index].data!;
+    //     // data is checked above for undefined in the find
+    //     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    //     const uploadData = uploadStatuses[index].data!;
 
-        return {
-          ...rest,
-          title: data.songs[index].title.trim(),
-          storagePath: uploadData.gsUrl,
-          url: uploadData.downloadUrl,
-        };
-      });
+    //     return {
+    //       ...rest,
+    //       title: data.songs[index].title.trim(),
+    //       storagePath: uploadData.gsUrl,
+    //       url: uploadData.downloadUrl,
+    //     };
+    //   });
 
-      console.log(
-        '*debug* onSubmit resolvedSongsForUpload',
-        resolvedSongsForUpload
-      );
+    //   console.log(
+    //     '*debug* onSubmit resolvedSongsForUpload',
+    //     resolvedSongsForUpload
+    //   );
 
-      const result = await uploadImage({
-        rootDir: id,
-        parentDir: 'albums',
-        childDir: releaseId,
-        fileName: 'albumImage',
-      });
+    //   const result = await uploadImage({
+    //     rootDir: id,
+    //     parentDir: 'albums',
+    //     childDir: releaseId,
+    //     fileName: 'albumImage',
+    //   });
 
-      console.log('result', result);
+    //   console.log('result', result);
 
-      if (result && result.id && resolvedSongsForUpload.length > 0) {
-        await createAlbum({
-          variables: {
-            input: {
-              ...data.album,
-              albumId: result.id,
-              artistId: id,
-              profileImageStoragePath: result.gsUrl,
-            },
-          },
-        });
-        // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
-        // the album is tagged as processing and will be viewable but disabled until processing is completed
-        addSongsToAlbum({
-          variables: {
-            input: {
-              userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
-              albumId: result.id,
-              artistId: id,
-              songsToAdd: resolvedSongsForUpload ?? {
-                title: '',
-                storagePath: '',
-              },
-            },
-          },
-        });
-      }
-    } else {
-      enqueueSnackbar("Error! Files aren't done uploading", {
-        variant: 'error',
-        autoHideDuration: 4000,
-      });
-    }
+    //   if (result && result.id && resolvedSongsForUpload.length > 0) {
+    //     await createAlbum({
+    //       variables: {
+    //         input: {
+    //           ...data.album,
+    //           albumId: result.id,
+    //           artistId: id,
+    //           profileImageStoragePath: result.gsUrl,
+    //         },
+    //       },
+    //     });
+    //     // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
+    //     // the album is tagged as processing and will be viewable but disabled until processing is completed
+    //     addSongsToAlbum({
+    //       variables: {
+    //         input: {
+    //           userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
+    //           albumId: result.id,
+    //           artistId: id,
+    //           songsToAdd: resolvedSongsForUpload ?? {
+    //             title: '',
+    //             storagePath: '',
+    //           },
+    //         },
+    //       },
+    //     });
+    //   }
+    // } else {
+    //   enqueueSnackbar("Error! Files aren't done uploading", {
+    //     variant: 'error',
+    //     autoHideDuration: 4000,
+    //   });
+    // }
   };
 
   console.log('*debug* acceptedFiles', acceptedFiles);
@@ -415,6 +434,41 @@ export const LabelCreateRelease = () => {
             autoComplete="album title"
           />
 
+          <Autocomplete
+            id="tags-standard"
+            options={artistsData?.artists ?? []}
+            getOptionLabel={(option) => option.name ?? ''}
+            open={artistAutocompleteOpen}
+            onOpen={handleOpenArtistAutocomplete}
+            onClose={() => setArtistAutoCompleteOpen(false)}
+            inputValue={inputValue}
+            onInputChange={handleInputChange}
+            filterSelectedOptions={true}
+            // defaultValue={}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                inputRef={register()}
+                variant="standard"
+                label="Artist"
+                name={'album.artist'}
+                id={'album.artist'}
+              />
+            )}
+          />
+
+          <FormControlLabel
+            control={
+              <Switch
+                inputRef={register()}
+                name={'album.variousArtists'}
+                // label="Various Artists"
+                id={'album.variousArtists'}
+              />
+            }
+            label="Various Artists"
+          />
+
           {songsForUpload.length > 0 ? (
             <form onSubmit={handleSubmit(onSubmit)}>
               <List>
@@ -430,6 +484,7 @@ export const LabelCreateRelease = () => {
                       control={control}
                       removeSong={() => removeSong(index)}
                       artists={artistsData?.artists ?? []}
+                      setValue={setValue}
                     />
                   );
                 })}
@@ -449,6 +504,7 @@ export const LabelCreateRelease = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={handleSubmit(onSubmit)}
               >
                 {called || loading ? (
                   <CircularProgress />
