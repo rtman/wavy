@@ -23,8 +23,9 @@ import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
+import DatePicker from 'react-date-picker';
 import { FileRejection, useDropzone } from 'react-dropzone';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
@@ -185,7 +186,7 @@ export const LabelCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset, setValue } = useForm({
+  const { register, control, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
       songs: [{ title: '', supportingArtists: [] }],
     },
@@ -194,6 +195,8 @@ export const LabelCreateRelease = () => {
     control,
     name: 'songs',
   });
+
+  const watchVariousArtists = watch('album.variousArtists');
 
   useEffect(() => {
     setReleaseId(uuid());
@@ -430,31 +433,7 @@ export const LabelCreateRelease = () => {
             fullWidth={true}
             name={'album.title'}
             label="Release Title"
-            id={'album.title'}
-            autoComplete="album title"
-          />
-
-          <Autocomplete
-            id="tags-standard"
-            options={artistsData?.artists ?? []}
-            getOptionLabel={(option) => option.name ?? ''}
-            open={artistAutocompleteOpen}
-            onOpen={handleOpenArtistAutocomplete}
-            onClose={() => setArtistAutoCompleteOpen(false)}
-            inputValue={inputValue}
-            onInputChange={handleInputChange}
-            filterSelectedOptions={true}
-            // defaultValue={}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                inputRef={register()}
-                variant="standard"
-                label="Artist"
-                name={'album.artist'}
-                id={'album.artist'}
-              />
-            )}
+            id={'release-title'}
           />
 
           <FormControlLabel
@@ -463,10 +442,43 @@ export const LabelCreateRelease = () => {
                 inputRef={register()}
                 name={'album.variousArtists'}
                 // label="Various Artists"
-                id={'album.variousArtists'}
+                id={'various-artists'}
               />
             }
             label="Various Artists"
+          />
+
+          {watchVariousArtists ? null : (
+            <Autocomplete
+              id="album-artist"
+              options={artistsData?.artists ?? []}
+              getOptionLabel={(option) => option.name ?? ''}
+              open={artistAutocompleteOpen}
+              onOpen={handleOpenArtistAutocomplete}
+              onClose={() => setArtistAutoCompleteOpen(false)}
+              inputValue={inputValue}
+              onInputChange={handleInputChange}
+              filterSelectedOptions={true}
+              // defaultValue={}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth={true}
+                  inputRef={register()}
+                  variant="standard"
+                  label="Artist"
+                  name={'album.artist'}
+                />
+              )}
+            />
+          )}
+
+          <Controller
+            as={DatePicker}
+            control={control}
+            onChange={(selected: Date | Date[]) => selected}
+            name="album.releaseDate"
+            className="input"
           />
 
           {songsForUpload.length > 0 ? (
@@ -485,6 +497,7 @@ export const LabelCreateRelease = () => {
                       removeSong={() => removeSong(index)}
                       artists={artistsData?.artists ?? []}
                       setValue={setValue}
+                      watch={watch}
                     />
                   );
                 })}

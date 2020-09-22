@@ -1,11 +1,13 @@
 import {
+  FormControlLabel,
   IconButton,
   LinearProgress,
   makeStyles,
+  Switch,
   TextField,
 } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Autocomplete } from '@material-ui/lab';
 import { Flex, TagInput } from 'components';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
@@ -29,6 +31,7 @@ interface SongUploadFormProps {
   ) => void;
   control: Control;
   setValue: any;
+  watch: any;
   removeSong: (index: number) => void;
 }
 
@@ -50,6 +53,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     formData,
     songData,
     removeSong,
+    watch,
   } = props;
 
   const classes = useStyles();
@@ -61,7 +65,9 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     file: songData.file,
   });
 
-  console.log('*debug* uploadStatus', uploadStatus);
+  const watchHasSupportingArtists = watch(
+    `songs[${index}].hasSupportingArtists`
+  );
 
   useEffect(() => {
     setUploadStatusCallback(uploadStatus, index);
@@ -82,35 +88,64 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
             fullWidth={true}
             name={`songs[${index}].title`}
             label="Title"
-            id={`songs[${index}].title`}
-            autoComplete="title"
+            id={'title'}
             control={control}
-            defaultValue={formData.title} // make sure to set up
+            defaultValue={formData.title}
           />
 
           <Controller
-            render={(controllerProps) => (
-              <Autocomplete
-                {...controllerProps}
-                multiple={true}
-                options={artists ?? []}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Supporting Artists"
-                    variant="outlined"
-                  />
-                )}
-                value={controllerProps.value}
-                onChange={(e: any, values: any) =>
-                  setValue(`songs[${index}].supportingArtists`, values)
-                }
-              />
-            )}
-            name="country"
+            as={<TextField />}
+            variant="outlined"
+            margin="normal"
+            required={false}
+            fullWidth={true}
+            name={`songs[${index}].isrc`}
+            label="ISRC"
+            id={'isrc'}
             control={control}
+            defaultValue={formData.title}
           />
+
+          <Controller
+            control={control}
+            name={`songs[${index}].hasSupportingArtists`}
+            id={`songs[${index}].hasSupportingArtists`}
+            defaultValue={false}
+            as={
+              <FormControlLabel
+                value={`songs[${index}].hasSupportingArtists`}
+                label="Supporting Artists"
+                control={<Switch />}
+              />
+            }
+          />
+
+          {watchHasSupportingArtists ? (
+            <Controller
+              name={`songs[${index}].supportingArtists`}
+              control={control}
+              render={(controllerProps) => (
+                <Autocomplete
+                  {...controllerProps}
+                  multiple={true}
+                  options={artists ?? []}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(e: any, values: any) =>
+                    setValue(`songs[${index}].supportingArtists`, values)
+                  }
+                  defaultValue={[]}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth={true}
+                      label="Supporting Artists"
+                      variant="outlined"
+                    />
+                  )}
+                />
+              )}
+            />
+          ) : null}
         </Flex>
 
         <IconButton

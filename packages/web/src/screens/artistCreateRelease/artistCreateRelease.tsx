@@ -20,8 +20,9 @@ import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
+import DatePicker from 'react-date-picker';
 import { FileRejection, useDropzone } from 'react-dropzone';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import {
@@ -167,7 +168,7 @@ export const ArtistCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset, setValue } = useForm({
+  const { register, control, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
       songs: [{ title: '', supportingArtists: [] }],
     },
@@ -416,6 +417,14 @@ export const ArtistCreateRelease = () => {
             autoComplete="album title"
           />
 
+          <Controller
+            as={DatePicker}
+            control={control}
+            onChange={(selected: Date | Date[]) => selected}
+            name="album.releaseDate"
+            className="input"
+          />
+
           {songsForUpload.length > 0 ? (
             <form onSubmit={handleSubmit(onSubmit)}>
               <List>
@@ -432,6 +441,7 @@ export const ArtistCreateRelease = () => {
                       removeSong={() => removeSong(index)}
                       artists={artistsData?.artists ?? []}
                       setValue={setValue}
+                      watch={watch}
                     />
                   );
                 })}
