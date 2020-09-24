@@ -153,13 +153,13 @@ export const LabelDashboard = () => {
             Create Release
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             color="primary"
             onClick={() => history.push(`/manageDiscography/${id}`)}
           >
             <AlbumIcon />
             Manage Discography
-          </IconButton>
+          </IconButton> */}
 
           <IconButton
             color="primary"

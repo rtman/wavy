@@ -42,6 +42,9 @@ class AddSongsToAlbumArgs implements Partial<Models.Song> {
   @Field()
   artistId: string;
 
+  @Field({ nullable: true })
+  labelId?: string;
+
   @Field(() => [NewSongArgs])
   songsToAdd: NewSongArgs[];
 
@@ -77,6 +80,9 @@ class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
 
   @Field({ nullable: true })
   variousArtists?: boolean;
+
+  @Field({ nullable: true })
+  labelId?: string;
 
   @Field()
   profileImageStoragePath: string;
@@ -306,7 +312,7 @@ export class AlbumResolvers {
     @Arg('input') payload: AddSongsToAlbumArgs
   ): Promise<boolean> {
     try {
-      const { songsToAdd, albumId, artistId, userName } = payload;
+      const { songsToAdd, albumId, artistId, labelId, userName } = payload;
 
       if ((songsToAdd.length > 0, albumId, songsToAdd, artistId)) {
         const songRepository = getManager().getRepository(Models.Song);
@@ -379,6 +385,7 @@ export class AlbumResolvers {
             id: songId,
             artistId,
             albumId,
+            labelId,
             title: song.title,
             ...processedSongResponse.data,
           };

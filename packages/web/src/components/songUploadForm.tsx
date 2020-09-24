@@ -5,13 +5,14 @@ import {
   makeStyles,
   Switch,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
-import { Flex, TagInput } from 'components';
+import { Flex } from 'components';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { ArrayField } from 'react-hook-form/dist/types/form';
 import { Artist } from 'types';
 
@@ -29,9 +30,6 @@ interface SongUploadFormProps {
     uploadStatus: helpers.hooks.UploadStatus,
     index: number
   ) => void;
-  control: Control;
-  setValue: any;
-  watch: any;
   removeSong: (index: number) => void;
 }
 
@@ -47,16 +45,14 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     creatorId,
     releaseId,
     setUploadStatusCallback,
-    setValue,
     index,
-    control,
     formData,
     songData,
     removeSong,
-    watch,
   } = props;
 
   const classes = useStyles();
+  const formContext = useFormContext();
 
   const { uploadStatus } = helpers.hooks.useFirebaseStorageUpload({
     rootDir: creatorId,
@@ -65,9 +61,11 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     file: songData.file,
   });
 
-  const watchHasSupportingArtists = watch(
+  const watchHasSupportingArtists = formContext.watch(
     `songs[${index}].hasSupportingArtists`
   );
+
+  const watchVariousArtists = formContext.watch('album.variousArtists');
 
   useEffect(() => {
     setUploadStatusCallback(uploadStatus, index);
@@ -79,35 +77,93 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     <div className={classes.root} key={formData.id}>
       <LinearProgress variant="determinate" value={uploadStatus.progress} />
       <Flex>
+        <Typography variant="h4">{index + 1}</Typography>
         <Flex flexDirection="column">
           <Controller
             as={<TextField />}
             variant="outlined"
             margin="normal"
-            required={true}
             fullWidth={true}
             name={`songs[${index}].title`}
             label="Title"
             id={'title'}
-            control={control}
+            control={formContext.control}
             defaultValue={formData.title}
+            rules={{
+              required: {
+                value: true,
+                message: 'Required',
+              },
+              minLength: {
+                value: 2,
+                message: 'Enter at least 2 characters',
+              },
+            }}
           />
 
+          {watchVariousArtists ? (
+            <Controller
+              name={`songs[${index}].artist`}
+              control={formContext.control}
+              rules={{
+                validate: (value: Artist) =>
+                  formContext.getValues('album.variousArtists')
+                    ? value !== undefined || 'Please select an artist'
+                    : undefined,
+              }}
+              render={(controllerProps) => (
+                <Autocomplete
+                  {...controllerProps}
+                  options={artists ?? []}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(e: any, values: any) =>
+                    formContext.setValue(`songs[${index}].artist`, values)
+                  }
+                  defaultValue={[]}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth={true}
+                      label="Artist"
+                      variant="outlined"
+                      helperText={
+                        formContext.errors.songs?.[index].artist?.message
+                      }
+                      error={
+                        formContext.errors.songs?.[index].artist !== undefined
+                      }
+                    />
+                  )}
+                />
+              )}
+            />
+          ) : null}
+
           <Controller
-            as={<TextField />}
+            as={
+              <TextField
+                helperText={formContext.errors.songs?.[index].isrc?.message}
+                error={formContext.errors.songs?.[index].isrc !== undefined}
+              />
+            }
             variant="outlined"
             margin="normal"
-            required={false}
             fullWidth={true}
             name={`songs[${index}].isrc`}
             label="ISRC"
             id={'isrc'}
-            control={control}
-            defaultValue={formData.title}
+            control={formContext.control}
+            // defaultValue={formData.title}
+            rules={{
+              validate: {
+                length: (value: string) =>
+                  value?.length === 12 || 'ISRC codes need to be 12 characters',
+              },
+            }}
           />
 
           <Controller
-            control={control}
+            control={formContext.control}
             name={`songs[${index}].hasSupportingArtists`}
             id={`songs[${index}].hasSupportingArtists`}
             defaultValue={false}
@@ -123,7 +179,13 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
           {watchHasSupportingArtists ? (
             <Controller
               name={`songs[${index}].supportingArtists`}
-              control={control}
+              control={formContext.control}
+              rules={{
+                validate: (value: Artist[]) =>
+                  formContext.getValues(`songs[${index}].hasSupportingArtists`)
+                    ? value?.length > 0 || 'Please select atleast one artist'
+                    : undefined,
+              }}
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
@@ -131,7 +193,10 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                   options={artists ?? []}
                   getOptionLabel={(option) => option.name}
                   onChange={(e: any, values: any) =>
-                    setValue(`songs[${index}].supportingArtists`, values)
+                    formContext.setValue(
+                      `songs[${index}].supportingArtists`,
+                      values
+                    )
                   }
                   defaultValue={[]}
                   renderInput={(params) => (
@@ -140,6 +205,14 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                       fullWidth={true}
                       label="Supporting Artists"
                       variant="outlined"
+                      helperText={
+                        formContext.errors.songs?.[index].supportingArtists
+                          ?.message
+                      }
+                      error={
+                        formContext.errors.songs?.[index].supportingArtists !==
+                        undefined
+                      }
                     />
                   )}
                 />

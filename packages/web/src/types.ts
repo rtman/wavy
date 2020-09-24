@@ -28,6 +28,7 @@ export type AddPlaylistSongsArgs = {
 export type AddSongsToAlbumArgs = {
   albumId: Scalars['String'];
   artistId: Scalars['String'];
+  labelId?: Maybe<Scalars['String']>;
   songsToAdd: Array<NewSongArgs>;
   userName: Scalars['String'];
 };
@@ -97,6 +98,7 @@ export type CreateAlbumArgs = {
   newArtist?: Maybe<Scalars['Boolean']>;
   userName?: Maybe<Scalars['String']>;
   variousArtists?: Maybe<Scalars['Boolean']>;
+  labelId?: Maybe<Scalars['String']>;
   profileImageStoragePath: Scalars['String'];
   releaseDate: Scalars['DateTime'];
 };

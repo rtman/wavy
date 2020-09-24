@@ -53,7 +53,10 @@ export const Login = () => {
             <FormControl fullWidth={true}>
               <TextField
                 inputRef={register({
-                  required: 'Required',
+                  required: {
+                    value: true,
+                    message: 'Required',
+                  },
                   pattern: {
                     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: 'Enter a valid email',
@@ -70,7 +73,10 @@ export const Login = () => {
             <FormControl fullWidth={true}>
               <TextField
                 inputRef={register({
-                  required: 'Required',
+                  required: {
+                    value: true,
+                    message: 'Required',
+                  },
                   minLength: {
                     value: 6,
                     message: 'Enter atleast 6 characters',

@@ -22,7 +22,12 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import DatePicker from 'react-date-picker';
 import { FileRejection, useDropzone } from 'react-dropzone';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import {
@@ -168,13 +173,19 @@ export const ArtistCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { register, control, handleSubmit, reset, setValue, watch } = useForm({
+  const hookForm = useForm({
     defaultValues: {
-      songs: [{ title: '', supportingArtists: [] }],
+      album: {
+        title: '',
+        artist: undefined,
+        releaseDate: undefined,
+      },
+      songs: [{ title: '', supportingArtists: [], isrc: '' }],
     },
   });
+  const { reset } = hookForm;
   const { fields, append, remove } = useFieldArray({
-    control,
+    control: hookForm.control,
     name: 'songs',
   });
 
@@ -380,113 +391,127 @@ export const ArtistCreateRelease = () => {
   console.log('*debug* songsForUpload', songsForUpload);
 
   return (
-    <Container>
-      {/* <Flex flexDirection="column"> */}
-      <Spacing.section.Minor />
-      <Typography variant="h1">New Release</Typography>
+    <FormProvider {...hookForm}>
+      <Container>
+        {/* <Flex flexDirection="column"> */}
+        <Spacing.section.Minor />
+        <Typography variant="h1">New Release</Typography>
 
-      <Spacing.section.Minor />
+        <Spacing.section.Minor />
 
-      {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
-        <>
-          {image ? (
-            <img src={image} width={500} height={500} />
-          ) : (
-            <ImageUploader
-              withIcon={true}
-              buttonText="Select Image"
-              onChange={onDrop}
-              imgExtension={['.jpg', '.png', 'jpeg']}
-              maxFileSize={5242880}
-              singleImage={true}
-            />
-          )}
-
-          <Spacing.section.Minor />
-
-          <TextField
-            inputRef={register()}
-            // defaultValue={`${item.title}`}
-            variant="outlined"
-            margin="normal"
-            required={true}
-            fullWidth={true}
-            name={'album.title'}
-            label="Release Title"
-            id={'album.title'}
-            autoComplete="album title"
-          />
-
-          <Controller
-            as={DatePicker}
-            control={control}
-            onChange={(selected: Date | Date[]) => selected}
-            name="album.releaseDate"
-            className="input"
-          />
-
-          {songsForUpload.length > 0 ? (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <List>
-                {fields.map((item, index) => {
-                  return (
-                    <SongUploadForm
-                      creatorId={id}
-                      releaseId={releaseId}
-                      songData={songsForUpload[index]}
-                      formData={item}
-                      index={index}
-                      setUploadStatusCallback={setUploadStatus}
-                      control={control}
-                      removeSong={() => removeSong(index)}
-                      artists={artistsData?.artists ?? []}
-                      setValue={setValue}
-                      watch={watch}
-                    />
-                  );
-                })}
-              </List>
-
-              <FileUploadButton
-                acceptedTypes="audio/*"
-                onDrop={(fileAccepted, fileRejected) =>
-                  addSong(fileAccepted, fileRejected)
-                }
+        {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
+          <>
+            {image ? (
+              <img src={image} width={500} height={500} />
+            ) : (
+              <ImageUploader
+                withIcon={true}
+                buttonText="Select Image"
+                onChange={onDrop}
+                imgExtension={['.jpg', '.png', 'jpeg']}
+                maxFileSize={5242880}
+                singleImage={true}
               />
+            )}
 
-              <Spacing.BetweenComponents />
+            <Spacing.section.Minor />
 
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                {called || loading ? (
-                  <CircularProgress />
-                ) : (
-                  <Typography variant="body2">Submit</Typography>
-                )}
-              </Button>
-            </form>
-          ) : null}
-          {/* </Flex> */}
-        </>
-      ) : (
-        <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
-          <input {...getInputProps()} />
-          <p>Drag 'n' drop some files here</p>
-          {fileRejections.length > 0 ? (
-            <Typography variant="body1">
-              Some files were rejected, please check you are submitting audio
-              files.
-            </Typography>
-          ) : null}
-          <button type="button" onClick={open}>
-            Open File Dialog
-          </button>
-        </DropzoneContainer>
-      )}
-    </Container>
+            <TextField
+              inputRef={hookForm.register({
+                required: {
+                  value: true,
+                  message: 'Required',
+                },
+                minLength: {
+                  value: 2,
+                  message: 'Enter at least 2 characters',
+                },
+              })}
+              // defaultValue={`${item.title}`}
+              variant="outlined"
+              margin="normal"
+              fullWidth={true}
+              name={'album.title'}
+              label="Release Title"
+              id={'album-title'}
+              helperText={hookForm.errors.album?.title?.message}
+              error={hookForm.errors.album?.title !== undefined}
+            />
+
+            <Controller
+              as={DatePicker}
+              control={hookForm.control}
+              onChange={(selected: Date | Date[]) => selected}
+              name="album.releaseDate"
+              className="input"
+              rules={{
+                validate: {
+                  noDate: (value: Date | Date[]) =>
+                    value !== undefined || 'Please select a date',
+                },
+              }}
+            />
+
+            {songsForUpload.length > 0 ? (
+              <form onSubmit={hookForm.handleSubmit(onSubmit)}>
+                <List>
+                  {fields.map((item, index) => {
+                    return (
+                      <SongUploadForm
+                        creatorId={id}
+                        releaseId={releaseId}
+                        songData={songsForUpload[index]}
+                        formData={item}
+                        index={index}
+                        setUploadStatusCallback={setUploadStatus}
+                        removeSong={() => removeSong(index)}
+                        artists={artistsData?.artists ?? []}
+                      />
+                    );
+                  })}
+                </List>
+
+                <FileUploadButton
+                  acceptedTypes="audio/*"
+                  onDrop={(fileAccepted, fileRejected) =>
+                    addSong(fileAccepted, fileRejected)
+                  }
+                />
+
+                <Spacing.BetweenComponents />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  {called || loading ? (
+                    <CircularProgress />
+                  ) : (
+                    <Typography variant="body2">Submit</Typography>
+                  )}
+                </Button>
+              </form>
+            ) : null}
+            {/* </Flex> */}
+          </>
+        ) : (
+          <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
+            <input {...getInputProps()} />
+            <p>Drag 'n' drop some files here</p>
+            {fileRejections.length > 0 ? (
+              <Typography variant="body1">
+                Some files were rejected, please check you are submitting audio
+                files.
+              </Typography>
+            ) : null}
+            <button type="button" onClick={open}>
+              Open File Dialog
+            </button>
+          </DropzoneContainer>
+        )}
+      </Container>
+    </FormProvider>
   );
 };
