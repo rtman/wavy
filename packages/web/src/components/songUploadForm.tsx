@@ -119,7 +119,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                     ? value !== undefined || 'Please select an artist'
                     : undefined,
               }}
-              // defaultValue={formData.artist}
+              // defaultValue={formData.artist} // seems to disable validation
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
@@ -193,6 +193,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                     ? value !== undefined || 'Please select an artist'
                     : undefined,
               }}
+              // defaultValue={formData.supportingArtists}  // seems to disable validation
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
