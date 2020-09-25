@@ -224,7 +224,7 @@ export const LabelCreateRelease = () => {
         {
           title: undefined,
           hasSupportingArtists: false,
-          supportingArtists: [],
+          supportingArtists: undefined,
           isrc: undefined,
           artist: undefined,
         },

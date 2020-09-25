@@ -68,6 +68,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
   const watchVariousArtists = formContext.watch('album.variousArtists');
 
   console.log('*debug* watchHasSupportingArtists', watchHasSupportingArtists);
+  console.log('*debug* watchVariousArtists', watchVariousArtists);
 
   useEffect(() => {
     setUploadStatusCallback(uploadStatus, index);
@@ -118,7 +119,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                     ? value !== undefined || 'Please select an artist'
                     : undefined,
               }}
-              defaultValue={formData.artist}
+              // defaultValue={formData.artist}
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
@@ -169,16 +170,15 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
             }}
           />
 
-          <Controller
-            control={formContext.control}
-            name={`songs[${index}].hasSupportingArtists`}
-            // id={'has-supporting-artists'}
+          <FormControlLabel
+            label="Supporting Artists"
             defaultValue={formData.hasSupportingArtists}
-            // value={`songs[${index}].hasSupportingArtists`}
-            as={
-              <FormControlLabel
-                label="Supporting Artists"
-                control={<Switch />}
+            control={
+              <Switch
+                inputRef={formContext.register()}
+                name={`songs[${index}].hasSupportingArtists`}
+                // label="Various Artists"
+                id={'various-artists'}
               />
             }
           />
@@ -186,12 +186,11 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
           {watchHasSupportingArtists ? (
             <Controller
               name={`songs[${index}].supportingArtists`}
-              defaultValue={formData.supportingArtists}
               control={formContext.control}
               rules={{
                 validate: (value: Artist[]) =>
                   formContext.getValues(`songs[${index}].hasSupportingArtists`)
-                    ? value?.length > 0 || 'Please select atleast one artist'
+                    ? value !== undefined || 'Please select an artist'
                     : undefined,
               }}
               render={(controllerProps) => (
