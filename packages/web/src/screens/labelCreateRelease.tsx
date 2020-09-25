@@ -82,18 +82,18 @@ interface Artist {
 }
 
 interface SongFields {
-  artist?: Artist;
-  hasSupportingArtists?: boolean;
-  isrc?: string;
-  supportingArtists?: Artist[];
-  title?: string;
+  artist: Artist | null;
+  hasSupportingArtists: boolean;
+  isrc: string;
+  supportingArtists: Artist[] | null;
+  title: string;
 }
 
 interface AlbumFields {
-  title?: string;
-  artist?: Artist;
-  releaseDate?: Date;
-  variousArtists?: boolean;
+  title: string;
+  artist: Artist | null;
+  releaseDate: Date;
+  variousArtists: boolean;
 }
 
 interface Form {
@@ -215,18 +215,18 @@ export const LabelCreateRelease = () => {
   const hookForm = useForm<Form>({
     defaultValues: {
       album: {
-        title: undefined,
-        artist: undefined,
-        releaseDate: undefined,
+        title: '',
+        artist: null,
+        releaseDate: new Date(),
         variousArtists: false,
       },
       songs: [
         {
-          title: undefined,
+          title: '',
           hasSupportingArtists: false,
-          supportingArtists: undefined,
-          isrc: undefined,
-          artist: undefined,
+          supportingArtists: null,
+          isrc: '',
+          artist: null,
         },
       ],
     },
@@ -259,18 +259,26 @@ export const LabelCreateRelease = () => {
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
           (file): SongFields => {
-            // const song = fields[index];
-            // console.log('*debug* makeFormFromDropzone song', song);
             if (file.name.lastIndexOf('.') !== -1) {
               const titleWithoutExtension = file.name.substring(
                 0,
                 file.name.lastIndexOf('.')
               );
               return {
+                artist: null,
                 title: titleWithoutExtension.trim(),
+                isrc: '',
+                hasSupportingArtists: false,
+                supportingArtists: [],
               };
             } else {
-              return { title: file.name.trim() };
+              return {
+                artist: null,
+                title: file.name.trim(),
+                isrc: '',
+                hasSupportingArtists: false,
+                supportingArtists: [],
+              };
             }
           }
         );
@@ -528,7 +536,7 @@ export const LabelCreateRelease = () => {
                     variant="standard"
                     label="Artist"
                     name={'album.artist'}
-                    helperText={hookForm.errors.album?.artist?.name?.message}
+                    helperText={hookForm.errors.album?.artist?.message}
                     error={hookForm.errors.album?.artist !== undefined}
                   />
                 )}

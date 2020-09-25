@@ -12,8 +12,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { Flex } from 'components';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { ArrayField } from 'react-hook-form/dist/types/form';
+import { ArrayField, Controller, useFormContext } from 'react-hook-form';
 import { Artist } from 'types';
 
 import { SongForUpload } from '../screens/artistCreateRelease';
@@ -64,11 +63,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
   const watchHasSupportingArtists = formContext.watch(
     `songs[${index}].hasSupportingArtists`
   );
-
   const watchVariousArtists = formContext.watch('album.variousArtists');
-
-  console.log('*debug* watchHasSupportingArtists', watchHasSupportingArtists);
-  console.log('*debug* watchVariousArtists', watchVariousArtists);
 
   useEffect(() => {
     setUploadStatusCallback(uploadStatus, index);
@@ -116,10 +111,10 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
               rules={{
                 validate: (value: Artist) =>
                   formContext.getValues('album.variousArtists')
-                    ? value !== undefined || 'Please select an artist'
+                    ? value !== null || 'Please select an artist'
                     : undefined,
               }}
-              // defaultValue={formData.artist} // seems to disable validation
+              defaultValue={formData.artist}
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
@@ -177,7 +172,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
               <Switch
                 inputRef={formContext.register()}
                 name={`songs[${index}].hasSupportingArtists`}
-                // label="Various Artists"
                 id={'various-artists'}
               />
             }
@@ -190,10 +184,10 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
               rules={{
                 validate: (value: Artist[]) =>
                   formContext.getValues(`songs[${index}].hasSupportingArtists`)
-                    ? value !== undefined || 'Please select an artist'
+                    ? value.length > 0 || 'Please select an artist'
                     : undefined,
               }}
-              // defaultValue={formData.supportingArtists}  // seems to disable validation
+              defaultValue={formData.supportingArtists}
               render={(controllerProps) => (
                 <Autocomplete
                   {...controllerProps}
@@ -231,7 +225,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
         <IconButton
           type="submit"
           color="primary"
-          // className={classes.submit}
           onClick={() => removeSong(index)}
         >
           <DeleteIcon />
