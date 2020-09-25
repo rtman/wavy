@@ -455,13 +455,13 @@ export const ArtistCreateRelease = () => {
             {songsForUpload.length > 0 ? (
               <form onSubmit={hookForm.handleSubmit(onSubmit)}>
                 <List>
-                  {fields.map((item, index) => {
+                  {fields.map((data, index) => {
                     return (
                       <SongUploadForm
                         creatorId={id}
                         releaseId={releaseId}
                         songData={songsForUpload[index]}
-                        formData={item}
+                        formData={data}
                         index={index}
                         setUploadStatusCallback={setUploadStatus}
                         removeSong={() => removeSong(index)}

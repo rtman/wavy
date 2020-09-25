@@ -75,9 +75,30 @@ interface Tag {
   title: string;
 }
 
-interface SongInputFields {
-  title: '';
-  supportingArtists: Tag[];
+interface Artist {
+  id: string;
+  name: string;
+  __typename: string;
+}
+
+interface SongFields {
+  artist?: Artist;
+  hasSupportingArtists?: boolean;
+  isrc?: string;
+  supportingArtists?: Artist[];
+  title?: string;
+}
+
+interface AlbumFields {
+  title?: string;
+  artist?: Artist;
+  releaseDate?: Date;
+  variousArtists?: boolean;
+}
+
+interface Form {
+  album: AlbumFields;
+  songs: SongFields[];
 }
 
 export const LabelCreateRelease = () => {
@@ -191,21 +212,27 @@ export const LabelCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const hookForm = useForm({
+  const hookForm = useForm<Form>({
     defaultValues: {
       album: {
-        title: '',
+        title: undefined,
         artist: undefined,
         releaseDate: undefined,
         variousArtists: false,
       },
       songs: [
-        { title: '', supportingArtists: [], isrc: '', artist: undefined },
+        {
+          title: undefined,
+          hasSupportingArtists: false,
+          supportingArtists: [],
+          isrc: undefined,
+          artist: undefined,
+        },
       ],
     },
   });
   const { reset } = hookForm;
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<SongFields>({
     control: hookForm.control,
     name: 'songs',
   });
@@ -225,33 +252,28 @@ export const LabelCreateRelease = () => {
     }
   }, [error, enqueueSnackbar]);
 
-  const getColor = () => {
-    if (isDragAccept) {
-      return '#00e676';
-    }
-    if (isDragReject) {
-      return '#ff1744';
-    }
-    if (isDragActive) {
-      return '#2196f3';
-    }
-    return '#eeeeee';
-  };
-
   useEffect(() => {
     if (acceptedFiles.length > 0) {
+      // console.log('*debug* fields', fields);
+
       const makeFormFromDropzone = () =>
-        acceptedFiles.map((file) => {
-          if (file.name.lastIndexOf('.') !== -1) {
-            const titleWithoutExtension = file.name.substring(
-              0,
-              file.name.lastIndexOf('.')
-            );
-            return { title: titleWithoutExtension.trim() };
-          } else {
-            return { title: file.name.trim() };
+        acceptedFiles.map(
+          (file): SongFields => {
+            // const song = fields[index];
+            // console.log('*debug* makeFormFromDropzone song', song);
+            if (file.name.lastIndexOf('.') !== -1) {
+              const titleWithoutExtension = file.name.substring(
+                0,
+                file.name.lastIndexOf('.')
+              );
+              return {
+                title: titleWithoutExtension.trim(),
+              };
+            } else {
+              return { title: file.name.trim() };
+            }
           }
-        });
+        );
 
       const makeSongsForUpload = () =>
         acceptedFiles.map((file) => {
@@ -506,7 +528,7 @@ export const LabelCreateRelease = () => {
                     variant="standard"
                     label="Artist"
                     name={'album.artist'}
-                    helperText={hookForm.errors.album?.artist?.message}
+                    helperText={hookForm.errors.album?.artist?.name?.message}
                     error={hookForm.errors.album?.artist !== undefined}
                   />
                 )}
@@ -524,18 +546,20 @@ export const LabelCreateRelease = () => {
             {songsForUpload.length > 0 ? (
               <form onSubmit={hookForm.handleSubmit(onSubmit)}>
                 <List>
-                  {fields.map((item, index) => {
+                  {fields.map((data, index) => {
                     return (
-                      <SongUploadForm
-                        creatorId={id}
-                        releaseId={releaseId}
-                        songData={songsForUpload[index]}
-                        formData={item}
-                        index={index}
-                        setUploadStatusCallback={setUploadStatus}
-                        removeSong={() => removeSong(index)}
-                        artists={artistsData?.artists ?? []}
-                      />
+                      <li key={data.id}>
+                        <SongUploadForm
+                          creatorId={id}
+                          releaseId={releaseId}
+                          songData={songsForUpload[index]}
+                          formData={data}
+                          index={index}
+                          setUploadStatusCallback={setUploadStatus}
+                          removeSong={() => removeSong(index)}
+                          artists={artistsData?.artists ?? []}
+                        />
+                      </li>
                     );
                   })}
                 </List>
@@ -567,7 +591,11 @@ export const LabelCreateRelease = () => {
             {/* </Flex> */}
           </>
         ) : (
-          <DropzoneContainer borderColor={getColor()} {...getRootProps({})}>
+          <DropzoneContainer
+            // borderColor={getColor()}
+            borderColor={'#eeee'}
+            {...getRootProps({})}
+          >
             <input {...getInputProps()} />
             <p>Drag 'n' drop some files here</p>
             {fileRejections.length > 0 ? (
@@ -585,6 +613,21 @@ export const LabelCreateRelease = () => {
     </FormProvider>
   );
 };
+
+// Private helpers
+
+// const getColor = () => {
+//   if (isDragAccept) {
+//     return '#00e676';
+//   }
+//   if (isDragReject) {
+//     return '#ff1744';
+//   }
+//   if (isDragActive) {
+//     return '#2196f3';
+//   }
+//   return '#eeeeee';
+// };
 
 // Private Styles
 
