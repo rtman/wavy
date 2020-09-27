@@ -17,7 +17,7 @@ export const PublicRoute = (props: PublicRoute) => {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={() =>
         firebaseUser && signedIn ? (
           <Redirect to={consts.routes.HOME} />
         ) : (

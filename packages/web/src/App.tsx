@@ -19,8 +19,6 @@ export const App = () => {
 
   const { initialising, signedIn, loading } = authContext ?? {};
 
-  console.log('*debug* app authContext', authContext);
-
   // Loading App
   if (initialising || loading) {
     return (

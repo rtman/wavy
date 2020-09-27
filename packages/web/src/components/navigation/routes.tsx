@@ -1,19 +1,14 @@
 import * as consts from 'consts';
 import { AuthContext } from 'context';
 import React, { useContext } from 'react';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import * as screens from 'screens';
+import { UnknownRoute } from 'screens';
 
 import { PrivateRoute } from './privateRoute';
 import { PublicRoute } from './publicRoute';
 
 export const Routes = () => {
-  const authContext = useContext(AuthContext);
-  console.log(
-    'Navigator - authContext.firebaseUser',
-    authContext?.firebaseUser
-  );
-
   return (
     <Switch>
       <PublicRoute
@@ -126,6 +121,9 @@ export const Routes = () => {
       path={`${consts.routes.LABEL_DASHBOARD}/:id?`}
       component={screens.LabelDashboard}
     /> */}
+      <Route path="*">
+        <UnknownRoute />
+      </Route>
     </Switch>
   );
 };

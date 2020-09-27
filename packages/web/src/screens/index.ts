@@ -17,4 +17,5 @@ export * from './playlists';
 export * from './queue';
 export * from './search';
 export * from './signup';
+export * from './unkownRoute';
 export * from './login';

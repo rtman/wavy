@@ -18,7 +18,7 @@ export const PrivateRoute = (props: PrivateRoute) => {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={() =>
         firebaseUser && signedIn ? (
           <Component />
         ) : (

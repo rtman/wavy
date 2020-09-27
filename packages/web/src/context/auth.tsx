@@ -154,7 +154,6 @@ export const AuthProvider: FunctionComponent = (props) => {
 
   // only runs on opening a session that is already has firebaseUser (already loggedin/signednup)
   useEffect(() => {
-    console.log('*debug* running userExistsinTable');
     const userExistsInTable = async () => {
       if (firebaseUser && !signedIn && firstSession) {
         setFirstSession(false);
