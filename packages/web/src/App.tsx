@@ -17,10 +17,10 @@ export const App = () => {
   const authContext = useContext(AuthContext);
   const theme = makeTheme();
 
-  const { initialising, signedIn, loading } = authContext ?? {};
+  const { firebaseInitialising, signedIn, loading } = authContext ?? {};
 
   // Loading App
-  if (initialising || loading) {
+  if (firebaseInitialising || loading) {
     return (
       <Grid
         container={true}
@@ -30,7 +30,7 @@ export const App = () => {
         justify="center"
         style={{ minHeight: '100vh' }}
       >
-        <Grid item xs={3}>
+        <Grid item={true} xs={3}>
           <CircularProgress />
         </Grid>
       </Grid>

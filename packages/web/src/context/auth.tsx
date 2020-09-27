@@ -24,7 +24,7 @@ import { SignUpForm } from 'screens/signup';
 
 interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
-  initialising: boolean;
+  firebaseInitialising: boolean;
   loading: boolean;
   error: firebase.auth.Error | ApolloError | GraphQLError | undefined;
   signup: (data: SignUpForm) => Promise<void>;
@@ -38,7 +38,7 @@ export const AuthContext = createContext<AuthContextProps | undefined>(
 );
 
 export const AuthProvider: FunctionComponent = (props) => {
-  const [firebaseUser, initialising] = useAuthState(firebase.auth());
+  const [firebaseUser, firebaseInitialising] = useAuthState(firebase.auth());
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<
     firebase.auth.Error | ApolloError | GraphQLError | undefined
@@ -168,14 +168,24 @@ export const AuthProvider: FunctionComponent = (props) => {
       }
     };
 
+    if (!firebaseInitialising && firebaseUser === null && !signedIn) {
+      setLoading(false);
+    }
     userExistsInTable();
-  }, [firebaseUser, signedIn, apolloClient, userIdExists, firstSession]);
+  }, [
+    firebaseInitialising,
+    firebaseUser,
+    signedIn,
+    apolloClient,
+    userIdExists,
+    firstSession,
+  ]);
 
   return (
     <AuthContext.Provider
       value={{
         firebaseUser,
-        initialising,
+        firebaseInitialising,
         loading,
         error,
         signup,
