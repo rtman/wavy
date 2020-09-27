@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import MomentUtils from '@date-io/moment';
 import {
   Button,
   CircularProgress,
@@ -8,6 +9,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+  CreateAlbumArgs,
+  Mutation,
+  MutationAddSongsToAlbumArgs,
+  MutationCreateAlbumArgs,
+  NewAlbumForm,
+  NewSongArgs,
+  Query,
+  SongFields,
+  SongForUpload,
+} from 'commonTypes';
 import {
   FileUploadButton,
   // Flex,
@@ -18,9 +31,9 @@ import * as consts from 'consts';
 import { UserContext } from 'context';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
+import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import DatePicker from 'react-date-picker';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -30,14 +43,6 @@ import {
 } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
-import {
-  CreateAlbumArgs,
-  Mutation,
-  MutationAddSongsToAlbumArgs,
-  MutationCreateAlbumArgs,
-  NewSongArgs,
-  Query,
-} from 'types';
 import { uuid } from 'uuidv4';
 
 import { DropzoneContainer } from './styles';
@@ -61,22 +66,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
-export interface SongForUpload {
-  title: string;
-  storagePath?: string;
-  file: File;
-}
-
-export interface Tag {
-  id: string;
-  title: string;
-}
-
-export interface SongInputFields {
-  title: '';
-  supportingArtists: Tag[];
-}
 
 export const ArtistCreateRelease = () => {
   const history = useHistory();
@@ -173,18 +162,27 @@ export const ArtistCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const hookForm = useForm({
+  const hookForm = useForm<NewAlbumForm>({
     defaultValues: {
       album: {
         title: '',
-        artist: undefined,
-        releaseDate: undefined,
+        artist: null,
+        releaseDate: null,
+        variousArtists: false,
       },
-      songs: [{ title: '', supportingArtists: [], isrc: '' }],
+      songs: [
+        {
+          title: '',
+          hasSupportingArtists: false,
+          supportingArtists: null,
+          isrc: '',
+          artist: null,
+        },
+      ],
     },
   });
   const { reset } = hookForm;
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<SongFields>({
     control: hookForm.control,
     name: 'songs',
   });
@@ -218,17 +216,18 @@ export const ArtistCreateRelease = () => {
   useEffect(() => {
     if (acceptedFiles.length > 0) {
       const makeFormFromDropzone = () =>
-        acceptedFiles.map((file) => {
-          if (file.name.lastIndexOf('.') !== -1) {
-            const titleWithoutExtension = file.name.substring(
-              0,
-              file.name.lastIndexOf('.')
-            );
-            return { title: titleWithoutExtension.trim() };
-          } else {
-            return { title: file.name.trim() };
-          }
-        });
+        acceptedFiles.map(
+          (file): SongFields => ({
+            artist: null,
+            title:
+              file.name.lastIndexOf('.') !== -1
+                ? file.name.substring(0, file.name.lastIndexOf('.'))
+                : file.name.trim(),
+            isrc: '',
+            hasSupportingArtists: false,
+            supportingArtists: [],
+          })
+        );
 
       const makeSongsForUpload = () =>
         acceptedFiles.map((file) => {
@@ -438,19 +437,33 @@ export const ArtistCreateRelease = () => {
               error={hookForm.errors.album?.title !== undefined}
             />
 
-            <Controller
-              as={DatePicker}
-              control={hookForm.control}
-              onChange={(selected: Date | Date[]) => selected}
-              name="album.releaseDate"
-              className="input"
-              rules={{
-                validate: {
-                  noDate: (value: Date | Date[]) =>
-                    value !== undefined || 'Please select a date',
-                },
-              }}
-            />
+            <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+              <Controller
+                as={
+                  <DatePicker
+                    disableFuture={true}
+                    openTo="year"
+                    format="dd/MM/yyyy"
+                    label="Release Date"
+                    views={['year', 'month', 'date']}
+                    helperText={hookForm.errors.album?.releaseDate?.message}
+                    error={hookForm.errors.album?.releaseDate !== undefined}
+                    value={undefined}
+                    onChange={() => null}
+                  />
+                }
+                rules={{
+                  validate: {
+                    nonEmpty: (value: Date | null) =>
+                      value !== null || 'Please select a release date',
+                  },
+                }}
+                control={hookForm.control}
+                value="album.releaseDate"
+                name="album.releaseDate"
+                placeholder="Release Date"
+              />
+            </MuiPickersUtilsProvider>
 
             {songsForUpload.length > 0 ? (
               <form onSubmit={hookForm.handleSubmit(onSubmit)}>

@@ -1,4 +1,5 @@
 import { SongWithAudio } from 'commonTypes';
+import { Song } from 'commonTypes';
 import * as helpers from 'helpers';
 import React, {
   createContext,
@@ -6,7 +7,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { Song } from 'types';
 
 interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;

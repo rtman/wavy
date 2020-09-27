@@ -15,21 +15,16 @@ export const PrivateRoute = (props: PrivateRoute) => {
 
   const { firebaseUser, signedIn } = authContext ?? {};
 
-  const renderComponent = () => {
-    return Component ? <Component /> : undefined;
-  };
-
-  const doRoute = () => {
-    if (firebaseUser && signedIn) {
-      if ([consts.routes.SIGN_UP, consts.routes.LOG_IN].includes(props.path)) {
-        return <Redirect to={consts.routes.HOME} />;
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        firebaseUser && signedIn ? (
+          <Component />
+        ) : (
+          <Redirect to={consts.routes.LOG_IN} />
+        )
       }
-
-      return <Route {...rest} render={renderComponent} />;
-    } else {
-      return <Redirect to={consts.routes.LOG_IN} />;
-    }
-  };
-
-  return doRoute();
+    />
+  );
 };

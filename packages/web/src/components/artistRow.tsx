@@ -8,12 +8,12 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
+import { Artist, UpdateFollowingType } from 'commonTypes';
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Artist, UpdateFollowingType } from 'types';
 
 interface ArtistRowProps {
   artist: Artist;

@@ -1,5 +1,10 @@
 import { useMutation } from '@apollo/react-hooks';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
+import {
+  Mutation,
+  MutationUpdateSongPlayCountArgs,
+  MutationUserPlayedSongArgs,
+} from 'commonTypes';
 import { ProgressBar } from 'components';
 import { RowContainer, StyledButton } from 'components';
 import * as consts from 'consts';
@@ -7,11 +12,6 @@ import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Mutation,
-  MutationUpdateSongPlayCountArgs,
-  MutationUserPlayedSongArgs,
-} from 'types';
 
 import { SongArtist, SongInfoContainer, SongTitle } from './styles';
 

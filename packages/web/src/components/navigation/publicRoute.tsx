@@ -6,7 +6,7 @@ import { Redirect, Route } from 'react-router-dom';
 interface PublicRoute {
   exact: boolean;
   path: string;
-  component?: FunctionComponent;
+  component: FunctionComponent;
 }
 
 export const PublicRoute = (props: PublicRoute) => {
@@ -14,20 +14,16 @@ export const PublicRoute = (props: PublicRoute) => {
   const authContext = useContext(AuthContext);
   const { firebaseUser, signedIn } = authContext ?? {};
 
-  const renderComponent = () => {
-    return Component ? <Component /> : undefined;
-  };
-
-  const doRoute = () => {
-    if (firebaseUser && signedIn) {
-      return <Redirect to={consts.routes.HOME} />;
-    } else {
-      if (props.path === consts.routes.ROOT) {
-        return <Redirect to={consts.routes.LOG_IN} />;
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        firebaseUser && signedIn ? (
+          <Redirect to={consts.routes.HOME} />
+        ) : (
+          <Component />
+        )
       }
-      return <Route {...rest} render={renderComponent} />;
-    }
-  };
-
-  return doRoute();
+    />
+  );
 };

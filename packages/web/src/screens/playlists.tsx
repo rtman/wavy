@@ -12,16 +12,16 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
-import * as consts from 'consts';
-import { UserContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
 import {
   Mutation,
   MutationCreatePlaylistArgs,
   Query,
   QueryPlaylistsByUserIdArgs,
-} from 'types';
+} from 'commonTypes';
+import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
+import * as consts from 'consts';
+import { UserContext } from 'context';
+import React, { useContext, useEffect, useState } from 'react';
 
 export const Playlists = () => {
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);

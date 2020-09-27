@@ -13,12 +13,12 @@ import {
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AlbumIcon from '@material-ui/icons/Album';
+import { Artist as ArtistType, QueryArtistByIdArgs } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Artist as ArtistType, QueryArtistByIdArgs } from 'types';
 
 interface ArtistByIdData {
   artistById: ArtistType;

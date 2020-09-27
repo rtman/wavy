@@ -8,6 +8,14 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
+  Album,
+  Artist as ArtistType,
+  Query,
+  QueryArtistByIdArgs,
+  Song,
+  UpdateFollowingType,
+} from 'commonTypes';
+import {
   AlbumWithSongs,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
@@ -20,14 +28,6 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  Album,
-  Artist as ArtistType,
-  Query,
-  QueryArtistByIdArgs,
-  Song,
-  UpdateFollowingType,
-} from 'types';
 
 export const Artist = () => {
   const { id } = useParams();

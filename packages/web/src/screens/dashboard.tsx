@@ -5,11 +5,11 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
+import { UserArtist, UserLabel } from 'commonTypes';
 import { ArtistRow, Flex, LabelRow, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { UserArtist, UserLabel } from 'types';
 
 export const Dashboard = () => {
   const userContext = useContext(UserContext);

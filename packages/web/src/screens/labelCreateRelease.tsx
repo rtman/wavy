@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import MomentUtils from '@date-io/moment';
 import {
   Button,
   CircularProgress,
@@ -10,8 +11,21 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
-import { Autocomplete } from '@material-ui/lab';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
+  Artist,
+  CreateAlbumArgs,
+  Mutation,
+  MutationAddSongsToAlbumArgs,
+  MutationCreateAlbumArgs,
+  NewAlbumForm,
+  NewSongArgs,
+  Query,
+  SongFields,
+  SongForUpload,
+} from 'commonTypes';
+import {
+  Autocomplete,
   FileUploadButton,
   // Flex,
   SongUploadForm,
@@ -21,9 +35,9 @@ import * as consts from 'consts';
 import { UserContext } from 'context';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
+import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import DatePicker from 'react-date-picker';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -34,14 +48,6 @@ import {
 import ImageUploader from 'react-images-upload';
 import { useHistory, useParams } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
-import {
-  CreateAlbumArgs,
-  Mutation,
-  MutationAddSongsToAlbumArgs,
-  MutationCreateAlbumArgs,
-  NewSongArgs,
-  Query,
-} from 'types';
 import { uuid } from 'uuidv4';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,43 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface SongForUpload {
-  title: string;
-  storagePath?: string;
-  file: File;
-}
-
-interface Tag {
-  id: string;
-  title: string;
-}
-
-interface Artist {
-  id: string;
-  name: string;
-  __typename: string;
-}
-
-interface SongFields {
-  artist: Artist | null;
-  hasSupportingArtists: boolean;
-  isrc: string;
-  supportingArtists: Artist[] | null;
-  title: string;
-}
-
-interface AlbumFields {
-  title: string;
-  artist: Artist | null;
-  releaseDate: Date;
-  variousArtists: boolean;
-}
-
-interface Form {
-  album: AlbumFields;
-  songs: SongFields[];
-}
-
 export const LabelCreateRelease = () => {
   const history = useHistory();
   const { id } = useParams();
@@ -112,22 +81,6 @@ export const LabelCreateRelease = () => {
   const [releaseId, setReleaseId] = useState<string>('');
   // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
-  const [inputValue, setInputValue] = useState<string>('');
-  const [artistAutocompleteOpen, setArtistAutoCompleteOpen] = useState<boolean>(
-    false
-  );
-  const handleOpenArtistAutocomplete = () =>
-    inputValue.length > 1 ? setArtistAutoCompleteOpen(true) : null;
-
-  const handleInputChange = (
-    _event: React.ChangeEvent<{}>,
-    newInputValue: string
-  ) => {
-    setInputValue(newInputValue);
-    newInputValue.length > 1
-      ? setArtistAutoCompleteOpen(true)
-      : setArtistAutoCompleteOpen(false);
-  };
 
   const {
     loading: artistsLoading,
@@ -212,12 +165,12 @@ export const LabelCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const hookForm = useForm<Form>({
+  const hookForm = useForm<NewAlbumForm>({
     defaultValues: {
       album: {
         title: '',
         artist: null,
-        releaseDate: new Date(),
+        releaseDate: null,
         variousArtists: false,
       },
       songs: [
@@ -254,33 +207,18 @@ export const LabelCreateRelease = () => {
 
   useEffect(() => {
     if (acceptedFiles.length > 0) {
-      // console.log('*debug* fields', fields);
-
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
-          (file): SongFields => {
-            if (file.name.lastIndexOf('.') !== -1) {
-              const titleWithoutExtension = file.name.substring(
-                0,
-                file.name.lastIndexOf('.')
-              );
-              return {
-                artist: null,
-                title: titleWithoutExtension.trim(),
-                isrc: '',
-                hasSupportingArtists: false,
-                supportingArtists: [],
-              };
-            } else {
-              return {
-                artist: null,
-                title: file.name.trim(),
-                isrc: '',
-                hasSupportingArtists: false,
-                supportingArtists: [],
-              };
-            }
-          }
+          (file): SongFields => ({
+            artist: null,
+            title:
+              file.name.lastIndexOf('.') !== -1
+                ? file.name.substring(0, file.name.lastIndexOf('.'))
+                : file.name.trim(),
+            isrc: '',
+            hasSupportingArtists: false,
+            supportingArtists: [],
+          })
         );
 
       const makeSongsForUpload = () =>
@@ -296,9 +234,6 @@ export const LabelCreateRelease = () => {
     }
   }, [acceptedFiles, reset]);
 
-  // TODO: fix issue with changing index number, restarting/bugging out upload
-  // if you remove an element anywhere but the end of the array it assigns a different index to the
-  // child components this seems to re mount the component (or restart the process).
   const removeSong = (index: number) => {
     if (uploadStatuses[index]) {
       const upload = uploadStatuses[index];
@@ -448,7 +383,6 @@ export const LabelCreateRelease = () => {
   return (
     <FormProvider {...hookForm}>
       <Container>
-        {/* <Flex flexDirection="column"> */}
         <Spacing.section.Minor />
         <Typography variant="h1">New Release</Typography>
 
@@ -482,7 +416,6 @@ export const LabelCreateRelease = () => {
                   message: 'Enter at least 2 characters',
                 },
               })}
-              // defaultValue={`${item.title}`}
               variant="outlined"
               margin="normal"
               fullWidth={true}
@@ -498,7 +431,6 @@ export const LabelCreateRelease = () => {
                 <Switch
                   inputRef={hookForm.register()}
                   name={'album.variousArtists'}
-                  // label="Various Artists"
                   id={'various-artists'}
                 />
               }
@@ -507,16 +439,9 @@ export const LabelCreateRelease = () => {
 
             {watchVariousArtists ? null : (
               <Autocomplete
-                id="album-artist"
                 options={artistsData?.artists ?? []}
                 getOptionLabel={(option) => option.name ?? ''}
-                open={artistAutocompleteOpen}
-                onOpen={handleOpenArtistAutocomplete}
-                onClose={() => setArtistAutoCompleteOpen(false)}
-                inputValue={inputValue}
-                onInputChange={handleInputChange}
                 filterSelectedOptions={true}
-                // defaultValue={}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -525,34 +450,54 @@ export const LabelCreateRelease = () => {
                       !hookForm.getValues('album.variousArtists')
                         ? hookForm.register({
                             required: 'Required',
-                            // validate: {
-                            //   notEmpty: (value: Artist) =>
-                            //     value !== undefined ||
-                            //     'Please select an artist',
-                            // },
+                            validate: {
+                              notEmpty: (value: Artist) =>
+                                value !== null || 'Please select an artist',
+                            },
                           })
                         : undefined
                     }
                     variant="standard"
                     label="Artist"
-                    name={'album.artist'}
+                    name="album.artist"
+                    id="album-artist"
                     helperText={hookForm.errors.album?.artist?.message}
                     error={hookForm.errors.album?.artist !== undefined}
                   />
                 )}
               />
             )}
-
-            <Controller
-              as={DatePicker}
-              control={hookForm.control}
-              onChange={(selected: Date | Date[]) => selected}
-              name="album.releaseDate"
-              className="input"
-            />
+            <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+              <Controller
+                as={
+                  <DatePicker
+                    disableFuture={true}
+                    openTo="year"
+                    format="DD/MM/yyyy"
+                    label="Release Date"
+                    views={['year', 'month', 'date']}
+                    helperText={hookForm.errors.album?.releaseDate?.message}
+                    error={hookForm.errors.album?.releaseDate !== undefined}
+                    value={undefined}
+                    onChange={() => null}
+                    placeholder="Release Date"
+                  />
+                }
+                rules={{
+                  validate: {
+                    nonEmpty: (value: Date | null) =>
+                      value !== null || 'Please select a release date',
+                  },
+                }}
+                control={hookForm.control}
+                defaultValue="album.releaseDate"
+                value="album.releaseDate"
+                name="album.releaseDate"
+              />
+            </MuiPickersUtilsProvider>
 
             {songsForUpload.length > 0 ? (
-              <form onSubmit={hookForm.handleSubmit(onSubmit)}>
+              <>
                 <List>
                   {fields.map((data, index) => {
                     return (
@@ -594,9 +539,8 @@ export const LabelCreateRelease = () => {
                     <Typography variant="body2">Submit</Typography>
                   )}
                 </Button>
-              </form>
+              </>
             ) : null}
-            {/* </Flex> */}
           </>
         ) : (
           <DropzoneContainer
@@ -605,7 +549,7 @@ export const LabelCreateRelease = () => {
             {...getRootProps({})}
           >
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here</p>
+            <p>Drag 'n' drop audio files here</p>
             {fileRejections.length > 0 ? (
               <Typography variant="body1">
                 Some files were rejected, please check you are submitting audio

@@ -10,6 +10,12 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Album as AlbumType,
+  Query,
+  QueryAlbumByIdArgs,
+  Song,
+} from 'commonTypes';
+import {
   ItemCard,
   ProfileHeaderImage,
   ProfileHeaderImageContainer,
@@ -23,7 +29,6 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Album as AlbumType, Query, QueryAlbumByIdArgs, Song } from 'types';
 
 const useStyles = makeStyles(() => ({
   gridList: {

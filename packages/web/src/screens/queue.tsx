@@ -6,11 +6,11 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
+import { Query, QuerySongsByIdArgs, Song } from 'commonTypes';
 import { Screen, SongRow, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Query, QuerySongsByIdArgs, Song } from 'types';
 
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);

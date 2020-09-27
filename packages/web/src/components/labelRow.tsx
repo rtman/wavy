@@ -9,12 +9,12 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
+import { Label, Query, QueryLabelByIdArgs } from 'commonTypes';
 import { StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Label, Query, QueryLabelByIdArgs } from 'types';
 
 interface LabelRowProps {
   label: Label;

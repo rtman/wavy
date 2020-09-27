@@ -9,6 +9,15 @@ import {
   Tabs,
 } from '@material-ui/core';
 import {
+  Album,
+  Artist,
+  Label,
+  Playlist,
+  Query,
+  QuerySearchAllArgs,
+  Song,
+} from 'commonTypes';
+import {
   AlbumRow,
   ArtistRow,
   LabelRow,
@@ -20,15 +29,6 @@ import {
 import * as consts from 'consts';
 import { SearchContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Album,
-  Artist,
-  Label,
-  Playlist,
-  Query,
-  QuerySearchAllArgs,
-  Song,
-} from 'types';
 
 const useStyles = makeStyles({
   root: {

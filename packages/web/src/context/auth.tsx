@@ -2,6 +2,12 @@ import 'firebase/auth';
 
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-boost';
+import {
+  Mutation,
+  MutationCreateUserArgs,
+  Query,
+  QueryUserIdExistsArgs,
+} from 'commonTypes';
 import * as consts from 'consts';
 import firebase from 'firebase';
 import { GraphQLError } from 'graphql';
@@ -15,12 +21,6 @@ import React, {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginForm } from 'screens/login';
 import { SignUpForm } from 'screens/signup';
-import {
-  Mutation,
-  MutationCreateUserArgs,
-  Query,
-  QueryUserIdExistsArgs,
-} from 'types';
 
 interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
@@ -39,7 +39,7 @@ export const AuthContext = createContext<AuthContextProps | undefined>(
 
 export const AuthProvider: FunctionComponent = (props) => {
   const [firebaseUser, initialising] = useAuthState(firebase.auth());
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<
     firebase.auth.Error | ApolloError | GraphQLError | undefined
   >(undefined);
@@ -154,6 +154,7 @@ export const AuthProvider: FunctionComponent = (props) => {
 
   // only runs on opening a session that is already has firebaseUser (already loggedin/signednup)
   useEffect(() => {
+    console.log('*debug* running userExistsinTable');
     const userExistsInTable = async () => {
       if (firebaseUser && !signedIn && firstSession) {
         setFirstSession(false);

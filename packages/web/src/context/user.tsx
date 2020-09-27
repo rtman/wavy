@@ -1,14 +1,4 @@
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
-import * as consts from 'consts';
-import React, {
-  createContext,
-  FunctionComponent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import * as services from 'services';
 import {
   Mutation,
   MutationAddPlaylistSongsArgs,
@@ -20,7 +10,17 @@ import {
   UpdateFollowingArgs,
   User,
   UserPlaylist,
-} from 'types';
+} from 'commonTypes';
+import * as consts from 'consts';
+import React, {
+  createContext,
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import * as services from 'services';
 
 import { AuthContext } from './auth';
 

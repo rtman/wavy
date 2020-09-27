@@ -12,6 +12,14 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
+  Mutation,
+  MutationUpdatePlaylistInfoArgs,
+  Query,
+  QueryPlaylistByIdArgs,
+  SongPlaylist,
+  UpdateFollowingType,
+} from 'commonTypes';
+import {
   ContentContainer,
   ProfileContainer,
   ProfileHeaderImage,
@@ -26,14 +34,6 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  Mutation,
-  MutationUpdatePlaylistInfoArgs,
-  Query,
-  QueryPlaylistByIdArgs,
-  SongPlaylist,
-  UpdateFollowingType,
-} from 'types';
 
 export const Playlist = () => {
   const { id } = useParams();

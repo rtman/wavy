@@ -8,14 +8,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Autocomplete } from '@material-ui/lab';
-import { Flex } from 'components';
+import { Artist, SongFields, SongForUpload } from 'commonTypes';
+import { Autocomplete, Flex } from 'components';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
-import { Artist } from 'types';
-
-import { SongForUpload } from '../screens/artistCreateRelease';
 
 interface SongUploadFormProps {
   artists?: Artist[];
@@ -23,7 +20,7 @@ interface SongUploadFormProps {
   releaseId: string;
   songData: SongForUpload;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formData: Partial<ArrayField<Record<string, any>, 'id'>>;
+  formData: Partial<ArrayField<SongFields, 'id'>>;
   index: number;
   setUploadStatusCallback: (
     uploadStatus: helpers.hooks.UploadStatus,
@@ -154,7 +151,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
             fullWidth={true}
             name={`songs[${index}].isrc`}
             label="ISRC"
-            id={'isrc'}
+            id={`isrc-${index}`}
             control={formContext.control}
             defaultValue={formData.isrc}
             rules={{
@@ -167,7 +164,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
 
           <FormControlLabel
             label="Supporting Artists"
-            defaultValue={formData.hasSupportingArtists}
             control={
               <Switch
                 inputRef={formContext.register()}

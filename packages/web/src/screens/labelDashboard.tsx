@@ -13,12 +13,12 @@ import {
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AlbumIcon from '@material-ui/icons/Album';
+import { Label as LabelType, Query, QueryLabelByIdArgs } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Label as LabelType, Query, QueryLabelByIdArgs } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

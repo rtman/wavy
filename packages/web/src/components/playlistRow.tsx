@@ -14,7 +14,7 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Playlist, Query, QueryPlaylistByIdArgs } from 'types';
+import { Playlist, Query, QueryPlaylistByIdArgs } from 'commonTypes';
 
 interface PlaylistRowProps {
   playlist: Playlist;

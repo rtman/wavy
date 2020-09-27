@@ -6,11 +6,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Artist, Label, Playlist, Query, Song } from 'commonTypes';
 import { ItemCard, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
-import { Artist, Label, Playlist, Query, Song } from 'types';
 
 type Item = Artist | Label | Song | Playlist;
 

@@ -6,6 +6,7 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
+import { Query, QueryLabelByIdArgs, UpdateFollowingType } from 'commonTypes';
 import {
   AlbumRow,
   ArtistRow,
@@ -22,7 +23,6 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Query, QueryLabelByIdArgs, UpdateFollowingType } from 'types';
 
 export const Label = () => {
   const { id } = useParams();

@@ -16,7 +16,11 @@ export const Routes = () => {
 
   return (
     <Switch>
-      <PublicRoute exact={true} path={consts.routes.ROOT} />
+      <PublicRoute
+        exact={true}
+        path={consts.routes.ROOT}
+        component={screens.Login}
+      />
       <PublicRoute
         exact={true}
         path={consts.routes.LOG_IN}
