@@ -1,7 +1,9 @@
 export * from './album';
 export * from './artist';
-export * from './label';
+// export * from './artistArtistConnections';
 export * from './artistLabel';
+export * from './label';
+export * from './labelArtistConnections';
 export * from './playlist';
 export * from './user';
 export * from './userArtist';

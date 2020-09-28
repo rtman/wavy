@@ -130,6 +130,10 @@ export class ArtistResolvers {
             'usersFollowing.user',
             'users',
             'users.user',
+            'artistConnections',
+            // 'artistConnections.artist',
+            'labelConnections',
+            'labelConnections.label',
           ],
         });
 

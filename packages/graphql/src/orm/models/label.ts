@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -10,6 +11,7 @@ import {
 
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
+import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
 import { UserLabel } from './userLabel';
 import { UserLabelFollowing } from './userLabelFollowing';
@@ -88,9 +90,20 @@ export class Label {
   )
   usersFollowing: UserLabelFollowing[];
 
+  @Field(() => [LabelArtistConnections], { nullable: true })
+  @OneToMany(
+    () => LabelArtistConnections,
+    (labelArtistConnections) => labelArtistConnections.label
+  )
+  artistConnections: LabelArtistConnections[];
+
   @Field(() => Number)
   @Column({ default: 0 })
   followers: number;
+
+  @Field(() => ID)
+  @Generated('uuid')
+  connectionCode: string;
 
   @Field(() => Date)
   @CreateDateColumn()

@@ -119,6 +119,8 @@ export class LabelResolvers {
             'songs.supportingArtists.artist',
             'songs.usersFavourited',
             'songs.usersFavourited.user',
+            'artistConnections',
+            'artistConnections.artist',
             // 'songs.usersRecentlyPlayed',
             // 'songs.usersRecentlyPlayed.user',
           ],

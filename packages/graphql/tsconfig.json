@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "baseUrl": "./src",
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,

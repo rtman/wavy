@@ -3,13 +3,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { Album } from './album';
+// import { ArtistArtistConnections } from './artistArtistConnections';
 import { ArtistLabel } from './artistLabel';
+import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { UserArtist } from './userArtist';
@@ -99,6 +105,43 @@ export class Artist {
     (userArtist) => userArtist.artist
   )
   users: UserArtist[];
+
+  // @Field(() => [ArtistArtistConnections], { nullable: true })
+  // @OneToMany(
+  //   () => ArtistArtistConnections,
+  //   (artistArtistConnections) => artistArtistConnections.artist
+  // )
+  // artistConnections: Artist[];
+
+  // @Field(() => Artist, { nullable: true })
+  // @ManyToOne(
+  //   () => Artist,
+  //   (artist) => artist.artistConnections
+  // )
+  // parent: Artist;
+
+  // @Field(() => [Artist], { nullable: true })
+  // @OneToMany(
+  //   () => Artist,
+  //   (artist) => artist.parent
+  // )
+  // artistConnections: Artist[];
+
+  // @Field(() => [Artist])
+  // @ManyToMany(() => Artist)
+  // @JoinTable()
+  // artistConnections: Artist[];
+
+  @Field(() => [LabelArtistConnections], { nullable: true })
+  @OneToMany(
+    () => LabelArtistConnections,
+    (labelArtistConnections) => labelArtistConnections.artist
+  )
+  labelConnections: LabelArtistConnections[];
+
+  @Field(() => ID)
+  @Generated('uuid')
+  connectionCode: string;
 
   @Field(() => Date)
   @CreateDateColumn()
