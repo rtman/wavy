@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,6 +12,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 import { Album } from './album';
 // import { ArtistArtistConnections } from './artistArtistConnections';
@@ -106,31 +108,18 @@ export class Artist {
   )
   users: UserArtist[];
 
-  // @Field(() => [ArtistArtistConnections], { nullable: true })
-  // @OneToMany(
-  //   () => ArtistArtistConnections,
-  //   (artistArtistConnections) => artistArtistConnections.artist
-  // )
-  // artistConnections: Artist[];
-
-  // @Field(() => Artist, { nullable: true })
-  // @ManyToOne(
-  //   () => Artist,
-  //   (artist) => artist.artistConnections
-  // )
-  // parent: Artist;
-
-  // @Field(() => [Artist], { nullable: true })
-  // @OneToMany(
-  //   () => Artist,
-  //   (artist) => artist.parent
-  // )
-  // artistConnections: Artist[];
-
-  // @Field(() => [Artist])
-  // @ManyToMany(() => Artist)
-  // @JoinTable()
-  // artistConnections: Artist[];
+  // this is a special case, self referencing relation. It requires each entry to be inserted twice, artistId1 => 1, artistId2 => 2 and artistId1 => 2, artistId2 =>2. This is to ensure a bi directional relation.
+  @Field(() => [Artist], { nullable: true })
+  @ManyToMany(
+    () => Artist,
+    (artist) => artist.artistConnections
+  )
+  @JoinTable({
+    name: 'artistArtistConnections',
+    joinColumn: { name: 'primaryId' },
+    inverseJoinColumn: { name: 'connectionId' },
+  })
+  artistConnections: Artist[];
 
   @Field(() => [LabelArtistConnections], { nullable: true })
   @OneToMany(
@@ -140,8 +129,14 @@ export class Artist {
   labelConnections: LabelArtistConnections[];
 
   @Field(() => ID)
-  @Generated('uuid')
+  @Column({ nullable: true })
   connectionCode: string;
+
+  // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm. If I move to typeorm migration this may work
+  // @BeforeInsert()
+  // generateConnectionCode() {
+  //   this.connectionCode = uuid();
+  // }
 
   @Field(() => Date)
   @CreateDateColumn()

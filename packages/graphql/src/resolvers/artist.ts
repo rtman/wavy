@@ -131,7 +131,6 @@ export class ArtistResolvers {
             'users',
             'users.user',
             'artistConnections',
-            // 'artistConnections.artist',
             'labelConnections',
             'labelConnections.label',
           ],

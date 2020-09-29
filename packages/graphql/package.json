@@ -63,6 +63,7 @@
     "graphql-import": "^0.7.1",
     "graphql-import-node": "^0.0.4",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "uuidv4": "^6.2.3"
   }
 }
