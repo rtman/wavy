@@ -167,18 +167,26 @@ export const ArtistCreateRelease = () => {
   const hookForm = useForm<NewAlbumForm>({
     defaultValues: {
       album: {
-        title: '',
+        // TODO: For artist creating release their own artist info should be default
         artist: null,
+        newArtistEmail: '',
+        newArtistName: '',
+        isNewArtist: false,
         releaseDate: null,
+        title: '',
         variousArtists: false,
       },
       songs: [
         {
-          title: '',
-          hasSupportingArtists: false,
-          supportingArtists: null,
-          isrc: '',
+          // TODO: For artist creating release their own artist info should be default
           artist: null,
+          newArtistEmail: '',
+          newArtistName: '',
+          hasSupportingArtists: false,
+          isNewArtist: false,
+          isrc: '',
+          title: '',
+          supportingArtists: null,
         },
       ],
     },
@@ -221,13 +229,16 @@ export const ArtistCreateRelease = () => {
         acceptedFiles.map(
           (file): SongFields => ({
             artist: null,
+            newArtistEmail: '',
+            newArtistName: '',
+            hasSupportingArtists: false,
+            isNewArtist: false,
+            isrc: '',
+            supportingArtists: [],
             title:
               file.name.lastIndexOf('.') !== -1
                 ? file.name.substring(0, file.name.lastIndexOf('.'))
                 : file.name.trim(),
-            isrc: '',
-            hasSupportingArtists: false,
-            supportingArtists: [],
           })
         );
 

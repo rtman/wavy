@@ -10,9 +10,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
+  AlbumFields,
   Artist,
   CreateAlbumArgs,
   Mutation,
@@ -25,7 +27,7 @@ import {
   SongForUpload,
 } from 'commonTypes';
 import {
-  Autocomplete,
+  // Autocomplete,
   FileUploadButton,
   // Flex,
   SongUploadForm,
@@ -170,18 +172,24 @@ export const LabelCreateRelease = () => {
   const hookForm = useForm<NewAlbumForm>({
     defaultValues: {
       album: {
-        title: '',
         artist: null,
+        newArtistEmail: '',
+        newArtistName: '',
+        isNewArtist: false,
         releaseDate: null,
+        title: '',
         variousArtists: false,
       },
       songs: [
         {
-          title: '',
-          hasSupportingArtists: false,
-          supportingArtists: null,
-          isrc: '',
           artist: null,
+          newArtistEmail: '',
+          newArtistName: '',
+          hasSupportingArtists: false,
+          isNewArtist: false,
+          isrc: '',
+          title: '',
+          supportingArtists: null,
         },
       ],
     },
@@ -192,7 +200,12 @@ export const LabelCreateRelease = () => {
     name: 'songs',
   });
 
-  const watchVariousArtists = hookForm.watch('album.variousArtists');
+  const watchVariousArtists: AlbumFields['artist'] = hookForm.watch(
+    'album.artist'
+  );
+  const watchIsNewArtist: AlbumFields['isNewArtist'] = hookForm.watch(
+    'album.isNewArtist'
+  );
 
   useEffect(() => {
     setReleaseId(uuid());
@@ -213,13 +226,16 @@ export const LabelCreateRelease = () => {
         acceptedFiles.map(
           (file): SongFields => ({
             artist: null,
+            newArtistEmail: '',
+            newArtistName: '',
+            hasSupportingArtists: false,
+            isNewArtist: false,
+            isrc: '',
+            supportingArtists: [],
             title:
               file.name.lastIndexOf('.') !== -1
                 ? file.name.substring(0, file.name.lastIndexOf('.'))
                 : file.name.trim(),
-            isrc: '',
-            hasSupportingArtists: false,
-            supportingArtists: [],
           })
         );
 
@@ -381,6 +397,8 @@ export const LabelCreateRelease = () => {
   console.log('*debug* songsForUpload', songsForUpload);
 
   console.log('*debug* formErrors', hookForm.errors);
+  console.log('*debug* watchVariousArtists', watchVariousArtists);
+  console.log('*debug* watchIsNewArtist', watchIsNewArtist);
 
   const artistData = (labelByIdData?.labelById.artistConnections ?? []).map(
     (artistConnectionInstance) => artistConnectionInstance.artist
@@ -432,47 +450,95 @@ export const LabelCreateRelease = () => {
               error={hookForm.errors.album?.title !== undefined}
             />
 
-            <FormControlLabel
-              control={
-                <Switch
-                  inputRef={hookForm.register()}
-                  name={'album.variousArtists'}
-                  id={'various-artists'}
+            {watchVariousArtists?.name === 'Various Artists' ? null : (
+              <FormControlLabel
+                label="New Artist"
+                control={
+                  <Switch
+                    inputRef={hookForm.register()}
+                    name={'album.isNewArtist'}
+                    id={'new-artist'}
+                  />
+                }
+              />
+            )}
+            {watchIsNewArtist ? (
+              <>
+                <TextField
+                  inputRef={hookForm.register({
+                    required: {
+                      value: true,
+                      message: 'Required',
+                    },
+                    minLength: {
+                      value: 2,
+                      message: 'Enter at least 2 characters',
+                    },
+                  })}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth={true}
+                  name={'album.newArtistName'}
+                  label="New Artist Name"
+                  id={'new-artist-name'}
+                  helperText={hookForm.errors.album?.newArtistName?.message}
+                  error={hookForm.errors.album?.newArtistName !== undefined}
                 />
-              }
-              label="Various Artists"
-            />
-
-            {watchVariousArtists ? null : (
-              <Autocomplete
-                options={artistData}
-                getOptionLabel={(option) => option.name ?? ''}
-                filterSelectedOptions={true}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth={true}
-                    inputRef={
-                      !hookForm.getValues('album.variousArtists')
-                        ? hookForm.register({
-                            required: 'Required',
-                            validate: {
-                              notEmpty: (value: Artist) =>
-                                value !== null || 'Please select an artist',
-                            },
-                          })
-                        : undefined
+                <TextField
+                  inputRef={hookForm.register({
+                    required: {
+                      value: true,
+                      message: 'Required',
+                    },
+                    pattern: {
+                      value: consts.regex.email,
+                      message: 'Please enter a valid email',
+                    },
+                  })}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth={true}
+                  name={'album.newArtistEmail'}
+                  label="New Artist Email"
+                  id={'new-artist-email'}
+                  helperText={hookForm.errors.album?.newArtistEmail?.message}
+                  error={hookForm.errors.album?.newArtistEmail !== undefined}
+                />
+              </>
+            ) : (
+              <Controller
+                name="album.artist"
+                control={hookForm.control}
+                rules={{
+                  validate: (value: Artist) =>
+                    hookForm.getValues('album.artist') !== 'Various Artists'
+                      ? value !== null || 'Please select an artist'
+                      : undefined,
+                }}
+                defaultValue={null}
+                render={(controllerProps) => (
+                  <Autocomplete
+                    {...controllerProps}
+                    options={artistData ?? []}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(e: any, values: any) =>
+                      hookForm.setValue('album.artist', values)
                     }
-                    variant="standard"
-                    label="Artist"
-                    name="album.artist"
-                    id="album-artist"
-                    helperText={hookForm.errors.album?.artist?.message}
-                    error={hookForm.errors.album?.artist !== undefined}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth={true}
+                        label="Artist"
+                        variant="outlined"
+                        helperText={hookForm.errors.album?.artist?.message}
+                        error={hookForm.errors.album?.artist !== undefined}
+                      />
+                    )}
                   />
                 )}
               />
             )}
+
             <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
               <Controller
                 as={

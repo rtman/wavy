@@ -15,6 +15,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
+        artistId: '0b600e0a-96d0-4ec0-bc94-2587a6b3507a',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
