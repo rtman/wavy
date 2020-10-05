@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import {
   AlignItemsProperty,
+  AlignSelfProperty,
   FlexDirectionProperty,
   FlexWrapProperty,
   JustifyContentProperty,
@@ -16,6 +17,8 @@ const useStyles = (props: FlexProps) =>
       flexWrap: props.flexWrap,
       justifyContent: props.justifyContent,
       alignItems: props.alignItems,
+      alignSelf: props.alignSelf,
+      width: props.fullWidth ? '100%' : undefined,
     },
   })();
 
@@ -24,7 +27,9 @@ export interface FlexProps {
   flexDirection?: FlexDirectionProperty;
   flexWrap?: FlexWrapProperty;
   alignItems?: AlignItemsProperty;
+  alignSelf?: AlignSelfProperty;
   justifyContent?: JustifyContentProperty;
+  fullWidth?: boolean;
 }
 
 export const Flex = (props: PropsWithChildren<FlexProps>) => {
@@ -34,6 +39,8 @@ export const Flex = (props: PropsWithChildren<FlexProps>) => {
     flexWrap = 'nowrap',
     justifyContent = 'flex-start',
     alignItems = 'flex-start',
+    alignSelf,
+    fullWidth,
   } = props;
 
   const classes = useStyles({
@@ -41,6 +48,8 @@ export const Flex = (props: PropsWithChildren<FlexProps>) => {
     flexWrap,
     justifyContent,
     alignItems,
+    alignSelf,
+    fullWidth,
   });
 
   return (

@@ -29,6 +29,7 @@ import {
 import {
   // Autocomplete,
   FileUploadButton,
+  Flex,
   // Flex,
   SongUploadForm,
   Spacing,
@@ -63,13 +64,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  imageUploader: {
+    width: 'auto',
+  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+  // submit: {
+  //   margin: theme.spacing(3, 0, 2),
+  // },
 }));
 
 export const LabelCreateRelease = () => {
@@ -414,56 +418,25 @@ export const LabelCreateRelease = () => {
 
         {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
           <>
-            {image ? (
-              <img src={image} width={500} height={500} />
-            ) : (
-              <ImageUploader
-                withIcon={true}
-                buttonText="Select Image"
-                onChange={onDrop}
-                imgExtension={['.jpg', '.png', 'jpeg']}
-                maxFileSize={5242880}
-                singleImage={true}
-              />
-            )}
+            <Flex>
+              {image ? (
+                <img src={image} width={500} height={500} />
+              ) : (
+                <ImageUploader
+                  className={classes.imageUploader}
+                  withIcon={true}
+                  buttonText="Select Image"
+                  onChange={onDrop}
+                  imgExtension={['.jpg', '.png', 'jpeg']}
+                  maxFileSize={5242880}
+                  singleImage={true}
+                  style={{ width: undefined }}
+                />
+              )}
 
-            <Spacing.section.Minor />
+              <Spacing.section.Minor />
 
-            <TextField
-              inputRef={hookForm.register({
-                required: {
-                  value: true,
-                  message: 'Required',
-                },
-                minLength: {
-                  value: 2,
-                  message: 'Enter at least 2 characters',
-                },
-              })}
-              variant="outlined"
-              margin="normal"
-              fullWidth={true}
-              name={'album.title'}
-              label="Release Title"
-              id={'release-title'}
-              helperText={hookForm.errors.album?.title?.message}
-              error={hookForm.errors.album?.title !== undefined}
-            />
-
-            {watchVariousArtists?.name === 'Various Artists' ? null : (
-              <FormControlLabel
-                label="New Artist"
-                control={
-                  <Switch
-                    inputRef={hookForm.register()}
-                    name={'album.isNewArtist'}
-                    id={'new-artist'}
-                  />
-                }
-              />
-            )}
-            {watchIsNewArtist ? (
-              <>
+              <Flex flexDirection="column">
                 <TextField
                   inputRef={hookForm.register({
                     required: {
@@ -475,98 +448,160 @@ export const LabelCreateRelease = () => {
                       message: 'Enter at least 2 characters',
                     },
                   })}
-                  variant="outlined"
                   margin="normal"
                   fullWidth={true}
-                  name={'album.newArtistName'}
-                  label="New Artist Name"
-                  id={'new-artist-name'}
-                  helperText={hookForm.errors.album?.newArtistName?.message}
-                  error={hookForm.errors.album?.newArtistName !== undefined}
+                  name={'album.title'}
+                  label="Release Title"
+                  id={'release-title'}
+                  helperText={hookForm.errors.album?.title?.message}
+                  error={hookForm.errors.album?.title !== undefined}
                 />
-                <TextField
-                  inputRef={hookForm.register({
-                    required: {
-                      value: true,
-                      message: 'Required',
-                    },
-                    pattern: {
-                      value: consts.regex.email,
-                      message: 'Please enter a valid email',
-                    },
-                  })}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth={true}
-                  name={'album.newArtistEmail'}
-                  label="New Artist Email"
-                  id={'new-artist-email'}
-                  helperText={hookForm.errors.album?.newArtistEmail?.message}
-                  error={hookForm.errors.album?.newArtistEmail !== undefined}
-                />
-              </>
-            ) : (
-              <Controller
-                name="album.artist"
-                control={hookForm.control}
-                rules={{
-                  validate: (value: Artist) =>
-                    hookForm.getValues('album.artist') !== 'Various Artists'
-                      ? value !== null || 'Please select an artist'
-                      : undefined,
-                }}
-                defaultValue={null}
-                render={(controllerProps) => (
-                  <Autocomplete
-                    {...controllerProps}
-                    options={artistData ?? []}
-                    getOptionLabel={(option) => option.name}
-                    onChange={(e: any, values: any) =>
-                      hookForm.setValue('album.artist', values)
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth={true}
-                        label="Artist"
-                        variant="outlined"
-                        helperText={hookForm.errors.album?.artist?.message}
-                        error={hookForm.errors.album?.artist !== undefined}
+                <Flex fullWidth={true}>
+                  <Flex flexDirection="column" fullWidth={true}>
+                    {watchVariousArtists?.name === 'Various Artists' ? null : (
+                      <FormControlLabel
+                        label="New Artist"
+                        control={
+                          <Switch
+                            inputRef={hookForm.register()}
+                            name={'album.isNewArtist'}
+                            id={'new-artist'}
+                          />
+                        }
                       />
                     )}
-                  />
-                )}
-              />
-            )}
+                    {watchIsNewArtist ? (
+                      <Flex fullWidth={true}>
+                        <TextField
+                          inputRef={hookForm.register({
+                            required: {
+                              value: true,
+                              message: 'Required',
+                            },
+                            minLength: {
+                              value: 2,
+                              message: 'Enter at least 2 characters',
+                            },
+                          })}
+                          margin="normal"
+                          fullWidth={true}
+                          name={'album.newArtistName'}
+                          label="New Artist Name"
+                          id={'new-artist-name'}
+                          helperText={
+                            hookForm.errors.album?.newArtistName?.message
+                          }
+                          error={
+                            hookForm.errors.album?.newArtistName !== undefined
+                          }
+                        />
+                        <TextField
+                          inputRef={hookForm.register({
+                            required: {
+                              value: true,
+                              message: 'Required',
+                            },
+                            pattern: {
+                              value: consts.regex.email,
+                              message: 'Please enter a valid email',
+                            },
+                          })}
+                          margin="normal"
+                          fullWidth={true}
+                          name={'album.newArtistEmail'}
+                          label="New Artist Email"
+                          id={'new-artist-email'}
+                          helperText={
+                            hookForm.errors.album?.newArtistEmail?.message
+                          }
+                          error={
+                            hookForm.errors.album?.newArtistEmail !== undefined
+                          }
+                        />
+                      </Flex>
+                    ) : (
+                      <Controller
+                        name="album.artist"
+                        control={hookForm.control}
+                        rules={{
+                          validate: (value: Artist) =>
+                            hookForm.getValues('album.artist') !==
+                            'Various Artists'
+                              ? value !== null || 'Please select an artist'
+                              : undefined,
+                        }}
+                        defaultValue={null}
+                        render={(controllerProps) => (
+                          <Autocomplete
+                            {...controllerProps}
+                            options={artistData ?? []}
+                            getOptionLabel={(option) => option.name}
+                            onChange={(e: any, values: any) =>
+                              hookForm.setValue('album.artist', values)
+                            }
+                            style={{ width: '100%' }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                fullWidth={true}
+                                label="Artist"
+                                helperText={
+                                  hookForm.errors.album?.artist?.message
+                                }
+                                error={
+                                  hookForm.errors.album?.artist !== undefined
+                                }
+                              />
+                            )}
+                          />
+                        )}
+                      />
+                    )}
+                  </Flex>
 
-            <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
-              <Controller
-                as={
-                  <DatePicker
-                    disableFuture={true}
-                    openTo="year"
-                    format="DD/MM/yyyy"
-                    label="Release Date"
-                    views={['year', 'month', 'date']}
-                    helperText={hookForm.errors.album?.releaseDate?.message}
-                    error={hookForm.errors.album?.releaseDate !== undefined}
-                    value={undefined}
-                    onChange={() => null}
-                    placeholder="Release Date"
-                  />
-                }
-                rules={{
-                  validate: {
-                    nonEmpty: (value: Date | null) =>
-                      value !== null || 'Please select a release date',
-                  },
-                }}
-                control={hookForm.control}
-                defaultValue="album.releaseDate"
-                value="album.releaseDate"
-                name="album.releaseDate"
-              />
-            </MuiPickersUtilsProvider>
+                  <Spacing.BetweenComponents />
+
+                  <MuiPickersUtilsProvider
+                    libInstance={moment}
+                    utils={MomentUtils}
+                  >
+                    <Controller
+                      as={
+                        <DatePicker
+                          disableFuture={true}
+                          openTo="year"
+                          format="DD/MM/yyyy"
+                          label="Release Date"
+                          views={['year', 'month', 'date']}
+                          helperText={
+                            hookForm.errors.album?.releaseDate?.message
+                          }
+                          error={
+                            hookForm.errors.album?.releaseDate !== undefined
+                          }
+                          style={{ flex: 1 }}
+                          value={undefined}
+                          onChange={() => null}
+                          placeholder="Release Date"
+                        />
+                      }
+                      rules={{
+                        validate: {
+                          nonEmpty: (value: Date | null) =>
+                            value !== null || 'Please select a release date',
+                        },
+                      }}
+                      control={hookForm.control}
+                      defaultValue="album.releaseDate"
+                      value="album.releaseDate"
+                      name="album.releaseDate"
+                    />
+                  </MuiPickersUtilsProvider>
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Spacing.section.Major />
 
             {songsForUpload.length > 0 ? (
               <>
@@ -584,10 +619,15 @@ export const LabelCreateRelease = () => {
                           removeSong={() => removeSong(index)}
                           artists={artistData}
                         />
+                        {fields.length !== index + 1 ? (
+                          <Spacing.section.Minor />
+                        ) : null}
                       </li>
                     );
                   })}
                 </List>
+
+                <Spacing.section.Major />
 
                 <FileUploadButton
                   acceptedTypes="audio/*"
@@ -602,7 +642,7 @@ export const LabelCreateRelease = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  className={classes.submit}
+                  // className={classes.submit}
                   onClick={hookForm.handleSubmit(onSubmit)}
                 >
                   {called || loading ? (

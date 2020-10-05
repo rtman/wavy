@@ -10,11 +10,12 @@ import {
 import { Autocomplete } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Artist, SongFields, SongForUpload } from 'commonTypes';
-import { Flex } from 'components';
+import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
+import classes from '*.module.css';
 
 interface SongUploadFormProps {
   artists?: Artist[];
@@ -78,9 +79,15 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
   return (
     <div className={classes.root}>
       <LinearProgress variant="determinate" value={uploadStatus.progress} />
-      <Flex>
+
+      <Spacing.section.Minor />
+
+      <Flex alignItems="center">
         <Typography variant="h4">{index + 1}</Typography>
-        <Flex flexDirection="column">
+
+        <Spacing.BetweenComponents />
+
+        <Flex flexDirection="column" alignSelf="flex-start">
           <Controller
             as={
               <TextField
@@ -88,7 +95,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                 error={formContext.errors.songs?.[index]?.title !== undefined}
               />
             }
-            variant="outlined"
             margin="normal"
             fullWidth={true}
             name={`songs[${index}].title`}
@@ -135,7 +141,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                         }
                       />
                     }
-                    variant="outlined"
                     margin="normal"
                     fullWidth={true}
                     name={`songs[${index}].newArtistName`}
@@ -165,7 +170,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                         }
                       />
                     }
-                    variant="outlined"
                     margin="normal"
                     fullWidth={true}
                     name={`songs[${index}].newArtistEmail`}
@@ -208,7 +212,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                           {...params}
                           fullWidth={true}
                           label="Artist"
-                          variant="outlined"
                           helperText={
                             formContext.errors.songs?.[index]?.artist?.message
                           }
@@ -232,7 +235,6 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                 error={formContext.errors.songs?.[index]?.isrc !== undefined}
               />
             }
-            variant="outlined"
             margin="normal"
             fullWidth={true}
             name={`songs[${index}].isrc`}
@@ -247,7 +249,9 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
               },
             }}
           />
+        </Flex>
 
+        <Flex flexDirection="column" alignSelf="flex-start">
           <FormControlLabel
             label="Supporting Artists"
             control={
@@ -282,12 +286,12 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                       values
                     )
                   }
+                  style={{ width: '100%' }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       fullWidth={true}
                       label="Supporting Artists"
-                      variant="outlined"
                       helperText={
                         formContext.errors.songs?.[index]?.supportingArtists
                           ?.message
@@ -303,6 +307,8 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
             />
           ) : null}
         </Flex>
+
+        <Spacing.BetweenComponents />
 
         <IconButton
           type="submit"
