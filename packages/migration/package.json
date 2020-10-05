@@ -2,20 +2,34 @@
   "name": "@groov/migration",
   "version": "0.0.1",
   "private": true,
+  "workspaces": {
+    "nohoist": [
+      "*ts-node*",
+      "*ts-node*/**",
+      "*typeorm-seeding*",
+      "*typeorm-seeding*/**"
+    ]
+  },
   "scripts": {
     "build:ts": "echo 'Skipping due to JS'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "lint": "eslint '**/*.js' && npm run prettier:check",
     "prettier": "prettier --write '**/*.js'",
     "prettier:check": "prettier -c '**/*.js'"
   },
   "devDependencies": {
+    "@types/faker": "^5.1.2",
     "jest": "^24.9.0"
   },
   "dependencies": {
     "pg": "^7.16.0",
     "sequelize": "^5.21.3",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "ts-node": "^9.0.0",
+    "typeorm": "^0.2.26",
+    "typeorm-seeding": "^1.6.1"
   }
 }

@@ -1,13 +1,14 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
-  Generated,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
@@ -102,8 +103,14 @@ export class Label {
   followers: number;
 
   @Field(() => ID)
-  @Generated('uuid')
+  @Column({ nullable: true })
   connectionCode: string;
+
+  // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm, also need to use insert(). If I move to typeorm migration this may work
+  @BeforeInsert()
+  generateConnectionCode() {
+    this.connectionCode = uuid();
+  }
 
   @Field(() => Date)
   @CreateDateColumn()

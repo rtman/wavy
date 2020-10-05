@@ -4,10 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Generated,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -15,7 +13,6 @@ import {
 import { uuid } from 'uuidv4';
 
 import { Album } from './album';
-// import { ArtistArtistConnections } from './artistArtistConnections';
 import { ArtistLabel } from './artistLabel';
 import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
@@ -116,8 +113,8 @@ export class Artist {
   )
   @JoinTable({
     name: 'artistArtistConnections',
-    joinColumn: { name: 'primaryId' },
-    inverseJoinColumn: { name: 'connectionId' },
+    joinColumn: { name: 'primaryArtistId' },
+    inverseJoinColumn: { name: 'connectionArtistId' },
   })
   artistConnections: Artist[];
 
@@ -132,11 +129,11 @@ export class Artist {
   @Column({ nullable: true })
   connectionCode: string;
 
-  // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm. If I move to typeorm migration this may work
-  // @BeforeInsert()
-  // generateConnectionCode() {
-  //   this.connectionCode = uuid();
-  // }
+  // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm, also need to use insert(). If I move to typeorm migration this may work
+  @BeforeInsert()
+  generateConnectionCode() {
+    this.connectionCode = uuid();
+  }
 
   @Field(() => Date)
   @CreateDateColumn()

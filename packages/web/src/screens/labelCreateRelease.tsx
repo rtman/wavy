@@ -83,10 +83,12 @@ export const LabelCreateRelease = () => {
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
   const {
-    loading: artistsLoading,
-    error: artistsError,
-    data: artistsData,
-  } = useQuery<Pick<Query, 'artists'>>(consts.queries.artist.ARTISTS);
+    loading: labelByIdLoading,
+    error: labelByIdError,
+    data: labelByIdData,
+  } = useQuery<Pick<Query, 'labelById'>>(consts.queries.label.LABEL_BY_ID, {
+    variables: { labelId: id },
+  });
 
   const [createAlbum, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
@@ -380,6 +382,10 @@ export const LabelCreateRelease = () => {
 
   console.log('*debug* formErrors', hookForm.errors);
 
+  const artistData = (labelByIdData?.labelById.artistConnections ?? []).map(
+    (artistConnectionInstance) => artistConnectionInstance.artist
+  );
+
   return (
     <FormProvider {...hookForm}>
       <Container>
@@ -439,7 +445,7 @@ export const LabelCreateRelease = () => {
 
             {watchVariousArtists ? null : (
               <Autocomplete
-                options={artistsData?.artists ?? []}
+                options={artistData}
                 getOptionLabel={(option) => option.name ?? ''}
                 filterSelectedOptions={true}
                 renderInput={(params) => (
@@ -510,7 +516,7 @@ export const LabelCreateRelease = () => {
                           index={index}
                           setUploadStatusCallback={setUploadStatus}
                           removeSong={() => removeSong(index)}
-                          artists={artistsData?.artists ?? []}
+                          artists={artistData}
                         />
                       </li>
                     );

@@ -61,6 +61,12 @@ export const LABEL_BY_ID = gql`
       name
       description
       profileImageUrlLarge
+      artistConnections {
+        artist {
+          id
+          name
+        }
+      }
       createdAt
       updatedAt
       artists {

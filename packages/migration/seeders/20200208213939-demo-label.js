@@ -20,6 +20,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        connectionCode: '10c45116-c9f4-4957-a411-991c4a251435',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 100,
@@ -41,6 +42,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        connectionCode: '907cc0f5-2a21-4b62-a303-d82169219749',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 99,
@@ -62,6 +64,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        connectionCode: 'ea317ddf-53a9-4235-8e9e-9c65dbb590a5',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 98,
@@ -82,6 +85,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        connectionCode: '74f8c298-bd1a-4b46-8131-5b3cbf67793f',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 1000,
@@ -103,6 +107,7 @@ module.exports = {
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+        connectionCode: '8cfecbb5-dd0e-420b-ad19-ab9c40fd6e26',
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 250,

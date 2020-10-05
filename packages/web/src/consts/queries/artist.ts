@@ -28,6 +28,10 @@ export const ARTIST_BY_ID = gql`
       name
       description
       profileImageUrlLarge
+      artistConnections {
+        id
+        name
+      }
       albums {
         id
         title

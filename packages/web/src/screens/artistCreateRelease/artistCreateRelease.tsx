@@ -80,10 +80,12 @@ export const ArtistCreateRelease = () => {
   // const [fileRejections, setfileRejections] = useState<File[]>([]);
 
   const {
-    loading: artistsLoading,
-    error: artistsError,
-    data: artistsData,
-  } = useQuery<Pick<Query, 'artists'>>(consts.queries.artist.ARTISTS);
+    loading: artistByIdLoading,
+    error: artistByIdError,
+    data: artistByIdData,
+  } = useQuery<Pick<Query, 'artistById'>>(consts.queries.artist.ARTIST_BY_ID, {
+    variables: { artistId: id },
+  });
 
   const [createAlbum, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
@@ -478,7 +480,9 @@ export const ArtistCreateRelease = () => {
                         index={index}
                         setUploadStatusCallback={setUploadStatus}
                         removeSong={() => removeSong(index)}
-                        artists={artistsData?.artists ?? []}
+                        artists={
+                          artistByIdData?.artistById.artistConnections ?? []
+                        }
                       />
                     );
                   })}

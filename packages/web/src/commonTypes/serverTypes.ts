@@ -73,6 +73,9 @@ export type Artist = {
   followers: Scalars['Float'];
   supportingArtistOn?: Maybe<Array<SongArtistSupportingArtist>>;
   users?: Maybe<Array<UserArtist>>;
+  artistConnections?: Maybe<Array<Artist>>;
+  labelConnections?: Maybe<Array<LabelArtistConnections>>;
+  connectionCode: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -163,7 +166,19 @@ export type Label = {
   songs?: Maybe<Array<Song>>;
   users?: Maybe<Array<UserLabel>>;
   usersFollowing?: Maybe<Array<UserLabelFollowing>>;
+  artistConnections?: Maybe<Array<LabelArtistConnections>>;
   followers: Scalars['Float'];
+  connectionCode: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type LabelArtistConnections = {
+  __typename?: 'LabelArtistConnections';
+  labelId: Scalars['ID'];
+  artistId: Scalars['ID'];
+  label: Label;
+  artist: Artist;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -885,6 +900,7 @@ export type ResolversTypes = {
   UserPlaylist: ResolverTypeWrapper<UserPlaylist>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   UserArtist: ResolverTypeWrapper<UserArtist>;
+  LabelArtistConnections: ResolverTypeWrapper<LabelArtistConnections>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -943,6 +959,7 @@ export type ResolversParentTypes = {
   UserPlaylist: UserPlaylist;
   Float: Scalars['Float'];
   UserArtist: UserArtist;
+  LabelArtistConnections: LabelArtistConnections;
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
@@ -1090,6 +1107,17 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
+  artistConnections?: Resolver<
+    Maybe<Array<ResolversTypes['Artist']>>,
+    ParentType,
+    ContextType
+  >;
+  labelConnections?: Resolver<
+    Maybe<Array<ResolversTypes['LabelArtistConnections']>>,
+    ParentType,
+    ContextType
+  >;
+  connectionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1175,7 +1203,26 @@ export type LabelResolvers<
     ParentType,
     ContextType
   >;
+  artistConnections?: Resolver<
+    Maybe<Array<ResolversTypes['LabelArtistConnections']>>,
+    ParentType,
+    ContextType
+  >;
   followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  connectionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type LabelArtistConnectionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LabelArtistConnections'] = ResolversParentTypes['LabelArtistConnections']
+> = {
+  labelId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
+  artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -1870,6 +1917,7 @@ export type Resolvers<ContextType = any> = {
   ArtistLabel?: ArtistLabelResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Label?: LabelResolvers<ContextType>;
+  LabelArtistConnections?: LabelArtistConnectionsResolvers<ContextType>;
   ListeningStats?: ListeningStatsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
