@@ -5,7 +5,7 @@ import {
 } from '@material-ui/lab';
 import React, { useState } from 'react';
 
-export const Autocomplete = <T,>(
+export const ControlledAutocomplete = <T,>(
   props: AutocompleteProps<T> & UseAutocompleteProps<T>
 ) => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -27,8 +27,6 @@ export const Autocomplete = <T,>(
       setOpen(false);
     }
   };
-
-  console.log('*debug* props.options', props.options);
 
   return (
     <MaterialAutocomplete
