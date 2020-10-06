@@ -7,14 +7,15 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Autocomplete } from '@material-ui/lab';
 import { Artist, SongFields, SongForUpload } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
+
 import classes from '*.module.css';
 
 interface SongUploadFormProps {
@@ -22,7 +23,6 @@ interface SongUploadFormProps {
   creatorId: string;
   releaseId: string;
   songData: SongForUpload;
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   formData: Partial<ArrayField<SongFields, 'id'>>;
   index: number;
   setUploadStatusCallback: (

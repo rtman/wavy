@@ -13,7 +13,7 @@ class SupportingArtistInput {
   newArtist?: boolean;
 
   @Field({ nullable: true })
-  newArtistName?: string;
+  artistName?: string;
 
   @Field({ nullable: true })
   newArtistEmail?: string;
@@ -31,7 +31,7 @@ class NewSongArgs {
   newArtist?: boolean;
 
   @Field({ nullable: true })
-  newArtistName?: string;
+  artistName?: string;
 
   @Field({ nullable: true })
   newArtistEmail?: string;
@@ -73,6 +73,9 @@ class CreateAlbumArgs {
   artistId?: string;
 
   @Field({ nullable: true })
+  artistName?: string;
+
+  @Field({ nullable: true })
   description?: string;
 
   @Field({ nullable: true })
@@ -80,9 +83,6 @@ class CreateAlbumArgs {
 
   @Field({ nullable: true })
   newArtist?: boolean;
-
-  @Field({ nullable: true })
-  newArtistName?: string;
 
   @Field({ nullable: true })
   newArtistEmail?: string;
@@ -191,14 +191,13 @@ export class AlbumResolvers {
     try {
       const {
         albumId,
-        profileImageStoragePath,
-        releaseDate,
+        artistId,
         artistName,
         newArtist,
-        artistId,
+        newArtistEmail,
+        profileImageStoragePath,
+        releaseDate,
         userName,
-        artistEmail,
-        variousArtists,
         ...albumPayload
       } = payload;
 
@@ -209,7 +208,7 @@ export class AlbumResolvers {
       if (
         albumId.length > 0 &&
         title.length > 0 &&
-        description.length > 0 &&
+        (description?.length ?? 0) > 0 &&
         profileImageStoragePath.length > 0
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
@@ -218,61 +217,48 @@ export class AlbumResolvers {
         let resolvedArtistId = artistId;
 
         if (
-          newArtist &&
-          artistName !== undefined &&
-          artistName.length > 0 &&
-          userName !== undefined &&
-          userName.length > 0 &&
-          artistEmail !== undefined &&
-          artistEmail.length > 0
+          (artistName ?? '').length === 0 ||
+          !newArtist ||
+          (newArtistEmail ?? '').length === 0 ||
+          (userName ?? '').length === 0
         ) {
-          resolvedArtistId = uuidv4();
-
-          const artistToCreate = artistRepository.create({
-            id: resolvedArtistId,
-            name: artistName,
-          });
-
-          if (newArtist) {
-            await artistRepository.save(artistToCreate);
-
-            const transporter = await helpers.makeEmailTransporter();
-            const templateEmail = await helpers.makeHtmlTemplate(
-              '../emailTemplates/artistInvite.html'
-            );
-            const templatedArtistInviteEmail = templateEmail({
-              userName,
-              artistName,
-              artistId: resolvedArtistId,
-            });
-
-            await transporter.sendMail({
-              // TODO: setup sending email address properly
-              from: '"Team" <team@oursound.io>', // sender address
-              to: artistEmail, // list of receivers
-              subject: "You've been invited to OurSound!", // Subject line
-              html: templatedArtistInviteEmail, // html body
-            });
-          } else {
-            console.log(
-              'CreateAlbum failed while creating new artist',
-              payload
-            );
-          }
-        } else {
           console.log(
-            'Error, new Arist submitted with incorrect payload',
+            'Error, new Artist submitted with incorrect payload',
             payload
           );
 
           return;
         }
 
-        if (variousArtists) {
-          const variousArtistsEntity = await artistRepository.findOne({
-            where: { name: 'Various Artists' },
+        if (newArtist) {
+          resolvedArtistId = uuidv4();
+
+          const artistToCreate = artistRepository.create({
+            id: resolvedArtistId,
+            name: artistName,
           });
-          resolvedArtistId = variousArtistsEntity?.id;
+          await artistRepository.save(artistToCreate);
+
+          const transporter = await helpers.makeEmailTransporter();
+          const templateEmail = await helpers.makeHtmlTemplate(
+            '../emailTemplates/artistInvite.html'
+          );
+          const templatedArtistInviteEmail = templateEmail({
+            artistEmail: newArtistEmail,
+            artistId: resolvedArtistId,
+            artistName,
+            userName,
+          });
+
+          await transporter.sendMail({
+            // TODO: setup sending email address properly
+            from: '"Team" <team@oursound.io>', // sender address
+            to: newArtistEmail, // list of receivers
+            subject: "You've been invited to OurSound!", // Subject line
+            html: templatedArtistInviteEmail, // html body
+          });
+        } else {
+          console.log('CreateAlbum failed while creating new artist', payload);
         }
 
         const processImageResult = await services.processImage({
@@ -501,21 +487,21 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
 
   if (supportingArtists !== undefined && supportingArtists.length > 0) {
     for (const supportingArtist of supportingArtists) {
-      if (supportingArtist.new === false) {
+      if (supportingArtist.newArtist === false) {
         supportingArtistModels.push({
           songId,
-          artistId: supportingArtist.id,
+          artistId: supportingArtist.artistName,
         });
       } else {
         // check to see if the artist was created in another instance
         const previouslyAddedNewArtist = globalNewArtistModels.find(
-          (artist) => artist.name === supportingArtist.name
+          (artist) => artist.name === supportingArtist.artistName
         );
         const newArtistId = previouslyAddedNewArtist?.id ?? uuidv4();
 
         if (previouslyAddedNewArtist === undefined) {
           localNewArtistModels.push({
-            name: supportingArtist.name,
+            name: supportingArtist.artistName,
             id: newArtistId,
           });
         }
@@ -526,16 +512,17 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
         });
 
         const templatedArtistInviteEmail = templateEmail({
-          userName,
-          artistName: supportingArtist.name,
+          artistName: supportingArtist.artistName,
+          artistEmail: newArtistEmail,
           artistId: newArtistId,
+          userName,
         });
 
         newArtistEmailPromises.push(
           transporter.sendMail({
             // TODO: setup sending email address properly
             from: '"Team" <team@oursound.io>', // sender address
-            to: supportingArtist.email, // list of receivers
+            to: supportingArtist.newArtistEmail, // list of receivers
             subject: "You've been invited to OurSound!", // Subject line
             html: templatedArtistInviteEmail, // html body
           })
