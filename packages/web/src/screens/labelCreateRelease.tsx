@@ -173,31 +173,33 @@ export const LabelCreateRelease = () => {
 
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const hookForm = useForm<NewAlbumForm>({
-    defaultValues: {
-      album: {
+  const defaultFormValues = {
+    album: {
+      artist: null,
+      newArtistEmail: '',
+      newArtistName: '',
+      isNewArtist: false,
+      releaseDate: null,
+      title: '',
+    },
+    songs: [
+      {
         artist: null,
         newArtistEmail: '',
         newArtistName: '',
+        hasSupportingArtists: false,
         isNewArtist: false,
-        releaseDate: null,
+        isrc: '',
         title: '',
-        variousArtists: false,
+        supportingArtists: null,
       },
-      songs: [
-        {
-          artist: null,
-          newArtistEmail: '',
-          newArtistName: '',
-          hasSupportingArtists: false,
-          isNewArtist: false,
-          isrc: '',
-          title: '',
-          supportingArtists: null,
-        },
-      ],
-    },
+    ],
+  };
+
+  const hookForm = useForm<NewAlbumForm>({
+    defaultValues: defaultFormValues,
   });
+
   const { reset } = hookForm;
   const { fields, append, remove } = useFieldArray<SongFields>({
     control: hookForm.control,
@@ -229,13 +231,8 @@ export const LabelCreateRelease = () => {
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
           (file): SongFields => ({
+            ...defaultFormValues.songs[0],
             artist: null,
-            newArtistEmail: '',
-            newArtistName: '',
-            hasSupportingArtists: false,
-            isNewArtist: false,
-            isrc: '',
-            supportingArtists: [],
             title:
               file.name.lastIndexOf('.') !== -1
                 ? file.name.substring(0, file.name.lastIndexOf('.'))

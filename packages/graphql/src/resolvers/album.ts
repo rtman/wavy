@@ -9,33 +9,45 @@ import * as services from '../services';
 
 @InputType()
 class SupportingArtistInput {
-  @Field()
-  new: boolean;
+  @Field({ nullable: true })
+  newArtist?: boolean;
 
   @Field({ nullable: true })
-  name?: string;
+  newArtistName?: string;
 
   @Field({ nullable: true })
-  email?: string;
+  newArtistEmail?: string;
 
   @Field({ nullable: true })
-  id?: string;
+  artistId?: string;
 }
 
 @InputType()
-class NewSongArgs implements Partial<Models.Song> {
-  @Field()
-  title: string;
+class NewSongArgs {
+  @Field({ nullable: true })
+  artistId?: string;
+
+  @Field({ nullable: true })
+  newArtist?: boolean;
+
+  @Field({ nullable: true })
+  newArtistName?: string;
+
+  @Field({ nullable: true })
+  newArtistEmail?: string;
 
   @Field()
   storagePath: string;
 
   @Field(() => [SupportingArtistInput], { nullable: true })
   supportingArtist?: SupportingArtistInput[];
+
+  @Field()
+  title: string;
 }
 
 @InputType()
-class AddSongsToAlbumArgs implements Partial<Models.Song> {
+class AddSongsToAlbumArgs {
   @Field()
   albumId: string;
 
@@ -53,42 +65,39 @@ class AddSongsToAlbumArgs implements Partial<Models.Song> {
 }
 
 @InputType({ description: 'Create a new album' })
-class CreateAlbumArgs implements Partial<Models.Album & NewSongArgs> {
+class CreateAlbumArgs {
   @Field()
   albumId: string;
-
-  @Field()
-  title: string;
-
-  @Field()
-  description: string;
 
   @Field({ nullable: true })
   artistId?: string;
 
   @Field({ nullable: true })
-  artistName?: string;
+  description?: string;
 
   @Field({ nullable: true })
-  artistEmail?: string;
+  labelId?: string;
 
   @Field({ nullable: true })
   newArtist?: boolean;
 
   @Field({ nullable: true })
-  userName?: string;
+  newArtistName?: string;
 
   @Field({ nullable: true })
-  variousArtists?: boolean;
-
-  @Field({ nullable: true })
-  labelId?: string;
+  newArtistEmail?: string;
 
   @Field()
   profileImageStoragePath: string;
 
   @Field(() => Date)
   releaseDate: Date;
+
+  @Field()
+  title: string;
+
+  @Field({ nullable: true })
+  userName?: string;
 }
 
 @Resolver(Models.Album)

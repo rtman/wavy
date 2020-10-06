@@ -24,7 +24,6 @@ export interface AlbumFields {
   newArtistEmail: string;
   releaseDate: Date | null;
   title: string;
-  variousArtists: boolean;
 }
 
 export interface NewAlbumForm {
