@@ -513,7 +513,7 @@ const addSupportingArtists = (props: AddSupportingArtists) => {
 
         const templatedArtistInviteEmail = templateEmail({
           artistName: supportingArtist.artistName,
-          artistEmail: newArtistEmail,
+          artistEmail: supportingArtist.newArtistEmail,
           artistId: newArtistId,
           userName,
         });

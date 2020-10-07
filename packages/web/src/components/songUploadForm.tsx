@@ -9,17 +9,20 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
-import { Artist, SongFields, SongForUpload } from 'commonTypes';
+import {
+  Artist,
+  ArtistAutocomplete,
+  SongFields,
+  SongForUpload,
+} from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import * as helpers from 'helpers';
 import React, { useEffect } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
 
-import classes from '*.module.css';
-
 interface SongUploadFormProps {
-  artists?: Artist[];
+  artists?: ArtistAutocomplete[];
   creatorId: string;
   releaseId: string;
   songData: SongForUpload;
@@ -204,6 +207,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                       {...controllerProps}
                       options={artists ?? []}
                       getOptionLabel={(option) => option.name}
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       onChange={(e: any, values: any) =>
                         formContext.setValue(`songs[${index}].artist`, values)
                       }
@@ -280,6 +284,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
                   multiple={true}
                   options={artists ?? []}
                   getOptionLabel={(option) => option.name}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(e: any, values: any) =>
                     formContext.setValue(
                       `songs[${index}].supportingArtists`,

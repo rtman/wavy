@@ -1,7 +1,7 @@
+import { CreateAlbumArgs, NewSongArgs } from './serverTypes';
 export interface ArtistAutocomplete {
   id: string;
   name: string;
-  __typename: string;
 }
 
 /** React-hook-form doesnt like undefined fields, use null instead */
@@ -35,4 +35,9 @@ export interface SongForUpload {
   title: string;
   storagePath?: string;
   file: File;
+}
+
+export interface CreateAlbumSubmissionData {
+  album: CreateAlbumArgs;
+  songs: NewSongArgs[];
 }

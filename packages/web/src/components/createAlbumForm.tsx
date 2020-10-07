@@ -1,5 +1,7 @@
 import MomentUtils from '@date-io/moment';
 import {
+  Button,
+  CircularProgress,
   Container,
   FormControlLabel,
   List,
@@ -13,18 +15,19 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
   AlbumFields,
   Artist,
+  ArtistAutocomplete,
+  CreateAlbumSubmissionData,
   NewAlbumForm,
   SongFields,
   SongForUpload,
 } from 'commonTypes';
-import { Flex, SongUploadForm, Spacing } from 'components';
+import { FileUploadButton, Flex, SongUploadForm, Spacing } from 'components';
 import * as consts from 'consts';
-import { UserContext } from 'context';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -33,7 +36,6 @@ import {
   useForm,
 } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
-import { useHistory, useParams } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
 import { uuid } from 'uuidv4';
 
@@ -57,20 +59,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CreateAlbumForm = () => {
-  const history = useHistory();
-  const { id } = useParams();
-  const userContext = useContext(UserContext);
+interface CreateAlbumFormProps {
+  submitAlbum: (data: CreateAlbumSubmissionData) => void;
+  artists: ArtistAutocomplete[];
+  loading: boolean;
+  isLabel?: boolean;
+  id: string;
+}
 
-  const { enqueueSnackbar } = useSnackbar();
-  const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
-  const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
-  const [releaseId, setReleaseId] = useState<string>('');
-  // const [acceptedFiles, setacceptedFiles] = useState<File[]>([]);
-  // const [fileRejections, setfileRejections] = useState<File[]>([]);
-
+export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   const classes = useStyles();
-  // const uploadFile = helpers.hooks.useFirebaseStorageUpload();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const {
     getRootProps,
@@ -78,21 +76,20 @@ export const CreateAlbumForm = () => {
     open,
     acceptedFiles,
     fileRejections,
-    isDragAccept,
-    isDragActive,
-    isDragReject,
   } = useDropzone({
-    // Disable click and keydown behavior
-    // noClick: true,
-    // noKeyboard: true,
     accept: 'audio/*',
-    // noDragEventsBubbling: true,
-    // preventDropOnDocument: true,
   });
-
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const defaultFormValues = {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
+  const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
+  const [releaseId, setReleaseId] = useState<string>('');
+
+  const { artists, id, isLabel, loading, submitAlbum } = props;
+
+  const defaultFormValues: NewAlbumForm = {
     album: {
       artist: null,
       newArtistEmail: '',
@@ -118,7 +115,6 @@ export const CreateAlbumForm = () => {
   const hookForm = useForm<NewAlbumForm>({
     defaultValues: defaultFormValues,
   });
-
   const { reset } = hookForm;
   const { fields, append, remove } = useFieldArray<SongFields>({
     control: hookForm.control,
@@ -161,7 +157,7 @@ export const CreateAlbumForm = () => {
       setSongsForUpload(makeSongsForUpload());
       reset({ songs: makeFormFromDropzone() });
     }
-  }, [acceptedFiles, reset]);
+  }, [acceptedFiles, reset, defaultFormValues]);
 
   const removeSong = (index: number) => {
     if (uploadStatuses[index]) {
@@ -227,6 +223,20 @@ export const CreateAlbumForm = () => {
     uploadStatusesCloned[index] = newUploadStatus;
     setUploadStatuses(uploadStatusesCloned);
   };
+
+  const onClickSubmit = (data: NewAlbumForm) => {
+    // TODO: transform data for the proper type to send to the server
+    submitAlbum(data as any);
+  };
+
+  // TODO: make this dynamic, get values from server
+  const artistsWithVariousArtists = [
+    ...artists,
+    {
+      id: '0b600e0a-96d0-4ec0-bc94-2587a6b3507a',
+      name: 'Various Artists',
+    },
+  ];
 
   console.log('*debug* acceptedFiles', acceptedFiles);
   console.log('*debug* fileRejections', fileRejections);
@@ -354,8 +364,12 @@ export const CreateAlbumForm = () => {
                         render={(controllerProps) => (
                           <Autocomplete
                             {...controllerProps}
-                            options={artistData ?? []}
+                            options={
+                              (isLabel ? artistsWithVariousArtists : artists) ??
+                              []
+                            }
                             getOptionLabel={(option) => option.name}
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             onChange={(e: any, values: any) =>
                               hookForm.setValue('album.artist', values)
                             }
@@ -437,7 +451,7 @@ export const CreateAlbumForm = () => {
                           index={index}
                           setUploadStatusCallback={setUploadStatus}
                           removeSong={() => removeSong(index)}
-                          artists={artistData}
+                          artists={artists}
                         />
                         {fields.length !== index + 1 ? (
                           <Spacing.section.Minor />
@@ -446,6 +460,28 @@ export const CreateAlbumForm = () => {
                     );
                   })}
                 </List>
+
+                <FileUploadButton
+                  acceptedTypes="audio/*"
+                  onDrop={(fileAccepted, fileRejected) =>
+                    addSong(fileAccepted, fileRejected)
+                  }
+                />
+
+                <Spacing.BetweenComponents />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={hookForm.handleSubmit(onClickSubmit)}
+                >
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    <Typography variant="body2">Submit</Typography>
+                  )}
+                </Button>
               </>
             ) : null}
           </>

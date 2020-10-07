@@ -1,23 +1,17 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Container, Typography } from '@material-ui/core';
 import {
-  Button,
-  CircularProgress,
-  Container,
-  Typography,
-} from '@material-ui/core';
-import {
-  CreateAlbumArgs,
+  CreateAlbumSubmissionData,
   Mutation,
   MutationAddSongsToAlbumArgs,
   MutationCreateAlbumArgs,
-  NewSongArgs,
   Query,
 } from 'commonTypes';
-import { CreateAlbumForm, FileUploadButton, Spacing } from 'components';
+import { CreateAlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 export const LabelCreateRelease = () => {
@@ -100,10 +94,7 @@ export const LabelCreateRelease = () => {
     }
   }, [error, enqueueSnackbar]);
 
-  const onSubmit = async (data: {
-    album: CreateAlbumArgs;
-    songs: NewSongArgs[];
-  }) => {
+  const submitAlbum = async (data: CreateAlbumSubmissionData) => {
     console.log('*debug* onSubmit data.album', data.album);
     console.log('*debug* onSubmit data.songs', data.songs);
     // if (
@@ -174,15 +165,6 @@ export const LabelCreateRelease = () => {
     // }
   };
 
-  console.log('*debug* acceptedFiles', acceptedFiles);
-  console.log('*debug* fileRejections', fileRejections);
-  console.log('*debug* uploadStatuses', uploadStatuses);
-  console.log('*debug* songsForUpload', songsForUpload);
-
-  console.log('*debug* formErrors', hookForm.errors);
-  console.log('*debug* watchVariousArtists', watchVariousArtists);
-  console.log('*debug* watchIsNewArtist', watchIsNewArtist);
-
   const artistData = (labelByIdData?.labelById.artistConnections ?? []).map(
     (artistConnectionInstance) => {
       return {
@@ -192,13 +174,6 @@ export const LabelCreateRelease = () => {
     }
   );
 
-  // Add various artists
-  // TODO: make this dynamic, get values from server
-  artistData.push({
-    id: '0b600e0a-96d0-4ec0-bc94-2587a6b3507a',
-    name: 'Various Artists',
-  });
-
   return (
     <Container>
       <Spacing.section.Minor />
@@ -206,32 +181,13 @@ export const LabelCreateRelease = () => {
 
       <Spacing.section.Minor />
 
-      <CreateAlbumForm />
-
-      <Spacing.section.Major />
-
-      <FileUploadButton
-        acceptedTypes="audio/*"
-        onDrop={(fileAccepted, fileRejected) =>
-          addSong(fileAccepted, fileRejected)
-        }
+      <CreateAlbumForm
+        id={id}
+        artists={artistData}
+        submitAlbum={submitAlbum}
+        loading={loading || called}
+        isLabel={true}
       />
-
-      <Spacing.BetweenComponents />
-
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        // className={classes.submit}
-        onClick={onSubmit}
-      >
-        {called || loading ? (
-          <CircularProgress />
-        ) : (
-          <Typography variant="body2">Submit</Typography>
-        )}
-      </Button>
     </Container>
   );
 };
