@@ -29,17 +29,17 @@ module.exports = {
         name: 'András',
         description: 'András Fox is a musician from australia!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/andras.jpg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_small.jpg',
         profileImageStoragePathThumb:
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras.jpg?alt=media&token=452f75aa-2329-4f08-9be1-cc7fbb2e17aa',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_large.jpg?alt=media&token=e8522aa9-f89e-43b7-847d-18ced36c5381',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_small.jpg?alt=media&token=03dcbaa9-09e5-48d1-9ca9-ffcfca6f912a',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_thumb.jpg?alt=media&token=889ccf1c-1efc-43d5-9559-0b3583070326',
         connectionCode: '963a8dcb-3568-4f5b-90d4-7778445b6b79',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -71,17 +71,17 @@ module.exports = {
         name: 'ESB',
         description: 'ESB is a musician living in vancouver!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/esb live PR (filtre).jpg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/profile_small.jpg',
         profileImageStoragePathThumb:
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/esb%20live%20PR%20(filtre).jpg?alt=media&token=f95f227e-3471-4611-9338-32ecce29b7eb',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fprofile_large.jpg?alt=media&token=b8bb7b08-fc8c-4866-bce8-527310e10470',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fprofile_small.jpg?alt=media&token=1f1808e4-2ef1-4215-ac60-3ad03ded795b',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fprofile_thumb.jpg?alt=media&token=3c0b4467-059b-4725-aa69-0b89d63c9264',
         connectionCode: 'f773f5cd-a1cb-406d-bba4-7c2b996b80a2',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -92,17 +92,17 @@ module.exports = {
         name: 'Seb Wildblood',
         description: 'Seb is a musician living in london!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/seb wildblood.jpg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/profile_small.jpg',
         profileImageStoragePathThumb:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/profile_thumb.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/seb%20wildblood.jpg?alt=media&token=748fc364-7c25-423d-97ca-4bffb05e76de',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fprofile_large.jpg?alt=media&token=c66abd8b-4f45-4f57-9178-b96c06435c4c',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fprofile_small.jpg?alt=media&token=ced698ae-a3f3-4dec-b8b7-3a595d539663',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fprofile_thumb.jpg?alt=media&token=445c0199-f1c4-439d-b943-276ea2a722eb',
         connectionCode: '1e7a7925-1414-4ece-823a-ca39bdf928ea',
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -6,17 +6,17 @@ module.exports = {
       {
         id: 'ef8bfa7c-d2b4-49b5-9da9-17978be4e9a4',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/András - B1. Gold Coast (House Mix).ogg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/albums/6960fd68-732e-4c3c-8995-8d72989f53db/András - B1. Gold Coast (House Mix).ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/albums/6960fd68-732e-4c3c-8995-8d72989f53db/András - B1. Gold Coast (House Mix).ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/albums/6960fd68-732e-4c3c-8995-8d72989f53db/András - B1. Gold Coast (House Mix).ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=d266ccc5-c6fb-4dc1-997d-7af5d848b4c0',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=d266ccc5-c6fb-4dc1-997d-7af5d848b4c0',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=d266ccc5-c6fb-4dc1-997d-7af5d848b4c0',
         title: 'Gold Coast (House Mix)',
         artistId: '30f65df5-98bb-48cd-83e5-867f707f941d',
         albumId: '6960fd68-732e-4c3c-8995-8d72989f53db',
@@ -54,15 +54,15 @@ module.exports = {
         storagePathHigh:
           'gs://groov-development-ddc9d.appspot.com/Raf Reza - A1_C_Quenz_Mastered_16.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/Raf Reza - A1_C_Quenz_Mastered_16.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/Raf Reza - A1_C_Quenz_Mastered_16.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20A1_C_Quenz_Mastered_16.ogg?alt=media&token=58b33e18-fa20-4a66-a3e5-85b82c66b69d',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.ogg?alt=media&token=35cb9f2e-7b2d-4c71-a773-71c4caed5517',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.ogg?alt=media&token=35cb9f2e-7b2d-4c71-a773-71c4caed5517',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.ogg?alt=media&token=35cb9f2e-7b2d-4c71-a773-71c4caed5517',
         title: 'C Quenz',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -75,17 +75,17 @@ module.exports = {
       {
         id: '20872940-4952-4d3e-84b7-d68529af7a91',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/Raf Reza - A2_Cruising_Speed_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - A2_Cruising_Speed_Mastered_16.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - A2_Cruising_Speed_Mastered_16.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - A2_Cruising_Speed_Mastered_16.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.ogg?alt=media&token=d011ce3c-9038-45fe-bc1f-d3eb8dc0698e',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.ogg?alt=media&token=34fa9009-4c53-4e77-99b9-b96a2ab19d0f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.ogg?alt=media&token=34fa9009-4c53-4e77-99b9-b96a2ab19d0f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.ogg?alt=media&token=34fa9009-4c53-4e77-99b9-b96a2ab19d0f',
         title: 'Cruising Speed',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -98,17 +98,17 @@ module.exports = {
       {
         id: 'fc0be79a-274a-4bf8-98a5-b580b7a1bac5',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/Raf Reza - B1_Rogue_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - B1_Rogue_Mastered_16.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - B1_Rogue_Mastered_16.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - B1_Rogue_Mastered_16.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20B1_Rogue_Mastered_16.ogg?alt=media&token=0b277166-6832-4260-a2c3-27790a7690b4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.ogg?alt=media&token=1889f54d-1ac0-4090-a138-55c98beff347',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.ogg?alt=media&token=1889f54d-1ac0-4090-a138-55c98beff347',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.ogg?alt=media&token=1889f54d-1ac0-4090-a138-55c98beff347',
         title: 'Rogue',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -121,17 +121,17 @@ module.exports = {
       {
         id: '0694f13e-f8ca-406d-8b6b-fd081e1c930a',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/Raf Reza - Pineapple Island.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Pineapple Island.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Pineapple Island.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Pineapple Island.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20Pineapple%20Island.ogg?alt=media&token=d3a776f8-c130-42d7-99d3-9659be1af118',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.ogg?alt=media&token=b2ffd0ed-e427-4731-bb8b-fb2411ad918c',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.ogg?alt=media&token=b2ffd0ed-e427-4731-bb8b-fb2411ad918c',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.ogg?alt=media&token=b2ffd0ed-e427-4731-bb8b-fb2411ad918c',
         title: 'Pineapple Island',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -144,17 +144,17 @@ module.exports = {
       {
         id: '995d0081-63ee-4fc2-8a61-fc67928c4a12',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/Raf Reza - Space Strut.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Space Strut.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Space Strut.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Space Strut.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20Space%20Strut.ogg?alt=media&token=4b96dafc-7272-4e9a-b698-d5b77fad47ab',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.ogg?alt=media&token=dfb537b5-ebe1-472c-b475-ebf56851ce64',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.ogg?alt=media&token=dfb537b5-ebe1-472c-b475-ebf56851ce64',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.ogg?alt=media&token=dfb537b5-ebe1-472c-b475-ebf56851ce64',
         title: 'Space Strut',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -167,17 +167,17 @@ module.exports = {
       {
         id: 'b5ca4741-9d14-4513-8e10-f163f9dd5623',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/Raf Reza - Why You Gotta_.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Why You Gotta_.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Why You Gotta_.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Why You Gotta_.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Raf%20Reza%20-%20Why%20You%20Gotta_.ogg?alt=media&token=992819db-d1bd-446e-94db-cb4440ae1010',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.ogg?alt=media&token=de37929c-b67f-4cf2-8184-a26985f6f0b6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.ogg?alt=media&token=de37929c-b67f-4cf2-8184-a26985f6f0b6',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.ogg?alt=media&token=de37929c-b67f-4cf2-8184-a26985f6f0b6',
         title: 'Why You Gotta',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -190,17 +190,17 @@ module.exports = {
       {
         id: '6cea15ba-0be2-410a-8bdc-acd101685a80',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/ESB - On Cue.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20On%20Cue.ogg?alt=media&token=4aa0c8ea-92fe-434f-890f-b4c6de703b33',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.ogg?alt=media&token=b6fa9418-2352-4a74-b95a-244734c89315',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.ogg?alt=media&token=b6fa9418-2352-4a74-b95a-244734c89315',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.ogg?alt=media&token=b6fa9418-2352-4a74-b95a-244734c89315',
         title: 'On Cue',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -213,18 +213,18 @@ module.exports = {
       {
         id: '1d7f1de6-20ca-4656-ac43-ec9bde834510',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/ESB - On Cue (Vakula Remix).ogg',
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        title: 'On Cue (Vakula Remix)',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue (Vakula Remix).ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue (Vakula Remix).ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue (Vakula Remix).ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20On%20Cue%20(Vakula%20Remix).ogg?alt=media&token=06599d4b-43ba-4e1f-b549-6f5039f96a07',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).ogg?alt=media&token=add75dca-2fb4-4529-926d-80dcd9138d6a',
+        urlMedium:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).ogg?alt=media&token=add75dca-2fb4-4529-926d-80dcd9138d6a',
+        urlLow:
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).ogg?alt=media&token=add75dca-2fb4-4529-926d-80dcd9138d6a',
+        title: 'On Cue (Vakula Remix)',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
@@ -235,16 +235,12 @@ module.exports = {
       },
       {
         id: '56c8a3cc-53af-4de3-ac91-c16a5c35cd0f',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - time won't forget.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20time%20won't%20forget.ogg?alt=media&token=f923fe17-c8e5-4451-a349-6e6492cf0f18`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.ogg?alt=media&token=045a04ca-1af5-4bd9-86ff-bb0fdb99b083`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.ogg?alt=media&token=045a04ca-1af5-4bd9-86ff-bb0fdb99b083`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.ogg?alt=media&token=045a04ca-1af5-4bd9-86ff-bb0fdb99b083`,
         title: `Time Won't Forget`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -256,17 +252,17 @@ module.exports = {
       },
       {
         id: '1219f0dc-b472-4832-9bd9-23e101b0596d',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - terrium.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - terrium.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - terrium.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - terrium.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20terrium.ogg?alt=media&token=d1cfb450-7da7-4271-a2b6-d37a374e96bf',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.ogg?alt=media&token=3c3201d0-04a4-4fea-9efd-0bbc54049f6c',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.ogg?alt=media&token=3c3201d0-04a4-4fea-9efd-0bbc54049f6c',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.ogg?alt=media&token=3c3201d0-04a4-4fea-9efd-0bbc54049f6c',
         title: `Terrium`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
