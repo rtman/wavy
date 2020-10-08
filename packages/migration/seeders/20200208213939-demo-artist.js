@@ -8,17 +8,17 @@ module.exports = {
         name: 'Various Artists',
         description: '',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/andras.jpg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_small.jpg',
         profileImageStoragePathThumb:
           'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/andras.jpg?alt=media&token=452f75aa-2329-4f08-9be1-cc7fbb2e17aa',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_large.jpg?alt=media&token=e8522aa9-f89e-43b7-847d-18ced36c5381',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_small.jpg?alt=media&token=03dcbaa9-09e5-48d1-9ca9-ffcfca6f912a',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Fprofile_thumb.jpg?alt=media&token=889ccf1c-1efc-43d5-9559-0b3583070326',
         connectionCode: 'bbc0e46a-1a75-4be2-a4be-af171877aa83',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -113,17 +113,17 @@ module.exports = {
         name: 'Bad Bad Not Good',
         description: 'BBNG are a musicians living in toronto (I think)!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/bbng.jpeg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/profile_small.jpg',
         profileImageStoragePathThumb:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/profile_thumb.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/bbng.jpeg?alt=media&token=3fb89f69-7358-4f3a-955e-a1b9e740dc9d',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_large.jpg?alt=media&token=bd3b700d-dbc5-46cb-a9ee-4a3cd936d09b',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_small.jpg?alt=media&token=bc5359a5-8e66-47c6-8ce0-0eb1fe81f8b1',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_thumb.jpg?alt=media&token=e0bc0683-3a94-40b1-a043-b4b2834ed933',
         connectionCode: 'b83e915c-8d94-4857-a63e-87fa150f2a48',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -134,17 +134,17 @@ module.exports = {
         name: 'Benedek',
         description: 'Benedek makes dope funk!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/benedek.jpeg',
+          'gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/profile_small.jpg',
         profileImageStoragePathThumb:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/profile_thumb.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek.jpeg?alt=media&token=c9268b77-c4d7-470f-b3ac-9a5895a7d6e9',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2Fprofile_large.jpg?alt=media&token=8f239031-ba5d-4d18-baa7-c8bfdb10d218',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2Fprofile_small.jpg?alt=media&token=99031996-2065-49f1-9273-15a30376fbfe',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2Fprofile_thumb.jpg?alt=media&token=fc7027ef-afe9-4bec-9704-9c52ac16eb59',
         connectionCode: 'df5f4881-d1bb-4958-8bbe-c1c9ca8d8f23',
         createdAt: new Date(),
         updatedAt: new Date(),
