@@ -184,19 +184,7 @@ export class SongResolvers {
         const songs = await getManager()
           .getRepository(Models.Song)
           .findByIds(songIds, {
-            relations: [
-              'album',
-              'album.label',
-              'artist',
-              'artist.albums',
-              'label',
-              'supportingArtists',
-              'supportingArtists.artist',
-              'playlists',
-              'playlists.playlist',
-              'usersFavourited',
-              'usersFavourited.user',
-            ],
+            relations: ['album', 'album.label', 'artist'],
           });
 
         if (songs) {
@@ -274,19 +262,7 @@ export class SongResolvers {
             playCount: 'DESC',
           },
           take: 50,
-          relations: [
-            'album',
-            'album.label',
-            'artist',
-            'artist.albums',
-            'label',
-            'supportingArtists',
-            'supportingArtists.artist',
-            'playlists',
-            'playlists.playlist',
-            'usersFavourited',
-            'usersFavourited.user',
-          ],
+          relations: ['album', 'album.label', 'artist'],
         });
 
       if (songs) {

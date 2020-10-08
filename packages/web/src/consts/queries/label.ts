@@ -11,59 +11,6 @@ export const NEW_LABELS = gql`
       profileImageUrlThumb
       createdAt
       updatedAt
-      artists {
-        createdAt
-        artist {
-          name
-          id
-          description
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-      }
-      albums {
-        id
-        title
-        profileImageUrlLarge
-        profileImageUrlSmall
-        profileImageUrlThumb
-        description
-        label {
-          id
-          name
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-        artist {
-          id
-          name
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-      }
-      songs {
-        createdAt
-        id
-        title
-        label {
-          id
-          name
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-        artist {
-          name
-          id
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-        urlHigh
-      }
     }
   }
 `;

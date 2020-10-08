@@ -69,13 +69,6 @@ export const TOP_SONGS = gql`
       id
       title
       urlHigh
-      label {
-        id
-        name
-        profileImageUrlLarge
-        profileImageUrlSmall
-        profileImageUrlThumb
-      }
       artist {
         id
         name
@@ -89,6 +82,13 @@ export const TOP_SONGS = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        label {
+          id
+          name
+          profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
+        }
       }
     }
   }
@@ -131,13 +131,6 @@ export const TOP_SONGS_BY_TAG_NAME = gql`
       id
       title
       urlHigh
-      label {
-        id
-        name
-        profileImageUrlLarge
-        profileImageUrlSmall
-        profileImageUrlThumb
-      }
       artist {
         id
         name
@@ -151,6 +144,13 @@ export const TOP_SONGS_BY_TAG_NAME = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        label {
+          id
+          name
+          profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
+        }
       }
     }
   }

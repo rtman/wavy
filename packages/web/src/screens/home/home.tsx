@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Artist, Label, Playlist, Query, Song } from 'commonTypes';
 import { ItemCard, Spacing } from 'components';
 import * as consts from 'consts';
-import { UserContext } from 'context';
+import { AuthContext, UserContext } from 'context';
 import React, { useContext } from 'react';
 
 type Item = Artist | Label | Song | Playlist;
@@ -25,12 +25,14 @@ const useStyles = makeStyles(() => ({
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
   const userContext = useContext(UserContext);
   const user = userContext?.user;
   const songFavourites = user?.songFavourites?.map((f) => f.song) ?? [];
   const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
   const artistsFollowing = user?.artistFollows?.map((f) => f.artist) ?? [];
 
+  console.log('*debug* home');
   const {
     loading: newArtistsLoading,
     // error: newArtistsError,
@@ -48,7 +50,7 @@ export const Home = () => {
   } = useQuery<Pick<Query, 'usersTopSongs'>>(
     consts.queries.user.USERS_TOP_SONGS,
     {
-      variables: { userId: user?.id },
+      variables: { userId: authContext?.firebaseUser?.uid },
     }
   );
   const {
@@ -56,7 +58,7 @@ export const Home = () => {
     // error: newLabelsError,
     data: playHistoryData,
   } = useQuery<Pick<Query, 'playHistory'>>(consts.queries.user.PLAY_HISTORY, {
-    variables: { userId: user?.id },
+    variables: { userId: authContext?.firebaseUser?.uid },
   });
   const {
     loading: topSongsLoading,

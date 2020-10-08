@@ -55,27 +55,6 @@ export class LabelResolvers {
             createdAt: 'DESC',
           },
           take: 20,
-          relations: [
-            'artists',
-            'artists.artist',
-            'albums',
-            'albums.artist',
-            'albums.label',
-            'albums.songs',
-            'albums.songs.label',
-            'albums.songs.supportingArtists',
-            'albums.songs.supportingArtists.artist',
-            'songs',
-            'songs.artist',
-            'songs.album',
-            'songs.label',
-            'songs.supportingArtists',
-            'songs.supportingArtists.artist',
-            'songs.usersFavourited',
-            'songs.usersFavourited.user',
-            // 'songs.usersRecentlyPlayed',
-            // 'songs.usersRecentlyPlayed.user',
-          ],
         });
 
       if (labels) {

@@ -6,13 +6,6 @@ export const PLAY_HISTORY = gql`
       id
       title
       urlHigh
-      label {
-        id
-        name
-        profileImageUrlLarge
-        profileImageUrlSmall
-        profileImageUrlThumb
-      }
       artist {
         id
         name
@@ -26,6 +19,13 @@ export const PLAY_HISTORY = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        label {
+          id
+          name
+          profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
+        }
       }
     }
   }
@@ -37,13 +37,6 @@ export const USERS_TOP_SONGS = gql`
       id
       title
       urlHigh
-      label {
-        id
-        name
-        profileImageUrlLarge
-        profileImageUrlSmall
-        profileImageUrlThumb
-      }
       artist {
         id
         name
@@ -57,6 +50,13 @@ export const USERS_TOP_SONGS = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        label {
+          id
+          name
+          profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
+        }
       }
     }
   }
@@ -124,13 +124,13 @@ export const USER_BY_ID = gql`
           id
           title
           urlHigh
-          label {
-            id
-            name
-            profileImageUrlLarge
-            profileImageUrlSmall
-            profileImageUrlThumb
-          }
+          # label {
+          #   id
+          #   name
+          #   profileImageUrlLarge
+          #   profileImageUrlSmall
+          #   profileImageUrlThumb
+          # }
           album {
             id
             title

@@ -149,17 +149,17 @@ export class UserResolvers {
           relations: [
             'songFavourites',
             'songFavourites.song',
-            'songFavourites.song.label',
+            // 'songFavourites.song.label',
             'songFavourites.song.album',
             'songFavourites.song.album.label',
             'songFavourites.song.artist',
-            'songFavourites.song.artist.labels',
-            'songFavourites.song.supportingArtists',
-            'songFavourites.song.supportingArtists.artist',
+            // 'songFavourites.song.artist.labels',
+            // 'songFavourites.song.supportingArtists',
+            // 'songFavourites.song.supportingArtists.artist',
             'artistFollows',
             'artistFollows.artist',
             'artistFollows.artist.songs',
-            'artistFollows.artist.labels',
+            // 'artistFollows.artist.labels',
             // 'labelFollows',
             // 'labelFollows.label',
             // 'labelFollows.label.songs',
@@ -211,19 +211,7 @@ export class UserResolvers {
           const songsData = await getManager()
             .getRepository(Models.Song)
             .findByIds(songIds, {
-              relations: [
-                'album',
-                'album.label',
-                'artist',
-                'artist.albums',
-                'label',
-                'supportingArtists',
-                'supportingArtists.artist',
-                'playlists',
-                'playlists.playlist',
-                'usersFavourited',
-                'usersFavourited.user',
-              ],
+              relations: ['album', 'album.label', 'artist'],
             });
 
           if (songsData) {
@@ -272,19 +260,7 @@ export class UserResolvers {
         const songs = await getManager()
           .getRepository(Models.Song)
           .findByIds(songIds, {
-            relations: [
-              'album',
-              'album.label',
-              'artist',
-              'artist.albums',
-              'label',
-              'supportingArtists',
-              'supportingArtists.artist',
-              'playlists',
-              'playlists.playlist',
-              'usersFavourited',
-              'usersFavourited.user',
-            ],
+            relations: ['album', 'album.label'],
           });
 
         if (songs) {

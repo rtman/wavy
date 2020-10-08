@@ -156,26 +156,27 @@ export const UserProvider: FunctionComponent = (props) => {
     });
   };
 
-  useEffect(() => {
-    const getClientGeoLocation = async () => {
-      const getIpAddressResponse = await services.getIpAddress();
-      console.log('*debug* getIpAddressResponse', getIpAddressResponse);
+  // TODO: re enable when credits are re instated
+  // useEffect(() => {
+  //   const getClientGeoLocation = async () => {
+  //     const getIpAddressResponse = await services.getIpAddress();
+  //     console.log('*debug* getIpAddressResponse', getIpAddressResponse);
 
-      if (getIpAddressResponse.ok && getIpAddressResponse.data) {
-        setIpAddress(getIpAddressResponse.data.ip);
-        const getGeoLocationresponse = await services.getGeoLocation(
-          getIpAddressResponse.data.ip
-        );
-        console.log('*debug* getGeoLocationresponse', getGeoLocationresponse);
+  //     if (getIpAddressResponse.ok && getIpAddressResponse.data) {
+  //       setIpAddress(getIpAddressResponse.data.ip);
+  //       const getGeoLocationresponse = await services.getGeoLocation(
+  //         getIpAddressResponse.data.ip
+  //       );
+  //       console.log('*debug* getGeoLocationresponse', getGeoLocationresponse);
 
-        if (getGeoLocationresponse.ok && getGeoLocationresponse.data) {
-          setGeoLocation(getGeoLocationresponse.data);
-        }
-      }
-    };
+  //       if (getGeoLocationresponse.ok && getGeoLocationresponse.data) {
+  //         setGeoLocation(getGeoLocationresponse.data);
+  //       }
+  //     }
+  //   };
 
-    getClientGeoLocation();
-  }, []);
+  //   getClientGeoLocation();
+  // }, []);
 
   return (
     <UserContext.Provider
