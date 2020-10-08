@@ -25,69 +25,69 @@ const useStyles = makeStyles(() => ({
 export const Home = () => {
   // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
-  // const userContext = useContext(UserContext);
-  // const user = userContext?.user;
-  // const songFavourites = user?.songFavourites?.map((f) => f.song) ?? [];
-  // const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
-  // const artistsFollowing = user?.artistFollows?.map((f) => f.artist) ?? [];
+  const userContext = useContext(UserContext);
+  const user = userContext?.user;
+  const songFavourites = user?.songFavourites?.map((f) => f.song) ?? [];
+  const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
+  const artistsFollowing = user?.artistFollows?.map((f) => f.artist) ?? [];
 
-  // const {
-  //   loading: newArtistsLoading,
-  //   // error: newArtistsError,
-  //   data: newArtistsData,
-  // } = useQuery<Pick<Query, 'newArtists'>>(consts.queries.artist.NEW_ARTISTS);
-  // const {
-  //   loading: newLabelsLoading,
-  //   // error: newLabelsError,
-  //   data: newLabelsData,
-  // } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.label.NEW_LABELS);
-  // const {
-  //   loading: usersTopSongsLoading,
-  //   // error: newLabelsError,
-  //   data: usersTopSongsData,
-  // } = useQuery<Pick<Query, 'usersTopSongs'>>(
-  //   consts.queries.user.USERS_TOP_SONGS,
-  //   {
-  //     variables: { userId: user?.id },
-  //   }
-  // );
-  // const {
-  //   loading: playHistoryLoading,
-  //   // error: newLabelsError,
-  //   data: playHistoryData,
-  // } = useQuery<Pick<Query, 'playHistory'>>(consts.queries.user.PLAY_HISTORY, {
-  //   variables: { userId: user?.id },
-  // });
+  const {
+    loading: newArtistsLoading,
+    // error: newArtistsError,
+    data: newArtistsData,
+  } = useQuery<Pick<Query, 'newArtists'>>(consts.queries.artist.NEW_ARTISTS);
+  const {
+    loading: newLabelsLoading,
+    // error: newLabelsError,
+    data: newLabelsData,
+  } = useQuery<Pick<Query, 'newLabels'>>(consts.queries.label.NEW_LABELS);
+  const {
+    loading: usersTopSongsLoading,
+    // error: newLabelsError,
+    data: usersTopSongsData,
+  } = useQuery<Pick<Query, 'usersTopSongs'>>(
+    consts.queries.user.USERS_TOP_SONGS,
+    {
+      variables: { userId: user?.id },
+    }
+  );
+  const {
+    loading: playHistoryLoading,
+    // error: newLabelsError,
+    data: playHistoryData,
+  } = useQuery<Pick<Query, 'playHistory'>>(consts.queries.user.PLAY_HISTORY, {
+    variables: { userId: user?.id },
+  });
   const {
     loading: topSongsLoading,
     // error: newLabelsError,
     data: topSongsData,
   } = useQuery<Pick<Query, 'topSongs'>>(consts.queries.song.TOP_SONGS);
-  // const {
-  //   loading: topJazzSongsLoading,
-  //   // error: newLabelsError,
-  //   data: topJazzSongsData,
-  // } = useQuery<Pick<Query, 'topSongsByTagName'>>(
-  //   consts.queries.song.TOP_SONGS_BY_TAG_NAME,
-  //   { variables: { tagName: 'jazz' } }
-  // );
-  // const {
-  //   loading: topHouseSongsLoading,
-  //   // error: newLabelsError,
-  //   data: topHouseSongsData,
-  // } = useQuery<Pick<Query, 'topSongsByTagName'>>(
-  //   consts.queries.song.TOP_SONGS_BY_TAG_NAME,
-  //   { variables: { tagName: 'house' } }
-  // );
+  const {
+    loading: topJazzSongsLoading,
+    // error: newLabelsError,
+    data: topJazzSongsData,
+  } = useQuery<Pick<Query, 'topSongsByTagName'>>(
+    consts.queries.song.TOP_SONGS_BY_TAG_NAME,
+    { variables: { tagName: 'jazz' } }
+  );
+  const {
+    loading: topHouseSongsLoading,
+    // error: newLabelsError,
+    data: topHouseSongsData,
+  } = useQuery<Pick<Query, 'topSongsByTagName'>>(
+    consts.queries.song.TOP_SONGS_BY_TAG_NAME,
+    { variables: { tagName: 'house' } }
+  );
 
-  // const newArtists = newArtistsData?.newArtists ?? [];
-  // const newLabels = newLabelsData?.newLabels ?? [];
-  // const usersTopSongs = usersTopSongsData?.usersTopSongs ?? [];
+  const newArtists = newArtistsData?.newArtists ?? [];
+  const newLabels = newLabelsData?.newLabels ?? [];
+  const usersTopSongs = usersTopSongsData?.usersTopSongs ?? [];
   const topSongs = topSongsData?.topSongs ?? [];
   // already uniquefied by typeORM findByIds
-  // const playHistory = playHistoryData?.playHistory ?? [];
-  // const topJazzSongs = topJazzSongsData?.topSongsByTagName ?? [];
-  // const topHouseSongs = topHouseSongsData?.topSongsByTagName ?? [];
+  const playHistory = playHistoryData?.playHistory ?? [];
+  const topJazzSongs = topJazzSongsData?.topSongsByTagName ?? [];
+  const topHouseSongs = topHouseSongsData?.topSongsByTagName ?? [];
 
   const renderCardList = (items: Item[]) => {
     //eslint-disable-next-line no-self-compare
@@ -127,25 +127,25 @@ export const Home = () => {
   return (
     <Container>
       <Spacing.section.Minor />
-      {/* 
+
       {renderSection({
         title: 'New Labels',
         data: newLabels,
         loading: newLabelsLoading,
-      })} */}
+      })}
 
-      {/* {renderSection({
+      {renderSection({
         title: 'New Artists',
         data: newArtists,
         loading: newArtistsLoading,
-      })} */}
+      })}
 
       {renderSection({
         title: 'Top Songs',
         data: topSongs,
         loading: topSongsLoading,
       })}
-      {/* 
+
       {renderSection({
         title: 'Top Jazz',
         data: topJazzSongs,
@@ -183,7 +183,7 @@ export const Home = () => {
       {renderSection({
         title: 'Artists You Follow',
         data: artistsFollowing,
-      })} */}
+      })}
     </Container>
   );
 };

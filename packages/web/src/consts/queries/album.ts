@@ -6,7 +6,10 @@ export const ALBUM_BY_ID = gql`
       id
       title
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       description
+      processing
       songs {
         id
         title
@@ -17,6 +20,8 @@ export const ALBUM_BY_ID = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           id
@@ -28,6 +33,8 @@ export const ALBUM_BY_ID = gql`
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
         }
         usersFavourited {
@@ -43,10 +50,14 @@ export const ALBUM_BY_ID = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
         albums {
           title
           id
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
     }
@@ -59,15 +70,21 @@ export const SEARCH_ALBUMS_QUERY = gql`
       id
       title
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       label {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }

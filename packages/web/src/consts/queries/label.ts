@@ -7,6 +7,8 @@ export const NEW_LABELS = gql`
       name
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       createdAt
       updatedAt
       artists {
@@ -16,22 +18,30 @@ export const NEW_LABELS = gql`
           id
           description
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       albums {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
         description
         label {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       songs {
@@ -42,11 +52,15 @@ export const NEW_LABELS = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           name
           id
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         urlHigh
       }
@@ -61,6 +75,8 @@ export const LABEL_BY_ID = gql`
       name
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       artistConnections {
         artist {
           id
@@ -76,22 +92,30 @@ export const LABEL_BY_ID = gql`
           id
           description
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       albums {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
         description
         label {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       songs {
@@ -102,11 +126,15 @@ export const LABEL_BY_ID = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           name
           id
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         urlHigh
       }
@@ -120,6 +148,8 @@ export const SEARCH_LABELS_QUERY = gql`
       id
       name
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
     }
   }
 `;

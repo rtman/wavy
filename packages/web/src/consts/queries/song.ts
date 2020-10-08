@@ -10,16 +10,22 @@ export const SONGS_BY_ID_QUERY = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }
@@ -34,16 +40,22 @@ export const SEARCH_SONGS_QUERY = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       label {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       urlHigh
       releaseDate
@@ -61,16 +73,22 @@ export const TOP_SONGS = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }
@@ -86,16 +104,22 @@ export const TOP_SONGS_BY_TAG_ID = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }
@@ -111,16 +135,22 @@ export const TOP_SONGS_BY_TAG_NAME = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }

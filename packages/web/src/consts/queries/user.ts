@@ -10,16 +10,22 @@ export const PLAY_HISTORY = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }
@@ -35,16 +41,22 @@ export const USERS_TOP_SONGS = gql`
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       artist {
         id
         name
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
       album {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
       }
     }
   }
@@ -73,6 +85,8 @@ export const USER_BY_ID = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       labels {
@@ -84,6 +98,8 @@ export const USER_BY_ID = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       artistFollows {
@@ -92,6 +108,8 @@ export const USER_BY_ID = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
           songs {
             id
             title
@@ -110,21 +128,29 @@ export const USER_BY_ID = gql`
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           album {
             id
             title
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
             label {
               id
               name
               profileImageUrlLarge
+              profileImageUrlSmall
+              profileImageUrlThumb
             }
           }
           artist {
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           supportingArtists {
             createdAt
@@ -132,6 +158,8 @@ export const USER_BY_ID = gql`
               id
               name
               profileImageUrlLarge
+              profileImageUrlSmall
+              profileImageUrlThumb
             }
           }
         }
@@ -143,6 +171,8 @@ export const USER_BY_ID = gql`
           id
           title
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
           description
           songs {
             song {
@@ -154,6 +184,8 @@ export const USER_BY_ID = gql`
                 id
                 title
                 profileImageUrlLarge
+                profileImageUrlSmall
+                profileImageUrlThumb
               }
             }
           }

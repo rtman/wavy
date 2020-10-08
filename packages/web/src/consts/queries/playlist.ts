@@ -6,6 +6,8 @@ export const PLAYLIST_BY_ID = gql`
       title
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       users {
         createdAt
         user {
@@ -24,16 +26,22 @@ export const PLAYLIST_BY_ID = gql`
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           album {
             id
             title
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           label {
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
         }
       }
@@ -48,6 +56,8 @@ export const PLAYLISTS_BY_USER_ID = gql`
       title
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       users {
         createdAt
         user {
@@ -66,11 +76,15 @@ export const PLAYLISTS_BY_USER_ID = gql`
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           album {
             id
             title
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
         }
       }
@@ -84,6 +98,8 @@ export const SEARCH_PLAYLISTS_QUERY = gql`
       id
       title
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       users {
         createdAt
         user {

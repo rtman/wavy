@@ -50,17 +50,17 @@ module.exports = {
         name: 'Raf Reza',
         description: 'Raf is a musician living in toronto!',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/raf.jpg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/profile_small.jpg',
         profileImageStoragePathThumb:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/proflie_thumb.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/raf.jpg?alt=media&token=08f44863-e81c-416c-a8ae-64679975e4cb',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Fprofile_large.jpg?alt=media&token=9ae0cf14-7bb5-46ae-ac59-3dcfde001047',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Fprofile_small.jpg?alt=media&token=58b8a11c-7100-427e-a287-fc95d9c8540e',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Fproflie_thumb.jpg?alt=media&token=3af011d7-53b1-489a-9015-975f5c7e04a2',
         connectionCode: 'aeb602a7-43d7-4e99-ba26-d9dab393581f',
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -15,6 +15,8 @@ export const ARTISTS_BY_ID = gql`
       id
       name
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       description
       album_ids
     }
@@ -28,6 +30,8 @@ export const ARTIST_BY_ID = gql`
       name
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       artistConnections {
         id
         name
@@ -36,10 +40,14 @@ export const ARTIST_BY_ID = gql`
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
         label {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         songs {
           id
@@ -50,6 +58,8 @@ export const ARTIST_BY_ID = gql`
             id
             name
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
           supportingArtists {
             createdAt
@@ -57,6 +67,8 @@ export const ARTIST_BY_ID = gql`
               id
               name
               profileImageUrlLarge
+              profileImageUrlSmall
+              profileImageUrlThumb
             }
           }
           # usersRecentlyPlayed {
@@ -87,6 +99,8 @@ export const ARTIST_BY_ID = gql`
             id
             title
             profileImageUrlLarge
+            profileImageUrlSmall
+            profileImageUrlThumb
           }
         }
       }
@@ -101,14 +115,20 @@ export const NEW_ARTISTS = gql`
       name
       description
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
       albums {
         id
         title
         profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
         label {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         songs {
           id
@@ -121,6 +141,8 @@ export const NEW_ARTISTS = gql`
               id
               name
               profileImageUrlLarge
+              profileImageUrlSmall
+              profileImageUrlThumb
             }
           }
           # usersRecentlyPlayed {
@@ -142,11 +164,15 @@ export const NEW_ARTISTS = gql`
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
         artist {
           id
           name
           profileImageUrlLarge
+          profileImageUrlSmall
+          profileImageUrlThumb
         }
       }
       usersFollowing {
@@ -175,6 +201,8 @@ export const SEARCH_ARTISTS_QUERY = gql`
       id
       name
       profileImageUrlLarge
+      profileImageUrlSmall
+      profileImageUrlThumb
     }
   }
 `;

@@ -125,17 +125,17 @@ module.exports = {
         labelId: '9862ca9e-23ed-4519-aef2-3daf27bf34f7',
         description: 'Released on heart to heart records',
         profileImageStoragePathLarge:
-          'gs://groov-development-ddc9d.appspot.com/HTH005_A_digital.png',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/profile_large.jpg',
         profileImageStoragePathSmall:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/profile_small.jpg',
         profileImageStoragePathThumb:
-          'gs://groov-development-ddc9d.appspot.com/andras-untitled.jpg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/profile_thumb.jpg',
         profileImageUrlLarge:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/HTH005_A_digital.png?alt=media&token=79a4ccc2-fa1c-45e2-ba31-656365fb488c',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2Fprofile_large.jpg?alt=media&token=215367b3-3a05-454e-b172-9becfa33cec3',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2Fprofile_small.jpg?alt=media&token=22afc9f5-99c3-4967-864f-6ee0ab8896ef',
         profileImageUrlThumb:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2Fprofile_thumb.jpg?alt=media&token=92029692-5029-4246-b816-af3595e8bf11',
         releaseDate: '2014-05-20T07:00:00+00:00',
         processing: false,
         createdAt: new Date(),

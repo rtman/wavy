@@ -47,7 +47,7 @@ export const PlaylistRow = (props: PlaylistRowProps) => {
     handleMenuClose();
   };
 
-  const playlistImageUrl = playlist.profileImageUrlLarge ?? '';
+  const playlistImageUrl = playlist.profileImageUrlThumb ?? '';
   const playlistTitle = playlist.title ?? '';
   const playlistDescription = playlist.description ?? '';
   const playlistId = playlist.id ?? '';

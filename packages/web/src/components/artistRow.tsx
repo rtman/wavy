@@ -60,7 +60,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <ButtonBase onClick={() => resolvedOnClick(artist)}>
-            <Avatar variant="square" src={artist.profileImageUrlLarge} />
+            <Avatar variant="square" src={artist.profileImageUrlThumb} />
           </ButtonBase>
         </ListItemAvatar>
         <StyledListItemText

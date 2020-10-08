@@ -144,7 +144,7 @@ export const SongRow = (props: SongRowProps) => {
         {secondaryStyle ? null : (
           <ListItemAvatar>
             <ButtonBase onClick={() => resolvedOnClick(song)}>
-              <Avatar variant="square" src={song.album.profileImageUrlLarge} />
+              <Avatar variant="square" src={song.album.profileImageUrlThumb} />
             </ButtonBase>
           </ListItemAvatar>
         )}

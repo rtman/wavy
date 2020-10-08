@@ -106,7 +106,13 @@ export const Album = () => {
       const albumsList = filteredAlbums.map((album: AlbumType) => (
         <ItemCard key={album.id} item={album} />
       ));
-      return <GridList className={classes.gridList}>{albumsList}</GridList>;
+      return (
+        <>
+          <Typography variant="h1">More By {artistName}</Typography>
+          <Spacing.section.Minor />
+          <GridList className={classes.gridList}>{albumsList}</GridList>
+        </>
+      );
     } else {
       return null;
     }
@@ -142,8 +148,7 @@ export const Album = () => {
           <Spacing.section.Minor />
           {albumSongs ? renderSongs() : null}
           <Spacing.section.Minor />
-          <Typography variant="h1">More By {artistName}</Typography>
-          <Spacing.section.Minor />
+
           {renderMoreBy()}
           <Spacing.section.Minor />
         </Container>
