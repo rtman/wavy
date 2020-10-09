@@ -34,20 +34,20 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     drawer: {
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         width: consts.drawer.width,
         flexShrink: 0,
       },
     },
     appBar: {
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         width: `calc(100% - ${consts.drawer.width}px)`,
         marginLeft: consts.drawer.width,
       },
     },
     menuButton: {
       marginRight: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         display: 'none',
       },
     },
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         marginLeft: theme.spacing(3),
         width: 'auto',
       },
@@ -178,7 +178,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
+        <Hidden mdUp={true} implementation="css">
           <Drawer
             container={container}
             variant="temporary"
@@ -195,7 +195,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
             <MenuDrawer />
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown={true} implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,

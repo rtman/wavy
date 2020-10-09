@@ -148,7 +148,6 @@ export const Album = () => {
           <Spacing.section.Minor />
           {albumSongs ? renderSongs() : null}
           <Spacing.section.Minor />
-
           {renderMoreBy()}
           <Spacing.section.Minor />
         </Container>

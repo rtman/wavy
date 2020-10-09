@@ -1,22 +1,38 @@
 import {
   Avatar,
   Divider,
+  createStyles,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  makeStyles,
   Menu,
   MenuItem,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { Album } from 'commonTypes';
-import { StyledButton } from 'components';
+import { Spacing, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatarSmall: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    avatarLarge: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+    },
+  })
+);
 
 interface AlbumRowProps {
   album: Album;
@@ -30,13 +46,16 @@ interface MenuPosition {
 }
 
 export const AlbumRow = (props: AlbumRowProps) => {
-  const { album, passedOnClickAlbum, withSongs } = props;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const location = useLocation();
   const history = useHistory();
+  const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
+
+  const { album, passedOnClickAlbum, withSongs } = props;
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -110,8 +129,15 @@ export const AlbumRow = (props: AlbumRowProps) => {
         button={true}
       >
         <ListItemAvatar>
-          <Avatar variant="square" src={album.profileImageUrlThumb} />
+          <Avatar
+            variant="square"
+            src={album.profileImageUrlThumb}
+            className={classes.avatarLarge}
+          />
         </ListItemAvatar>
+
+        <Spacing.BetweenComponents />
+
         <ListItemText
           primary={album.title}
           secondary={

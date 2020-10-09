@@ -6,12 +6,11 @@ import {
   FlexWrapProperty,
   JustifyContentProperty,
 } from 'csstype';
-import React, { PropsWithChildren } from 'react';
+import React, { CSSProperties, PropsWithChildren } from 'react';
 
 const useStyles = (props: FlexProps) =>
   makeStyles({
     root: {
-      flex: 1,
       display: 'flex',
       flexDirection: props.flexDirection,
       flexWrap: props.flexWrap,
@@ -30,6 +29,7 @@ export interface FlexProps {
   alignSelf?: AlignSelfProperty;
   justifyContent?: JustifyContentProperty;
   fullWidth?: boolean;
+  style?: CSSProperties;
 }
 
 export const Flex = (props: PropsWithChildren<FlexProps>) => {
@@ -53,6 +53,8 @@ export const Flex = (props: PropsWithChildren<FlexProps>) => {
   });
 
   return (
-    <div className={`${classes.root} ${className ?? ''}`}>{props.children}</div>
+    <div className={`${classes.root} ${className ?? ''}`} style={props.style}>
+      {props.children}
+    </div>
   );
 };

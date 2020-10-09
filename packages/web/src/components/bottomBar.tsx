@@ -7,7 +7,7 @@ import React, { FunctionComponent } from 'react';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         width: `calc(100% - ${consts.drawer.width}px)`,
         marginLeft: 240,
       },

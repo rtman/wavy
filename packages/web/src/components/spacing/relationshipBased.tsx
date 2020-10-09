@@ -16,6 +16,12 @@ export const BetweenComponents = () => (
   <span className={useBetweenComponentsStyles().root} />
 );
 
+const useBetweenParagraphsStyles = getStyles({ spacingMult: 4 });
+
+export const BetweenParagraphs = () => (
+  <span className={useBetweenParagraphsStyles().root} />
+);
+
 const useFromScreenEdgesStyles = getStyles({ spacingMult: 1.5 });
 
 export const FromScreenEdges = () => (

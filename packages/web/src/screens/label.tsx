@@ -2,23 +2,14 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Button,
   CircularProgress,
+  Container,
   Divider,
+  Grid,
   List,
   Typography,
 } from '@material-ui/core';
 import { Query, QueryLabelByIdArgs, UpdateFollowingType } from 'commonTypes';
-import {
-  AlbumRow,
-  ArtistRow,
-  ContentContainer,
-  ProfileContainer,
-  ProfileHeaderImage,
-  ProfileHeaderImageContainer,
-  ProfileHeaderTitle,
-  RowContainer,
-  Screen,
-  Spacing,
-} from 'components';
+import { AlbumRow, ArtistRow, Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
@@ -39,7 +30,7 @@ export const Label = () => {
   const labelSongs = queryData?.labelById?.songs ?? [];
   const labelArtists = queryData?.labelById?.artists ?? [];
   const labelAlbums = queryData?.labelById?.albums ?? [];
-  const labelImageUrl = queryData?.labelById?.profileImageUrlLarge ?? '';
+  const labelImageUrl = queryData?.labelById?.profileImageUrlSmall ?? '';
   const labelName = queryData?.labelById?.name ?? '';
   const labelDescription = queryData?.labelById?.description ?? '';
 
@@ -76,7 +67,7 @@ export const Label = () => {
           </Fragment>
         );
       });
-      return <List>{artistsList}</List>;
+      return <List style={{ width: '100%' }}>{artistsList}</List>;
     } else {
       return null;
     }
@@ -92,7 +83,7 @@ export const Label = () => {
           </Fragment>
         );
       });
-      return <List>{albumsList}</List>;
+      return <List style={{ width: '100%' }}>{albumsList}</List>;
     } else {
       return null;
     }
@@ -105,45 +96,73 @@ export const Label = () => {
   };
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <ContentContainer>
-          <ProfileHeaderImageContainer>
-            <ProfileHeaderImage src={labelImageUrl} />
-            <ProfileHeaderTitle>{labelName}</ProfileHeaderTitle>
-          </ProfileHeaderImageContainer>
-          <ProfileContainer>
-            <RowContainer>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={onClickPlayNow}
-              >
-                Play Now
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={onClickToggleFollow}
-              >
-                {getFollowTitle()}
-              </Button>
-            </RowContainer>
+        <Flex flexDirection="column">
+          <Grid container={true} style={{ flexShrink: 1 }}>
+            <img
+              style={{
+                minHeight: 50,
+                minWidth: 50,
+                maxHeight: 250,
+                maxWidth: 250,
+                objectFit: 'contain',
+              }}
+              src={labelImageUrl}
+            />
+
             <Spacing.section.Minor />
-            <Typography variant="h1">Description</Typography>
-            <Spacing.section.Minor />
-            <Typography variant="body1">{labelDescription}</Typography>
-            <Spacing.section.Minor />
-            <Typography variant="h1">Artists</Typography>
-            {renderArtists()}
-            <Spacing.section.Minor />
-            <Typography variant="h1">Albums</Typography>
-            {renderAlbums()}
-          </ProfileContainer>
-        </ContentContainer>
+
+            <Grid item={true} direction="column">
+              <Typography variant="h1">{labelName}</Typography>
+
+              <Spacing.BetweenParagraphs />
+
+              <Flex>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={onClickPlayNow}
+                >
+                  Play Now
+                </Button>
+
+                <Spacing.BetweenComponents />
+
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={onClickToggleFollow}
+                >
+                  {getFollowTitle()}
+                </Button>
+              </Flex>
+            </Grid>
+          </Grid>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="h1">Description</Typography>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="body1">{labelDescription}</Typography>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="h1">Artists</Typography>
+
+          {renderArtists()}
+
+          <Spacing.section.Minor />
+
+          <Typography variant="h1">Albums</Typography>
+
+          {renderAlbums()}
+        </Flex>
       )}
-    </Screen>
+    </Container>
   );
 };

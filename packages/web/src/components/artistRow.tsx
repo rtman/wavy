@@ -1,19 +1,35 @@
 import {
   Avatar,
   ButtonBase,
+  createStyles,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
+  makeStyles,
   Menu,
   MenuItem,
+  Theme,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import { Artist, UpdateFollowingType } from 'commonTypes';
-import { StyledButton, StyledListItemText } from 'components';
+import { Spacing, StyledButton, StyledListItemText } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatarSmall: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    avatarLarge: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+    },
+  })
+);
 
 interface ArtistRowProps {
   artist: Artist;
@@ -21,13 +37,14 @@ interface ArtistRowProps {
 }
 
 export const ArtistRow = (props: ArtistRowProps) => {
-  const { artist, passedOnClickArtist } = props;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const history = useHistory();
   const location = useLocation();
   const userContext = useContext(UserContext);
+  const classes = useStyles();
 
-  console.log('artist', artist);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const { artist, passedOnClickArtist } = props;
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -60,9 +77,14 @@ export const ArtistRow = (props: ArtistRowProps) => {
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <ButtonBase onClick={() => resolvedOnClick(artist)}>
-            <Avatar variant="square" src={artist.profileImageUrlThumb} />
+            <Avatar
+              variant="square"
+              src={artist.profileImageUrlThumb}
+              className={classes.avatarLarge}
+            />
           </ButtonBase>
         </ListItemAvatar>
+        <Spacing.BetweenComponents />
         <StyledListItemText
           primary={artist.name}
           // secondary={secondaryStyle ? null : artist.name}
