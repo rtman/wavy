@@ -23,13 +23,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    avatarSmall: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
-    },
-    avatarLarge: {
-      width: theme.spacing(10),
-      height: theme.spacing(10),
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
     },
   })
 );
@@ -132,21 +128,23 @@ export const AlbumRow = (props: AlbumRowProps) => {
           <Avatar
             variant="square"
             src={album.profileImageUrlThumb}
-            className={classes.avatarLarge}
+            className={classes.avatar}
           />
         </ListItemAvatar>
 
         <Spacing.BetweenComponents />
 
         <ListItemText
-          primary={album.title}
+          primary={<Typography noWrap={true}>{album.title}</Typography>}
           secondary={
             <>
               {!location.pathname.includes(consts.routes.ARTIST) ? (
-                <Typography variant="body2">{album.artist.name}</Typography>
+                <Typography noWrap={true} variant="body2">
+                  {album.artist.name}
+                </Typography>
               ) : null}
               {!location.pathname.includes(consts.routes.LABEL) ? (
-                <Typography variant="caption">
+                <Typography noWrap={true} variant="caption">
                   {album.label?.name ?? null}
                 </Typography>
               ) : null}

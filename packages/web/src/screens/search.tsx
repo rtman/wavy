@@ -7,6 +7,7 @@ import {
   Paper,
   Tab,
   Tabs,
+  TextField,
 } from '@material-ui/core';
 import {
   Album,
@@ -22,18 +23,16 @@ import {
   ArtistRow,
   LabelRow,
   PlaylistRow,
-  Screen,
   SongRow,
-  TextInput,
 } from 'components';
 import * as consts from 'consts';
 import { SearchContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 
 const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
+  // root: {
+  //   flexGrow: 1,
+  // },
 });
 
 export const Search = () => {
@@ -151,33 +150,31 @@ export const Search = () => {
   };
 
   return (
-    <Screen>
-      <Container>
-        <TextInput
-          onChange={searchContext?.onChangeSearchText}
-          value={searchContext?.searchText}
-          placeholder={'Search'}
-          onKeyDown={searchContext?.onKeyDownSearchBar}
-          fullWidth={true}
-        />
-        <Paper square className={classes.root}>
-          <Tabs
-            value={currentTab}
-            onChange={handleChange}
-            variant="fullWidth"
-            indicatorColor="secondary"
-            textColor="secondary"
-            aria-label="search tabs"
-          >
-            <Tab label="Songs" value="songs" />
-            <Tab label="Artists" value="artists" />
-            <Tab label="Albums" value="albums" />
-            <Tab label="Playlists" value="playlists" />
-            <Tab label="Labels" value="labels" />
-          </Tabs>
-        </Paper>
-        {searchLoading ? <CircularProgress /> : renderSearchResults()}
-      </Container>
-    </Screen>
+    <Container>
+      <TextField
+        onChange={searchContext?.onChangeSearchText}
+        value={searchContext?.searchText}
+        placeholder={'Search'}
+        onKeyDown={searchContext?.onKeyDownSearchBar}
+        fullWidth={true}
+      />
+      <Paper>
+        <Tabs
+          value={currentTab}
+          onChange={handleChange}
+          variant="fullWidth"
+          indicatorColor="secondary"
+          textColor="secondary"
+          aria-label="search tabs"
+        >
+          <Tab label="Songs" value="songs" />
+          <Tab label="Artists" value="artists" />
+          <Tab label="Albums" value="albums" />
+          <Tab label="Playlists" value="playlists" />
+          <Tab label="Labels" value="labels" />
+        </Tabs>
+      </Paper>
+      {searchLoading ? <CircularProgress /> : renderSearchResults()}
+    </Container>
   );
 };

@@ -96,49 +96,74 @@ export const makeTheme = () => {
 
   const typography: TypographyOptions = {
     fontFamily: "'Roboto', sans-serif",
-    button: {
-      textTransform: 'capitalize',
-      fontSize: 18,
-      fontWeight: 400,
-      lineHeight: 1.5,
-    },
     h1: {
       fontFamily: "'Lato', 'Roboto', sans-serif",
-      fontSize: 24,
-      fontWeight: 400,
-      lineHeight: 1.2,
+      fontSize: 96,
+      fontWeight: 'lighter',
+      letterSpacing: -1.5,
     },
     h2: {
-      fontSize: 16,
-      fontWeight: 400,
-      lineHeight: 1.5,
+      fontSize: 60,
+      fontWeight: 'lighter',
+      letterSpacing: -0.5,
     },
     h3: {
-      fontSize: 24,
-      fontWeight: 400,
+      fontSize: 48,
+      fontWeight: 'normal',
+      letterSpaceing: 0,
     },
     h4: {
-      fontSize: 19,
-      fontWeight: 400,
+      fontSize: 38,
+      fontWeight: 'normal',
+      letterSpacing: 0.25,
     },
     h5: {
-      fontSize: 12,
-      fontWeight: 700,
-      lineHeight: 2,
+      fontSize: 24,
+      fontWeight: 'normal',
+
+      letterSpacing: 0,
     },
-    caption: {
-      fontSize: 10,
-      fontWeight: 400,
+    h6: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      letterSpacing: 0.15,
+    },
+    subtitle1: {
+      fontSize: 16,
+      fontWeight: 'normal',
+      letterSpacing: 0.15,
+    },
+    subtitle2: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      letterSpacing: 0.1,
     },
     body1: {
       fontSize: 16,
-      fontWeight: 400,
-      lineHeight: 1.5,
+      fontWeight: 'normal',
+      letterSpacing: 0.5,
     },
     body2: {
-      fontSize: 13,
-      fontWeight: 400,
-      lineHeight: 1.5,
+      fontSize: 14,
+      fontWeight: 'normal',
+      letterSpacing: 0.25,
+    },
+    button: {
+      textTransform: 'capitalize',
+      fontSize: 14,
+      fontWeight: 'bold',
+      letterSpacing: 1.25,
+    },
+    caption: {
+      fontSize: 12,
+      fontWeight: 'normal',
+      letterSpacing: 0.4,
+    },
+    overline: {
+      textTransform: 'capitalize',
+      fontSize: 10,
+      fontWeight: 'normal',
+      letterSpacing: 1.5,
     },
   };
 

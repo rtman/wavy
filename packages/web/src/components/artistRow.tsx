@@ -20,13 +20,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    avatarSmall: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
-    },
-    avatarLarge: {
-      width: theme.spacing(10),
-      height: theme.spacing(10),
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
     },
   })
 );
@@ -80,7 +76,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
             <Avatar
               variant="square"
               src={artist.profileImageUrlThumb}
-              className={classes.avatarLarge}
+              className={classes.avatar}
             />
           </ButtonBase>
         </ListItemAvatar>

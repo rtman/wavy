@@ -116,7 +116,7 @@ export const Label = () => {
             <Spacing.section.Minor />
 
             <Grid item={true} direction="column">
-              <Typography variant="h1">{labelName}</Typography>
+              <Typography variant="h4">{labelName}</Typography>
 
               <Spacing.BetweenParagraphs />
 
@@ -144,7 +144,7 @@ export const Label = () => {
 
           <Spacing.section.Minor />
 
-          <Typography variant="h1">Description</Typography>
+          <Typography variant="h5">Description</Typography>
 
           <Spacing.section.Minor />
 
@@ -152,13 +152,13 @@ export const Label = () => {
 
           <Spacing.section.Minor />
 
-          <Typography variant="h1">Artists</Typography>
+          <Typography variant="h5">Artists</Typography>
 
           {renderArtists()}
 
           <Spacing.section.Minor />
 
-          <Typography variant="h1">Albums</Typography>
+          <Typography variant="h5">Albums</Typography>
 
           {renderAlbums()}
         </Flex>
