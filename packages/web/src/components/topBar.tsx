@@ -208,8 +208,11 @@ export const TopBar: FunctionComponent<Props> = (props) => {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        {/* adds spacing for top bar */}
         <div className={classes.toolbar} />
         {props.children}
+        {/* adds spacing for bottom bar */}
+        <div className={classes.toolbar} />
       </main>
     </div>
   );

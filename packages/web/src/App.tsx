@@ -1,6 +1,11 @@
 import './App.css';
 
-import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
+import {
+  Container,
+  CircularProgress,
+  Grid,
+  MuiThemeProvider,
+} from '@material-ui/core';
 import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
 import {
   AuthContext,
@@ -41,24 +46,22 @@ export const App = () => {
   if (signedIn) {
     return (
       <MuiThemeProvider theme={theme}>
-        <AppContainer>
-          <SnackbarProvider maxSnack={3}>
-            <PlayerProvider>
-              <SearchProvider>
-                <TopBar>
-                  <UserProvider>
-                    <Navigator />
-                  </UserProvider>
-                </TopBar>
-                <BottomBar>
-                  <UserProvider>
-                    <Player />
-                  </UserProvider>
-                </BottomBar>
-              </SearchProvider>
-            </PlayerProvider>
-          </SnackbarProvider>
-        </AppContainer>
+        <SnackbarProvider maxSnack={3}>
+          <PlayerProvider>
+            <SearchProvider>
+              <TopBar>
+                <UserProvider>
+                  <Navigator />
+                </UserProvider>
+              </TopBar>
+              <BottomBar>
+                <UserProvider>
+                  <Player />
+                </UserProvider>
+              </BottomBar>
+            </SearchProvider>
+          </PlayerProvider>
+        </SnackbarProvider>
       </MuiThemeProvider>
     );
   } else {
