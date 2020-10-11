@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Spacing, Title } from 'components';
+import { Spacing } from 'components';
 import * as consts from 'consts';
 import { AuthContext } from 'context';
 import React, { useContext } from 'react';
@@ -46,8 +46,11 @@ export const Login = () => {
       style={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
-        <Title>Welcome to AppName</Title>
-        <Typography variant="h1">Login</Typography>
+        <Typography variant="h3">Welcome to AppName</Typography>
+
+        <Spacing.BetweenParagraphs />
+
+        <Typography variant="h5">Login</Typography>
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
             <FormControl fullWidth={true}>
@@ -58,7 +61,7 @@ export const Login = () => {
                     message: 'Required',
                   },
                   pattern: {
-                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    value: consts.regex.email,
                     message: 'Enter a valid email',
                   },
                 })}

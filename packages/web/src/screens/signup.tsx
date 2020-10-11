@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Spacing, Title } from 'components';
+import { Spacing } from 'components';
 import * as consts from 'consts';
 import { AuthContext } from 'context';
 import React, { useContext } from 'react';
@@ -54,8 +54,11 @@ export const Signup = () => {
       style={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
-        <Title>Welcome to AppName</Title>
-        <Typography variant="h1">Create an account</Typography>
+        <Typography variant="h3">Welcome to AppName</Typography>
+
+        <Spacing.BetweenParagraphs />
+
+        <Typography variant="h5">Create an account</Typography>
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
             <FormControl fullWidth={true}>

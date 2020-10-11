@@ -1,39 +1,15 @@
-import {
-  Avatar,
-  Divider,
-  createStyles,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-  makeStyles,
-  Menu,
-  MenuItem,
-  Theme,
-  Typography,
-} from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
-import { Album } from 'commonTypes';
-import { Spacing, StyledButton } from 'components';
+import { Menu, MenuItem } from '@material-ui/core';
+import { Album, CustomListItemProps } from 'commonTypes';
+import { CustomListItem } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
-import React, { useContext, useState } from 'react';
+import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    avatar: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-    },
-  })
-);
-
-interface AlbumRowProps {
+interface AlbumListItemProps extends CustomListItemProps {
   album: Album;
-  withSongs?: boolean;
-  passedOnClickAlbum?: (album: Album) => Promise<void>;
+  style?: CSSProperties;
 }
 
 interface MenuPosition {
@@ -41,19 +17,18 @@ interface MenuPosition {
   left: number;
 }
 
-export const AlbumRow = (props: AlbumRowProps) => {
+export const AlbumListItem = (props: AlbumListItemProps) => {
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const location = useLocation();
   const history = useHistory();
-  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
-  const { album, passedOnClickAlbum, withSongs } = props;
+  const { album } = props;
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     event.preventDefault();
     setMenuPosition({
@@ -62,32 +37,27 @@ export const AlbumRow = (props: AlbumRowProps) => {
     });
   };
 
-  const handleMenuClose = () => {
+  const onMenuClose = () => {
     setAnchorEl(null);
   };
 
   const handleClickPlayNow = () => {
     playerContext?.replaceQueueWithSongs(album.songs);
-    handleMenuClose();
+    onMenuClose();
   };
 
   const handleClickAddToQueue = () => {
     playerContext?.addSongsToEndOfQueue(album.songs);
-    handleMenuClose();
+    onMenuClose();
   };
 
   const handleClickGoToAlbum = () => {
     history.push(`${consts.routes.ALBUM}/${album?.id}`);
   };
 
-  const onClickAlbum = () => {
-    playerContext?.replaceQueueWithSongs(album.songs);
-  };
-
-  const resolvedOnClick =
-    typeof passedOnClickAlbum === 'function'
-      ? passedOnClickAlbum
-      : onClickAlbum;
+  //   const onClickAlbum = () => {
+  //     playerContext?.replaceQueueWithSongs(album.songs);
+  //   };
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const songIds = album.songs.map((s) => s.id);
@@ -109,64 +79,22 @@ export const AlbumRow = (props: AlbumRowProps) => {
 
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${album.artist.id}`);
-    handleMenuClose();
+    onMenuClose();
   };
 
   const onClickGoToLabel = () => {
     history.push(`${consts.routes.LABEL}/${album.label?.id}`);
-    handleMenuClose();
+    onMenuClose();
   };
 
-  return (
-    <>
-      <ListItem
-        alignItems="flex-start"
-        onClick={() => resolvedOnClick(album)}
-        button={true}
-      >
-        <ListItemAvatar>
-          <Avatar
-            variant="square"
-            src={album.profileImageUrlThumb}
-            className={classes.avatar}
-          />
-        </ListItemAvatar>
-
-        <Spacing.BetweenComponents />
-
-        <ListItemText
-          primary={<Typography noWrap={true}>{album.title}</Typography>}
-          secondary={
-            <>
-              {!location.pathname.includes(consts.routes.ARTIST) ? (
-                <Typography noWrap={true} variant="body2">
-                  {album.artist.name}
-                </Typography>
-              ) : null}
-              {!location.pathname.includes(consts.routes.LABEL) ? (
-                <Typography noWrap={true} variant="caption">
-                  {album.label?.name ?? null}
-                </Typography>
-              ) : null}
-            </>
-          }
-        />
-        <ListItemSecondaryAction>
-          <StyledButton
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleMenuClick}
-          >
-            <MoreVert />
-          </StyledButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+  const makeMenu = () => {
+    return (
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
+        onClose={onMenuClose}
       >
         <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
         <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
@@ -187,7 +115,13 @@ export const AlbumRow = (props: AlbumRowProps) => {
           </NestedMenuItem>
         ) : null}
       </Menu>
-      {withSongs ? <Divider variant="inset" component="li" /> : null}
+    );
+  };
+
+  return (
+    <>
+      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      {makeMenu()}
     </>
   );
 };

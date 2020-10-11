@@ -1,27 +1,14 @@
-import {
-  Avatar,
-  ButtonBase,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  Menu,
-  MenuItem,
-  Typography,
-} from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
-import { SongWithAudio } from 'commonTypes';
-import { StyledButton, StyledListItemText } from 'components';
+import { Menu, MenuItem } from '@material-ui/core';
+import { CustomListItemProps, Song } from 'commonTypes';
+import { CustomListItem } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-interface SongRowProps {
-  song: SongWithAudio;
-  passedOnClickSong?: (song: SongWithAudio) => Promise<void>;
-  secondaryStyle?: boolean;
-  enableGoToArtist?: boolean;
+interface SongListItemProps extends CustomListItemProps {
+  song: Song;
 }
 
 interface MenuPosition {
@@ -29,7 +16,7 @@ interface MenuPosition {
   left: number;
 }
 
-export const SongRow = (props: SongRowProps) => {
+export const SongListItem = (props: SongListItemProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const playerContext = useContext(PlayerContext);
@@ -38,9 +25,9 @@ export const SongRow = (props: SongRowProps) => {
   const location = useLocation();
   const { id } = useParams();
 
-  const { song, passedOnClickSong, secondaryStyle } = props;
+  const { song } = props;
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     event.preventDefault();
     setMenuPosition({
@@ -49,7 +36,7 @@ export const SongRow = (props: SongRowProps) => {
     });
   };
 
-  const handleMenuClose = () => {
+  const onCloseMenu = () => {
     setAnchorEl(null);
     setMenuPosition(null);
   };
@@ -61,56 +48,50 @@ export const SongRow = (props: SongRowProps) => {
       playerContext?.replaceQueueWithSongs([song]);
     }
 
-    handleMenuClose();
+    onCloseMenu();
   };
 
   const handleClickAddToQueue = () => {
     playerContext?.addSongsToEndOfQueue([song]);
 
-    handleMenuClose();
+    onCloseMenu();
   };
 
   const handleClickRemoveFromQueue = () => {
     playerContext?.removeSongFromQueue(song.id);
 
-    handleMenuClose();
+    onCloseMenu();
   };
 
-  const onClickSong = () => {
-    playerContext?.replaceQueueWithSongs([song]);
-  };
+  //   const onClickSong = () => {
+  //     playerContext?.replaceQueueWithSongs([song]);
+  //   };
 
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${song.artist.id}`);
-    handleMenuClose();
+    onCloseMenu();
   };
 
   const onClickGoToAlbum = () => {
     history.push(`${consts.routes.ALBUM}/${song.album.id}`);
-    handleMenuClose();
+    onCloseMenu();
   };
 
   const onClickGoToLabel = () => {
     history.push(`${consts.routes.LABEL}/${song.label?.id}`);
-    handleMenuClose();
+    onCloseMenu();
   };
-
-  const resolvedOnClick =
-    typeof passedOnClickSong === 'function' ? passedOnClickSong : onClickSong;
 
   const onClickToggleFavourite = () => {
     userContext?.updateFavourites(song.id);
-    handleMenuClose();
+    onCloseMenu();
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.songFavourites?.find((f) => f.song.id === song.id)
+    return userContext?.user?.songFavourites?.find((f) => f.song.id === id)
       ? 'Unfavourite'
       : 'Favourite';
   };
-
-  // console.log('location', location);
-  // console.log('song', song);
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     userContext?.addSongsToPlaylist(playlistId, [song.id]);
@@ -135,53 +116,14 @@ export const SongRow = (props: SongRowProps) => {
     return playlistList;
   };
 
-  // console.log('songRow song', song);
-
-  // TODO: update to more closely match itemCard. The location stuff may not be necessary. Same with other row types
-  return (
-    <>
-      <ListItem alignItems="flex-start" dense={true}>
-        {secondaryStyle ? null : (
-          <ListItemAvatar>
-            <ButtonBase onClick={() => resolvedOnClick(song)}>
-              <Avatar variant="square" src={song.album.profileImageUrlThumb} />
-            </ButtonBase>
-          </ListItemAvatar>
-        )}
-        {/* <StyledButton onClick={() => onClickGoToArtist(song)}> */}
-        <StyledListItemText
-          primary={song.title}
-          secondary={
-            <>
-              {secondaryStyle ? null : (
-                <Typography variant="body2">{song.artist.name}</Typography>
-              )}
-              <Typography variant="caption">
-                {song.label?.name ?? null}
-              </Typography>
-            </>
-          }
-          onClick={
-            secondaryStyle ? () => onClickSong() : () => onClickGoToArtist()
-          }
-        />
-        {/* </StyledButton> */}
-        <ListItemSecondaryAction>
-          <StyledButton
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleMenuClick}
-          >
-            <MoreVert />
-          </StyledButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+  const makeMenu = () => {
+    return (
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
+        onClose={onCloseMenu}
         PaperProps={{
           style: {
             maxHeight: 48 * 4.5,
@@ -230,6 +172,13 @@ export const SongRow = (props: SongRowProps) => {
           </NestedMenuItem>
         ) : null}
       </Menu>
+    );
+  };
+
+  return (
+    <>
+      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      {makeMenu()}
     </>
   );
 };

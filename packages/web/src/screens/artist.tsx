@@ -1,11 +1,18 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
   Container,
+  createStyles,
   Divider,
+  Grid,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import {
   Album,
@@ -15,21 +22,33 @@ import {
   Song,
   UpdateFollowingType,
 } from 'commonTypes';
-import {
-  AlbumWithSongs,
-  ProfileHeaderImage,
-  ProfileHeaderImageContainer,
-  ProfileHeaderTitle,
-  RowContainer,
-  SongRow,
-  Spacing,
-} from 'components';
+import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    album: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Artist = () => {
+  const classes = useStyles();
+  const theme = useTheme();
+
   const { id } = useParams();
   const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
 
@@ -88,15 +107,23 @@ export const Artist = () => {
       artistSongsDesc.length > 0 &&
       artistSongsDesc.filter((song) => song.playCount > 0).length > 0
     ) {
-      const songsList = artistSongsDesc.map((song: Song, index: number) => {
-        return (
-          <React.Fragment key={song.id}>
-            <SongRow song={song} secondaryStyle={true} />
-            {index < artistSongsDesc.length - 1 ? <Divider /> : null}
-          </React.Fragment>
-        );
-      });
-      return <List>{songsList}</List>;
+      const songsList = artistSongsDesc.map((song: Song, index: number) => (
+        <Fragment key={song.id}>
+          <SongListItem
+            leftAccessory={
+              <Flex alignItems="center" alignSelf="center">
+                <Typography variant="body1">{index + 1}</Typography>
+                <Spacing.BetweenParagraphs />
+              </Flex>
+            }
+            title={song.title}
+            caption={song.label?.name}
+            song={song}
+          />
+          {index < artistSongsDesc.length - 1 ? <Divider /> : null}
+        </Fragment>
+      ));
+      return <List className={classes.list}>{songsList}</List>;
     } else {
       return null;
     }
@@ -104,10 +131,52 @@ export const Artist = () => {
 
   const renderAlbums = () => {
     if (artistAlbums) {
-      const albumsList = artistAlbums.map((album: Album) => (
-        <AlbumWithSongs key={album.id} album={album} />
-      ));
-      return <List>{albumsList}</List>;
+      const albumsList = artistAlbums.map(
+        (album: Album, albumIndex: number) => {
+          const songsList = album.songs.map((song: Song, songIndex: number) => (
+            <Fragment key={song.id}>
+              <SongListItem
+                leftAccessory={
+                  <Flex alignItems="center" alignSelf="center">
+                    <Typography variant="body1">{songIndex + 1}</Typography>
+                    <Spacing.BetweenParagraphs />
+                  </Flex>
+                }
+                title={song.title}
+                // caption={song.label?.name}
+                song={song}
+              />
+              {songIndex < album.songs.length - 1 ? <Divider /> : null}
+            </Fragment>
+          ));
+
+          return (
+            <Fragment key={album.id}>
+              <AlbumListItem
+                style={{
+                  marginBottom: theme.spacing(2),
+                  marginTop: theme.spacing(2),
+                }}
+                album={album}
+                title={album.title}
+                caption={album.label?.name}
+                leftAccessory={
+                  <ListItemAvatar>
+                    <Avatar
+                      className={classes.avatar}
+                      variant="square"
+                      src={album.profileImageUrlSmall}
+                    />
+                  </ListItemAvatar>
+                }
+              />
+              {songsList}
+              {albumIndex < artistAlbums.length - 1 ? <Divider /> : null}
+            </Fragment>
+          );
+        }
+      );
+      return <List className={classes.list}>{albumsList}</List>;
     } else {
       return null;
     }
@@ -124,43 +193,74 @@ export const Artist = () => {
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <>
-          <ProfileHeaderImageContainer>
-            <ProfileHeaderImage src={artistImageUrl} />
-            <ProfileHeaderTitle>{artistName}</ProfileHeaderTitle>
-          </ProfileHeaderImageContainer>
+        <Flex flexDirection="column">
+          <Grid container={true} style={{ flexShrink: 1 }}>
+            <img
+              style={{
+                minHeight: 50,
+                minWidth: 50,
+                maxHeight: 250,
+                maxWidth: 250,
+                objectFit: 'contain',
+              }}
+              src={artistImageUrl}
+            />
+
+            <Spacing.section.Minor />
+
+            <Grid item={true} direction="column">
+              <Typography variant="h4">{artistName}</Typography>
+
+              <Spacing.BetweenComponents />
+
+              <Flex>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={onClickPlayNow}
+                >
+                  Play Now
+                </Button>
+
+                <Spacing.BetweenComponents />
+
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={onClickToggleFollow}
+                >
+                  {getFollowTitle()}
+                </Button>
+              </Flex>
+            </Grid>
+          </Grid>
+
           <Spacing.section.Minor />
-          <RowContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onClickPlayNow}
-            >
-              Play Now
-            </Button>
-            <Spacing.BetweenComponents />
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={onClickToggleFollow}
-            >
-              {getFollowTitle()}
-            </Button>
-          </RowContainer>
+
+          <Typography variant="h5">Description</Typography>
+
           <Spacing.section.Minor />
-          <Typography variant="h1">Description</Typography>
-          <Spacing.section.Minor />
+
           <Typography variant="body1">{artistDescription}</Typography>
+
           <Spacing.section.Minor />
-          <Typography variant="h1">Top Songs</Typography>
+
+          <Typography variant="h5">Top Songs</Typography>
+
           <Spacing.section.Minor />
+
           {renderTopSongs()}
+
           <Spacing.section.Minor />
-          <Typography variant="h1">Albums</Typography>
+
+          <Typography variant="h5">Albums</Typography>
+
           <Spacing.section.Minor />
+
           {renderAlbums()}
+
           <Spacing.section.Minor />
-        </>
+        </Flex>
       )}
     </Container>
   );

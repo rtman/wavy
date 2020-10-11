@@ -1,13 +1,18 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   CircularProgress,
   Container,
+  createStyles,
+  Divider,
   List,
+  ListItemAvatar,
   makeStyles,
   Paper,
   Tab,
   Tabs,
   TextField,
+  Theme,
 } from '@material-ui/core';
 import {
   Album,
@@ -19,24 +24,30 @@ import {
   Song,
 } from 'commonTypes';
 import {
-  AlbumRow,
-  ArtistRow,
-  LabelRow,
-  PlaylistRow,
-  SongRow,
+  AlbumListItem,
+  ArtistListItem,
+  LabelListItem,
+  PlaylistListItem,
+  SongListItem,
 } from 'components';
 import * as consts from 'consts';
 import { SearchContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 
-const useStyles = makeStyles({
-  // root: {
-  //   flexGrow: 1,
-  // },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
 
 export const Search = () => {
-  // const COMPONENT_NAME = 'Home';
   const classes = useStyles();
   const searchContext = useContext(SearchContext);
   const [searchResults, setSearchResults] = useState<Query['searchAll']>({
@@ -58,10 +69,6 @@ export const Search = () => {
     },
   });
 
-  // const onChangeSearchBar = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchText(event.target.value);
-  // };
-
   useEffect(() => {
     if (searchContext?.searchText && searchContext?.isSearching) {
       const formattedSearchText = `*${searchContext?.searchText}*`;
@@ -72,56 +79,138 @@ export const Search = () => {
     }
   }, [searchContext, submitSearchAll]);
 
-  // const onClickArtist = (artist_id: string) => {
-  //   history.push(`${consts.routes.ARTIST}/${artist_id}`);
-  // };
-
   const renderSongResults = () => {
     if (searchResults.songs.length > 0) {
-      const songsList = searchResults.songs.map((song: Song) => {
-        return <SongRow key={song.id} song={song} />;
-      });
-      return <List>{songsList}</List>;
+      const songsList = searchResults.songs.map((song: Song, index: number) => (
+        <Fragment key={song.id}>
+          <SongListItem
+            leftAccessory={
+              <ListItemAvatar>
+                <Avatar
+                  className={classes.avatar}
+                  variant="square"
+                  src={song.album.profileImageUrlSmall}
+                />
+              </ListItemAvatar>
+            }
+            title={song.title}
+            caption={song.label?.name}
+            song={song}
+          />
+          {index < searchResults.songs.length - 1 ? <Divider /> : null}
+        </Fragment>
+      ));
+      return <List className={classes.list}>{songsList}</List>;
     }
     return null;
   };
 
   const renderArtistResults = () => {
     if (searchResults.artists.length > 0) {
-      const artistList = searchResults.artists.map((artist: Artist) => {
-        return <ArtistRow key={artist.id} artist={artist} />;
-      });
-      return <List>{artistList}</List>;
+      const artistList = searchResults.artists.map(
+        (artist: Artist, index: number) => (
+          <Fragment key={artist.id}>
+            <ArtistListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={artist.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={artist.name}
+              artist={artist}
+            />
+            {index < searchResults.artists.length - 1 ? <Divider /> : null}
+          </Fragment>
+        )
+      );
+      return <List className={classes.list}>{artistList}</List>;
     }
     return null;
   };
 
   const renderAlbumResults = () => {
     if (searchResults.albums.length > 0) {
-      const albumList = searchResults.albums.map((album: Album) => {
-        return <AlbumRow key={album.id} album={album} />;
-      });
-      return <List>{albumList}</List>;
+      const albumList = searchResults.albums.map(
+        (album: Album, index: number) => (
+          <Fragment key={album.id}>
+            <AlbumListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={album.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={album.title}
+              subtitle={album.artist.name}
+              caption={album.label?.name}
+              album={album}
+            />
+            {index < searchResults.albums.length - 1 ? <Divider /> : null}
+          </Fragment>
+        )
+      );
+      return <List className={classes.list}>{albumList}</List>;
     }
     return null;
   };
 
   const renderPlaylistResults = () => {
     if (searchResults.playlists.length > 0) {
-      const playlistList = searchResults.playlists.map((playlist: Playlist) => {
-        return <PlaylistRow key={playlist.id} playlist={playlist} />;
-      });
-      return <List>{playlistList}</List>;
+      const playlistList = searchResults.playlists.map(
+        (playlist: Playlist, index: number) => (
+          <Fragment key={playlist.id}>
+            <PlaylistListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={playlist.profileImageUrlSmall ?? ''}
+                  />
+                </ListItemAvatar>
+              }
+              title={playlist.title}
+              playlist={playlist}
+            />
+            {index < searchResults.playlists.length - 1 ? <Divider /> : null}
+          </Fragment>
+        )
+      );
+      return <List className={classes.list}>{playlistList}</List>;
     }
     return null;
   };
 
   const renderLabelsResults = () => {
     if (searchResults.labels.length > 0) {
-      const labelList = searchResults.labels.map((label: Label) => {
-        return <LabelRow key={label.id} label={label} />;
-      });
-      return <List>{labelList}</List>;
+      const labelList = searchResults.labels.map(
+        (label: Label, index: number) => (
+          <Fragment key={label.id}>
+            <LabelListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={label.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={label.name}
+              label={label}
+            />
+            {index < searchResults.labels.length - 1 ? <Divider /> : null}
+          </Fragment>
+        )
+      );
+      return <List className={classes.list}>{labelList}</List>;
     }
     return null;
   };
@@ -129,8 +218,6 @@ export const Search = () => {
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
     setCurrentTab(newValue);
   };
-
-  // console.log('queryData', queryData);
 
   const renderSearchResults = () => {
     switch (currentTab) {

@@ -1,1 +1,0 @@
-export { SubTitle } from './styles';

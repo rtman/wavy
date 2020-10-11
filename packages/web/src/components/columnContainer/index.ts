@@ -1,1 +1,0 @@
-export { ColumnContainer } from './styles';

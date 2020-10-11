@@ -32,7 +32,7 @@ export const Home = () => {
   const playlists = user?.playlists?.map((p) => p.playlist) ?? [];
   const artistsFollowing = user?.artistFollows?.map((f) => f.artist) ?? [];
 
-  console.log('*debug* home');
+  // console.log('*debug* home');
   const {
     loading: newArtistsLoading,
     // error: newArtistsError,
@@ -115,7 +115,7 @@ export const Home = () => {
   }) => {
     return !loading && data.length > 0 ? (
       <>
-        <Typography variant="h1">{title}</Typography>
+        <Typography variant="h4">{title}</Typography>
 
         <Spacing.section.Minor />
 
@@ -129,6 +129,7 @@ export const Home = () => {
   return (
     <Container>
       <Spacing.section.Minor />
+      {/* <Typography>TEST</Typography> */}
 
       {renderSection({
         title: 'New Labels',

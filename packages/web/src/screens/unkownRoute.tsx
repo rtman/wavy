@@ -11,8 +11,8 @@ export const UnknownRoute = () => {
       justify="center"
     >
       <Grid item={true} xs={3}>
-        <Typography variant="h1">404</Typography>
-        <Typography variant="h2">We lost ya ...</Typography>
+        <Typography variant="h3">404</Typography>
+        <Typography variant="h6">We lost ya ...</Typography>
       </Grid>
     </Grid>
   );

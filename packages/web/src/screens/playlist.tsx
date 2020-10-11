@@ -1,14 +1,21 @@
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
+  Container,
+  createStyles,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
+  Grid,
   List,
+  ListItemAvatar,
+  makeStyles,
   TextField,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import {
@@ -19,26 +26,31 @@ import {
   SongPlaylist,
   UpdateFollowingType,
 } from 'commonTypes';
-import {
-  ContentContainer,
-  ProfileContainer,
-  ProfileHeaderImage,
-  ProfileHeaderImageContainer,
-  ProfileHeaderTitle,
-  RowContainer,
-  Screen,
-  SongRow,
-  Spacing,
-} from 'components';
+import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Playlist = () => {
   const { id } = useParams();
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
+  const classes = useStyles();
+
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
   const [newPlaylistDescription, setNewPlaylistDescription] = useState<string>(
@@ -106,13 +118,27 @@ export const Playlist = () => {
           const song = songInstance.song;
           return (
             <Fragment key={song.id}>
-              <SongRow song={song} />
+              <SongListItem
+                song={song}
+                title={song.title}
+                subtitle={song.artist.name}
+                caption={song.label?.name}
+                leftAccessory={
+                  <ListItemAvatar>
+                    <Avatar
+                      className={classes.avatar}
+                      variant="square"
+                      src={song.album.profileImageUrlSmall}
+                    />
+                  </ListItemAvatar>
+                }
+              />
               {index < playlistSongs.length - 1 ? <Divider /> : null}
             </Fragment>
           );
         }
       );
-      return <List>{songsList}</List>;
+      return <List className={classes.list}>{songsList}</List>;
     } else {
       return null;
     }
@@ -153,34 +179,41 @@ export const Playlist = () => {
   };
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <ContentContainer>
-          <ProfileHeaderImageContainer>
-            <ProfileHeaderImage src={playlistImageUrl} />
-            <ProfileHeaderTitle>{playlistTitle}</ProfileHeaderTitle>
-          </ProfileHeaderImageContainer>
-          <ProfileContainer>
-            <RowContainer>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={onClickPlayNow}
-              >
-                Play Now
-              </Button>
+        <Flex flexDirection="column">
+          <Grid container={true} style={{ flexShrink: 1 }}>
+            <img
+              style={{
+                minHeight: 50,
+                minWidth: 50,
+                maxHeight: 250,
+                maxWidth: 250,
+                objectFit: 'contain',
+              }}
+              src={playlistImageUrl}
+            />
+
+            <Spacing.section.Minor />
+
+            <Grid item={true} direction="column">
+              <Typography variant="h4">{playlistTitle}</Typography>
+
               <Spacing.BetweenComponents />
-              {userIsPlaylistOwner ? (
+
+              <Flex>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
-                  onClick={onClickEdit(true)}
+                  onClick={onClickPlayNow}
                 >
-                  Edit
+                  Play Now
                 </Button>
-              ) : (
+
+                <Spacing.BetweenComponents />
+
                 <Button
                   variant="outlined"
                   color="primary"
@@ -188,18 +221,26 @@ export const Playlist = () => {
                 >
                   {getFollowTitle()}
                 </Button>
-              )}
-            </RowContainer>
-            <Spacing.section.Minor />
-            <Typography variant="h1">Description</Typography>
-            <Spacing.section.Minor />
-            <Typography variant="body1">{playlistDescription}</Typography>
-            <Spacing.section.Minor />
-            <Typography variant="h1">Songs</Typography>
-            <Spacing.section.Minor />
-            {renderSongs()}
-          </ProfileContainer>
-        </ContentContainer>
+              </Flex>
+            </Grid>
+          </Grid>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="h5">Description</Typography>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="body1">{playlistDescription}</Typography>
+
+          <Spacing.section.Minor />
+
+          <Typography variant="h5">Songs</Typography>
+
+          <Spacing.section.Minor />
+
+          {renderSongs()}
+        </Flex>
       )}
       <Dialog
         open={editModalVisible}
@@ -236,6 +277,6 @@ export const Playlist = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </Screen>
+    </Container>
   );
 };

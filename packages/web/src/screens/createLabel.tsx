@@ -133,7 +133,7 @@ export const CreateLabel = () => {
   return (
     <Container>
       <Spacing.section.Minor />
-      <Typography variant="h1">New Label</Typography>
+      <Typography variant="h4">New Label</Typography>
       <Spacing.section.Minor />
       {image ? (
         <img src={image} width={500} height={500} />

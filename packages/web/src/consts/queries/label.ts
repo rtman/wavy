@@ -50,12 +50,10 @@ export const LABEL_BY_ID = gql`
         profileImageUrlSmall
         profileImageUrlThumb
         description
-        label {
+        songs {
           id
-          name
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
+          title
+          urlHigh
         }
         artist {
           id
@@ -64,26 +62,6 @@ export const LABEL_BY_ID = gql`
           profileImageUrlSmall
           profileImageUrlThumb
         }
-      }
-      songs {
-        createdAt
-        id
-        title
-        label {
-          id
-          name
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-        artist {
-          name
-          id
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-        }
-        urlHigh
       }
     }
   }

@@ -1,16 +1,36 @@
 import {
+  Avatar,
   CircularProgress,
   Container,
+  createStyles,
   Divider,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
 } from '@material-ui/core';
-import { Screen, SongRow, Spacing } from 'components';
+import { Flex, SongListItem, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Favourites = () => {
   const userContext = useContext(UserContext);
+  const classes = useStyles();
+
   const user = userContext?.user;
   const songFavourites = userContext?.user?.songFavourites ?? [];
 
@@ -22,30 +42,45 @@ export const Favourites = () => {
           const song = favouriteInstance.song;
           return (
             <Fragment key={song.id}>
-              <SongRow key={song.id} song={song} />
+              <SongListItem
+                leftAccessory={
+                  <ListItemAvatar>
+                    <Avatar
+                      className={classes.avatar}
+                      variant="square"
+                      src={song.album.profileImageUrlSmall}
+                    />
+                  </ListItemAvatar>
+                }
+                title={song.title}
+                subtitle={song.artist.name}
+                // TODO: add label to resolver to reterieve label name
+                caption={song.label?.name}
+                song={song}
+              />
               {index < songFavourites.length - 1 ? <Divider /> : null}
             </Fragment>
           );
         }
       );
-      return <List>{songsList}</List>;
+      return <List className={classes.list}>{songsList}</List>;
     } else {
       return null;
     }
   };
 
   return (
-    <Screen>
+    <Container>
       {user ? (
-        <Container>
+        <Flex flexDirection="column">
           <Spacing.section.Minor />
-          <Typography variant="h1">Favourites</Typography>
+          <Typography variant="h4">Favourites</Typography>
           <Spacing.section.Minor />
           {renderSongs()}
-        </Container>
+        </Flex>
       ) : (
         <CircularProgress />
       )}
-    </Screen>
+    </Container>
   );
 };

@@ -1,24 +1,57 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
   Container,
+  createStyles,
   Divider,
   Grid,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
+  useTheme,
 } from '@material-ui/core';
-import { Query, QueryLabelByIdArgs, UpdateFollowingType } from 'commonTypes';
-import { AlbumRow, ArtistRow, Flex, Spacing } from 'components';
+import {
+  Album,
+  Query,
+  QueryLabelByIdArgs,
+  Song,
+  UpdateFollowingType,
+} from 'commonTypes';
+import {
+  AlbumListItem,
+  ArtistListItem,
+  Flex,
+  SongListItem,
+  Spacing,
+} from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Label = () => {
   const { id } = useParams();
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
+  const classes = useStyles();
+  const theme = useTheme();
   const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
     Pick<Query, 'labelById'>,
     QueryLabelByIdArgs
@@ -62,7 +95,19 @@ export const Label = () => {
         const artist = artistInstance.artist;
         return (
           <Fragment key={artist.id}>
-            <ArtistRow artist={artist} />
+            <ArtistListItem
+              artist={artist}
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={artist.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={artist.name}
+            />
             {index < labelArtists.length - 1 ? <Divider /> : null}
           </Fragment>
         );
@@ -75,15 +120,49 @@ export const Label = () => {
 
   const renderAlbums = () => {
     if (labelAlbums.length > 0) {
-      const albumsList = labelAlbums.map((album, index: number) => {
+      const albumsList = labelAlbums.map((album: Album, albumIndex: number) => {
+        const songsList = album.songs.map((song: Song, songIndex: number) => (
+          <Fragment key={song.id}>
+            <SongListItem
+              leftAccessory={
+                <Flex alignItems="center" alignSelf="center">
+                  <Typography variant="body1">{songIndex + 1}</Typography>
+                  <Spacing.BetweenParagraphs />
+                </Flex>
+              }
+              title={song.title}
+              song={song}
+            />
+            {songIndex < album.songs.length - 1 ? <Divider /> : null}
+          </Fragment>
+        ));
+
         return (
           <Fragment key={album.id}>
-            <AlbumRow album={album} />
-            {index < labelAlbums.length - 1 ? <Divider /> : null}
+            <AlbumListItem
+              style={{
+                marginBottom: theme.spacing(2),
+                marginTop: theme.spacing(2),
+              }}
+              album={album}
+              title={album.title}
+              subtitle={album.artist.name}
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={album.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+            />
+            {songsList}
+            {albumIndex < labelAlbums.length - 1 ? <Divider /> : null}
           </Fragment>
         );
       });
-      return <List style={{ width: '100%' }}>{albumsList}</List>;
+      return <List className={classes.list}>{albumsList}</List>;
     } else {
       return null;
     }
@@ -118,7 +197,7 @@ export const Label = () => {
             <Grid item={true} direction="column">
               <Typography variant="h4">{labelName}</Typography>
 
-              <Spacing.BetweenParagraphs />
+              <Spacing.BetweenComponents />
 
               <Flex>
                 <Button

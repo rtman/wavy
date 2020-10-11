@@ -159,7 +159,11 @@ export const ItemCard = (props: ItemCardProps) => {
         </CardActionArea>
         <Spacing.BetweenComponents />
         <CardActions>
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            fullWidth={true}
+          >
             <Typography align="left">{title}</Typography>
             <StyledButton
               aria-controls="simple-menu"

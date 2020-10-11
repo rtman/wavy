@@ -12,11 +12,11 @@ export const CreateCreatorSelection = () => {
     <Container>
       <Spacing.section.Minor />
 
-      <Typography variant="h1">Creator Dashboard</Typography>
+      <Typography variant="h3">Creator Dashboard</Typography>
 
       <Spacing.section.Minor />
 
-      <Typography variant="h1">Your Artists</Typography>
+      <Typography variant="h3">Your Artists</Typography>
 
       <Spacing.section.Minor />
 

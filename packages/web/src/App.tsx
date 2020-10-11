@@ -1,12 +1,7 @@
 import './App.css';
 
-import {
-  Container,
-  CircularProgress,
-  Grid,
-  MuiThemeProvider,
-} from '@material-ui/core';
-import { AppContainer, BottomBar, Navigator, Player, TopBar } from 'components';
+import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
+import { BottomBar, Navigator, Player, TopBar } from 'components';
 import {
   AuthContext,
   PlayerProvider,

@@ -1,21 +1,43 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   CircularProgress,
   Container,
+  createStyles,
   Divider,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import { Query, QuerySongsByIdArgs, Song } from 'commonTypes';
-import { Screen, SongRow, Spacing } from 'components';
+import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Queue = () => {
   const playerContext = useContext(PlayerContext);
-  const queue = playerContext?.queue;
+  const classes = useStyles();
+
   const [songIds, setSongIds] = useState<string[]>([]);
+
+  const queue = playerContext?.queue;
+
   const [
     submitSongIds,
     { loading: queryLoading, data: queryData },
@@ -51,33 +73,45 @@ export const Queue = () => {
       songs.forEach((s) => {
         sortedSongs[songIds.indexOf(s.id)] = s;
       });
-      const songsList = sortedSongs.map((song, index: number) => {
-        return (
-          <Fragment key={song.id}>
-            <SongRow song={song} />
-            {index < songs.length - 1 ? <Divider /> : null}
-          </Fragment>
-        );
-      });
+      const songsList = sortedSongs.map((song, index: number) => (
+        <Fragment key={song.id}>
+          <SongListItem
+            leftAccessory={
+              <ListItemAvatar>
+                <Avatar
+                  className={classes.avatar}
+                  variant="square"
+                  src={song.album.profileImageUrlSmall}
+                />
+              </ListItemAvatar>
+            }
+            title={song.title}
+            subtitle={song.artist.name}
+            caption={song.label?.name}
+            song={song}
+          />
+          {index < sortedSongs.length - 1 ? <Divider /> : null}
+        </Fragment>
+      ));
 
-      return <List>{songsList}</List>;
+      return <List className={classes.list}>{songsList}</List>;
     } else {
       return null;
     }
   };
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Container>
+        <Flex flexDirection="column">
           <Spacing.section.Minor />
-          <Typography variant="h1">Queue</Typography>
+          <Typography variant="h4">Queue</Typography>
           <Spacing.section.Minor />
           {renderSongs()}
-        </Container>
+        </Flex>
       )}
-    </Screen>
+    </Container>
   );
 };

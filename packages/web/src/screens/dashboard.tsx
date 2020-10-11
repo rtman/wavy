@@ -1,63 +1,107 @@
 import {
+  Avatar,
   Button,
   Container,
+  createStyles,
+  Divider,
   //   CircularProgress,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import { UserArtist, UserLabel } from 'commonTypes';
-import { ArtistRow, Flex, LabelRow, Spacing } from 'components';
+import { ArtistListItem, Flex, LabelListItem, Spacing } from 'components';
 import { UserContext } from 'context';
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
 
 export const Dashboard = () => {
   const userContext = useContext(UserContext);
   const history = useHistory();
+  const classes = useStyles();
 
   const artists = userContext?.user?.artists ?? [];
   const labels = userContext?.user?.labels ?? [];
 
-  const onClickArtist = (id: string) => {
-    history.push(`/artistDashboard/${id}`);
-  };
+  // const onClickArtist = (id: string) => {
+  //   history.push(`/artistDashboard/${id}`);
+  // };
 
-  const onClickLabel = (id: string) => {
-    history.push(`/labelDashboard/${id}`);
-  };
+  // const onClickLabel = (id: string) => {
+  //   history.push(`/labelDashboard/${id}`);
+  // };
 
   const renderArtists = () => {
     if (artists.length > 0) {
-      const artistList = artists.map((userArtist: UserArtist) => {
-        const artist = userArtist.artist;
+      const artistList = artists.map(
+        (userArtist: UserArtist, index: number) => {
+          const artist = userArtist.artist;
 
-        return (
-          <ArtistRow
-            key={artist.id}
-            artist={artist}
-            passedOnClickArtist={() => onClickArtist(artist.id)}
-          />
-        );
-      });
-      return <List>{artistList}</List>;
+          return (
+            <Fragment key={artist.id}>
+              <ArtistListItem
+                leftAccessory={
+                  <ListItemAvatar>
+                    <Avatar
+                      className={classes.avatar}
+                      variant="square"
+                      src={artist.profileImageUrlSmall}
+                    />
+                  </ListItemAvatar>
+                }
+                title={artist.name}
+                artist={artist}
+              />
+              {index < artists.length - 1 ? <Divider /> : null}
+            </Fragment>
+          );
+        }
+      );
+      return <List className={classes.list}>{artistList}</List>;
     }
     return null;
   };
 
   const renderLabels = () => {
     if (labels.length > 0) {
-      const labelList = labels.map((userLabel: UserLabel) => {
+      const labelList = labels.map((userLabel: UserLabel, index: number) => {
         const label = userLabel.label;
 
         return (
-          <LabelRow
-            key={label.id}
-            label={label}
-            passedOnClickLabel={() => onClickLabel(label.id)}
-          />
+          <Fragment key={label.id}>
+            <LabelListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={label.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={label.name}
+              label={label}
+            />
+            {index < labels.length - 1 ? <Divider /> : null}
+          </Fragment>
         );
       });
-      return <List>{labelList}</List>;
+      return <List className={classes.list}>{labelList}</List>;
     }
     return null;
   };
@@ -67,7 +111,7 @@ export const Dashboard = () => {
       <Flex flexDirection="column">
         <Spacing.section.Major />
 
-        <Typography variant="h1">Creator Dashboard</Typography>
+        <Typography variant="h4">Creator Dashboard</Typography>
 
         <Spacing.section.Minor />
 
@@ -83,7 +127,7 @@ export const Dashboard = () => {
           <>
             <Spacing.section.Major />
 
-            <Typography variant="h1">Your Artists</Typography>
+            <Typography variant="h5">Your Artists</Typography>
 
             <Spacing.section.Minor />
 
@@ -97,7 +141,7 @@ export const Dashboard = () => {
           <>
             <Spacing.section.Minor />
 
-            <Typography variant="h1">Your Labels</Typography>
+            <Typography variant="h5">Your Labels</Typography>
 
             <Spacing.section.Minor />
 

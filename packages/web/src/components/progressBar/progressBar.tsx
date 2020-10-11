@@ -1,4 +1,4 @@
-import { RowContainer, useTimer } from 'components';
+import { Flex, useTimer } from 'components';
 import { TrackPositionSlider } from 'components';
 import { PlayerContext } from 'context';
 import moment from 'moment';
@@ -65,7 +65,7 @@ export const ProgressBar = () => {
   const duration = audio?.duration ?? 0;
 
   return (
-    <RowContainer width="100%" margin="0px 8px">
+    <Flex fullWidth={true} style={{ margin: '0px 8px' }}>
       <TimeText>{getFormattedTime(position)}</TimeText>
       <TrackPositionSlider
         min={0}
@@ -75,6 +75,6 @@ export const ProgressBar = () => {
         onChangeCommitted={onSeekCommitted}
       />
       <TimeText>{getFormattedTime(duration)}</TimeText>
-    </RowContainer>
+    </Flex>
   );
 };

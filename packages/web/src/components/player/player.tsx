@@ -6,7 +6,7 @@ import {
   MutationUserPlayedSongArgs,
 } from 'commonTypes';
 import { ProgressBar } from 'components';
-import { RowContainer, StyledButton } from 'components';
+import { Flex, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
@@ -145,7 +145,7 @@ export const Player = () => {
   // }, [filteredMediaState, playerContext]);
 
   return (
-    <RowContainer width={'100%'}>
+    <Flex fullWidth={true}>
       <StyledButton onClick={playerContext?.playPreviousSongInQueue}>
         <SkipPrevious />
       </StyledButton>
@@ -164,6 +164,6 @@ export const Player = () => {
         <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>
         <SongArtist onClick={onClickArtist}>{songArtist}</SongArtist>
       </SongInfoContainer>
-    </RowContainer>
+    </Flex>
   );
 };

@@ -177,7 +177,7 @@ export const ArtistCreateRelease = () => {
   return (
     <Container>
       <Spacing.section.Minor />
-      <Typography variant="h1">New Release</Typography>
+      <Typography variant="h4">New Release</Typography>
 
       <Spacing.section.Minor />
 

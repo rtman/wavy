@@ -1,15 +1,20 @@
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
   Container,
+  createStyles,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
   List,
+  ListItemAvatar,
+  makeStyles,
   TextField,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import {
@@ -18,19 +23,35 @@ import {
   Query,
   QueryPlaylistsByUserIdArgs,
 } from 'commonTypes';
-import { PlaylistRow, RowContainer, Screen, Spacing } from 'components';
+import { Flex, PlaylistListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Playlists = () => {
+  const userContext = useContext(UserContext);
+  const classes = useStyles();
+  const { user } = userContext ?? {};
+
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
   const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
   const [newPlaylistDescription, setNewPlaylistDescription] = useState<string>(
     ''
   );
-  const userContext = useContext(UserContext);
-  const { user } = userContext ?? {};
+
   const { id: userId } = user ?? {};
 
   const [
@@ -66,12 +87,25 @@ export const Playlists = () => {
       const playlistsList = playlists.map((playlist, index: number) => {
         return (
           <React.Fragment key={playlist.id}>
-            <PlaylistRow playlist={playlist} />
+            <PlaylistListItem
+              playlist={playlist}
+              title={playlist.title}
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    // TODO: Make profileImage mandatory, if user doesnt provide them default one will be provided
+                    src={playlist.profileImageUrlSmall ?? ''}
+                  />
+                </ListItemAvatar>
+              }
+            />
             {index < playlists.length - 1 ? <Divider /> : null}
           </React.Fragment>
         );
       });
-      return <List>{playlistsList}</List>;
+      return <List className={classes.list}>{playlistsList}</List>;
     } else {
       return null;
     }
@@ -104,26 +138,26 @@ export const Playlists = () => {
   ) => setNewPlaylistDescription(event.target.value);
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Container>
+        <Flex flexDirection="column">
           <Spacing.section.Minor />
-          <Typography variant="h1">Playlists</Typography>
+          <Typography variant="h5">Playlists</Typography>
           <Spacing.section.Minor />
-          <RowContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onClickNew(true)}
-            >
-              New
-            </Button>
-          </RowContainer>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onClickNew(true)}
+          >
+            New
+          </Button>
+
           <Spacing.section.Minor />
           {renderPlaylists()}
-        </Container>
+        </Flex>
       )}
       <Dialog
         open={newModalVisible}
@@ -160,6 +194,6 @@ export const Playlists = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </Screen>
+    </Container>
   );
 };

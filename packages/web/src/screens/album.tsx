@@ -4,27 +4,19 @@ import {
   CircularProgress,
   Container,
   Divider,
+  Grid,
   GridList,
   List,
+  makeStyles,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Album as AlbumType,
   Query,
   QueryAlbumByIdArgs,
   Song,
 } from 'commonTypes';
-import {
-  ItemCard,
-  ProfileHeaderImage,
-  ProfileHeaderImageContainer,
-  ProfileHeaderTitle,
-  RowContainer,
-  Screen,
-  SongRow,
-  Spacing,
-} from 'components';
+import { Flex, ItemCard, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
@@ -73,6 +65,8 @@ export const Album = () => {
     }
   }, [getAlbumById, id]);
 
+  const onClickPlayNow = () => playerContext?.replaceQueueWithSongs(albumSongs);
+
   const renderSongs = () => {
     if (albumProcessing) {
       return (
@@ -86,12 +80,22 @@ export const Album = () => {
       const songsList = albumSongs.map((song: Song, index: number) => {
         return (
           <React.Fragment key={song.id}>
-            <SongRow song={song} secondaryStyle={true} />
+            <SongListItem
+              leftAccessory={
+                <Flex alignItems="center" alignSelf="center">
+                  <Typography variant="body1">{index + 1}</Typography>
+                  <Spacing.BetweenParagraphs />
+                </Flex>
+              }
+              title={song.title}
+              caption={song.label?.name}
+              song={song}
+            />
             {index < albumSongs.length - 1 ? <Divider /> : null}
           </React.Fragment>
         );
       });
-      return <List>{songsList}</List>;
+      return <List style={{ width: '100%' }}>{songsList}</List>;
     } else {
       return null;
     }
@@ -108,7 +112,7 @@ export const Album = () => {
       ));
       return (
         <>
-          <Typography variant="h1">More By {artistName}</Typography>
+          <Typography variant="h5">More By {artistName}</Typography>
           <Spacing.section.Minor />
           <GridList className={classes.gridList}>{albumsList}</GridList>
         </>
@@ -119,39 +123,66 @@ export const Album = () => {
   };
 
   return (
-    <Screen>
+    <Container>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Container>
-          <ProfileHeaderImageContainer>
-            <ProfileHeaderImage src={albumImageUrl} />
-            <ProfileHeaderTitle>{albumTitle}</ProfileHeaderTitle>
-          </ProfileHeaderImageContainer>
+        <Flex flexDirection="column" fullWidth={true}>
+          <Grid container={true} style={{ flexShrink: 1 }}>
+            <img
+              style={{
+                minHeight: 50,
+                minWidth: 50,
+                maxHeight: 250,
+                maxWidth: 250,
+                objectFit: 'contain',
+              }}
+              src={albumImageUrl}
+            />
+
+            <Spacing.section.Minor />
+
+            <Grid item={true} direction="column">
+              <Typography variant="h4">{albumTitle}</Typography>
+              <Typography variant="h6">{artistName}</Typography>
+              <Spacing.BetweenComponents />
+
+              <Flex>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={albumProcessing}
+                  onClick={onClickPlayNow}
+                >
+                  Play Now
+                </Button>
+              </Flex>
+            </Grid>
+          </Grid>
+
           <Spacing.section.Minor />
-          <RowContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={albumProcessing}
-              onClick={() => playerContext?.replaceQueueWithSongs(albumSongs)}
-            >
-              Play Now
-            </Button>
-          </RowContainer>
+
+          <Typography variant="h5">Description</Typography>
+
           <Spacing.section.Minor />
-          <Typography variant="h1">Description</Typography>
-          <Spacing.section.Minor />
+
           <Typography variant="body1">{currentAlbum?.description}</Typography>
+
           <Spacing.section.Minor />
-          <Typography variant="h1">Songs</Typography>
+
+          <Typography variant="h5">Songs</Typography>
+
           <Spacing.section.Minor />
+
           {albumSongs ? renderSongs() : null}
+
           <Spacing.section.Minor />
+
           {renderMoreBy()}
+
           <Spacing.section.Minor />
-        </Container>
+        </Flex>
       )}
-    </Screen>
+    </Container>
   );
 };

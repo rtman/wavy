@@ -171,11 +171,11 @@ export const LabelDashboard = () => {
 
           <Spacing.section.Major />
 
-          <Typography variant="h1">Stats</Typography>
+          <Typography variant="h5">Stats</Typography>
 
           <Spacing.section.Minor />
 
-          <Typography variant="h2">Plays</Typography>
+          <Typography variant="h5">Plays</Typography>
 
           <Spacing.section.Minor />
 

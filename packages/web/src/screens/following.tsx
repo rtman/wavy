@@ -1,16 +1,36 @@
 import {
+  Avatar,
   CircularProgress,
   Container,
+  createStyles,
   Divider,
   List,
+  ListItemAvatar,
+  makeStyles,
+  Theme,
   Typography,
 } from '@material-ui/core';
-import { ArtistRow, Screen, Spacing } from 'components';
+import { ArtistListItem, Flex, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+    list: {
+      width: '100%',
+    },
+  })
+);
+
 export const Following = () => {
   const userContext = useContext(UserContext);
+  const classes = useStyles();
+
   const user = userContext?.user;
   console.log('user', user);
   const following = userContext?.user?.artistFollows ?? [];
@@ -21,29 +41,41 @@ export const Following = () => {
         const artist = followingInstance.artist;
         return (
           <Fragment key={artist.id}>
-            <ArtistRow artist={artist} />
+            <ArtistListItem
+              leftAccessory={
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={artist.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              }
+              title={artist.name}
+              artist={artist}
+            />
             {index < following.length - 1 ? <Divider /> : null}
           </Fragment>
         );
       });
-      return <List>{artistList}</List>;
+      return <List className={classes.list}>{artistList}</List>;
     } else {
       return null;
     }
   };
 
   return (
-    <Screen>
+    <Container>
       {user ? (
-        <Container>
+        <Flex flexDirection="column">
           <Spacing.section.Minor />
-          <Typography variant="h1">Following</Typography>
+          <Typography variant="h4">Following</Typography>
           <Spacing.section.Minor />
           {renderArtists()}
-        </Container>
+        </Flex>
       ) : (
         <CircularProgress />
       )}
-    </Screen>
+    </Container>
   );
 };

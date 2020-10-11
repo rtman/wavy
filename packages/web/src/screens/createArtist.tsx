@@ -95,7 +95,7 @@ export const CreateArtist = () => {
   return (
     <Container>
       <Spacing.section.Minor />
-      <Typography variant="h1">New Artist</Typography>
+      <Typography variant="h3">New Artist</Typography>
       <Spacing.section.Minor />
       {image ? (
         <img src={image} width={500} height={500} />
