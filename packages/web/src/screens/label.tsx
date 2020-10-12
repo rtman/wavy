@@ -150,7 +150,7 @@ export const Label = () => {
               title={album.title}
               subtitle={album.artist.name}
               leftAccessory={
-                <ListItemAvatar>
+                <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
                     className={classes.avatar}
                     variant="square"

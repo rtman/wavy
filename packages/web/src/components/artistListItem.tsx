@@ -7,8 +7,10 @@ import { UserContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-interface ArtistListItemProps extends CustomListItemProps {
+interface ArtistListItemProps
+  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
   artist: Artist;
+  onClick?: () => void;
   style?: CSSProperties;
 }
 
@@ -19,7 +21,7 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { artist } = props;
+  const { artist, onClick } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -51,7 +53,7 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={onClickGoToArtist}>Go to Artist</MenuItem>
+        <MenuItem onClick={onClick ?? onClickGoToArtist}>Go to Artist</MenuItem>
         {location.pathname.includes('dashboard') ? null : (
           <MenuItem onClick={onClickToggleFollow}>
             {userContext?.user?.artistFollows?.find(

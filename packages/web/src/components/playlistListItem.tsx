@@ -6,7 +6,9 @@ import { PlayerContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-interface PlaylistListItemProps extends CustomListItemProps {
+interface PlaylistListItemProps
+  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
+  onClick?: () => void;
   playlist: Playlist;
   style?: CSSProperties;
 }
@@ -17,7 +19,7 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { playlist } = props;
+  const { onClick, playlist } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,7 +59,7 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
 
   return (
     <>
-      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      <CustomListItem onClickOpenMenu={onClick ?? onClickOpenMenu} {...props} />
       {makeMenu()}
     </>
   );

@@ -41,13 +41,13 @@ export const Dashboard = () => {
   const artists = userContext?.user?.artists ?? [];
   const labels = userContext?.user?.labels ?? [];
 
-  // const onClickArtist = (id: string) => {
-  //   history.push(`/artistDashboard/${id}`);
-  // };
+  const onClickArtist = (id: string) => {
+    history.push(`/artistDashboard/${id}`);
+  };
 
-  // const onClickLabel = (id: string) => {
-  //   history.push(`/labelDashboard/${id}`);
-  // };
+  const onClickLabel = (id: string) => {
+    history.push(`/labelDashboard/${id}`);
+  };
 
   const renderArtists = () => {
     if (artists.length > 0) {
@@ -58,6 +58,7 @@ export const Dashboard = () => {
           return (
             <Fragment key={artist.id}>
               <ArtistListItem
+                onClick={() => onClickArtist(artist.id)}
                 leftAccessory={
                   <ListItemAvatar className={classes.listItemAvatar}>
                     <Avatar
@@ -88,8 +89,9 @@ export const Dashboard = () => {
         return (
           <Fragment key={label.id}>
             <LabelListItem
+              onClick={() => onClickLabel(label.id)}
               leftAccessory={
-                <ListItemAvatar>
+                <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
                     className={classes.avatar}
                     variant="square"

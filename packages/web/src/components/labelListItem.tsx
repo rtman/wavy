@@ -7,8 +7,10 @@ import { PlayerContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-interface LabelListItemProps extends CustomListItemProps {
+interface LabelListItemProps
+  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
   label: Label;
+  onClick?: () => void;
   style?: CSSProperties;
 }
 
@@ -19,7 +21,7 @@ export const LabelListItem = (props: LabelListItemProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { label } = props;
+  const { label, onClick } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +66,7 @@ export const LabelListItem = (props: LabelListItemProps) => {
   return (
     <>
       <CustomListItem
-        onClick={onClickGoToLabel}
+        onClick={onClick ?? onClickGoToLabel}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />

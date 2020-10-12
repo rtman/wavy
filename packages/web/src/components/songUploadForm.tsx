@@ -75,9 +75,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
 
   useEffect(() => {
     setUploadStatusCallback(uploadStatus, index);
-    // Disabling for now,  including setUploadStatusCallback in the deps array causes constant re rendering
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadStatus, index]);
+  }, [uploadStatus, setUploadStatusCallback, index]);
 
   return (
     <div className={classes.root}>

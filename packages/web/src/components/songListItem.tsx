@@ -7,7 +7,9 @@ import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-interface SongListItemProps extends CustomListItemProps {
+interface SongListItemProps
+  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
+  onClick?: () => void;
   song: Song;
 }
 
@@ -25,7 +27,7 @@ export const SongListItem = (props: SongListItemProps) => {
   const location = useLocation();
   const { id } = useParams();
 
-  const { song } = props;
+  const { onClick, song } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -178,7 +180,7 @@ export const SongListItem = (props: SongListItemProps) => {
   return (
     <>
       <CustomListItem
-        onClick={onClickPlay}
+        onClick={onClick ?? onClickPlay}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />

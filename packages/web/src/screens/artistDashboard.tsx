@@ -1,23 +1,21 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
-  // Button,
+  Button,
   CircularProgress,
   Container,
   FormControl,
-  IconButton,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
-  //   List,
   Typography,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AlbumIcon from '@material-ui/icons/Album';
 import { Artist as ArtistType, QueryArtistByIdArgs } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 interface ArtistByIdData {
@@ -85,23 +83,17 @@ export const ArtistDashboard = () => {
     }
   }, [getArtistById, id]);
 
-  const artistSongs = artist?.songs ?? [];
+  const artistAlbums = artist?.albums ?? [];
 
-  const getPlayCount = () => {
+  const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
-    artistSongs.forEach((song) => {
-      totalPlayCount += song.playCount;
-    });
+    artistAlbums.forEach((album) =>
+      album.songs.forEach((song) => {
+        totalPlayCount += song.playCount;
+      })
+    );
     return totalPlayCount;
-  };
-
-  artistSongs.forEach((song) => {
-    return song.playCount;
-  });
-  // const artistAlbums = artist?.albums ?? [];
-  // const artistName = artist?.name ?? '';
-  // const artistDescription = artist?.description ?? '';
-  // const artistImageUrl = artist?.imageUrl ?? '';
+  }, [artistAlbums]);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const selectedId = event.target.value as string;
@@ -150,29 +142,32 @@ export const ArtistDashboard = () => {
 
           <Spacing.section.Minor />
 
-          <IconButton
-            color="primary"
-            onClick={() => history.push(`/artistCreateRelease/${id}`)}
-          >
-            <AlbumIcon />
-            Create Release
-          </IconButton>
+          <Grid container={true}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => history.push(`/artistCreateRelease/${id}`)}
+            >
+              Create Release
+            </Button>
 
-          <IconButton
+            {/* <Button
             color="primary"
             onClick={() => history.push(`/manageDiscography/${id}`)}
           >
-            <AlbumIcon />
-            Manage Discography
-          </IconButton>
 
-          <IconButton
-            color="primary"
-            onClick={() => history.push(`/artist/${id}`)}
-          >
-            <AlbumIcon />
-            View Artist
-          </IconButton>
+            Manage Discography
+          </Button> */}
+            <Spacing.BetweenComponents />
+
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push(`/artist/${id}`)}
+            >
+              View Artist
+            </Button>
+          </Grid>
 
           <Spacing.section.Major />
 
@@ -184,7 +179,7 @@ export const ArtistDashboard = () => {
 
           <Spacing.section.Minor />
 
-          <Typography variant="body1">{getPlayCount()}</Typography>
+          <Typography variant="body1">{getPlayCount}</Typography>
         </Flex>
       )}
     </Container>

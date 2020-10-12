@@ -27,7 +27,6 @@ export * from './searchBar';
 export * from './songUploadForm';
 export * from './songListItem';
 export * from './styledAvatar';
-export * from './styledListItemText';
 export * from './styledButton';
 export * from './textInput';
 export * from './topBar';

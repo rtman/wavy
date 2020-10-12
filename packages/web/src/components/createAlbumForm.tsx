@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/react-hooks';
 import MomentUtils from '@date-io/moment';
 import {
   Button,
@@ -8,6 +9,7 @@ import {
   Switch,
   TextField,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
@@ -17,17 +19,27 @@ import {
   Artist,
   ArtistAutocomplete,
   CreateAlbumSubmissionData,
+  Mutation,
+  MutationAddSongsToAlbumArgs,
+  MutationCreateAlbumArgs,
   NewAlbumForm,
   SongFields,
   SongForUpload,
 } from 'commonTypes';
 import { FileUploadButton, Flex, SongUploadForm, Spacing } from 'components';
 import * as consts from 'consts';
+import { UserContext } from 'context';
 import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -36,39 +48,22 @@ import {
   useForm,
 } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
+import { useHistory } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
 import { uuid } from 'uuidv4';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  imageUploader: {
-    width: 'auto',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-}));
-
 interface CreateAlbumFormProps {
-  submitAlbum: (data: CreateAlbumSubmissionData) => void;
   artists: ArtistAutocomplete[];
-  loading: boolean;
+  creatorId: string;
   isLabel?: boolean;
-  id: string;
 }
 
 export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   const classes = useStyles();
+  const history = useHistory();
+  const userContext = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+  const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
   const {
     getRootProps,
@@ -81,39 +76,87 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   });
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
-  const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
-  const [releaseId, setReleaseId] = useState<string>('');
 
-  const { artists, id, isLabel, loading, submitAlbum } = props;
+  let uploadStatuses: UploadStatus[] = [];
+  const releaseId = uuid();
+  const { artists, creatorId, isLabel } = props;
 
-  const defaultFormValues: NewAlbumForm = {
-    album: {
-      artist: null,
-      newArtistEmail: '',
-      newArtistName: '',
-      isNewArtist: false,
-      releaseDate: null,
-      title: '',
+  const [createAlbum, { loading, called, error }] = useMutation<
+    Pick<Mutation, 'createAlbum'>,
+    MutationCreateAlbumArgs
+  >(consts.mutations.album.CREATE_ALBUM, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.createAlbum.id) {
+        enqueueSnackbar('Success! Release Created, songs are processing', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+        history.push(`/album/${data.createAlbum.id}`);
+      } else {
+        enqueueSnackbar('Error! Release Not Created', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
     },
-    songs: [
-      {
+  });
+
+  const [addSongsToAlbum] = useMutation<
+    Pick<Mutation, 'addSongsToAlbum'>,
+    MutationAddSongsToAlbumArgs
+  >(consts.mutations.album.ADD_SONGS_ALBUM, {
+    onCompleted(data) {
+      console.log('onCompleted data', data);
+      if (data.addSongsToAlbum) {
+        enqueueSnackbar('Processing complete', {
+          variant: 'success',
+          autoHideDuration: 4000,
+        });
+      } else {
+        enqueueSnackbar('Error! Processing failed', {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    },
+    onError() {
+      enqueueSnackbar('Error! Processing failed', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    },
+  });
+
+  const defaultFormValues: () => NewAlbumForm = useCallback(
+    () => ({
+      album: {
         artist: null,
         newArtistEmail: '',
         newArtistName: '',
-        hasSupportingArtists: false,
         isNewArtist: false,
-        isrc: '',
+        releaseDate: null,
         title: '',
-        supportingArtists: null,
       },
-    ],
-  };
+      songs: [
+        {
+          artist: null,
+          newArtistEmail: '',
+          newArtistName: '',
+          hasSupportingArtists: false,
+          isNewArtist: false,
+          isrc: '',
+          title: '',
+          supportingArtists: null,
+        },
+      ],
+    }),
+    []
+  );
 
   const hookForm = useForm<NewAlbumForm>({
-    defaultValues: defaultFormValues,
+    defaultValues: defaultFormValues(),
   });
   const { reset } = hookForm;
   const { fields, append, remove } = useFieldArray<SongFields>({
@@ -129,15 +172,11 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   );
 
   useEffect(() => {
-    setReleaseId(uuid());
-  }, []);
-
-  useEffect(() => {
     if (acceptedFiles.length > 0) {
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
           (file): SongFields => ({
-            ...defaultFormValues.songs[0],
+            ...defaultFormValues().songs[0],
             artist: null,
             title:
               file.name.lastIndexOf('.') !== -1
@@ -158,6 +197,15 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
       reset({ songs: makeFormFromDropzone() });
     }
   }, [acceptedFiles, reset, defaultFormValues]);
+
+  const setUploadStatus = useCallback(
+    (newUploadStatus: UploadStatus, index: number) => {
+      const uploadStatusesCloned = [...uploadStatuses];
+      uploadStatusesCloned[index] = newUploadStatus;
+      uploadStatuses = [...uploadStatusesCloned];
+    },
+    []
+  );
 
   const removeSong = (index: number) => {
     if (uploadStatuses[index]) {
@@ -181,19 +229,25 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
 
       const resolvedUploadStatuses = [...uploadStatuses];
       resolvedUploadStatuses.splice(index, 1);
-      setUploadStatuses(resolvedUploadStatuses);
 
+      uploadStatuses = [...resolvedUploadStatuses];
       remove(index);
     }
   };
 
   const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
-    console.log('*debug* addFileToAddedSong fileAccepted', fileAccepted);
-    console.log('*debug* addFileToAddedSong fileRejected', fileRejected);
+    if (fileRejected.length > 0) {
+      enqueueSnackbar('Error! Wrong file type please try again', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+
+      return;
+    }
+
     if (fileAccepted.length > 0) {
       const newFile = fileAccepted[0];
       const resolvedSongsForUpload = [...songsForUpload];
-
       let title = newFile.name.trim();
 
       if (newFile.name.lastIndexOf('.') !== -1) {
@@ -206,27 +260,82 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
       });
 
       setSongsForUpload(resolvedSongsForUpload);
-
       append({ title });
     }
+  };
 
-    if (fileRejected.length > 0) {
-      enqueueSnackbar('Error! Wrong file type please try again', {
+  const onClickSubmit = async (data: NewAlbumForm) => {
+    console.log('*debug* onSubmit data', data);
+    if (
+      uploadStatuses.find((upload) => upload.data === undefined) ===
+        undefined &&
+      data.album.artist !== null
+    ) {
+      const resolvedSongsForUpload = songsForUpload.map((song, index) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { file, ...rest } = song;
+
+        // data is checked above for undefined in the find
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const uploadData = uploadStatuses[index].data!;
+
+        return {
+          ...rest,
+          title: data.songs[index].title.trim(),
+          storagePath: uploadData.gsUrl,
+          url: uploadData.downloadUrl,
+        };
+      });
+
+      console.log(
+        '*debug* onSubmit resolvedSongsForUpload',
+        resolvedSongsForUpload
+      );
+
+      const result = await uploadImage({
+        rootDir: creatorId,
+        parentDir: 'albums',
+        childDir: releaseId,
+        fileName: 'profile',
+      });
+
+      console.log('result', result);
+
+      if (result && result.id && resolvedSongsForUpload.length > 0) {
+        await createAlbum({
+          variables: {
+            input: {
+              ...data.album,
+              albumId: result.id,
+              artistId: data.album.artist?.id,
+              //TODO: add description field to albumFields
+              description: '',
+              profileImageStoragePath: result.gsUrl,
+            },
+          },
+        });
+        // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
+        // the album is tagged as processing and will be viewable but disabled until processing is completed
+        addSongsToAlbum({
+          variables: {
+            input: {
+              userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
+              albumId: result.id,
+              artistId: data.album.artist?.id,
+              songsToAdd: resolvedSongsForUpload ?? {
+                title: '',
+                storagePath: '',
+              },
+            },
+          },
+        });
+      }
+    } else {
+      enqueueSnackbar("Error! Files aren't done uploading", {
         variant: 'error',
         autoHideDuration: 4000,
       });
     }
-  };
-
-  const setUploadStatus = (newUploadStatus: UploadStatus, index: number) => {
-    const uploadStatusesCloned = [...uploadStatuses];
-    uploadStatusesCloned[index] = newUploadStatus;
-    setUploadStatuses(uploadStatusesCloned);
-  };
-
-  const onClickSubmit = (data: NewAlbumForm) => {
-    // TODO: transform data for the proper type to send to the server
-    submitAlbum(data as any);
   };
 
   // TODO: make this dynamic, get values from server
@@ -239,9 +348,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   ];
 
   console.log('*debug* acceptedFiles', acceptedFiles);
-  console.log('*debug* fileRejections', fileRejections);
   console.log('*debug* uploadStatuses', uploadStatuses);
-  console.log('*debug* songsForUpload', songsForUpload);
 
   return (
     <FormProvider {...hookForm}>
@@ -444,7 +551,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
                     return (
                       <li key={data.id}>
                         <SongUploadForm
-                          creatorId={id}
+                          creatorId={creatorId}
                           releaseId={releaseId}
                           songData={songsForUpload[index]}
                           formData={data}
@@ -488,20 +595,27 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
         ) : (
           <DropzoneContainer
             // borderColor={getColor()}
-            borderColor={'#eeee'}
+            borderColor={theme.palette.grey[500]}
             {...getRootProps({})}
           >
             <input {...getInputProps()} />
-            <p>Drag 'n' drop audio files here</p>
+            <Typography variant="h5">Drop audio files here</Typography>
+
             {fileRejections.length > 0 ? (
               <Typography variant="body1">
                 Some files were rejected, please check you are submitting audio
                 files.
               </Typography>
             ) : null}
-            <button type="button" onClick={open}>
+            <Spacing.BetweenComponents />
+
+            <Typography variant="body1">Or</Typography>
+
+            <Spacing.BetweenComponents />
+
+            <Button variant="contained" color="primary" onClick={open}>
               Open File Dialog
-            </button>
+            </Button>
           </DropzoneContainer>
         )}
       </Container>
@@ -525,6 +639,26 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
 // };
 
 // Private Styles
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  imageUploader: {
+    width: 'auto',
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+}));
 
 const DropzoneContainer = styled.div(
   (props: { borderColor: string } & WithTheme): CSSObject => ({

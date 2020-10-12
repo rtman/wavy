@@ -1,23 +1,21 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
-  // Button,
+  Button,
   CircularProgress,
   Container,
   FormControl,
-  IconButton,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
-  //   List,
   Typography,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AlbumIcon from '@material-ui/icons/Album';
 import { Label as LabelType, Query, QueryLabelByIdArgs } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,23 +79,17 @@ export const LabelDashboard = () => {
     }
   }, [getLabelById, id]);
 
-  const labelSongs = label?.songs ?? [];
+  const labelAlbums = label?.albums ?? [];
 
-  const getPlayCount = () => {
+  const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
-    labelSongs.forEach((song) => {
-      totalPlayCount += song.playCount;
-    });
+    labelAlbums.forEach((album) =>
+      album.songs.forEach((song) => {
+        totalPlayCount += song.playCount;
+      })
+    );
     return totalPlayCount;
-  };
-
-  labelSongs.forEach((song) => {
-    return song.playCount;
-  });
-  // const LabelAlbums = Label?.albums ?? [];
-  // const LabelName = Label?.name ?? '';
-  // const LabelDescription = Label?.description ?? '';
-  // const LabelImageUrl = Label?.imageUrl ?? '';
+  }, [labelAlbums]);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const selectedId = event.target.value as string;
@@ -145,15 +137,16 @@ export const LabelDashboard = () => {
 
           <Spacing.section.Minor />
 
-          <IconButton
-            color="primary"
-            onClick={() => history.push(`/labelCreateRelease/${id}`)}
-          >
-            <AlbumIcon />
-            Create Release
-          </IconButton>
+          <Grid container={true}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => history.push(`/labelCreateRelease/${id}`)}
+            >
+              Create Release
+            </Button>
 
-          {/* <IconButton
+            {/* <IconButton
             color="primary"
             onClick={() => history.push(`/manageDiscography/${id}`)}
           >
@@ -161,14 +154,16 @@ export const LabelDashboard = () => {
             Manage Discography
           </IconButton> */}
 
-          <IconButton
-            color="primary"
-            onClick={() => history.push(`/Label/${id}`)}
-          >
-            <AlbumIcon />
-            View Label
-          </IconButton>
+            <Spacing.BetweenComponents />
 
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push(`/Label/${id}`)}
+            >
+              View Label
+            </Button>
+          </Grid>
           <Spacing.section.Major />
 
           <Typography variant="h5">Stats</Typography>
@@ -179,7 +174,7 @@ export const LabelDashboard = () => {
 
           <Spacing.section.Minor />
 
-          <Typography variant="body1">{getPlayCount()}</Typography>
+          <Typography variant="body1">{getPlayCount}</Typography>
         </Flex>
       )}
     </Container>

@@ -54,6 +54,7 @@ export const LABEL_BY_ID = gql`
           id
           title
           urlHigh
+          playCount
         }
         artist {
           id
