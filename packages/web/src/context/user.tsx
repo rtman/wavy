@@ -26,11 +26,11 @@ import { AuthContext } from './auth';
 
 interface UserContextProps {
   user?: User;
-  loadUser(id: string): void;
+  loadUser(userId: string): void;
   updateFollowing(args: Omit<UpdateFollowingArgs, 'userId'>): void;
-  updateFavourites(id: string): void;
-  addSongsToPlaylist(id: string, songIds: string[]): void;
-  removeSongsFromPlaylist(id: string, songIds: string[]): void;
+  updateFavourites(songId: string): void;
+  addSongsToPlaylist(playlistId: string, songIds: string[]): void;
+  removeSongsFromPlaylist(playlistId: string, songIds: string[]): void;
   playlists?: UserPlaylist[] | null;
   loading: boolean;
   ipAddress?: string;

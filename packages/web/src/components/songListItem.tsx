@@ -25,6 +25,7 @@ export const SongListItem = (props: SongListItemProps) => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
+  // TODO: this is only used when removing a song from the playlist you are currently viewing, its unclear that it is the playlistId and is only available in that scenario. Should be fixed
   const { id } = useParams();
 
   const { onClick, song } = props;
@@ -90,7 +91,7 @@ export const SongListItem = (props: SongListItemProps) => {
   };
 
   const getFavouriteTitle = () => {
-    return userContext?.user?.songFavourites?.find((f) => f.song.id === id)
+    return userContext?.user?.songFavourites?.find((f) => f.song.id === song.id)
       ? 'Unfavourite'
       : 'Favourite';
   };
