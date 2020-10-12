@@ -27,6 +27,7 @@ import { Flex, PlaylistListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Playlists = () => {
   const userContext = useContext(UserContext);
   const classes = useStyles();
+  const history = useHistory();
+
   const { user } = userContext ?? {};
 
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
@@ -84,6 +87,10 @@ export const Playlists = () => {
     }
   }, [userId, getPlaylists]);
 
+  const onClickGoToPlaylist = (playlistId: string) => {
+    history.push(`${consts.routes.PLAYLIST}/${playlistId}`);
+  };
+
   const playlists = queryData?.playlistsByUserId ?? [];
   const renderPlaylists = () => {
     if (playlists.length > 0) {
@@ -91,6 +98,7 @@ export const Playlists = () => {
         return (
           <React.Fragment key={playlist.id}>
             <PlaylistListItem
+              onClick={() => onClickGoToPlaylist(playlist.id)}
               playlist={playlist}
               title={playlist.title}
               leftAccessory={
