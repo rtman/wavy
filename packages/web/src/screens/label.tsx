@@ -35,10 +35,13 @@ import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemAvatar: {
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
     avatar: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: theme.spacing(2),
     },
     list: {
       width: '100%',
@@ -97,7 +100,7 @@ export const Label = () => {
             <ArtistListItem
               artist={artist}
               leftAccessory={
-                <ListItemAvatar>
+                <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
                     className={classes.avatar}
                     variant="square"
@@ -197,7 +200,7 @@ export const Label = () => {
 
             <Spacing.section.Minor />
 
-            <Grid item={true} direction="column">
+            <Grid item={true}>
               <Typography variant="h4">{labelName}</Typography>
 
               <Spacing.BetweenComponents />

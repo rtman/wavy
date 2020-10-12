@@ -142,7 +142,7 @@ export const Album = () => {
 
             <Spacing.section.Minor />
 
-            <Grid item={true} direction="column">
+            <Grid item={true}>
               <Typography variant="h4">{albumTitle}</Typography>
               <Typography variant="h6">{artistName}</Typography>
               <Spacing.BetweenComponents />

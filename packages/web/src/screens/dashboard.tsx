@@ -19,10 +19,13 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemAvatar: {
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
     avatar: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: theme.spacing(2),
     },
     list: {
       width: '100%',
@@ -56,7 +59,7 @@ export const Dashboard = () => {
             <Fragment key={artist.id}>
               <ArtistListItem
                 leftAccessory={
-                  <ListItemAvatar>
+                  <ListItemAvatar className={classes.listItemAvatar}>
                     <Avatar
                       className={classes.avatar}
                       variant="square"

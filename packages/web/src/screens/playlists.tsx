@@ -30,10 +30,13 @@ import React, { useContext, useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemAvatar: {
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
     avatar: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: theme.spacing(2),
     },
     list: {
       width: '100%',
@@ -91,7 +94,7 @@ export const Playlists = () => {
               playlist={playlist}
               title={playlist.title}
               leftAccessory={
-                <ListItemAvatar>
+                <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
                     className={classes.avatar}
                     variant="square"

@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/react-hooks';
+import { createStyles, makeStyles, Typography } from '@material-ui/core';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import {
   Mutation,
@@ -13,13 +14,24 @@ import * as helpers from 'helpers';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { SongArtist, SongInfoContainer, SongTitle } from './styles';
+const useStyles = makeStyles(() =>
+  createStyles({
+    clickableText: {
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+  })
+);
 
 const minimumPlayRatio = 0.2;
 
 export const Player = () => {
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
+  const classes = useStyles();
+
   const [filteredMediaState, setFilteredMediaState] = useState<string>('');
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
 
@@ -115,7 +127,6 @@ export const Player = () => {
   }, [allMediaStates, filteredMediaState]);
 
   const history = useHistory();
-  // console.log('playerContext currentSong', currentSong);
   const songTitle = currentSong?.title ?? '';
   const songArtist = currentSong?.artist?.name ?? '';
 
@@ -124,7 +135,7 @@ export const Player = () => {
   };
 
   const onClickSong = () => {
-    return null;
+    history.push(`${consts.routes.ALBUM}/${currentSong?.albumId}`);
   };
 
   const onClickPlay = () => {
@@ -160,10 +171,24 @@ export const Player = () => {
         <SkipNext />
       </StyledButton>
       <ProgressBar />
-      <SongInfoContainer>
-        <SongTitle onClick={onClickSong}>{songTitle}</SongTitle>
-        <SongArtist onClick={onClickArtist}>{songArtist}</SongArtist>
-      </SongInfoContainer>
+      <Flex flexDirection="column">
+        <Typography
+          className={classes.clickableText}
+          noWrap={true}
+          variant="caption"
+          onClick={onClickSong}
+        >
+          {songTitle}
+        </Typography>
+        <Typography
+          className={classes.clickableText}
+          noWrap={true}
+          variant="caption"
+          onClick={onClickArtist}
+        >
+          {songArtist}
+        </Typography>
+      </Flex>
     </Flex>
   );
 };

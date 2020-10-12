@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
       minWidth: theme.spacing(1),
+      color: theme.palette.text.primary,
     },
   })
 );

@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       top: 'auto',
       bottom: 0,
-      backgroundColor: 'white',
+      backgroundColor: theme.palette.background.default,
+      color: theme.palette.text.primary,
     },
     grow: {
       flexGrow: 1,
