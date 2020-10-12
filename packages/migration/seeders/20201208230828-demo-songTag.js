@@ -161,12 +161,6 @@ module.exports = {
       },
       {
         tagId: 'd50949eb-1d6c-411d-bcb8-6e3d1f2049d1',
-        songId: 'bbda595d-624b-4646-abfe-f45289ef7f80',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        tagId: 'd50949eb-1d6c-411d-bcb8-6e3d1f2049d1',
         songId: 'ffb050e7-a023-4c65-9e49-1d5ed9803774',
         createdAt: new Date(),
         updatedAt: new Date(),
