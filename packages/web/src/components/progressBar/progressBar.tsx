@@ -65,7 +65,7 @@ export const ProgressBar = () => {
   const duration = audio?.duration ?? 0;
 
   return (
-    <Flex fullWidth={true} style={{ margin: '0px 8px' }}>
+    <Flex alignItems="center" fullWidth={true} style={{ margin: '0px 8px' }}>
       <TimeText>{getFormattedTime(position)}</TimeText>
       <TrackPositionSlider
         min={0}

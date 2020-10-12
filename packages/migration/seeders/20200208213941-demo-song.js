@@ -274,17 +274,17 @@ module.exports = {
       },
       {
         id: 'c35b0e2e-99b6-4a08-aae2-a312e06b86ca',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Q1.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Q1.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Q1.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Q1.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Q1.ogg?alt=media&token=e1e3bee4-6f7a-45f0-bc4c-19d37ff4a6e9',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.ogg?alt=media&token=c351e9ba-5041-4c18-92a1-023281933195',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.ogg?alt=media&token=c351e9ba-5041-4c18-92a1-023281933195',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.ogg?alt=media&token=c351e9ba-5041-4c18-92a1-023281933195',
         title: `Q1`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -296,17 +296,17 @@ module.exports = {
       },
       {
         id: '0de438c0-a710-4fb2-ba8e-7aaf55a4e2e4',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Spaneaur.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Spaneaur.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Spaneaur.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Spaneaur.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Spaneaur.ogg?alt=media&token=2e2c0fb7-5f59-4657-822e-6c00ad0480f0',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.ogg?alt=media&token=71dc4a21-a6c9-43dd-8d6e-01eca1bab2e5',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.ogg?alt=media&token=71dc4a21-a6c9-43dd-8d6e-01eca1bab2e5',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.ogg?alt=media&token=71dc4a21-a6c9-43dd-8d6e-01eca1bab2e5',
         title: `Spaneaur`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -318,17 +318,17 @@ module.exports = {
       },
       {
         id: '50ef4fe1-0e5b-4aab-84e8-1ca5e2507071',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Whisper Theme.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Whisper Theme.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Whisper Theme.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Whisper Theme.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Whisper%20Theme.ogg?alt=media&token=38a20a96-a7cb-497d-9418-7269eca7ef2b',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.ogg?alt=media&token=21ae1e88-ca47-4383-9d2e-6fdf224f6fa7',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.ogg?alt=media&token=21ae1e88-ca47-4383-9d2e-6fdf224f6fa7',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.ogg?alt=media&token=21ae1e88-ca47-4383-9d2e-6fdf224f6fa7',
         title: `Whisper Theme`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -340,17 +340,17 @@ module.exports = {
       },
       {
         id: '41bdaaf2-1b2d-4b4a-b4bd-8a2a3914f505',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - 20% Deeper.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - 20% Deeper.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - 20% Deeper.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - 20% Deeper.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%2020%25%20Deeper.ogg?alt=media&token=aff2b583-7480-47fc-b4b2-0ea5c97fbded',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.ogg?alt=media&token=f926143f-2203-4eca-bab6-dea87c7308f2',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.ogg?alt=media&token=f926143f-2203-4eca-bab6-dea87c7308f2',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.ogg?alt=media&token=f926143f-2203-4eca-bab6-dea87c7308f2',
         title: `20% Deeper`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -362,17 +362,17 @@ module.exports = {
       },
       {
         id: '8459e7b7-93aa-45ea-a078-4765208af79a',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Fixation.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Fixation.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Fixation.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Fixation.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Fixation.ogg?alt=media&token=a5f49da0-c10a-48e7-ac39-d316e6c5a78f',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.ogg?alt=media&token=13fe4624-3122-4384-8a02-a8094fd38c0f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.ogg?alt=media&token=13fe4624-3122-4384-8a02-a8094fd38c0f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.ogg?alt=media&token=13fe4624-3122-4384-8a02-a8094fd38c0f',
         title: `Fixation`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -384,17 +384,17 @@ module.exports = {
       },
       {
         id: 'e9ebfe67-5913-4a41-86d2-dd43ab55e353',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - GLWL.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - GLWL.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - GLWL.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - GLWL.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20GLWL.ogg?alt=media&token=89540520-cb5f-4981-b7dd-94f174d5e804',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.ogg?alt=media&token=ea6a469a-7fe5-44fc-8d05-6399ef6477d5',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.ogg?alt=media&token=ea6a469a-7fe5-44fc-8d05-6399ef6477d5',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.ogg?alt=media&token=ea6a469a-7fe5-44fc-8d05-6399ef6477d5',
         title: `GLWL`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -406,17 +406,17 @@ module.exports = {
       },
       {
         id: '2f97ffaa-7b0c-40ea-b341-498347389038',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Make It Thru.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Make It Thru.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Make It Thru.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Make It Thru.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Make%20It%20Thru.ogg?alt=media&token=5741ee72-d1bf-4efc-a01d-9dbdae0b4579',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.ogg?alt=media&token=0f857f90-f73a-4251-bced-492737add75e',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.ogg?alt=media&token=0f857f90-f73a-4251-bced-492737add75e',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.ogg?alt=media&token=0f857f90-f73a-4251-bced-492737add75e',
         title: `Make It Thru`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -428,17 +428,17 @@ module.exports = {
       },
       {
         id: '279b4cce-edf0-431d-b9d2-fa3171eda9f5',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/ESB - Mist Outro.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Mist Outro.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Mist Outro.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Mist Outro.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/ESB%20-%20Mist%20Outro.ogg?alt=media&token=d2a503ed-717a-4ac3-a431-acda78ca10e1',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.ogg?alt=media&token=f58aae61-a055-4f54-b21b-591c7e163177',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.ogg?alt=media&token=f58aae61-a055-4f54-b21b-591c7e163177',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.ogg?alt=media&token=f58aae61-a055-4f54-b21b-591c7e163177',
         title: `Mist Outro`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -450,17 +450,17 @@ module.exports = {
       },
       {
         id: 'b98976fc-6a4f-4efe-81f2-13e1f7ddabc0',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 01 Foreign Parts.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 01 Foreign Parts.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 01 Foreign Parts.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 01 Foreign Parts.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.ogg?alt=media&token=a145353e-5ac0-440f-bd4b-0253675e7969',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.ogg?alt=media&token=909fbee7-2a98-412f-9251-c014696a90b8',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.ogg?alt=media&token=909fbee7-2a98-412f-9251-c014696a90b8',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.ogg?alt=media&token=909fbee7-2a98-412f-9251-c014696a90b8',
         title: `Foreign Parts`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -472,17 +472,17 @@ module.exports = {
       },
       {
         id: '2729a114-414b-412b-8b8a-2df40244f8f6',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 02 Sondag.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 02 Sondag.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 02 Sondag.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 02 Sondag.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.ogg?alt=media&token=68551005-a4d4-4764-9f98-4d028e9f9983',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.ogg?alt=media&token=656852ae-4537-4033-a45b-0b4265450b89',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.ogg?alt=media&token=656852ae-4537-4033-a45b-0b4265450b89',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.ogg?alt=media&token=656852ae-4537-4033-a45b-0b4265450b89',
         title: `Sondag`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -494,17 +494,17 @@ module.exports = {
       },
       {
         id: '2adbb9e0-b4bc-48d2-9dff-9fecd2df4775',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=6a9815fd-ac24-4286-80d7-91e1625d5bb4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=a7290cd6-ea55-406e-a5ec-33f56f917a19',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=a7290cd6-ea55-406e-a5ec-33f56f917a19',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=a7290cd6-ea55-406e-a5ec-33f56f917a19',
         title: `Gunvor`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -516,17 +516,17 @@ module.exports = {
       },
       {
         id: '6c0cb32e-1495-4d07-ac42-cde370f75d15',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 04 Moodlight.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 04 Moodlight.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 04 Moodlight.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 04 Moodlight.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.ogg?alt=media&token=75e22a97-c1d9-43ea-9006-987ccb275448',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.ogg?alt=media&token=8ca56828-33ec-4c17-8eec-7cdd7413e937',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.ogg?alt=media&token=8ca56828-33ec-4c17-8eec-7cdd7413e937',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.ogg?alt=media&token=8ca56828-33ec-4c17-8eec-7cdd7413e937',
         title: `Moodlight`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -538,17 +538,17 @@ module.exports = {
       },
       {
         id: '14e987b4-a1c8-4517-9e50-1398c2b52279',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 05 Brodir.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 05 Brodir.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 05 Brodir.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 05 Brodir.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.ogg?alt=media&token=54353753-0d75-45fa-960c-82db1bee7d49',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.ogg?alt=media&token=dbfedf4e-3686-4f6e-a012-e556f100d9a5',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.ogg?alt=media&token=dbfedf4e-3686-4f6e-a012-e556f100d9a5',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.ogg?alt=media&token=dbfedf4e-3686-4f6e-a012-e556f100d9a5',
         title: `Brodir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -560,17 +560,17 @@ module.exports = {
       },
       {
         id: '95b02d5e-054d-4994-bce7-0979e69e1e6c',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 06 Systir.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 06 Systir.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 06 Systir.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 06 Systir.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.ogg?alt=media&token=4717832e-6c90-465d-a577-5f961bef9a35',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.ogg?alt=media&token=1ace4eae-8efa-47f6-a164-a521d9384349',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.ogg?alt=media&token=1ace4eae-8efa-47f6-a164-a521d9384349',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.ogg?alt=media&token=1ace4eae-8efa-47f6-a164-a521d9384349',
         title: `Systir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -580,41 +580,41 @@ module.exports = {
         playCount: 230,
         tagSearchString: 'house,electronic',
       },
-      {
-        id: 'bbda595d-624b-4646-abfe-f45289ef7f80',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=6a9815fd-ac24-4286-80d7-91e1625d5bb4',
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        title: `Gunvor`,
-        artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-        albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
-        labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        playCount: 440,
-        tagSearchString: 'house,electronic',
-      },
+      // {
+      //   id: 'bbda595d-624b-4646-abfe-f45289ef7f80',
+      //   storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
+      //   storagePathMedium:
+      //     'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+      //   storagePathLow:
+      //     'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+      //   urlHigh:
+      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=6a9815fd-ac24-4286-80d7-91e1625d5bb4',
+      //   urlMedium:
+      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+      //   urlLow:
+      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+      //   title: `Gunvor`,
+      //   artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
+      //   albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
+      //   labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
+      //   createdAt: new Date(),
+      //   updatedAt: new Date(),
+      //   playCount: 440,
+      //   tagSearchString: 'house,electronic',
+      // },
       {
         id: 'ffb050e7-a023-4c65-9e49-1d5ed9803774',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 07 Modir.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 07 Modir.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 07 Modir.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 07 Modir.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.ogg?alt=media&token=ae116131-e2e7-42d2-9cc7-4e50b7e52ac0',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.ogg?alt=media&token=cc5f9038-cb6c-49f4-959b-d4fd27078a9d',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.ogg?alt=media&token=cc5f9038-cb6c-49f4-959b-d4fd27078a9d',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.ogg?alt=media&token=cc5f9038-cb6c-49f4-959b-d4fd27078a9d',
         title: `Modir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -626,17 +626,17 @@ module.exports = {
       },
       {
         id: '6b4971fd-1751-4878-9be8-a8055f8951c3',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW005 - 01 MT01.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 01 MT01.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 01 MT01.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 01 MT01.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW005%20-%2001%20MT01.ogg?alt=media&token=9a19713b-3ce3-49d1-8130-c101cceccb40',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.ogg?alt=media&token=10fdb28d-61f3-419f-8702-7b6f28260e43',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.ogg?alt=media&token=10fdb28d-61f3-419f-8702-7b6f28260e43',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.ogg?alt=media&token=10fdb28d-61f3-419f-8702-7b6f28260e43',
         title: `MT01`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
@@ -648,17 +648,17 @@ module.exports = {
       },
       {
         id: '56e3b234-de56-4849-962a-3c21ed195f9d',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW005 - 02 MT02.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 02 MT02.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 02 MT02.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 02 MT02.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW005%20-%2002%20MT02.ogg?alt=media&token=4f6fa900-0a78-44d2-86ff-7223c59c508b',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.ogg?alt=media&token=90a7492b-5c13-4f73-a26b-41d5b4056003',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.ogg?alt=media&token=90a7492b-5c13-4f73-a26b-41d5b4056003',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.ogg?alt=media&token=90a7492b-5c13-4f73-a26b-41d5b4056003',
         title: `MT02`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
@@ -670,17 +670,17 @@ module.exports = {
       },
       {
         id: '857f44a3-6f40-4c95-9b7a-e9789eb62d47',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=2af9ce4f-4967-4f71-b32d-800b8dea9c85',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         title: `Everybody Looks Good At The Restaurant`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -692,17 +692,17 @@ module.exports = {
       },
       {
         id: '5b9734f7-08a1-41b0-855a-81900b611421',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 02 I Will.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 02 I Will.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 02 I Will.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 02 I Will.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.ogg?alt=media&token=19db5ac7-eefa-4ea4-80fb-299e29c4a512',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.ogg?alt=media&token=6edd8994-2491-4c45-8f72-56f901b66b49',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.ogg?alt=media&token=6edd8994-2491-4c45-8f72-56f901b66b49',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.ogg?alt=media&token=6edd8994-2491-4c45-8f72-56f901b66b49',
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -714,17 +714,17 @@ module.exports = {
       },
       {
         id: '4ffc70f7-4aaa-4796-84a8-0b1305278937',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=9c7a47b7-b869-41cd-ad27-b8d7afbb6a34',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=a6bc66ba-ec0b-4c69-8a45-38a9b8d17f6b',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=a6bc66ba-ec0b-4c69-8a45-38a9b8d17f6b',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=a6bc66ba-ec0b-4c69-8a45-38a9b8d17f6b',
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -736,16 +736,12 @@ module.exports = {
       },
       {
         id: '42312cf4-78f5-423f-971b-e792d40e463f',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - SW004 - 04 I Won't.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.ogg?alt=media&token=0cea14b2-d8aa-48cc-ae8f-dc0ba6d8348d`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.ogg?alt=media&token=37415c75-f66b-4517-aa4b-b413b38498c0`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.ogg?alt=media&token=37415c75-f66b-4517-aa4b-b413b38498c0`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.ogg?alt=media&token=37415c75-f66b-4517-aa4b-b413b38498c0`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -757,17 +753,17 @@ module.exports = {
       },
       {
         id: '14a16828-d7d5-4933-9b0b-5f878e990150',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 01 Swimmers.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 01 Swimmers.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 01 Swimmers.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 01 Swimmers.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.ogg?alt=media&token=c8526dc9-ea6a-4c05-85db-d7a25ea9b441',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.ogg?alt=media&token=557bb896-a663-413d-9ba6-887fc3b51ac6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.ogg?alt=media&token=557bb896-a663-413d-9ba6-887fc3b51ac6',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.ogg?alt=media&token=557bb896-a663-413d-9ba6-887fc3b51ac6',
         title: `Swimmers`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -779,17 +775,17 @@ module.exports = {
       },
       {
         id: 'e89c53a4-477b-4b86-ac7c-16b6ad292e5c',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 02 Mariana Dub.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 02 Mariana Dub.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 02 Mariana Dub.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 02 Mariana Dub.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.ogg?alt=media&token=e0555e01-f0f2-4be3-b65e-8ad2b02aab27',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.ogg?alt=media&token=f49316e6-eeb0-42bf-b586-840bbd05a892',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.ogg?alt=media&token=f49316e6-eeb0-42bf-b586-840bbd05a892',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.ogg?alt=media&token=f49316e6-eeb0-42bf-b586-840bbd05a892',
         title: `Mariana Dub`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -801,17 +797,17 @@ module.exports = {
       },
       {
         id: 'cec2cc9d-1f93-42c5-b94a-fe1bfc275e5b',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 03 Submarine.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 03 Submarine.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 03 Submarine.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 03 Submarine.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.ogg?alt=media&token=d033a641-518c-4ab5-aa6d-77c31d8639d7',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.ogg?alt=media&token=cb505310-8c0a-4cbd-b324-ee69e764c58f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.ogg?alt=media&token=cb505310-8c0a-4cbd-b324-ee69e764c58f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.ogg?alt=media&token=cb505310-8c0a-4cbd-b324-ee69e764c58f',
         title: `Submarine`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -823,17 +819,17 @@ module.exports = {
       },
       {
         id: '3f454fd6-dde9-4412-b4f8-e932a2dc389a',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).ogg?alt=media&token=cb52ceeb-2733-4cd2-950b-eff6035995c4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).ogg?alt=media&token=8c5dde2c-0570-48b3-9f47-a5cecd4a17d2',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).ogg?alt=media&token=8c5dde2c-0570-48b3-9f47-a5cecd4a17d2',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).ogg?alt=media&token=8c5dde2c-0570-48b3-9f47-a5cecd4a17d2',
         title: `Submarine (Project Pablo Remix)`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -845,17 +841,17 @@ module.exports = {
       },
       {
         id: '04dd515f-eb5e-4d02-9d34-c1d90d56e23e',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 01 I Will.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 01 I Will.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 01 I Will.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 01 I Will.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2001%20I%20Will.ogg?alt=media&token=78863769-8b64-47bd-a6cf-57402308a7bf',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.ogg?alt=media&token=6e0043fb-54f1-48b4-8559-dc7df2d14621',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.ogg?alt=media&token=6e0043fb-54f1-48b4-8559-dc7df2d14621',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.ogg?alt=media&token=6e0043fb-54f1-48b4-8559-dc7df2d14621',
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -867,17 +863,17 @@ module.exports = {
       },
       {
         id: 'c192c16c-2b2f-473c-b562-d7f2aa4f4760',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 02 U.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 02 U.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 02 U.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 02 U.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2002%20U.ogg?alt=media&token=b45bd02f-60ce-48a9-8b36-2771ebbb5d53',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.ogg?alt=media&token=1ae04a2d-dc32-4a01-8299-90f6c307a618',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.ogg?alt=media&token=1ae04a2d-dc32-4a01-8299-90f6c307a618',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.ogg?alt=media&token=1ae04a2d-dc32-4a01-8299-90f6c307a618',
         title: `U`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -889,17 +885,17 @@ module.exports = {
       },
       {
         id: 'c5e4e4b4-29d7-4e32-b910-ed3591d27858',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 03 Lifestyle w- James Booth.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 03 Lifestyle w- James Booth.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 03 Lifestyle w- James Booth.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 03 Lifestyle w- James Booth.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=fe1589bb-7fc1-4bc5-9082-a39b2ae02b6c',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=9285b8ef-377e-425d-81b1-a4557463bba3',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=9285b8ef-377e-425d-81b1-a4557463bba3',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.ogg?alt=media&token=9285b8ef-377e-425d-81b1-a4557463bba3',
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -911,16 +907,12 @@ module.exports = {
       },
       {
         id: '105f00e3-23ff-424d-b747-877e8c51bb56',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 04 I Won't.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2004%20I%20Won't.ogg?alt=media&token=f6139329-ea54-4fe3-b855-464346ad09bd`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
+        urlHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
+        urlMedium: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
+        urlLow: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.ogg`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -932,17 +924,17 @@ module.exports = {
       },
       {
         id: 'c14fb209-6f90-4dd3-967a-aeb40944e301',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 05 Bonsai Care.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 05 Bonsai Care.ogggs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 05 Bonsai Care.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 05 Bonsai Care.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 05 Bonsai Care.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.ogg?alt=media&token=b0429972-2173-484f-a978-4e42465c8f00',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.ogg?alt=media&token=10bb0657-52ec-4567-b628-dd97b6f03775',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.ogg?alt=media&token=10bb0657-52ec-4567-b628-dd97b6f03775',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.ogg?alt=media&token=10bb0657-52ec-4567-b628-dd97b6f03775',
         title: `Bonsai Care`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -954,17 +946,17 @@ module.exports = {
       },
       {
         id: 'ddb3c816-3786-4e94-861e-68d0e70ab026',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - U - 06 Crazy Eyes, Eric.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 06 Crazy Eyes, Eric.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 06 Crazy Eyes, Eric.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 06 Crazy Eyes, Eric.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.ogg?alt=media&token=7d26c73f-db1e-451e-9d66-954012705a0b',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.ogg?alt=media&token=75c6d3d5-7962-486c-9fe2-6f7e72748d15',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.ogg?alt=media&token=75c6d3d5-7962-486c-9fe2-6f7e72748d15',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.ogg?alt=media&token=75c6d3d5-7962-486c-9fe2-6f7e72748d15',
         title: `Crazy Eyes, Eric`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -976,17 +968,17 @@ module.exports = {
       },
       {
         id: '70bdaa3d-eb84-4219-ba22-db79d2bbb223',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 01 Based Is How You Feel Inside.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 01 Based Is How You Feel Inside.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 01 Based Is How You Feel Inside.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 01 Based Is How You Feel Inside.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.ogg?alt=media&token=faca9e7b-d1a4-42df-b0ff-bfb493962915',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.ogg?alt=media&token=d26e8af0-5b39-4042-877c-772c24933846',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.ogg?alt=media&token=d26e8af0-5b39-4042-877c-772c24933846',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.ogg?alt=media&token=d26e8af0-5b39-4042-877c-772c24933846',
         title: `Based Is How You Feel Inside`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -997,17 +989,17 @@ module.exports = {
       },
       {
         id: 'd9c9b094-8c3c-4c2b-96b7-67c0174618af',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 02 Fall In Love.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 02 Fall In Love.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 02 Fall In Love.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 02 Fall In Love.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.ogg?alt=media&token=e7a2dd17-8801-4d21-87da-8db37cdabde0',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.ogg?alt=media&token=732b203f-b12e-42bb-85c2-ac393ef2eff2',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.ogg?alt=media&token=732b203f-b12e-42bb-85c2-ac393ef2eff2',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.ogg?alt=media&token=732b203f-b12e-42bb-85c2-ac393ef2eff2',
         title: `Fall In Love`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1018,17 +1010,17 @@ module.exports = {
       },
       {
         id: '678706f1-6b87-4602-a231-72c5cac3f355',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 03 Improvised Jam.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 03 Improvised Jam.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 03 Improvised Jam.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 03 Improvised Jam.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.ogg?alt=media&token=a86c0383-871c-4cea-a2d8-862eb44b8946',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.ogg?alt=media&token=395ed2a9-081c-426d-8729-812d76867f90',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.ogg?alt=media&token=395ed2a9-081c-426d-8729-812d76867f90',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.ogg?alt=media&token=395ed2a9-081c-426d-8729-812d76867f90',
         title: `Improvised Jam`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1039,17 +1031,17 @@ module.exports = {
       },
       {
         id: 'abe6ab8e-fca2-4219-989d-e002832af3aa',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 04 Mass Appeal - Transmission.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 04 Mass Appeal - Transmission.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 04 Mass Appeal - Transmission.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 04 Mass Appeal - Transmission.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.ogg?alt=media&token=b2c2d496-1972-420a-9261-877e0b70659a',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.ogg?alt=media&token=e2c3bf82-8417-40cb-842a-9a48a378ddf7',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.ogg?alt=media&token=e2c3bf82-8417-40cb-842a-9a48a378ddf7',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.ogg?alt=media&token=e2c3bf82-8417-40cb-842a-9a48a378ddf7',
         title: `Mass Appeal - Transmission`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1060,17 +1052,17 @@ module.exports = {
       },
       {
         id: 'e738480a-9cdc-4afc-b870-02c72b894b0b',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 05 I Got A Bad Feeling About This.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 05 I Got A Bad Feeling About This.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 05 I Got A Bad Feeling About This.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 05 I Got A Bad Feeling About This.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.ogg?alt=media&token=d9706191-3357-4e5b-ad05-acad898b8a2e',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.ogg?alt=media&token=2938e6fd-6d2f-4815-85d8-8cb01e55610c',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.ogg?alt=media&token=2938e6fd-6d2f-4815-85d8-8cb01e55610c',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.ogg?alt=media&token=2938e6fd-6d2f-4815-85d8-8cb01e55610c',
         title: `I Got A Bad Feeling About This`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1081,17 +1073,17 @@ module.exports = {
       },
       {
         id: '01497634-7270-4157-a530-0104a63dc900',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 06 Salmonella.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 06 Salmonella.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 06 Salmonella.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 06 Salmonella.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.ogg?alt=media&token=679468ef-ab2a-4291-98bc-3ca3d3deb235',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.ogg?alt=media&token=b84995dc-1fc8-4b9d-b48a-eaa43e6dfd94',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.ogg?alt=media&token=b84995dc-1fc8-4b9d-b48a-eaa43e6dfd94',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.ogg?alt=media&token=b84995dc-1fc8-4b9d-b48a-eaa43e6dfd94',
         title: `Salmonella`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1102,17 +1094,17 @@ module.exports = {
       },
       {
         id: '5f7a00aa-1904-4287-a3f5-f9447b193440',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 07 Freedom - Billium Evans (Prod. Seeds of Yaris).ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 07 Freedom - Billium Evans (Prod. Seeds of Yaris).ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 07 Freedom - Billium Evans (Prod. Seeds of Yaris).ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 07 Freedom - Billium Evans (Prod. Seeds of Yaris).ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).ogg?alt=media&token=3760c1f1-647e-4e24-b770-4bb0cb867564',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).ogg?alt=media&token=8b420e10-e028-4ffd-903e-b3b6ba0ecb19',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).ogg?alt=media&token=8b420e10-e028-4ffd-903e-b3b6ba0ecb19',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).ogg?alt=media&token=8b420e10-e028-4ffd-903e-b3b6ba0ecb19',
         title: `Freedom - Billium Evans (Prod. Seeds of Yaris)`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1123,17 +1115,17 @@ module.exports = {
       },
       {
         id: '7ee03d70-294a-4221-8d67-c88062b5cf2f',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 08 The World Is Yours - Brooklyn Zoo.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 08 The World Is Yours - Brooklyn Zoo.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 08 The World Is Yours - Brooklyn Zoo.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 08 The World Is Yours - Brooklyn Zoo.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.ogg?alt=media&token=0664c8fb-e1e0-4f8c-9700-4969d475c9a7',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.ogg?alt=media&token=86d7feac-af26-4e57-b39f-6faa5025f51a',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.ogg?alt=media&token=86d7feac-af26-4e57-b39f-6faa5025f51a',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.ogg?alt=media&token=86d7feac-af26-4e57-b39f-6faa5025f51a',
         title: `The World Is Yours - Brooklyn Zoo`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1144,17 +1136,17 @@ module.exports = {
       },
       {
         id: '9bd56619-12db-4f73-8584-09a7054f46b4',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 09 Listeriosis.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 09 Listeriosis.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 09 Listeriosis.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 09 Listeriosis.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.ogg?alt=media&token=f07ba1f7-45be-4d79-819f-80ec0d1691b2',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.ogg?alt=media&token=2fde7443-8844-4f03-bf2f-99c0bb6ee63b',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.ogg?alt=media&token=2fde7443-8844-4f03-bf2f-99c0bb6ee63b',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.ogg?alt=media&token=2fde7443-8844-4f03-bf2f-99c0bb6ee63b',
         title: `Listeriosis`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1165,17 +1157,17 @@ module.exports = {
       },
       {
         id: 'f9d18dd3-aaba-4d5e-b6df-cd68ee4cc070',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 10 Camel.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 10 Camel.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 10 Camel.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 10 Camel.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.ogg?alt=media&token=98d0d7e3-cc43-4a7f-bd63-4449ede14a67',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.ogg?alt=media&token=7f7b09e3-e78a-4480-a216-5af732668575',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.ogg?alt=media&token=7f7b09e3-e78a-4480-a216-5af732668575',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.ogg?alt=media&token=7f7b09e3-e78a-4480-a216-5af732668575',
         title: `Camel`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1186,16 +1178,12 @@ module.exports = {
       },
       {
         id: 'ee235a85-1c59-4b7b-992a-89f8cfa410ec',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.ogg?alt=media&token=534a4368-c62c-40b9-a07f-1659cc6a182c`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.ogg?alt=media&token=8558497b-5369-43dc-bf1c-5763efe2f0ee`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.ogg?alt=media&token=8558497b-5369-43dc-bf1c-5763efe2f0ee`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.ogg?alt=media&token=8558497b-5369-43dc-bf1c-5763efe2f0ee`,
         title: `Saria's Song - Song Of Storms`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1206,17 +1194,17 @@ module.exports = {
       },
       {
         id: '4fc26f03-aeac-489e-820c-9f39bf3c65af',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/BADBADNOTGOOD - BBNG - 12 Outro - Glasper.ogg`,
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 12 Outro - Glasper.ogg`,
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 12 Outro - Glasper.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 12 Outro - Glasper.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/BADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.ogg?alt=media&token=8f6de7f1-a52c-4350-8564-305d6cc07081',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.ogg?alt=media&token=6187c31e-ed0d-40ad-ab8e-3cb7e316214f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.ogg?alt=media&token=6187c31e-ed0d-40ad-ab8e-3cb7e316214f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.ogg?alt=media&token=6187c31e-ed0d-40ad-ab8e-3cb7e316214f',
         title: `Outro - Glasper`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1227,16 +1215,12 @@ module.exports = {
       },
       {
         id: '62ab3812-297a-4cb0-a056-1880d36f3a77',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 01 On My Way.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.ogg?alt=media&token=7bab42cd-d7de-4733-b7be-e2f2c6fd33e1`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.ogg?alt=media&token=05f8875f-5a44-4084-b3e8-e977d03f4829`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.ogg?alt=media&token=05f8875f-5a44-4084-b3e8-e977d03f4829`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.ogg?alt=media&token=05f8875f-5a44-4084-b3e8-e977d03f4829`,
         title: `On My Way`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1248,16 +1232,12 @@ module.exports = {
       },
       {
         id: 'a7624249-3ceb-4ea6-a183-9ae45a33b7af',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 02 Westin.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2002%20Westin.ogg?alt=media&token=4b97144f-b5da-4771-add6-1dbe54f474af`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.ogg?alt=media&token=ec994a0a-51aa-4a50-a797-0a20be017a59`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.ogg?alt=media&token=ec994a0a-51aa-4a50-a797-0a20be017a59`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.ogg?alt=media&token=ec994a0a-51aa-4a50-a797-0a20be017a59`,
         title: `Westin`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1269,16 +1249,12 @@ module.exports = {
       },
       {
         id: 'b2f1f98e-22e7-4e08-b4bc-fa6f742e1063',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 03 Big Nite City (Sax Mix).ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).ogg?alt=media&token=cf716f84-dae7-47a2-9755-2520dc72d9b1`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).ogg?alt=media&token=18083e7d-0a78-40ea-ba2e-8b8cbf61aab6`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).ogg?alt=media&token=18083e7d-0a78-40ea-ba2e-8b8cbf61aab6`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).ogg?alt=media&token=18083e7d-0a78-40ea-ba2e-8b8cbf61aab6`,
         title: `Big Nite City (Sax Mix)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1290,16 +1266,12 @@ module.exports = {
       },
       {
         id: '1f4f0aef-3d99-43a1-9e04-93bdc3926f49',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 04 Castle 2 Castle.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.ogg?alt=media&token=e7b58c56-e766-4359-9679-ffc67648f8461`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.ogg?alt=media&token=5bce5e93-0905-438f-9af0-cbcdfbea47ba`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.ogg?alt=media&token=5bce5e93-0905-438f-9af0-cbcdfbea47ba`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.ogg?alt=media&token=5bce5e93-0905-438f-9af0-cbcdfbea47ba`,
         title: `Castle 2 Castle`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1311,16 +1283,12 @@ module.exports = {
       },
       {
         id: '556ba9f7-af5a-49e8-a6a5-a35446be59cf',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).ogg?alt=media&token=dd1aa681-93b1-4b44-9661-5ce3fd73e390`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).ogg?alt=media&token=981a8948-4bb3-47b9-801b-420c0279a62e`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).ogg?alt=media&token=981a8948-4bb3-47b9-801b-420c0279a62e`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).ogg?alt=media&token=981a8948-4bb3-47b9-801b-420c0279a62e`,
         title: `Ocean Park (feat. Just Tony)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1332,16 +1300,12 @@ module.exports = {
       },
       {
         id: 'afc72c6f-0e51-404e-9eca-536172390859',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 06 Tuff Luv.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.ogg?alt=media&token=3ccd4959-dfed-4e77-b964-bdcebc60359a`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.ogg?alt=media&token=ee5145ed-bf5f-4f87-b8a3-91087c30c86b`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.ogg?alt=media&token=ee5145ed-bf5f-4f87-b8a3-91087c30c86b`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.ogg?alt=media&token=ee5145ed-bf5f-4f87-b8a3-91087c30c86b`,
         title: `Tuff Luv`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1353,16 +1317,12 @@ module.exports = {
       },
       {
         id: '6f45eb26-c731-4686-8046-4fbc2b7960cb',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 07 Afterglo.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2007%20Afterglo.ogg?alt=media&token=50929e6b-dff8-41d0-b71c-6752e6fc7ca7`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.ogg?alt=media&token=73a5ff2b-3beb-4e23-9036-0859d9bfb7a5`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.ogg?alt=media&token=73a5ff2b-3beb-4e23-9036-0859d9bfb7a5`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.ogg?alt=media&token=73a5ff2b-3beb-4e23-9036-0859d9bfb7a5`,
         title: `Afterglo`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1374,16 +1334,12 @@ module.exports = {
       },
       {
         id: '14a9b933-11dc-43a0-b8ee-b92e2b5e015c',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Bene's World - 08 Sonatine.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Bene's%20World%20-%2008%20Sonatine.ogg?alt=media&token=f13a2208-e8d2-4cb1-85af-f4faf56ff84a`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.ogg?alt=media&token=e6e97225-625f-4599-a155-d84d7e3efd50`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.ogg?alt=media&token=e6e97225-625f-4599-a155-d84d7e3efd50`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.ogg?alt=media&token=e6e97225-625f-4599-a155-d84d7e3efd50`,
         title: `Sonantine`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1395,16 +1351,12 @@ module.exports = {
       },
       {
         id: 'cce7d3b8-f1c2-4f45-8170-b7b8e51ecd6a',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Coolin' - EP - 01 Coolin'.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.ogg?alt=media&token=dd5be299-9e60-4bd9-a883-f4de20730262`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.ogg?alt=media&token=1f94b38b-6543-4e50-8c55-27f1593a163c`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.ogg?alt=media&token=1f94b38b-6543-4e50-8c55-27f1593a163c`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.ogg?alt=media&token=1f94b38b-6543-4e50-8c55-27f1593a163c`,
         title: `Coolin'`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -1416,16 +1368,12 @@ module.exports = {
       },
       {
         id: '4199509d-56aa-4cfd-a3de-760ed35f068e',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Coolin' - EP - 02 Ryukyu.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.ogg?alt=media&token=8bea84cc-6e51-4525-ba98-f4d50955c17b`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.ogg?alt=media&token=27340be8-5bfe-4507-b1ba-0fc80fed34c1`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.ogg?alt=media&token=27340be8-5bfe-4507-b1ba-0fc80fed34c1`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.ogg?alt=media&token=27340be8-5bfe-4507-b1ba-0fc80fed34c1`,
         title: `Ryukyu`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -1437,16 +1385,12 @@ module.exports = {
       },
       {
         id: '53ad1742-514a-4baf-9238-41e18f7d6c0d',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Coolin' - EP - 03 Voices.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.ogg?alt=media&token=f18a442f-39eb-4852-a795-65759e2b4bd5`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.ogg?alt=media&token=9967e0bf-790e-4f4b-9705-8c7b631923c5`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.ogg?alt=media&token=9967e0bf-790e-4f4b-9705-8c7b631923c5`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.ogg?alt=media&token=9967e0bf-790e-4f4b-9705-8c7b631923c5`,
         title: `Voices`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -1458,16 +1402,12 @@ module.exports = {
       },
       {
         id: 'd4d1ff4e-5424-4ead-b6ed-eddcba9c3239',
-        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Benedek - Coolin' - EP - 04 Angeles Vista.ogg`,
-        storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Benedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.ogg?alt=media&token=f9b4390f-f9f1-4d6f-9bcc-7d0657890d5e`,
-        urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-        urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+        storagePathHigh: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.ogg`,
+        storagePathMedium: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.ogg`,
+        storagePathLow: `gs://groov-development-ddc9d.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.ogg`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.ogg?alt=media&token=3a894b80-a004-4f69-9e18-696d86d3bb39`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.ogg?alt=media&token=3a894b80-a004-4f69-9e18-696d86d3bb39`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.ogg?alt=media&token=3a894b80-a004-4f69-9e18-696d86d3bb39`,
         title: `Angeles Vista`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',

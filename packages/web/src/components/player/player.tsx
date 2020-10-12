@@ -145,7 +145,7 @@ export const Player = () => {
   // }, [filteredMediaState, playerContext]);
 
   return (
-    <Flex fullWidth={true}>
+    <Flex alignItems="center" fullWidth={true}>
       <StyledButton onClick={playerContext?.playPreviousSongInQueue}>
         <SkipPrevious />
       </StyledButton>
