@@ -20,12 +20,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const CustomListItem = (props: CustomListItemProps) => {
+export const CustomListItem = (
+  props: CustomListItemProps & {
+    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  }
+) => {
   const classes = useStyles();
 
   const {
     caption,
     leftAccessory,
+    onClick,
     onClickOpenMenu,
     style,
     subtitle,
@@ -34,7 +39,13 @@ export const CustomListItem = (props: CustomListItemProps) => {
 
   return (
     <>
-      <ListItem style={style} alignItems="flex-start" dense={true}>
+      <ListItem
+        button={true}
+        onClick={onClick}
+        style={style}
+        alignItems="flex-start"
+        dense={true}
+      >
         {leftAccessory ? leftAccessory : null}
         <ListItemText
           primary={title}

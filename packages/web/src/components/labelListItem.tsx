@@ -63,7 +63,11 @@ export const LabelListItem = (props: LabelListItemProps) => {
 
   return (
     <>
-      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      <CustomListItem
+        onClick={onClickGoToLabel}
+        onClickOpenMenu={onClickOpenMenu}
+        {...props}
+      />
       {makeMenu()}
     </>
   );

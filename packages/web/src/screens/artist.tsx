@@ -183,8 +183,12 @@ export const Artist = () => {
   };
 
   const onClickPlayNow = () => {
-    if (artistSongs.length > 0) {
-      playerContext?.replaceQueueWithSongs(artistSongs);
+    if (artistAlbums.length > 0) {
+      const songs: Song[] = [];
+      artistAlbums.forEach((album) =>
+        album.songs.forEach((song) => songs.push(song))
+      );
+      playerContext?.replaceQueueWithSongs(songs);
     }
   };
 

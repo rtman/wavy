@@ -67,7 +67,11 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
 
   return (
     <>
-      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      <CustomListItem
+        onClick={onClickGoToArtist}
+        onClickOpenMenu={onClickOpenMenu}
+        {...props}
+      />
       {makeMenu()}
     </>
   );

@@ -60,7 +60,6 @@ export const Label = () => {
   });
 
   const labelFollows = userContext?.user?.labelFollows ?? [];
-  const labelSongs = queryData?.labelById?.songs ?? [];
   const labelArtists = queryData?.labelById?.artists ?? [];
   const labelAlbums = queryData?.labelById?.albums ?? [];
   const labelImageUrl = queryData?.labelById?.profileImageUrlSmall ?? '';
@@ -169,8 +168,12 @@ export const Label = () => {
   };
 
   const onClickPlayNow = () => {
-    if (labelSongs.length > 0) {
-      playerContext?.replaceQueueWithSongs(labelSongs);
+    if (labelAlbums.length > 0) {
+      const songs: Song[] = [];
+      labelAlbums.forEach((album) =>
+        album.songs.forEach((song) => songs.push(song))
+      );
+      playerContext?.replaceQueueWithSongs(songs);
     }
   };
 

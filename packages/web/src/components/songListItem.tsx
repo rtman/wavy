@@ -63,9 +63,9 @@ export const SongListItem = (props: SongListItemProps) => {
     onCloseMenu();
   };
 
-  //   const onClickSong = () => {
-  //     playerContext?.replaceQueueWithSongs([song]);
-  //   };
+  const onClickPlay = () => {
+    playerContext?.replaceQueueWithSongs([song]);
+  };
 
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${song.artist.id}`);
@@ -177,7 +177,11 @@ export const SongListItem = (props: SongListItemProps) => {
 
   return (
     <>
-      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      <CustomListItem
+        onClick={onClickPlay}
+        onClickOpenMenu={onClickOpenMenu}
+        {...props}
+      />
       {makeMenu()}
     </>
   );

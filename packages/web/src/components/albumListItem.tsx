@@ -55,9 +55,9 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
     history.push(`${consts.routes.ALBUM}/${album?.id}`);
   };
 
-  //   const onClickAlbum = () => {
-  //     playerContext?.replaceQueueWithSongs(album.songs);
-  //   };
+  const onClickPlay = () => {
+    playerContext?.replaceQueueWithSongs(album.songs);
+  };
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const songIds = album.songs.map((s) => s.id);
@@ -120,7 +120,11 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
 
   return (
     <>
-      <CustomListItem {...props} onClickOpenMenu={onClickOpenMenu} />
+      <CustomListItem
+        onClick={onClickPlay}
+        onClickOpenMenu={onClickOpenMenu}
+        {...props}
+      />
       {makeMenu()}
     </>
   );
