@@ -79,14 +79,21 @@ export const Queue = () => {
       const songsList = sortedSongs.map((song, index: number) => (
         <Fragment key={song.id}>
           <SongListItem
+            onClick={() => playerContext?.playSongInQueue(song)}
             leftAccessory={
-              <ListItemAvatar className={classes.listItemAvatar}>
-                <Avatar
-                  className={classes.avatar}
-                  variant="square"
-                  src={song.album.profileImageUrlSmall}
-                />
-              </ListItemAvatar>
+              <>
+                <Flex alignItems="center" alignSelf="center">
+                  <Typography variant="body1">{index + 1}</Typography>
+                </Flex>
+                <Spacing.BetweenParagraphs />
+                <ListItemAvatar className={classes.listItemAvatar}>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={song.album.profileImageUrlSmall}
+                  />
+                </ListItemAvatar>
+              </>
             }
             title={song.title}
             subtitle={song.artist.name}
