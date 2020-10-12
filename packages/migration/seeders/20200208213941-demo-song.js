@@ -580,28 +580,6 @@ module.exports = {
         playCount: 230,
         tagSearchString: 'house,electronic',
       },
-      // {
-      //   id: 'bbda595d-624b-4646-abfe-f45289ef7f80',
-      //   storagePathHigh: `gs://groov-development-ddc9d.appspot.com/Seb Wildblood - Foreign Parts - 03 Gunvor.ogg`,
-      //   storagePathMedium:
-      //     'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-      //   storagePathLow:
-      //     'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
-      //   urlHigh:
-      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Seb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.ogg?alt=media&token=6a9815fd-ac24-4286-80d7-91e1625d5bb4',
-      //   urlMedium:
-      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-      //   urlLow:
-      //     'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
-      //   title: `Gunvor`,
-      //   artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
-      //   albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
-      //   labelId: '3a6e67cb-7b0b-4248-baee-7e513a361d09',
-      //   createdAt: new Date(),
-      //   updatedAt: new Date(),
-      //   playCount: 440,
-      //   tagSearchString: 'house,electronic',
-      // },
       {
         id: 'ffb050e7-a023-4c65-9e49-1d5ed9803774',
         storagePathHigh: `gs://groov-development-ddc9d.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 07 Modir.ogg`,
