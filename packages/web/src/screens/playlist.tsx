@@ -217,13 +217,13 @@ export const Playlist = () => {
 
                 <Spacing.BetweenComponents />
 
-                <Button
+                {/* <Button
                   variant="outlined"
                   color="primary"
                   onClick={onClickToggleFollow}
                 >
                   {getFollowTitle()}
-                </Button>
+                </Button> */}
               </Flex>
             </Grid>
           </Grid>

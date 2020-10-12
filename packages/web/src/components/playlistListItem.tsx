@@ -59,7 +59,11 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
 
   return (
     <>
-      <CustomListItem onClickOpenMenu={onClick ?? onClickOpenMenu} {...props} />
+      <CustomListItem
+        onClick={onClick ?? handleClickPlayNow}
+        onClickOpenMenu={onClickOpenMenu}
+        {...props}
+      />
       {makeMenu()}
     </>
   );
