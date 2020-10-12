@@ -308,6 +308,9 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
               ...data.album,
               albumId: result.id,
               artistId: data.album.artist?.id,
+              artistName: data.album.isNewArtist
+                ? data.album.newArtistName
+                : undefined,
               //TODO: add description field to albumFields
               description: '',
               profileImageStoragePath: result.gsUrl,
@@ -322,6 +325,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
               userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
               albumId: result.id,
               artistId: data.album.artist?.id,
+              labelId: isLabel ? creatorId : undefined,
               songsToAdd: resolvedSongsForUpload ?? {
                 title: '',
                 storagePath: '',
@@ -613,8 +617,8 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
 
             <Spacing.BetweenComponents />
 
-            <Button variant="contained" color="primary" onClick={open}>
-              Open File Dialog
+            <Button variant="contained" color="primary">
+              Select Files
             </Button>
           </DropzoneContainer>
         )}
