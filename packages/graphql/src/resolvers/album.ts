@@ -1,5 +1,5 @@
 import Mail from 'nodemailer/lib/mailer';
-import { Album } from 'orm/models';
+import { Album, Artist, SongArtistSupportingArtist } from 'orm/models';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,6 +8,7 @@ import * as helpers from '../helpers';
 import { Models } from '../orm';
 import * as services from '../services';
 
+// TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
 @InputType()
 class SupportingArtistInput {
   @Field({ nullable: true })
@@ -23,6 +24,7 @@ class SupportingArtistInput {
   artistId?: string;
 }
 
+// TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
 @InputType()
 class NewSongArgs {
   @Field({ nullable: true })
@@ -62,6 +64,7 @@ class AddSongsToAlbumArgs {
   userName: string;
 }
 
+// TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
 @InputType({ description: 'Create a new album' })
 class CreateAlbumArgs {
   @Field()
@@ -97,6 +100,17 @@ class CreateAlbumArgs {
   @Field({ nullable: true })
   userName?: string;
 }
+
+type CreateAlbum = Pick<
+  Album,
+  'id' | 'artistId' | 'description' | 'processing' | 'releaseDate' | 'title'
+>;
+
+type CreateArtist = Pick<Artist, 'id' | 'name' | 'inviteEmail'>;
+type CreateSupportingAritst = Pick<
+  SongArtistSupportingArtist,
+  'artistId' | 'songId'
+>;
 
 @Resolver(Models.Album)
 export class AlbumResolvers {
@@ -223,9 +237,16 @@ export class AlbumResolvers {
           userName !== undefined &&
           userName.length > 0
         ) {
+          const transporter = await helpers.makeEmailTransporter();
+          const templateEmail = await helpers.makeHtmlTemplate(
+            '../emailTemplates/artistInvite.html'
+          );
+
           const createNewArtistResult = addNewArtist({
             newArtistEmail,
             newArtistName,
+            templateEmail,
+            transporter,
             userName,
           });
 
@@ -254,7 +275,7 @@ export class AlbumResolvers {
           return;
         }
 
-        const newAlbum: Album = {
+        const newAlbum: CreateAlbum = {
           id: albumId,
           artistId: resolvedArtistId,
           releaseDate: releaseDate ?? new Date(),
@@ -324,10 +345,8 @@ export class AlbumResolvers {
           return false;
         }
 
-        const supportingArtistModels: Partial<
-          Models.SongArtistSupportingArtist
-        >[] = [];
-        const newArtistModels: Partial<Models.Artist>[] = [];
+        const supportingArtistModels: CreateSupportingAritst[] = [];
+        const newArtistModels: CreateArtist[] = [];
         const newArtistEmailPromises: Promise<
           ReturnType<typeof transporter.sendMail>
         >[] = [];
@@ -361,6 +380,8 @@ export class AlbumResolvers {
               const createNewArtistResult = addNewArtist({
                 newArtistEmail,
                 newArtistName,
+                transporter,
+                templateEmail,
                 userName,
               });
 
@@ -479,7 +500,7 @@ export class AlbumResolvers {
 interface AddSupportingArtistsProps {
   supportingArtists: NewSongArgs['supportingArtist'];
   songId: string;
-  globalNewArtistModels: Partial<Models.Artist>[];
+  globalNewArtistModels: CreateArtist[];
   userName: string;
   templateEmail: HandlebarsTemplateDelegate;
   transporter: Mail;
@@ -490,22 +511,22 @@ interface AddSupportingArtistsProps {
 const addNewArtist = ({
   newArtistName,
   newArtistEmail,
+  transporter,
+  templateEmail,
   userName,
 }: {
   newArtistName: string;
   newArtistEmail: string;
+  templateEmail: HandlebarsTemplateDelegate;
+  transporter: Mail;
   userName: string;
 }) => {
   const newArtistId = uuidv4();
 
-  const transporter = await helpers.makeEmailTransporter();
-  const templateEmail = await helpers.makeHtmlTemplate(
-    '../emailTemplates/artistInvite.html'
-  );
   const templatedArtistInviteEmail = templateEmail({
+    artistName: newArtistName,
     artistEmail: newArtistEmail,
     artistId: newArtistId,
-    artistName: newArtistName,
     userName,
   });
 
@@ -520,7 +541,7 @@ const addNewArtist = ({
     localNewArtistModel: {
       id: newArtistId,
       name: newArtistName,
-      email: newArtistEmail,
+      inviteEmail: newArtistEmail,
     },
   };
 };
@@ -535,22 +556,21 @@ const addSupportingArtists = (props: AddSupportingArtistsProps) => {
     transporter,
   } = props;
 
-  const supportingArtistModels: Partial<
-    Models.SongArtistSupportingArtist
-  >[] = [];
-  const localNewArtistModels: Partial<Models.Artist>[] = [];
+  const supportingArtistModels: CreateSupportingAritst[] = [];
+  const localNewArtistModels: CreateArtist[] = [];
   const newArtistEmailPromises: Promise<
     ReturnType<typeof transporter.sendMail>
   >[] = [];
 
   if (supportingArtists !== undefined && supportingArtists.length > 0) {
     for (const supportingArtist of supportingArtists) {
-      if (!supportingArtist.isNewArtist) {
-        supportingArtistModels.push({
-          songId,
-          artistId: supportingArtist.artistId,
-        });
-      } else {
+      if (
+        supportingArtist.isNewArtist &&
+        supportingArtist.newArtistName !== undefined &&
+        supportingArtist.newArtistName.length > 0 &&
+        supportingArtist.newArtistEmail !== undefined &&
+        supportingArtist.newArtistEmail.length > 0
+      ) {
         // check to see if the artist was created in another instance
         const previouslyAddedNewArtist = globalNewArtistModels.find(
           (artist) => artist.name === supportingArtist.newArtistName
@@ -561,6 +581,7 @@ const addSupportingArtists = (props: AddSupportingArtistsProps) => {
           localNewArtistModels.push({
             name: supportingArtist.newArtistName,
             id: newArtistId,
+            inviteEmail: supportingArtist.newArtistEmail,
           });
         }
 
@@ -585,6 +606,13 @@ const addSupportingArtists = (props: AddSupportingArtistsProps) => {
             html: templatedArtistInviteEmail, // html body
           })
         );
+      } else {
+        if (supportingArtist.artistId) {
+          supportingArtistModels.push({
+            songId,
+            artistId: supportingArtist.artistId,
+          });
+        }
       }
     }
   }

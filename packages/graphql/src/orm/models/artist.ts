@@ -27,7 +27,7 @@ export class Artist {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   name: string;
 
@@ -45,60 +45,60 @@ export class Artist {
   )
   songs: Song[];
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathLarge: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathSmall: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathThumb: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageUrlLarge: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageUrlSmall: string;
 
-  @Field(() => String)
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   profileImageUrlThumb: string;
 
-  @Field(() => String, { nullable: true })
-  @Column()
-  description: string;
+  @Field()
+  @Column({ nullable: true })
+  description?: string;
 
-  @Field(() => [ArtistLabel], { nullable: true })
+  @Field(() => [ArtistLabel])
   @OneToMany(
     () => ArtistLabel,
     (artistLabel) => artistLabel.artist
   )
   labels: ArtistLabel[];
 
-  @Field(() => [UserArtistFollowing], { nullable: true })
+  @Field(() => [UserArtistFollowing])
   @OneToMany(
     () => UserArtistFollowing,
     (userArtistFollowing) => userArtistFollowing.artist
   )
   usersFollowing: UserArtistFollowing[];
 
-  @Field(() => Number)
+  @Field({ nullable: true })
   @Column({ default: 0 })
-  followers: number;
+  followers?: number;
 
-  @Field(() => [SongArtistSupportingArtist], { nullable: true })
+  @Field(() => [SongArtistSupportingArtist])
   @OneToMany(
     () => SongArtistSupportingArtist,
     (songArtistSupportingArtist) => songArtistSupportingArtist.artist
   )
   supportingArtistOn: SongArtistSupportingArtist[];
 
-  @Field(() => [UserArtist], { nullable: true })
+  @Field(() => [UserArtist])
   @OneToMany(
     () => UserArtist,
     (userArtist) => userArtist.artist
@@ -106,7 +106,7 @@ export class Artist {
   users: UserArtist[];
 
   // this is a special case, self referencing relation. It requires each entry to be inserted twice, artistId1 => 1, artistId2 => 2 and artistId1 => 2, artistId2 =>2. This is to ensure a bi directional relation.
-  @Field(() => [Artist], { nullable: true })
+  @Field(() => [Artist])
   @ManyToMany(
     () => Artist,
     (artist) => artist.artistConnections
@@ -118,14 +118,14 @@ export class Artist {
   })
   artistConnections: Artist[];
 
-  @Field(() => [LabelArtistConnections], { nullable: true })
+  @Field(() => [LabelArtistConnections])
   @OneToMany(
     () => LabelArtistConnections,
     (labelArtistConnections) => labelArtistConnections.artist
   )
   labelConnections: LabelArtistConnections[];
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @Column({ nullable: true })
   connectionCode: string;
 
@@ -135,11 +135,15 @@ export class Artist {
     this.connectionCode = uuid();
   }
 
-  @Field(() => Date)
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  inviteEmail: string;
+
+  @Field(() => Date, { nullable: true })
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   @UpdateDateColumn()
   updatedAt!: Date;
 }

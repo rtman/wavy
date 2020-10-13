@@ -27,7 +27,6 @@ export type AddPlaylistSongsArgs = {
 
 export type AddSongsToAlbumArgs = {
   albumId: Scalars['String'];
-  artistId: Scalars['String'];
   labelId?: Maybe<Scalars['String']>;
   songsToAdd: Array<NewSongArgs>;
   userName: Scalars['String'];
@@ -48,10 +47,10 @@ export type Album = {
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
   profileImageUrlThumb: Scalars['String'];
-  description: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   releaseDate: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   processing: Scalars['Boolean'];
 };
 
@@ -66,18 +65,19 @@ export type Artist = {
   profileImageStoragePathThumb: Scalars['String'];
   profileImageUrlLarge: Scalars['String'];
   profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  labels?: Maybe<Array<ArtistLabel>>;
-  usersFollowing?: Maybe<Array<UserArtistFollowing>>;
-  followers: Scalars['Float'];
-  supportingArtistOn?: Maybe<Array<SongArtistSupportingArtist>>;
-  users?: Maybe<Array<UserArtist>>;
-  artistConnections?: Maybe<Array<Artist>>;
-  labelConnections?: Maybe<Array<LabelArtistConnections>>;
-  connectionCode: Scalars['ID'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  labels: Array<ArtistLabel>;
+  usersFollowing: Array<UserArtistFollowing>;
+  followers?: Maybe<Scalars['Float']>;
+  supportingArtistOn: Array<SongArtistSupportingArtist>;
+  users: Array<UserArtist>;
+  artistConnections: Array<Artist>;
+  labelConnections: Array<LabelArtistConnections>;
+  connectionCode?: Maybe<Scalars['ID']>;
+  inviteEmail?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type ArtistLabel = {
@@ -93,17 +93,16 @@ export type ArtistLabel = {
 /** Create a new album */
 export type CreateAlbumArgs = {
   albumId: Scalars['String'];
-  title: Scalars['String'];
-  description: Scalars['String'];
   artistId?: Maybe<Scalars['String']>;
-  artistName?: Maybe<Scalars['String']>;
-  artistEmail?: Maybe<Scalars['String']>;
-  newArtist?: Maybe<Scalars['Boolean']>;
-  userName?: Maybe<Scalars['String']>;
-  variousArtists?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
   labelId?: Maybe<Scalars['String']>;
+  isNewArtist?: Maybe<Scalars['Boolean']>;
+  newArtistName?: Maybe<Scalars['String']>;
+  newArtistEmail?: Maybe<Scalars['String']>;
   profileImageStoragePath: Scalars['String'];
   releaseDate: Scalars['DateTime'];
+  title: Scalars['String'];
+  userName?: Maybe<Scalars['String']>;
 };
 
 export type CreateArtistArgs = {
@@ -348,9 +347,13 @@ export type MutationDeleteUserArgs = {
 };
 
 export type NewSongArgs = {
-  title: Scalars['String'];
+  artistId?: Maybe<Scalars['String']>;
+  isNewArtist?: Maybe<Scalars['Boolean']>;
+  newArtistEmail?: Maybe<Scalars['String']>;
+  newArtistName?: Maybe<Scalars['String']>;
   storagePath: Scalars['String'];
   supportingArtist?: Maybe<Array<SupportingArtistInput>>;
+  title: Scalars['String'];
 };
 
 export type Playlist = {
@@ -600,10 +603,10 @@ export type SongTag = {
 };
 
 export type SupportingArtistInput = {
-  new: Scalars['Boolean'];
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+  isNewArtist?: Maybe<Scalars['Boolean']>;
+  newArtistEmail?: Maybe<Scalars['String']>;
+  newArtistName?: Maybe<Scalars['String']>;
+  artistId?: Maybe<Scalars['String']>;
 };
 
 export type Tag = {
@@ -1035,10 +1038,22 @@ export type AlbumResolvers<
     ParentType,
     ContextType
   >;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   releaseDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   processing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1077,49 +1092,62 @@ export type ArtistResolvers<
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
-  description?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   labels?: Resolver<
-    Maybe<Array<ResolversTypes['ArtistLabel']>>,
+    Array<ResolversTypes['ArtistLabel']>,
     ParentType,
     ContextType
   >;
   usersFollowing?: Resolver<
-    Maybe<Array<ResolversTypes['UserArtistFollowing']>>,
+    Array<ResolversTypes['UserArtistFollowing']>,
     ParentType,
     ContextType
   >;
-  followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  followers?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   supportingArtistOn?: Resolver<
-    Maybe<Array<ResolversTypes['SongArtistSupportingArtist']>>,
+    Array<ResolversTypes['SongArtistSupportingArtist']>,
     ParentType,
     ContextType
   >;
   users?: Resolver<
-    Maybe<Array<ResolversTypes['UserArtist']>>,
+    Array<ResolversTypes['UserArtist']>,
     ParentType,
     ContextType
   >;
   artistConnections?: Resolver<
-    Maybe<Array<ResolversTypes['Artist']>>,
+    Array<ResolversTypes['Artist']>,
     ParentType,
     ContextType
   >;
   labelConnections?: Resolver<
-    Maybe<Array<ResolversTypes['LabelArtistConnections']>>,
+    Array<ResolversTypes['LabelArtistConnections']>,
     ParentType,
     ContextType
   >;
-  connectionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  connectionCode?: Resolver<
+    Maybe<ResolversTypes['ID']>,
+    ParentType,
+    ContextType
+  >;
+  inviteEmail?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

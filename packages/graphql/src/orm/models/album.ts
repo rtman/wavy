@@ -31,7 +31,7 @@ export class Album {
   )
   artist: Artist;
 
-  @Field(() => String)
+  @Field()
   @Column()
   title: string;
 
@@ -44,42 +44,42 @@ export class Album {
 
   @Field(() => ID, { nullable: true })
   @Column({ nullable: true })
-  labelId: string;
+  labelId?: string;
 
   @Field(() => Label, { nullable: true })
   @ManyToOne(
     () => Label,
     (label) => label.albums
   )
-  label: Label;
+  label?: Label;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathLarge: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathSmall: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageStoragePathThumb: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageUrlLarge: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageUrlSmall: string;
 
-  @Field(() => String)
-  @Column()
+  @Field()
+  @Column({ nullable: true })
   profileImageUrlThumb: string;
 
-  @Field(() => String)
-  @Column({ default: '' })
-  description: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  description?: string;
 
   @Field(() => Date)
   @Column()
@@ -87,11 +87,11 @@ export class Album {
 
   // TODO: add supporting artists to album
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   @UpdateDateColumn()
   updatedAt!: Date;
 

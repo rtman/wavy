@@ -33,13 +33,7 @@ import * as helpers from 'helpers';
 import { UploadStatus } from 'helpers/hooks';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -68,7 +62,6 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   const {
     getRootProps,
     getInputProps,
-    open,
     acceptedFiles,
     fileRejections,
   } = useDropzone({
@@ -198,14 +191,11 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
     }
   }, [acceptedFiles, reset, defaultFormValues]);
 
-  const setUploadStatus = useCallback(
-    (newUploadStatus: UploadStatus, index: number) => {
-      const uploadStatusesCloned = [...uploadStatuses];
-      uploadStatusesCloned[index] = newUploadStatus;
-      uploadStatuses = [...uploadStatusesCloned];
-    },
-    []
-  );
+  const setUploadStatus = (newUploadStatus: UploadStatus, index: number) => {
+    const uploadStatusesCloned = [...uploadStatuses];
+    uploadStatusesCloned[index] = newUploadStatus;
+    uploadStatuses = [...uploadStatusesCloned];
+  };
 
   const removeSong = (index: number) => {
     if (uploadStatuses[index]) {
@@ -272,18 +262,21 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
       data.album.artist !== null
     ) {
       const resolvedSongsForUpload = songsForUpload.map((song, index) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { file, ...rest } = song;
-
         // data is checked above for undefined in the find
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const uploadData = uploadStatuses[index].data!;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { hasSupportingArtists, supportingArtists, ...rest } = data.songs[
+          index
+        ];
+        const resolvedSupportingArtists = supportingArtists?.map((artist) => ({
+          artistId: artist.id,
+        }));
 
         return {
-          ...rest,
-          title: data.songs[index].title.trim(),
           storagePath: uploadData.gsUrl,
-          url: uploadData.downloadUrl,
+          ...rest,
+          supportingArtists: resolvedSupportingArtists,
         };
       });
 
@@ -302,16 +295,19 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
       console.log('result', result);
 
       if (result && result.id && resolvedSongsForUpload.length > 0) {
+        const {
+          artist: { id: artistId },
+          ...album
+        } = data.album;
+
         await createAlbum({
           variables: {
             input: {
-              ...data.album,
+              ...album,
+              // if is is a label the artistId is either various or a selected artist, otherwise it is the creator of the album, the artist
+              artistId: isLabel ? artistId : creatorId,
               albumId: result.id,
-              artistId: data.album.artist?.id,
-              artistName: data.album.isNewArtist
-                ? data.album.newArtistName
-                : undefined,
-              //TODO: add description field to albumFields
+              // TODO: add description field to albumFields
               description: '',
               profileImageStoragePath: result.gsUrl,
             },
@@ -324,12 +320,9 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
             input: {
               userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
               albumId: result.id,
-              artistId: data.album.artist?.id,
               labelId: isLabel ? creatorId : undefined,
-              songsToAdd: resolvedSongsForUpload ?? {
-                title: '',
-                storagePath: '',
-              },
+              // TODO: resolvedSongsForUpload type is wrong. not sure why it isnt complaining here
+              songsToAdd: resolvedSongsForUpload,
             },
           },
         });
