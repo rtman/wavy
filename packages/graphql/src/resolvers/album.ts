@@ -2,7 +2,7 @@ import Mail from 'nodemailer/lib/mailer';
 import { Album, Artist, SongArtistSupportingArtist } from 'orm/models';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
+import { uuid } from 'uuidv4';
 
 import * as helpers from '../helpers';
 import { Models } from '../orm';
@@ -361,7 +361,7 @@ export class AlbumResolvers {
           const { isNewArtist, newArtistName, newArtistEmail } = song;
 
           let resolvedArtistId = song.artistId;
-          const songId = uuidv4();
+          const songId = uuid();
 
           if (
             isNewArtist &&
@@ -521,7 +521,7 @@ const addNewArtist = ({
   transporter: Mail;
   userName: string;
 }) => {
-  const newArtistId = uuidv4();
+  const newArtistId = uuid();
 
   const templatedArtistInviteEmail = templateEmail({
     artistName: newArtistName,
@@ -575,7 +575,7 @@ const addSupportingArtists = (props: AddSupportingArtistsProps) => {
         const previouslyAddedNewArtist = globalNewArtistModels.find(
           (artist) => artist.name === supportingArtist.newArtistName
         );
-        const newArtistId = previouslyAddedNewArtist?.id ?? uuidv4();
+        const newArtistId = previouslyAddedNewArtist?.id ?? uuid();
 
         if (previouslyAddedNewArtist === undefined) {
           localNewArtistModels.push({

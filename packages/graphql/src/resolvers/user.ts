@@ -12,7 +12,7 @@ import {
 } from 'type-graphql';
 import { getManager } from 'typeorm';
 
-import { Context } from '../main';
+import { Context } from '../index';
 import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
 

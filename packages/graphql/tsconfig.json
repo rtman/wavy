@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "noEmit": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "strictPropertyInitialization": false,
@@ -16,7 +15,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./build",
     "lib": ["es2016", "esnext.asynciterable"],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,

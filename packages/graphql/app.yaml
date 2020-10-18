@@ -1,0 +1,12 @@
+# [START runtime]
+runtime: nodejs12
+# [END runtime]
+
+service: server
+
+env_variables:
+    DATABASE_DB: "oursound"
+    DATABASE_USER: "oursound"
+    DATABASE_PASSWORD: "oursound"
+    DATABASE_HOST: "/cloudsql/groov-development-ddc9d:us-west1:development"
+    GOOGLE_APPLICATION_CREDENTIALS: "secrets/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json"

@@ -7,4 +7,4 @@ RUN yarn install
 COPY . .
 # CMD [ "yarn", "run", "start" ] 
 
-CMD ["sh","-c", "./wait-for-it.sh postgresql:5432 && yarn start"]
+CMD ["sh","-c", "./wait-for-it.sh postgresql:5432 && yarn start:local"]
