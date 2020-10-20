@@ -209,6 +209,7 @@ export class PlaylistResolvers {
     @Arg('query') query: string
   ): Promise<Models.Playlist[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const playlists = await getManager()
         .createQueryBuilder()
         .select('playlist')
@@ -217,7 +218,7 @@ export class PlaylistResolvers {
         .leftJoinAndSelect('users.user', 'user')
         .where(
           `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

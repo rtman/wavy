@@ -126,6 +126,7 @@ export class TagResolvers {
     @Arg('query') query: string
   ): Promise<Models.Tag[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const tags = await getManager()
         .createQueryBuilder()
         .select('tag')
@@ -133,7 +134,7 @@ export class TagResolvers {
         .leftJoinAndSelect('tag.songs', 'songs')
         .where(
           `to_tsvector('simple',tag.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

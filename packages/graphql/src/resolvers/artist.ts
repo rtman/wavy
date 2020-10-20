@@ -151,6 +151,7 @@ export class ArtistResolvers {
     @Arg('query') query: string
   ): Promise<Models.Artist[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const artists = await getManager()
         .createQueryBuilder()
         .select('artist')
@@ -161,7 +162,7 @@ export class ArtistResolvers {
         .leftJoinAndSelect('labels.label', 'label')
         .where(
           `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

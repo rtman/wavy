@@ -133,6 +133,7 @@ export class SongResolvers {
     @Arg('query') query: string
   ): Promise<Models.Song[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const songs = await getManager()
         .createQueryBuilder()
         .select('song')
@@ -146,7 +147,7 @@ export class SongResolvers {
         .leftJoinAndSelect('song.label', 'label')
         .where(
           `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

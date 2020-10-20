@@ -173,6 +173,7 @@ export class AlbumResolvers {
     @Arg('query') query: string
   ): Promise<Models.Album[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const albums = await getManager()
         .createQueryBuilder()
         .select('album')
@@ -181,7 +182,7 @@ export class AlbumResolvers {
         .leftJoinAndSelect('album.label', 'label')
         .where(
           `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

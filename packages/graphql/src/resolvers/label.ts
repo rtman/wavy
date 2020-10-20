@@ -111,13 +111,14 @@ export class LabelResolvers {
     @Arg('query') query: string
   ): Promise<Models.Label[] | undefined> {
     try {
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
       const labels = await getManager()
         .createQueryBuilder()
         .select('label')
         .from(Models.Label, 'label')
         .where(
           `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 
