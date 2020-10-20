@@ -15,6 +15,7 @@ export class SearchResolvers {
         .select('album')
         .from(Models.Album, 'album')
         .leftJoinAndSelect('album.artist', 'artist')
+        .leftJoinAndSelect('album.songs', 'songs')
         .leftJoinAndSelect('album.label', 'label')
         .where(
           `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
@@ -29,6 +30,8 @@ export class SearchResolvers {
         .leftJoinAndSelect('artist.usersFollowing', 'usersFollowing')
         .leftJoinAndSelect('usersFollowing.user', 'user')
         .leftJoinAndSelect('artist.labels', 'labels')
+        .leftJoinAndSelect('artist.albums', 'albums')
+        .leftJoinAndSelect('albums.songs', 'songs')
         .leftJoinAndSelect('labels.label', 'label')
         .where(
           `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
@@ -40,6 +43,8 @@ export class SearchResolvers {
         .createQueryBuilder()
         .select('label')
         .from(Models.Label, 'label')
+        .leftJoinAndSelect('label.albums', 'albums')
+        .leftJoinAndSelect('albums.songs', 'songs')
         .where(
           `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
           { query: `${query}:*` }
@@ -52,6 +57,8 @@ export class SearchResolvers {
         .from(Models.Playlist, 'playlist')
         .leftJoinAndSelect('playlist.users', 'users')
         .leftJoinAndSelect('users.user', 'user')
+        .leftJoinAndSelect('playlist.songs', 'songs')
+        .leftJoinAndSelect('songs.song', 'song')
         .where(
           `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
           { query: `${query}:*` }

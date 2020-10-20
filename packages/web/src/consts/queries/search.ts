@@ -23,6 +23,11 @@ export const SEARCH_ALL = gql`
           profileImageUrlSmall
           profileImageUrlThumb
         }
+        songs {
+          id
+          title
+          urlHigh
+        }
       }
       artists {
         id
@@ -30,6 +35,15 @@ export const SEARCH_ALL = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        albums {
+          id
+          title
+          songs {
+            id
+            title
+            urlHigh
+          }
+        }
       }
       labels {
         id
@@ -37,6 +51,15 @@ export const SEARCH_ALL = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        albums {
+          id
+          title
+          songs {
+            id
+            title
+            urlHigh
+          }
+        }
       }
       playlists {
         id
@@ -52,10 +75,19 @@ export const SEARCH_ALL = gql`
             lastName
           }
         }
+        songs {
+          song {
+            id
+            title
+            urlHigh
+            albumId
+          }
+        }
       }
       songs {
         id
         title
+        albumId
         artist {
           id
           name

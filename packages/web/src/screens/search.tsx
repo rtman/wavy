@@ -33,6 +33,7 @@ import {
 import * as consts from 'consts';
 import { SearchContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Search = () => {
   const classes = useStyles();
+  const history = useHistory();
   const searchContext = useContext(SearchContext);
   const [searchResults, setSearchResults] = useState<Query['searchAll']>({
     albums: [],
@@ -87,6 +89,9 @@ export const Search = () => {
       const songsList = searchResults.songs.map((song: Song, index: number) => (
         <Fragment key={song.id}>
           <SongListItem
+            onClick={() =>
+              history.push(`${consts.routes.ALBUM}/${song.albumId}`)
+            }
             leftAccessory={
               <ListItemAvatar className={classes.listItemAvatar}>
                 <Avatar
@@ -142,6 +147,7 @@ export const Search = () => {
         (album: Album, index: number) => (
           <Fragment key={album.id}>
             <AlbumListItem
+              onClick={() => history.push(`${consts.routes.ALBUM}/${album.id}`)}
               leftAccessory={
                 <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
@@ -171,6 +177,9 @@ export const Search = () => {
         (playlist: Playlist, index: number) => (
           <Fragment key={playlist.id}>
             <PlaylistListItem
+              onClick={() =>
+                history.push(`${consts.routes.PLAYLIST}/${playlist.id}`)
+              }
               leftAccessory={
                 <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar

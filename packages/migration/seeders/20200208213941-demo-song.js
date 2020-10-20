@@ -29,17 +29,17 @@ module.exports = {
       {
         id: '3c3d5f29-d675-41b3-8ed6-c2c781c3a606',
         storagePathHigh:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/B2_Exit_Point_Mastered_16.ogg',
         storagePathMedium:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/B2_Exit_Point_Mastered_16.ogg',
         storagePathLow:
-          'gs://groov-development-ddc9d.appspot.com/B2_Exit_Point_Mastered_16.ogg',
+          'gs://groov-development-ddc9d.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/B2_Exit_Point_Mastered_16.ogg',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/B2_Exit_Point_Mastered_16.ogg?alt=media&token=5c9b1273-03d4-4e0c-bf91-e1f6629aa9d4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.ogg?alt=media&token=f28993d5-d9fa-4dc1-95c9-8a7b0ba4a5f6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.ogg?alt=media&token=f28993d5-d9fa-4dc1-95c9-8a7b0ba4a5f6',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.ogg?alt=media&token=f28993d5-d9fa-4dc1-95c9-8a7b0ba4a5f6',
         title: 'Exit Point',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -656,7 +656,7 @@ module.exports = {
         urlHigh:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/Andra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).ogg?alt=media&token=1ad76e69-e5a2-47bd-be2b-86048dd987f4https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
+          'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         urlLow:
           'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.ogg?alt=media&token=71c4f3e5-ccee-44db-bcbe-bd49088184e6',
         title: `Everybody Looks Good At The Restaurant`,
