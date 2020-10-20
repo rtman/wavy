@@ -5,5 +5,6 @@ module.exports = {
   rules: {
     ...baseConfig.rules,
     camelcase: ['error', { properties: 'never' }],
+    noUselessEscape: ['error', { properties: 'never' }],
   },
 };

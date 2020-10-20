@@ -1,4 +1,4 @@
-schema: ${GRAPHQL_URI:http://localhost:3001/graphql}
+schema: http://localhost:3001/graphql
 generates:
   src/commonTypes/serverTypes.ts:
     - typescript
