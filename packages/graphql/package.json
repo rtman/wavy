@@ -36,7 +36,7 @@
   "scripts": {
     "start": "node build/index.js",
     "start:local": "ts-node src/index.ts",
-    "build": "tsc --build tsconfig.json",
+    "build:ts": "tsc --build tsconfig.json",
     "generate-types": "yarn graphql-codegen",
     "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",
     "prettier": "prettier --write 'src/**/*.ts?(x)'",
@@ -44,7 +44,7 @@
     "eslint": "eslint 'src/**/*.ts?(x)'",
     "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
     "gae:deploy": "gcloud app deploy",
-    "deploy": "yarn build && yarn gae:deploy"
+    "deploy": "yarn build:ts && yarn gae:deploy"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
