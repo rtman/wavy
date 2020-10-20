@@ -10,6 +10,9 @@ export class SearchResolvers {
     @Arg('query') query: string
   ): Promise<Models.Search | undefined> {
     try {
+      // postgres cant process strings with spaces, replacing them with  ' & ' works
+      const formattedQuery = query.trim().replace(/ /g, ' & ');
+
       const albumsPromise = getManager()
         .createQueryBuilder()
         .select('album')
@@ -19,7 +22,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('album.label', 'label')
         .where(
           `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 
@@ -35,7 +38,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('labels.label', 'label')
         .where(
           `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 
@@ -47,7 +50,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('albums.songs', 'songs')
         .where(
           `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 
@@ -61,7 +64,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('songs.song', 'song')
         .where(
           `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 
@@ -78,7 +81,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('song.label', 'label')
         .where(
           `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
-          { query: `${query}:*` }
+          { query: `${formattedQuery}:*` }
         )
         .getMany();
 

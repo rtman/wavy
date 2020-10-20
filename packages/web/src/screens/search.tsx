@@ -76,9 +76,8 @@ export const Search = () => {
 
   useEffect(() => {
     if (searchContext?.searchText && searchContext?.isSearching) {
-      const formattedSearchText = `*${searchContext?.searchText}*`;
       submitSearchAll({
-        variables: { query: formattedSearchText },
+        variables: { query: searchContext?.searchText },
       });
       searchContext?.searchComplete();
     }
