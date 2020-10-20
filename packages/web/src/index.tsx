@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { CssBaseline } from '@material-ui/core';
 import ApolloClient from 'apollo-boost';
-import { config } from 'config';
+import * as config from 'config';
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
 import { AuthProvider } from 'context';
 import * as firebase from 'firebase/app';
@@ -23,20 +23,13 @@ import * as serviceWorker from './serviceWorker';
 export const history = createBrowserHistory();
 
 console.log('config', config);
-if (config.FIREBASE_CONFIG) {
-  firebase.initializeApp(config.FIREBASE_CONFIG);
+if (config.settings.FIREBASE_CONFIG) {
+  firebase.initializeApp(config.settings.FIREBASE_CONFIG);
 }
 
-const graphqlUri =
-  process.env.NODE_ENV === 'production'
-    ? `http://${process.env.REACT_APP_GRAPHQL_IP}:3001/graphql`
-    : 'http://localhost:3001/graphql';
-
 const client = new ApolloClient({
-  uri: graphqlUri,
+  uri: config.settings.GRAPHQL_URI,
 });
-
-// helpers.sentry.install();
 
 const sagaGlobalErrorHandler = (error: Error) => {
   //   helpers.sentry.captureExceptionPrefixed('GLOBAL ERROR HANDLER!', error);

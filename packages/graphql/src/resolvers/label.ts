@@ -115,8 +115,10 @@ export class LabelResolvers {
         .createQueryBuilder()
         .select('label')
         .from(Models.Label, 'label')
-        // Here is the zdb query and syntax
-        .where('label ==> :query', { query })
+        .where(
+          `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (labels) {

@@ -17,7 +17,7 @@
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./build",
-    "lib": ["es2016", "esnext.asynciterable"],
+    "lib": ["es2017", "esnext.asynciterable"],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true

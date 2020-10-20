@@ -13,15 +13,13 @@ export const environments: AllEnvVariants = {
   production,
 };
 
-const envLowerCase = (process.env.REACT_APP_BUILD_VARIANT ?? '').toLowerCase();
+const envLowerCase = (process.env.BUILD_VARIANT ?? '').toLowerCase();
 const environmentSettings =
   envLowerCase in environments
     ? { ...environments[envLowerCase], ...common }
     : {};
 
-console.log('*debug* environmentSettings', environmentSettings);
-
 export const settings: EnvironmentSettings = {
-  BUILD_VARIANT: process.env.REACT_APP_BUILD_VARIANT,
+  BUILD_VARIANT: process.env.BUILD_VARIANT,
   ...environmentSettings,
 };

@@ -16,8 +16,10 @@ export class SearchResolvers {
         .from(Models.Album, 'album')
         .leftJoinAndSelect('album.artist', 'artist')
         .leftJoinAndSelect('album.label', 'label')
-        // Here is the zdb query and syntax
-        .where('album ==> :query', { query })
+        .where(
+          `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       const artistsPromise = getManager()
@@ -28,16 +30,20 @@ export class SearchResolvers {
         .leftJoinAndSelect('usersFollowing.user', 'user')
         .leftJoinAndSelect('artist.labels', 'labels')
         .leftJoinAndSelect('labels.label', 'label')
-        // Here is the zdb query and syntax
-        .where('artist ==> :query', { query })
+        .where(
+          `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       const labelsPromise = getManager()
         .createQueryBuilder()
         .select('label')
         .from(Models.Label, 'label')
-        // Here is the zdb query and syntax
-        .where('label ==> :query', { query })
+        .where(
+          `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       const playlistsPromise = getManager()
@@ -46,8 +52,10 @@ export class SearchResolvers {
         .from(Models.Playlist, 'playlist')
         .leftJoinAndSelect('playlist.users', 'users')
         .leftJoinAndSelect('users.user', 'user')
-        // Here is the zdb query and syntax
-        .where('playlist ==> :query', { query })
+        .where(
+          `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       const songsPromise = getManager()
@@ -61,8 +69,10 @@ export class SearchResolvers {
         .leftJoinAndSelect('song.usersFavourited', 'usersFavourited')
         .leftJoinAndSelect('usersFavourited.user', 'user')
         .leftJoinAndSelect('song.label', 'label')
-        // Here is the zdb query and syntax
-        .where('song ==> :query', { query })
+        .where(
+          `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       const results = await Promise.all([
@@ -72,10 +82,8 @@ export class SearchResolvers {
         playlistsPromise,
         songsPromise,
       ]);
-
       if (results) {
         const [albums, artists, labels, playlists, songs] = results;
-
         return {
           albums,
           artists,
@@ -84,12 +92,10 @@ export class SearchResolvers {
           songs,
         };
       }
-
       console.log('searchAll query failed - query', query);
       return;
     } catch (error) {
       console.log('searchAll error', error);
-
       return;
     }
   }

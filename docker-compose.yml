@@ -37,11 +37,13 @@ services:
       context: ./packages/graphql
       dockerfile: Dockerfile.dev
     environment:
+      - BUILD_VARIANT=development
       - DATABASE_URL=postgresql
       - DATABASE_USER=groov
       - DATABASE_PASSWORD=groov
       - DATABASE_DB=groov
       - DATABASE_HOST=postgresql
+      - DATABASE_PORT=5432"
       - GOOGLE_APPLICATION_CREDENTIALS=secrets/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json
     ports:
       - "3001:3001"

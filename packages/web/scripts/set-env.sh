@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "JS_BUILD_FLAVOR=$1" > .env
+echo "BUILD_VARIANT=$1" > .env

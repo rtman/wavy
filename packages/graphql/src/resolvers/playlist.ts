@@ -215,8 +215,10 @@ export class PlaylistResolvers {
         .from(Models.Playlist, 'playlist')
         .leftJoinAndSelect('playlist.users', 'users')
         .leftJoinAndSelect('users.user', 'user')
-        // Here is the zdb query and syntax
-        .where('playlist ==> :query', { query })
+        .where(
+          `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (playlists) {

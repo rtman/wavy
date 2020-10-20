@@ -63,3 +63,9 @@ secrets/
 environments/
 
 firebase-debug.log
+
+#App Engine
+packages/*/app.yaml
+
+#Env
+.env

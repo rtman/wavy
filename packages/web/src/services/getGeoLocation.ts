@@ -1,4 +1,4 @@
-import { config } from 'config';
+import { settings } from 'config';
 
 export interface IpifyLocation {
   country: string;
@@ -18,7 +18,7 @@ interface IpIfyGeoLocationResponse {
 export const getGeoLocation = async (ipAddress: string) => {
   try {
     const response = await fetch(
-      `https://geo.ipify.org/api/v1?apiKey=${config.IP_IFY_API_KEY}&ipAddress=${ipAddress}`,
+      `https://geo.ipify.org/api/v1?apiKey=${settings.IP_IFY_API_KEY}&ipAddress=${ipAddress}`,
       {
         method: 'get',
       }

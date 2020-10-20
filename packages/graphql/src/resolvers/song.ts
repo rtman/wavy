@@ -133,8 +133,6 @@ export class SongResolvers {
     @Arg('query') query: string
   ): Promise<Models.Song[] | undefined> {
     try {
-      // const wildCardQuery = `'*${query}*'`;
-
       const songs = await getManager()
         .createQueryBuilder()
         .select('song')
@@ -146,8 +144,10 @@ export class SongResolvers {
         .leftJoinAndSelect('song.usersFavourited', 'usersFavourited')
         .leftJoinAndSelect('usersFavourited.user', 'user')
         .leftJoinAndSelect('song.label', 'label')
-        // Here is the zdb query and syntax
-        .where('song ==> :query', { query })
+        .where(
+          `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (songs) {

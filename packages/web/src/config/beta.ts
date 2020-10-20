@@ -1,5 +1,8 @@
-export const productionSettings: BuildFlavorSettings = {
-  // same as development for now
+import { EnvVariant } from 'commonTypes';
+
+import { common } from './common';
+
+export const beta: EnvVariant = {
   FIREBASE_CONFIG: {
     apiKey: 'AIzaSyBxocXWmCMa18OkCG7jfu_VoWgoYXjKT58',
     authDomain: 'groov-development-ddc9d.firebaseapp.com',
@@ -10,5 +13,8 @@ export const productionSettings: BuildFlavorSettings = {
     appId: '1:40882793956:web:1d0ceebf21653ad2fb2bf1',
     measurementId: 'G-60Y7BNGVQT',
   },
-  IP_IFY_API_KEY: 'at_KxVq8nc9VHdRJ1TFXvLuTwKSK7iGH',
+  GRAPHQL_URI:
+    process.env.NODE_ENV === 'production'
+      ? process.env.REACT_APP_GRAPHQL_URI ?? common.LOCAL_GRAPHQL_URI
+      : common.LOCAL_GRAPHQL_URI,
 };

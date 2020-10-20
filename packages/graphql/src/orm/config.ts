@@ -9,7 +9,7 @@ const createOrmConnection = async () => {
     password: process.env.DATABASE_PASSWORD,
     host: process.env.DATABASE_HOST,
     type: 'postgres',
-    port: 5432,
+    port: Number(process.env.DATABASE_PORT),
     synchronize: true,
     entities: [
       Models.Album,

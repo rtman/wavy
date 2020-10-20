@@ -179,8 +179,10 @@ export class AlbumResolvers {
         .from(Models.Album, 'album')
         .leftJoinAndSelect('album.artist', 'artist')
         .leftJoinAndSelect('album.label', 'label')
-        // Here is the zdb query and syntax
-        .where('album ==> :query', { query })
+        .where(
+          `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (albums) {

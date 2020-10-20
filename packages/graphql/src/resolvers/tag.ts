@@ -131,8 +131,10 @@ export class TagResolvers {
         .select('tag')
         .from(Models.Tag, 'tag')
         .leftJoinAndSelect('tag.songs', 'songs')
-        // Here is the zdb query and syntax
-        .where('tag ==> :query', { query })
+        .where(
+          `to_tsvector('simple',tag.title) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (tags) {

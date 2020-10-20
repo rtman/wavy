@@ -8,9 +8,9 @@ import express from 'express';
 import * as admin from 'firebase-admin';
 import { GraphQLError, GraphQLSchema } from 'graphql';
 import depthLimit from 'graphql-depth-limit';
-// import { createServer } from 'http';
 import { buildSchema } from 'type-graphql';
 
+import * as config from './config';
 import { createOrmConnection, Models } from './orm';
 import * as Resolvers from './resolvers';
 
@@ -19,10 +19,10 @@ export interface Context extends ExpressContext {
 }
 
 admin.initializeApp({
+  // TODO: Credential needs to be env aware
   credential: admin.credential.applicationDefault(),
-  // TODO: add more envs
-  databaseURL: 'https://groov-development-ddc9d.firebaseio.com',
-  storageBucket: 'groov-development-ddc9d.appspot.com',
+  databaseURL: config.settings.FIREBASE_CONFIG.databaseURL,
+  storageBucket: config.settings.FIREBASE_CONFIG.storageBucket,
 });
 
 const port = process.env.PORT || 3001;
@@ -85,34 +85,20 @@ const runServer = async () => {
       ],
     });
 
-    console.log('Schema Built');
-
     const server = initApolloServer(schema);
-    console.log('new ApolloServer instance created');
-
     server.applyMiddleware({ app, path: '/graphql' });
 
     app.get('/', (_req, res) => {
       res.send('Hello world!');
     });
 
-    console.log('Server launching app.listen');
     app.listen({ port }, () => {
       console.log(
         `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`
       );
     });
-
-    // const httpServer = createServer(app);
-
-    // httpServer.listen({ port }, () => {
-    //   console.log(
-    //     `\n🚀      GraphQL is now running on http://localhost:${port}/graphql`
-    //   );
-    // });
   } catch (error) {
     console.log('runServer Error:', error);
-    console.error('runServer error', error);
   }
 };
 

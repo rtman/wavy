@@ -159,8 +159,10 @@ export class ArtistResolvers {
         .leftJoinAndSelect('usersFollowing.user', 'user')
         .leftJoinAndSelect('artist.labels', 'labels')
         .leftJoinAndSelect('labels.label', 'label')
-        // Here is the zdb query and syntax
-        .where('artist ==> :query', { query })
+        .where(
+          `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
+          { query: `${query}:*` }
+        )
         .getMany();
 
       if (artists) {

@@ -11,6 +11,7 @@
     ]
   },
   "scripts": {
+    "start": "echo 'Starting migration' && yarn seed && yarn migrate",
     "build:ts": "echo 'Skipping due to JS'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
