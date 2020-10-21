@@ -51,6 +51,30 @@ module.exports = {
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },
+      {
+        songId: '6f45eb26-c731-4686-8046-4fbc2b7960cb',
+        playlistId: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc09',
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
+      {
+        songId: 'd4d1ff4e-5424-4ead-b6ed-eddcba9c3239',
+        playlistId: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc09',
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
+      {
+        songId: '7ee03d70-294a-4221-8d67-c88062b5cf2f',
+        playlistId: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc09',
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
+      {
+        songId: 'ee235a85-1c59-4b7b-992a-89f8cfa410ec',
+        playlistId: '9cf2e2ed-932b-4e98-bb6a-39c1e324dc09',
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
     ]);
   },
 
