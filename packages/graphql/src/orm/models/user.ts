@@ -16,6 +16,7 @@ import { UserPlaylist } from './userPlaylist';
 import { UserPlaylistFollowing } from './userPlaylistFollowing';
 import { UserSongFavourites } from './userSongFavourites';
 import { UserSubscription } from './userSubscription';
+import { EntityType } from './userSubscription';
 
 @Entity('user')
 @ObjectType()
@@ -103,4 +104,8 @@ export class User {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @Field(() => EntityType)
+  @Column({ default: EntityType.USER, update: false })
+  type: EntityType;
 }

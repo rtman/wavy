@@ -1,4 +1,3 @@
-import { UserSubscription } from 'orm/models';
 import { Arg, Field, ObjectType, Query, Resolver } from 'type-graphql';
 import { createUnionType } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -10,32 +9,47 @@ const SubscriptionData = createUnionType({
   types: () => [
     Models.Album,
     Models.Artist,
-    Models.Playlist,
     Models.Label,
+    Models.Playlist,
     Models.Song,
     Models.User,
   ],
   resolveType: (value) => {
     // TODO: resolve types
-    if ('artistId' in value) {
-      return Models.Album;
+    // console.log('*debug* resolveType value', value);
+    switch (value.type) {
+      case Models.EntityType.ALBUM:
+        return Models.Album;
+      case Models.EntityType.ARTIST:
+        return Models.Artist;
+      case Models.EntityType.LABEL:
+        return Models.Label;
+      case Models.EntityType.PLAYLIST:
+        return Models.Playlist;
+      case Models.EntityType.SONG:
+        return Models.Song;
+      case Models.EntityType.USER:
+        return Models.User;
     }
-    return undefined;
+    // if ('artistId' in value) {
+    //   return Models.Album;
+    // }
+    // return undefined;
   },
 });
 
 @ObjectType()
-export class SubscriptionResult extends UserSubscription {
+export class SubscriptionResult extends Models.UserSubscription {
   @Field(() => [SubscriptionData])
   data: typeof SubscriptionData[];
 }
 
 @Resolver()
 export class HomeResolvers {
-  @Query(() => SubscriptionResult)
+  @Query(() => [[SubscriptionData]])
   async getSubscriptions(
     @Arg('userId') userId: string
-  ): Promise<SubscriptionResult[] | undefined> {
+  ): Promise<typeof SubscriptionData[][] | undefined> {
     try {
       const user = await getManager()
         .getRepository(Models.User)
@@ -60,8 +74,17 @@ export class HomeResolvers {
       }
 
       const activeSubscriptions = subscriptions.filter(
-        (subscription) => !subscription.active
+        (subscription) => subscription.active
       );
+
+      if (activeSubscriptions.length === 0) {
+        console.log(
+          'No active subscriptions - activeSubscriptions.length === 0',
+          activeSubscriptions.length === 0
+        );
+        return;
+      }
+
       const favouritedSubscriptions = activeSubscriptions.filter(
         (subscription) => subscription.favourited
       );
@@ -80,7 +103,11 @@ export class HomeResolvers {
       const subscriptionPromises: Promise<typeof SubscriptionData[]>[] = [];
 
       for (const subscription of sortedSubscriptions) {
-        subscriptionPromises.push(runSubscription(subscription));
+        if (subscription.tag) {
+          subscriptionPromises.push(runTagSubscriptionQueries(subscription));
+        } else {
+          subscriptionPromises.push(runSubscriptionQueries(subscription));
+        }
       }
 
       if (subscriptionPromises.length === 0) {
@@ -89,26 +116,149 @@ export class HomeResolvers {
       }
 
       const subscriptionQueryResults = await Promise.all(subscriptionPromises);
-      const subscriptionResults: SubscriptionResult[] = [];
+      // const subscriptionResults: SubscriptionResult[] = [];
 
-      for (const [index, subscription] of subscriptions.entries()) {
-        subscriptionResults.push({
-          ...subscription,
-          data: subscriptionQueryResults[index],
-        });
-      }
+      // for (const [index, subscription] of subscriptions.entries()) {
+      //   subscriptionResults.push({
+      //     ...subscription,
+      //     data: subscriptionQueryResults[index],
+      //   });
+      // }
 
-      return subscriptionResults;
+      // console.log(
+      //   '*debug* subscriptionResults[0].data[0]',
+      //   subscriptionResults[0].data[0]
+      // );
+      // console.log('*debug* subscriptionResults', subscriptionResults);
+      return subscriptionQueryResults;
     } catch (error) {
       console.log('Get Subscriptions error', error);
     }
   }
 }
 
-const runSubscription = (subscription: UserSubscription) => {
-  const { entityType, subscriptionType } = subscription;
-  const numberOfResults = 20;
+const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
+  const { entityType, subscriptionType, tag } = subscription;
 
+  const numberOfResults = 20;
+  const model = Models[entityType];
+  const formattedQuery = tag.trim().replace(/ /g, ' & ');
+
+  switch (subscriptionType) {
+    case Models.SubscriptionType.NEW:
+      return getManager()
+        .createQueryBuilder()
+        .select(entityType.toLowerCase())
+        .from(model, entityType.toLowerCase())
+        .where(
+          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          { query: `${formattedQuery}:*` }
+        )
+        .orderBy(`${entityType.toLowerCase()}.createdAt`, 'DESC')
+        .take(numberOfResults)
+        .getMany();
+
+    case Models.SubscriptionType.TOP:
+      return getManager()
+        .createQueryBuilder()
+        .select(entityType.toLowerCase())
+        .from(model, entityType.toLowerCase())
+        .where(
+          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          { query: `${formattedQuery}:*` }
+        )
+        .orderBy(
+          `${entityType.toLowerCase()}.${getMetricForTopQuery(entityType)}`,
+          'DESC'
+        )
+        .take(numberOfResults)
+        .getMany();
+
+    case Models.SubscriptionType.RANDOM:
+      return getManager()
+        .createQueryBuilder()
+        .select(entityType.toLowerCase())
+        .from(model, entityType.toLowerCase())
+        .where(
+          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          { query: `${formattedQuery}:*` }
+        )
+        .orderBy('RANDOM()')
+        .take(numberOfResults)
+        .getMany();
+  }
+};
+
+// const runFollowerSubscriptionQueries = (
+//   user: Models.User,
+//   subscription: Models.UserSubscription
+// ) => {
+//   const { entityType, subscriptionType } = subscription;
+
+//   const numberOfResults = 20;
+//   const model = Models[entityType];
+//   const artistFollowIds = user.artistFollows.map(
+//     (userArtistFollowing) => userArtistFollowing.artistId
+//   );
+//   const labelFollowIds = user.labelFollows.map(
+//     (userLabelFollowing) => userLabelFollowing.labelId
+//   );
+
+//   switch (subscriptionType) {
+//     case Models.SubscriptionType.NEW: {
+//       const artist = await getManager()
+//         .getRepository(Models.Artist)
+//         .createQueryBuilder()
+//         .select(entityType.toLowerCase())
+//         .from(model, entityType.toLowerCase())
+//         .where('artist.id', artistFollowIds)
+//         .leftJoinAndSelect('artist.album', 'album')
+//         .orderBy('album.createdAt', 'DESC')
+//         .limit(numberOfResults)
+//         .getMany();
+
+//       const label = await getManager()
+//         .getRepository(Models.Label)
+//         .createQueryBuilder()
+//         .select(entityType.toLowerCase())
+//         .from(model, entityType.toLowerCase())
+//         .leftJoinAndSelect('label.album', 'album')
+//         .orderBy('album.createdAt', 'DESC')
+//         .limit(numberOfResults)
+//         .getMany();
+
+//       // Uniquify
+//       const result = [...artist, ...label].filter(
+//         (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+//       );
+
+//       return result;
+//     }
+//     case Models.SubscriptionType.TOP:
+//       return getManager()
+//         .getRepository(model)
+//         .find({
+//           order: {
+//             [getMetricForTopQuery(entityType)]: 'DESC',
+//           },
+//           take: numberOfResults,
+//         });
+
+//     case Models.SubscriptionType.RANDOM:
+//       return getManager()
+//         .createQueryBuilder()
+//         .select(entityType.toLowerCase())
+//         .from(model, entityType.toLowerCase())
+//         .orderBy('RANDOM()')
+//         .limit(numberOfResults)
+//         .getMany();
+//   }
+// };
+
+const runSubscriptionQueries = (subscription: Models.UserSubscription) => {
+  const { entityType, subscriptionType } = subscription;
+
+  const numberOfResults = 20;
   const model = Models[entityType];
 
   switch (subscriptionType) {
@@ -138,7 +288,7 @@ const runSubscription = (subscription: UserSubscription) => {
         .select(entityType.toLowerCase())
         .from(model, entityType.toLowerCase())
         .orderBy('RANDOM()')
-        .limit(numberOfResults)
+        .take(numberOfResults)
         .getMany();
   }
 };
@@ -146,7 +296,7 @@ const runSubscription = (subscription: UserSubscription) => {
 const getMetricForTopQuery = (entityType: Models.EntityType) => {
   switch (entityType) {
     case Models.EntityType.ALBUM:
-      // TODO: this is incorrect, need a real
+      // TODO: this is incorrect, need a real metric
       return 'createdAt';
     case Models.EntityType.ARTIST:
       return 'followers';
@@ -156,6 +306,8 @@ const getMetricForTopQuery = (entityType: Models.EntityType) => {
       return 'followers';
     case Models.EntityType.SONG:
       return 'playCount';
+    default:
+      return 'followers';
   }
 };
 

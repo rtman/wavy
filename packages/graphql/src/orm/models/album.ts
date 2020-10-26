@@ -12,6 +12,7 @@ import {
 import { Artist } from './artist';
 import { Label } from './label';
 import { Song } from './song';
+import { EntityType } from './userSubscription';
 
 @Entity('album')
 @ObjectType()
@@ -98,4 +99,8 @@ export class Album {
   @Field(() => Boolean)
   @Column()
   processing: boolean;
+
+  @Field(() => EntityType)
+  @Column({ default: EntityType.ALBUM, update: false })
+  type: EntityType;
 }

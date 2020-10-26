@@ -3,9 +3,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Generated,
   ManyToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -27,6 +27,7 @@ export enum EntityType {
   LABEL = 'Label',
   PLAYLIST = 'Playlist',
   SONG = 'Song',
+  USER = 'User',
 }
 
 registerEnumType(EntityType, {
@@ -37,7 +38,7 @@ registerEnumType(EntityType, {
 @ObjectType()
 export class UserSubscription {
   @Field(() => ID)
-  @Generated('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Field(() => ID)
@@ -51,6 +52,14 @@ export class UserSubscription {
   @Field(() => SubscriptionType)
   @Column()
   subscriptionType: SubscriptionType;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  tag: string;
+
+  @Field()
+  @Column({ default: false })
+  followerSubscription: boolean;
 
   @Field()
   @Column({ default: true })

@@ -16,6 +16,7 @@ import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
 import { UserLabel } from './userLabel';
 import { UserLabelFollowing } from './userLabelFollowing';
+import { EntityType } from './userSubscription';
 
 @Entity('label')
 @ObjectType()
@@ -119,4 +120,8 @@ export class Label {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @Field(() => EntityType)
+  @Column({ default: EntityType.LABEL, update: false })
+  type: EntityType;
 }
