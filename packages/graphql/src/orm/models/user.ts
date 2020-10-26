@@ -15,6 +15,7 @@ import { UserLabelFollowing } from './userLabelFollowing';
 import { UserPlaylist } from './userPlaylist';
 import { UserPlaylistFollowing } from './userPlaylistFollowing';
 import { UserSongFavourites } from './userSongFavourites';
+import { UserSubscription } from './userSubscription';
 
 @Entity('user')
 @ObjectType()
@@ -87,6 +88,13 @@ export class User {
     (userLabel) => userLabel.user
   )
   labels: UserLabel[];
+
+  @Field(() => [UserSubscription], { nullable: true })
+  @OneToMany(
+    () => UserSubscription,
+    (userSubscription) => userSubscription.user
+  )
+  subscriptions: UserSubscription[];
 
   @Field(() => Date)
   @CreateDateColumn()
