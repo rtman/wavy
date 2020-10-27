@@ -5,7 +5,7 @@ import { getManager } from 'typeorm';
 import { Models } from '../orm';
 
 const SubscriptionData = createUnionType({
-  name: 'HomeData',
+  name: 'SubscriptionData',
   types: () => [
     Models.Album,
     Models.Artist,
@@ -15,8 +15,6 @@ const SubscriptionData = createUnionType({
     Models.User,
   ],
   resolveType: (value) => {
-    // TODO: resolve types
-    // console.log('*debug* resolveType value', value);
     switch (value.type) {
       case Models.EntityType.ALBUM:
         return Models.Album;
@@ -31,10 +29,6 @@ const SubscriptionData = createUnionType({
       case Models.EntityType.USER:
         return Models.User;
     }
-    // if ('artistId' in value) {
-    //   return Models.Album;
-    // }
-    // return undefined;
   },
 });
 
@@ -46,10 +40,10 @@ export class SubscriptionResult extends Models.UserSubscription {
 
 @Resolver()
 export class HomeResolvers {
-  @Query(() => [[SubscriptionData]])
+  @Query(() => [SubscriptionResult])
   async getSubscriptions(
     @Arg('userId') userId: string
-  ): Promise<typeof SubscriptionData[][] | undefined> {
+  ): Promise<SubscriptionResult[] | undefined> {
     try {
       const user = await getManager()
         .getRepository(Models.User)
@@ -116,21 +110,16 @@ export class HomeResolvers {
       }
 
       const subscriptionQueryResults = await Promise.all(subscriptionPromises);
-      // const subscriptionResults: SubscriptionResult[] = [];
+      const subscriptionResults: SubscriptionResult[] = [];
 
-      // for (const [index, subscription] of subscriptions.entries()) {
-      //   subscriptionResults.push({
-      //     ...subscription,
-      //     data: subscriptionQueryResults[index],
-      //   });
-      // }
+      for (const [index, subscription] of sortedSubscriptions.entries()) {
+        subscriptionResults.push({
+          ...subscription,
+          data: subscriptionQueryResults[index],
+        });
+      }
 
-      // console.log(
-      //   '*debug* subscriptionResults[0].data[0]',
-      //   subscriptionResults[0].data[0]
-      // );
-      // console.log('*debug* subscriptionResults', subscriptionResults);
-      return subscriptionQueryResults;
+      return subscriptionResults;
     } catch (error) {
       console.log('Get Subscriptions error', error);
     }
@@ -151,7 +140,7 @@ const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
         .select(entityType.toLowerCase())
         .from(model, entityType.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
         .orderBy(`${entityType.toLowerCase()}.createdAt`, 'DESC')
@@ -164,7 +153,7 @@ const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
         .select(entityType.toLowerCase())
         .from(model, entityType.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
         .orderBy(
@@ -180,7 +169,7 @@ const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
         .select(entityType.toLowerCase())
         .from(model, entityType.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}.tagString @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
         .orderBy('RANDOM()')
