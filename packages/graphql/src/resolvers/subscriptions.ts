@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { Arg, Field, ObjectType, Query, Resolver } from 'type-graphql';
 import { createUnionType } from 'type-graphql';
-import { getManager } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
@@ -47,12 +47,10 @@ export class SubscriptionResolvers {
     @Arg('userId') userId: string
   ): Promise<SubscriptionResult[] | undefined> {
     try {
-      const user = await getManager()
-        .getRepository(Models.User)
-        .findOne({
-          where: { id: userId },
-          relations: ['subscriptions', 'artistFollows', 'labelFollows'],
-        });
+      const user = await getRepository(Models.User).findOne({
+        where: { id: userId },
+        relations: ['subscriptions', 'artistFollows', 'labelFollows'],
+      });
 
       if (!user) {
         console.log('No user found for userId', userId);
@@ -196,11 +194,9 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
               const songIds = songs.map((entry) => entry.songId);
 
               resolve(
-                getManager()
-                  .getRepository(Models.Song)
-                  .findByIds(songIds, {
-                    relations: ['album', 'album.label'],
-                  })
+                getRepository(Models.Song).findByIds(songIds, {
+                  relations: ['album', 'album.label'],
+                })
               );
             }
             reject({
@@ -243,11 +239,9 @@ const makeUserStatsPromise = (props: { userId: string }) => {
             });
 
             resolve(
-              getManager()
-                .getRepository(Models.Song)
-                .findByIds(songIds, {
-                  relations: ['album', 'album.label'],
-                })
+              getRepository(Models.Song).findByIds(songIds, {
+                relations: ['album', 'album.label'],
+              })
             );
           }
 
@@ -275,10 +269,8 @@ const makeTagPromise = (props: {
 
   switch (sortBy) {
     case Models.SubscriptionSortBy.NEW:
-      return getManager()
-        .createQueryBuilder()
-        .select(entity.toLowerCase())
-        .from(model, entity.toLowerCase())
+      return getRepository(model)
+        .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
@@ -288,10 +280,8 @@ const makeTagPromise = (props: {
         .getMany();
 
     case Models.SubscriptionSortBy.TOP:
-      return getManager()
-        .createQueryBuilder()
-        .select(entity.toLowerCase())
-        .from(model, entity.toLowerCase())
+      return getRepository(model)
+        .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
@@ -304,10 +294,8 @@ const makeTagPromise = (props: {
         .getMany();
 
     case Models.SubscriptionSortBy.RANDOM:
-      return getManager()
-        .createQueryBuilder()
-        .select(entity.toLowerCase())
-        .from(model, entity.toLowerCase())
+      return getRepository(model)
+        .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
@@ -337,22 +325,16 @@ const makeFollowerPromise = (props: {
     case Models.SubscriptionSortBy.NEW: {
       return new Promise<Models.Album[]>((resolve, reject) => {
         try {
-          const artistAlbums = getManager()
-            .getRepository(Models.Artist)
-            .createQueryBuilder()
-            .select('artist')
-            .from(Models.Artist, 'artist')
-            .where('partist.id IN (:...artistFollowIds)', { artistFollowIds })
+          const artistAlbums = getRepository(Models.Artist)
+            .createQueryBuilder('artist')
+            .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
             .orderBy('albums.createdAt', 'DESC')
             .limit(numberOfResults / 2)
             .getMany();
 
-          const labelAlbums = getManager()
-            .getRepository(Models.Label)
-            .createQueryBuilder()
-            .select('label')
-            .from(Models.Label, 'label')
+          const labelAlbums = getRepository(Models.Label)
+            .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
             .orderBy('albums.createdAt', 'DESC')
@@ -369,8 +351,7 @@ const makeFollowerPromise = (props: {
     }
     // TODO: Need way of determining playCount for album
     // case Models.SubscriptionSortBy.TOP:
-    //   return getManager()
-    //     .getRepository(model)
+    //   return getRepository(model)
     //     .find({
     //       order: {
     //         [getMetricForTopQuery(entity)]: 'DESC',
@@ -384,22 +365,16 @@ const makeFollowerPromise = (props: {
     case Models.SubscriptionSortBy.RANDOM:
       return new Promise<Models.Album[]>((resolve, reject) => {
         try {
-          const artistAlbums = getManager()
-            .getRepository(Models.Artist)
-            .createQueryBuilder()
-            .select('artist')
-            .from(Models.Artist, 'artist')
+          const artistAlbums = getRepository(Models.Artist)
+            .createQueryBuilder('artist')
             .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
             .orderBy('RANDOM()')
             .limit(numberOfResults / 2)
             .getMany();
 
-          const labelAlbums = getManager()
-            .getRepository(Models.Label)
-            .createQueryBuilder()
-            .select('label')
-            .from(Models.Label, 'label')
+          const labelAlbums = getRepository(Models.Label)
+            .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
             .orderBy('RANDOM()')
@@ -427,30 +402,24 @@ const makeDefaultPromise = (props: {
 
   switch (sortBy) {
     case Models.SubscriptionSortBy.NEW:
-      return getManager()
-        .getRepository(model)
-        .find({
-          order: {
-            createdAt: 'DESC',
-          },
-          take: numberOfResults,
-        });
+      return getRepository(model).find({
+        order: {
+          createdAt: 'DESC',
+        },
+        take: numberOfResults,
+      });
 
     case Models.SubscriptionSortBy.TOP:
-      return getManager()
-        .getRepository(model)
-        .find({
-          order: {
-            [getMetricForTopQuery(entity)]: 'DESC',
-          },
-          take: numberOfResults,
-        });
+      return getRepository(model).find({
+        order: {
+          [getMetricForTopQuery(entity)]: 'DESC',
+        },
+        take: numberOfResults,
+      });
 
     case Models.SubscriptionSortBy.RANDOM:
-      return getManager()
-        .createQueryBuilder()
-        .select(entity.toLowerCase())
-        .from(model, entity.toLowerCase())
+      return getRepository(model)
+        .createQueryBuilder(entity.toLowerCase())
         .orderBy('RANDOM()')
         .take(numberOfResults)
         .getMany();

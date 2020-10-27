@@ -88,11 +88,11 @@ export class Album {
 
   // TODO: add supporting artists to album
 
-  @Field(() => Date, { nullable: true })
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Field(() => Date, { nullable: true })
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
 

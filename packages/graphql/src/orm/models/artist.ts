@@ -140,11 +140,11 @@ export class Artist {
   @Column({ nullable: true })
   inviteEmail: string;
 
-  @Field(() => Date, { nullable: true })
+  @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Field(() => Date, { nullable: true })
+  @Field(() => Date)
   @UpdateDateColumn()
   updatedAt!: Date;
 
