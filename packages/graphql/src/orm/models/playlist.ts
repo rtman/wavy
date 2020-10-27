@@ -11,7 +11,7 @@ import {
 import { SongPlaylist } from './songPlaylist';
 import { UserPlaylist } from './userPlaylist';
 import { UserPlaylistFollowing } from './userPlaylistFollowing';
-import { EntityType } from './userSubscription';
+import { SubscriptionEntity } from './userSubscription';
 
 @Entity('playlist')
 @ObjectType()
@@ -85,7 +85,7 @@ export class Playlist {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Field(() => EntityType)
-  @Column({ default: EntityType.PLAYLIST, update: false })
-  type: EntityType;
+  @Field(() => SubscriptionEntity)
+  @Column({ default: SubscriptionEntity.PLAYLIST, update: false })
+  type: SubscriptionEntity;
 }

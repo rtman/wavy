@@ -1,8 +1,10 @@
+import * as admin from 'firebase-admin';
 import { Arg, Field, ObjectType, Query, Resolver } from 'type-graphql';
 import { createUnionType } from 'type-graphql';
 import { getManager } from 'typeorm';
 
 import { Models } from '../orm';
+import { PlayHistoryUserDoc } from './listeningStats';
 
 const SubscriptionData = createUnionType({
   name: 'SubscriptionData',
@@ -16,17 +18,17 @@ const SubscriptionData = createUnionType({
   ],
   resolveType: (value) => {
     switch (value.type) {
-      case Models.EntityType.ALBUM:
+      case Models.SubscriptionEntity.ALBUM:
         return Models.Album;
-      case Models.EntityType.ARTIST:
+      case Models.SubscriptionEntity.ARTIST:
         return Models.Artist;
-      case Models.EntityType.LABEL:
+      case Models.SubscriptionEntity.LABEL:
         return Models.Label;
-      case Models.EntityType.PLAYLIST:
+      case Models.SubscriptionEntity.PLAYLIST:
         return Models.Playlist;
-      case Models.EntityType.SONG:
+      case Models.SubscriptionEntity.SONG:
         return Models.Song;
-      case Models.EntityType.USER:
+      case Models.SubscriptionEntity.USER:
         return Models.User;
     }
   },
@@ -39,7 +41,7 @@ export class SubscriptionResult extends Models.UserSubscription {
 }
 
 @Resolver()
-export class HomeResolvers {
+export class SubscriptionResolvers {
   @Query(() => [SubscriptionResult])
   async getSubscriptions(
     @Arg('userId') userId: string
@@ -97,10 +99,43 @@ export class HomeResolvers {
       const subscriptionPromises: Promise<typeof SubscriptionData[]>[] = [];
 
       for (const subscription of sortedSubscriptions) {
-        if (subscription.tag) {
-          subscriptionPromises.push(runTagSubscriptionQueries(subscription));
-        } else {
-          subscriptionPromises.push(runSubscriptionQueries(subscription));
+        const { entity, payload, sortBy, type } = subscription;
+
+        switch (type) {
+          case Models.SubscriptionType.TAG:
+            if (!payload) {
+              console.log(
+                'Tag subscription without search payload - payload',
+                payload
+              );
+              break;
+            }
+            subscriptionPromises.push(
+              makeTagPromises({
+                entity,
+                payload,
+                sortBy,
+              })
+            );
+            break;
+          case Models.SubscriptionType.FOLLOWING:
+            if (sortBy === Models.SubscriptionSortBy.TOP) {
+              break;
+            }
+            subscriptionPromises.push(makeFollowerPromises({ user, sortBy }));
+            break;
+
+          case Models.SubscriptionType.USER_STATS:
+            subscriptionPromises.push(makeUserStatsPromise({ userId }));
+            break;
+
+          case Models.SubscriptionType.PLAY_HISTORY:
+            subscriptionPromises.push(makePlayHistoryPromise({ userId }));
+            break;
+
+          default:
+            subscriptionPromises.push(makeGeneralPromises({ entity, sortBy }));
+            break;
         }
       }
 
@@ -126,50 +161,132 @@ export class HomeResolvers {
   }
 }
 
-const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
-  const { entityType, subscriptionType, tag } = subscription;
+const makePlayHistoryPromise = (props: { userId: string }) => {
+  const { userId } = props;
+
+  return new Promise<Models.Song[]>((resolve, reject) => {
+    admin
+      .firestore()
+      .collection(Models.SubscriptionType.PLAY_HISTORY)
+      .doc(userId)
+      .get()
+      .then((result) => {
+        if (result.exists) {
+          const playHistoryUserDoc: PlayHistoryUserDoc = result.data() ?? {};
+
+          const { songs } = playHistoryUserDoc;
+
+          if (songs) {
+            const songIds = songs.map((entry) => entry.songId);
+
+            resolve(
+              getManager()
+                .getRepository(Models.Song)
+                .findByIds(songIds, {
+                  relations: ['album', 'album.label'],
+                })
+            );
+          }
+          reject({
+            ok: false,
+            error: `No songs found for userId - ${userId}`,
+          });
+        }
+
+        reject({
+          ok: false,
+          error: `No user stats found for userId - ${userId}`,
+        });
+      });
+  });
+};
+
+const makeUserStatsPromise = (props: { userId: string }) => {
+  const { userId } = props;
 
   const numberOfResults = 20;
-  const model = Models[entityType];
-  const formattedQuery = tag.trim().replace(/ /g, ' & ');
 
-  switch (subscriptionType) {
-    case Models.SubscriptionType.NEW:
+  return new Promise<Models.Song[]>((resolve, reject) => {
+    admin
+      .firestore()
+      .collectionGroup(Models.SubscriptionType.USER_STATS)
+      .where('userId', '==', userId)
+      .orderBy('plays', 'desc')
+      .limit(numberOfResults)
+      .get()
+      .then((result) => {
+        if (!result.empty) {
+          const songIds = result.docs.map((snapshot) => {
+            // We know what the firestore data shape is so this is ok
+            const data = (snapshot.data() as unknown) as Models.ListeningStats;
+            return data.songId;
+          });
+
+          resolve(
+            getManager()
+              .getRepository(Models.Song)
+              .findByIds(songIds, {
+                relations: ['album', 'album.label'],
+              })
+          );
+        }
+
+        reject({
+          ok: false,
+          error: `No play history found for userId - ${userId}`,
+        });
+      });
+  });
+};
+
+const makeTagPromises = (props: {
+  entity: Models.SubscriptionEntity;
+  payload: string;
+  sortBy: Models.SubscriptionSortBy;
+}) => {
+  const { entity, payload, sortBy } = props;
+
+  const numberOfResults = 20;
+  const model = Models[entity];
+  const formattedQuery = payload.trim().replace(/ /g, ' & ');
+
+  switch (sortBy) {
+    case Models.SubscriptionSortBy.NEW:
       return getManager()
         .createQueryBuilder()
-        .select(entityType.toLowerCase())
-        .from(model, entityType.toLowerCase())
+        .select(entity.toLowerCase())
+        .from(model, entity.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
-        .orderBy(`${entityType.toLowerCase()}.createdAt`, 'DESC')
+        .orderBy(`${entity.toLowerCase()}.createdAt`, 'DESC')
         .take(numberOfResults)
         .getMany();
 
-    case Models.SubscriptionType.TOP:
+    case Models.SubscriptionSortBy.TOP:
       return getManager()
         .createQueryBuilder()
-        .select(entityType.toLowerCase())
-        .from(model, entityType.toLowerCase())
+        .select(entity.toLowerCase())
+        .from(model, entity.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
         .orderBy(
-          `${entityType.toLowerCase()}.${getMetricForTopQuery(entityType)}`,
+          `${entity.toLowerCase()}.${getMetricForTopQuery(entity)}`,
           'DESC'
         )
         .take(numberOfResults)
         .getMany();
 
-    case Models.SubscriptionType.RANDOM:
+    case Models.SubscriptionSortBy.RANDOM:
       return getManager()
         .createQueryBuilder()
-        .select(entityType.toLowerCase())
-        .from(model, entityType.toLowerCase())
+        .select(entity.toLowerCase())
+        .from(model, entity.toLowerCase())
         .where(
-          `to_tsvector('simple',${entityType.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
+          `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
         .orderBy('RANDOM()')
@@ -178,80 +295,128 @@ const runTagSubscriptionQueries = (subscription: Models.UserSubscription) => {
   }
 };
 
-// const runFollowerSubscriptionQueries = (
-//   user: Models.User,
-//   subscription: Models.UserSubscription
-// ) => {
-//   const { entityType, subscriptionType } = subscription;
-
-//   const numberOfResults = 20;
-//   const model = Models[entityType];
-//   const artistFollowIds = user.artistFollows.map(
-//     (userArtistFollowing) => userArtistFollowing.artistId
-//   );
-//   const labelFollowIds = user.labelFollows.map(
-//     (userLabelFollowing) => userLabelFollowing.labelId
-//   );
-
-//   switch (subscriptionType) {
-//     case Models.SubscriptionType.NEW: {
-//       const artist = await getManager()
-//         .getRepository(Models.Artist)
-//         .createQueryBuilder()
-//         .select(entityType.toLowerCase())
-//         .from(model, entityType.toLowerCase())
-//         .where('artist.id', artistFollowIds)
-//         .leftJoinAndSelect('artist.album', 'album')
-//         .orderBy('album.createdAt', 'DESC')
-//         .limit(numberOfResults)
-//         .getMany();
-
-//       const label = await getManager()
-//         .getRepository(Models.Label)
-//         .createQueryBuilder()
-//         .select(entityType.toLowerCase())
-//         .from(model, entityType.toLowerCase())
-//         .leftJoinAndSelect('label.album', 'album')
-//         .orderBy('album.createdAt', 'DESC')
-//         .limit(numberOfResults)
-//         .getMany();
-
-//       // Uniquify
-//       const result = [...artist, ...label].filter(
-//         (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-//       );
-
-//       return result;
-//     }
-//     case Models.SubscriptionType.TOP:
-//       return getManager()
-//         .getRepository(model)
-//         .find({
-//           order: {
-//             [getMetricForTopQuery(entityType)]: 'DESC',
-//           },
-//           take: numberOfResults,
-//         });
-
-//     case Models.SubscriptionType.RANDOM:
-//       return getManager()
-//         .createQueryBuilder()
-//         .select(entityType.toLowerCase())
-//         .from(model, entityType.toLowerCase())
-//         .orderBy('RANDOM()')
-//         .limit(numberOfResults)
-//         .getMany();
-//   }
-// };
-
-const runSubscriptionQueries = (subscription: Models.UserSubscription) => {
-  const { entityType, subscriptionType } = subscription;
+// TODO: Need to consider merging playlist/lbel/artist follows into one (union type), would make this easy
+const makeFollowerPromises = (props: {
+  user: Models.User;
+  sortBy: Models.SubscriptionSortBy;
+}) => {
+  const { sortBy, user } = props;
 
   const numberOfResults = 20;
-  const model = Models[entityType];
+  const artistFollowIds = user.artistFollows.map(
+    (userArtistFollowing) => userArtistFollowing.artistId
+  );
+  const labelFollowIds = user.labelFollows.map(
+    (userLabelFollowing) => userLabelFollowing.labelId
+  );
 
-  switch (subscriptionType) {
-    case Models.SubscriptionType.NEW:
+  switch (sortBy) {
+    case Models.SubscriptionSortBy.NEW: {
+      return new Promise<Models.Album[]>((resolve) => {
+        const artistAlbums = getManager()
+          .getRepository(Models.Artist)
+          .createQueryBuilder()
+          .select('artist')
+          .from(Models.Artist, 'artist')
+          .where('artist.id', artistFollowIds)
+          .leftJoinAndSelect('artist.album', 'album')
+          .orderBy('album.createdAt', 'DESC')
+          .limit(numberOfResults / 2)
+          .getMany();
+
+        const labelAlbums = getManager()
+          .getRepository(Models.Label)
+          .createQueryBuilder()
+          .select('label')
+          .from(Models.Label, 'label')
+          .where('label.id', labelFollowIds)
+          .leftJoinAndSelect('label.album', 'album')
+          .orderBy('album.createdAt', 'DESC')
+          .limit(numberOfResults / 2)
+          .getMany();
+
+        Promise.all([artistAlbums, labelAlbums]).then((result) => {
+          resolve(mergeUniqueSortAlbums(result));
+        });
+      });
+    }
+    // TODO: Need way of determining playCount for album
+    // case Models.SubscriptionSortBy.TOP:
+    //   return getManager()
+    //     .getRepository(model)
+    //     .find({
+    //       order: {
+    //         [getMetricForTopQuery(entity)]: 'DESC',
+    //       },
+    //       take: numberOfResults,
+    //     });
+    // For now just returning empty to satisfy typescript
+    case Models.SubscriptionSortBy.TOP:
+      return new Promise<Models.Album[]>((resolve) => resolve([]));
+
+    case Models.SubscriptionSortBy.RANDOM:
+      return new Promise<Models.Album[]>((resolve) => {
+        const artistAlbums = getManager()
+          .getRepository(Models.Artist)
+          .createQueryBuilder()
+          .select('artist')
+          .from(Models.Artist, 'artist')
+          .where('artist.id', artistFollowIds)
+          .leftJoinAndSelect('artist.album', 'album')
+          .orderBy('RANDOM()')
+          .limit(numberOfResults / 2)
+          .getMany();
+
+        const labelAlbums = getManager()
+          .getRepository(Models.Label)
+          .createQueryBuilder()
+          .select('label')
+          .from(Models.Label, 'label')
+          .where('label.id', labelFollowIds)
+          .leftJoinAndSelect('label.album', 'album')
+          .orderBy('RANDOM()')
+          .limit(numberOfResults / 2)
+          .getMany();
+
+        Promise.all([artistAlbums, labelAlbums]).then((result) => {
+          resolve(mergeUniqueSortAlbums(result));
+        });
+      });
+  }
+};
+
+const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
+  const [artistResults, labelResults] = result;
+
+  const albums: Models.Album[] = [];
+
+  [...artistResults, ...labelResults].forEach((item) =>
+    item.albums.forEach((album) => albums.push(album))
+  );
+
+  // Uniquify
+  const uniqueResults = albums.filter(
+    (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+  );
+
+  // sort DESC
+  const sortedUniqueResults = uniqueResults.sort((a, b) =>
+    a.createdAt > b.createdAt ? -1 : 1
+  );
+  return sortedUniqueResults;
+};
+
+const makeGeneralPromises = (props: {
+  entity: Models.SubscriptionEntity;
+  sortBy: Models.SubscriptionSortBy;
+}) => {
+  const { entity, sortBy } = props;
+
+  const numberOfResults = 20;
+  const model = Models[entity];
+
+  switch (sortBy) {
+    case Models.SubscriptionSortBy.NEW:
       return getManager()
         .getRepository(model)
         .find({
@@ -261,39 +426,39 @@ const runSubscriptionQueries = (subscription: Models.UserSubscription) => {
           take: numberOfResults,
         });
 
-    case Models.SubscriptionType.TOP:
+    case Models.SubscriptionSortBy.TOP:
       return getManager()
         .getRepository(model)
         .find({
           order: {
-            [getMetricForTopQuery(entityType)]: 'DESC',
+            [getMetricForTopQuery(entity)]: 'DESC',
           },
           take: numberOfResults,
         });
 
-    case Models.SubscriptionType.RANDOM:
+    case Models.SubscriptionSortBy.RANDOM:
       return getManager()
         .createQueryBuilder()
-        .select(entityType.toLowerCase())
-        .from(model, entityType.toLowerCase())
+        .select(entity.toLowerCase())
+        .from(model, entity.toLowerCase())
         .orderBy('RANDOM()')
         .take(numberOfResults)
         .getMany();
   }
 };
 
-const getMetricForTopQuery = (entityType: Models.EntityType) => {
-  switch (entityType) {
-    case Models.EntityType.ALBUM:
+const getMetricForTopQuery = (entity: Models.SubscriptionEntity) => {
+  switch (entity) {
+    case Models.SubscriptionEntity.ALBUM:
       // TODO: this is incorrect, need a real metric
       return 'createdAt';
-    case Models.EntityType.ARTIST:
+    case Models.SubscriptionEntity.ARTIST:
       return 'followers';
-    case Models.EntityType.LABEL:
+    case Models.SubscriptionEntity.LABEL:
       return 'followers';
-    case Models.EntityType.PLAYLIST:
+    case Models.SubscriptionEntity.PLAYLIST:
       return 'followers';
-    case Models.EntityType.SONG:
+    case Models.SubscriptionEntity.SONG:
       return 'playCount';
     default:
       return 'followers';

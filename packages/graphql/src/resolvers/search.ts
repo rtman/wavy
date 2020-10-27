@@ -21,6 +21,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('album.songs', 'songs')
         .leftJoinAndSelect('album.label', 'label')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
@@ -37,6 +38,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('albums.songs', 'songs')
         .leftJoinAndSelect('labels.label', 'label')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
@@ -49,6 +51,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('label.albums', 'albums')
         .leftJoinAndSelect('albums.songs', 'songs')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
@@ -63,6 +66,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('playlist.songs', 'songs')
         .leftJoinAndSelect('songs.song', 'song')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
@@ -80,6 +84,7 @@ export class SearchResolvers {
         .leftJoinAndSelect('usersFavourited.user', 'user')
         .leftJoinAndSelect('song.label', 'label')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )

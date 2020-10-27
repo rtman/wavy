@@ -19,7 +19,7 @@ import { Song } from './song';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { UserArtist } from './userArtist';
 import { UserArtistFollowing } from './userArtistFollowing';
-import { EntityType } from './userSubscription';
+import { SubscriptionEntity } from './userSubscription';
 
 @Entity('artist')
 @ObjectType()
@@ -148,7 +148,7 @@ export class Artist {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Field(() => EntityType)
-  @Column({ default: EntityType.ARTIST, update: false })
-  type: EntityType;
+  @Field(() => SubscriptionEntity)
+  @Column({ default: SubscriptionEntity.ARTIST, update: false })
+  type: SubscriptionEntity;
 }

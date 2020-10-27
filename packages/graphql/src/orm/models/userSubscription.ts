@@ -12,16 +12,27 @@ import {
 import { User } from './user';
 
 export enum SubscriptionType {
-  TOP = 'Top',
-  NEW = 'New',
-  RANDOM = 'Random',
+  TAG = 'tag',
+  FOLLOWING = 'following',
+  USER_STATS = 'userStats',
+  PLAY_HISTORY = 'playHistory',
 }
 
 registerEnumType(SubscriptionType, {
   name: 'SubscriptionType',
 });
 
-export enum EntityType {
+export enum SubscriptionSortBy {
+  TOP = 'top',
+  NEW = 'new',
+  RANDOM = 'random',
+}
+
+registerEnumType(SubscriptionSortBy, {
+  name: 'SortBy',
+});
+
+export enum SubscriptionEntity {
   ALBUM = 'Album',
   ARTIST = 'Artist',
   LABEL = 'Label',
@@ -30,8 +41,8 @@ export enum EntityType {
   USER = 'User',
 }
 
-registerEnumType(EntityType, {
-  name: 'EntityType',
+registerEnumType(SubscriptionEntity, {
+  name: 'SubscriptionEntity',
 });
 
 @Entity('userSubscription')
@@ -45,21 +56,21 @@ export class UserSubscription {
   @PrimaryColumn()
   userId: string;
 
-  @Field(() => EntityType)
+  @Field(() => SubscriptionEntity)
   @Column()
-  entityType: EntityType;
+  entity: SubscriptionEntity;
+
+  @Field(() => SubscriptionSortBy)
+  @Column()
+  sortBy: SubscriptionSortBy;
 
   @Field(() => SubscriptionType)
   @Column()
-  subscriptionType: SubscriptionType;
+  type: SubscriptionType;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  tag: string;
-
-  @Field()
-  @Column({ default: false })
-  followerSubscription: boolean;
+  payload?: string;
 
   @Field()
   @Column({ default: true })
