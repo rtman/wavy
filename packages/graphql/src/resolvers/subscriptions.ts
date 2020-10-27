@@ -104,14 +104,11 @@ export class SubscriptionResolvers {
         switch (type) {
           case Models.SubscriptionType.TAG:
             if (!payload) {
-              console.log(
-                'Tag subscription without search payload - payload',
-                payload
-              );
+              console.log('Tag subscription without payload', payload);
               break;
             }
             subscriptionPromises.push(
-              makeTagPromises({
+              makeTagPromise({
                 entity,
                 payload,
                 sortBy,
@@ -119,10 +116,11 @@ export class SubscriptionResolvers {
             );
             break;
           case Models.SubscriptionType.FOLLOWING:
+            // Top is not done yet for Following
             if (sortBy === Models.SubscriptionSortBy.TOP) {
               break;
             }
-            subscriptionPromises.push(makeFollowerPromises({ user, sortBy }));
+            subscriptionPromises.push(makeFollowerPromise({ user, sortBy }));
             break;
 
           case Models.SubscriptionType.USER_STATS:
@@ -134,7 +132,7 @@ export class SubscriptionResolvers {
             break;
 
           default:
-            subscriptionPromises.push(makeGeneralPromises({ entity, sortBy }));
+            subscriptionPromises.push(makeGeneralPromise({ entity, sortBy }));
             break;
         }
       }
@@ -160,6 +158,8 @@ export class SubscriptionResolvers {
     }
   }
 }
+
+// Subscription Functions
 
 const makePlayHistoryPromise = (props: { userId: string }) => {
   const { userId } = props;
@@ -239,7 +239,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
   });
 };
 
-const makeTagPromises = (props: {
+const makeTagPromise = (props: {
   entity: Models.SubscriptionEntity;
   payload: string;
   sortBy: Models.SubscriptionSortBy;
@@ -296,7 +296,7 @@ const makeTagPromises = (props: {
 };
 
 // TODO: Need to consider merging playlist/lbel/artist follows into one (union type), would make this easy
-const makeFollowerPromises = (props: {
+const makeFollowerPromise = (props: {
   user: Models.User;
   sortBy: Models.SubscriptionSortBy;
 }) => {
@@ -385,28 +385,7 @@ const makeFollowerPromises = (props: {
   }
 };
 
-const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
-  const [artistResults, labelResults] = result;
-
-  const albums: Models.Album[] = [];
-
-  [...artistResults, ...labelResults].forEach((item) =>
-    item.albums.forEach((album) => albums.push(album))
-  );
-
-  // Uniquify
-  const uniqueResults = albums.filter(
-    (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-  );
-
-  // sort DESC
-  const sortedUniqueResults = uniqueResults.sort((a, b) =>
-    a.createdAt > b.createdAt ? -1 : 1
-  );
-  return sortedUniqueResults;
-};
-
-const makeGeneralPromises = (props: {
+const makeGeneralPromise = (props: {
   entity: Models.SubscriptionEntity;
   sortBy: Models.SubscriptionSortBy;
 }) => {
@@ -445,6 +424,29 @@ const makeGeneralPromises = (props: {
         .take(numberOfResults)
         .getMany();
   }
+};
+
+// Utility Functions
+
+const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
+  const [artistResults, labelResults] = result;
+
+  const albums: Models.Album[] = [];
+
+  [...artistResults, ...labelResults].forEach((item) =>
+    item.albums.forEach((album) => albums.push(album))
+  );
+
+  // Uniquify
+  const uniqueResults = albums.filter(
+    (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+  );
+
+  // sort DESC
+  const sortedUniqueResults = uniqueResults.sort((a, b) =>
+    a.createdAt > b.createdAt ? -1 : 1
+  );
+  return sortedUniqueResults;
 };
 
 const getMetricForTopQuery = (entity: Models.SubscriptionEntity) => {
