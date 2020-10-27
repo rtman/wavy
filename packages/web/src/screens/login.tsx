@@ -46,7 +46,7 @@ export const Login = () => {
       style={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
-        <Typography variant="h3">Welcome to AppName</Typography>
+        <Typography variant="h3">Welcome to Our Sound</Typography>
 
         <Spacing.BetweenParagraphs />
 
@@ -69,6 +69,9 @@ export const Login = () => {
                 name="email"
                 helperText={formErrors.email?.message}
                 error={formErrors.email !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>
@@ -90,6 +93,9 @@ export const Login = () => {
                 name="password"
                 helperText={formErrors.password?.message}
                 error={formErrors.password !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>

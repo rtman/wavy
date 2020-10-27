@@ -81,6 +81,9 @@ export const Signup = () => {
                 name="firstName"
                 helperText={signupFormErrors.firstName?.message}
                 error={signupFormErrors.firstName !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>
@@ -105,6 +108,9 @@ export const Signup = () => {
                 name="lastName"
                 helperText={signupFormErrors.lastName?.message}
                 error={signupFormErrors.lastName !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>
@@ -125,6 +131,9 @@ export const Signup = () => {
                 name="email"
                 helperText={signupFormErrors.email?.message}
                 error={signupFormErrors.email !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>
@@ -146,6 +155,9 @@ export const Signup = () => {
                 name="password"
                 helperText={signupFormErrors.password?.message}
                 error={signupFormErrors.password !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>
@@ -169,6 +181,9 @@ export const Signup = () => {
                 name="confirmPassword"
                 helperText={signupFormErrors.confirmPassword?.message}
                 error={signupFormErrors.confirmPassword !== undefined}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  event.target.value = event.target.value.trim();
+                }}
               />
             </FormControl>
           </Grid>

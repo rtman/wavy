@@ -12,6 +12,7 @@ import {
 import { User } from './user';
 
 export enum SubscriptionType {
+  DEFAULT = 'default',
   TAG = 'tag',
   FOLLOWING = 'following',
   USER_STATS = 'userStats',
@@ -56,13 +57,13 @@ export class UserSubscription {
   @PrimaryColumn()
   userId: string;
 
-  @Field(() => SubscriptionEntity)
-  @Column()
-  entity: SubscriptionEntity;
+  @Field(() => SubscriptionEntity, { nullable: true })
+  @Column({ nullable: true })
+  entity?: SubscriptionEntity;
 
-  @Field(() => SubscriptionSortBy)
-  @Column()
-  sortBy: SubscriptionSortBy;
+  @Field(() => SubscriptionSortBy, { nullable: true })
+  @Column({ nullable: true })
+  sortBy?: SubscriptionSortBy;
 
   @Field(() => SubscriptionType)
   @Column()

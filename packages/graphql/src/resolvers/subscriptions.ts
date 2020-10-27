@@ -51,7 +51,7 @@ export class SubscriptionResolvers {
         .getRepository(Models.User)
         .findOne({
           where: { id: userId },
-          relations: ['subscriptions'],
+          relations: ['subscriptions', 'artistFollows', 'labelFollows'],
         });
 
       if (!user) {
@@ -103,10 +103,13 @@ export class SubscriptionResolvers {
 
         switch (type) {
           case Models.SubscriptionType.TAG:
-            if (!payload) {
-              console.log('Tag subscription without payload', payload);
+            if (!payload || !entity || !sortBy) {
+              console.log(
+                `Tag subscription without correct options - payload = ${payload} - entity = ${entity} - sortBy = ${sortBy}`
+              );
               break;
             }
+
             subscriptionPromises.push(
               makeTagPromise({
                 entity,
@@ -120,6 +123,12 @@ export class SubscriptionResolvers {
             if (sortBy === Models.SubscriptionSortBy.TOP) {
               break;
             }
+
+            if (!sortBy) {
+              console.log('Following subscription without sortBy = ', sortBy);
+              break;
+            }
+
             subscriptionPromises.push(makeFollowerPromise({ user, sortBy }));
             break;
 
@@ -131,8 +140,14 @@ export class SubscriptionResolvers {
             subscriptionPromises.push(makePlayHistoryPromise({ userId }));
             break;
 
-          default:
-            subscriptionPromises.push(makeGeneralPromise({ entity, sortBy }));
+          case Models.SubscriptionType.DEFAULT:
+            if (!entity || !sortBy) {
+              console.log(
+                `Subscription without correct options - entity = ${entity} - sortBy = ${sortBy}`
+              );
+              break;
+            }
+            subscriptionPromises.push(makeDefaultPromise({ entity, sortBy }));
             break;
         }
       }
@@ -165,39 +180,43 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
   const { userId } = props;
 
   return new Promise<Models.Song[]>((resolve, reject) => {
-    admin
-      .firestore()
-      .collection(Models.SubscriptionType.PLAY_HISTORY)
-      .doc(userId)
-      .get()
-      .then((result) => {
-        if (result.exists) {
-          const playHistoryUserDoc: PlayHistoryUserDoc = result.data() ?? {};
+    try {
+      admin
+        .firestore()
+        .collection(Models.SubscriptionType.PLAY_HISTORY)
+        .doc(userId)
+        .get()
+        .then((result) => {
+          if (result.exists) {
+            const playHistoryUserDoc: PlayHistoryUserDoc = result.data() ?? {};
 
-          const { songs } = playHistoryUserDoc;
+            const { songs } = playHistoryUserDoc;
 
-          if (songs) {
-            const songIds = songs.map((entry) => entry.songId);
+            if (songs) {
+              const songIds = songs.map((entry) => entry.songId);
 
-            resolve(
-              getManager()
-                .getRepository(Models.Song)
-                .findByIds(songIds, {
-                  relations: ['album', 'album.label'],
-                })
-            );
+              resolve(
+                getManager()
+                  .getRepository(Models.Song)
+                  .findByIds(songIds, {
+                    relations: ['album', 'album.label'],
+                  })
+              );
+            }
+            reject({
+              ok: false,
+              error: `No songs found for userId - ${userId}`,
+            });
           }
+
           reject({
             ok: false,
-            error: `No songs found for userId - ${userId}`,
+            error: `No user stats found for userId - ${userId}`,
           });
-        }
-
-        reject({
-          ok: false,
-          error: `No user stats found for userId - ${userId}`,
         });
-      });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 
@@ -207,35 +226,39 @@ const makeUserStatsPromise = (props: { userId: string }) => {
   const numberOfResults = 20;
 
   return new Promise<Models.Song[]>((resolve, reject) => {
-    admin
-      .firestore()
-      .collectionGroup(Models.SubscriptionType.USER_STATS)
-      .where('userId', '==', userId)
-      .orderBy('plays', 'desc')
-      .limit(numberOfResults)
-      .get()
-      .then((result) => {
-        if (!result.empty) {
-          const songIds = result.docs.map((snapshot) => {
-            // We know what the firestore data shape is so this is ok
-            const data = (snapshot.data() as unknown) as Models.ListeningStats;
-            return data.songId;
+    try {
+      admin
+        .firestore()
+        .collectionGroup(Models.SubscriptionType.USER_STATS)
+        .where('userId', '==', userId)
+        .orderBy('plays', 'desc')
+        .limit(numberOfResults)
+        .get()
+        .then((result) => {
+          if (!result.empty) {
+            const songIds = result.docs.map((snapshot) => {
+              // We know what the firestore data shape is so this is ok
+              const data = (snapshot.data() as unknown) as Models.ListeningStats;
+              return data.songId;
+            });
+
+            resolve(
+              getManager()
+                .getRepository(Models.Song)
+                .findByIds(songIds, {
+                  relations: ['album', 'album.label'],
+                })
+            );
+          }
+
+          reject({
+            ok: false,
+            error: `No play history found for userId - ${userId}`,
           });
-
-          resolve(
-            getManager()
-              .getRepository(Models.Song)
-              .findByIds(songIds, {
-                relations: ['album', 'album.label'],
-              })
-          );
-        }
-
-        reject({
-          ok: false,
-          error: `No play history found for userId - ${userId}`,
         });
-      });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 
@@ -312,32 +335,36 @@ const makeFollowerPromise = (props: {
 
   switch (sortBy) {
     case Models.SubscriptionSortBy.NEW: {
-      return new Promise<Models.Album[]>((resolve) => {
-        const artistAlbums = getManager()
-          .getRepository(Models.Artist)
-          .createQueryBuilder()
-          .select('artist')
-          .from(Models.Artist, 'artist')
-          .where('artist.id', artistFollowIds)
-          .leftJoinAndSelect('artist.album', 'album')
-          .orderBy('album.createdAt', 'DESC')
-          .limit(numberOfResults / 2)
-          .getMany();
+      return new Promise<Models.Album[]>((resolve, reject) => {
+        try {
+          const artistAlbums = getManager()
+            .getRepository(Models.Artist)
+            .createQueryBuilder()
+            .select('artist')
+            .from(Models.Artist, 'artist')
+            .where('partist.id IN (:...artistFollowIds)', { artistFollowIds })
+            .leftJoinAndSelect('artist.albums', 'albums')
+            .orderBy('albums.createdAt', 'DESC')
+            .limit(numberOfResults / 2)
+            .getMany();
 
-        const labelAlbums = getManager()
-          .getRepository(Models.Label)
-          .createQueryBuilder()
-          .select('label')
-          .from(Models.Label, 'label')
-          .where('label.id', labelFollowIds)
-          .leftJoinAndSelect('label.album', 'album')
-          .orderBy('album.createdAt', 'DESC')
-          .limit(numberOfResults / 2)
-          .getMany();
+          const labelAlbums = getManager()
+            .getRepository(Models.Label)
+            .createQueryBuilder()
+            .select('label')
+            .from(Models.Label, 'label')
+            .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
+            .leftJoinAndSelect('label.albums', 'albums')
+            .orderBy('albums.createdAt', 'DESC')
+            .limit(numberOfResults / 2)
+            .getMany();
 
-        Promise.all([artistAlbums, labelAlbums]).then((result) => {
-          resolve(mergeUniqueSortAlbums(result));
-        });
+          Promise.all([artistAlbums, labelAlbums]).then((result) => {
+            resolve(mergeUniqueSortAlbums(result));
+          });
+        } catch (error) {
+          reject(error);
+        }
       });
     }
     // TODO: Need way of determining playCount for album
@@ -355,37 +382,41 @@ const makeFollowerPromise = (props: {
       return new Promise<Models.Album[]>((resolve) => resolve([]));
 
     case Models.SubscriptionSortBy.RANDOM:
-      return new Promise<Models.Album[]>((resolve) => {
-        const artistAlbums = getManager()
-          .getRepository(Models.Artist)
-          .createQueryBuilder()
-          .select('artist')
-          .from(Models.Artist, 'artist')
-          .where('artist.id', artistFollowIds)
-          .leftJoinAndSelect('artist.album', 'album')
-          .orderBy('RANDOM()')
-          .limit(numberOfResults / 2)
-          .getMany();
+      return new Promise<Models.Album[]>((resolve, reject) => {
+        try {
+          const artistAlbums = getManager()
+            .getRepository(Models.Artist)
+            .createQueryBuilder()
+            .select('artist')
+            .from(Models.Artist, 'artist')
+            .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
+            .leftJoinAndSelect('artist.albums', 'albums')
+            .orderBy('RANDOM()')
+            .limit(numberOfResults / 2)
+            .getMany();
 
-        const labelAlbums = getManager()
-          .getRepository(Models.Label)
-          .createQueryBuilder()
-          .select('label')
-          .from(Models.Label, 'label')
-          .where('label.id', labelFollowIds)
-          .leftJoinAndSelect('label.album', 'album')
-          .orderBy('RANDOM()')
-          .limit(numberOfResults / 2)
-          .getMany();
+          const labelAlbums = getManager()
+            .getRepository(Models.Label)
+            .createQueryBuilder()
+            .select('label')
+            .from(Models.Label, 'label')
+            .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
+            .leftJoinAndSelect('label.albums', 'albums')
+            .orderBy('RANDOM()')
+            .limit(numberOfResults / 2)
+            .getMany();
 
-        Promise.all([artistAlbums, labelAlbums]).then((result) => {
-          resolve(mergeUniqueSortAlbums(result));
-        });
+          Promise.all([artistAlbums, labelAlbums]).then((result) => {
+            resolve(mergeUniqueSortAlbums(result));
+          });
+        } catch (error) {
+          reject(error);
+        }
       });
   }
 };
 
-const makeGeneralPromise = (props: {
+const makeDefaultPromise = (props: {
   entity: Models.SubscriptionEntity;
   sortBy: Models.SubscriptionSortBy;
 }) => {

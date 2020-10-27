@@ -99,10 +99,13 @@ export const AuthProvider: FunctionComponent = (props) => {
       setLoading(true);
       setError(undefined);
 
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      const firebaseSignInResult = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
 
-      if (firebaseUser) {
-        const result = await userIdExists(firebaseUser?.uid);
+      if (firebaseSignInResult.user?.uid) {
+        const result = await userIdExists(firebaseSignInResult.user?.uid);
+        console.log('*debug* userIdExists', result);
         setSignedIn(result.data);
         setError(result.error);
       }
@@ -143,7 +146,6 @@ export const AuthProvider: FunctionComponent = (props) => {
         if (result.errors) {
           return { ok: true, data: false, error: result.errors[0] };
         }
-
         return { ok: true, data: true };
       } catch (error_) {
         return { ok: true, data: false, error: error_ };
