@@ -132,7 +132,9 @@ export class TagResolvers {
         .select('tag')
         .from(Models.Tag, 'tag')
         .leftJoinAndSelect('tag.songs', 'songs')
+
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',tag.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )

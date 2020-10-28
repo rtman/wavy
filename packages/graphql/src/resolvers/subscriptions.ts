@@ -1,10 +1,48 @@
 import * as admin from 'firebase-admin';
-import { Arg, Field, ObjectType, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Field,
+  InputType,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+} from 'type-graphql';
 import { createUnionType } from 'type-graphql';
 import { getRepository } from 'typeorm';
 
 import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
+
+@InputType()
+class NewSubscription implements Partial<Models.UserSubscription> {
+  @Field()
+  userId: string;
+
+  @Field(() => Models.SubscriptionEntity, { nullable: true })
+  entity?: Models.SubscriptionEntity;
+
+  @Field(() => Models.SubscriptionSortBy, { nullable: true })
+  sortBy?: Models.SubscriptionSortBy;
+
+  @Field(() => Models.SubscriptionType)
+  type: Models.SubscriptionType;
+
+  @Field({ nullable: true })
+  payload?: string;
+}
+
+@InputType()
+class UpdateSubscription implements Partial<Models.UserSubscription> {
+  @Field()
+  id: string;
+
+  @Field({ nullable: true })
+  active?: boolean;
+
+  @Field({ nullable: true })
+  favourited?: boolean;
+}
 
 const SubscriptionData = createUnionType({
   name: 'SubscriptionData',
@@ -39,6 +77,8 @@ export class SubscriptionResult extends Models.UserSubscription {
   @Field(() => [SubscriptionData])
   data: typeof SubscriptionData[];
 }
+
+// TODO: create specific types for each query, as there are certain params that are optional for some and not others. Each sub type requires a specific combination
 
 @Resolver()
 export class SubscriptionResolvers {
@@ -168,6 +208,72 @@ export class SubscriptionResolvers {
       return subscriptionResults;
     } catch (error) {
       console.log('Get Subscriptions error', error);
+    }
+  }
+  @Mutation(() => Boolean)
+  async newSubscription(
+    @Arg('input') payload: NewSubscription
+  ): Promise<boolean> {
+    try {
+      const { userId } = payload;
+
+      const newSubscription = await getRepository(
+        Models.UserSubscription
+      ).insert({ ...payload, active: true, favourited: false });
+
+      if (newSubscription) {
+        return true;
+      }
+
+      console.log('ERROR: failed to insert newSubscription failed');
+
+      return false;
+    } catch (error) {
+      console.log('ERROR: newSubscription', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async updateSubscription(
+    @Arg('input') payload: UpdateSubscription
+  ): Promise<boolean> {
+    try {
+      const { id, ...rest } = payload;
+
+      const updateSubscription = await getRepository(
+        Models.UserSubscription
+      ).update(id, rest);
+
+      if (updateSubscription) {
+        return true;
+      }
+      console.log('ERROR: failed to update subscription ');
+
+      return false;
+    } catch (error) {
+      console.log('ERROR: updateSubscription', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async deleteSubscription(@Arg('id') id: string): Promise<boolean> {
+    try {
+      const updateSubscription = await getRepository(
+        Models.UserSubscription
+      ).delete(id);
+
+      if (updateSubscription) {
+        return true;
+      }
+
+      console.log('ERROR: failed to delete subscription');
+
+      return false;
+    } catch (error) {
+      console.log('ERROR: deleteSubscription', error);
+      return false;
     }
   }
 }
@@ -306,7 +412,7 @@ const makeTagPromise = (props: {
   }
 };
 
-// TODO: Need to consider merging playlist/lbel/artist follows into one (union type), would make this easy
+// TODO: Need to consider merging playlist/label/artist follows into one (union type), would make this easy
 const makeFollowerPromise = (props: {
   user: Models.User;
   sortBy: Models.SubscriptionSortBy;

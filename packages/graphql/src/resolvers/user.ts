@@ -175,6 +175,7 @@ export class UserResolvers {
             'artists.artist',
             'labels',
             'labels.label',
+            'subscriptions',
           ],
         });
 
