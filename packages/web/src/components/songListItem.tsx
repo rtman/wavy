@@ -165,8 +165,7 @@ export const SongListItem = (props: SongListItemProps) => {
             Remove From Playlist
           </MenuItem>
         ) : null}
-        {/* eslint-disable-next-line no-self-compare */}
-        {userContext?.playlists?.length ?? 0 > 0 ? (
+        {(userContext?.playlists?.length ?? 0) > 0 ? (
           <NestedMenuItem
             label="Add to Playlist"
             parentMenuOpen={!!menuPosition}

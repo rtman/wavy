@@ -30,7 +30,7 @@ export enum SubscriptionSortBy {
 }
 
 registerEnumType(SubscriptionSortBy, {
-  name: 'SortBy',
+  name: 'SubscriptionSortBy',
 });
 
 export enum SubscriptionEntity {
@@ -78,7 +78,7 @@ export class UserSubscription {
   active: boolean;
 
   @Field()
-  @Column()
+  @Column({ default: false })
   favourited: boolean;
 
   @ManyToOne(

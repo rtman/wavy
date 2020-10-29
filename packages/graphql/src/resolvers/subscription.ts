@@ -11,11 +11,12 @@ import {
 import { createUnionType } from 'type-graphql';
 import { getRepository } from 'typeorm';
 
+import * as commonTypes from '../commonTypes';
 import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
 
 @InputType()
-class NewSubscription implements Partial<Models.UserSubscription> {
+class NewSubscriptionArgs implements Partial<Models.UserSubscription> {
   @Field()
   userId: string;
 
@@ -33,7 +34,7 @@ class NewSubscription implements Partial<Models.UserSubscription> {
 }
 
 @InputType()
-class UpdateSubscription implements Partial<Models.UserSubscription> {
+class UpdateSubscriptionArgs implements Partial<Models.UserSubscription> {
   @Field()
   id: string;
 
@@ -78,6 +79,12 @@ export class SubscriptionResult extends Models.UserSubscription {
   data: typeof SubscriptionData[];
 }
 
+@ObjectType()
+class Success extends commonTypes.Base {
+  @Field(() => [SubscriptionResult])
+  body: SubscriptionResult[];
+}
+
 // TODO: create specific types for each query, as there are certain params that are optional for some and not others. Each sub type requires a specific combination
 
 @Resolver()
@@ -85,7 +92,7 @@ export class SubscriptionResolvers {
   @Query(() => [SubscriptionResult])
   async getSubscriptions(
     @Arg('userId') userId: string
-  ): Promise<SubscriptionResult[] | undefined> {
+  ): Promise<SubscriptionResult[] | commonTypes.Fail> {
     try {
       const user = await getRepository(Models.User).findOne({
         where: { id: userId },
@@ -94,17 +101,26 @@ export class SubscriptionResolvers {
 
       if (!user) {
         console.log('No user found for userId', userId);
-        return;
+        return {
+          ok: false,
+          error: { message: `No user found for userId ${userId}` },
+        };
       }
 
       const subscriptions = user?.subscriptions;
 
       if (subscriptions.length === 0) {
         console.log(
-          'User has no subscriptions - subscriptions.length === 0',
-          subscriptions.length === 0
+          'User has no subscriptions - subscriptions.length =',
+          subscriptions.length
         );
-        return;
+
+        return {
+          ok: false,
+          error: {
+            message: `User has no subscriptions - subscriptions.length = ${subscriptions.length}`,
+          },
+        };
       }
 
       const activeSubscriptions = subscriptions.filter(
@@ -113,10 +129,15 @@ export class SubscriptionResolvers {
 
       if (activeSubscriptions.length === 0) {
         console.log(
-          'No active subscriptions - activeSubscriptions.length === 0',
-          activeSubscriptions.length === 0
+          'No active subscriptions - activeSubscriptions.length =',
+          activeSubscriptions.length
         );
-        return;
+        return {
+          ok: false,
+          error: {
+            message: `No active subscriptions - activeSubscriptions.length = ${activeSubscriptions.length}`,
+          },
+        };
       }
 
       const favouritedSubscriptions = activeSubscriptions.filter(
@@ -192,9 +213,11 @@ export class SubscriptionResolvers {
 
       if (subscriptionPromises.length === 0) {
         console.log('No subscription queries created');
-        return;
+        return {
+          ok: false,
+          error: { message: 'No subscription queries created' },
+        };
       }
-
       const subscriptionQueryResults = await Promise.all(subscriptionPromises);
       const subscriptionResults: SubscriptionResult[] = [];
 
@@ -208,15 +231,18 @@ export class SubscriptionResolvers {
       return subscriptionResults;
     } catch (error) {
       console.log('Get Subscriptions error', error);
+      return {
+        ok: false,
+        error: { message: error },
+      };
     }
   }
+
   @Mutation(() => Boolean)
   async newSubscription(
-    @Arg('input') payload: NewSubscription
+    @Arg('input') payload: NewSubscriptionArgs
   ): Promise<boolean> {
     try {
-      const { userId } = payload;
-
       const newSubscription = await getRepository(
         Models.UserSubscription
       ).insert({ ...payload, active: true, favourited: false });
@@ -235,20 +261,47 @@ export class SubscriptionResolvers {
   }
 
   @Mutation(() => Boolean)
+  async bulkNewSubscription(
+    @Arg('input', () => [NewSubscriptionArgs]) payload: NewSubscriptionArgs[]
+  ): Promise<boolean> {
+    try {
+      const newSubscriptions = await getRepository(
+        Models.UserSubscription
+      ).insert(payload);
+
+      if (newSubscriptions) {
+        return true;
+      }
+
+      console.log('ERROR: failed to insert bulkNewSubscription failed');
+
+      return false;
+    } catch (error) {
+      console.log('ERROR: bulkNewSubscription', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
   async updateSubscription(
-    @Arg('input') payload: UpdateSubscription
+    @Arg('input') payload: UpdateSubscriptionArgs
   ): Promise<boolean> {
     try {
       const { id, ...rest } = payload;
 
-      const updateSubscription = await getRepository(
-        Models.UserSubscription
-      ).update(id, rest);
+      if (payload.active || payload.favourited) {
+        const updateSubscription = await getRepository(
+          Models.UserSubscription
+        ).update(id, rest);
 
-      if (updateSubscription) {
-        return true;
+        if (updateSubscription) {
+          return true;
+        }
+        console.log('ERROR: failed to update subscription ');
+        return false;
       }
-      console.log('ERROR: failed to update subscription ');
+
+      console.log('ERROR: UpdateSubscription - payload incomplete', payload);
 
       return false;
     } catch (error) {
@@ -258,11 +311,13 @@ export class SubscriptionResolvers {
   }
 
   @Mutation(() => Boolean)
-  async deleteSubscription(@Arg('id') id: string): Promise<boolean> {
+  async deleteSubscription(
+    @Arg('subscriptionId') subscriptionId: string
+  ): Promise<boolean> {
     try {
       const updateSubscription = await getRepository(
         Models.UserSubscription
-      ).delete(id);
+      ).delete(subscriptionId);
 
       if (updateSubscription) {
         return true;

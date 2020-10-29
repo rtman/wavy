@@ -99,6 +99,11 @@ export type ArtistLabel = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type Base = {
+  __typename?: 'Base';
+  ok: Scalars['Boolean'];
+};
+
 /** Create a new album */
 export type CreateAlbumArgs = {
   albumId: Scalars['String'];
@@ -160,6 +165,17 @@ export type CreateUserArgs = {
 export type DeletePlaylistArgs = {
   userId: Scalars['String'];
   playlistId: Scalars['ID'];
+};
+
+export type Error = {
+  __typename?: 'Error';
+  message: Scalars['String'];
+};
+
+export type Fail = {
+  __typename?: 'Fail';
+  ok: Scalars['Boolean'];
+  error: Error;
 };
 
 export type Label = {
@@ -243,6 +259,10 @@ export type Mutation = {
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
   updateSongPlayCount: Scalars['Boolean'];
+  newSubscription: Scalars['Boolean'];
+  bulkNewSubscription: Scalars['Boolean'];
+  updateSubscription: Scalars['Boolean'];
+  deleteSubscription: Scalars['Boolean'];
   createTag: Tag;
   addTagToSong: Scalars['Boolean'];
   removeTagFromSong: Scalars['Boolean'];
@@ -335,6 +355,22 @@ export type MutationUpdateSongPlayCountArgs = {
   input: UpdatePlayCountArgs;
 };
 
+export type MutationNewSubscriptionArgs = {
+  input: NewSubscriptionArgs;
+};
+
+export type MutationBulkNewSubscriptionArgs = {
+  input: Array<NewSubscriptionArgs>;
+};
+
+export type MutationUpdateSubscriptionArgs = {
+  input: UpdateSubscriptionArgs;
+};
+
+export type MutationDeleteSubscriptionArgs = {
+  subscriptionId: Scalars['String'];
+};
+
 export type MutationCreateTagArgs = {
   input: CreateTagArgs;
 };
@@ -383,6 +419,14 @@ export type NewSongArgs = {
   storagePath: Scalars['String'];
   supportingArtist?: Maybe<Array<SupportingArtistInput>>;
   title: Scalars['String'];
+};
+
+export type NewSubscriptionArgs = {
+  userId: Scalars['String'];
+  entity?: Maybe<SubscriptionEntity>;
+  sortBy?: Maybe<SubscriptionSortBy>;
+  type: SubscriptionType;
+  payload?: Maybe<Scalars['String']>;
 };
 
 export type Playlist = {
@@ -660,12 +704,6 @@ export type SongTag = {
   updatedAt: Scalars['DateTime'];
 };
 
-export enum SortBy {
-  Top = 'TOP',
-  New = 'NEW',
-  Random = 'RANDOM',
-}
-
 export type SubscriptionData = Album | Artist | Label | Playlist | Song | User;
 
 export enum SubscriptionEntity {
@@ -682,7 +720,7 @@ export type SubscriptionResult = {
   id: Scalars['ID'];
   userId: Scalars['ID'];
   entity?: Maybe<SubscriptionEntity>;
-  sortBy?: Maybe<SortBy>;
+  sortBy?: Maybe<SubscriptionSortBy>;
   type: SubscriptionType;
   payload?: Maybe<Scalars['String']>;
   active: Scalars['Boolean'];
@@ -693,6 +731,12 @@ export type SubscriptionResult = {
   data: Array<SubscriptionData>;
 };
 
+export enum SubscriptionSortBy {
+  Top = 'TOP',
+  New = 'NEW',
+  Random = 'RANDOM',
+}
+
 export enum SubscriptionType {
   Default = 'DEFAULT',
   Tag = 'TAG',
@@ -700,6 +744,12 @@ export enum SubscriptionType {
   UserStats = 'USER_STATS',
   PlayHistory = 'PLAY_HISTORY',
 }
+
+export type Success = {
+  __typename?: 'Success';
+  ok: Scalars['Boolean'];
+  body: Array<SubscriptionResult>;
+};
 
 export type SupportingArtistInput = {
   isNewArtist?: Maybe<Scalars['Boolean']>;
@@ -763,6 +813,12 @@ export type UpdatePlaylistsArgs = {
 export type UpdateSongTitleArgs = {
   title: Scalars['String'];
   songId: Scalars['String'];
+};
+
+export type UpdateSubscriptionArgs = {
+  id: Scalars['String'];
+  active?: Maybe<Scalars['Boolean']>;
+  favourited?: Maybe<Scalars['Boolean']>;
 };
 
 export type User = {
@@ -874,7 +930,7 @@ export type UserSubscription = {
   id: Scalars['ID'];
   userId: Scalars['ID'];
   entity?: Maybe<SubscriptionEntity>;
-  sortBy?: Maybe<SortBy>;
+  sortBy?: Maybe<SubscriptionSortBy>;
   type: SubscriptionType;
   payload?: Maybe<Scalars['String']>;
   active: Scalars['Boolean'];
@@ -1021,7 +1077,7 @@ export type ResolversTypes = {
   SubscriptionEntity: SubscriptionEntity;
   UserArtist: ResolverTypeWrapper<UserArtist>;
   UserSubscription: ResolverTypeWrapper<UserSubscription>;
-  SortBy: SortBy;
+  SubscriptionSortBy: SubscriptionSortBy;
   SubscriptionType: SubscriptionType;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   LabelArtistConnections: ResolverTypeWrapper<LabelArtistConnections>;
@@ -1063,6 +1119,8 @@ export type ResolversTypes = {
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
+  NewSubscriptionArgs: NewSubscriptionArgs;
+  UpdateSubscriptionArgs: UpdateSubscriptionArgs;
   CreateTagArgs: CreateTagArgs;
   AddTagToSongArgs: AddTagToSongArgs;
   RemoveTagFromSongArgs: RemoveTagFromSongArgs;
@@ -1073,6 +1131,10 @@ export type ResolversTypes = {
   UpdateFollowingType: UpdateFollowingType;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
+  Base: ResolverTypeWrapper<Base>;
+  Error: ResolverTypeWrapper<Error>;
+  Fail: ResolverTypeWrapper<Fail>;
+  Success: ResolverTypeWrapper<Success>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -1135,6 +1197,8 @@ export type ResolversParentTypes = {
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
+  NewSubscriptionArgs: NewSubscriptionArgs;
+  UpdateSubscriptionArgs: UpdateSubscriptionArgs;
   CreateTagArgs: CreateTagArgs;
   AddTagToSongArgs: AddTagToSongArgs;
   RemoveTagFromSongArgs: RemoveTagFromSongArgs;
@@ -1144,6 +1208,10 @@ export type ResolversParentTypes = {
   UpdateFollowingArgs: UpdateFollowingArgs;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
+  Base: Base;
+  Error: Error;
+  Fail: Fail;
+  Success: Success;
 };
 
 export type AlbumResolvers<
@@ -1307,10 +1375,35 @@ export type ArtistLabelResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type BaseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Base'] = ResolversParentTypes['Base']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export interface DateTimeScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
+
+export type ErrorResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Error'] = ResolversParentTypes['Error']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type FailResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Fail'] = ResolversParentTypes['Fail']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<ResolversTypes['Error'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
 
 export type LabelResolvers<
   ContextType = any,
@@ -1547,6 +1640,30 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationUpdateSongPlayCountArgs, 'input'>
+  >;
+  newSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationNewSubscriptionArgs, 'input'>
+  >;
+  bulkNewSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationBulkNewSubscriptionArgs, 'input'>
+  >;
+  updateSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateSubscriptionArgs, 'input'>
+  >;
+  deleteSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteSubscriptionArgs, 'subscriptionId'>
   >;
   createTag?: Resolver<
     ResolversTypes['Tag'],
@@ -2006,7 +2123,11 @@ export type SubscriptionResultResolvers<
     ParentType,
     ContextType
   >;
-  sortBy?: Resolver<Maybe<ResolversTypes['SortBy']>, ParentType, ContextType>;
+  sortBy?: Resolver<
+    Maybe<ResolversTypes['SubscriptionSortBy']>,
+    ParentType,
+    ContextType
+  >;
   type?: Resolver<ResolversTypes['SubscriptionType'], ParentType, ContextType>;
   payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2016,6 +2137,19 @@ export type SubscriptionResultResolvers<
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   data?: Resolver<
     Array<ResolversTypes['SubscriptionData']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type SuccessResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Success'] = ResolversParentTypes['Success']
+> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  body?: Resolver<
+    Array<ResolversTypes['SubscriptionResult']>,
     ParentType,
     ContextType
   >;
@@ -2199,7 +2333,11 @@ export type UserSubscriptionResolvers<
     ParentType,
     ContextType
   >;
-  sortBy?: Resolver<Maybe<ResolversTypes['SortBy']>, ParentType, ContextType>;
+  sortBy?: Resolver<
+    Maybe<ResolversTypes['SubscriptionSortBy']>,
+    ParentType,
+    ContextType
+  >;
   type?: Resolver<ResolversTypes['SubscriptionType'], ParentType, ContextType>;
   payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2214,7 +2352,10 @@ export type Resolvers<ContextType = any> = {
   Album?: AlbumResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   ArtistLabel?: ArtistLabelResolvers<ContextType>;
+  Base?: BaseResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Error?: ErrorResolvers<ContextType>;
+  Fail?: FailResolvers<ContextType>;
   Label?: LabelResolvers<ContextType>;
   LabelArtistConnections?: LabelArtistConnectionsResolvers<ContextType>;
   ListeningStats?: ListeningStatsResolvers<ContextType>;
@@ -2228,6 +2369,7 @@ export type Resolvers<ContextType = any> = {
   SongTag?: SongTagResolvers<ContextType>;
   SubscriptionData?: SubscriptionDataResolvers;
   SubscriptionResult?: SubscriptionResultResolvers<ContextType>;
+  Success?: SuccessResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserArtist?: UserArtistResolvers<ContextType>;

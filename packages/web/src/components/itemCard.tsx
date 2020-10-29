@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MoreVert } from '@material-ui/icons';
-import { Album, Artist, Label, Playlist, Song } from 'commonTypes';
+import { Album, Artist, Label, Playlist, Song, User } from 'commonTypes';
 import { Flex, Spacing, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
@@ -19,7 +19,7 @@ import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-type Item = Album | Artist | Label | Playlist | Song;
+type Item = Album | Artist | Label | Playlist | Song | User;
 interface ItemCardProps {
   item: Item;
   passedOnClick?: (item: Item) => Promise<void>;
@@ -60,7 +60,18 @@ export const ItemCard = (props: ItemCardProps) => {
     setMenuPosition(null);
   };
 
-  const title = 'title' in item ? item.title : item.name;
+  const getTitle = () => {
+    if ('title' in item) {
+      return item.title;
+    }
+    if ('name' in item) {
+      return item.name;
+    }
+
+    if ('firstName' in item) {
+      return item.firstName;
+    }
+  };
 
   const getImageUrl = () => {
     if (item.__typename === 'Song') {
@@ -154,7 +165,7 @@ export const ItemCard = (props: ItemCardProps) => {
             onClick={onClickGoTo}
             component="img"
             image={getImageUrl()}
-            alt={title}
+            alt={getTitle()}
           />
         </CardActionArea>
         <Spacing.BetweenComponents />
@@ -164,7 +175,7 @@ export const ItemCard = (props: ItemCardProps) => {
             alignItems="center"
             fullWidth={true}
           >
-            <Typography align="left">{title}</Typography>
+            <Typography align="left">{getTitle()}</Typography>
             <StyledButton
               aria-controls="simple-menu"
               aria-haspopup="true"
@@ -202,8 +213,7 @@ export const ItemCard = (props: ItemCardProps) => {
           </MenuItem>
         ) : null}
 
-        {/* eslint-disable-next-line no-self-compare */}
-        {userContext?.playlists?.length ?? 0 > 0 ? (
+        {(userContext?.playlists?.length ?? 0) > 0 ? (
           <NestedMenuItem
             label="Add to Playlist"
             parentMenuOpen={!!menuPosition}

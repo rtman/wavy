@@ -164,32 +164,41 @@ export const USER_BY_ID = gql`
           }
         }
       }
-      playlists {
+      # playlists {
+      #   createdAt
+      #   updatedAt
+      #   playlist {
+      #     id
+      #     title
+      #     profileImageUrlLarge
+      #     profileImageUrlSmall
+      #     profileImageUrlThumb
+      #     description
+      #     songs {
+      #       song {
+      #         id
+      #         title
+      #         urlHigh
+      #         playCount
+      #         album {
+      #           id
+      #           title
+      #           profileImageUrlLarge
+      #           profileImageUrlSmall
+      #           profileImageUrlThumb
+      #         }
+      #       }
+      #     }
+      #   }
+      # }
+      subscriptions {
+        id
+        entity
+        type
+        sortBy
+        payload
         createdAt
         updatedAt
-        playlist {
-          id
-          title
-          profileImageUrlLarge
-          profileImageUrlSmall
-          profileImageUrlThumb
-          description
-          songs {
-            song {
-              id
-              title
-              urlHigh
-              playCount
-              album {
-                id
-                title
-                profileImageUrlLarge
-                profileImageUrlSmall
-                profileImageUrlThumb
-              }
-            }
-          }
-        }
       }
     }
   }

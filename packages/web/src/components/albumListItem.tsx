@@ -107,8 +107,7 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
         {!location.pathname.includes(consts.routes.LABEL) ? (
           <MenuItem onClick={onClickGoToLabel}>Go To Label</MenuItem>
         ) : null}
-        {/* eslint-disable-next-line no-self-compare*/}
-        {userContext?.playlists?.length ?? 0 > 0 ? (
+        {(userContext?.playlists?.length ?? 0) > 0 ? (
           <NestedMenuItem
             label="Add to Playlist"
             parentMenuOpen={!!menuPosition}
