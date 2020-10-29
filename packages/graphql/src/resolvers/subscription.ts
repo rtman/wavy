@@ -9,7 +9,7 @@ import {
   Resolver,
 } from 'type-graphql';
 import { createUnionType } from 'type-graphql';
-import { getRepository } from 'typeorm';
+import { getRepository, SelectQueryBuilder } from 'typeorm';
 
 import * as commonTypes from '../commonTypes';
 import { Models } from '../orm';
@@ -429,19 +429,22 @@ const makeTagPromise = (props: {
   const formattedQuery = payload.trim().replace(/ /g, ' & ');
 
   switch (sortBy) {
-    case Models.SubscriptionSortBy.NEW:
-      return getRepository(model)
+    case Models.SubscriptionSortBy.NEW: {
+      const query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
-        .orderBy(`${entity.toLowerCase()}.createdAt`, 'DESC')
-        .take(numberOfResults)
-        .getMany();
+        .orderBy(`${entity.toLowerCase()}.createdAt`, 'DESC');
 
-    case Models.SubscriptionSortBy.TOP:
-      return getRepository(model)
+      makeLeftJoinAndSelect(query, entity);
+
+      return query.take(numberOfResults).getMany();
+    }
+
+    case Models.SubscriptionSortBy.TOP: {
+      const query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
@@ -450,20 +453,26 @@ const makeTagPromise = (props: {
         .orderBy(
           `${entity.toLowerCase()}.${getMetricForTopQuery(entity)}`,
           'DESC'
-        )
-        .take(numberOfResults)
-        .getMany();
+        );
 
-    case Models.SubscriptionSortBy.RANDOM:
-      return getRepository(model)
+      makeLeftJoinAndSelect(query, entity);
+
+      return query.take(numberOfResults).getMany();
+    }
+
+    case Models.SubscriptionSortBy.RANDOM: {
+      const query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
-        .orderBy('RANDOM()')
-        .take(numberOfResults)
-        .getMany();
+        .orderBy('RANDOM()');
+
+      makeLeftJoinAndSelect(query, entity);
+
+      return query.take(numberOfResults).getMany();
+    }
   }
 };
 
@@ -568,6 +577,7 @@ const makeDefaultPromise = (props: {
           createdAt: 'DESC',
         },
         take: numberOfResults,
+        relations: makeRelations(entity),
       });
 
     case Models.SubscriptionSortBy.TOP:
@@ -576,6 +586,7 @@ const makeDefaultPromise = (props: {
           [getMetricForTopQuery(entity)]: 'DESC',
         },
         take: numberOfResults,
+        relations: makeRelations(entity),
       });
 
     case Models.SubscriptionSortBy.RANDOM:
@@ -588,6 +599,52 @@ const makeDefaultPromise = (props: {
 };
 
 // Utility Functions
+
+const makeRelations = (entity: Models.SubscriptionEntity) => {
+  switch (entity) {
+    case Models.SubscriptionEntity.ALBUM:
+      return ['songs', 'label'];
+    case Models.SubscriptionEntity.ARTIST:
+      return ['albums', 'albums.songs'];
+    case Models.SubscriptionEntity.LABEL:
+      return ['albums', 'albums.songs'];
+    case Models.SubscriptionEntity.PLAYLIST:
+      return ['songs', 'songs.song', 'songs.song.album'];
+    case Models.SubscriptionEntity.SONG:
+      return ['album', 'album.label'];
+    case Models.SubscriptionEntity.USER:
+      return undefined;
+  }
+};
+
+const makeLeftJoinAndSelect = <T>(
+  query: SelectQueryBuilder<T>,
+  entity: Models.SubscriptionEntity
+) => {
+  switch (entity) {
+    case Models.SubscriptionEntity.ALBUM:
+      query.leftJoinAndSelect('album.songs', 'songs');
+      break;
+    case Models.SubscriptionEntity.ARTIST:
+      query.leftJoinAndSelect('artist.albums', 'albums');
+      query.leftJoinAndSelect('albums.songs', 'songs');
+      break;
+    case Models.SubscriptionEntity.LABEL:
+      query.leftJoinAndSelect('label.albums', 'albums');
+      query.leftJoinAndSelect('albums.songs', 'songs');
+      break;
+    case Models.SubscriptionEntity.PLAYLIST:
+      query.leftJoinAndSelect('playlist.songs', 'songs');
+      query.leftJoinAndSelect('songs.song', 'song');
+      query.leftJoinAndSelect('song.album', 'album');
+      break;
+    case Models.SubscriptionEntity.SONG:
+      query.leftJoinAndSelect('song.album', 'album');
+      break;
+    case Models.SubscriptionEntity.USER:
+      break;
+  }
+};
 
 const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
   const [artistResults, labelResults] = result;

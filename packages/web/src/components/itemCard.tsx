@@ -81,7 +81,8 @@ export const ItemCard = (props: ItemCardProps) => {
       item.__typename === 'Album' ||
       item.__typename === 'Artist' ||
       item.__typename === 'Label' ||
-      item.__typename === 'Playlist'
+      item.__typename === 'Playlist' ||
+      item.__typename === 'User'
     ) {
       return item.profileImageUrlThumb ?? '';
     }
@@ -161,12 +162,14 @@ export const ItemCard = (props: ItemCardProps) => {
     <GridListTile>
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia
-            onClick={onClickGoTo}
-            component="img"
-            image={getImageUrl()}
-            alt={getTitle()}
-          />
+          {getImageUrl() ? (
+            <CardMedia
+              onClick={onClickGoTo}
+              component="img"
+              image={getImageUrl()}
+              alt={getTitle()}
+            />
+          ) : null}
         </CardActionArea>
         <Spacing.BetweenComponents />
         <CardActions>
