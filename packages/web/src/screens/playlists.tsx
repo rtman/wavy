@@ -99,7 +99,7 @@ export const Playlists = () => {
           <React.Fragment key={playlist.id}>
             <PlaylistListItem
               onClick={() => onClickGoToPlaylist(playlist.id)}
-              playlist={playlist}
+              data={playlist}
               title={playlist.title}
               leftAccessory={
                 <ListItemAvatar className={classes.listItemAvatar}>

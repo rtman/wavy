@@ -41,15 +41,15 @@ export class Label {
   @Column()
   profileImageStoragePathThumb: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column()
   profileImageUrlLarge: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column()
   profileImageUrlSmall: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column()
   profileImageUrlThumb: string;
 

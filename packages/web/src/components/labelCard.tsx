@@ -1,26 +1,29 @@
-import { Artist, MenuPosition } from 'commonTypes';
-import { BaseListItemProps } from 'commonTypes';
-import { BaseListItem } from 'components';
+import { BaseCardProps, Label, MenuPosition } from 'commonTypes';
 import * as consts from 'consts';
 import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { ArtistUtils } from './artistUtils';
+import { BaseCard } from './baseCard';
+import { LabelUtils } from './labelUtils';
 
-interface ArtistListItemProps
-  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
-  data: Artist;
+interface LabelCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
+  data: Label;
   onClick?: () => void;
   style?: CSSProperties;
 }
 
-export const ArtistListItem = (props: ArtistListItemProps) => {
+export const LabelCard = (props: LabelCardProps) => {
   const history = useHistory();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
+
+  const onClickGoToLabel = () => {
+    history.push(`${consts.routes.LABEL}/${data.id}`);
+    setAnchorEl(null);
+  };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -31,23 +34,14 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
     });
   };
 
-  const onMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const onClickGoToArtist = () => {
-    history.push(`${consts.routes.ARTIST}/${data.id}`);
-    onMenuClose();
-  };
-
   return (
     <>
-      <BaseListItem
-        onClick={onClick ?? onClickGoToArtist}
+      <BaseCard
+        onClick={onClick ?? onClickGoToLabel}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <ArtistUtils
+      <LabelUtils
         data={data}
         anchorEl={anchorEl}
         menuPosition={menuPosition}

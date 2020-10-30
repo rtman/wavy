@@ -66,15 +66,15 @@ export class Album {
   @Column({ nullable: true })
   profileImageStoragePathThumb: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   profileImageUrlLarge: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   profileImageUrlSmall: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   profileImageUrlThumb: string;
 

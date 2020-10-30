@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 
-export interface BaseListItemProps {
+export interface BaseCardProps {
   caption?: string;
-  leftAccessory?: JSX.Element;
+  image?: string;
   onClickOpenMenu?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   style?: CSSProperties;
   subtitle?: string;

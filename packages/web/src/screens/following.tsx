@@ -55,7 +55,7 @@ export const Following = () => {
                 </ListItemAvatar>
               }
               title={artist.name}
-              artist={artist}
+              data={artist}
             />
             {index < following.length - 1 ? <Divider /> : null}
           </Fragment>

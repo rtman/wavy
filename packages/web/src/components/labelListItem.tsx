@@ -1,76 +1,54 @@
-import { Menu, MenuItem } from '@material-ui/core';
-import { Label } from 'commonTypes';
-import { CustomListItemProps } from 'commonTypes';
-import { CustomListItem } from 'components';
+import { Label, MenuPosition } from 'commonTypes';
+import { BaseListItemProps } from 'commonTypes';
+import { BaseListItem } from 'components';
 import * as consts from 'consts';
-import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { CSSProperties, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { LabelUtils } from './labelUtils';
 
 interface LabelListItemProps
-  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
-  label: Label;
+  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
+  data: Label;
   onClick?: () => void;
   style?: CSSProperties;
 }
 
 export const LabelListItem = (props: LabelListItemProps) => {
-  const playerContext = useContext(PlayerContext);
   const history = useHistory();
-  const location = useLocation();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
-  const { label, onClick } = props;
+  const { data, onClick } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClickPlayNow = () => {
-    if (
-      label.songs !== undefined &&
-      label.songs !== null &&
-      label.songs.length > 0
-    ) {
-      playerContext?.replaceQueueWithSongs(label.songs);
-    }
-
-    onMenuClose();
+    event.preventDefault();
+    setMenuPosition({
+      top: event.pageY,
+      left: event.pageX,
+    });
   };
 
   const onClickGoToLabel = () => {
-    history.push(`${consts.routes.LABEL}/${label.id}`);
-    onMenuClose();
+    history.push(`${consts.routes.LABEL}/${data.id}`);
+    setAnchorEl(null);
   };
-
-  const makeMenu = () => (
-    <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={onMenuClose}
-    >
-      {location.pathname.includes('dashboard') ? null : (
-        <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
-      )}
-      <MenuItem onClick={onClickGoToLabel}>Go to Label</MenuItem>
-    </Menu>
-  );
 
   return (
     <>
-      <CustomListItem
+      <BaseListItem
         onClick={onClick ?? onClickGoToLabel}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      {makeMenu()}
+      <LabelUtils
+        data={data}
+        anchorEl={anchorEl}
+        menuPosition={menuPosition}
+        setAnchorEl={setAnchorEl}
+      />
     </>
   );
 };

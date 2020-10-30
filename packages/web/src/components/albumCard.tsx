@@ -1,18 +1,17 @@
-import { Album, BaseListItemProps, MenuPosition } from 'commonTypes';
-import { BaseListItem } from 'components';
+import { Album, BaseCardProps, MenuPosition } from 'commonTypes';
+import { BaseCard } from 'components';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
 
 import { AlbumUtils } from './albumUtils';
 
-interface AlbumListItemProps
-  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
+interface AlbumCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
   data: Album;
   onClick?: () => void;
   style?: CSSProperties;
 }
 
-export const AlbumListItem = (props: AlbumListItemProps) => {
+export const AlbumCard = (props: AlbumCardProps) => {
   const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -35,7 +34,7 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
 
   return (
     <>
-      <BaseListItem
+      <BaseCard
         onClick={onClick ?? onClickPlay}
         onClickOpenMenu={onClickOpenMenu}
         {...props}

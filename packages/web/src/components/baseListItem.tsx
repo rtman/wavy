@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { CustomListItemProps } from 'commonTypes';
+import { BaseListItemProps } from 'commonTypes';
 import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const CustomListItem = (
-  props: CustomListItemProps & {
+export const BaseListItem = (
+  props: BaseListItemProps & {
     onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   }
 ) => {

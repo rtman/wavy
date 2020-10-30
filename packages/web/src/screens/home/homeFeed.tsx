@@ -14,15 +14,23 @@ import {
   Playlist,
   Query,
   Song,
+  SubscriptionData,
+  SubscriptionEntity,
   SubscriptionResult,
   User,
 } from 'commonTypes';
-import { ItemCard, Spacing } from 'components';
+import {
+  AlbumCard,
+  ArtistCard,
+  LabelCard,
+  PlaylistCard,
+  SongCard,
+  Spacing,
+  UserCard,
+} from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
-
-type Item = Artist | Album | Label | Song | Playlist | User;
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -55,15 +63,43 @@ export const HomeFeed = () => {
 
   console.log('*debug* HomeFeed subscriptionData', subscriptionData);
 
-  const renderCardList = (items: Item[]) => {
+  const renderCardList = (subscriptionResult: SubscriptionResult) => {
+    const items = subscriptionResult.data;
     if ((items?.length ?? 0) > 0) {
       const itemsList: JSX.Element[] = [];
-      items.forEach((item: Item) =>
-        itemsList.push(<ItemCard key={item.id} item={item} />)
-      );
+      items.forEach((item) => {
+        const cardElement = getCardElement(item);
+        if (cardElement !== undefined) {
+          itemsList.push(cardElement);
+        }
+      });
+
       return <GridList className={classes.gridList}>{itemsList}</GridList>;
     } else {
       return null;
+    }
+  };
+
+  const getCardElement = (data: SubscriptionData) => {
+    // typescript is having trouble narrowing the union here for some reason
+    // but the switch ensures the right type is found, so casting it is ok
+    switch (data.__typename) {
+      case 'Album':
+        return <AlbumCard data={data} image={data.profileImageUrlThumb} />;
+      case 'Artist':
+        return (
+          <ArtistCard data={data} image={data.profileImageUrlThumb ?? ''} />
+        );
+      case 'Label':
+        return <LabelCard data={data} image={data.profileImageUrlThumb} />;
+      case 'Playlist':
+        return (
+          <PlaylistCard data={data} image={data.profileImageUrlThumb ?? ''} />
+        );
+      case 'Song':
+        return <SongCard data={data} image={data.album.profileImageUrlThumb} />;
+      case 'User':
+        return <UserCard data={data} />;
     }
   };
 
@@ -81,7 +117,7 @@ export const HomeFeed = () => {
         {subscriptionsLoading ? (
           <CircularProgress />
         ) : (
-          renderCardList(subscription.data)
+          renderCardList(subscription)
         )}
 
         <Spacing.section.Minor />

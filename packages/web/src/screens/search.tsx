@@ -103,7 +103,7 @@ export const Search = () => {
             title={song.title}
             subtitle={song.artist.name}
             caption={song.label?.name}
-            song={song}
+            data={song}
           />
           {index < searchResults.songs.length - 1 ? <Divider /> : null}
         </Fragment>
@@ -129,7 +129,7 @@ export const Search = () => {
                 </ListItemAvatar>
               }
               title={artist.name}
-              artist={artist}
+              data={artist}
             />
             {index < searchResults.artists.length - 1 ? <Divider /> : null}
           </Fragment>
@@ -159,7 +159,7 @@ export const Search = () => {
               title={album.title}
               subtitle={album.artist.name}
               caption={album.label?.name}
-              album={album}
+              data={album}
             />
             {index < searchResults.albums.length - 1 ? <Divider /> : null}
           </Fragment>
@@ -189,7 +189,7 @@ export const Search = () => {
                 </ListItemAvatar>
               }
               title={playlist.title}
-              playlist={playlist}
+              data={playlist}
             />
             {index < searchResults.playlists.length - 1 ? <Divider /> : null}
           </Fragment>
@@ -216,7 +216,7 @@ export const Search = () => {
                 </ListItemAvatar>
               }
               title={label.name}
-              label={label}
+              data={label}
             />
             {index < searchResults.labels.length - 1 ? <Divider /> : null}
           </Fragment>

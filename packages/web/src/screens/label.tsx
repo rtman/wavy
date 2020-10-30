@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import {
   Album,
+  IdParam,
   Query,
   QueryLabelByIdArgs,
   Song,
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Label = () => {
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
@@ -98,7 +99,7 @@ export const Label = () => {
         return (
           <Fragment key={artist.id}>
             <ArtistListItem
-              artist={artist}
+              data={artist}
               leftAccessory={
                 <ListItemAvatar className={classes.listItemAvatar}>
                   <Avatar
@@ -133,7 +134,7 @@ export const Label = () => {
                 </Flex>
               }
               title={song.title}
-              song={song}
+              data={song}
             />
             {songIndex < album.songs.length - 1 ? <Divider /> : null}
           </Fragment>
@@ -146,7 +147,7 @@ export const Label = () => {
                 marginBottom: theme.spacing(2),
                 marginTop: theme.spacing(2),
               }}
-              album={album}
+              data={album}
               title={album.title}
               subtitle={album.artist.name}
               leftAccessory={

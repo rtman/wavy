@@ -1,18 +1,17 @@
-import { Album, BaseListItemProps, MenuPosition } from 'commonTypes';
-import { BaseListItem } from 'components';
+import { BaseCardProps, MenuPosition, User } from 'commonTypes';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
 
-import { AlbumUtils } from './albumUtils';
+import { BaseCard } from './baseCard';
+import { UserUtils } from './userUtils';
 
-interface AlbumListItemProps
-  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
-  data: Album;
+interface UserCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
+  data: User;
   onClick?: () => void;
   style?: CSSProperties;
 }
 
-export const AlbumListItem = (props: AlbumListItemProps) => {
+export const UserCard = (props: UserCardProps) => {
   const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -20,8 +19,8 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
 
   const { data, onClick } = props;
 
-  const onClickPlay = () => {
-    playerContext?.replaceQueueWithSongs(data.songs);
+  const onClickGoToUser = () => {
+    // TODO: implement when user screen is available
   };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,12 +34,12 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
 
   return (
     <>
-      <BaseListItem
-        onClick={onClick ?? onClickPlay}
+      <BaseCard
+        onClick={onClick ?? onClickGoToUser}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <AlbumUtils
+      <UserUtils
         data={data}
         anchorEl={anchorEl}
         menuPosition={menuPosition}

@@ -15,36 +15,44 @@ export const GET_SUBSCRIPTIONS = gql`
           title
           type
           createdAt
+          profileImageUrlThumb
         }
         ... on Artist {
           id
           name
           type
           createdAt
+          profileImageUrlThumb
         }
         ... on Label {
           id
           name
           type
           createdAt
+          profileImageUrlThumb
         }
         ... on Playlist {
           id
           title
           type
           createdAt
+          profileImageUrlThumb
         }
         ... on Song {
           id
           title
           type
           createdAt
+          album {
+            profileImageUrlThumb
+          }
         }
         ... on User {
           id
           firstName
           type
           createdAt
+          profileImageUrlThumb
         }
       }
     }

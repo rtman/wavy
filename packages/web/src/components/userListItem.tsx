@@ -1,22 +1,19 @@
-import { BaseListItemProps, MenuPosition, Song } from 'commonTypes';
-import { PlayerContext } from 'context';
-import React, { useContext, useState } from 'react';
+import { BaseListItemProps, MenuPosition, User } from 'commonTypes';
+import React, { useState } from 'react';
 
 import { BaseListItem } from './baseListItem';
-import { SongUtils } from './songUtils';
+import { UserUtils } from './userUtils';
 
-interface SongListItemProps extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
+interface UserListItemProps extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
   onClick?: () => void;
-  data: Song;
+  user: User;
 }
 
-export const SongListItem = (props: SongListItemProps) => {
-  const playerContext = useContext(PlayerContext);
-
+export const UserListItem = (props: UserListItemProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
-  const { onClick, data } = props;
+  const { onClick, user } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,19 +24,19 @@ export const SongListItem = (props: SongListItemProps) => {
     });
   };
 
-  const onClickPlay = () => {
-    playerContext?.replaceQueueWithSongs([data]);
+  const onClickGoToUser = () => {
+    // TODO: implement when user screen is available
   };
 
   return (
     <>
       <BaseListItem
-        onClick={onClick ?? onClickPlay}
+        onClick={onClick ?? onClickGoToUser}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <SongUtils
-        data={data}
+      <UserUtils
+        data={user}
         anchorEl={anchorEl}
         menuPosition={menuPosition}
         setAnchorEl={setAnchorEl}

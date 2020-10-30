@@ -1,28 +1,37 @@
-import { Menu, MenuItem } from '@material-ui/core';
-import { CustomListItemProps, Playlist, SongPlaylist } from 'commonTypes';
-import { CustomListItem } from 'components';
-import * as consts from 'consts';
+import {
+  BaseListItemProps,
+  MenuPosition,
+  Playlist,
+  SongPlaylist,
+} from 'commonTypes';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+
+import { BaseListItem } from './baseListItem';
+import { PlaylistUtils } from './playlistUtils';
 
 interface PlaylistListItemProps
-  extends Omit<CustomListItemProps, 'onClickOpenMenu'> {
+  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
   onClick?: () => void;
-  playlist: Playlist;
+  data: Playlist;
   style?: CSSProperties;
 }
 
 export const PlaylistListItem = (props: PlaylistListItemProps) => {
   const playerContext = useContext(PlayerContext);
-  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
-  const { onClick, playlist } = props;
+  const { data, onClick } = props;
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    event.preventDefault();
+    setMenuPosition({
+      top: event.pageY,
+      left: event.pageX,
+    });
   };
 
   const onMenuClose = () => {
@@ -30,41 +39,26 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
   };
 
   const handleClickPlayNow = () => {
-    const songs = (playlist.songs ?? []).map(
+    const songs = (data.songs ?? []).map(
       (songPlaylistInstance: SongPlaylist) => songPlaylistInstance.song
     );
     playerContext?.replaceQueueWithSongs(songs);
     onMenuClose();
   };
 
-  const onClickGoToPlaylist = () => {
-    history.push(`${consts.routes.PLAYLIST}/${playlist.id}`);
-    onMenuClose();
-  };
-
-  const makeMenu = () => {
-    return (
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={onMenuClose}
-      >
-        <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
-        <MenuItem onClick={onClickGoToPlaylist}>Go to Playlist</MenuItem>
-      </Menu>
-    );
-  };
-
   return (
     <>
-      <CustomListItem
+      <BaseListItem
         onClick={onClick ?? handleClickPlayNow}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      {makeMenu()}
+      <PlaylistUtils
+        data={data}
+        anchorEl={anchorEl}
+        menuPosition={menuPosition}
+        setAnchorEl={setAnchorEl}
+      />
     </>
   );
 };

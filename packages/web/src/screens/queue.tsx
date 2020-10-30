@@ -98,7 +98,7 @@ export const Queue = () => {
             title={song.title}
             subtitle={song.artist.name}
             caption={song.label?.name}
-            song={song}
+            data={song}
           />
           {index < sortedSongs.length - 1 ? <Divider /> : null}
         </Fragment>

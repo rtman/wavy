@@ -17,6 +17,7 @@ import {
 import {
   Album,
   Artist as ArtistType,
+  IdParam,
   Query,
   QueryArtistByIdArgs,
   Song,
@@ -52,7 +53,7 @@ export const Artist = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
 
   const [getArtistById, { loading: queryLoading }] = useLazyQuery<
@@ -121,7 +122,7 @@ export const Artist = () => {
             }
             title={song.title}
             caption={song.label?.name}
-            song={song}
+            data={song}
           />
           {index < artistSongsDesc.length - 1 ? <Divider /> : null}
         </Fragment>
@@ -147,7 +148,7 @@ export const Artist = () => {
                 }
                 title={song.title}
                 // caption={song.label?.name}
-                song={song}
+                data={song}
               />
               {songIndex < album.songs.length - 1 ? <Divider /> : null}
             </Fragment>
@@ -160,7 +161,7 @@ export const Artist = () => {
                   marginBottom: theme.spacing(2),
                   marginTop: theme.spacing(2),
                 }}
-                album={album}
+                data={album}
                 title={album.title}
                 caption={album.label?.name}
                 leftAccessory={

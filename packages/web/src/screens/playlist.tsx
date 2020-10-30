@@ -26,6 +26,7 @@ import {
   SongPlaylist,
   UpdateFollowingType,
 } from 'commonTypes';
+import { IdParam } from 'commonTypes';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Playlist = () => {
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
@@ -122,7 +123,7 @@ export const Playlist = () => {
           return (
             <Fragment key={song.id}>
               <SongListItem
-                song={song}
+                data={song}
                 title={song.title}
                 subtitle={song.artist.name}
                 caption={song.label?.name}

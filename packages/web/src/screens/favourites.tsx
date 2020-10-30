@@ -59,7 +59,7 @@ export const Favourites = () => {
                 subtitle={song.artist.name}
                 // TODO: add label to resolver to reterieve label name
                 caption={song.label?.name}
-                song={song}
+                data={song}
               />
               {index < songFavourites.length - 1 ? <Divider /> : null}
             </Fragment>

@@ -1,26 +1,29 @@
-import { Artist, MenuPosition } from 'commonTypes';
-import { BaseListItemProps } from 'commonTypes';
-import { BaseListItem } from 'components';
+import { Artist, BaseCardProps, MenuPosition } from 'commonTypes';
 import * as consts from 'consts';
 import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ArtistUtils } from './artistUtils';
+import { BaseCard } from './baseCard';
 
-interface ArtistListItemProps
-  extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
+interface ArtistCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
   data: Artist;
   onClick?: () => void;
   style?: CSSProperties;
 }
 
-export const ArtistListItem = (props: ArtistListItemProps) => {
+export const ArtistCard = (props: ArtistCardProps) => {
   const history = useHistory();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
+
+  const onClickGoToArtist = () => {
+    history.push(`${consts.routes.ARTIST}/${data.id}`);
+    setAnchorEl(null);
+  };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -31,18 +34,9 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
     });
   };
 
-  const onMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const onClickGoToArtist = () => {
-    history.push(`${consts.routes.ARTIST}/${data.id}`);
-    onMenuClose();
-  };
-
   return (
     <>
-      <BaseListItem
+      <BaseCard
         onClick={onClick ?? onClickGoToArtist}
         onClickOpenMenu={onClickOpenMenu}
         {...props}

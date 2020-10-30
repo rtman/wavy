@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import {
   Album as AlbumType,
+  IdParam,
   Query,
   QueryAlbumByIdArgs,
   Song,
@@ -31,7 +32,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const Album = () => {
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const playerContext = useContext(PlayerContext);
   const [currentAlbum, setCurrentAlbum] = useState<AlbumType | undefined>(
     undefined
@@ -89,7 +90,7 @@ export const Album = () => {
               }
               title={song.title}
               caption={song.label?.name}
-              song={song}
+              data={song}
             />
             {index < albumSongs.length - 1 ? <Divider /> : null}
           </React.Fragment>

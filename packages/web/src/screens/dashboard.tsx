@@ -69,7 +69,7 @@ export const Dashboard = () => {
                   </ListItemAvatar>
                 }
                 title={artist.name}
-                artist={artist}
+                data={artist}
               />
               {index < artists.length - 1 ? <Divider /> : null}
             </Fragment>
@@ -100,7 +100,7 @@ export const Dashboard = () => {
                 </ListItemAvatar>
               }
               title={label.name}
-              label={label}
+              data={label}
             />
             {index < labels.length - 1 ? <Divider /> : null}
           </Fragment>

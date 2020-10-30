@@ -19,7 +19,7 @@ import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-type Item = Album | Artist | Label | Playlist | Song | User;
+type Item = Album | Artist | Label | Playlist | Song;
 interface ItemCardProps {
   item: Item;
   passedOnClick?: (item: Item) => Promise<void>;
@@ -68,9 +68,9 @@ export const ItemCard = (props: ItemCardProps) => {
       return item.name;
     }
 
-    if ('firstName' in item) {
-      return item.firstName;
-    }
+    // if ('firstName' in item) {
+    //   return item.firstName;
+    // }
   };
 
   const getImageUrl = () => {
@@ -81,8 +81,8 @@ export const ItemCard = (props: ItemCardProps) => {
       item.__typename === 'Album' ||
       item.__typename === 'Artist' ||
       item.__typename === 'Label' ||
-      item.__typename === 'Playlist' ||
-      item.__typename === 'User'
+      item.__typename === 'Playlist'
+      // item.__typename === 'User'
     ) {
       return item.profileImageUrlThumb ?? '';
     }

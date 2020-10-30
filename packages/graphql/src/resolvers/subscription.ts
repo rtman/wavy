@@ -430,48 +430,69 @@ const makeTagPromise = (props: {
 
   switch (sortBy) {
     case Models.SubscriptionSortBy.NEW: {
-      const query = getRepository(model)
+      let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
-        )
-        .orderBy(`${entity.toLowerCase()}.createdAt`, 'DESC');
+        );
 
-      makeLeftJoinAndSelect(query, entity);
+      const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+      leftJoinAndSelectConfig.forEach((params) => {
+        if (params.relation.length > 0 && params.alias.length > 0) {
+          query = query.leftJoinAndSelect(params.relation, params.alias);
+        }
+      });
 
-      return query.take(numberOfResults).getMany();
+      return query
+        .orderBy(`${entity.toLowerCase()}.createdAt`, 'DESC')
+        .take(numberOfResults)
+        .getMany();
     }
 
     case Models.SubscriptionSortBy.TOP: {
-      const query = getRepository(model)
+      let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
-        )
+        );
+
+      const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+      leftJoinAndSelectConfig.forEach((params) => {
+        if (params.relation.length > 0 && params.alias.length > 0) {
+          query = query.leftJoinAndSelect(params.relation, params.alias);
+        }
+      });
+
+      return query
         .orderBy(
           `${entity.toLowerCase()}.${getMetricForTopQuery(entity)}`,
           'DESC'
-        );
-
-      makeLeftJoinAndSelect(query, entity);
-
-      return query.take(numberOfResults).getMany();
+        )
+        .take(numberOfResults)
+        .getMany();
     }
 
     case Models.SubscriptionSortBy.RANDOM: {
-      const query = getRepository(model)
+      let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
           `to_tsvector('simple',${entity.toLowerCase()}."tagSearchString") @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
-        )
-        .orderBy('RANDOM()');
+        );
 
-      makeLeftJoinAndSelect(query, entity);
+      const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+      leftJoinAndSelectConfig.forEach((params) => {
+        if (params.relation.length > 0 && params.alias.length > 0) {
+          query = query.leftJoinAndSelect(params.relation, params.alias);
+        }
+      });
 
-      return query.take(numberOfResults).getMany();
+      return query
+        .orderBy('RANDOM()')
+        .take(numberOfResults)
+        .getMany();
     }
   }
 };
@@ -617,32 +638,31 @@ const makeRelations = (entity: Models.SubscriptionEntity) => {
   }
 };
 
-const makeLeftJoinAndSelect = <T>(
-  query: SelectQueryBuilder<T>,
-  entity: Models.SubscriptionEntity
-) => {
+const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
   switch (entity) {
     case Models.SubscriptionEntity.ALBUM:
-      query.leftJoinAndSelect('album.songs', 'songs');
-      break;
+      return [{ relation: 'album.songs', alias: 'songs' }];
     case Models.SubscriptionEntity.ARTIST:
-      query.leftJoinAndSelect('artist.albums', 'albums');
-      query.leftJoinAndSelect('albums.songs', 'songs');
-      break;
+      return [
+        { relation: 'artist.albums', alias: 'albums' },
+        { relation: 'albums.songs', alias: 'songs' },
+      ];
     case Models.SubscriptionEntity.LABEL:
-      query.leftJoinAndSelect('label.albums', 'albums');
-      query.leftJoinAndSelect('albums.songs', 'songs');
-      break;
+      return [
+        { relation: 'label.albums', alias: 'albums' },
+        { relation: 'albums.songs', alias: 'songs' },
+      ];
     case Models.SubscriptionEntity.PLAYLIST:
-      query.leftJoinAndSelect('playlist.songs', 'songs');
-      query.leftJoinAndSelect('songs.song', 'song');
-      query.leftJoinAndSelect('song.album', 'album');
-      break;
+      return [
+        { relation: 'playlist.songs', alias: 'songs' },
+        { relation: 'songs.song', alias: 'song' },
+        { relation: 'song.album', alias: 'album' },
+      ];
     case Models.SubscriptionEntity.SONG:
-      query.leftJoinAndSelect('song.album', 'album');
-      break;
+      return [{ relation: 'song.album', alias: 'album' }];
     case Models.SubscriptionEntity.USER:
-      break;
+      // TODO: add user leftJoins when ready
+      return [{ relation: '', alias: '' }];
   }
 };
 
