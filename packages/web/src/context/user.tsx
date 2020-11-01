@@ -1,5 +1,11 @@
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import {
+  useApolloClient,
+  useLazyQuery,
+  useMutation,
+} from '@apollo/react-hooks';
+import {
+  ApiFail,
+  ApiSuccess,
   Mutation,
   MutationAddPlaylistSongsArgs,
   MutationRemovePlaylistSongsArgs,
@@ -16,17 +22,18 @@ import React, {
   createContext,
   FunctionComponent,
   useCallback,
-  useContext,
-  useEffect,
+  // useContext,
+  // useEffect,
   useState,
 } from 'react';
 import * as services from 'services';
 
-import { AuthContext } from './auth';
+// import { AuthContext } from './auth';
 
 interface UserContextProps {
   user?: User;
   loadUser(userId: string): void;
+  loadUserById(userId: string): Promise<ApiSuccess<User> | ApiFail>;
   updateFollowing(args: Omit<UpdateFollowingArgs, 'userId'>): void;
   updateFavourites(songId: string): void;
   addSongsToPlaylist(playlistId: string, songIds: string[]): void;
@@ -42,7 +49,9 @@ export const UserContext = createContext<UserContextProps | undefined>(
 );
 
 export const UserProvider: FunctionComponent = (props) => {
-  const authContext = useContext(AuthContext);
+  // const authContext = useContext(AuthContext);
+  const apolloClient = useApolloClient();
+
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []
   );
@@ -68,6 +77,35 @@ export const UserProvider: FunctionComponent = (props) => {
       getUserById({ variables: { userId } });
     },
     [getUserById]
+  );
+
+  const loadUserById = useCallback(
+    async (userId: string) => {
+      try {
+        const result = await apolloClient.query<
+          Pick<Query, 'userById'>,
+          QueryUserByIdArgs
+        >({
+          query: consts.queries.user.USER_BY_ID,
+          variables: { userId },
+        });
+
+        if (result.errors) {
+          const fail: ApiFail = { ok: false, error: result.errors[0] };
+          return fail;
+        }
+        const success: ApiSuccess<User> = {
+          ok: true,
+          data: result.data.userById,
+        };
+        setUser(success.data);
+        return success;
+      } catch (error_) {
+        const fail: ApiFail = { ok: false, error: error_ };
+        return fail;
+      }
+    },
+    [apolloClient]
   );
 
   const [submitUpdateFollowing] = useMutation<
@@ -112,15 +150,15 @@ export const UserProvider: FunctionComponent = (props) => {
     },
   });
 
-  useEffect(() => {
-    console.log(
-      '*debug* authContext?.firebaseUser?.uid',
-      authContext?.firebaseUser?.uid
-    );
-    if (authContext?.firebaseUser?.uid) {
-      loadUser(authContext?.firebaseUser?.uid);
-    }
-  }, [authContext, loadUser]);
+  // useEffect(() => {
+  //   console.log(
+  //     '*debug* authContext?.firebaseUser?.uid',
+  //     authContext?.firebaseUser?.uid
+  //   );
+  //   if (authContext?.firebaseUser?.uid) {
+  //     loadUser(authContext?.firebaseUser?.uid);
+  //   }
+  // }, [authContext, loadUser]);
 
   const updateFollowing = ({
     id,
@@ -183,6 +221,7 @@ export const UserProvider: FunctionComponent = (props) => {
       value={{
         user,
         loadUser,
+        loadUserById,
         updateFollowing,
         updateFavourites,
         addSongsToPlaylist,

@@ -3,7 +3,7 @@ import { CssBaseline } from '@material-ui/core';
 import ApolloClient from 'apollo-boost';
 import * as config from 'config';
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
-import { AuthProvider } from 'context';
+import { AuthProvider, UserProvider } from 'context';
 import * as firebase from 'firebase/app';
 import { createBrowserHistory } from 'history';
 import React from 'react';
@@ -67,9 +67,11 @@ ReactDOM.render(
           />
         </Helmet>
         <CssBaseline>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <UserProvider>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </UserProvider>
         </CssBaseline>
       </ApolloProvider>
     </ConnectedRouter>

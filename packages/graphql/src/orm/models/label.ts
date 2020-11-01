@@ -29,27 +29,27 @@ export class Label {
   @Column()
   name: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   profileImageStoragePathLarge: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   profileImageStoragePathSmall: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   profileImageStoragePathThumb: string;
 
-  @Field(() => String, { nullable: true })
+  @Field()
   @Column()
   profileImageUrlLarge: string;
 
-  @Field(() => String, { nullable: true })
+  @Field()
   @Column()
   profileImageUrlSmall: string;
 
-  @Field(() => String, { nullable: true })
+  @Field()
   @Column()
   profileImageUrlThumb: string;
 

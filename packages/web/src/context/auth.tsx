@@ -15,12 +15,15 @@ import React, {
   createContext,
   FunctionComponent,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginForm } from 'screens/login';
 import { SignUpForm } from 'screens/signup';
+
+import { UserContext } from './user';
 
 interface AuthContextProps {
   firebaseUser: firebase.User | undefined;
@@ -38,6 +41,8 @@ export const AuthContext = createContext<AuthContextProps | undefined>(
 );
 
 export const AuthProvider: FunctionComponent = (props) => {
+  const userContext = useContext(UserContext);
+
   const [firebaseUser, firebaseInitialising] = useAuthState(firebase.auth());
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<
@@ -103,11 +108,16 @@ export const AuthProvider: FunctionComponent = (props) => {
         .auth()
         .signInWithEmailAndPassword(email, password);
 
-      if (firebaseSignInResult.user?.uid) {
-        const result = await userIdExists(firebaseSignInResult.user?.uid);
-        console.log('*debug* userIdExists', result);
-        setSignedIn(result.data);
-        setError(result.error);
+      if (firebaseSignInResult.user?.uid && userContext) {
+        const result = await userContext?.loadUserById(
+          firebaseSignInResult.user?.uid
+        );
+        console.log('*debug* authContext -  loadUserById', result);
+
+        setSignedIn(result.ok);
+        if (!result.ok) {
+          setError(result.error);
+        }
       }
     } catch (error_) {
       const loginError = error_ as firebase.auth.Error;
@@ -132,40 +142,26 @@ export const AuthProvider: FunctionComponent = (props) => {
     }
   };
 
-  const userIdExists = useCallback(
-    async (userId: string) => {
-      try {
-        const result = await apolloClient.query<
-          Pick<Query, 'userIdExists'>,
-          QueryUserIdExistsArgs
-        >({
-          query: consts.queries.user.USER_ID_EXISTS,
-          variables: { userId },
-        });
-
-        if (result.errors) {
-          return { ok: true, data: false, error: result.errors[0] };
-        }
-        return { ok: true, data: true };
-      } catch (error_) {
-        return { ok: true, data: false, error: error_ };
-      }
-    },
-    [apolloClient]
-  );
-
   // only runs on opening a session that is already has firebaseUser (already loggedin/signednup)
   useEffect(() => {
-    const userExistsInTable = async () => {
+    const getUserData = async () => {
       if (firebaseUser && !signedIn && firstSession) {
         setFirstSession(false);
         setLoading(true);
         setError(undefined);
 
-        const result = await userIdExists(firebaseUser.uid);
+        console.log('*debug* authContext -  userContext', userContext);
+        if (userContext) {
+          const result = await userContext?.loadUserById(firebaseUser.uid);
+          console.log('*debug* authContext -  loadUserById', result);
 
-        setSignedIn(result.data);
-        setError(result.error);
+          setSignedIn(result.ok);
+
+          if (!result.ok) {
+            setError(result.error);
+          }
+        }
+
         setLoading(false);
       }
     };
@@ -173,14 +169,14 @@ export const AuthProvider: FunctionComponent = (props) => {
     if (!firebaseInitialising && firebaseUser === null && !signedIn) {
       setLoading(false);
     }
-    userExistsInTable();
+    getUserData();
   }, [
     firebaseInitialising,
     firebaseUser,
     signedIn,
     apolloClient,
-    userIdExists,
     firstSession,
+    userContext,
   ]);
 
   return (

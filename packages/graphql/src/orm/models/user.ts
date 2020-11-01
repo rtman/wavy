@@ -98,27 +98,27 @@ export class User {
   subscriptions: UserSubscription[];
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathLarge: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathSmall: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathThumb: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageUrlLarge: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageUrlSmall: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlThumb: string;
 
   @Field(() => Date)

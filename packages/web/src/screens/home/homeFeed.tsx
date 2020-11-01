@@ -7,18 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Album,
-  Artist,
-  Label,
-  Playlist,
-  Query,
-  Song,
-  SubscriptionData,
-  SubscriptionEntity,
-  SubscriptionResult,
-  User,
-} from 'commonTypes';
+import { Query, SubscriptionData, SubscriptionResult } from 'commonTypes';
 import {
   AlbumCard,
   ArtistCard,

@@ -55,27 +55,27 @@ export class Album {
   label?: Label;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathLarge: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathSmall: string;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   profileImageStoragePathThumb: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlLarge: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlSmall: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlThumb: string;
 
   @Field({ nullable: true })

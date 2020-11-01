@@ -84,8 +84,9 @@ export const ItemCard = (props: ItemCardProps) => {
       item.__typename === 'Playlist'
       // item.__typename === 'User'
     ) {
-      return item.profileImageUrlThumb ?? '';
+      return item.profileImageUrlThumb;
     }
+    return '';
   };
 
   const getSongs = () => {

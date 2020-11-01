@@ -28,28 +28,28 @@ export class Playlist {
   @Column({ nullable: true })
   description: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageStoragePathLarge: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageStoragePathSmall: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageStoragePathThumb: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlLarge: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlSmall: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   profileImageUrlThumb: string;
 
   @Field(() => [SongPlaylist], { nullable: true })
