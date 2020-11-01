@@ -2,19 +2,13 @@ import 'firebase/auth';
 
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-boost';
-import {
-  Mutation,
-  MutationCreateUserArgs,
-  Query,
-  QueryUserIdExistsArgs,
-} from 'commonTypes';
+import { Mutation, MutationCreateUserArgs } from 'commonTypes';
 import * as consts from 'consts';
 import firebase from 'firebase';
 import { GraphQLError } from 'graphql';
 import React, {
   createContext,
   FunctionComponent,
-  useCallback,
   useContext,
   useEffect,
   useState,

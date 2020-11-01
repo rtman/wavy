@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/react-hooks';
 import {
   CircularProgress,
   Container,
-  GridList,
   List,
   Typography,
 } from '@material-ui/core';
@@ -11,6 +10,7 @@ import { Query, SubscriptionData, SubscriptionResult } from 'commonTypes';
 import {
   AlbumCard,
   ArtistCard,
+  Flex,
   LabelCard,
   PlaylistCard,
   SongCard,
@@ -22,11 +22,6 @@ import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
 
 const useStyles = makeStyles(() => ({
-  gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
-  },
   list: {
     width: '100%',
   },
@@ -63,7 +58,7 @@ export const HomeFeed = () => {
         }
       });
 
-      return <GridList className={classes.gridList}>{itemsList}</GridList>;
+      return <Flex style={{ overflowX: 'auto' }}>{itemsList}</Flex>;
     } else {
       return null;
     }
@@ -74,19 +69,49 @@ export const HomeFeed = () => {
     // but the switch ensures the right type is found, so casting it is ok
     switch (data.__typename) {
       case 'Album':
-        return <AlbumCard data={data} image={data.profileImageUrlThumb} />;
+        return (
+          <AlbumCard
+            title={data.title}
+            subtitle={data.artist.name}
+            caption={data.label?.name ?? undefined}
+            data={data}
+            image={data.profileImageUrlThumb}
+          />
+        );
       case 'Artist':
         return (
-          <ArtistCard data={data} image={data.profileImageUrlThumb ?? ''} />
+          <ArtistCard
+            title={data.name}
+            data={data}
+            image={data.profileImageUrlThumb ?? ''}
+          />
         );
       case 'Label':
-        return <LabelCard data={data} image={data.profileImageUrlThumb} />;
+        return (
+          <LabelCard
+            title={data.name}
+            data={data}
+            image={data.profileImageUrlThumb}
+          />
+        );
       case 'Playlist':
         return (
-          <PlaylistCard data={data} image={data.profileImageUrlThumb ?? ''} />
+          <PlaylistCard
+            title={data.title}
+            data={data}
+            image={data.profileImageUrlThumb ?? ''}
+          />
         );
       case 'Song':
-        return <SongCard data={data} image={data.album.profileImageUrlThumb} />;
+        return (
+          <SongCard
+            title={data.title}
+            subtitle={data.artist.name}
+            caption={data.label?.name ?? undefined}
+            data={data}
+            image={data.album.profileImageUrlThumb}
+          />
+        );
       case 'User':
         return <UserCard data={data} />;
     }
@@ -118,9 +143,12 @@ export const HomeFeed = () => {
   return (
     <Container>
       <Spacing.section.Minor />
-      <Typography variant="h3">Home</Typography>
 
-      {renderSections(subscriptionData?.getSubscriptions ?? [])}
+      {subscriptionsLoading ? (
+        <CircularProgress />
+      ) : (
+        renderSections(subscriptionData?.getSubscriptions ?? [])
+      )}
     </Container>
   );
 };

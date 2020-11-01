@@ -1,7 +1,7 @@
 import Mail from 'nodemailer/lib/mailer';
 import { Album, Artist, SongArtistSupportingArtist } from 'orm/models';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
-import { getManager } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { uuid } from 'uuidv4';
 
 import * as helpers from '../helpers';
@@ -119,7 +119,7 @@ export class AlbumResolvers {
     try {
       const albums = await getManager()
         .getRepository(Models.Album)
-        .find();
+        .find({ relations: ['artist'] });
 
       if (albums !== undefined) {
         return albums;

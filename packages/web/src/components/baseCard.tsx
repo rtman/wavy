@@ -14,12 +14,28 @@ import { MoreVert } from '@material-ui/icons';
 import { BaseCardProps } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import React from 'react';
+import { uuid } from 'uuidv4';
+
+const width = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    baseTypography: {
+      maxWidth: `${width * 0.75}px`,
+    },
+    cardActions: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
     menuButton: {
       minWidth: theme.spacing(1),
+      paddingRight: 0,
+      paddingLeft: 0,
       color: theme.palette.text.primary,
+    },
+    root: {
+      padding: '1rem',
+      maxWidth: `${width}px`,
     },
   })
 );
@@ -42,8 +58,8 @@ export const BaseCard = (
   } = props;
 
   return (
-    <GridListTile>
-      <Card style={style}>
+    <GridListTile key={uuid()}>
+      <Card className={classes.root} style={style}>
         <CardActionArea>
           {image ? (
             <CardMedia
@@ -54,20 +70,32 @@ export const BaseCard = (
             />
           ) : null}
         </CardActionArea>
-        <Spacing.BetweenComponents />
-        <CardActions>
+        {/* <Spacing.BetweenComponents /> */}
+        <CardActions disableSpacing={true} className={classes.cardActions}>
           <Flex
             justifyContent="space-between"
             alignItems="center"
             fullWidth={true}
           >
-            <Flex>
-              {title ? <Typography variant="body1"> {title}</Typography> : null}
+            <Flex flexDirection="column">
+              {title ? (
+                <Typography
+                  className={classes.baseTypography}
+                  noWrap={true}
+                  variant="body2"
+                >
+                  {title}
+                </Typography>
+              ) : null}
               {subtitle ? (
-                <Typography variant="body2">{subtitle}</Typography>
+                <Typography noWrap={true} variant="caption">
+                  {subtitle}
+                </Typography>
               ) : null}
               {caption ? (
-                <Typography variant="caption">{caption}</Typography>
+                <Typography noWrap={true} variant="overline">
+                  {caption}
+                </Typography>
               ) : null}
             </Flex>
             {onClickOpenMenu ? (

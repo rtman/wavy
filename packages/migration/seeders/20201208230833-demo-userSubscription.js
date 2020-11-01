@@ -60,6 +60,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      // TODO: figure out why this isnt working
       // {
       //   id: 'e18cf435-4864-46e2-8565-5ffe8914729d',
       //   userId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',

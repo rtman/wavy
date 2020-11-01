@@ -9,7 +9,7 @@ import {
   Resolver,
 } from 'type-graphql';
 import { createUnionType } from 'type-graphql';
-import { getRepository, SelectQueryBuilder } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import * as commonTypes from '../commonTypes';
 import { Models } from '../orm';
@@ -356,7 +356,7 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
 
               resolve(
                 getRepository(Models.Song).findByIds(songIds, {
-                  relations: ['album', 'album.label'],
+                  relations: makeRelations(Models.SubscriptionEntity.SONG),
                 })
               );
             }
@@ -401,7 +401,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
 
             resolve(
               getRepository(Models.Song).findByIds(songIds, {
-                relations: ['album', 'album.label'],
+                relations: makeRelations(Models.SubscriptionEntity.SONG),
               })
             );
           }
@@ -520,6 +520,7 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('artist')
             .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
+            .leftJoinAndSelect('albums.label', 'label')
             .orderBy('albums.createdAt', 'DESC')
             .limit(numberOfResults / 2)
             .getMany();
@@ -528,6 +529,7 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
+            .leftJoinAndSelect('albums.artist', 'artist')
             .orderBy('albums.createdAt', 'DESC')
             .limit(numberOfResults / 2)
             .getMany();
@@ -560,6 +562,7 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('artist')
             .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
+            .leftJoinAndSelect('albums.label', 'label')
             .orderBy('RANDOM()')
             .limit(numberOfResults / 2)
             .getMany();
@@ -568,6 +571,7 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
+            .leftJoinAndSelect('albums.artist', 'artist')
             .orderBy('RANDOM()')
             .limit(numberOfResults / 2)
             .getMany();
@@ -610,12 +614,26 @@ const makeDefaultPromise = (props: {
         relations: makeRelations(entity),
       });
 
-    case Models.SubscriptionSortBy.RANDOM:
+    case Models.SubscriptionSortBy.RANDOM: {
+      // let query = getRepository(model).createQueryBuilder(entity.toLowerCase());
+
+      // const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+      // leftJoinAndSelectConfig.forEach((params) => {
+      //   if (params.relation.length > 0 && params.alias.length > 0) {
+      //     query = query.leftJoinAndSelect(params.relation, params.alias);
+      //   }
+      // });
+
+      // return query
+      //   .orderBy('RANDOM()')
+      //   .take(numberOfResults)
+      //   .getMany();
       return getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .orderBy('RANDOM()')
         .take(numberOfResults)
         .getMany();
+    }
   }
 };
 
@@ -624,7 +642,7 @@ const makeDefaultPromise = (props: {
 const makeRelations = (entity: Models.SubscriptionEntity) => {
   switch (entity) {
     case Models.SubscriptionEntity.ALBUM:
-      return ['songs', 'label'];
+      return ['songs', 'label', 'artist'];
     case Models.SubscriptionEntity.ARTIST:
       return ['albums', 'albums.songs'];
     case Models.SubscriptionEntity.LABEL:
@@ -632,7 +650,7 @@ const makeRelations = (entity: Models.SubscriptionEntity) => {
     case Models.SubscriptionEntity.PLAYLIST:
       return ['songs', 'songs.song', 'songs.song.album'];
     case Models.SubscriptionEntity.SONG:
-      return ['album', 'album.label'];
+      return ['album', 'album.label', 'artist'];
     case Models.SubscriptionEntity.USER:
       return undefined;
   }
@@ -641,7 +659,11 @@ const makeRelations = (entity: Models.SubscriptionEntity) => {
 const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
   switch (entity) {
     case Models.SubscriptionEntity.ALBUM:
-      return [{ relation: 'album.songs', alias: 'songs' }];
+      return [
+        { relation: 'album.songs', alias: 'songs' },
+        { relation: 'album.artist', alias: 'artist' },
+        { relation: 'album.label', alias: 'label' },
+      ];
     case Models.SubscriptionEntity.ARTIST:
       return [
         { relation: 'artist.albums', alias: 'albums' },
@@ -657,9 +679,13 @@ const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
         { relation: 'playlist.songs', alias: 'songs' },
         { relation: 'songs.song', alias: 'song' },
         { relation: 'song.album', alias: 'album' },
+        // { relation: 'playlist.user', alias: 'user'}
       ];
     case Models.SubscriptionEntity.SONG:
-      return [{ relation: 'song.album', alias: 'album' }];
+      return [
+        { relation: 'song.album', alias: 'album' },
+        { relation: 'song.artist', alias: 'artist' },
+      ];
     case Models.SubscriptionEntity.USER:
       // TODO: add user leftJoins when ready
       return [{ relation: '', alias: '' }];
@@ -671,9 +697,25 @@ const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
 
   const albums: Models.Album[] = [];
 
-  [...artistResults, ...labelResults].forEach((item) =>
-    item.albums.forEach((album) => albums.push(album))
-  );
+  [...artistResults, ...labelResults].forEach((item) => {
+    let artist: Models.Artist;
+    let label: Models.Label | undefined;
+
+    item.albums.forEach((album) => {
+      // artist and label must be manually added to fit the graphql schema
+      if (item.type === Models.SubscriptionEntity.ARTIST) {
+        artist = { ...item } as Models.Artist;
+        label = album.label;
+      }
+
+      if (item.type === Models.SubscriptionEntity.LABEL) {
+        label = { ...item } as Models.Label;
+        artist = album.artist;
+      }
+      const resolvedAlbum = { ...album, artist, label };
+      albums.push(resolvedAlbum);
+    });
+  });
 
   // Uniquify
   const uniqueResults = albums.filter(
@@ -684,6 +726,7 @@ const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
   const sortedUniqueResults = uniqueResults.sort((a, b) =>
     a.createdAt > b.createdAt ? -1 : 1
   );
+
   return sortedUniqueResults;
 };
 

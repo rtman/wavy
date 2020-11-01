@@ -27,9 +27,16 @@ export class LabelResolvers {
   @Query(() => [Models.Label])
   async labels(): Promise<Models.Label[] | undefined> {
     try {
+      // const labels = await getManager()
+      //   .getRepository(Models.Label)
+      //   .find();
+
       const labels = await getManager()
         .getRepository(Models.Label)
-        .find();
+        .createQueryBuilder('label')
+        .innerJoinAndSelect('label.albums', 'albums')
+        .innerJoinAndSelect('albums.artist', 'artist')
+        .getMany();
 
       if (labels) {
         return labels;
@@ -117,6 +124,7 @@ export class LabelResolvers {
         .select('label')
         .from(Models.Label, 'label')
         .where(
+          // eslint-disable-next-line quotes
           `to_tsvector('simple',label.name) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
