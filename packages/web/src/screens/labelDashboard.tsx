@@ -11,7 +11,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Label as LabelType, Query, QueryLabelByIdArgs } from 'commonTypes';
+import {
+  IdParam,
+  Label as LabelType,
+  Query,
+  QueryLabelByIdArgs,
+} from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
@@ -34,7 +39,7 @@ export const LabelDashboard = () => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const classes = useStyles();
 
   const [label, setLabel] = useState<LabelType | undefined>(undefined);
@@ -84,7 +89,7 @@ export const LabelDashboard = () => {
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
     labelAlbums.forEach((album) =>
-      album.songs.forEach((song) => {
+      (album.songs ?? []).forEach((song) => {
         totalPlayCount += song.playCount;
       })
     );

@@ -20,7 +20,7 @@ export const AlbumCard = (props: AlbumCardProps) => {
   const { data, onClick } = props;
 
   const onClickPlay = () => {
-    playerContext?.replaceQueueWithSongs(data.songs);
+    playerContext?.replaceQueueWithSongs(data.songs ?? []);
   };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {

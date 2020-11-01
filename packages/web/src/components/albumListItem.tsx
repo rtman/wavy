@@ -21,7 +21,7 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
   const { data, onClick } = props;
 
   const onClickPlay = () => {
-    playerContext?.replaceQueueWithSongs(data.songs);
+    playerContext?.replaceQueueWithSongs(data.songs ?? []);
   };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {

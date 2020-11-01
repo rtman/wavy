@@ -32,14 +32,14 @@ export class Artist {
   @Column()
   name: string;
 
-  @Field(() => [Album])
+  @Field(() => [Album], { nullable: true })
   @OneToMany(
     () => Album,
     (album) => album.artist
   )
   albums: Album[];
 
-  @Field(() => [Song])
+  @Field(() => [Song], { nullable: true })
   @OneToMany(
     () => Song,
     (song) => song.artist

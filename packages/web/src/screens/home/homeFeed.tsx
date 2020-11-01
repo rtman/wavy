@@ -83,7 +83,7 @@ export const HomeFeed = () => {
           <ArtistCard
             title={data.name}
             data={data}
-            image={data.profileImageUrlThumb ?? ''}
+            image={data.profileImageUrlThumb}
           />
         );
       case 'Label':
@@ -99,7 +99,7 @@ export const HomeFeed = () => {
           <PlaylistCard
             title={data.title}
             data={data}
-            image={data.profileImageUrlThumb ?? ''}
+            image={data.profileImageUrlThumb}
           />
         );
       case 'Song':

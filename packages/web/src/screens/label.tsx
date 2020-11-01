@@ -124,21 +124,23 @@ export const Label = () => {
   const renderAlbums = () => {
     if (labelAlbums.length > 0) {
       const albumsList = labelAlbums.map((album: Album, albumIndex: number) => {
-        const songsList = album.songs.map((song: Song, songIndex: number) => (
-          <Fragment key={song.id}>
-            <SongListItem
-              leftAccessory={
-                <Flex alignItems="center" alignSelf="center">
-                  <Typography variant="body1">{songIndex + 1}</Typography>
-                  <Spacing.BetweenParagraphs />
-                </Flex>
-              }
-              title={song.title}
-              data={song}
-            />
-            {songIndex < album.songs.length - 1 ? <Divider /> : null}
-          </Fragment>
-        ));
+        const songsList = (album.songs ?? []).map(
+          (song: Song, songIndex: number) => (
+            <Fragment key={song.id}>
+              <SongListItem
+                leftAccessory={
+                  <Flex alignItems="center" alignSelf="center">
+                    <Typography variant="body1">{songIndex + 1}</Typography>
+                    <Spacing.BetweenParagraphs />
+                  </Flex>
+                }
+                title={song.title}
+                data={song}
+              />
+              {songIndex < (album.songs ?? []).length - 1 ? <Divider /> : null}
+            </Fragment>
+          )
+        );
 
         return (
           <Fragment key={album.id}>
@@ -175,7 +177,7 @@ export const Label = () => {
     if (labelAlbums.length > 0) {
       const songs: Song[] = [];
       labelAlbums.forEach((album) =>
-        album.songs.forEach((song) => songs.push(song))
+        (album.songs ?? []).forEach((song) => songs.push(song))
       );
       playerContext?.replaceQueueWithSongs(songs);
     }

@@ -11,7 +11,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Artist as ArtistType, QueryArtistByIdArgs } from 'commonTypes';
+import {
+  Artist as ArtistType,
+  IdParam,
+  QueryArtistByIdArgs,
+} from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
@@ -38,7 +42,7 @@ export const ArtistDashboard = () => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
   const classes = useStyles();
 
   const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
@@ -88,7 +92,7 @@ export const ArtistDashboard = () => {
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
     artistAlbums.forEach((album) =>
-      album.songs.forEach((song) => {
+      (album.songs ?? []).forEach((song) => {
         totalPlayCount += song.playCount;
       })
     );

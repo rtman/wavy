@@ -489,15 +489,17 @@ const makeTagPromise = (props: {
         }
       });
 
+      // NOTE: for orderBy('RANDOM()'), take doesnt work, limit seems to though. Even though the doc says it may not work correctly
       return query
         .orderBy('RANDOM()')
-        .take(numberOfResults)
+        .limit(numberOfResults)
         .getMany();
     }
   }
 };
 
 // TODO: Need to consider merging playlist/label/artist follows into one (union type), would make this easy
+// this function differs from the rest in that it only returns albums, for now
 const makeFollowerPromise = (props: {
   user: Models.User;
   sortBy: Models.SubscriptionSortBy;
@@ -521,6 +523,8 @@ const makeFollowerPromise = (props: {
             .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
             .leftJoinAndSelect('albums.label', 'label')
+            .leftJoinAndSelect('albums.songs', 'songs')
+            .leftJoinAndSelect('songs.artist', 'songs.artist')
             .orderBy('albums.createdAt', 'DESC')
             .limit(numberOfResults / 2)
             .getMany();
@@ -529,7 +533,9 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
-            .leftJoinAndSelect('albums.artist', 'artist')
+            .leftJoinAndSelect('albums.artist', 'albums.artist')
+            .leftJoinAndSelect('albums.songs', 'songs')
+            .leftJoinAndSelect('songs.artist', 'songs.artist')
             .orderBy('albums.createdAt', 'DESC')
             .limit(numberOfResults / 2)
             .getMany();
@@ -562,7 +568,9 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('artist')
             .where('artist.id IN (:...artistFollowIds)', { artistFollowIds })
             .leftJoinAndSelect('artist.albums', 'albums')
+            .leftJoinAndSelect('albums.songs', 'songs')
             .leftJoinAndSelect('albums.label', 'label')
+            .leftJoinAndSelect('songs.artist', 'songs.artist')
             .orderBy('RANDOM()')
             .limit(numberOfResults / 2)
             .getMany();
@@ -571,7 +579,9 @@ const makeFollowerPromise = (props: {
             .createQueryBuilder('label')
             .where('label.id IN (:...labelFollowIds)', { labelFollowIds })
             .leftJoinAndSelect('label.albums', 'albums')
-            .leftJoinAndSelect('albums.artist', 'artist')
+            .leftJoinAndSelect('albums.artist', 'albums.artist')
+            .leftJoinAndSelect('albums.songs', 'songs')
+            .leftJoinAndSelect('songs.artist', 'songs.artist')
             .orderBy('RANDOM()')
             .limit(numberOfResults / 2)
             .getMany();
@@ -615,23 +625,19 @@ const makeDefaultPromise = (props: {
       });
 
     case Models.SubscriptionSortBy.RANDOM: {
-      // let query = getRepository(model).createQueryBuilder(entity.toLowerCase());
+      let query = getRepository(model).createQueryBuilder(entity.toLowerCase());
 
-      // const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
-      // leftJoinAndSelectConfig.forEach((params) => {
-      //   if (params.relation.length > 0 && params.alias.length > 0) {
-      //     query = query.leftJoinAndSelect(params.relation, params.alias);
-      //   }
-      // });
+      const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+      leftJoinAndSelectConfig.forEach((params) => {
+        if (params.relation.length > 0 && params.alias.length > 0) {
+          query = query.leftJoinAndSelect(params.relation, params.alias);
+        }
+      });
 
-      // return query
-      //   .orderBy('RANDOM()')
-      //   .take(numberOfResults)
-      //   .getMany();
-      return getRepository(model)
-        .createQueryBuilder(entity.toLowerCase())
+      // NOTE: for orderBy('RANDOM()'), take doesnt work, limit seems to though. Even though the doc says it may not work correctly
+      return query
         .orderBy('RANDOM()')
-        .take(numberOfResults)
+        .limit(numberOfResults)
         .getMany();
     }
   }
@@ -642,13 +648,13 @@ const makeDefaultPromise = (props: {
 const makeRelations = (entity: Models.SubscriptionEntity) => {
   switch (entity) {
     case Models.SubscriptionEntity.ALBUM:
-      return ['songs', 'label', 'artist'];
+      return ['songs', 'label', 'artist', 'songs.artist'];
     case Models.SubscriptionEntity.ARTIST:
-      return ['albums', 'albums.songs'];
+      return ['albums', 'albums.songs', 'albums.songs.artist'];
     case Models.SubscriptionEntity.LABEL:
-      return ['albums', 'albums.songs'];
+      return ['albums', 'albums.songs', 'albums.songs.artist'];
     case Models.SubscriptionEntity.PLAYLIST:
-      return ['songs', 'songs.song', 'songs.song.album'];
+      return ['songs', 'songs.song', 'songs.song.album', 'songs.song.artist'];
     case Models.SubscriptionEntity.SONG:
       return ['album', 'album.label', 'artist'];
     case Models.SubscriptionEntity.USER:
@@ -663,27 +669,32 @@ const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
         { relation: 'album.songs', alias: 'songs' },
         { relation: 'album.artist', alias: 'artist' },
         { relation: 'album.label', alias: 'label' },
+        { relation: 'songs.artist', alias: 'songs.artist' },
       ];
     case Models.SubscriptionEntity.ARTIST:
       return [
         { relation: 'artist.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
+        { relation: 'songs.artist', alias: 'songs.artist' },
       ];
     case Models.SubscriptionEntity.LABEL:
       return [
         { relation: 'label.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
+        { relation: 'songs.artist', alias: 'songs.artist' },
       ];
     case Models.SubscriptionEntity.PLAYLIST:
       return [
         { relation: 'playlist.songs', alias: 'songs' },
         { relation: 'songs.song', alias: 'song' },
         { relation: 'song.album', alias: 'album' },
+        { relation: 'song.artist', alias: 'artist' },
         // { relation: 'playlist.user', alias: 'user'}
       ];
     case Models.SubscriptionEntity.SONG:
       return [
         { relation: 'song.album', alias: 'album' },
+        { relation: 'song.label', alias: 'label' },
         { relation: 'song.artist', alias: 'artist' },
       ];
     case Models.SubscriptionEntity.USER:

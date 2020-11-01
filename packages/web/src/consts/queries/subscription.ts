@@ -24,6 +24,14 @@ export const GET_SUBSCRIPTIONS = gql`
             id
             name
           }
+          songs {
+            id
+            title
+            urlHigh
+            artist {
+              name
+            }
+          }
         }
         ... on Artist {
           id
@@ -31,6 +39,17 @@ export const GET_SUBSCRIPTIONS = gql`
           type
           createdAt
           profileImageUrlThumb
+          albums {
+            id
+            songs {
+              id
+              title
+              urlHigh
+              artist {
+                name
+              }
+            }
+          }
         }
         ... on Label {
           id
@@ -38,6 +57,17 @@ export const GET_SUBSCRIPTIONS = gql`
           type
           createdAt
           profileImageUrlThumb
+          albums {
+            id
+            songs {
+              id
+              title
+              urlHigh
+              artist {
+                name
+              }
+            }
+          }
         }
         ... on Playlist {
           id
@@ -56,6 +86,7 @@ export const GET_SUBSCRIPTIONS = gql`
           title
           type
           createdAt
+          urlHigh
           album {
             id
             title

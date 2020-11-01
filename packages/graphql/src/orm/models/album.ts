@@ -36,7 +36,7 @@ export class Album {
   @Column()
   title: string;
 
-  @Field(() => [Song])
+  @Field(() => [Song], { nullable: true })
   @OneToMany(
     () => Song,
     (song) => song.album

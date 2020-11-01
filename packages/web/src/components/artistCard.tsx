@@ -1,6 +1,7 @@
-import { Artist, BaseCardProps, MenuPosition } from 'commonTypes';
-import * as consts from 'consts';
-import React, { CSSProperties, useState } from 'react';
+import { Artist, BaseCardProps, MenuPosition, Song } from 'commonTypes';
+// import * as consts from 'consts';
+import { PlayerContext } from 'context';
+import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ArtistUtils } from './artistUtils';
@@ -14,15 +15,24 @@ interface ArtistCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 
 export const ArtistCard = (props: ArtistCardProps) => {
   const history = useHistory();
+  const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
 
-  const onClickGoToArtist = () => {
-    history.push(`${consts.routes.ARTIST}/${data.id}`);
-    setAnchorEl(null);
+  // const onClickGoToArtist = () => {
+  //   history.push(`${consts.routes.ARTIST}/${data.id}`);
+  //   setAnchorEl(null);
+  // };
+
+  const onClickPlayNow = () => {
+    const songs: Song[] = [];
+    (data.albums ?? []).forEach((album) => {
+      (album.songs ?? []).forEach((song) => songs.push(song));
+    });
+    playerContext?.replaceQueueWithSongs(songs);
   };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,7 +47,7 @@ export const ArtistCard = (props: ArtistCardProps) => {
   return (
     <>
       <BaseCard
-        onClick={onClick ?? onClickGoToArtist}
+        onClick={onClick ?? onClickPlayNow}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />

@@ -70,7 +70,9 @@ export const Artist = () => {
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
   const artistSongs =
-    artist?.albums.map((album) => album.songs.reduce((song) => song)) ?? [];
+    (artist?.albums ?? []).map((album) =>
+      (album.songs ?? []).reduce((song) => song)
+    ) ?? [];
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
@@ -137,7 +139,7 @@ export const Artist = () => {
     if (artistAlbums) {
       const albumsList = artistAlbums.map(
         (album: Album, albumIndex: number) => {
-          const songsList = album.songs.map((song: Song, songIndex: number) => (
+          const songsList = artistSongs.map((song: Song, songIndex: number) => (
             <Fragment key={song.id}>
               <SongListItem
                 leftAccessory={
@@ -150,7 +152,7 @@ export const Artist = () => {
                 // caption={song.label?.name}
                 data={song}
               />
-              {songIndex < album.songs.length - 1 ? <Divider /> : null}
+              {songIndex < (album.songs ?? []).length - 1 ? <Divider /> : null}
             </Fragment>
           ));
 
@@ -187,13 +189,7 @@ export const Artist = () => {
   };
 
   const onClickPlayNow = () => {
-    if (artistAlbums.length > 0) {
-      const songs: Song[] = [];
-      artistAlbums.forEach((album) =>
-        album.songs.forEach((song) => songs.push(song))
-      );
-      playerContext?.replaceQueueWithSongs(songs);
-    }
+    playerContext?.replaceQueueWithSongs(artistSongs);
   };
 
   return (

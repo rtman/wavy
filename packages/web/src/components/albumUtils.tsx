@@ -26,12 +26,12 @@ export const AlbumUtils = (props: AlbumUtils) => {
   };
 
   const handleClickPlayNow = () => {
-    playerContext?.replaceQueueWithSongs(data.songs);
+    playerContext?.replaceQueueWithSongs(data.songs ?? []);
     onMenuClose();
   };
 
   const handleClickAddToQueue = () => {
-    playerContext?.addSongsToEndOfQueue(data.songs);
+    playerContext?.addSongsToEndOfQueue(data.songs ?? []);
     onMenuClose();
   };
 
@@ -40,7 +40,7 @@ export const AlbumUtils = (props: AlbumUtils) => {
   };
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
-    const songIds = data.songs.map((s) => s.id);
+    const songIds = (data.songs ?? []).map((s) => s.id);
     userContext?.addSongsToPlaylist(playlistId, songIds);
   };
 

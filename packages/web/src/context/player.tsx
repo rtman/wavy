@@ -102,23 +102,26 @@ export const PlayerProvider: FunctionComponent = (props) => {
   // }, [localStorageQueue, localStorageQueuePosition]);
 
   const addSongsToEndOfQueue = (songs: Song[]) => {
-    const resolvedSongs = addAudioElements(songs);
-    const newQueue = [...queue, ...resolvedSongs];
-    setQueue(newQueue);
-    setLocalStorageQueue(newQueue);
+    if (songs.length > 0) {
+      const resolvedSongs = addAudioElements(songs);
+      const newQueue = [...queue, ...resolvedSongs];
+      setQueue(newQueue);
+      setLocalStorageQueue(newQueue);
+    }
   };
 
   const replaceQueueWithSongs = (songs: Song[]) => {
     console.log('replaceQueueWithSongs songs', songs);
+    if (songs.length > 0) {
+      const resolvedSongs = addAudioElements(songs);
 
-    const resolvedSongs = addAudioElements(songs);
-
-    const newQueue = [...resolvedSongs];
-    setQueue(newQueue);
-    setQueuePosition(0);
-    setLocalStorageQueue(newQueue);
-    setLocalStorageQueuePosition(0);
-    playAudio(newQueue, 0);
+      const newQueue = [...resolvedSongs];
+      setQueue(newQueue);
+      setQueuePosition(0);
+      setLocalStorageQueue(newQueue);
+      setLocalStorageQueuePosition(0);
+      playAudio(newQueue, 0);
+    }
   };
 
   const playSongInQueue = (song: SongWithAudio) => {

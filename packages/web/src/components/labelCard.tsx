@@ -1,6 +1,7 @@
-import { BaseCardProps, Label, MenuPosition } from 'commonTypes';
+import { BaseCardProps, Label, MenuPosition, Song } from 'commonTypes';
 import * as consts from 'consts';
-import React, { CSSProperties, useState } from 'react';
+import { PlayerContext } from 'context';
+import React, { CSSProperties, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { BaseCard } from './baseCard';
@@ -14,6 +15,7 @@ interface LabelCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 
 export const LabelCard = (props: LabelCardProps) => {
   const history = useHistory();
+  const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
@@ -23,6 +25,16 @@ export const LabelCard = (props: LabelCardProps) => {
   const onClickGoToLabel = () => {
     history.push(`${consts.routes.LABEL}/${data.id}`);
     setAnchorEl(null);
+  };
+
+  const onClickPlayNow = () => {
+    const songs: Song[] = [];
+    console.log('*debug* labelCard data.albums', data.albums);
+
+    (data.albums ?? []).forEach((album) =>
+      (album.songs ?? []).forEach((song) => songs.push(song))
+    );
+    playerContext?.replaceQueueWithSongs(songs);
   };
 
   const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,7 +49,7 @@ export const LabelCard = (props: LabelCardProps) => {
   return (
     <>
       <BaseCard
-        onClick={onClick ?? onClickGoToLabel}
+        onClick={onClick ?? onClickPlayNow}
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />

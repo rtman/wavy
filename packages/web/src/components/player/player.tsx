@@ -183,7 +183,7 @@ export const Player = () => {
         <Typography
           className={classes.clickableText}
           noWrap={true}
-          variant="caption"
+          variant="overline"
           onClick={onClickArtist}
         >
           {songArtist}

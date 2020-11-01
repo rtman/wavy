@@ -45,7 +45,7 @@ export type Album = {
   artistId: Scalars['ID'];
   artist: Artist;
   title: Scalars['String'];
-  songs: Array<Song>;
+  songs?: Maybe<Array<Song>>;
   labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
   profileImageStoragePathLarge: Scalars['String'];
@@ -66,8 +66,8 @@ export type Artist = {
   __typename?: 'Artist';
   id: Scalars['ID'];
   name: Scalars['String'];
-  albums: Array<Album>;
-  songs: Array<Song>;
+  albums?: Maybe<Array<Album>>;
+  songs?: Maybe<Array<Song>>;
   profileImageStoragePathLarge: Scalars['String'];
   profileImageStoragePathSmall: Scalars['String'];
   profileImageStoragePathThumb: Scalars['String'];
@@ -1228,7 +1228,11 @@ export type AlbumResolvers<
   artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  songs?: Resolver<
+    Maybe<Array<ResolversTypes['Song']>>,
+    ParentType,
+    ContextType
+  >;
   labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   profileImageStoragePathLarge?: Resolver<
@@ -1284,8 +1288,16 @@ export type ArtistResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  albums?: Resolver<Array<ResolversTypes['Album']>, ParentType, ContextType>;
-  songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  albums?: Resolver<
+    Maybe<Array<ResolversTypes['Album']>>,
+    ParentType,
+    ContextType
+  >;
+  songs?: Resolver<
+    Maybe<Array<ResolversTypes['Song']>>,
+    ParentType,
+    ContextType
+  >;
   profileImageStoragePathLarge?: Resolver<
     ResolversTypes['String'],
     ParentType,
