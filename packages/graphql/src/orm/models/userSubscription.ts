@@ -11,7 +11,7 @@ import {
 
 import { User } from './user';
 
-export enum SubscriptionType {
+export enum UserSubscriptionType {
   DEFAULT = 'default',
   TAG = 'tag',
   FOLLOWING = 'following',
@@ -19,21 +19,21 @@ export enum SubscriptionType {
   PLAY_HISTORY = 'playHistory',
 }
 
-registerEnumType(SubscriptionType, {
-  name: 'SubscriptionType',
+registerEnumType(UserSubscriptionType, {
+  name: 'UserSubscriptionType',
 });
 
-export enum SubscriptionSortBy {
+export enum UserSubscriptionSortBy {
   TOP = 'top',
   NEW = 'new',
   RANDOM = 'random',
 }
 
-registerEnumType(SubscriptionSortBy, {
-  name: 'SubscriptionSortBy',
+registerEnumType(UserSubscriptionSortBy, {
+  name: 'UserSubscriptionSortBy',
 });
 
-export enum SubscriptionEntity {
+export enum UserSubscriptionEntity {
   ALBUM = 'Album',
   ARTIST = 'Artist',
   LABEL = 'Label',
@@ -42,8 +42,8 @@ export enum SubscriptionEntity {
   USER = 'User',
 }
 
-registerEnumType(SubscriptionEntity, {
-  name: 'SubscriptionEntity',
+registerEnumType(UserSubscriptionEntity, {
+  name: 'UserSubscriptionEntity',
 });
 
 @Entity('userSubscription')
@@ -57,21 +57,25 @@ export class UserSubscription {
   @PrimaryColumn()
   userId: string;
 
-  @Field(() => SubscriptionEntity, { nullable: true })
+  @Field(() => UserSubscriptionEntity, { nullable: true })
   @Column({ nullable: true })
-  entity?: SubscriptionEntity;
+  entity?: UserSubscriptionEntity;
 
-  @Field(() => SubscriptionSortBy, { nullable: true })
+  @Field(() => UserSubscriptionSortBy, { nullable: true })
   @Column({ nullable: true })
-  sortBy?: SubscriptionSortBy;
+  sortBy?: UserSubscriptionSortBy;
 
-  @Field(() => SubscriptionType)
+  @Field(() => UserSubscriptionType)
   @Column()
-  type: SubscriptionType;
+  type: UserSubscriptionType;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
   payload?: string;
+
+  @Field()
+  @Column()
+  title: string;
 
   @Field()
   @Column({ default: true })

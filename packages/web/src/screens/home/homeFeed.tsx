@@ -6,7 +6,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Query, SubscriptionData, SubscriptionResult } from 'commonTypes';
+import {
+  Query,
+  UserSubscriptionData,
+  UserSubscriptionResult,
+} from 'commonTypes';
 import {
   AlbumCard,
   ArtistCard,
@@ -33,11 +37,11 @@ export const HomeFeed = () => {
   const user = userContext?.user;
   console.log('*debug* HomeFeed user?.id', user?.id);
   const {
-    loading: subscriptionsLoading,
+    loading: userSubscriptionsLoading,
     // error: newArtistsError,
-    data: subscriptionData,
-  } = useQuery<Pick<Query, 'getSubscriptions'>>(
-    consts.queries.subscription.GET_SUBSCRIPTIONS,
+    data: userSubscriptionsData,
+  } = useQuery<Pick<Query, 'getUserSubscriptions'>>(
+    consts.queries.userSubscription.GET_USER_SUBSCRIPTIONS,
     {
       variables: { userId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1' },
       // couldnt get this to work without no-cache, something to do with the union types in the query
@@ -45,10 +49,10 @@ export const HomeFeed = () => {
     }
   );
 
-  console.log('*debug* HomeFeed subscriptionData', subscriptionData);
+  console.log('*debug* HomeFeed subscriptionData', userSubscriptionsData);
 
   const renderCardList = useCallback(
-    (subscriptionResult: SubscriptionResult) => {
+    (subscriptionResult: UserSubscriptionResult) => {
       console.log('*debug* homeFeed - renderCardList');
       const items = subscriptionResult.data;
       if ((items?.length ?? 0) > 0) {
@@ -68,7 +72,7 @@ export const HomeFeed = () => {
     []
   );
 
-  const makeCard = useCallback((data: SubscriptionData) => {
+  const makeCard = useCallback((data: UserSubscriptionData) => {
     switch (data.__typename) {
       case 'Album':
         return (
@@ -120,7 +124,7 @@ export const HomeFeed = () => {
   }, []);
 
   const renderSections = useCallback(
-    (data: SubscriptionResult[]) => {
+    (data: UserSubscriptionResult[]) => {
       console.log('*debug* homeFeed renderSections');
       const filteredData = data.filter(
         (subscription) => subscription.data.length > 0
@@ -128,11 +132,11 @@ export const HomeFeed = () => {
 
       const subscriptionList = filteredData.map((subscription) => (
         <Fragment key={subscription.id}>
-          <Typography variant="h5">{`${subscription.type} - ${subscription.entity} - ${subscription.sortBy} - ${subscription.payload}`}</Typography>
+          <Typography variant="h5">{subscription.title}</Typography>
 
           <Spacing.section.Minor />
 
-          {subscriptionsLoading ? (
+          {userSubscriptionsLoading ? (
             <CircularProgress />
           ) : (
             renderCardList(subscription)
@@ -143,17 +147,17 @@ export const HomeFeed = () => {
       ));
       return <List className={classes.list}>{subscriptionList}</List>;
     },
-    [subscriptionsLoading]
+    [userSubscriptionsLoading]
   );
 
   return (
     <Container>
       <Spacing.section.Minor />
 
-      {subscriptionsLoading ? (
+      {userSubscriptionsLoading ? (
         <CircularProgress />
       ) : (
-        renderSections(subscriptionData?.getSubscriptions ?? [])
+        renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])
       )}
     </Container>
   );

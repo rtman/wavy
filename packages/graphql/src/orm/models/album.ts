@@ -12,7 +12,7 @@ import {
 import { Artist } from './artist';
 import { Label } from './label';
 import { Song } from './song';
-import { SubscriptionEntity } from './userSubscription';
+import { UserSubscriptionEntity } from './userSubscription';
 
 @Entity('album')
 @ObjectType()
@@ -100,7 +100,7 @@ export class Album {
   @Column()
   processing: boolean;
 
-  @Field(() => SubscriptionEntity)
-  @Column({ default: SubscriptionEntity.ALBUM, update: false })
-  type: SubscriptionEntity;
+  @Field(() => UserSubscriptionEntity)
+  @Column({ default: UserSubscriptionEntity.ALBUM, update: false })
+  type: UserSubscriptionEntity;
 }

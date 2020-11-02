@@ -59,7 +59,7 @@ export type Album = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   processing: Scalars['Boolean'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type Artist = {
@@ -86,7 +86,7 @@ export type Artist = {
   inviteEmail?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type ArtistLabel = {
@@ -199,7 +199,7 @@ export type Label = {
   connectionCode: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type LabelArtistConnections = {
@@ -259,10 +259,6 @@ export type Mutation = {
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
   updateSongPlayCount: Scalars['Boolean'];
-  newSubscription: Scalars['Boolean'];
-  bulkNewSubscription: Scalars['Boolean'];
-  updateSubscription: Scalars['Boolean'];
-  deleteSubscription: Scalars['Boolean'];
   createTag: Tag;
   addTagToSong: Scalars['Boolean'];
   removeTagFromSong: Scalars['Boolean'];
@@ -273,6 +269,10 @@ export type Mutation = {
   updateFavourites: Scalars['Boolean'];
   updatePlaylists: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
+  newUserSubscription: Scalars['Boolean'];
+  bulkNewUserSubscription: Scalars['Boolean'];
+  updateUserSubscription: Scalars['Boolean'];
+  deleteUserSubscription: Scalars['Boolean'];
 };
 
 export type MutationCreateAlbumArgs = {
@@ -355,22 +355,6 @@ export type MutationUpdateSongPlayCountArgs = {
   input: UpdatePlayCountArgs;
 };
 
-export type MutationNewSubscriptionArgs = {
-  input: NewSubscriptionArgs;
-};
-
-export type MutationBulkNewSubscriptionArgs = {
-  input: Array<NewSubscriptionArgs>;
-};
-
-export type MutationUpdateSubscriptionArgs = {
-  input: UpdateSubscriptionArgs;
-};
-
-export type MutationDeleteSubscriptionArgs = {
-  subscriptionId: Scalars['String'];
-};
-
 export type MutationCreateTagArgs = {
   input: CreateTagArgs;
 };
@@ -411,6 +395,22 @@ export type MutationDeleteUserArgs = {
   userId: Scalars['String'];
 };
 
+export type MutationNewUserSubscriptionArgs = {
+  input: NewUserSubscriptionArgs;
+};
+
+export type MutationBulkNewUserSubscriptionArgs = {
+  input: Array<NewUserSubscriptionArgs>;
+};
+
+export type MutationUpdateUserSubscriptionArgs = {
+  input: UpdateUserSubscriptionArgs;
+};
+
+export type MutationDeleteUserSubscriptionArgs = {
+  subscriptionId: Scalars['String'];
+};
+
 export type NewSongArgs = {
   artistId?: Maybe<Scalars['String']>;
   isNewArtist?: Maybe<Scalars['Boolean']>;
@@ -421,11 +421,11 @@ export type NewSongArgs = {
   title: Scalars['String'];
 };
 
-export type NewSubscriptionArgs = {
+export type NewUserSubscriptionArgs = {
   userId: Scalars['String'];
-  entity?: Maybe<SubscriptionEntity>;
-  sortBy?: Maybe<SubscriptionSortBy>;
-  type: SubscriptionType;
+  entity?: Maybe<UserSubscriptionEntity>;
+  sortBy?: Maybe<UserSubscriptionSortBy>;
+  type: UserSubscriptionType;
   payload?: Maybe<Scalars['String']>;
 };
 
@@ -446,7 +446,7 @@ export type Playlist = {
   followers: Scalars['Float'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type Query = {
@@ -479,7 +479,6 @@ export type Query = {
   topSongs: Array<Song>;
   topSongsByTagId: Array<Song>;
   topSongsByTagName: Array<Song>;
-  getSubscriptions: Array<SubscriptionResult>;
   tags: Array<Tag>;
   tagById: Tag;
   tagsById: Array<Tag>;
@@ -490,6 +489,7 @@ export type Query = {
   playHistory: Array<Song>;
   usersTopSongs: Array<Song>;
   login: User;
+  getUserSubscriptions: Array<UserSubscriptionResult>;
 };
 
 export type QueryAlbumByIdArgs = {
@@ -572,10 +572,6 @@ export type QueryTopSongsByTagNameArgs = {
   tagName: Scalars['String'];
 };
 
-export type QueryGetSubscriptionsArgs = {
-  userId: Scalars['String'];
-};
-
 export type QueryTagByIdArgs = {
   tagId: Scalars['String'];
 };
@@ -606,6 +602,10 @@ export type QueryUsersTopSongsArgs = {
 
 export type QueryLoginArgs = {
   password: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type QueryGetUserSubscriptionsArgs = {
   userId: Scalars['String'];
 };
 
@@ -671,7 +671,7 @@ export type Song = {
   tagSearchString: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type SongArtistSupportingArtist = {
@@ -704,51 +704,10 @@ export type SongTag = {
   updatedAt: Scalars['DateTime'];
 };
 
-export type SubscriptionData = Album | Artist | Label | Playlist | Song | User;
-
-export enum SubscriptionEntity {
-  Album = 'ALBUM',
-  Artist = 'ARTIST',
-  Label = 'LABEL',
-  Playlist = 'PLAYLIST',
-  Song = 'SONG',
-  User = 'USER',
-}
-
-export type SubscriptionResult = {
-  __typename?: 'SubscriptionResult';
-  id: Scalars['ID'];
-  userId: Scalars['ID'];
-  entity?: Maybe<SubscriptionEntity>;
-  sortBy?: Maybe<SubscriptionSortBy>;
-  type: SubscriptionType;
-  payload?: Maybe<Scalars['String']>;
-  active: Scalars['Boolean'];
-  favourited: Scalars['Boolean'];
-  user: User;
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  data: Array<SubscriptionData>;
-};
-
-export enum SubscriptionSortBy {
-  Top = 'TOP',
-  New = 'NEW',
-  Random = 'RANDOM',
-}
-
-export enum SubscriptionType {
-  Default = 'DEFAULT',
-  Tag = 'TAG',
-  Following = 'FOLLOWING',
-  UserStats = 'USER_STATS',
-  PlayHistory = 'PLAY_HISTORY',
-}
-
 export type Success = {
   __typename?: 'Success';
   ok: Scalars['Boolean'];
-  body: Array<SubscriptionResult>;
+  body: Array<UserSubscriptionResult>;
 };
 
 export type SupportingArtistInput = {
@@ -815,10 +774,11 @@ export type UpdateSongTitleArgs = {
   songId: Scalars['String'];
 };
 
-export type UpdateSubscriptionArgs = {
+export type UpdateUserSubscriptionArgs = {
   id: Scalars['String'];
   active?: Maybe<Scalars['Boolean']>;
   favourited?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -844,7 +804,7 @@ export type User = {
   profileImageUrlThumb: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  type: SubscriptionEntity;
+  type: UserSubscriptionEntity;
 };
 
 export type UserArtist = {
@@ -935,16 +895,65 @@ export type UserSubscription = {
   __typename?: 'UserSubscription';
   id: Scalars['ID'];
   userId: Scalars['ID'];
-  entity?: Maybe<SubscriptionEntity>;
-  sortBy?: Maybe<SubscriptionSortBy>;
-  type: SubscriptionType;
+  entity?: Maybe<UserSubscriptionEntity>;
+  sortBy?: Maybe<UserSubscriptionSortBy>;
+  type: UserSubscriptionType;
   payload?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   active: Scalars['Boolean'];
   favourited: Scalars['Boolean'];
   user: User;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
+
+export type UserSubscriptionData =
+  | Album
+  | Artist
+  | Label
+  | Playlist
+  | Song
+  | User;
+
+export enum UserSubscriptionEntity {
+  Album = 'ALBUM',
+  Artist = 'ARTIST',
+  Label = 'LABEL',
+  Playlist = 'PLAYLIST',
+  Song = 'SONG',
+  User = 'USER',
+}
+
+export type UserSubscriptionResult = {
+  __typename?: 'UserSubscriptionResult';
+  id: Scalars['ID'];
+  userId: Scalars['ID'];
+  entity?: Maybe<UserSubscriptionEntity>;
+  sortBy?: Maybe<UserSubscriptionSortBy>;
+  type: UserSubscriptionType;
+  payload?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  active: Scalars['Boolean'];
+  favourited: Scalars['Boolean'];
+  user: User;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  data: Array<UserSubscriptionData>;
+};
+
+export enum UserSubscriptionSortBy {
+  Top = 'TOP',
+  New = 'NEW',
+  Random = 'RANDOM',
+}
+
+export enum UserSubscriptionType {
+  Default = 'DEFAULT',
+  Tag = 'TAG',
+  Following = 'FOLLOWING',
+  UserStats = 'USER_STATS',
+  PlayHistory = 'PLAY_HISTORY',
+}
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -1080,11 +1089,11 @@ export type ResolversTypes = {
   SongPlaylist: ResolverTypeWrapper<SongPlaylist>;
   UserPlaylist: ResolverTypeWrapper<UserPlaylist>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
-  SubscriptionEntity: SubscriptionEntity;
+  UserSubscriptionEntity: UserSubscriptionEntity;
   UserArtist: ResolverTypeWrapper<UserArtist>;
   UserSubscription: ResolverTypeWrapper<UserSubscription>;
-  SubscriptionSortBy: SubscriptionSortBy;
-  SubscriptionType: SubscriptionType;
+  UserSubscriptionSortBy: UserSubscriptionSortBy;
+  UserSubscriptionType: UserSubscriptionType;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   LabelArtistConnections: ResolverTypeWrapper<LabelArtistConnections>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
@@ -1096,12 +1105,12 @@ export type ResolversTypes = {
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Search: ResolverTypeWrapper<Search>;
-  SubscriptionResult: ResolverTypeWrapper<
-    Omit<SubscriptionResult, 'data'> & {
-      data: Array<ResolversTypes['SubscriptionData']>;
+  UserSubscriptionResult: ResolverTypeWrapper<
+    Omit<UserSubscriptionResult, 'data'> & {
+      data: Array<ResolversTypes['UserSubscriptionData']>;
     }
   >;
-  SubscriptionData:
+  UserSubscriptionData:
     | ResolversTypes['Album']
     | ResolversTypes['Artist']
     | ResolversTypes['Label']
@@ -1125,8 +1134,6 @@ export type ResolversTypes = {
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
-  NewSubscriptionArgs: NewSubscriptionArgs;
-  UpdateSubscriptionArgs: UpdateSubscriptionArgs;
   CreateTagArgs: CreateTagArgs;
   AddTagToSongArgs: AddTagToSongArgs;
   RemoveTagFromSongArgs: RemoveTagFromSongArgs;
@@ -1137,6 +1144,8 @@ export type ResolversTypes = {
   UpdateFollowingType: UpdateFollowingType;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
+  NewUserSubscriptionArgs: NewUserSubscriptionArgs;
+  UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
   Base: ResolverTypeWrapper<Base>;
   Error: ResolverTypeWrapper<Error>;
   Fail: ResolverTypeWrapper<Fail>;
@@ -1176,10 +1185,10 @@ export type ResolversParentTypes = {
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
   Search: Search;
-  SubscriptionResult: Omit<SubscriptionResult, 'data'> & {
-    data: Array<ResolversParentTypes['SubscriptionData']>;
+  UserSubscriptionResult: Omit<UserSubscriptionResult, 'data'> & {
+    data: Array<ResolversParentTypes['UserSubscriptionData']>;
   };
-  SubscriptionData:
+  UserSubscriptionData:
     | ResolversParentTypes['Album']
     | ResolversParentTypes['Artist']
     | ResolversParentTypes['Label']
@@ -1203,8 +1212,6 @@ export type ResolversParentTypes = {
   CreateSongArgs: CreateSongArgs;
   UpdateSongTitleArgs: UpdateSongTitleArgs;
   UpdatePlayCountArgs: UpdatePlayCountArgs;
-  NewSubscriptionArgs: NewSubscriptionArgs;
-  UpdateSubscriptionArgs: UpdateSubscriptionArgs;
   CreateTagArgs: CreateTagArgs;
   AddTagToSongArgs: AddTagToSongArgs;
   RemoveTagFromSongArgs: RemoveTagFromSongArgs;
@@ -1214,6 +1221,8 @@ export type ResolversParentTypes = {
   UpdateFollowingArgs: UpdateFollowingArgs;
   UpdateFavouritesArgs: UpdateFavouritesArgs;
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
+  NewUserSubscriptionArgs: NewUserSubscriptionArgs;
+  UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
   Base: Base;
   Error: Error;
   Fail: Fail;
@@ -1275,7 +1284,7 @@ export type AlbumResolvers<
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   processing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -1373,7 +1382,7 @@ export type ArtistResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -1495,7 +1504,7 @@ export type LabelResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -1659,30 +1668,6 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUpdateSongPlayCountArgs, 'input'>
   >;
-  newSubscription?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationNewSubscriptionArgs, 'input'>
-  >;
-  bulkNewSubscription?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationBulkNewSubscriptionArgs, 'input'>
-  >;
-  updateSubscription?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateSubscriptionArgs, 'input'>
-  >;
-  deleteSubscription?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteSubscriptionArgs, 'subscriptionId'>
-  >;
   createTag?: Resolver<
     ResolversTypes['Tag'],
     ParentType,
@@ -1742,6 +1727,30 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteUserArgs, 'userId'>
+  >;
+  newUserSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationNewUserSubscriptionArgs, 'input'>
+  >;
+  bulkNewUserSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationBulkNewUserSubscriptionArgs, 'input'>
+  >;
+  updateUserSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateUserSubscriptionArgs, 'input'>
+  >;
+  deleteUserSubscription?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteUserSubscriptionArgs, 'subscriptionId'>
   >;
 };
 
@@ -1805,7 +1814,7 @@ export type PlaylistResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -1952,12 +1961,6 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryTopSongsByTagNameArgs, 'tagName'>
   >;
-  getSubscriptions?: Resolver<
-    Array<ResolversTypes['SubscriptionResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryGetSubscriptionsArgs, 'userId'>
-  >;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   tagById?: Resolver<
     ResolversTypes['Tag'],
@@ -2007,6 +2010,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryLoginArgs, 'password' | 'userId'>
+  >;
+  getUserSubscriptions?: Resolver<
+    Array<ResolversTypes['UserSubscriptionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUserSubscriptionsArgs, 'userId'>
   >;
 };
 
@@ -2073,7 +2082,7 @@ export type SongResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -2119,55 +2128,13 @@ export type SongTagResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type SubscriptionDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['SubscriptionData'] = ResolversParentTypes['SubscriptionData']
-> = {
-  __resolveType: TypeResolveFn<
-    'Album' | 'Artist' | 'Label' | 'Playlist' | 'Song' | 'User',
-    ParentType,
-    ContextType
-  >;
-};
-
-export type SubscriptionResultResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['SubscriptionResult'] = ResolversParentTypes['SubscriptionResult']
-> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  entity?: Resolver<
-    Maybe<ResolversTypes['SubscriptionEntity']>,
-    ParentType,
-    ContextType
-  >;
-  sortBy?: Resolver<
-    Maybe<ResolversTypes['SubscriptionSortBy']>,
-    ParentType,
-    ContextType
-  >;
-  type?: Resolver<ResolversTypes['SubscriptionType'], ParentType, ContextType>;
-  payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  favourited?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  data?: Resolver<
-    Array<ResolversTypes['SubscriptionData']>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
 export type SuccessResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Success'] = ResolversParentTypes['Success']
 > = {
   ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   body?: Resolver<
-    Array<ResolversTypes['SubscriptionResult']>,
+    Array<ResolversTypes['UserSubscriptionResult']>,
     ParentType,
     ContextType
   >;
@@ -2272,7 +2239,7 @@ export type UserResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
-    ResolversTypes['SubscriptionEntity'],
+    ResolversTypes['UserSubscriptionEntity'],
     ParentType,
     ContextType
   >;
@@ -2377,22 +2344,74 @@ export type UserSubscriptionResolvers<
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   entity?: Resolver<
-    Maybe<ResolversTypes['SubscriptionEntity']>,
+    Maybe<ResolversTypes['UserSubscriptionEntity']>,
     ParentType,
     ContextType
   >;
   sortBy?: Resolver<
-    Maybe<ResolversTypes['SubscriptionSortBy']>,
+    Maybe<ResolversTypes['UserSubscriptionSortBy']>,
     ParentType,
     ContextType
   >;
-  type?: Resolver<ResolversTypes['SubscriptionType'], ParentType, ContextType>;
+  type?: Resolver<
+    ResolversTypes['UserSubscriptionType'],
+    ParentType,
+    ContextType
+  >;
   payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   favourited?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserSubscriptionDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserSubscriptionData'] = ResolversParentTypes['UserSubscriptionData']
+> = {
+  __resolveType: TypeResolveFn<
+    'Album' | 'Artist' | 'Label' | 'Playlist' | 'Song' | 'User',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type UserSubscriptionResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserSubscriptionResult'] = ResolversParentTypes['UserSubscriptionResult']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  entity?: Resolver<
+    Maybe<ResolversTypes['UserSubscriptionEntity']>,
+    ParentType,
+    ContextType
+  >;
+  sortBy?: Resolver<
+    Maybe<ResolversTypes['UserSubscriptionSortBy']>,
+    ParentType,
+    ContextType
+  >;
+  type?: Resolver<
+    ResolversTypes['UserSubscriptionType'],
+    ParentType,
+    ContextType
+  >;
+  payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  favourited?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  data?: Resolver<
+    Array<ResolversTypes['UserSubscriptionData']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -2415,8 +2434,6 @@ export type Resolvers<ContextType = any> = {
   SongArtistSupportingArtist?: SongArtistSupportingArtistResolvers<ContextType>;
   SongPlaylist?: SongPlaylistResolvers<ContextType>;
   SongTag?: SongTagResolvers<ContextType>;
-  SubscriptionData?: SubscriptionDataResolvers;
-  SubscriptionResult?: SubscriptionResultResolvers<ContextType>;
   Success?: SuccessResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
@@ -2428,6 +2445,8 @@ export type Resolvers<ContextType = any> = {
   UserPlaylistFollowing?: UserPlaylistFollowingResolvers<ContextType>;
   UserSongFavourites?: UserSongFavouritesResolvers<ContextType>;
   UserSubscription?: UserSubscriptionResolvers<ContextType>;
+  UserSubscriptionData?: UserSubscriptionDataResolvers;
+  UserSubscriptionResult?: UserSubscriptionResultResolvers<ContextType>;
 };
 
 /**

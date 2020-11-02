@@ -9,12 +9,12 @@ import {
 import { Autocomplete } from '@material-ui/lab';
 import {
   Mutation,
-  MutationBulkNewSubscriptionArgs,
+  MutationBulkNewUserSubscriptionArgs,
   Query,
-  SubscriptionEntity,
-  SubscriptionSortBy,
-  SubscriptionType,
   Tag,
+  UserSubscriptionEntity,
+  UserSubscriptionSortBy,
+  UserSubscriptionType,
 } from 'commonTypes';
 import { Spacing } from 'components';
 import * as consts from 'consts';
@@ -40,15 +40,15 @@ export const SetupHome = () => {
 
   console.log('*debug* tagsData', tagsData);
   const [
-    createSubscriptions,
-    { loading: createSubscriptionsLoading },
+    createUserSubscriptions,
+    { loading: createUserSubscriptionsLoading },
   ] = useMutation<
-    Pick<Mutation, 'bulkNewSubscription'>,
-    MutationBulkNewSubscriptionArgs
-  >(consts.mutations.subscription.BULK_NEW_SUBSCRIPTION, {
+    Pick<Mutation, 'bulkNewUserSubscription'>,
+    MutationBulkNewUserSubscriptionArgs
+  >(consts.mutations.userSubscription.BULK_NEW_USER_SUBSCRIPTION, {
     onCompleted(data) {
       console.log('onCompleted data', data);
-      if (data.bulkNewSubscription) {
+      if (data.bulkNewUserSubscription) {
         enqueueSnackbar('Success! Subscriptuibs Created', {
           variant: 'success',
           autoHideDuration: 4000,
@@ -83,15 +83,15 @@ export const SetupHome = () => {
     }
     const resolvedData = selectedTags.map((tag) => ({
       userId: user?.id,
-      entity: SubscriptionEntity.Song,
-      sortBy: SubscriptionSortBy.Top,
-      type: SubscriptionType.Tag,
+      entity: UserSubscriptionEntity.Song,
+      sortBy: UserSubscriptionSortBy.Top,
+      type: UserSubscriptionType.Tag,
       payload: tag.title,
     }));
 
     console.log('*debug* resolvedData', resolvedData);
 
-    createSubscriptions({
+    createUserSubscriptions({
       variables: {
         input: resolvedData,
       },
@@ -154,7 +154,7 @@ export const SetupHome = () => {
             // onClick={hookForm.handleSubmit(onClickSubmit)}
             onClick={onClickSubmit}
           >
-            {createSubscriptionsLoading ? (
+            {createUserSubscriptionsLoading ? (
               <CircularProgress />
             ) : (
               <Typography variant="body2">Submit</Typography>

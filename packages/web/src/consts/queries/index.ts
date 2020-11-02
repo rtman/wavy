@@ -4,9 +4,9 @@ import * as label from './label';
 import * as playlist from './playlist';
 import * as search from './search';
 import * as song from './song';
-import * as subscription from './subscription';
 import * as tag from './tag';
 import * as user from './user';
+import * as userSubscription from './userSubscription';
 
 export {
   artist,
@@ -15,7 +15,7 @@ export {
   playlist,
   search,
   song,
-  subscription,
   tag,
   user,
+  userSubscription,
 };

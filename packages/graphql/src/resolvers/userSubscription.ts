@@ -16,25 +16,25 @@ import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
 
 @InputType()
-class NewSubscriptionArgs implements Partial<Models.UserSubscription> {
+class NewUserSubscriptionArgs implements Partial<Models.UserSubscription> {
   @Field()
   userId: string;
 
-  @Field(() => Models.SubscriptionEntity, { nullable: true })
-  entity?: Models.SubscriptionEntity;
+  @Field(() => Models.UserSubscriptionEntity, { nullable: true })
+  entity?: Models.UserSubscriptionEntity;
 
-  @Field(() => Models.SubscriptionSortBy, { nullable: true })
-  sortBy?: Models.SubscriptionSortBy;
+  @Field(() => Models.UserSubscriptionSortBy, { nullable: true })
+  sortBy?: Models.UserSubscriptionSortBy;
 
-  @Field(() => Models.SubscriptionType)
-  type: Models.SubscriptionType;
+  @Field(() => Models.UserSubscriptionType)
+  type: Models.UserSubscriptionType;
 
   @Field({ nullable: true })
   payload?: string;
 }
 
 @InputType()
-class UpdateSubscriptionArgs implements Partial<Models.UserSubscription> {
+class UpdateUserSubscriptionArgs implements Partial<Models.UserSubscription> {
   @Field()
   id: string;
 
@@ -43,10 +43,13 @@ class UpdateSubscriptionArgs implements Partial<Models.UserSubscription> {
 
   @Field({ nullable: true })
   favourited?: boolean;
+
+  @Field({ nullable: true })
+  title?: string;
 }
 
-const SubscriptionData = createUnionType({
-  name: 'SubscriptionData',
+const UserSubscriptionData = createUnionType({
+  name: 'UserSubscriptionData',
   types: () => [
     Models.Album,
     Models.Artist,
@@ -57,42 +60,42 @@ const SubscriptionData = createUnionType({
   ],
   resolveType: (value) => {
     switch (value.type) {
-      case Models.SubscriptionEntity.ALBUM:
+      case Models.UserSubscriptionEntity.ALBUM:
         return Models.Album;
-      case Models.SubscriptionEntity.ARTIST:
+      case Models.UserSubscriptionEntity.ARTIST:
         return Models.Artist;
-      case Models.SubscriptionEntity.LABEL:
+      case Models.UserSubscriptionEntity.LABEL:
         return Models.Label;
-      case Models.SubscriptionEntity.PLAYLIST:
+      case Models.UserSubscriptionEntity.PLAYLIST:
         return Models.Playlist;
-      case Models.SubscriptionEntity.SONG:
+      case Models.UserSubscriptionEntity.SONG:
         return Models.Song;
-      case Models.SubscriptionEntity.USER:
+      case Models.UserSubscriptionEntity.USER:
         return Models.User;
     }
   },
 });
 
 @ObjectType()
-export class SubscriptionResult extends Models.UserSubscription {
-  @Field(() => [SubscriptionData])
-  data: typeof SubscriptionData[];
+export class UserSubscriptionResult extends Models.UserSubscription {
+  @Field(() => [UserSubscriptionData])
+  data: typeof UserSubscriptionData[];
 }
 
 @ObjectType()
 class Success extends commonTypes.Base {
-  @Field(() => [SubscriptionResult])
-  body: SubscriptionResult[];
+  @Field(() => [UserSubscriptionResult])
+  body: UserSubscriptionResult[];
 }
 
 // TODO: create specific types for each query, as there are certain params that are optional for some and not others. Each sub type requires a specific combination
 
 @Resolver()
-export class SubscriptionResolvers {
-  @Query(() => [SubscriptionResult])
-  async getSubscriptions(
+export class UserSubscriptionResolvers {
+  @Query(() => [UserSubscriptionResult])
+  async getUserSubscriptions(
     @Arg('userId') userId: string
-  ): Promise<SubscriptionResult[] | commonTypes.Fail> {
+  ): Promise<UserSubscriptionResult[] | commonTypes.Fail> {
     try {
       const user = await getRepository(Models.User).findOne({
         where: { id: userId },
@@ -155,13 +158,13 @@ export class SubscriptionResolvers {
         ...randomizedNonFavouritedSubscriptions,
       ];
 
-      const subscriptionPromises: Promise<typeof SubscriptionData[]>[] = [];
+      const subscriptionPromises: Promise<typeof UserSubscriptionData[]>[] = [];
 
       for (const subscription of sortedSubscriptions) {
         const { entity, payload, sortBy, type } = subscription;
 
         switch (type) {
-          case Models.SubscriptionType.TAG:
+          case Models.UserSubscriptionType.TAG:
             if (!payload || !entity || !sortBy) {
               console.log(
                 `Tag subscription without correct options - payload = ${payload} - entity = ${entity} - sortBy = ${sortBy}`
@@ -177,9 +180,9 @@ export class SubscriptionResolvers {
               })
             );
             break;
-          case Models.SubscriptionType.FOLLOWING:
+          case Models.UserSubscriptionType.FOLLOWING:
             // Top is not done yet for Following
-            if (sortBy === Models.SubscriptionSortBy.TOP) {
+            if (sortBy === Models.UserSubscriptionSortBy.TOP) {
               break;
             }
 
@@ -191,18 +194,18 @@ export class SubscriptionResolvers {
             subscriptionPromises.push(makeFollowerPromise({ user, sortBy }));
             break;
 
-          case Models.SubscriptionType.USER_STATS:
+          case Models.UserSubscriptionType.USER_STATS:
             subscriptionPromises.push(makeUserStatsPromise({ userId }));
             break;
 
-          case Models.SubscriptionType.PLAY_HISTORY:
+          case Models.UserSubscriptionType.PLAY_HISTORY:
             subscriptionPromises.push(makePlayHistoryPromise({ userId }));
             break;
 
-          case Models.SubscriptionType.DEFAULT:
+          case Models.UserSubscriptionType.DEFAULT:
             if (!entity || !sortBy) {
               console.log(
-                `Subscription without correct options - entity = ${entity} - sortBy = ${sortBy}`
+                `UserSubscription without correct options - entity = ${entity} - sortBy = ${sortBy}`
               );
               break;
             }
@@ -219,7 +222,7 @@ export class SubscriptionResolvers {
         };
       }
       const subscriptionQueryResults = await Promise.all(subscriptionPromises);
-      const subscriptionResults: SubscriptionResult[] = [];
+      const subscriptionResults: UserSubscriptionResult[] = [];
 
       for (const [index, subscription] of sortedSubscriptions.entries()) {
         subscriptionResults.push({
@@ -230,7 +233,7 @@ export class SubscriptionResolvers {
 
       return subscriptionResults;
     } catch (error) {
-      console.log('Get Subscriptions error', error);
+      console.log('Get UserSubscriptions error', error);
       return {
         ok: false,
         error: { message: error },
@@ -239,8 +242,8 @@ export class SubscriptionResolvers {
   }
 
   @Mutation(() => Boolean)
-  async newSubscription(
-    @Arg('input') payload: NewSubscriptionArgs
+  async newUserSubscription(
+    @Arg('input') payload: NewUserSubscriptionArgs
   ): Promise<boolean> {
     try {
       const newSubscription = await getRepository(
@@ -251,18 +254,19 @@ export class SubscriptionResolvers {
         return true;
       }
 
-      console.log('ERROR: failed to insert newSubscription failed');
+      console.log('ERROR: failed to insert newUserSubscription failed');
 
       return false;
     } catch (error) {
-      console.log('ERROR: newSubscription', error);
+      console.log('ERROR: newUserSubscription', error);
       return false;
     }
   }
 
   @Mutation(() => Boolean)
-  async bulkNewSubscription(
-    @Arg('input', () => [NewSubscriptionArgs]) payload: NewSubscriptionArgs[]
+  async bulkNewUserSubscription(
+    @Arg('input', () => [NewUserSubscriptionArgs])
+    payload: NewUserSubscriptionArgs[]
   ): Promise<boolean> {
     try {
       const newSubscriptions = await getRepository(
@@ -273,18 +277,18 @@ export class SubscriptionResolvers {
         return true;
       }
 
-      console.log('ERROR: failed to insert bulkNewSubscription failed');
+      console.log('ERROR: failed to insert bulkNewUserSubscription failed');
 
       return false;
     } catch (error) {
-      console.log('ERROR: bulkNewSubscription', error);
+      console.log('ERROR: bulkNewUserSubscription', error);
       return false;
     }
   }
 
   @Mutation(() => Boolean)
-  async updateSubscription(
-    @Arg('input') payload: UpdateSubscriptionArgs
+  async updateUserSubscription(
+    @Arg('input') payload: UpdateUserSubscriptionArgs
   ): Promise<boolean> {
     try {
       const { id, ...rest } = payload;
@@ -301,17 +305,20 @@ export class SubscriptionResolvers {
         return false;
       }
 
-      console.log('ERROR: UpdateSubscription - payload incomplete', payload);
+      console.log(
+        'ERROR: UpdateUserSubscription - payload incomplete',
+        payload
+      );
 
       return false;
     } catch (error) {
-      console.log('ERROR: updateSubscription', error);
+      console.log('ERROR: updateUserSubscription', error);
       return false;
     }
   }
 
   @Mutation(() => Boolean)
-  async deleteSubscription(
+  async deleteUserSubscription(
     @Arg('subscriptionId') subscriptionId: string
   ): Promise<boolean> {
     try {
@@ -327,7 +334,7 @@ export class SubscriptionResolvers {
 
       return false;
     } catch (error) {
-      console.log('ERROR: deleteSubscription', error);
+      console.log('ERROR: deleteUserSubscription', error);
       return false;
     }
   }
@@ -342,7 +349,7 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
     try {
       admin
         .firestore()
-        .collection(Models.SubscriptionType.PLAY_HISTORY)
+        .collection(Models.UserSubscriptionType.PLAY_HISTORY)
         .doc(userId)
         .get()
         .then((result) => {
@@ -353,10 +360,11 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
 
             if (songs) {
               const songIds = songs.map((entry) => entry.songId);
+              const sortedSongIds = songIds.reverse();
 
               resolve(
-                getRepository(Models.Song).findByIds(songIds, {
-                  relations: makeRelations(Models.SubscriptionEntity.SONG),
+                getRepository(Models.Song).findByIds(sortedSongIds, {
+                  relations: makeRelations(Models.UserSubscriptionEntity.SONG),
                 })
               );
             }
@@ -386,7 +394,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
     try {
       admin
         .firestore()
-        .collectionGroup(Models.SubscriptionType.USER_STATS)
+        .collectionGroup(Models.UserSubscriptionType.USER_STATS)
         .where('userId', '==', userId)
         .orderBy('plays', 'desc')
         .limit(numberOfResults)
@@ -401,14 +409,14 @@ const makeUserStatsPromise = (props: { userId: string }) => {
 
             resolve(
               getRepository(Models.Song).findByIds(songIds, {
-                relations: makeRelations(Models.SubscriptionEntity.SONG),
+                relations: makeRelations(Models.UserSubscriptionEntity.SONG),
               })
             );
           }
 
           reject({
             ok: false,
-            error: `No play history found for userId - ${userId}`,
+            error: `No userStats found for userId - ${userId}`,
           });
         });
     } catch (error) {
@@ -418,9 +426,9 @@ const makeUserStatsPromise = (props: { userId: string }) => {
 };
 
 const makeTagPromise = (props: {
-  entity: Models.SubscriptionEntity;
+  entity: Models.UserSubscriptionEntity;
   payload: string;
-  sortBy: Models.SubscriptionSortBy;
+  sortBy: Models.UserSubscriptionSortBy;
 }) => {
   const { entity, payload, sortBy } = props;
 
@@ -429,7 +437,7 @@ const makeTagPromise = (props: {
   const formattedQuery = payload.trim().replace(/ /g, ' & ');
 
   switch (sortBy) {
-    case Models.SubscriptionSortBy.NEW: {
+    case Models.UserSubscriptionSortBy.NEW: {
       let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
@@ -450,7 +458,7 @@ const makeTagPromise = (props: {
         .getMany();
     }
 
-    case Models.SubscriptionSortBy.TOP: {
+    case Models.UserSubscriptionSortBy.TOP: {
       let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
@@ -474,7 +482,7 @@ const makeTagPromise = (props: {
         .getMany();
     }
 
-    case Models.SubscriptionSortBy.RANDOM: {
+    case Models.UserSubscriptionSortBy.RANDOM: {
       let query = getRepository(model)
         .createQueryBuilder(entity.toLowerCase())
         .where(
@@ -502,7 +510,7 @@ const makeTagPromise = (props: {
 // this function differs from the rest in that it only returns albums, for now
 const makeFollowerPromise = (props: {
   user: Models.User;
-  sortBy: Models.SubscriptionSortBy;
+  sortBy: Models.UserSubscriptionSortBy;
 }) => {
   const { sortBy, user } = props;
 
@@ -515,7 +523,7 @@ const makeFollowerPromise = (props: {
   );
 
   switch (sortBy) {
-    case Models.SubscriptionSortBy.NEW: {
+    case Models.UserSubscriptionSortBy.NEW: {
       return new Promise<Models.Album[]>((resolve, reject) => {
         try {
           const artistAlbums = getRepository(Models.Artist)
@@ -549,7 +557,7 @@ const makeFollowerPromise = (props: {
       });
     }
     // TODO: Need way of determining playCount for album
-    // case Models.SubscriptionSortBy.TOP:
+    // case Models.UserSubscriptionSortBy.TOP:
     //   return getRepository(model)
     //     .find({
     //       order: {
@@ -558,10 +566,10 @@ const makeFollowerPromise = (props: {
     //       take: numberOfResults,
     //     });
     // For now just returning empty to satisfy typescript
-    case Models.SubscriptionSortBy.TOP:
+    case Models.UserSubscriptionSortBy.TOP:
       return new Promise<Models.Album[]>((resolve) => resolve([]));
 
-    case Models.SubscriptionSortBy.RANDOM:
+    case Models.UserSubscriptionSortBy.RANDOM:
       return new Promise<Models.Album[]>((resolve, reject) => {
         try {
           const artistAlbums = getRepository(Models.Artist)
@@ -597,8 +605,8 @@ const makeFollowerPromise = (props: {
 };
 
 const makeDefaultPromise = (props: {
-  entity: Models.SubscriptionEntity;
-  sortBy: Models.SubscriptionSortBy;
+  entity: Models.UserSubscriptionEntity;
+  sortBy: Models.UserSubscriptionSortBy;
 }) => {
   const { entity, sortBy } = props;
 
@@ -606,7 +614,7 @@ const makeDefaultPromise = (props: {
   const model = Models[entity];
 
   switch (sortBy) {
-    case Models.SubscriptionSortBy.NEW:
+    case Models.UserSubscriptionSortBy.NEW:
       return getRepository(model).find({
         order: {
           createdAt: 'DESC',
@@ -615,7 +623,7 @@ const makeDefaultPromise = (props: {
         relations: makeRelations(entity),
       });
 
-    case Models.SubscriptionSortBy.TOP:
+    case Models.UserSubscriptionSortBy.TOP:
       return getRepository(model).find({
         order: {
           [getMetricForTopQuery(entity)]: 'DESC',
@@ -624,7 +632,7 @@ const makeDefaultPromise = (props: {
         relations: makeRelations(entity),
       });
 
-    case Models.SubscriptionSortBy.RANDOM: {
+    case Models.UserSubscriptionSortBy.RANDOM: {
       let query = getRepository(model).createQueryBuilder(entity.toLowerCase());
 
       const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
@@ -645,45 +653,45 @@ const makeDefaultPromise = (props: {
 
 // Utility Functions
 
-const makeRelations = (entity: Models.SubscriptionEntity) => {
+const makeRelations = (entity: Models.UserSubscriptionEntity) => {
   switch (entity) {
-    case Models.SubscriptionEntity.ALBUM:
+    case Models.UserSubscriptionEntity.ALBUM:
       return ['songs', 'label', 'artist', 'songs.artist'];
-    case Models.SubscriptionEntity.ARTIST:
+    case Models.UserSubscriptionEntity.ARTIST:
       return ['albums', 'albums.songs', 'albums.songs.artist'];
-    case Models.SubscriptionEntity.LABEL:
+    case Models.UserSubscriptionEntity.LABEL:
       return ['albums', 'albums.songs', 'albums.songs.artist'];
-    case Models.SubscriptionEntity.PLAYLIST:
+    case Models.UserSubscriptionEntity.PLAYLIST:
       return ['songs', 'songs.song', 'songs.song.album', 'songs.song.artist'];
-    case Models.SubscriptionEntity.SONG:
+    case Models.UserSubscriptionEntity.SONG:
       return ['album', 'album.label', 'artist'];
-    case Models.SubscriptionEntity.USER:
+    case Models.UserSubscriptionEntity.USER:
       return undefined;
   }
 };
 
-const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
+const makeLeftJoinAndSelectConfig = (entity: Models.UserSubscriptionEntity) => {
   switch (entity) {
-    case Models.SubscriptionEntity.ALBUM:
+    case Models.UserSubscriptionEntity.ALBUM:
       return [
         { relation: 'album.songs', alias: 'songs' },
         { relation: 'album.artist', alias: 'artist' },
         { relation: 'album.label', alias: 'label' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
-    case Models.SubscriptionEntity.ARTIST:
+    case Models.UserSubscriptionEntity.ARTIST:
       return [
         { relation: 'artist.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
-    case Models.SubscriptionEntity.LABEL:
+    case Models.UserSubscriptionEntity.LABEL:
       return [
         { relation: 'label.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
-    case Models.SubscriptionEntity.PLAYLIST:
+    case Models.UserSubscriptionEntity.PLAYLIST:
       return [
         { relation: 'playlist.songs', alias: 'songs' },
         { relation: 'songs.song', alias: 'song' },
@@ -691,13 +699,13 @@ const makeLeftJoinAndSelectConfig = (entity: Models.SubscriptionEntity) => {
         { relation: 'song.artist', alias: 'artist' },
         // { relation: 'playlist.user', alias: 'user'}
       ];
-    case Models.SubscriptionEntity.SONG:
+    case Models.UserSubscriptionEntity.SONG:
       return [
         { relation: 'song.album', alias: 'album' },
         { relation: 'song.label', alias: 'label' },
         { relation: 'song.artist', alias: 'artist' },
       ];
-    case Models.SubscriptionEntity.USER:
+    case Models.UserSubscriptionEntity.USER:
       // TODO: add user leftJoins when ready
       return [{ relation: '', alias: '' }];
   }
@@ -714,12 +722,12 @@ const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
 
     item.albums.forEach((album) => {
       // artist and label must be manually added to fit the graphql schema
-      if (item.type === Models.SubscriptionEntity.ARTIST) {
+      if (item.type === Models.UserSubscriptionEntity.ARTIST) {
         artist = { ...item } as Models.Artist;
         label = album.label;
       }
 
-      if (item.type === Models.SubscriptionEntity.LABEL) {
+      if (item.type === Models.UserSubscriptionEntity.LABEL) {
         label = { ...item } as Models.Label;
         artist = album.artist;
       }
@@ -741,18 +749,18 @@ const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
   return sortedUniqueResults;
 };
 
-const getMetricForTopQuery = (entity: Models.SubscriptionEntity) => {
+const getMetricForTopQuery = (entity: Models.UserSubscriptionEntity) => {
   switch (entity) {
-    case Models.SubscriptionEntity.ALBUM:
+    case Models.UserSubscriptionEntity.ALBUM:
       // TODO: this is incorrect, need a real metric
       return 'createdAt';
-    case Models.SubscriptionEntity.ARTIST:
+    case Models.UserSubscriptionEntity.ARTIST:
       return 'followers';
-    case Models.SubscriptionEntity.LABEL:
+    case Models.UserSubscriptionEntity.LABEL:
       return 'followers';
-    case Models.SubscriptionEntity.PLAYLIST:
+    case Models.UserSubscriptionEntity.PLAYLIST:
       return 'followers';
-    case Models.SubscriptionEntity.SONG:
+    case Models.UserSubscriptionEntity.SONG:
       return 'playCount';
     default:
       return 'followers';

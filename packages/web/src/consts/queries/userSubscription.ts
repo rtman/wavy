@@ -1,14 +1,15 @@
 import { gql } from 'apollo-boost';
 
-export const GET_SUBSCRIPTIONS = gql`
-  query GetSubscriptions($userId: String!) {
-    getSubscriptions(userId: $userId) {
+export const GET_USER_SUBSCRIPTIONS = gql`
+  query GetUserSubscriptions($userId: String!) {
+    getUserSubscriptions(userId: $userId) {
       id
       entity
       type
       sortBy
       payload
       userId
+      title
       data {
         ... on Album {
           id
