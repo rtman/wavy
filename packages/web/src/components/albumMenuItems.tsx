@@ -62,8 +62,6 @@ export const AlbumMenuItems = memo((props: AlbumMenuItems) => {
     closeMenu();
   };
 
-  console.log('*debug* albumMenuItems');
-
   return (
     <>
       <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>

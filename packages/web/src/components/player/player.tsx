@@ -11,7 +11,13 @@ import { Flex, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(() =>
@@ -138,13 +144,13 @@ export const Player = () => {
     history.push(`${consts.routes.ALBUM}/${currentSong?.albumId}`);
   };
 
-  const onClickPlay = () => {
+  const onClickPlay = useCallback(() => {
     if (filteredMediaState !== 'pause') {
       playerContext?.playQueue();
     } else {
       playerContext?.unPause();
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (filteredMediaState === 'ended') {
@@ -154,6 +160,8 @@ export const Player = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredMediaState]);
   // }, [filteredMediaState, playerContext]);
+
+  console.log('*debug* player');
 
   return (
     <Flex alignItems="center" fullWidth={true}>

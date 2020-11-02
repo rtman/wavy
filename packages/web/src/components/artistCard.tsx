@@ -20,8 +20,6 @@ export const ArtistCard = (props: ArtistCardProps) => {
 
   const { data, onClick } = props;
 
-  console.log('*debug* artistCard');
-
   // const onClickGoToArtist = () => {
   //   history.push(`${consts.routes.ARTIST}/${data.id}`);
   //   setAnchorEl(null);

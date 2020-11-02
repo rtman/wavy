@@ -29,8 +29,6 @@ export const AlbumCard = memo((props: AlbumCardProps) => {
     playerContext?.replaceQueueWithSongs(data.songs ?? []);
   }, []);
 
-  console.log('*debug* albumCard');
-
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
@@ -39,13 +37,13 @@ export const AlbumCard = memo((props: AlbumCardProps) => {
       setMenuPosition={setMenuPosition}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
-      // menuItems={
-      //   <AlbumMenuItems
-      //     data={data}
-      //     menuPosition={menuPosition}
-      //     closeMenu={closeMenu}
-      //   />
-      // }
+      menuItems={
+        <AlbumMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
       {...props}
     />
   );
