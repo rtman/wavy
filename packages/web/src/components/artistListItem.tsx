@@ -5,7 +5,7 @@ import * as consts from 'consts';
 import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { ArtistUtils } from './artistUtils';
+import { ArtistMenuItems } from './artistMenuItems';
 
 interface ArtistListItemProps
   extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
@@ -31,13 +31,13 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
     });
   };
 
-  const onMenuClose = () => {
+  const closeMenu = () => {
     setAnchorEl(null);
   };
 
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${data.id}`);
-    onMenuClose();
+    closeMenu();
   };
 
   return (
@@ -47,11 +47,10 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <ArtistUtils
+      <ArtistMenuItems
         data={data}
-        anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
       />
     </>
   );

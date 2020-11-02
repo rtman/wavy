@@ -11,12 +11,12 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { darken, desaturate, lighten, opacify, transparentize } from 'polished';
 
-const PRIMARY_COLOR = (_darkMode: boolean) => '#00bcd4';
+const PRIMARY_COLOR = (_darkMode: boolean) => '#af52d5';
 const PRIMARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const PRIMARY_BLACK = (_darkMode: boolean) => '#000';
 const PRIMARY_BACKGROUND_COLOR = (_darkMode: boolean) => '#fff';
 const PRIMARY_WHITE = (_darkMode: boolean) => '#fff';
-const SECONDARY_COLOR = (_darkMode: boolean) => 'rgb(14, 201, 101)';
+const SECONDARY_COLOR = (_darkMode: boolean) => '#ffc1e3';
 const SECONDARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const ERROR_COLOR = (_darkMode: boolean) => 'rgb(253, 136, 114)';
 const ERROR_CONTRAST = (_darkMode: boolean) => '#fff';
@@ -164,6 +164,7 @@ export const makeTheme = () => {
       fontSize: 10,
       fontWeight: 'normal',
       letterSpacing: 1.5,
+      lineHeight: 1.4,
     },
   };
 

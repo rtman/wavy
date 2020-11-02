@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       top: 'auto',
       bottom: 0,
-      backgroundColor: theme.palette.background.default,
+      // backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
     },
     grow: {
@@ -26,7 +26,7 @@ export const BottomBar: FunctionComponent = (props) => {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" color="primary" className={classes.appBar}>
+    <AppBar position="fixed" color="secondary" className={classes.appBar}>
       <Toolbar>
         <div className={classes.grow} />
         {props.children}

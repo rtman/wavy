@@ -1,10 +1,9 @@
 import { Artist, BaseCardProps, MenuPosition, Song } from 'commonTypes';
 // import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 
-import { ArtistUtils } from './artistUtils';
+import { ArtistMenuItems } from './artistMenuItems';
 import { BaseCard } from './baseCard';
 
 interface ArtistCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
@@ -14,7 +13,6 @@ interface ArtistCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const ArtistCard = (props: ArtistCardProps) => {
-  const history = useHistory();
   const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,41 +20,37 @@ export const ArtistCard = (props: ArtistCardProps) => {
 
   const { data, onClick } = props;
 
+  console.log('*debug* artistCard');
+
   // const onClickGoToArtist = () => {
   //   history.push(`${consts.routes.ARTIST}/${data.id}`);
   //   setAnchorEl(null);
   // };
 
-  const onClickPlayNow = () => {
+  const onClickPlay = useCallback(() => {
     const songs: Song[] = [];
     (data.albums ?? []).forEach((album) => {
       (album.songs ?? []).forEach((song) => songs.push(song));
     });
     playerContext?.replaceQueueWithSongs(songs);
-  };
+  }, []);
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseCard
-        onClick={onClick ?? onClickPlayNow}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <ArtistUtils
-        data={data}
-        anchorEl={anchorEl}
-        menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
-      />
-    </>
+    <BaseCard
+      onClick={onClick ?? onClickPlay}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      setMenuPosition={setMenuPosition}
+      menuItems={
+        <ArtistMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

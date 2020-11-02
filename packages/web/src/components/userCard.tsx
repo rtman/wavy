@@ -1,9 +1,9 @@
 import { BaseCardProps, MenuPosition, User } from 'commonTypes';
-import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
+// import { PlayerContext } from 'context';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 
 import { BaseCard } from './baseCard';
-import { UserUtils } from './userUtils';
+import { UserMenuItems } from './userMenuItems';
 
 interface UserCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
   data: User;
@@ -12,7 +12,7 @@ interface UserCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const UserCard = (props: UserCardProps) => {
-  const playerContext = useContext(PlayerContext);
+  // const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
@@ -23,28 +23,22 @@ export const UserCard = (props: UserCardProps) => {
     // TODO: implement when user screen is available
   };
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseCard
-        onClick={onClick ?? onClickGoToUser}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <UserUtils
-        data={data}
-        anchorEl={anchorEl}
-        menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
-      />
-    </>
+    <BaseCard
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      onClick={onClick ?? onClickGoToUser}
+      setMenuPosition={setMenuPosition}
+      menuItems={
+        <UserMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

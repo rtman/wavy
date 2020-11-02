@@ -2,10 +2,10 @@ import { Label, MenuPosition } from 'commonTypes';
 import { BaseListItemProps } from 'commonTypes';
 import { BaseListItem } from 'components';
 import * as consts from 'consts';
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { LabelUtils } from './labelUtils';
+import { LabelMenuItems } from './labelMenuItems';
 
 interface LabelListItemProps
   extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
@@ -36,6 +36,8 @@ export const LabelListItem = (props: LabelListItemProps) => {
     setAnchorEl(null);
   };
 
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
+
   return (
     <>
       <BaseListItem
@@ -43,11 +45,12 @@ export const LabelListItem = (props: LabelListItemProps) => {
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <LabelUtils
+      <LabelMenuItems
         data={data}
-        anchorEl={anchorEl}
+        // anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
+        // setAnchorEl={setAnchorEl}
       />
     </>
   );

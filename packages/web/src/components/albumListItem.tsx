@@ -1,9 +1,9 @@
 import { Album, BaseListItemProps, MenuPosition } from 'commonTypes';
 import { BaseListItem } from 'components';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 
-import { AlbumUtils } from './albumUtils';
+import { AlbumMenuItems } from './albumMenuItems';
 
 interface AlbumListItemProps
   extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
@@ -33,18 +33,15 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
     });
   };
 
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
+
   return (
     <>
-      <BaseListItem
-        onClick={onClick ?? onClickPlay}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <AlbumUtils
+      <BaseListItem onClick={onClick ?? onClickPlay} {...props} />
+      <AlbumMenuItems
         data={data}
-        anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
       />
     </>
   );

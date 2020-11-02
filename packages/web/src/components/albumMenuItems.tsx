@@ -3,36 +3,31 @@ import { Album, MenuPosition } from 'commonTypes';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
-import React, { useContext } from 'react';
+import React, { memo, useContext, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-interface AlbumUtils {
+interface AlbumMenuItems {
   data: Album;
-  anchorEl: null | HTMLElement;
   menuPosition: MenuPosition | null;
-  setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  closeMenu: () => void;
 }
 
-export const AlbumUtils = (props: AlbumUtils) => {
+export const AlbumMenuItems = memo((props: AlbumMenuItems) => {
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const location = useLocation();
   const history = useHistory();
 
-  const { data, anchorEl, menuPosition, setAnchorEl } = props;
-
-  const onMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const { data, menuPosition, closeMenu } = props;
 
   const handleClickPlayNow = () => {
     playerContext?.replaceQueueWithSongs(data.songs ?? []);
-    onMenuClose();
+    closeMenu();
   };
 
   const handleClickAddToQueue = () => {
     playerContext?.addSongsToEndOfQueue(data.songs ?? []);
-    onMenuClose();
+    closeMenu();
   };
 
   const handleClickGoToAlbum = () => {
@@ -59,43 +54,32 @@ export const AlbumUtils = (props: AlbumUtils) => {
 
   const onClickGoToArtist = () => {
     history.push(`${consts.routes.ARTIST}/${data.artist.id}`);
-    onMenuClose();
+    closeMenu();
   };
 
   const onClickGoToLabel = () => {
     history.push(`${consts.routes.LABEL}/${data.label?.id}`);
-    onMenuClose();
+    closeMenu();
   };
 
-  const makeMenu = () => {
-    return (
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={onMenuClose}
-      >
-        <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
-        <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
-        <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
-        {location.pathname.includes(consts.routes.LABEL) ? (
-          <MenuItem onClick={onClickGoToArtist}>Go To Artist</MenuItem>
-        ) : null}
-        {!location.pathname.includes(consts.routes.LABEL) ? (
-          <MenuItem onClick={onClickGoToLabel}>Go To Label</MenuItem>
-        ) : null}
-        {(userContext?.playlists?.length ?? 0) > 0 ? (
-          <NestedMenuItem
-            label="Add to Playlist"
-            parentMenuOpen={!!menuPosition}
-          >
-            {renderPlaylists()}
-          </NestedMenuItem>
-        ) : null}
-      </Menu>
-    );
-  };
+  console.log('*debug* albumMenuItems');
 
-  return makeMenu();
-};
+  return (
+    <>
+      <MenuItem onClick={handleClickPlayNow}>Play Now</MenuItem>
+      <MenuItem onClick={handleClickAddToQueue}>Add to Queue</MenuItem>
+      <MenuItem onClick={handleClickGoToAlbum}>Go to Album</MenuItem>
+      {location.pathname.includes(consts.routes.LABEL) ? (
+        <MenuItem onClick={onClickGoToArtist}>Go To Artist</MenuItem>
+      ) : null}
+      {!location.pathname.includes(consts.routes.LABEL) ? (
+        <MenuItem onClick={onClickGoToLabel}>Go To Label</MenuItem>
+      ) : null}
+      {(userContext?.playlists?.length ?? 0) > 0 ? (
+        <NestedMenuItem label="Add to Playlist" parentMenuOpen={!!menuPosition}>
+          {renderPlaylists()}
+        </NestedMenuItem>
+      ) : null}
+    </>
+  );
+});

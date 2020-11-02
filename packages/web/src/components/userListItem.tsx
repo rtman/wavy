@@ -1,8 +1,8 @@
 import { BaseListItemProps, MenuPosition, User } from 'commonTypes';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { BaseListItem } from './baseListItem';
-import { UserUtils } from './userUtils';
+import { UserMenuItems } from './userMenuItems';
 
 interface UserListItemProps extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
   onClick?: () => void;
@@ -28,6 +28,8 @@ export const UserListItem = (props: UserListItemProps) => {
     // TODO: implement when user screen is available
   };
 
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
+
   return (
     <>
       <BaseListItem
@@ -35,11 +37,10 @@ export const UserListItem = (props: UserListItemProps) => {
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <UserUtils
+      <UserMenuItems
         data={user}
-        anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
       />
     </>
   );

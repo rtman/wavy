@@ -1,9 +1,9 @@
 import { BaseCardProps, MenuPosition, Song } from 'commonTypes';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 
 import { BaseCard } from './baseCard';
-import { SongUtils } from './songUtils';
+import { SongMenuItems } from './songMenuItems';
 
 interface SongCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
   data: Song;
@@ -23,28 +23,22 @@ export const SongCard = (props: SongCardProps) => {
     playerContext?.replaceQueueWithSongs([data]);
   };
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseCard
-        onClick={onClick ?? onClickPlay}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <SongUtils
-        data={data}
-        anchorEl={anchorEl}
-        menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
-      />
-    </>
+    <BaseCard
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      onClick={onClick ?? onClickPlay}
+      setMenuPosition={setMenuPosition}
+      menuItems={
+        <SongMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

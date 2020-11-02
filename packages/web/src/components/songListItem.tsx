@@ -1,9 +1,9 @@
 import { BaseListItemProps, MenuPosition, Song } from 'commonTypes';
 import { PlayerContext } from 'context';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { BaseListItem } from './baseListItem';
-import { SongUtils } from './songUtils';
+import { SongMenuItems } from './songMenuItems';
 
 interface SongListItemProps extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
   onClick?: () => void;
@@ -31,6 +31,8 @@ export const SongListItem = (props: SongListItemProps) => {
     playerContext?.replaceQueueWithSongs([data]);
   };
 
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
+
   return (
     <>
       <BaseListItem
@@ -38,11 +40,10 @@ export const SongListItem = (props: SongListItemProps) => {
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <SongUtils
+      <SongMenuItems
         data={data}
-        anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
       />
     </>
   );

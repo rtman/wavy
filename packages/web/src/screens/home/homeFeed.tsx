@@ -19,7 +19,7 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useCallback, useContext } from 'react';
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -47,26 +47,28 @@ export const HomeFeed = () => {
 
   console.log('*debug* HomeFeed subscriptionData', subscriptionData);
 
-  const renderCardList = (subscriptionResult: SubscriptionResult) => {
-    const items = subscriptionResult.data;
-    if ((items?.length ?? 0) > 0) {
-      const itemsList: JSX.Element[] = [];
-      items.forEach((item) => {
-        const cardElement = getCardElement(item);
-        if (cardElement !== undefined) {
-          itemsList.push(cardElement);
-        }
-      });
+  const renderCardList = useCallback(
+    (subscriptionResult: SubscriptionResult) => {
+      console.log('*debug* homeFeed - renderCardList');
+      const items = subscriptionResult.data;
+      if ((items?.length ?? 0) > 0) {
+        const itemsList: JSX.Element[] = [];
+        items.forEach((item) => {
+          const cardElement = makeCard(item);
+          if (cardElement !== undefined) {
+            itemsList.push(cardElement);
+          }
+        });
 
-      return <Flex style={{ overflowX: 'auto' }}>{itemsList}</Flex>;
-    } else {
-      return null;
-    }
-  };
+        return <Flex style={{ overflowX: 'auto' }}>{itemsList}</Flex>;
+      } else {
+        return null;
+      }
+    },
+    []
+  );
 
-  const getCardElement = (data: SubscriptionData) => {
-    // typescript is having trouble narrowing the union here for some reason
-    // but the switch ensures the right type is found, so casting it is ok
+  const makeCard = useCallback((data: SubscriptionData) => {
     switch (data.__typename) {
       case 'Album':
         return (
@@ -115,30 +117,34 @@ export const HomeFeed = () => {
       case 'User':
         return <UserCard data={data} />;
     }
-  };
+  }, []);
 
-  const renderSections = (data: SubscriptionResult[]) => {
-    const filteredData = data.filter(
-      (subscription) => subscription.data.length > 0
-    );
+  const renderSections = useCallback(
+    (data: SubscriptionResult[]) => {
+      console.log('*debug* homeFeed renderSections');
+      const filteredData = data.filter(
+        (subscription) => subscription.data.length > 0
+      );
 
-    const subscriptionList = filteredData.map((subscription) => (
-      <Fragment key={subscription.id}>
-        <Typography variant="h4">{`${subscription.type} - ${subscription.entity} - ${subscription.sortBy} - ${subscription.payload}`}</Typography>
+      const subscriptionList = filteredData.map((subscription) => (
+        <Fragment key={subscription.id}>
+          <Typography variant="h5">{`${subscription.type} - ${subscription.entity} - ${subscription.sortBy} - ${subscription.payload}`}</Typography>
 
-        <Spacing.section.Minor />
+          <Spacing.section.Minor />
 
-        {subscriptionsLoading ? (
-          <CircularProgress />
-        ) : (
-          renderCardList(subscription)
-        )}
+          {subscriptionsLoading ? (
+            <CircularProgress />
+          ) : (
+            renderCardList(subscription)
+          )}
 
-        <Spacing.section.Minor />
-      </Fragment>
-    ));
-    return <List className={classes.list}>{subscriptionList}</List>;
-  };
+          <Spacing.section.Minor />
+        </Fragment>
+      ));
+      return <List className={classes.list}>{subscriptionList}</List>;
+    },
+    [subscriptionsLoading]
+  );
 
   return (
     <Container>

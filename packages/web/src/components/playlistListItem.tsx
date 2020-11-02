@@ -5,10 +5,10 @@ import {
   SongPlaylist,
 } from 'commonTypes';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 
 import { BaseListItem } from './baseListItem';
-import { PlaylistUtils } from './playlistUtils';
+import { PlaylistMenuItems } from './playlistMenuItems';
 
 interface PlaylistListItemProps
   extends Omit<BaseListItemProps, 'onClickOpenMenu'> {
@@ -34,16 +34,16 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
     });
   };
 
-  const onMenuClose = () => {
+  const closeMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const handleClickPlayNow = () => {
     const songs = (data.songs ?? []).map(
       (songPlaylistInstance: SongPlaylist) => songPlaylistInstance.song
     );
     playerContext?.replaceQueueWithSongs(songs);
-    onMenuClose();
+    closeMenu();
   };
 
   return (
@@ -53,11 +53,10 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
         onClickOpenMenu={onClickOpenMenu}
         {...props}
       />
-      <PlaylistUtils
+      <PlaylistMenuItems
         data={data}
-        anchorEl={anchorEl}
         menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
+        closeMenu={closeMenu}
       />
     </>
   );

@@ -1,11 +1,11 @@
-import { BaseCardProps, Label, MenuPosition, Song } from 'commonTypes';
-import * as consts from 'consts';
+import { BaseCardProps, Label, MenuPosition } from 'commonTypes';
+// import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 
 import { BaseCard } from './baseCard';
-import { LabelUtils } from './labelUtils';
+import { LabelMenuItems } from './labelMenuItems';
 
 interface LabelCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
   data: Label;
@@ -14,7 +14,7 @@ interface LabelCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const LabelCard = (props: LabelCardProps) => {
-  const history = useHistory();
+  // const history = useHistory();
   const playerContext = useContext(PlayerContext);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,43 +22,34 @@ export const LabelCard = (props: LabelCardProps) => {
 
   const { data, onClick } = props;
 
-  const onClickGoToLabel = () => {
-    history.push(`${consts.routes.LABEL}/${data.id}`);
-    setAnchorEl(null);
-  };
+  // const onClickGoToLabel = () => {
+  //   history.push(`${consts.routes.LABEL}/${data.id}`);
+  //   setAnchorEl(null);
+  // };
 
-  const onClickPlayNow = () => {
-    const songs: Song[] = [];
-    console.log('*debug* labelCard data.albums', data.albums);
-
-    (data.albums ?? []).forEach((album) =>
-      (album.songs ?? []).forEach((song) => songs.push(song))
+  const onClickPlay = () => {
+    const songs = (data.albums ?? []).map((album) =>
+      (album.songs ?? []).reduce((song) => song)
     );
     playerContext?.replaceQueueWithSongs(songs);
   };
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
+  const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseCard
-        onClick={onClick ?? onClickPlayNow}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <LabelUtils
-        data={data}
-        anchorEl={anchorEl}
-        menuPosition={menuPosition}
-        setAnchorEl={setAnchorEl}
-      />
-    </>
+    <BaseCard
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      onClick={onClick ?? onClickPlay}
+      setMenuPosition={setMenuPosition}
+      menuItems={
+        <LabelMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };
