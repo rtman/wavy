@@ -6,6 +6,7 @@ import {
   CardMedia,
   CircularProgress,
   Container,
+  GridList,
   List,
   Typography,
 } from '@material-ui/core';
@@ -40,6 +41,11 @@ import { FixedSizeList } from 'react-window';
 import { CSSProperties } from 'styled-components';
 
 const useStyles = makeStyles(() => ({
+  gridList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
   list: {
     width: '100%',
   },
@@ -151,6 +157,23 @@ export const HomeFeed = () => {
     );
   };
 
+  const renderCardList = (subscriptionResult: UserSubscriptionResult) => {
+    const items = subscriptionResult.data;
+    if ((items?.length ?? 0) > 0) {
+      const itemsList: JSX.Element[] = [];
+      items.forEach((item) => {
+        const cardElement = makeCard(item);
+        if (cardElement !== undefined) {
+          itemsList.push(cardElement);
+        }
+      });
+
+      return <GridList className={classes.gridList}>{itemsList}</GridList>;
+    } else {
+      return null;
+    }
+  };
+
   const renderSection = ({
     data,
     index,
@@ -161,9 +184,10 @@ export const HomeFeed = () => {
     style: CSSProperties;
   }) => {
     return (
-      <div style={style}>
-        <Typography variant="h5">{data.title}</Typography>
-        <div>TEST</div>
+      <div key={index} style={style}>
+        <Typography variant="h5">{data[index].title}</Typography>
+        <Spacing.section.Minor />
+        {/* {renderCardList(data[index])} */}
 
         <FixedSizeList
           itemSize={240}
@@ -175,17 +199,42 @@ export const HomeFeed = () => {
         >
           {renderCard}
         </FixedSizeList>
+        <Spacing.section.Minor />
       </div>
     );
+  };
+
+  const renderSections = (data: UserSubscriptionResult[]) => {
+    const subscriptionList = data.map((subscription) => (
+      <Fragment key={subscription.id}>
+        <Typography variant="h5">{subscription.title}</Typography>
+
+        {/* {renderCardList(data)} */}
+
+        <FixedSizeList
+          itemSize={240}
+          width={window.screen.width}
+          height={300}
+          layout="horizontal"
+          itemCount={subscription.data.length}
+          itemData={subscription.data}
+        >
+          {renderCard}
+        </FixedSizeList>
+      </Fragment>
+    ));
+    return <List className={classes.list}>{subscriptionList}</List>;
   };
 
   return (
     <Container>
       <Spacing.section.Minor />
+      {/* {renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])} */}
 
       {userSubscriptionsLoading ? (
         <CircularProgress />
       ) : (
+        // renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])
         <FixedSizeList
           itemSize={400}
           width={'100%'}
