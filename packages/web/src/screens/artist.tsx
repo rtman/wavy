@@ -62,6 +62,7 @@ export const Artist = () => {
   >(consts.queries.artist.ARTIST_BY_ID, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
+      console.log('*debug*  artist data', data);
       setArtist(data.artistById);
     },
   });
@@ -69,10 +70,10 @@ export const Artist = () => {
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
-  const artistSongs =
-    (artist?.albums ?? []).map((album) =>
-      (album.songs ?? []).reduce((song) => song)
-    ) ?? [];
+  const artistSongs: Song[] = [];
+  (artist?.albums ?? []).forEach((album) =>
+    (album.songs ?? []).forEach((song) => artistSongs.push(song))
+  );
   const artistAlbums = artist?.albums ?? [];
   const artistName = artist?.name ?? '';
   const artistDescription = artist?.description ?? '';
@@ -105,6 +106,7 @@ export const Artist = () => {
   };
 
   const renderTopSongs = () => {
+    console.log('*debug artistSongs', artistSongs);
     const artistSongsDesc = artistSongs
       .sort((a, b) => b.playCount - a.playCount)
       .slice(0, 5);
@@ -139,22 +141,27 @@ export const Artist = () => {
     if (artistAlbums) {
       const albumsList = artistAlbums.map(
         (album: Album, albumIndex: number) => {
-          const songsList = artistSongs.map((song: Song, songIndex: number) => (
-            <Fragment key={song.id}>
-              <SongListItem
-                leftAccessory={
-                  <Flex alignItems="center" alignSelf="center">
-                    <Typography variant="body1">{songIndex + 1}</Typography>
-                    <Spacing.BetweenParagraphs />
-                  </Flex>
-                }
-                title={song.title}
-                // caption={song.label?.name}
-                data={song}
-              />
-              {songIndex < (album.songs ?? []).length - 1 ? <Divider /> : null}
-            </Fragment>
-          ));
+          console.log('*debug* artistSongs', artistSongs);
+          const songsList = (album.songs ?? []).map(
+            (song: Song, songIndex: number) => (
+              <Fragment key={song.id}>
+                <SongListItem
+                  leftAccessory={
+                    <Flex alignItems="center" alignSelf="center">
+                      <Typography variant="body1">{songIndex + 1}</Typography>
+                      <Spacing.BetweenParagraphs />
+                    </Flex>
+                  }
+                  title={song.title}
+                  // caption={song.label?.name}
+                  data={song}
+                />
+                {songIndex < (album.songs ?? []).length - 1 ? (
+                  <Divider />
+                ) : null}
+              </Fragment>
+            )
+          );
 
           return (
             <Fragment key={album.id}>

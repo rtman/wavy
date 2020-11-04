@@ -83,18 +83,20 @@ export const BaseListItem = (
             </>
           }
         />
-        {/* {menuItems !== undefined ? ( */}
+
         <ListItemSecondaryAction>
-          <IconButton
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={onClickOpenMenu}
-            className={classes.menuButton}
-          >
-            <MoreVert />
-          </IconButton>
+          {menuItems !== undefined ? (
+            <IconButton
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={onClickOpenMenu}
+              className={classes.menuButton}
+            >
+              <MoreVert />
+            </IconButton>
+          ) : null}
         </ListItemSecondaryAction>
-        {/* ) : null} */}
+
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
