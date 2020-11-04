@@ -96,17 +96,16 @@ export const BaseListItem = (
             </IconButton>
           ) : null}
         </ListItemSecondaryAction>
-
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={onMenuClose}
-        >
-          {menuItems}
-        </Menu>
       </ListItem>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={onMenuClose}
+      >
+        {menuItems}
+      </Menu>
     </>
   );
 };

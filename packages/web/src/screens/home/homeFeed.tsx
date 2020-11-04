@@ -36,7 +36,13 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { Fragment, useCallback, useContext, useMemo } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+} from 'react';
 import { FixedSizeList } from 'react-window';
 import { CSSProperties } from 'styled-components';
 
@@ -54,6 +60,7 @@ const useStyles = makeStyles(() => ({
 export const HomeFeed = () => {
   const classes = useStyles();
   const userContext = useContext(UserContext);
+  const listRef = React.createRef<FixedSizeList>();
   const user = userContext?.user;
   console.log('*debug* HomeFeed user?.id', user?.id);
   const {
@@ -174,6 +181,8 @@ export const HomeFeed = () => {
     }
   };
 
+  listRef.current?.scrollToItem(8);
+
   const renderSection = ({
     data,
     index,
@@ -190,6 +199,7 @@ export const HomeFeed = () => {
         {/* {renderCardList(data[index])} */}
 
         <FixedSizeList
+          ref={listRef}
           itemSize={240}
           width={window.screen.width}
           height={300}
@@ -218,6 +228,7 @@ export const HomeFeed = () => {
           layout="horizontal"
           itemCount={subscription.data.length}
           itemData={subscription.data}
+          overscanCount={2}
         >
           {renderCard}
         </FixedSizeList>
@@ -241,6 +252,7 @@ export const HomeFeed = () => {
           height={window.screen.height}
           itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
           itemData={userSubscriptionsData?.getUserSubscriptions}
+          overscanCount={2}
         >
           {renderSection}
         </FixedSizeList>

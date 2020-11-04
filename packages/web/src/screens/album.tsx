@@ -17,7 +17,7 @@ import {
   QueryAlbumByIdArgs,
   Song,
 } from 'commonTypes';
-import { Flex, ItemCard, SongListItem, Spacing } from 'components';
+import { AlbumCard, Flex, ItemCard, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
@@ -109,13 +109,20 @@ export const Album = () => {
 
     if (filteredAlbums.length > 0) {
       const albumsList = filteredAlbums.map((album: AlbumType) => (
-        <ItemCard key={album.id} item={album} />
+        <AlbumCard
+          key={album.id}
+          title={album.title}
+          // subtitle={album.artist.name}
+          caption={album.label?.name ?? undefined}
+          data={album}
+          image={album.profileImageUrlThumb}
+        />
       ));
       return (
         <>
           <Typography variant="h5">More By {artistName}</Typography>
           <Spacing.section.Minor />
-          <GridList className={classes.gridList}>{albumsList}</GridList>
+          <Flex style={{ overflowX: 'auto' }}>{albumsList}</Flex>
         </>
       );
     } else {
