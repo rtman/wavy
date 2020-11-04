@@ -183,6 +183,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
 
   // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
 
+  console.log('*debug* playerContext');
+
   return (
     <PlayerContext.Provider
       value={{

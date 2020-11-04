@@ -1,14 +1,26 @@
 import { useQuery } from '@apollo/react-hooks';
 import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardMedia,
   CircularProgress,
   Container,
   List,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { styles } from '@material-ui/pickers/views/Clock/Clock';
 import {
+  Album,
+  Artist,
+  Label,
+  Playlist,
   Query,
+  Song,
+  User,
   UserSubscriptionData,
+  UserSubscriptionEntity,
   UserSubscriptionResult,
 } from 'commonTypes';
 import {
@@ -23,7 +35,9 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { Fragment, useCallback, useContext } from 'react';
+import React, { Fragment, useCallback, useContext, useMemo } from 'react';
+import { FixedSizeList } from 'react-window';
+import { CSSProperties } from 'styled-components';
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -51,104 +65,119 @@ export const HomeFeed = () => {
 
   console.log('*debug* HomeFeed subscriptionData', userSubscriptionsData);
 
-  const renderCardList = useCallback(
-    (subscriptionResult: UserSubscriptionResult) => {
-      console.log('*debug* homeFeed - renderCardList');
-      const items = subscriptionResult.data;
-      if ((items?.length ?? 0) > 0) {
-        const itemsList: JSX.Element[] = [];
-        items.forEach((item) => {
-          const cardElement = makeCard(item);
-          if (cardElement !== undefined) {
-            itemsList.push(cardElement);
-          }
-        });
-
-        return <Flex style={{ overflowX: 'auto' }}>{itemsList}</Flex>;
-      } else {
-        return null;
-      }
-    },
-    []
-  );
-
   const makeCard = useCallback((data: UserSubscriptionData) => {
-    switch (data.__typename) {
-      case 'Album':
+    switch (data.type) {
+      case UserSubscriptionEntity.Album: {
+        const albumData = data as Album;
+
         return (
           <AlbumCard
-            title={data.title}
-            subtitle={data.artist.name}
-            caption={data.label?.name ?? undefined}
-            data={data}
-            image={data.profileImageUrlThumb}
+            title={albumData.title}
+            subtitle={albumData.artist.name}
+            caption={albumData.label?.name ?? undefined}
+            data={albumData}
+            image={albumData.profileImageUrlThumb}
           />
         );
-      case 'Artist':
+      }
+      case UserSubscriptionEntity.Artist: {
+        const artistData = data as Artist;
+
         return (
           <ArtistCard
-            title={data.name}
-            data={data}
-            image={data.profileImageUrlThumb}
+            title={artistData.name}
+            data={artistData}
+            image={artistData.profileImageUrlThumb}
           />
         );
-      case 'Label':
+      }
+      case UserSubscriptionEntity.Label: {
+        const labelData = data as Label;
+
         return (
           <LabelCard
-            title={data.name}
-            data={data}
-            image={data.profileImageUrlThumb}
+            title={labelData.name}
+            data={labelData}
+            image={labelData.profileImageUrlThumb}
           />
         );
-      case 'Playlist':
+      }
+      case UserSubscriptionEntity.Playlist: {
+        const playlistData = data as Playlist;
+
         return (
           <PlaylistCard
-            title={data.title}
-            data={data}
-            image={data.profileImageUrlThumb}
+            title={playlistData.title}
+            data={playlistData}
+            image={playlistData.profileImageUrlThumb}
           />
         );
-      case 'Song':
+      }
+
+      case UserSubscriptionEntity.Song: {
+        const songData = data as Song;
+
         return (
           <SongCard
-            title={data.title}
-            subtitle={data.artist.name}
-            caption={data.label?.name ?? undefined}
-            data={data}
-            image={data.album.profileImageUrlThumb}
+            title={songData.title}
+            subtitle={songData.artist.name}
+            caption={songData.label?.name ?? undefined}
+            data={songData}
+            image={songData.album.profileImageUrlThumb}
           />
         );
-      case 'User':
-        return <UserCard data={data} />;
+      }
+      case UserSubscriptionEntity.User: {
+        const userData = data as User;
+
+        return <UserCard data={userData} />;
+      }
     }
   }, []);
 
-  const renderSections = useCallback(
-    (data: UserSubscriptionResult[]) => {
-      console.log('*debug* homeFeed renderSections');
-      const filteredData = data.filter(
-        (subscription) => subscription.data.length > 0
-      );
+  const renderCard = ({
+    data,
+    index,
+    style,
+  }: {
+    data: UserSubscriptionData;
+    index: number;
+    style: CSSProperties;
+  }) => {
+    return (
+      <div key={index} style={style}>
+        {makeCard(data[index])}
+      </div>
+    );
+  };
 
-      const subscriptionList = filteredData.map((subscription) => (
-        <Fragment key={subscription.id}>
-          <Typography variant="h5">{subscription.title}</Typography>
+  const renderSection = ({
+    data,
+    index,
+    style,
+  }: {
+    data: UserSubscriptionResult;
+    index: number;
+    style: CSSProperties;
+  }) => {
+    return (
+      <div style={style}>
+        <Typography variant="h5">{data.title}</Typography>
+        <div>TEST</div>
 
-          <Spacing.section.Minor />
-
-          {userSubscriptionsLoading ? (
-            <CircularProgress />
-          ) : (
-            renderCardList(subscription)
-          )}
-
-          <Spacing.section.Minor />
-        </Fragment>
-      ));
-      return <List className={classes.list}>{subscriptionList}</List>;
-    },
-    [userSubscriptionsLoading]
-  );
+        <FixedSizeList
+          itemSize={240}
+          width={window.screen.width}
+          height={300}
+          layout="horizontal"
+          itemCount={data[index].data.length}
+          itemData={data[index].data}
+        >
+          {renderCard}
+        </FixedSizeList>
+      </div>
+    );
+  };
 
   return (
     <Container>
@@ -157,7 +186,15 @@ export const HomeFeed = () => {
       {userSubscriptionsLoading ? (
         <CircularProgress />
       ) : (
-        renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])
+        <FixedSizeList
+          itemSize={400}
+          width={'100%'}
+          height={window.screen.height}
+          itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
+          itemData={userSubscriptionsData?.getUserSubscriptions}
+        >
+          {renderSection}
+        </FixedSizeList>
       )}
     </Container>
   );
