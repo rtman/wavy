@@ -24,25 +24,22 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
     playerContext?.replaceQueueWithSongs(data.songs ?? []);
   };
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseListItem onClick={onClick ?? onClickPlay} {...props} />
-      <AlbumMenuItems
-        data={data}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? onClickPlay}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <AlbumMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

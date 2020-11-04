@@ -25,15 +25,6 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
 
   const { data, onClick } = props;
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const closeMenu = useCallback(() => {
     setAnchorEl(null);
   }, []);
@@ -47,17 +38,19 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
   };
 
   return (
-    <>
-      <BaseListItem
-        onClick={onClick ?? handleClickPlayNow}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <PlaylistMenuItems
-        data={data}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? handleClickPlayNow}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <PlaylistMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

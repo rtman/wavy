@@ -22,15 +22,6 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
 
   const { data, onClick } = props;
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const closeMenu = () => {
     setAnchorEl(null);
   };
@@ -41,17 +32,19 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
   };
 
   return (
-    <>
-      <BaseListItem
-        onClick={onClick ?? onClickGoToArtist}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <ArtistMenuItems
-        data={data}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? onClickGoToArtist}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <ArtistMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

@@ -22,15 +22,6 @@ export const LabelListItem = (props: LabelListItemProps) => {
 
   const { data, onClick } = props;
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const onClickGoToLabel = () => {
     history.push(`${consts.routes.LABEL}/${data.id}`);
     setAnchorEl(null);
@@ -39,19 +30,19 @@ export const LabelListItem = (props: LabelListItemProps) => {
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseListItem
-        onClick={onClick ?? onClickGoToLabel}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <LabelMenuItems
-        data={data}
-        // anchorEl={anchorEl}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-        // setAnchorEl={setAnchorEl}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? onClickGoToLabel}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <LabelMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

@@ -15,15 +15,6 @@ export const UserListItem = (props: UserListItemProps) => {
 
   const { onClick, user } = props;
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const onClickGoToUser = () => {
     // TODO: implement when user screen is available
   };
@@ -31,17 +22,19 @@ export const UserListItem = (props: UserListItemProps) => {
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseListItem
-        onClick={onClick ?? onClickGoToUser}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <UserMenuItems
-        data={user}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? onClickGoToUser}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <UserMenuItems
+          data={user}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };

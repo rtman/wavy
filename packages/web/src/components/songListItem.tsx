@@ -18,15 +18,6 @@ export const SongListItem = (props: SongListItemProps) => {
 
   const { onClick, data } = props;
 
-  const onClickOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    event.preventDefault();
-    setMenuPosition({
-      top: event.pageY,
-      left: event.pageX,
-    });
-  };
-
   const onClickPlay = () => {
     playerContext?.replaceQueueWithSongs([data]);
   };
@@ -34,17 +25,19 @@ export const SongListItem = (props: SongListItemProps) => {
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
   return (
-    <>
-      <BaseListItem
-        onClick={onClick ?? onClickPlay}
-        onClickOpenMenu={onClickOpenMenu}
-        {...props}
-      />
-      <SongMenuItems
-        data={data}
-        menuPosition={menuPosition}
-        closeMenu={closeMenu}
-      />
-    </>
+    <BaseListItem
+      onClick={onClick ?? onClickPlay}
+      setMenuPosition={setMenuPosition}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+      menuItems={
+        <SongMenuItems
+          data={data}
+          menuPosition={menuPosition}
+          closeMenu={closeMenu}
+        />
+      }
+      {...props}
+    />
   );
 };
