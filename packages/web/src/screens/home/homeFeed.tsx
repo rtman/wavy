@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import { styles } from '@material-ui/pickers/views/Clock/Clock';
 import {
   Album,
@@ -40,6 +41,7 @@ import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, {
   Fragment,
+  memo,
   useCallback,
   useContext,
   useMemo,
@@ -48,7 +50,6 @@ import React, {
 } from 'react';
 import { FixedSizeList } from 'react-window';
 import { CSSProperties } from 'styled-components';
-import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -65,13 +66,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const HomeFeed = () => {
-  const classes = useStyles();
   const userContext = useContext(UserContext);
-  const listRef = React.createRef<FixedSizeList>();
   const user = userContext?.user;
   console.log('*debug* HomeFeed user?.id', user?.id);
-
-  const [scrollPositions, setScrollPositions] = useState<number[]>([]);
 
   const {
     loading: userSubscriptionsLoading,
@@ -88,77 +85,93 @@ export const HomeFeed = () => {
 
   console.log('*debug* HomeFeed subscriptionData', userSubscriptionsData);
 
-  const makeCard = useCallback((data: UserSubscriptionData) => {
-    switch (data.type) {
-      case UserSubscriptionEntity.Album: {
-        const albumData = data as Album;
+  return (
+    <Container>
+      <Spacing.section.Minor />
+      {userSubscriptionsLoading ? (
+        <CircularProgress />
+      ) : (
+        <FixedSizeList
+          itemSize={400}
+          width={'100%'}
+          height={window.screen.height}
+          itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
+          itemData={userSubscriptionsData?.getUserSubscriptions}
+          overscanCount={2}
+        >
+          {RenderSection}
+        </FixedSizeList>
+      )}
+    </Container>
+  );
+};
 
-        return (
-          <AlbumCard
-            title={albumData.title}
-            subtitle={albumData.artist.name}
-            caption={albumData.label?.name ?? undefined}
-            data={albumData}
-            image={albumData.profileImageUrlThumb}
-          />
-        );
-      }
-      case UserSubscriptionEntity.Artist: {
-        const artistData = data as Artist;
+const RenderSection = ({
+  data,
+  index,
+  style,
+}: {
+  data: UserSubscriptionResult;
+  index: number;
+  style: CSSProperties;
+}) => {
+  const listRef = React.createRef<FixedSizeList>();
+  const classes = useStyles();
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const totalScrollLength = data[index].data.length - 1;
+  const scrollItemsPerBlock = 4;
 
-        return (
-          <ArtistCard
-            title={artistData.name}
-            data={artistData}
-            image={artistData.profileImageUrlThumb}
-          />
-        );
-      }
-      case UserSubscriptionEntity.Label: {
-        const labelData = data as Label;
-
-        return (
-          <LabelCard
-            title={labelData.name}
-            data={labelData}
-            image={labelData.profileImageUrlThumb}
-          />
-        );
-      }
-      case UserSubscriptionEntity.Playlist: {
-        const playlistData = data as Playlist;
-
-        return (
-          <PlaylistCard
-            title={playlistData.title}
-            data={playlistData}
-            image={playlistData.profileImageUrlThumb}
-          />
-        );
-      }
-
-      case UserSubscriptionEntity.Song: {
-        const songData = data as Song;
-
-        return (
-          <SongCard
-            title={songData.title}
-            subtitle={songData.artist.name}
-            caption={songData.label?.name ?? undefined}
-            data={songData}
-            image={songData.album.profileImageUrlThumb}
-          />
-        );
-      }
-      case UserSubscriptionEntity.User: {
-        const userData = data as User;
-
-        return <UserCard data={userData} />;
-      }
+  const onClickLeft = () => {
+    let positionToScrollTo = scrollPosition - scrollItemsPerBlock;
+    if (positionToScrollTo < 0) {
+      positionToScrollTo = 0;
     }
-  }, []);
 
-  const renderCard = ({
+    listRef.current?.scrollToItem(positionToScrollTo, 'start');
+    setScrollPosition(positionToScrollTo);
+  };
+
+  const onClickRight = () => {
+    let positionToScrollTo = scrollPosition + scrollItemsPerBlock;
+    if (positionToScrollTo > totalScrollLength) {
+      positionToScrollTo = 0;
+    }
+
+    listRef.current?.scrollToItem(positionToScrollTo, 'start');
+    setScrollPosition(positionToScrollTo);
+  };
+
+  return (
+    <div key={index} style={style}>
+      <Typography variant="h5">{data[index].title}</Typography>
+      <Spacing.section.Minor />
+      <Flex alignItems="center">
+        <IconButton onClick={onClickLeft}>
+          <ArrowLeft className={classes.arrowButtons} />
+        </IconButton>
+        <FixedSizeList
+          ref={listRef}
+          itemSize={240}
+          width={window.screen.width - consts.drawer.width}
+          height={300}
+          layout="horizontal"
+          itemCount={data[index].data.length}
+          itemData={data[index].data}
+          style={{ overflow: 'hidden' }}
+        >
+          {renderCard}
+        </FixedSizeList>
+        <IconButton onClick={onClickRight}>
+          <ArrowRight className={classes.arrowButtons} />
+        </IconButton>
+      </Flex>
+      <Spacing.section.Minor />
+    </div>
+  );
+};
+
+const renderCard = memo(
+  ({
     data,
     index,
     style,
@@ -172,138 +185,75 @@ export const HomeFeed = () => {
         {makeCard(data[index])}
       </div>
     );
-  };
+  }
+);
 
-  const renderCardList = (subscriptionResult: UserSubscriptionResult) => {
-    const items = subscriptionResult.data;
-    if ((items?.length ?? 0) > 0) {
-      const itemsList: JSX.Element[] = [];
-      items.forEach((item) => {
-        const cardElement = makeCard(item);
-        if (cardElement !== undefined) {
-          itemsList.push(cardElement);
-        }
-      });
+const makeCard = (data: UserSubscriptionData) => {
+  switch (data.type) {
+    case UserSubscriptionEntity.Album: {
+      const albumData = data as Album;
 
-      return <GridList className={classes.gridList}>{itemsList}</GridList>;
-    } else {
-      return null;
+      return (
+        <AlbumCard
+          title={albumData.title}
+          subtitle={albumData.artist.name}
+          caption={albumData.label?.name ?? undefined}
+          data={albumData}
+          image={albumData.profileImageUrlThumb}
+        />
+      );
     }
-  };
+    case UserSubscriptionEntity.Artist: {
+      const artistData = data as Artist;
 
-  const renderSection = ({
-    data,
-    index,
-    style,
-  }: {
-    data: UserSubscriptionResult;
-    index: number;
-    style: CSSProperties;
-  }) => {
-    // const listRef = React.createRef<FixedSizeList>();
-    // const [scrollPosition, setScrollPosition] = useState<number>(0);
-    const totalScrollLength = data[index].data.length;
-    const scrollItemsPerBlock = 4;
-    const scrollPosition = scrollPositions[index] ?? 0;
+      return (
+        <ArtistCard
+          title={artistData.name}
+          data={artistData}
+          image={artistData.profileImageUrlThumb}
+        />
+      );
+    }
+    case UserSubscriptionEntity.Label: {
+      const labelData = data as Label;
 
-    const onClickLeft = () => {
-      // let positionToScrollTo = scrollPosition - scrollItemsPerBlock;
-      // if (positionToScrollTo < 0) {
-      //   positionToScrollTo = 0;
-      // }
+      return (
+        <LabelCard
+          title={labelData.name}
+          data={labelData}
+          image={labelData.profileImageUrlThumb}
+        />
+      );
+    }
+    case UserSubscriptionEntity.Playlist: {
+      const playlistData = data as Playlist;
 
-      // listRef.current?.scrollToItem(positionToScrollTo, 'start');
-      // const clonedScrollPositions = [...scrollPositions];
-      // clonedScrollPositions[index] = positionToScrollTo;
-      // setScrollPositions([...clonedScrollPositions]);
-      listRef.current?.scrollToItem(0);
-    };
+      return (
+        <PlaylistCard
+          title={playlistData.title}
+          data={playlistData}
+          image={playlistData.profileImageUrlThumb}
+        />
+      );
+    }
 
-    const onClickRight = () => {
-      // let positionToScrollTo = scrollPosition + scrollItemsPerBlock;
-      // if (positionToScrollTo > totalScrollLength) {
-      //   positionToScrollTo = 0;
-      // }
+    case UserSubscriptionEntity.Song: {
+      const songData = data as Song;
 
-      // listRef.current?.scrollToItem(positionToScrollTo, 'start');
-      // const clonedScrollPositions = [...scrollPositions];
-      // clonedScrollPositions[index] = positionToScrollTo;
-      // setScrollPositions([...clonedScrollPositions]);
-      listRef.current?.scrollToItem(4);
-    };
+      return (
+        <SongCard
+          title={songData.title}
+          subtitle={songData.artist.name}
+          caption={songData.label?.name ?? undefined}
+          data={songData}
+          image={songData.album.profileImageUrlThumb}
+        />
+      );
+    }
+    case UserSubscriptionEntity.User: {
+      const userData = data as User;
 
-    return (
-      <div key={index} style={style}>
-        <Typography variant="h5">{data[index].title}</Typography>
-        <Spacing.section.Minor />
-        {/* {renderCardList(data[index])} */}
-        <Flex alignItems="center">
-          <IconButton onClick={onClickLeft}>
-            <ArrowLeft className={classes.arrowButtons} />
-          </IconButton>
-          <FixedSizeList
-            ref={listRef}
-            itemSize={240}
-            width={window.screen.width}
-            height={300}
-            layout="horizontal"
-            itemCount={data[index].data.length}
-            itemData={data[index].data}
-          >
-            {renderCard}
-          </FixedSizeList>
-          <IconButton onClick={onClickRight}>
-            <ArrowRight className={classes.arrowButtons} />
-          </IconButton>
-        </Flex>
-        <Spacing.section.Minor />
-      </div>
-    );
-  };
-
-  // const renderSections = (data: UserSubscriptionResult[]) => {
-  //   const subscriptionList = data.map((subscription) => (
-  //     <Fragment key={subscription.id}>
-  //       <Typography variant="h5">{subscription.title}</Typography>
-
-  //       {/* {renderCardList(data)} */}
-
-  //       <FixedSizeList
-  //         itemSize={240}
-  //         width={window.screen.width}
-  //         height={300}
-  //         layout="horizontal"
-  //         itemCount={subscription.data.length}
-  //         itemData={subscription.data}
-  //         overscanCount={2}
-  //       >
-  //         {renderCard}
-  //       </FixedSizeList>
-  //     </Fragment>
-  //   ));
-  //   return <List className={classes.list}>{subscriptionList}</List>;
-  // };
-
-  return (
-    <Container>
-      <Spacing.section.Minor />
-      {/* {renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])} */}
-
-      {userSubscriptionsLoading ? (
-        <CircularProgress />
-      ) : (
-        // renderSections(userSubscriptionsData?.getUserSubscriptions ?? [])
-        <FixedSizeList
-          itemSize={400}
-          width={'100%'}
-          height={window.screen.height}
-          itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
-          itemData={userSubscriptionsData?.getUserSubscriptions}
-          overscanCount={2}
-        >
-          {renderSection}
-        </FixedSizeList>
-      )}
-    </Container>
-  );
+      return <UserCard data={userData} />;
+    }
+  }
 };
