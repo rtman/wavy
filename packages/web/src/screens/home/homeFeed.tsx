@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -7,6 +8,7 @@ import {
   CircularProgress,
   Container,
   GridList,
+  IconButton,
   List,
   Typography,
 } from '@material-ui/core';
@@ -42,15 +44,20 @@ import React, {
   useContext,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 import { FixedSizeList } from 'react-window';
 import { CSSProperties } from 'styled-components';
+import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
   gridList: {
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
+  },
+  arrowButtons: {
+    fontSize: '2em',
   },
   list: {
     width: '100%',
@@ -63,6 +70,9 @@ export const HomeFeed = () => {
   const listRef = React.createRef<FixedSizeList>();
   const user = userContext?.user;
   console.log('*debug* HomeFeed user?.id', user?.id);
+
+  const [scrollPositions, setScrollPositions] = useState<number[]>([]);
+
   const {
     loading: userSubscriptionsLoading,
     // error: newArtistsError,
@@ -181,8 +191,6 @@ export const HomeFeed = () => {
     }
   };
 
-  listRef.current?.scrollToItem(8);
-
   const renderSection = ({
     data,
     index,
@@ -192,50 +200,89 @@ export const HomeFeed = () => {
     index: number;
     style: CSSProperties;
   }) => {
+    // const listRef = React.createRef<FixedSizeList>();
+    // const [scrollPosition, setScrollPosition] = useState<number>(0);
+    const totalScrollLength = data[index].data.length;
+    const scrollItemsPerBlock = 4;
+    const scrollPosition = scrollPositions[index] ?? 0;
+
+    const onClickLeft = () => {
+      // let positionToScrollTo = scrollPosition - scrollItemsPerBlock;
+      // if (positionToScrollTo < 0) {
+      //   positionToScrollTo = 0;
+      // }
+
+      // listRef.current?.scrollToItem(positionToScrollTo, 'start');
+      // const clonedScrollPositions = [...scrollPositions];
+      // clonedScrollPositions[index] = positionToScrollTo;
+      // setScrollPositions([...clonedScrollPositions]);
+      listRef.current?.scrollToItem(0);
+    };
+
+    const onClickRight = () => {
+      // let positionToScrollTo = scrollPosition + scrollItemsPerBlock;
+      // if (positionToScrollTo > totalScrollLength) {
+      //   positionToScrollTo = 0;
+      // }
+
+      // listRef.current?.scrollToItem(positionToScrollTo, 'start');
+      // const clonedScrollPositions = [...scrollPositions];
+      // clonedScrollPositions[index] = positionToScrollTo;
+      // setScrollPositions([...clonedScrollPositions]);
+      listRef.current?.scrollToItem(4);
+    };
+
     return (
       <div key={index} style={style}>
         <Typography variant="h5">{data[index].title}</Typography>
         <Spacing.section.Minor />
         {/* {renderCardList(data[index])} */}
-
-        <FixedSizeList
-          ref={listRef}
-          itemSize={240}
-          width={window.screen.width}
-          height={300}
-          layout="horizontal"
-          itemCount={data[index].data.length}
-          itemData={data[index].data}
-        >
-          {renderCard}
-        </FixedSizeList>
+        <Flex alignItems="center">
+          <IconButton onClick={onClickLeft}>
+            <ArrowLeft className={classes.arrowButtons} />
+          </IconButton>
+          <FixedSizeList
+            ref={listRef}
+            itemSize={240}
+            width={window.screen.width}
+            height={300}
+            layout="horizontal"
+            itemCount={data[index].data.length}
+            itemData={data[index].data}
+          >
+            {renderCard}
+          </FixedSizeList>
+          <IconButton onClick={onClickRight}>
+            <ArrowRight className={classes.arrowButtons} />
+          </IconButton>
+        </Flex>
         <Spacing.section.Minor />
       </div>
     );
   };
 
-  const renderSections = (data: UserSubscriptionResult[]) => {
-    const subscriptionList = data.map((subscription) => (
-      <Fragment key={subscription.id}>
-        <Typography variant="h5">{subscription.title}</Typography>
+  // const renderSections = (data: UserSubscriptionResult[]) => {
+  //   const subscriptionList = data.map((subscription) => (
+  //     <Fragment key={subscription.id}>
+  //       <Typography variant="h5">{subscription.title}</Typography>
 
-        {/* {renderCardList(data)} */}
+  //       {/* {renderCardList(data)} */}
 
-        <FixedSizeList
-          itemSize={240}
-          width={window.screen.width}
-          height={300}
-          layout="horizontal"
-          itemCount={subscription.data.length}
-          itemData={subscription.data}
-          overscanCount={2}
-        >
-          {renderCard}
-        </FixedSizeList>
-      </Fragment>
-    ));
-    return <List className={classes.list}>{subscriptionList}</List>;
-  };
+  //       <FixedSizeList
+  //         itemSize={240}
+  //         width={window.screen.width}
+  //         height={300}
+  //         layout="horizontal"
+  //         itemCount={subscription.data.length}
+  //         itemData={subscription.data}
+  //         overscanCount={2}
+  //       >
+  //         {renderCard}
+  //       </FixedSizeList>
+  //     </Fragment>
+  //   ));
+  //   return <List className={classes.list}>{subscriptionList}</List>;
+  // };
 
   return (
     <Container>
