@@ -1,4 +1,7 @@
-export const filterMediaStates = (type: string, state: string) => {
+export const filterMediaStates = (
+  currentMediaState: string,
+  latchedMediaState: string
+) => {
   // const statesThatStopPlayback = ['abort', 'pause', 'error', 'ended', 'seeked', 'seeking', 'stalled', 'suspend', 'waiting'];
   const statesThatStopPlayback = [
     'abort',
@@ -29,13 +32,13 @@ export const filterMediaStates = (type: string, state: string) => {
     'volumechange',
   ];
 
-  if (dontCareStates.includes(type)) {
-    return state;
-  } else if (['playing', 'pause', 'ended'].includes(type)) {
-    return type;
-  } else if (statesThatStopPlayback.includes(type)) {
-    return state;
+  if (dontCareStates.includes(currentMediaState)) {
+    return latchedMediaState;
+  } else if (['playing', 'pause', 'ended'].includes(currentMediaState)) {
+    return currentMediaState;
+  } else if (statesThatStopPlayback.includes(currentMediaState)) {
+    return latchedMediaState;
   } else {
-    return state;
+    return latchedMediaState;
   }
 };

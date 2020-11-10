@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       top: 'auto',
       bottom: 0,
-      // backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
     },
     grow: {

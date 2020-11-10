@@ -1,20 +1,12 @@
 import { useQuery } from '@apollo/react-hooks';
 import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardMedia,
   CircularProgress,
   Container,
-  GridList,
   IconButton,
-  List,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
-import { styles } from '@material-ui/pickers/views/Clock/Clock';
 import {
   Album,
   Artist,
@@ -39,16 +31,8 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, {
-  Fragment,
-  memo,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { FixedSizeList } from 'react-window';
+import React, { memo, useContext, useState } from 'react';
+import { FixedSizeList, areEqual } from 'react-window';
 import { CSSProperties } from 'styled-components';
 
 const useStyles = makeStyles(() => ({
@@ -106,69 +90,93 @@ export const HomeFeed = () => {
   );
 };
 
-const RenderSection = ({
-  data,
-  index,
-  style,
-}: {
-  data: UserSubscriptionResult;
-  index: number;
-  style: CSSProperties;
-}) => {
-  const listRef = React.createRef<FixedSizeList>();
-  const classes = useStyles();
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
-  const totalScrollLength = data[index].data.length - 1;
-  const scrollItemsPerBlock = 4;
+const RenderSection = memo(
+  ({
+    data,
+    index,
+    style,
+  }: {
+    data: UserSubscriptionResult;
+    index: number;
+    style: CSSProperties;
+  }) => {
+    const listRef = React.createRef<FixedSizeList>();
+    const classes = useStyles();
+    const scrollItemsPerBlock = 4;
 
-  const onClickLeft = () => {
-    let positionToScrollTo = scrollPosition - scrollItemsPerBlock;
-    if (positionToScrollTo < 0) {
-      positionToScrollTo = 0;
-    }
+    const [scrollPosition, setScrollPosition] = useState<number>(
+      scrollItemsPerBlock
+    );
+    const totalScrollLength = data[index].data.length - 1;
 
-    listRef.current?.scrollToItem(positionToScrollTo, 'start');
-    setScrollPosition(positionToScrollTo);
-  };
+    const onClickLeft = () => {
+      let positionToScrollTo = 0;
 
-  const onClickRight = () => {
-    let positionToScrollTo = scrollPosition + scrollItemsPerBlock;
-    if (positionToScrollTo > totalScrollLength) {
-      positionToScrollTo = 0;
-    }
+      if (scrollPosition === 0) {
+        positionToScrollTo = 0;
+      } else {
+        positionToScrollTo = scrollPosition - scrollItemsPerBlock;
 
-    listRef.current?.scrollToItem(positionToScrollTo, 'start');
-    setScrollPosition(positionToScrollTo);
-  };
+        if (positionToScrollTo < 0) {
+          positionToScrollTo = 0;
+        }
+      }
 
-  return (
-    <div key={index} style={style}>
-      <Typography variant="h5">{data[index].title}</Typography>
-      <Spacing.section.Minor />
-      <Flex alignItems="center">
-        <IconButton onClick={onClickLeft}>
-          <ArrowLeft className={classes.arrowButtons} />
-        </IconButton>
-        <FixedSizeList
-          ref={listRef}
-          itemSize={240}
-          width={window.screen.width - consts.drawer.width}
-          height={300}
-          layout="horizontal"
-          itemCount={data[index].data.length}
-          itemData={data[index].data}
-          style={{ overflow: 'hidden' }}
-        >
-          {renderCard}
-        </FixedSizeList>
-        <IconButton onClick={onClickRight}>
-          <ArrowRight className={classes.arrowButtons} />
-        </IconButton>
-      </Flex>
-      <Spacing.section.Minor />
-    </div>
-  );
-};
+      listRef.current?.scrollToItem(positionToScrollTo, 'start');
+      setScrollPosition(positionToScrollTo);
+    };
+
+    const onClickRight = () => {
+      let positionToScrollTo = 0;
+
+      if (scrollPosition === totalScrollLength) {
+        positionToScrollTo = 0;
+      } else {
+        if (scrollPosition === 0) {
+          positionToScrollTo = scrollPosition + scrollItemsPerBlock * 2;
+        } else {
+          positionToScrollTo = scrollPosition + scrollItemsPerBlock;
+        }
+
+        if (positionToScrollTo > totalScrollLength) {
+          positionToScrollTo = totalScrollLength;
+        }
+      }
+
+      listRef.current?.scrollToItem(positionToScrollTo);
+      setScrollPosition(positionToScrollTo);
+    };
+
+    return (
+      <div key={index} style={style}>
+        <Typography variant="h5">{data[index].title}</Typography>
+        <Spacing.section.Minor />
+        <Flex alignItems="center">
+          <IconButton onClick={onClickLeft}>
+            <ArrowLeft className={classes.arrowButtons} />
+          </IconButton>
+          <FixedSizeList
+            ref={listRef}
+            itemSize={240}
+            width={window.screen.width - consts.drawer.width}
+            height={300}
+            layout="horizontal"
+            itemCount={data[index].data.length}
+            itemData={data[index].data}
+            style={{ overflow: 'hidden' }}
+          >
+            {renderCard}
+          </FixedSizeList>
+          <IconButton onClick={onClickRight}>
+            <ArrowRight className={classes.arrowButtons} />
+          </IconButton>
+        </Flex>
+        <Spacing.section.Minor />
+      </div>
+    );
+  },
+  areEqual
+);
 
 const renderCard = memo(
   ({
@@ -185,7 +193,8 @@ const renderCard = memo(
         {makeCard(data[index])}
       </div>
     );
-  }
+  },
+  areEqual
 );
 
 const makeCard = (data: UserSubscriptionData) => {

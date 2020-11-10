@@ -1,3 +1,5 @@
+// import './wdyr';
+
 import { ApolloProvider } from '@apollo/react-hooks';
 import { CssBaseline } from '@material-ui/core';
 import ApolloClient from 'apollo-boost';

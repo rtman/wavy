@@ -1,6 +1,6 @@
 import { BaseCardProps, MenuPosition, User } from 'commonTypes';
 // import { PlayerContext } from 'context';
-import React, { CSSProperties, useCallback, useContext, useState } from 'react';
+import React, { CSSProperties, useCallback, useState } from 'react';
 
 import { BaseCard } from './baseCard';
 import { UserMenuItems } from './userMenuItems';
@@ -12,18 +12,27 @@ interface UserCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const UserCard = (props: UserCardProps) => {
-  // const playerContext = useContext(PlayerContext);
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
 
-  const onClickGoToUser = () => {
+  const onClickGoToUser = useCallback(() => {
     // TODO: implement when user screen is available
-  };
+  }, []);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
+
+  const menuItems = useCallback(
+    () => (
+      <UserMenuItems
+        data={data}
+        menuPosition={menuPosition}
+        closeMenu={closeMenu}
+      />
+    ),
+    [data, menuPosition, closeMenu]
+  );
 
   return (
     <BaseCard
@@ -31,14 +40,10 @@ export const UserCard = (props: UserCardProps) => {
       setAnchorEl={setAnchorEl}
       onClick={onClick ?? onClickGoToUser}
       setMenuPosition={setMenuPosition}
-      menuItems={
-        <UserMenuItems
-          data={data}
-          menuPosition={menuPosition}
-          closeMenu={closeMenu}
-        />
-      }
+      menuItems={menuItems()}
       {...props}
     />
   );
 };
+
+UserCard.displayName = 'UserCard';

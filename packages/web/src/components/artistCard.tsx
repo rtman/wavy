@@ -1,7 +1,8 @@
 import { Artist, BaseCardProps, MenuPosition, Song } from 'commonTypes';
 // import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useCallback, useContext, useState } from 'react';
+import React, { CSSProperties, useCallback, useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 
 import { ArtistMenuItems } from './artistMenuItems';
 import { BaseCard } from './baseCard';
@@ -13,12 +14,16 @@ interface ArtistCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const ArtistCard = (props: ArtistCardProps) => {
-  const playerContext = useContext(PlayerContext);
+  const replaceQueueWithSongs = useContextSelector(
+    PlayerContext,
+    (values) => values?.replaceQueueWithSongs
+  );
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
+  const { albums } = data;
 
   // const onClickGoToArtist = () => {
   //   history.push(`${consts.routes.ARTIST}/${data.id}`);
@@ -26,14 +31,27 @@ export const ArtistCard = (props: ArtistCardProps) => {
   // };
 
   const onClickPlay = useCallback(() => {
-    const songs: Song[] = [];
-    (data.albums ?? []).forEach((album) => {
-      (album.songs ?? []).forEach((song) => songs.push(song));
-    });
-    playerContext?.replaceQueueWithSongs(songs);
-  }, []);
+    if (replaceQueueWithSongs) {
+      const songs: Song[] = [];
+      (albums ?? []).forEach((album) => {
+        (album.songs ?? []).forEach((song) => songs.push(song));
+      });
+      replaceQueueWithSongs(songs);
+    }
+  }, [albums]);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
+
+  const menuItems = useCallback(
+    () => (
+      <ArtistMenuItems
+        data={data}
+        menuPosition={menuPosition}
+        closeMenu={closeMenu}
+      />
+    ),
+    [data, menuPosition, closeMenu]
+  );
 
   return (
     <BaseCard
@@ -41,14 +59,10 @@ export const ArtistCard = (props: ArtistCardProps) => {
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
       setMenuPosition={setMenuPosition}
-      menuItems={
-        <ArtistMenuItems
-          data={data}
-          menuPosition={menuPosition}
-          closeMenu={closeMenu}
-        />
-      }
+      menuItems={menuItems()}
       {...props}
     />
   );
 };
+
+ArtistCard.displayName = 'ArtistCard';

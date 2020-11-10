@@ -1,13 +1,8 @@
 import { Album, BaseCardProps, MenuPosition } from 'commonTypes';
 import { BaseCard } from 'components';
 import { PlayerContext } from 'context';
-import React, {
-  CSSProperties,
-  memo,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import React, { CSSProperties, memo, useCallback, useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 
 import { AlbumMenuItems } from './albumMenuItems';
 
@@ -18,18 +13,36 @@ interface AlbumCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const AlbumCard = memo((props: AlbumCardProps) => {
-  const playerContext = useContext(PlayerContext);
+  const replaceQueueWithSongs = useContextSelector(
+    PlayerContext,
+    (values) => values?.replaceQueueWithSongs
+  );
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
 
+  const songs = data.songs ?? [];
+
   const onClickPlay = useCallback(() => {
-    playerContext?.replaceQueueWithSongs(data.songs ?? []);
-  }, []);
+    if (replaceQueueWithSongs) {
+      replaceQueueWithSongs(songs ?? []);
+    }
+  }, [songs, replaceQueueWithSongs]);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
+
+  const menuItems = useCallback(
+    () => (
+      <AlbumMenuItems
+        data={data}
+        menuPosition={menuPosition}
+        closeMenu={closeMenu}
+      />
+    ),
+    [closeMenu, data, menuPosition]
+  );
 
   return (
     <BaseCard
@@ -37,14 +50,10 @@ export const AlbumCard = memo((props: AlbumCardProps) => {
       setMenuPosition={setMenuPosition}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
-      menuItems={
-        <AlbumMenuItems
-          data={data}
-          menuPosition={menuPosition}
-          closeMenu={closeMenu}
-        />
-      }
+      menuItems={menuItems()}
       {...props}
     />
   );
 });
+
+AlbumCard.displayName = 'AlbumCard';

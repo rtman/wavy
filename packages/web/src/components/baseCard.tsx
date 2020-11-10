@@ -149,3 +149,5 @@ export const BaseCard = memo(
     );
   }
 );
+
+BaseCard.displayName = 'BaseCard';

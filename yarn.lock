@@ -3776,6 +3776,13 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
+"@welldone-software/why-did-you-render@6.0.0-rc.1":
+  version "6.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@welldone-software/why-did-you-render/-/why-did-you-render-6.0.0-rc.1.tgz#b0e92edb2e34e7af695cca1822844f02018d9814"
+  integrity sha512-qQe5w89tYnYtwRqlhdF33ivWjsQlGXkan5lFzNwpAoMEUFIbDuwvFiBUAbE76Lfz63GabSaf1vyuCusgJ7Rtqg==
+  dependencies:
+    lodash "^4"
+
 "@wry/context@^0.4.0":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.4.4.tgz#e50f5fa1d6cfaabf2977d1fda5ae91717f8815f8"
@@ -11425,6 +11432,11 @@ lodash@4.17.15, "lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
+lodash@^4:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 log-symbols@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
@@ -17696,6 +17708,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-context-selector@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/use-context-selector/-/use-context-selector-1.1.4.tgz#11c1cc3856a7ea06972a7b1e0402ce86b9a8ed31"
+  integrity sha512-qJ1KFw6G7XUTdyiUODz+XO0fRdfB6qApjZP/R+uqtO5ptGdmmq276z2my5hU8SFhzFEwXCj7tFNFA9w8LVkjJQ==
 
 use-subscription@^1.4.0:
   version "1.4.1"

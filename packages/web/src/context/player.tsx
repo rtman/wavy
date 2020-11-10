@@ -2,11 +2,12 @@ import { SongWithAudio } from 'commonTypes';
 import { Song } from 'commonTypes';
 import * as helpers from 'helpers';
 import React, {
-  createContext,
   FunctionComponent,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
+import { createContext } from 'use-context-selector';
 
 interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;
@@ -57,35 +58,39 @@ export const PlayerProvider: FunctionComponent = (props) => {
 
   let audio = new Audio();
 
-  const playAudio = (currentQueue: SongWithAudio[], position: number) => {
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.pause();
-      currentSong.audio.currentTime = 0;
-    }
+  const playAudio = useCallback(
+    (currentQueue: SongWithAudio[], position: number) => {
+      if (currentSong && currentSong.audio) {
+        currentSong.audio.pause();
+        currentSong.audio.currentTime = 0;
+      }
 
-    // might want to check if position in queue exists
-    const songToPlay = currentQueue[position];
-    setCurrentSong(songToPlay);
+      // might want to check if position in queue exists
+      const songToPlay = currentQueue[position];
+      setCurrentSong(songToPlay);
 
-    if (songToPlay && songToPlay.audio) {
-      setQueuePosition(position);
-      setLocalStorageQueuePosition(position);
-      songToPlay.audio.play();
-      audio = songToPlay.audio;
-    }
-  };
+      if (songToPlay && songToPlay.audio) {
+        setQueuePosition(position);
+        setLocalStorageQueuePosition(position);
+        songToPlay.audio.play();
+        audio = songToPlay.audio;
+      }
+    },
+    [currentSong?.audio, audio]
+  );
 
-  const unPause = () => {
+  const unPause = useCallback(() => {
     if (currentSong && currentSong.audio) {
       currentSong.audio.play();
     }
-  };
+  }, [currentSong?.audio]);
 
-  const pause = () => {
+  const pause = useCallback(() => {
+    console.log('*debug* pause currentSong', currentSong);
     if (currentSong && currentSong.audio) {
       currentSong.audio.pause();
     }
-  };
+  }, [currentSong?.audio]);
 
   useEffect(() => {
     const loadLocalStorageQueue = () => {
@@ -101,16 +106,16 @@ export const PlayerProvider: FunctionComponent = (props) => {
   }, []);
   // }, [localStorageQueue, localStorageQueuePosition]);
 
-  const addSongsToEndOfQueue = (songs: Song[]) => {
+  const addSongsToEndOfQueue = useCallback((songs: Song[]) => {
     if (songs.length > 0) {
       const resolvedSongs = addAudioElements(songs);
       const newQueue = [...queue, ...resolvedSongs];
       setQueue(newQueue);
       setLocalStorageQueue(newQueue);
     }
-  };
+  }, []);
 
-  const replaceQueueWithSongs = (songs: Song[]) => {
+  const replaceQueueWithSongs = useCallback((songs: Song[]) => {
     console.log('replaceQueueWithSongs songs', songs);
     if (songs.length > 0) {
       const resolvedSongs = addAudioElements(songs);
@@ -122,14 +127,17 @@ export const PlayerProvider: FunctionComponent = (props) => {
       setLocalStorageQueuePosition(0);
       playAudio(newQueue, 0);
     }
-  };
+  }, []);
 
-  const playSongInQueue = (song: SongWithAudio) => {
-    const index = queue.findIndex((s) => s.id === song.id);
-    playAudio(queue, index);
-  };
+  const playSongInQueue = useCallback(
+    (song: SongWithAudio) => {
+      const index = queue.findIndex((s) => s.id === song.id);
+      playAudio(queue, index);
+    },
+    [queue]
+  );
 
-  const playPreviousSongInQueue = () => {
+  const playPreviousSongInQueue = useCallback(() => {
     if (currentSong?.audio?.currentTime && currentSong.audio.currentTime < 5) {
       const position = queuePosition - 1;
       if (queue && queue[position]) {
@@ -140,36 +148,36 @@ export const PlayerProvider: FunctionComponent = (props) => {
         playAudio(queue, queuePosition);
       }
     }
-  };
+  }, [currentSong?.audio, queuePosition, queue]);
 
-  const playNextSongInQueue = () => {
+  const playNextSongInQueue = useCallback(() => {
     const position = queuePosition + 1;
 
     if (queue && queue[position]) {
       playAudio(queue, position);
     }
-  };
+  }, [queuePosition, queue]);
 
-  const playQueue = () => {
+  const playQueue = useCallback(() => {
     const position = queuePosition;
 
     if (queue && queue[position]) {
       playAudio(queue, position);
     }
-  };
+  }, [queuePosition, queue]);
 
-  const clearQueue = () => {
+  const clearQueue = useCallback(() => {
     setQueue([]);
     setLocalStorageQueue([]);
-  };
+  }, []);
 
-  const removeSongFromQueue = (id: string) => {
+  const removeSongFromQueue = useCallback((id: string) => {
     const index = queue.findIndex((s: Song) => s.id === id);
     const newQueue = [...queue];
     newQueue.splice(index, 1);
     setQueue(newQueue);
     setLocalStorageQueue(newQueue);
-  };
+  }, []);
 
   // const addSongsToBeginningOfQueue = async (songs: Song[]) => {
   //   const resolvedSongs = await addAudioElements(songs);

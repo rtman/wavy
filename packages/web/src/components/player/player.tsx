@@ -19,6 +19,7 @@ import React, {
   useState,
 } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useContextSelector } from 'use-context-selector';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,11 +35,32 @@ const useStyles = makeStyles(() =>
 const minimumPlayRatio = 0.2;
 
 export const Player = () => {
-  const playerContext = useContext(PlayerContext);
+  const currentSong = useContextSelector(
+    PlayerContext,
+    (values) => values?.currentSong
+  );
+  const pause = useContextSelector(PlayerContext, (values) => values?.pause);
+  const unPause = useContextSelector(
+    PlayerContext,
+    (values) => values?.unPause
+  );
+  const playQueue = useContextSelector(
+    PlayerContext,
+    (values) => values?.playQueue
+  );
+  const playNextSongInQueue = useContextSelector(
+    PlayerContext,
+    (values) => values?.playNextSongInQueue
+  );
+  const playPreviousSongInQueue = useContextSelector(
+    PlayerContext,
+    (values) => values?.playPreviousSongInQueue
+  );
+
   const userContext = useContext(UserContext);
   const classes = useStyles();
+  const playCountTimerRef = useRef<number>(0);
 
-  const [filteredMediaState, setFilteredMediaState] = useState<string>('');
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
 
   const { user, geoLocation } = userContext ?? {};
@@ -62,12 +84,10 @@ export const Player = () => {
     },
   });
 
-  const currentSong = playerContext?.currentSong;
-  const allMediaStates = helpers.hooks.useMediaState(
+  const mediaState = helpers.hooks.useFilteredMediaState(
     currentSong?.audio ?? new Audio()
   );
   const duration = currentSong?.audio?.duration;
-  const playCountTimerRef = useRef<number>(0);
 
   useEffect(() => {
     if (duration) {
@@ -79,11 +99,11 @@ export const Player = () => {
   // time left when a user pauses playback. Take timer start and then when paused
   // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
-    console.log('*debug* filteredMediaState', filteredMediaState);
+    console.log('*debug* mediaState', mediaState);
     console.log('*debug* userId', userId);
     console.log('*debug* currentSong?.id', currentSong?.id);
     console.log('*debug* geoLocation', geoLocation);
-    if (filteredMediaState === 'playing' && userId && currentSong?.id) {
+    if (mediaState === 'playing' && userId && currentSong?.id) {
       console.log('*debug* playcount timerSet');
       playCountTimerRef.current = setTimeout(() => {
         console.log('*debug* playcount callback');
@@ -105,7 +125,7 @@ export const Player = () => {
           },
         });
       }, minimumPlayLength * 1000);
-    } else if (filteredMediaState !== 'playing') {
+    } else if (mediaState !== 'playing') {
       console.log(
         '*debug* playCount - not playing playCountTimerRef',
         playCountTimerRef
@@ -117,7 +137,7 @@ export const Player = () => {
       }
     }
   }, [
-    filteredMediaState,
+    mediaState,
     currentSong,
     minimumPlayLength,
     submitUpdateSongPlayCount,
@@ -125,12 +145,6 @@ export const Player = () => {
     userId,
     geoLocation,
   ]);
-
-  useEffect(() => {
-    setFilteredMediaState(
-      helpers.filterMediaStates(allMediaStates, filteredMediaState)
-    );
-  }, [allMediaStates, filteredMediaState]);
 
   const history = useHistory();
   const songTitle = currentSong?.title ?? '';
@@ -145,37 +159,39 @@ export const Player = () => {
   };
 
   const onClickPlay = useCallback(() => {
-    if (filteredMediaState !== 'pause') {
-      playerContext?.playQueue();
+    console.log('*debug player onClickPlay - mediaState', mediaState);
+    if (mediaState !== 'pause') {
+      if (playQueue) {
+        playQueue();
+      }
     } else {
-      playerContext?.unPause();
+      if (unPause) {
+        unPause();
+      }
     }
-  }, []);
+  }, [mediaState, playQueue, unPause]);
 
   useEffect(() => {
-    if (filteredMediaState === 'ended') {
-      playerContext?.playNextSongInQueue();
+    if (mediaState === 'ended' && playNextSongInQueue) {
+      playNextSongInQueue();
     }
-    // TODO: Re enable and fix deps
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredMediaState]);
-  // }, [filteredMediaState, playerContext]);
+  }, [mediaState, playNextSongInQueue]);
 
   console.log('*debug* player');
 
   return (
     <Flex alignItems="center" fullWidth={true}>
-      <StyledButton onClick={playerContext?.playPreviousSongInQueue}>
+      <StyledButton onClick={playPreviousSongInQueue}>
         <SkipPrevious />
       </StyledButton>
       <StyledButton>
-        {filteredMediaState === 'playing' ? (
-          <Pause onClick={playerContext?.pause} />
+        {mediaState === 'playing' ? (
+          <Pause onClick={pause} />
         ) : (
           <PlayArrow onClick={onClickPlay} />
         )}
       </StyledButton>
-      <StyledButton onClick={playerContext?.playNextSongInQueue}>
+      <StyledButton onClick={playNextSongInQueue}>
         <SkipNext />
       </StyledButton>
       <ProgressBar />
