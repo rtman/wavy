@@ -45,6 +45,8 @@ export const Uploader = memo((props: UploaderProps) => {
       clonedUploadStatuses[index] = uploadStatus;
       updateAllUploadStatuses(clonedUploadStatuses);
     }
+    // disabled this because adding uploadStatuses breaks it, its not necessary to check it here
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadStatus, updateAllUploadStatuses, index]);
 
   console.log('*debug* uploader - releaseId', releaseId);
