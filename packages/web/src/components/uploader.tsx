@@ -29,16 +29,23 @@ export const Uploader = memo((props: UploaderProps) => {
     file: songData.file,
   });
 
-  const updateUploadStatus = useContextSelector(
+  const updateAllUploadStatuses = useContextSelector(
     CreateAlbumContext,
-    (values) => values?.updateUploadStatus
+    (values) => values?.updateAllUploadStatuses
   );
 
-  //   useEffect(() => {
-  //     if (updateUploadStatus) {
-  //       updateUploadStatus(uploadStatus, index);
-  //     }
-  //   }, [uploadStatus, updateUploadStatus, index]);
+  const uploadStatuses = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.uploadStatuses
+  );
+
+  useEffect(() => {
+    if (updateAllUploadStatuses && uploadStatuses) {
+      const clonedUploadStatuses = [...uploadStatuses];
+      clonedUploadStatuses[index] = uploadStatus;
+      updateAllUploadStatuses(clonedUploadStatuses);
+    }
+  }, [uploadStatus, updateAllUploadStatuses, index]);
 
   console.log('*debug* uploader - releaseId', releaseId);
 

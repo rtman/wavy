@@ -85,6 +85,11 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
     (values) => values?.updateAllUploadStatuses
   );
 
+  const deleteSong = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.deleteSong
+  );
+
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
@@ -217,8 +222,37 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
     }
   }, [acceptedFiles, reset, defaultFormValues, updateSongsForUpload]);
 
+  // const removeSong = useCallback(
+  //   (index: number) => {
+  //     if (deleteSong && songsForUpload) {
+  //       deleteSong(index);
+  //       // if (songsForUpload.length === 0) {
+  //       //   acceptedFiles.splice(0, acceptedFiles.length);
+  //       // }
+  //       remove(index);
+  //     }
+  //   },
+  //   [deleteSong, remove]
+  // );
+
   const removeSong = useCallback(
     (index: number) => {
+      console.log('*debug* createAlbumForm acceptedFiles', acceptedFiles);
+      console.log(
+        '*debug* createAlbumForm updateSongsForUpload',
+        updateSongsForUpload
+      );
+      console.log(
+        '*debug* createAlbumForm updateAllUploadStatuses',
+        updateAllUploadStatuses
+      );
+      console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
+      console.log(
+        '*debug* createAlbumForm uploadStatuses[index]',
+        (uploadStatuses ?? [])[index]
+      );
+      console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
+
       if (
         uploadStatuses &&
         uploadStatuses[index] &&
@@ -251,6 +285,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
       uploadStatuses,
       songsForUpload,
       updateAllUploadStatuses,
+      updateSongsForUpload,
     ]
   );
 
@@ -375,8 +410,8 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
 
   console.log('*debug* createAlbumForm acceptedFiles', acceptedFiles);
   console.log('*debug* createAlbumForm releaseId', releaseId);
-  // console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
-  // console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
+  console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
+  console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
 
   // const setUploadStatusCallback = useCallback(() => setUploadStatus, []);
 
@@ -588,7 +623,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
                         <SongUploadForm
                           formData={data}
                           index={index}
-                          removeSong={() => removeSong(index)}
+                          removeSong={removeSong}
                           artists={artists}
                         />
                         {fields.length !== index + 1 ? (
