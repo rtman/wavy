@@ -1,4 +1,4 @@
-// import './wdyr';
+import './wdyr';
 
 import { ApolloProvider } from '@apollo/react-hooks';
 import { CssBaseline } from '@material-ui/core';

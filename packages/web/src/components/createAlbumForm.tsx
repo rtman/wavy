@@ -18,22 +18,33 @@ import {
   AlbumFields,
   Artist,
   ArtistAutocomplete,
-  CreateAlbumSubmissionData,
   Mutation,
   MutationAddSongsToAlbumArgs,
   MutationCreateAlbumArgs,
   NewAlbumForm,
+  NewSongArgs,
   SongFields,
   SongForUpload,
 } from 'commonTypes';
-import { FileUploadButton, Flex, SongUploadForm, Spacing } from 'components';
+import {
+  FileUploadButton,
+  Flex,
+  SongUploadForm,
+  Spacing,
+  Uploader,
+} from 'components';
 import * as consts from 'consts';
-import { UserContext } from 'context';
+import { CreateAlbumContext, CreateAlbumProvider, UserContext } from 'context';
 import * as helpers from 'helpers';
-import { UploadStatus } from 'helpers/hooks';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import {
   Controller,
@@ -44,18 +55,36 @@ import {
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
-import { uuid } from 'uuidv4';
+import { useContextSelector } from 'use-context-selector';
 
 interface CreateAlbumFormProps {
   artists: ArtistAutocomplete[];
   creatorId: string;
   isLabel?: boolean;
+  releaseId: string;
 }
 
-export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
+export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
   const classes = useStyles();
   const history = useHistory();
   const userContext = useContext(UserContext);
+  const uploadStatuses = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.uploadStatuses
+  );
+  const songsForUpload = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.songsForUpload
+  );
+  const updateSongsForUpload = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.updateSongsForUpload
+  );
+  const updateAllUploadStatuses = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.updateAllUploadStatuses
+  );
+
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
@@ -69,11 +98,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   });
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
-  const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
-
-  let uploadStatuses: UploadStatus[] = [];
-  const releaseId = uuid();
-  const { artists, creatorId, isLabel } = props;
+  const { artists, creatorId, isLabel, releaseId } = props;
 
   const [createAlbum, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
@@ -122,7 +147,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
     },
   });
 
-  const defaultFormValues: () => NewAlbumForm = useCallback(
+  const defaultFormValues: NewAlbumForm = useMemo(
     () => ({
       album: {
         artist: null,
@@ -149,7 +174,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   );
 
   const hookForm = useForm<NewAlbumForm>({
-    defaultValues: defaultFormValues(),
+    defaultValues: {},
   });
   const { reset } = hookForm;
   const { fields, append, remove } = useFieldArray<SongFields>({
@@ -165,11 +190,12 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   );
 
   useEffect(() => {
-    if (acceptedFiles.length > 0) {
+    if (acceptedFiles.length > 0 && updateSongsForUpload) {
+      console.log('*debug* createAlbumForm useEffect');
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
           (file): SongFields => ({
-            ...defaultFormValues().songs[0],
+            ...defaultFormValues.songs[0],
             artist: null,
             title:
               file.name.lastIndexOf('.') !== -1
@@ -186,44 +212,47 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
           };
         });
 
-      setSongsForUpload(makeSongsForUpload());
+      updateSongsForUpload(makeSongsForUpload());
       reset({ songs: makeFormFromDropzone() });
     }
-  }, [acceptedFiles, reset, defaultFormValues]);
+  }, [acceptedFiles, reset, defaultFormValues, updateSongsForUpload]);
 
-  const setUploadStatus = (newUploadStatus: UploadStatus, index: number) => {
-    const uploadStatusesCloned = [...uploadStatuses];
-    uploadStatusesCloned[index] = newUploadStatus;
-    uploadStatuses = [...uploadStatusesCloned];
-  };
-
-  const removeSong = (index: number) => {
-    if (uploadStatuses[index]) {
-      const upload = uploadStatuses[index];
-
-      if (upload.complete && upload.task) {
-        upload.task.snapshot.ref.delete();
+  const removeSong = useCallback(
+    (index: number) => {
+      if (
+        uploadStatuses &&
+        uploadStatuses[index] &&
+        updateSongsForUpload &&
+        updateAllUploadStatuses &&
+        songsForUpload
+      ) {
+        const upload = uploadStatuses[index];
+        if (upload.complete && upload.task) {
+          upload.task.snapshot.ref.delete();
+        }
+        if (upload.running && !upload.complete && upload.task) {
+          upload.task.cancel();
+        }
+        const resolvedSongsForUpload = [...songsForUpload];
+        resolvedSongsForUpload.splice(index, 1);
+        updateSongsForUpload(resolvedSongsForUpload);
+        if (resolvedSongsForUpload.length === 0) {
+          acceptedFiles.splice(0, acceptedFiles.length);
+        }
+        const resolvedUploadStatuses = [...uploadStatuses];
+        resolvedUploadStatuses.splice(index, 1);
+        updateAllUploadStatuses(resolvedUploadStatuses);
+        remove(index);
       }
-
-      if (upload.running && !upload.complete && upload.task) {
-        upload.task.cancel();
-      }
-
-      const resolvedSongsForUpload = [...songsForUpload];
-      resolvedSongsForUpload.splice(index, 1);
-      setSongsForUpload(resolvedSongsForUpload);
-
-      if (resolvedSongsForUpload.length === 0) {
-        acceptedFiles.splice(0, acceptedFiles.length);
-      }
-
-      const resolvedUploadStatuses = [...uploadStatuses];
-      resolvedUploadStatuses.splice(index, 1);
-
-      uploadStatuses = [...resolvedUploadStatuses];
-      remove(index);
-    }
-  };
+    },
+    [
+      acceptedFiles,
+      remove,
+      uploadStatuses,
+      songsForUpload,
+      updateAllUploadStatuses,
+    ]
+  );
 
   const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
     if (fileRejected.length > 0) {
@@ -231,25 +260,20 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
         variant: 'error',
         autoHideDuration: 4000,
       });
-
       return;
     }
-
-    if (fileAccepted.length > 0) {
+    if (fileAccepted.length > 0 && updateSongsForUpload && songsForUpload) {
       const newFile = fileAccepted[0];
       const resolvedSongsForUpload = [...songsForUpload];
       let title = newFile.name.trim();
-
       if (newFile.name.lastIndexOf('.') !== -1) {
         title = newFile.name.substring(0, newFile.name.lastIndexOf('.')).trim();
       }
-
       resolvedSongsForUpload.push({
         title: newFile.name.trim(),
         file: newFile,
       });
-
-      setSongsForUpload(resolvedSongsForUpload);
+      updateSongsForUpload(resolvedSongsForUpload);
       append({ title });
     }
   };
@@ -257,59 +281,65 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
   const onClickSubmit = async (data: NewAlbumForm) => {
     console.log('*debug* onSubmit data', data);
     if (
+      uploadStatuses &&
+      songsForUpload &&
       uploadStatuses.find((upload) => upload.data === undefined) ===
         undefined &&
       data.album.artist !== null
     ) {
-      const resolvedSongsForUpload = songsForUpload.map((song, index) => {
-        // data is checked above for undefined in the find
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const uploadData = uploadStatuses[index].data!;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { hasSupportingArtists, supportingArtists, ...rest } = data.songs[
-          index
-        ];
-        const resolvedSupportingArtists = supportingArtists?.map((artist) => ({
-          artistId: artist.id,
-        }));
-
-        return {
-          storagePath: uploadData.gsUrl,
-          ...rest,
-          supportingArtists: resolvedSupportingArtists,
-        };
-      });
-
+      const resolvedSongsForUpload: NewSongArgs[] = songsForUpload.map(
+        (song, index) => {
+          // data is checked above for undefined in the find
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const uploadData = uploadStatuses[index].data!;
+          const {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            hasSupportingArtists,
+            supportingArtists,
+            ...rest
+          } = data.songs[index];
+          const resolvedSupportingArtists = supportingArtists?.map(
+            (artist) => ({
+              artistId: artist.id,
+            })
+          );
+          return {
+            storagePath: uploadData.fullStoragePath,
+            ...rest,
+            supportingArtists: resolvedSupportingArtists,
+          };
+        }
+      );
       console.log(
         '*debug* onSubmit resolvedSongsForUpload',
         resolvedSongsForUpload
       );
-
       const result = await uploadImage({
         rootDir: creatorId,
         parentDir: 'albums',
         childDir: releaseId,
         fileName: 'profile',
       });
-
-      console.log('result', result);
-
+      console.log('*debug* createAlbumForm uploadImage result', result);
+      const userName = `${userContext?.user?.firstName} ${userContext?.user?.lastName}`;
       if (result && result.id && resolvedSongsForUpload.length > 0) {
         const {
           artist: { id: artistId },
           ...album
         } = data.album;
-
         await createAlbum({
           variables: {
             input: {
               ...album,
               // if is is a label the artistId is either various or a selected artist, otherwise it is the creator of the album, the artist
               artistId: isLabel ? artistId : creatorId,
+              // if isLabel, we use the creatorId which is the label for labelId otherwise we dont apply a labelId
+              labelId: isLabel ? creatorId : undefined,
               albumId: result.id,
               // TODO: add description field to albumFields
               description: '',
-              profileImageStoragePath: result.gsUrl,
+              profileImageStoragePath: result.fullStoragePath,
+              userName,
             },
           },
         });
@@ -318,10 +348,9 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
         addSongsToAlbum({
           variables: {
             input: {
-              userName: `${userContext?.user?.firstName} ${userContext?.user?.lastName}`,
+              userName,
               albumId: result.id,
               labelId: isLabel ? creatorId : undefined,
-              // TODO: resolvedSongsForUpload type is wrong. not sure why it isnt complaining here
               songsToAdd: resolvedSongsForUpload,
             },
           },
@@ -344,8 +373,12 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
     },
   ];
 
-  console.log('*debug* acceptedFiles', acceptedFiles);
-  console.log('*debug* uploadStatuses', uploadStatuses);
+  console.log('*debug* createAlbumForm acceptedFiles', acceptedFiles);
+  console.log('*debug* createAlbumForm releaseId', releaseId);
+  // console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
+  // console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
+
+  // const setUploadStatusCallback = useCallback(() => setUploadStatus, []);
 
   return (
     <FormProvider {...hookForm}>
@@ -540,20 +573,21 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
             </Flex>
 
             <Spacing.section.Major />
-
-            {songsForUpload.length > 0 ? (
+            {(songsForUpload ?? []).length > 0 ? (
               <>
                 <List>
                   {fields.map((data, index) => {
                     return (
                       <li key={data.id}>
-                        <SongUploadForm
+                        <Uploader
                           creatorId={creatorId}
                           releaseId={releaseId}
-                          songData={songsForUpload[index]}
+                          songData={(songsForUpload ?? [])[index]}
+                          index={index}
+                        />
+                        <SongUploadForm
                           formData={data}
                           index={index}
-                          setUploadStatusCallback={setUploadStatus}
                           removeSong={() => removeSong(index)}
                           artists={artists}
                         />
@@ -618,7 +652,7 @@ export const CreateAlbumForm = (props: CreateAlbumFormProps) => {
       </Container>
     </FormProvider>
   );
-};
+});
 
 // Private helpers
 
@@ -676,3 +710,6 @@ const DropzoneContainer = styled.div(
     cursor: 'pointer',
   })
 );
+
+CreateAlbumForm.displayName = 'CreateAlbumForm';
+CreateAlbumForm.whyDidYouRender = true;

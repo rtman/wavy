@@ -5,6 +5,7 @@ import { CreateAlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { uuid } from 'uuidv4';
 
 export const ArtistCreateRelease = () => {
   const { id } = useParams();
@@ -26,6 +27,8 @@ export const ArtistCreateRelease = () => {
     }
   );
 
+  const releaseId = uuid();
+
   return (
     <Container>
       <Spacing.section.Minor />
@@ -33,7 +36,11 @@ export const ArtistCreateRelease = () => {
 
       <Spacing.section.Minor />
 
-      <CreateAlbumForm creatorId={id} artists={artistData} />
+      <CreateAlbumForm
+        creatorId={id}
+        artists={artistData}
+        releaseId={releaseId}
+      />
     </Container>
   );
 };

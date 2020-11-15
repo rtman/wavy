@@ -1,22 +1,7 @@
+import { UploadStatus } from 'commonTypes';
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
-
-export interface UploadStatus {
-  progress?: number;
-  error?: firebase.FirebaseError;
-  complete: boolean;
-  running: boolean;
-  paused: boolean;
-  data?: UploadCompleteData;
-  task?: firebase.storage.UploadTask;
-}
-
-export interface UploadCompleteData {
-  id?: string;
-  gsUrl: string;
-  downloadUrl: string;
-}
 
 export interface UseFirebaseStorageUploadInputProps {
   rootDir?: string;
@@ -44,6 +29,7 @@ export const useFirebaseStorageUpload = (
   useEffect(() => {
     const uploadFile = () => {
       if (file) {
+        console.log('*debug* useFirebaseStorageUpload file', file);
         const fileNameWithoutExtension = file.name.substring(
           0,
           file.name.lastIndexOf('.')
@@ -131,7 +117,7 @@ export const useFirebaseStorageUpload = (
             // Upload completed successfully, now we can get the download URL
             const uploadComplete = async () => {
               const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
-              const gsUrl = uploadTask.snapshot.ref.toString();
+              const fullStoragePath = uploadTask.snapshot.ref.toString();
 
               setUploadStatus({
                 progress: 100,
@@ -139,7 +125,7 @@ export const useFirebaseStorageUpload = (
                 complete: true,
                 running: false,
                 paused: false,
-                data: { id: childDir, downloadUrl, gsUrl },
+                data: { id: childDir, downloadUrl, fullStoragePath },
                 task: uploadTask,
               });
             };

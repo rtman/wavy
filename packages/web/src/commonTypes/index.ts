@@ -7,3 +7,4 @@ export * from './list';
 export * from './menu';
 export * from './serverTypes';
 export * from './song';
+export * from './upload';

@@ -2,8 +2,10 @@ import { useQuery } from '@apollo/react-hooks';
 import {
   CircularProgress,
   Container,
+  Grid,
   IconButton,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
@@ -30,10 +32,8 @@ import {
   UserCard,
 } from 'components';
 import * as consts from 'consts';
-import { UserContext } from 'context';
-import React, { memo, useContext, useState } from 'react';
-import { FixedSizeList, areEqual } from 'react-window';
-import { CSSProperties } from 'styled-components';
+import React, { CSSProperties, memo, useState } from 'react';
+import { areEqual, FixedSizeList } from 'react-window';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -50,9 +50,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const HomeFeed = () => {
-  const userContext = useContext(UserContext);
-  const user = userContext?.user;
-  console.log('*debug* HomeFeed user?.id', user?.id);
+  const theme = useTheme();
 
   const {
     loading: userSubscriptionsLoading,
@@ -67,17 +65,28 @@ export const HomeFeed = () => {
     }
   );
 
-  console.log('*debug* HomeFeed subscriptionData', userSubscriptionsData);
-
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
       {userSubscriptionsLoading ? (
-        <CircularProgress />
+        <Grid
+          container={true}
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: '100vh' }}
+        >
+          <Grid item={true} xs={3}>
+            <CircularProgress />
+          </Grid>
+        </Grid>
       ) : (
         <FixedSizeList
           itemSize={400}
           width={'100%'}
+          // TODO: need to get real dynamic height of app bar/toolbar and padding and remove it from total height
+          // This would fix the second scroll bar issue
           height={window.screen.height}
           itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
           itemData={userSubscriptionsData?.getUserSubscriptions}
@@ -90,93 +99,90 @@ export const HomeFeed = () => {
   );
 };
 
-const RenderSection = memo(
-  ({
-    data,
-    index,
-    style,
-  }: {
-    data: UserSubscriptionResult;
-    index: number;
-    style: CSSProperties;
-  }) => {
-    const listRef = React.createRef<FixedSizeList>();
-    const classes = useStyles();
-    const scrollItemsPerBlock = 4;
+const RenderSection = ({
+  data,
+  index,
+  style,
+}: {
+  data: UserSubscriptionResult;
+  index: number;
+  style: CSSProperties;
+}) => {
+  const listRef = React.createRef<FixedSizeList>();
+  const classes = useStyles();
+  const scrollItemsPerBlock = 4;
 
-    const [scrollPosition, setScrollPosition] = useState<number>(
-      scrollItemsPerBlock
-    );
-    const totalScrollLength = data[index].data.length - 1;
+  const [scrollPosition, setScrollPosition] = useState<number>(
+    scrollItemsPerBlock
+  );
+  const totalScrollLength = data[index].data.length - 1;
 
-    const onClickLeft = () => {
-      let positionToScrollTo = 0;
+  const onClickLeft = () => {
+    let positionToScrollTo = 0;
 
+    if (scrollPosition === 0) {
+      positionToScrollTo = 0;
+    } else {
+      positionToScrollTo = scrollPosition - scrollItemsPerBlock;
+
+      if (positionToScrollTo < 0) {
+        positionToScrollTo = 0;
+      }
+    }
+
+    listRef.current?.scrollToItem(positionToScrollTo, 'start');
+    setScrollPosition(positionToScrollTo);
+  };
+
+  const onClickRight = () => {
+    let positionToScrollTo = 0;
+
+    if (scrollPosition === totalScrollLength) {
+      positionToScrollTo = 0;
+    } else {
       if (scrollPosition === 0) {
-        positionToScrollTo = 0;
+        positionToScrollTo = scrollPosition + scrollItemsPerBlock * 2;
       } else {
-        positionToScrollTo = scrollPosition - scrollItemsPerBlock;
-
-        if (positionToScrollTo < 0) {
-          positionToScrollTo = 0;
-        }
+        positionToScrollTo = scrollPosition + scrollItemsPerBlock;
       }
 
-      listRef.current?.scrollToItem(positionToScrollTo, 'start');
-      setScrollPosition(positionToScrollTo);
-    };
-
-    const onClickRight = () => {
-      let positionToScrollTo = 0;
-
-      if (scrollPosition === totalScrollLength) {
-        positionToScrollTo = 0;
-      } else {
-        if (scrollPosition === 0) {
-          positionToScrollTo = scrollPosition + scrollItemsPerBlock * 2;
-        } else {
-          positionToScrollTo = scrollPosition + scrollItemsPerBlock;
-        }
-
-        if (positionToScrollTo > totalScrollLength) {
-          positionToScrollTo = totalScrollLength;
-        }
+      if (positionToScrollTo > totalScrollLength) {
+        positionToScrollTo = totalScrollLength;
       }
+    }
 
-      listRef.current?.scrollToItem(positionToScrollTo);
-      setScrollPosition(positionToScrollTo);
-    };
+    listRef.current?.scrollToItem(positionToScrollTo);
+    setScrollPosition(positionToScrollTo);
+  };
 
-    return (
-      <div key={index} style={style}>
-        <Typography variant="h5">{data[index].title}</Typography>
-        <Spacing.section.Minor />
-        <Flex alignItems="center">
-          <IconButton onClick={onClickLeft}>
-            <ArrowLeft className={classes.arrowButtons} />
-          </IconButton>
-          <FixedSizeList
-            ref={listRef}
-            itemSize={240}
-            width={window.screen.width - consts.drawer.width}
-            height={300}
-            layout="horizontal"
-            itemCount={data[index].data.length}
-            itemData={data[index].data}
-            style={{ overflow: 'hidden' }}
-          >
-            {renderCard}
-          </FixedSizeList>
-          <IconButton onClick={onClickRight}>
-            <ArrowRight className={classes.arrowButtons} />
-          </IconButton>
-        </Flex>
-        <Spacing.section.Minor />
-      </div>
-    );
-  },
-  areEqual
-);
+  return (
+    <div key={index} style={style}>
+      <Typography variant="h5">{data[index].title}</Typography>
+      <Spacing.section.Minor />
+      <Flex alignItems="center">
+        <IconButton onClick={onClickLeft}>
+          <ArrowLeft className={classes.arrowButtons} />
+        </IconButton>
+        <FixedSizeList
+          ref={listRef}
+          itemSize={240}
+          width={window.screen.width - consts.drawer.width}
+          height={300}
+          layout="horizontal"
+          itemCount={data[index].data.length}
+          itemData={data[index].data}
+          style={{ overflow: 'hidden' }}
+        >
+          {renderCard}
+        </FixedSizeList>
+        <IconButton onClick={onClickRight}>
+          <ArrowRight className={classes.arrowButtons} />
+        </IconButton>
+      </Flex>
+      <Spacing.section.Minor />
+    </div>
+  );
+};
 
 const renderCard = memo(
   ({

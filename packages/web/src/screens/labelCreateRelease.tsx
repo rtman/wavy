@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Container, Typography } from '@material-ui/core';
-import { Query } from 'commonTypes';
+import { CircularProgress, Container, Typography } from '@material-ui/core';
+import { IdParam, Query } from 'commonTypes';
 import { CreateAlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { uuid } from 'uuidv4';
 
 export const LabelCreateRelease = () => {
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
 
   const {
     loading: labelByIdLoading,
@@ -17,23 +18,42 @@ export const LabelCreateRelease = () => {
     variables: { labelId: id },
   });
 
-  const artistData = (labelByIdData?.labelById.artistConnections ?? []).map(
-    (artistConnectionInstance) => {
-      return {
-        id: artistConnectionInstance.artist.id,
-        name: artistConnectionInstance.artist.name,
-      };
-    }
+  const artistData = useMemo(
+    () =>
+      (labelByIdData?.labelById.artistConnections ?? []).map(
+        (artistConnectionInstance) => {
+          return {
+            id: artistConnectionInstance.artist.id,
+            name: artistConnectionInstance.artist.name,
+          };
+        }
+      ),
+    [labelByIdData]
   );
+
+  const releaseId = uuid();
 
   return (
     <Container>
-      <Spacing.section.Minor />
-      <Typography variant="h4">New Release</Typography>
+      {labelByIdLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Spacing.section.Minor />
+          <Typography variant="h4">New Release</Typography>
 
-      <Spacing.section.Minor />
+          <Spacing.section.Minor />
 
-      <CreateAlbumForm creatorId={id} artists={artistData} isLabel={true} />
+          <CreateAlbumForm
+            creatorId={id}
+            releaseId={releaseId}
+            artists={artistData}
+            isLabel={true}
+          />
+        </>
+      )}
     </Container>
   );
 };
+
+LabelCreateRelease.whyDidYouRender = true;

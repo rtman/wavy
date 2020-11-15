@@ -17,21 +17,16 @@ import {
 } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
+import { CreateAlbumContext } from 'context';
 import * as helpers from 'helpers';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
+import { useContextSelector } from 'use-context-selector';
 
 interface SongUploadFormProps {
   artists?: ArtistAutocomplete[];
-  creatorId: string;
-  releaseId: string;
-  songData: SongForUpload;
   formData: Partial<ArrayField<SongFields, 'id'>>;
   index: number;
-  setUploadStatusCallback: (
-    uploadStatus: helpers.hooks.UploadStatus,
-    index: number
-  ) => void;
   removeSong: (index: number) => void;
 }
 
@@ -41,27 +36,23 @@ const useStyles = makeStyles({
   },
 });
 
-export const SongUploadForm = (props: SongUploadFormProps) => {
-  const {
-    artists,
-    creatorId,
-    releaseId,
-    setUploadStatusCallback,
-    index,
-    formData,
-    songData,
-    removeSong,
-  } = props;
+export const SongUploadForm = memo((props: SongUploadFormProps) => {
+  const { artists, index, formData, removeSong } = props;
 
   const classes = useStyles();
   const formContext = useFormContext();
 
-  const { uploadStatus } = helpers.hooks.useFirebaseStorageUpload({
-    rootDir: creatorId,
-    parentDir: 'albums',
-    childDir: releaseId,
-    file: songData.file,
-  });
+  // const updateUploadStatus = useContextSelector(
+  //   CreateAlbumContext,
+  //   (values) => values?.updateUploadStatus
+  // );
+
+  // const { uploadStatus } = helpers.hooks.useFirebaseStorageUpload({
+  //   rootDir: creatorId,
+  //   parentDir: 'albums',
+  //   childDir: releaseId,
+  //   file: songData.file,
+  // });
 
   const watchHasSupportingArtists: SongFields['hasSupportingArtists'] = formContext.watch(
     `songs[${index}].hasSupportingArtists`
@@ -73,13 +64,17 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
     `songs[${index}].newArtist`
   );
 
-  useEffect(() => {
-    setUploadStatusCallback(uploadStatus, index);
-  }, [uploadStatus, setUploadStatusCallback, index]);
+  // useEffect(() => {
+  //   if (updateUploadStatus) {
+  //     updateUploadStatus(uploadStatus, index);
+  //   }
+  // }, [uploadStatus, updateUploadStatus, index]);
+
+  console.log('*debug* songUploadForm');
 
   return (
     <div className={classes.root}>
-      <LinearProgress variant="determinate" value={uploadStatus.progress} />
+      {/* <LinearProgress variant="determinate" value={uploadStatus.progress} /> */}
 
       <Spacing.section.Minor />
 
@@ -323,4 +318,7 @@ export const SongUploadForm = (props: SongUploadFormProps) => {
       </Flex>
     </div>
   );
-};
+});
+
+SongUploadForm.displayName = 'SongUploadForm';
+SongUploadForm.whyDidYouRender = true;

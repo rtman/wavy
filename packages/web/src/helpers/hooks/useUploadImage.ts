@@ -25,15 +25,15 @@ export const useUploadImage = (imageFile: File | undefined) => {
       // storagePath + parentDir ? `${parentDir}/` : '';
       storagePath += `${fileName}.${fileExtension}`;
 
-      const artistImageRef = storageRef.child(storagePath);
-      const snapshot = await artistImageRef.put(imageFile);
+      const creatorImageRef = storageRef.child(storagePath);
+      const snapshot = await creatorImageRef.put(imageFile);
 
       if (snapshot) {
-        const result = await artistImageRef.getDownloadURL();
+        const result = await creatorImageRef.getDownloadURL();
         const downloadUrl = result;
-        const gsUrl = artistImageRef.toString();
+        const fullStoragePath = creatorImageRef.toString();
 
-        return { id: childDir, downloadUrl, gsUrl };
+        return { id: childDir, downloadUrl, fullStoragePath };
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',

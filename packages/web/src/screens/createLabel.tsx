@@ -69,7 +69,7 @@ export const CreateLabel = () => {
   const onSubmit = async () => {
     const labelId = uuid();
 
-    let gsUrl = '';
+    let fullStoragePath = '';
     let downloadUrl = '';
     const fileExtension = imageFile?.name.split('.').splice(-1)[0];
 
@@ -82,7 +82,7 @@ export const CreateLabel = () => {
 
       if (snapshot) {
         downloadUrl = await labelImageRef.getDownloadURL();
-        gsUrl = labelImageRef.toString();
+        fullStoragePath = labelImageRef.toString();
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',
@@ -100,7 +100,7 @@ export const CreateLabel = () => {
             labelId,
             name,
             description,
-            profileImageStoragePath: gsUrl,
+            profileImageStoragePath: fullStoragePath,
           },
         },
       });

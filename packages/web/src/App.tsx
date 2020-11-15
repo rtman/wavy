@@ -2,7 +2,12 @@ import './App.css';
 
 import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
 import { BottomBar, Navigator, Player, TopBar } from 'components';
-import { AuthContext, PlayerProvider, SearchProvider } from 'context';
+import {
+  AuthContext,
+  CreateAlbumProvider,
+  PlayerProvider,
+  SearchProvider,
+} from 'context';
 import { SnackbarProvider } from 'notistack';
 import React, { useContext } from 'react';
 
@@ -40,7 +45,9 @@ export const App = () => {
           <PlayerProvider>
             <SearchProvider>
               <TopBar>
-                <Navigator />
+                <CreateAlbumProvider>
+                  <Navigator />
+                </CreateAlbumProvider>
               </TopBar>
               <BottomBar>
                 <Player />

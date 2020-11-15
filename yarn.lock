@@ -3356,6 +3356,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-virtualized-auto-sizer@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.0.tgz#fc32f30a8dab527b5816f3a757e1e1d040c8f272"
+  integrity sha512-NMErdIdSnm2j/7IqMteRiRvRulpjoELnXWUwdbucYCz84xG9PHcoOrr7QfXwB/ku7wd6egiKFrzt/+QK4Imeeg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-window-infinite-loader@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@types/react-window-infinite-loader/-/react-window-infinite-loader-1.0.3.tgz#fade6e7c625a348e83c4e1f0c897736537bc7f8c"
@@ -14833,10 +14840,10 @@ react-helmet@^5.2.1:
     react-fast-compare "^2.0.2"
     react-side-effect "^1.1.0"
 
-react-hook-form@^6.8.5:
-  version "6.8.5"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.8.5.tgz#77cb5f208038605ed36c0645d7676d0cb2014403"
-  integrity sha512-H/4d4IV/nLiz2Q2NHC9uT4ZwK2m1LIObf7tOszpkhYKIyfHamFBHezhAbLm4ipnA4EN1nn/uK166MDfZI6Cj9A==
+react-hook-form@6.11.2:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.11.2.tgz#a0d81f71f85551457aa06892599aa07605f42154"
+  integrity sha512-3Go23kq3JAsUi5xNtOBi2YVJALufmycyS8eA/hdriAbj3U7/lffPlcl0QWviSy4L0EE+dsQwEX2YSTyMMADQsw==
 
 react-images-upload@^1.2.8:
   version "1.2.8"
@@ -15087,6 +15094,11 @@ react-transition-group@^4.0.0, react-transition-group@^4.4.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-virtualized-auto-sizer@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.2.tgz#a61dd4f756458bbf63bd895a92379f9b70f803bd"
+  integrity sha512-MYXhTY1BZpdJFjUovvYHVBmkq79szK/k7V3MO+36gJkWGkrXKtyr4vCPtpphaTLRAdDNoYEYFZWE8LjN+PIHNg==
 
 react-window-infinite-loader@1.0.5:
   version "1.0.5"
