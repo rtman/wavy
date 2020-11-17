@@ -133,4 +133,8 @@ export class Song {
   @Field(() => UserSubscriptionEntity)
   @Column({ default: UserSubscriptionEntity.SONG, update: false })
   type: UserSubscriptionEntity;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  isrc: string;
 }

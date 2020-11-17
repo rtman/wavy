@@ -156,6 +156,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
     () => ({
       album: {
         artist: null,
+        description: '',
         newArtistEmail: '',
         newArtistName: '',
         isNewArtist: false,
@@ -315,6 +316,15 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
 
   const onClickSubmit = async (data: NewAlbumForm) => {
     console.log('*debug* onSubmit data', data);
+
+    if (imageFile === undefined) {
+      enqueueSnackbar('Please select an image to upload', {
+        variant: 'warning',
+        autoHideDuration: 4000,
+      });
+      return;
+    }
+
     if (
       uploadStatuses &&
       songsForUpload &&
@@ -338,7 +348,20 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
               artistId: artist.id,
             })
           );
+
+          const getArtistId = () => {
+            if (isLabel && data.album.artist?.name !== 'Various Artists') {
+              return data.album.artist?.id;
+            }
+            if (isLabel) {
+              return data.songs[index].artist?.id;
+            }
+
+            return creatorId;
+          };
+
           return {
+            artistId: getArtistId(),
             storagePath: uploadData.fullStoragePath,
             ...rest,
             supportingArtists: resolvedSupportingArtists,
@@ -370,9 +393,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
               artistId: isLabel ? artistId : creatorId,
               // if isLabel, we use the creatorId which is the label for labelId otherwise we dont apply a labelId
               labelId: isLabel ? creatorId : undefined,
-              albumId: result.id,
-              // TODO: add description field to albumFields
-              description: '',
+              albumId: releaseId,
               profileImageStoragePath: result.fullStoragePath,
               userName,
             },
@@ -384,7 +405,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
           variables: {
             input: {
               userName,
-              albumId: result.id,
+              albumId: releaseId,
               labelId: isLabel ? creatorId : undefined,
               songsToAdd: resolvedSongsForUpload,
             },
@@ -457,6 +478,25 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
                   id={'release-title'}
                   helperText={hookForm.errors.album?.title?.message}
                   error={hookForm.errors.album?.title !== undefined}
+                />
+                <TextField
+                  inputRef={hookForm.register({
+                    required: {
+                      value: true,
+                      message: 'Required',
+                    },
+                    minLength: {
+                      value: 2,
+                      message: 'Enter at least 2 characters',
+                    },
+                  })}
+                  margin="normal"
+                  fullWidth={true}
+                  name={'album.description'}
+                  label="Description"
+                  id={'release-description'}
+                  helperText={hookForm.errors.album?.description?.message}
+                  error={hookForm.errors.album?.description !== undefined}
                 />
                 <Flex fullWidth={true}>
                   <Flex flexDirection="column" fullWidth={true}>

@@ -19,6 +19,7 @@ export interface SongFields {
 /** React-hook-form doesnt like undefined fields, use null instead */
 export interface AlbumFields {
   artist: ArtistAutocomplete | null;
+  description: string;
   isNewArtist: boolean;
   newArtistName: string;
   newArtistEmail: string;

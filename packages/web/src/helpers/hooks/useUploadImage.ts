@@ -42,7 +42,8 @@ export const useUploadImage = (imageFile: File | undefined) => {
         return false;
       }
     } else {
-      console.log('useUploadImage Error: no file provided');
+      console.log('*debug* useUploadImage Error: no file provided');
+
       return false;
     }
   };

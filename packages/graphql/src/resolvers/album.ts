@@ -46,6 +46,9 @@ class NewSongArgs {
   supportingArtist?: SupportingArtistInput[];
 
   @Field()
+  isrc: string;
+
+  @Field()
   title: string;
 }
 
@@ -101,9 +104,9 @@ class CreateAlbumArgs {
   userName?: string;
 }
 
-type CreateAlbum = Pick<
+type CreateAlbum = Omit<
   Album,
-  'id' | 'artistId' | 'description' | 'processing' | 'releaseDate' | 'title'
+  'createdAt' | 'updatedAt' | 'type' | 'label' | 'artist' | 'songs'
 >;
 
 type CreateArtist = Pick<Artist, 'id' | 'name' | 'inviteEmail'>;
@@ -218,6 +221,7 @@ export class AlbumResolvers {
 
       const { title, description } = albumPayload;
 
+      console.log('createAlbum payload', payload);
       console.log('albumPayload', albumPayload);
 
       if (
@@ -231,41 +235,42 @@ export class AlbumResolvers {
 
         let resolvedArtistId = artistId;
 
-        if (
-          isNewArtist &&
-          newArtistName !== undefined &&
-          newArtistName.length > 0 &&
-          newArtistEmail !== undefined &&
-          newArtistEmail.length > 0 &&
-          userName !== undefined &&
-          userName.length > 0
-        ) {
-          const transporter = await helpers.makeEmailTransporter();
-          const templateEmail = await helpers.makeHtmlTemplate(
-            '../emailTemplates/artistInvite.html'
-          );
+        if (isNewArtist) {
+          if (
+            newArtistName !== undefined &&
+            newArtistName.length > 0 &&
+            newArtistEmail !== undefined &&
+            newArtistEmail.length > 0 &&
+            userName !== undefined &&
+            userName.length > 0
+          ) {
+            const transporter = await helpers.makeEmailTransporter();
+            const templateEmail = await helpers.makeHtmlTemplate(
+              '../emailTemplates/artistInvite.html'
+            );
 
-          const createNewArtistResult = addNewArtist({
-            newArtistEmail,
-            newArtistName,
-            templateEmail,
-            transporter,
-            userName,
-          });
+            const createNewArtistResult = addNewArtist({
+              newArtistEmail,
+              newArtistName,
+              templateEmail,
+              transporter,
+              userName,
+            });
 
-          resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
+            resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
 
-          await artistRepository.insert(
-            createNewArtistResult.localNewArtistModel
-          );
-          await createNewArtistResult.newArtistEmailPromise;
-        } else {
-          console.log(
-            'Error, new Artist submitted with incorrect payload',
-            payload
-          );
+            await artistRepository.insert(
+              createNewArtistResult.localNewArtistModel
+            );
+            await createNewArtistResult.newArtistEmailPromise;
+          } else {
+            console.log(
+              'Error, new Artist submitted with incorrect payload',
+              payload
+            );
 
-          return;
+            return;
+          }
         }
 
         const processImageResult = await services.processImage({
@@ -278,11 +283,24 @@ export class AlbumResolvers {
           return;
         }
 
+        if (resolvedArtistId === undefined) {
+          console.log('artistId is undefined');
+          return;
+        }
+
         const newAlbum: CreateAlbum = {
           id: albumId,
           artistId: resolvedArtistId,
           releaseDate: releaseDate ?? new Date(),
-          ...processImageResult.data,
+          profileImageStoragePathLarge:
+            processImageResult.data.storagePathLarge,
+          profileImageStoragePathSmall:
+            processImageResult.data.storagePathSmall,
+          profileImageStoragePathThumb:
+            processImageResult.data.storagePathThumb,
+          profileImageUrlLarge: processImageResult.data.urlLarge,
+          profileImageUrlSmall: processImageResult.data.urlSmall,
+          profileImageUrlThumb: processImageResult.data.urlThumb,
           ...albumPayload,
           processing: true,
         };
@@ -316,6 +334,8 @@ export class AlbumResolvers {
     try {
       const { songsToAdd, albumId, labelId, userName } = payload;
 
+      console.log('addSongsToAlbum payload', payload);
+
       if ((songsToAdd.length > 0, albumId, songsToAdd)) {
         const songRepository = getManager().getRepository(Models.Song);
         const albumRepository = getManager().getRepository(Models.Album);
@@ -326,7 +346,7 @@ export class AlbumResolvers {
 
         const transporter = await helpers.makeEmailTransporter();
         const templateEmail = await helpers.makeHtmlTemplate(
-          '../emailTemplates/artistInvite.html'
+          'src/emailTemplates/artistInvite.html'
         );
 
         const processSongsPromises = [];
@@ -340,8 +360,13 @@ export class AlbumResolvers {
         }
 
         const processSongsResults = await Promise.all(processSongsPromises);
+
+        console.log(
+          'processing songs complete - processSongsResults',
+          processSongsResults
+        );
         // check for any failures
-        const failures = processSongsResults.filter((result) => !result.ok);
+        const failures = processSongsResults.find((result) => !result.ok);
 
         if (failures) {
           console.log('There was a failure in the audio processing', failures);
@@ -362,44 +387,47 @@ export class AlbumResolvers {
           ] as services.ProcessAudioSuccessResponse;
 
           const { isNewArtist, newArtistName, newArtistEmail } = song;
+          console.log('song', song);
 
           let resolvedArtistId = song.artistId;
+          console.log('resolvedArtistId', resolvedArtistId);
           const songId = uuid();
 
-          if (
-            isNewArtist &&
-            newArtistName !== undefined &&
-            newArtistName.length > 0 &&
-            newArtistEmail !== undefined &&
-            newArtistEmail.length > 0 &&
-            userName !== undefined &&
-            userName.length > 0
-          ) {
-            const previouslyAddedNewArtist = newArtistModels.find(
-              (artist) => artist.name === newArtistName
-            );
+          if (isNewArtist) {
+            if (
+              newArtistName !== undefined &&
+              newArtistName.length > 0 &&
+              newArtistEmail !== undefined &&
+              newArtistEmail.length > 0 &&
+              userName !== undefined &&
+              userName.length > 0
+            ) {
+              const previouslyAddedNewArtist = newArtistModels.find(
+                (artist) => artist.name === newArtistName
+              );
 
-            if (previouslyAddedNewArtist === undefined) {
-              const createNewArtistResult = addNewArtist({
-                newArtistEmail,
-                newArtistName,
-                transporter,
-                templateEmail,
-                userName,
-              });
+              if (previouslyAddedNewArtist === undefined) {
+                const createNewArtistResult = addNewArtist({
+                  newArtistEmail,
+                  newArtistName,
+                  transporter,
+                  templateEmail,
+                  userName,
+                });
 
-              resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
+                resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
 
-              newArtistModels.push(createNewArtistResult.localNewArtistModel);
-              newArtistEmailPromises.push(
-                createNewArtistResult.newArtistEmailPromise
+                newArtistModels.push(createNewArtistResult.localNewArtistModel);
+                newArtistEmailPromises.push(
+                  createNewArtistResult.newArtistEmailPromise
+                );
+              }
+            } else {
+              console.log(
+                'Error, new Artist submitted with incorrect payload',
+                payload
               );
             }
-          } else {
-            console.log(
-              'Error, new Artist submitted with incorrect payload',
-              payload
-            );
           }
 
           // create supporting artist entries/new artists
@@ -426,11 +454,16 @@ export class AlbumResolvers {
             albumId,
             labelId,
             title: song.title,
+            isrc: song.isrc,
             ...processedSongResponse.data,
           };
         });
 
+        console.log('resolvedSongsToAdd', resolvedSongsToAdd);
+
         await songRepository.insert(resolvedSongsToAdd);
+        console.log('songs inserted');
+
         await albumRepository.update(albumId, { processing: false });
 
         // need to add any new artists first before adding them as supporting artists

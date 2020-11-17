@@ -70,7 +70,21 @@ export const processAudio = async (props: Input): Promise<Output> => {
     const { storagePath: inputStoragePath, deleteOriginal } = props;
     const bucket = admin.storage().bucket();
 
-    const metaDataResponse = await bucket.file(inputStoragePath).getMetadata();
+    const inputStoragePathWithoutBucketPrefix = inputStoragePath.replace(
+      `gs://${bucket.name}/`,
+      ''
+    );
+
+    console.log('inputStoragePath', inputStoragePath);
+
+    console.log(
+      'inputStoragePathWithoutBucketPrefix',
+      inputStoragePathWithoutBucketPrefix
+    );
+
+    const metaDataResponse = await bucket
+      .file(inputStoragePathWithoutBucketPrefix)
+      .getMetadata();
 
     const [metaData] = metaDataResponse;
 
@@ -83,7 +97,7 @@ export const processAudio = async (props: Input): Promise<Output> => {
     }
 
     // Get the file name.
-    const inputFileName = path.basename(inputStoragePath);
+    const inputFileName = path.basename(inputStoragePathWithoutBucketPrefix);
 
     // Exit if the audio is already converted.
     if (inputFileName.includes('__output__')) {
@@ -94,14 +108,14 @@ export const processAudio = async (props: Input): Promise<Output> => {
     inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
-      .file(inputStoragePath)
+      .file(inputStoragePathWithoutBucketPrefix)
       .download({ destination: inputTempFilePath });
     console.log('Audio downloaded locally to', inputTempFilePath);
 
     conversionFileDetails = conversionConfig.map((qualityLevel) =>
       prepFileForConversion({
         inputFileName,
-        inputStoragePath,
+        inputStoragePath: inputStoragePathWithoutBucketPrefix,
         qualityLevel,
       })
     );

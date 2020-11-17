@@ -60,13 +60,14 @@ const FILE_TYPE = 'jpeg';
 const CONTENT_TYPE = `image/${FILE_TYPE}`;
 
 // This sets the sizes selected for conversion
-const conversionConfig = [ImageSize.LARGE, ImageSize.THUMB];
+const conversionConfig = [ImageSize.LARGE, ImageSize.SMALL, ImageSize.THUMB];
 
 export const processImage = async (props: Input): Promise<Output> => {
   let conversionFileDetails:
     | ReturnType<typeof prepFileForConversion>[]
     | undefined;
   let inputTempFilePath: string | undefined;
+
   try {
     const {
       storagePath: inputStoragePath,
@@ -76,9 +77,17 @@ export const processImage = async (props: Input): Promise<Output> => {
     } = props;
 
     const inputFileName = path.parse(inputStoragePath).name;
+
     const bucket = admin.storage().bucket();
 
-    const metaDataResponse = await bucket.file(inputStoragePath).getMetadata();
+    const inputStoragePathWithoutBucketPrefix = inputStoragePath.replace(
+      `gs://${bucket.name}/`,
+      ''
+    );
+
+    const metaDataResponse = await bucket
+      .file(inputStoragePathWithoutBucketPrefix)
+      .getMetadata();
 
     if (!metaDataResponse) {
       return { ok: false, error: 'File not found' };
@@ -100,12 +109,12 @@ export const processImage = async (props: Input): Promise<Output> => {
     inputTempFilePath = path.join(os.tmpdir(), inputFileName);
 
     await bucket
-      .file(inputStoragePath)
+      .file(inputStoragePathWithoutBucketPrefix)
       .download({ destination: inputTempFilePath });
 
     conversionFileDetails = conversionConfig.map((size) =>
       prepFileForConversion({
-        inputStoragePath,
+        inputStoragePath: inputStoragePathWithoutBucketPrefix,
         size,
         imageType,
       })
@@ -134,7 +143,7 @@ export const processImage = async (props: Input): Promise<Output> => {
     const uploadResults = await Promise.all(uploadPromises);
 
     if (deleteOriginal) {
-      await bucket.file(inputStoragePath).delete();
+      await bucket.file(inputStoragePathWithoutBucketPrefix).delete();
     }
 
     const signedUrlPromises = uploadResults.map((uploadResult) =>
@@ -146,6 +155,7 @@ export const processImage = async (props: Input): Promise<Output> => {
 
     const signedUrlResults = await Promise.all(signedUrlPromises);
 
+    // TODO: This return isn't great as it wont scale with the config changes (what images to generate)
     const returnData: SucessData = {
       storagePathLarge: conversionFileDetails[0].outputStorageFilePath,
       urlLarge: signedUrlResults[0][0],
