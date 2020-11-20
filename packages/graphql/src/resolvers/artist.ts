@@ -1,9 +1,37 @@
+import * as helpers from 'helpers';
+import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 import { Models } from '../orm';
 import * as services from '../services';
 
+@InputType()
+class ClaimArtistArgs implements Partial<Models.UserArtist> {
+  @Field()
+  artistId: string;
+
+  @Field()
+  userId: string;
+}
+@InputType()
+class LabelCreateUnclaimedArtistArgs implements Partial<Models.Artist> {
+  @Field({ nullable: true })
+  claimantEmail: string;
+
+  @Field({ nullable: true })
+  name: string;
+
+  @Field()
+  creatorUserId: string;
+
+  @Field()
+  creatorName: string;
+
+  @Field()
+  labelId: string;
+}
 @InputType()
 class CreateArtistArgs implements Partial<Models.Artist> {
   @Field()
@@ -227,6 +255,109 @@ export class ArtistResolvers {
     }
   }
 
+  @Mutation(() => Boolean)
+  async labelCreateUnclaimedArtist(
+    @Arg('input') payload: LabelCreateUnclaimedArtistArgs
+  ): Promise<boolean> {
+    try {
+      const { creatorName, labelId, ...rest } = payload;
+
+      const artistRepository = getManager().getRepository(Models.Artist);
+      const labelArtistConnectionsRepository = getManager().getRepository(
+        Models.LabelArtistConnections
+      );
+
+      const artistId = uuid();
+
+      const artist = artistRepository.create({
+        id: artistId,
+        claimed: false,
+        ...rest,
+      });
+
+      const labelArtistConnection = labelArtistConnectionsRepository.create({
+        labelId,
+        artistId,
+      });
+
+      if (artist && labelArtistConnection) {
+        const transporter = await helpers.makeEmailTransporter();
+        const templateEmail = await helpers.makeHtmlTemplate(
+          'src/emailTemplates/artistInvite.html'
+        );
+
+        const templatedArtistInviteEmail = templateEmail({
+          artistName: rest.name,
+          artistEmail: rest.claimantEmail,
+          artistId: artistId,
+          userName: creatorName,
+        });
+
+        const sendArtistInviteEmailPromise = transporter.sendMail({
+          // TODO: setup sending email address properly
+          from: '"Team" <team@oursound.io>', // sender address
+          to: rest.claimantEmail, // list of receivers
+          subject: "You've been invited to OurSound!", // Subject line
+          html: templatedArtistInviteEmail, // html body
+        });
+
+        const saveArtistPromise = artistRepository.save(artist);
+        const saveLabelArtistConnectionPromise = labelArtistConnectionsRepository.save(
+          labelArtistConnection
+        );
+
+        const result = await Promise.all([
+          sendArtistInviteEmailPromise,
+          saveArtistPromise,
+          saveLabelArtistConnectionPromise,
+        ]);
+
+        if (result) {
+          return true;
+        }
+      }
+
+      console.log('labelCreateUnclaimedArtist failed', payload);
+      return false;
+    } catch (error) {
+      console.log('labelCreateUnclaimedArtist error', error);
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async claimArtist(@Arg('input') payload: ClaimArtistArgs): Promise<boolean> {
+    try {
+      const { artistId, userId } = payload;
+
+      const artistRepository = getManager().getRepository(Models.Artist);
+      const userArtistRepository = getManager().getRepository(
+        Models.UserArtist
+      );
+
+      const artistUpdate = await artistRepository.update(artistId, {
+        claimed: true,
+      });
+
+      const userArtist = userArtistRepository.create({
+        userId,
+        artistId,
+      });
+
+      if (artistUpdate && userArtist) {
+        await userArtistRepository.save(userArtist);
+
+        return true;
+      }
+
+      console.log('ClaimArtist failed', payload);
+      return false;
+    } catch (error) {
+      console.log('ClaimArtist error', error);
+      return false;
+    }
+  }
+
   // TODO: need to consider where this artist would be referenced
   // songs, albums, in order to delete all references
   @Mutation(() => Boolean)
@@ -249,3 +380,43 @@ export class ArtistResolvers {
     }
   }
 }
+
+// Private Functions
+
+const addNewArtist = ({
+  name,
+  claimantEmail,
+  transporter,
+  templateEmail,
+  creatorName,
+}: {
+  name: string;
+  claimantEmail: string;
+  templateEmail: HandlebarsTemplateDelegate;
+  transporter: Mail;
+  creatorName: string;
+}) => {
+  const newArtistId = uuid();
+
+  const templatedArtistInviteEmail = templateEmail({
+    artistName: name,
+    artistEmail: claimantEmail,
+    artistId: newArtistId,
+    userName: creatorName,
+  });
+
+  return {
+    newArtistEmailPromise: transporter.sendMail({
+      // TODO: setup sending email address properly
+      from: '"Team" <team@oursound.io>', // sender address
+      to: claimantEmail, // list of receivers
+      subject: "You've been invited to OurSound!", // Subject line
+      html: templatedArtistInviteEmail, // html body
+    }),
+    localNewArtistModel: {
+      id: newArtistId,
+      name: name,
+      claimantEmail,
+    },
+  };
+};

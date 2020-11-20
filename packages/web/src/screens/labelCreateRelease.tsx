@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress, Container, Typography } from '@material-ui/core';
 import { IdParam, Query } from 'commonTypes';
-import { CreateAlbumForm, Spacing } from 'components';
+import { AlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
@@ -44,7 +44,7 @@ export const LabelCreateRelease = () => {
 
           <Spacing.section.Minor />
 
-          <CreateAlbumForm
+          <AlbumForm
             creatorId={id}
             releaseId={releaseId}
             artists={artistData}

@@ -137,4 +137,8 @@ export class Song {
   @Field({ nullable: true })
   @Column({ nullable: true })
   isrc: string;
+
+  @Field()
+  @Column({ default: true })
+  active: boolean;
 }

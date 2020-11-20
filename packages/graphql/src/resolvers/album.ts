@@ -1,27 +1,16 @@
-import Mail from 'nodemailer/lib/mailer';
-import { Album, Artist, SongArtistSupportingArtist } from 'orm/models';
+import { Album, SongArtistSupportingArtist } from 'orm/models';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { uuid } from 'uuidv4';
 
-import * as helpers from '../helpers';
 import { Models } from '../orm';
 import * as services from '../services';
 
 // TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
 @InputType()
 class SupportingArtistInput {
-  @Field({ nullable: true })
-  isNewArtist?: boolean;
-
-  @Field({ nullable: true })
-  newArtistEmail?: string;
-
-  @Field({ nullable: true })
-  newArtistName?: string;
-
-  @Field({ nullable: true })
-  artistId?: string;
+  @Field()
+  artistId: string;
 }
 
 // TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
@@ -29,15 +18,6 @@ class SupportingArtistInput {
 class NewSongArgs {
   @Field({ nullable: true })
   artistId?: string;
-
-  @Field({ nullable: true })
-  isNewArtist?: boolean;
-
-  @Field({ nullable: true })
-  newArtistEmail?: string;
-
-  @Field({ nullable: true })
-  newArtistName?: string;
 
   @Field()
   storagePath: string;
@@ -82,15 +62,6 @@ class CreateAlbumArgs {
   @Field({ nullable: true })
   labelId?: string;
 
-  @Field({ nullable: true })
-  isNewArtist?: boolean;
-
-  @Field({ nullable: true })
-  newArtistName?: string;
-
-  @Field({ nullable: true })
-  newArtistEmail?: string;
-
   @Field()
   profileImageStoragePath: string;
 
@@ -109,7 +80,6 @@ type CreateAlbum = Omit<
   'createdAt' | 'updatedAt' | 'type' | 'label' | 'artist' | 'songs'
 >;
 
-type CreateArtist = Pick<Artist, 'id' | 'name' | 'inviteEmail'>;
 type CreateSupportingAritst = Pick<
   SongArtistSupportingArtist,
   'artistId' | 'songId'
@@ -210,12 +180,8 @@ export class AlbumResolvers {
       const {
         albumId,
         artistId,
-        isNewArtist,
-        newArtistEmail,
-        newArtistName,
         profileImageStoragePath,
         releaseDate,
-        userName,
         ...albumPayload
       } = payload;
 
@@ -231,47 +197,6 @@ export class AlbumResolvers {
         profileImageStoragePath.length > 0
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
-        const artistRepository = getManager().getRepository(Models.Artist);
-
-        let resolvedArtistId = artistId;
-
-        if (isNewArtist) {
-          if (
-            newArtistName !== undefined &&
-            newArtistName.length > 0 &&
-            newArtistEmail !== undefined &&
-            newArtistEmail.length > 0 &&
-            userName !== undefined &&
-            userName.length > 0
-          ) {
-            const transporter = await helpers.makeEmailTransporter();
-            const templateEmail = await helpers.makeHtmlTemplate(
-              '../emailTemplates/artistInvite.html'
-            );
-
-            const createNewArtistResult = addNewArtist({
-              newArtistEmail,
-              newArtistName,
-              templateEmail,
-              transporter,
-              userName,
-            });
-
-            resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
-
-            await artistRepository.insert(
-              createNewArtistResult.localNewArtistModel
-            );
-            await createNewArtistResult.newArtistEmailPromise;
-          } else {
-            console.log(
-              'Error, new Artist submitted with incorrect payload',
-              payload
-            );
-
-            return;
-          }
-        }
 
         const processImageResult = await services.processImage({
           storagePath: profileImageStoragePath,
@@ -283,14 +208,14 @@ export class AlbumResolvers {
           return;
         }
 
-        if (resolvedArtistId === undefined) {
+        if (artistId === undefined) {
           console.log('artistId is undefined');
           return;
         }
 
         const newAlbum: CreateAlbum = {
           id: albumId,
-          artistId: resolvedArtistId,
+          artistId,
           releaseDate: releaseDate ?? new Date(),
           profileImageStoragePathLarge:
             processImageResult.data.storagePathLarge,
@@ -332,21 +257,17 @@ export class AlbumResolvers {
     @Arg('input') payload: AddSongsToAlbumArgs
   ): Promise<boolean> {
     try {
-      const { songsToAdd, albumId, labelId, userName } = payload;
+      const { songsToAdd, albumId, labelId } = payload;
 
       console.log('addSongsToAlbum payload', payload);
 
       if ((songsToAdd.length > 0, albumId, songsToAdd)) {
         const songRepository = getManager().getRepository(Models.Song);
         const albumRepository = getManager().getRepository(Models.Album);
-        const supportingArtistRespository = getManager().getRepository(
-          Models.SongArtistSupportingArtist
-        );
         const artistRepository = getManager().getRepository(Models.Artist);
 
-        const transporter = await helpers.makeEmailTransporter();
-        const templateEmail = await helpers.makeHtmlTemplate(
-          'src/emailTemplates/artistInvite.html'
+        const supportingArtistRespository = getManager().getRepository(
+          Models.SongArtistSupportingArtist
         );
 
         const processSongsPromises = [];
@@ -374,91 +295,49 @@ export class AlbumResolvers {
         }
 
         const supportingArtistModels: CreateSupportingAritst[] = [];
-        const newArtistModels: CreateArtist[] = [];
-        const newArtistEmailPromises: Promise<
-          ReturnType<typeof transporter.sendMail>
-        >[] = [];
 
-        const resolvedSongsToAdd = songsToAdd.map((song, index) => {
-          // Typescript cant seem to infer the specific type of the results
-          // checked above for any fail responses, safe to cast to success
-          const processedSongResponse = processSongsResults[
-            index
-          ] as services.ProcessAudioSuccessResponse;
+        const resolvedSongsToAddPromises = songsToAdd.map(
+          async (song, index) => {
+            // Typescript cant seem to infer the specific type of the results
+            // checked above for any fail responses, safe to cast to success
+            const processedSongResponse = processSongsResults[
+              index
+            ] as services.ProcessAudioSuccessResponse;
 
-          const { isNewArtist, newArtistName, newArtistEmail } = song;
-          console.log('song', song);
+            const songId = uuid();
 
-          let resolvedArtistId = song.artistId;
-          console.log('resolvedArtistId', resolvedArtistId);
-          const songId = uuid();
+            // TODO: This could be more efficient, if album isnt various artists, no need to run this on every song as its the same artist
+            const artist = await artistRepository.findOne({
+              id: song.artistId,
+            });
 
-          if (isNewArtist) {
-            if (
-              newArtistName !== undefined &&
-              newArtistName.length > 0 &&
-              newArtistEmail !== undefined &&
-              newArtistEmail.length > 0 &&
-              userName !== undefined &&
-              userName.length > 0
-            ) {
-              const previouslyAddedNewArtist = newArtistModels.find(
-                (artist) => artist.name === newArtistName
+            if (song.supportingArtist !== undefined) {
+              const supportingArtistModelsForThisSong: CreateSupportingAritst[] = song.supportingArtist?.map(
+                (supportingArtist) => ({
+                  songId,
+                  artistId: supportingArtist.artistId,
+                })
               );
 
-              if (previouslyAddedNewArtist === undefined) {
-                const createNewArtistResult = addNewArtist({
-                  newArtistEmail,
-                  newArtistName,
-                  transporter,
-                  templateEmail,
-                  userName,
-                });
-
-                resolvedArtistId = createNewArtistResult.localNewArtistModel.id;
-
-                newArtistModels.push(createNewArtistResult.localNewArtistModel);
-                newArtistEmailPromises.push(
-                  createNewArtistResult.newArtistEmailPromise
-                );
-              }
-            } else {
-              console.log(
-                'Error, new Artist submitted with incorrect payload',
-                payload
-              );
+              supportingArtistModels.push(...supportingArtistModelsForThisSong);
             }
+
+            return {
+              id: songId,
+              artistId: song.artistId,
+              albumId,
+              labelId,
+              title: song.title,
+              isrc: song.isrc,
+              ...processedSongResponse.data,
+              active: artist?.claimed ?? false,
+            };
           }
+        );
 
-          // create supporting artist entries/new artists
-          const addSupportingArtistResult = addSupportingArtists({
-            supportingArtists: song.supportingArtist,
-            songId,
-            globalNewArtistModels: newArtistModels,
-            userName,
-            templateEmail,
-            transporter,
-          });
-
-          supportingArtistModels.push(
-            ...addSupportingArtistResult.supportingArtistModels
-          );
-          newArtistModels.push(...addSupportingArtistResult.newArtistModels);
-          newArtistEmailPromises.push(
-            ...addSupportingArtistResult.newArtistEmailPromises
-          );
-
-          return {
-            id: songId,
-            artistId: resolvedArtistId,
-            albumId,
-            labelId,
-            title: song.title,
-            isrc: song.isrc,
-            ...processedSongResponse.data,
-          };
-        });
-
+        const resolvedSongsToAdd = await Promise.all(
+          resolvedSongsToAddPromises
+        );
         console.log('resolvedSongsToAdd', resolvedSongsToAdd);
 
         await songRepository.insert(resolvedSongsToAdd);
@@ -466,18 +345,8 @@ export class AlbumResolvers {
 
         await albumRepository.update(albumId, { processing: false });
 
-        // need to add any new artists first before adding them as supporting artists
-        if (newArtistModels.length > 0) {
-          await artistRepository.insert(newArtistModels);
-        }
-
         if (supportingArtistModels.length > 0) {
           await supportingArtistRespository.insert(supportingArtistModels);
-        }
-
-        if (newArtistEmailPromises.length > 0) {
-          await Promise.all(newArtistEmailPromises);
-          console.log('emails sent to new artists');
         }
 
         return true;
@@ -530,131 +399,3 @@ export class AlbumResolvers {
     }
   }
 }
-
-// Private types
-
-interface AddSupportingArtistsProps {
-  supportingArtists: NewSongArgs['supportingArtist'];
-  songId: string;
-  globalNewArtistModels: CreateArtist[];
-  userName: string;
-  templateEmail: HandlebarsTemplateDelegate;
-  transporter: Mail;
-}
-
-// Private Functions
-
-const addNewArtist = ({
-  newArtistName,
-  newArtistEmail,
-  transporter,
-  templateEmail,
-  userName,
-}: {
-  newArtistName: string;
-  newArtistEmail: string;
-  templateEmail: HandlebarsTemplateDelegate;
-  transporter: Mail;
-  userName: string;
-}) => {
-  const newArtistId = uuid();
-
-  const templatedArtistInviteEmail = templateEmail({
-    artistName: newArtistName,
-    artistEmail: newArtistEmail,
-    artistId: newArtistId,
-    userName,
-  });
-
-  return {
-    newArtistEmailPromise: transporter.sendMail({
-      // TODO: setup sending email address properly
-      from: '"Team" <team@oursound.io>', // sender address
-      to: newArtistEmail, // list of receivers
-      subject: "You've been invited to OurSound!", // Subject line
-      html: templatedArtistInviteEmail, // html body
-    }),
-    localNewArtistModel: {
-      id: newArtistId,
-      name: newArtistName,
-      inviteEmail: newArtistEmail,
-    },
-  };
-};
-
-const addSupportingArtists = (props: AddSupportingArtistsProps) => {
-  const {
-    supportingArtists,
-    songId,
-    globalNewArtistModels,
-    userName,
-    templateEmail,
-    transporter,
-  } = props;
-
-  const supportingArtistModels: CreateSupportingAritst[] = [];
-  const localNewArtistModels: CreateArtist[] = [];
-  const newArtistEmailPromises: Promise<
-    ReturnType<typeof transporter.sendMail>
-  >[] = [];
-
-  if (supportingArtists !== undefined && supportingArtists.length > 0) {
-    for (const supportingArtist of supportingArtists) {
-      if (
-        supportingArtist.isNewArtist &&
-        supportingArtist.newArtistName !== undefined &&
-        supportingArtist.newArtistName.length > 0 &&
-        supportingArtist.newArtistEmail !== undefined &&
-        supportingArtist.newArtistEmail.length > 0
-      ) {
-        // check to see if the artist was created in another instance
-        const previouslyAddedNewArtist = globalNewArtistModels.find(
-          (artist) => artist.name === supportingArtist.newArtistName
-        );
-        const newArtistId = previouslyAddedNewArtist?.id ?? uuid();
-
-        if (previouslyAddedNewArtist === undefined) {
-          localNewArtistModels.push({
-            name: supportingArtist.newArtistName,
-            id: newArtistId,
-            inviteEmail: supportingArtist.newArtistEmail,
-          });
-        }
-
-        supportingArtistModels.push({
-          songId,
-          artistId: newArtistId,
-        });
-
-        const templatedArtistInviteEmail = templateEmail({
-          artistName: supportingArtist.newArtistName,
-          artistEmail: supportingArtist.newArtistEmail,
-          artistId: newArtistId,
-          userName,
-        });
-
-        newArtistEmailPromises.push(
-          transporter.sendMail({
-            // TODO: setup sending email address properly
-            from: '"Team" <team@oursound.io>', // sender address
-            to: supportingArtist.newArtistEmail, // list of receivers
-            subject: "You've been invited to OurSound!", // Subject line
-            html: templatedArtistInviteEmail, // html body
-          })
-        );
-      } else {
-        if (supportingArtist.artistId) {
-          supportingArtistModels.push({
-            songId,
-            artistId: supportingArtist.artistId,
-          });
-        }
-      }
-    }
-  }
-  return {
-    supportingArtistModels,
-    newArtistModels: localNewArtistModels,
-    newArtistEmailPromises,
-  };
-};

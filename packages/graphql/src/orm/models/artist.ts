@@ -138,7 +138,7 @@ export class Artist {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  inviteEmail: string;
+  claimantEmail: string;
 
   @Field(() => Date)
   @CreateDateColumn()
@@ -151,4 +151,12 @@ export class Artist {
   @Field(() => UserSubscriptionEntity)
   @Column({ default: UserSubscriptionEntity.ARTIST, update: false })
   type: UserSubscriptionEntity;
+
+  @Field()
+  @Column({ default: true })
+  claimed: boolean;
+
+  @Field()
+  @Column()
+  creatorUserId: string;
 }

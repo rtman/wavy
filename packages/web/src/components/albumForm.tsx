@@ -29,7 +29,7 @@ import {
 import {
   FileUploadButton,
   Flex,
-  SongUploadForm,
+  SongForm,
   Spacing,
   Uploader,
 } from 'components';
@@ -64,7 +64,7 @@ interface CreateAlbumFormProps {
   releaseId: string;
 }
 
-export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
+export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   const classes = useStyles();
   const history = useHistory();
   const userContext = useContext(UserContext);
@@ -157,22 +157,16 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
       album: {
         artist: null,
         description: '',
-        newArtistEmail: '',
-        newArtistName: '',
-        isNewArtist: false,
         releaseDate: null,
         title: '',
       },
       songs: [
         {
           artist: null,
-          newArtistEmail: '',
-          newArtistName: '',
           hasSupportingArtists: false,
-          isNewArtist: false,
           isrc: '',
           title: '',
-          supportingArtists: null,
+          supportingArtists: [],
         },
       ],
     }),
@@ -188,16 +182,9 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
     name: 'songs',
   });
 
-  const watchVariousArtists: AlbumFields['artist'] = hookForm.watch(
-    'album.artist'
-  );
-  const watchIsNewArtist: AlbumFields['isNewArtist'] = hookForm.watch(
-    'album.isNewArtist'
-  );
-
   useEffect(() => {
     if (acceptedFiles.length > 0 && updateSongsForUpload) {
-      console.log('*debug* createAlbumForm useEffect');
+      console.log('*debug* albumForm useEffect');
       const makeFormFromDropzone = () =>
         acceptedFiles.map(
           (file): SongFields => ({
@@ -238,21 +225,21 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
 
   const removeSong = useCallback(
     (index: number) => {
-      console.log('*debug* createAlbumForm acceptedFiles', acceptedFiles);
+      console.log('*debug* albumForm acceptedFiles', acceptedFiles);
       console.log(
-        '*debug* createAlbumForm updateSongsForUpload',
+        '*debug* albumForm updateSongsForUpload',
         updateSongsForUpload
       );
       console.log(
-        '*debug* createAlbumForm updateAllUploadStatuses',
+        '*debug* albumForm updateAllUploadStatuses',
         updateAllUploadStatuses
       );
-      console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
+      console.log('*debug* albumForm uploadStatuses', uploadStatuses);
       console.log(
-        '*debug* createAlbumForm uploadStatuses[index]',
+        '*debug* albumForm uploadStatuses[index]',
         (uploadStatuses ?? [])[index]
       );
-      console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
+      console.log('*debug* albumForm songsForUpload', songsForUpload);
 
       if (
         uploadStatuses &&
@@ -378,7 +365,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
         childDir: releaseId,
         fileName: 'profile',
       });
-      console.log('*debug* createAlbumForm uploadImage result', result);
+      console.log('*debug* albumForm uploadImage result', result);
       const userName = `${userContext?.user?.firstName} ${userContext?.user?.lastName}`;
       if (result && result.id && resolvedSongsForUpload.length > 0) {
         const {
@@ -429,10 +416,10 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
     },
   ];
 
-  console.log('*debug* createAlbumForm acceptedFiles', acceptedFiles);
-  console.log('*debug* createAlbumForm releaseId', releaseId);
-  console.log('*debug* createAlbumForm uploadStatuses', uploadStatuses);
-  console.log('*debug* createAlbumForm songsForUpload', songsForUpload);
+  console.log('*debug* albumForm acceptedFiles', acceptedFiles);
+  console.log('*debug* albumForm releaseId', releaseId);
+  console.log('*debug* albumForm uploadStatuses', uploadStatuses);
+  console.log('*debug* albumForm songsForUpload', songsForUpload);
 
   // const setUploadStatusCallback = useCallback(() => setUploadStatus, []);
 
@@ -498,151 +485,84 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
                   helperText={hookForm.errors.album?.description?.message}
                   error={hookForm.errors.album?.description !== undefined}
                 />
+
+                <MuiPickersUtilsProvider
+                  libInstance={moment}
+                  utils={MomentUtils}
+                >
+                  <Controller
+                    as={
+                      <DatePicker
+                        disableFuture={true}
+                        openTo="year"
+                        format="DD/MM/yyyy"
+                        label="Release Date"
+                        views={['year', 'month', 'date']}
+                        helperText={hookForm.errors.album?.releaseDate?.message}
+                        error={hookForm.errors.album?.releaseDate !== undefined}
+                        style={{ flex: 1 }}
+                        value={undefined}
+                        onChange={() => null}
+                        placeholder="Release Date"
+                      />
+                    }
+                    rules={{
+                      validate: {
+                        nonEmpty: (value: Date | null) =>
+                          value !== null || 'Please select a release date',
+                      },
+                    }}
+                    control={hookForm.control}
+                    defaultValue="album.releaseDate"
+                    value="album.releaseDate"
+                    name="album.releaseDate"
+                  />
+                </MuiPickersUtilsProvider>
                 <Flex fullWidth={true}>
                   <Flex flexDirection="column" fullWidth={true}>
-                    {watchVariousArtists?.name === 'Various Artists' ? null : (
-                      <FormControlLabel
-                        label="New Artist"
-                        control={
-                          <Switch
-                            inputRef={hookForm.register()}
-                            name={'album.isNewArtist'}
-                            id={'new-artist'}
-                          />
-                        }
-                      />
-                    )}
-                    {watchIsNewArtist ? (
-                      <Flex fullWidth={true}>
-                        <TextField
-                          inputRef={hookForm.register({
-                            required: {
-                              value: true,
-                              message: 'Required',
-                            },
-                            minLength: {
-                              value: 2,
-                              message: 'Enter at least 2 characters',
-                            },
-                          })}
-                          margin="normal"
-                          fullWidth={true}
-                          name={'album.newArtistName'}
-                          label="New Artist Name"
-                          id={'new-artist-name'}
-                          helperText={
-                            hookForm.errors.album?.newArtistName?.message
+                    <Controller
+                      name="album.artist"
+                      control={hookForm.control}
+                      rules={{
+                        validate: (value: Artist) =>
+                          hookForm.getValues('album.artist') !==
+                          'Various Artists'
+                            ? value !== null || 'Please select an artist'
+                            : undefined,
+                      }}
+                      defaultValue={null}
+                      render={(controllerProps) => (
+                        <Autocomplete
+                          {...controllerProps}
+                          options={
+                            (isLabel ? artistsWithVariousArtists : artists) ??
+                            []
                           }
-                          error={
-                            hookForm.errors.album?.newArtistName !== undefined
+                          getOptionLabel={(option) => option.name}
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          onChange={(e: any, values: any) =>
+                            hookForm.setValue('album.artist', values)
                           }
+                          style={{ width: '100%' }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              fullWidth={true}
+                              label="Artist"
+                              helperText={
+                                hookForm.errors.album?.artist?.message
+                              }
+                              error={
+                                hookForm.errors.album?.artist !== undefined
+                              }
+                            />
+                          )}
                         />
-                        <TextField
-                          inputRef={hookForm.register({
-                            required: {
-                              value: true,
-                              message: 'Required',
-                            },
-                            pattern: {
-                              value: consts.regex.email,
-                              message: 'Please enter a valid email',
-                            },
-                          })}
-                          margin="normal"
-                          fullWidth={true}
-                          name={'album.newArtistEmail'}
-                          label="New Artist Email"
-                          id={'new-artist-email'}
-                          helperText={
-                            hookForm.errors.album?.newArtistEmail?.message
-                          }
-                          error={
-                            hookForm.errors.album?.newArtistEmail !== undefined
-                          }
-                        />
-                      </Flex>
-                    ) : (
-                      <Controller
-                        name="album.artist"
-                        control={hookForm.control}
-                        rules={{
-                          validate: (value: Artist) =>
-                            hookForm.getValues('album.artist') !==
-                            'Various Artists'
-                              ? value !== null || 'Please select an artist'
-                              : undefined,
-                        }}
-                        defaultValue={null}
-                        render={(controllerProps) => (
-                          <Autocomplete
-                            {...controllerProps}
-                            options={
-                              (isLabel ? artistsWithVariousArtists : artists) ??
-                              []
-                            }
-                            getOptionLabel={(option) => option.name}
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            onChange={(e: any, values: any) =>
-                              hookForm.setValue('album.artist', values)
-                            }
-                            style={{ width: '100%' }}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                fullWidth={true}
-                                label="Artist"
-                                helperText={
-                                  hookForm.errors.album?.artist?.message
-                                }
-                                error={
-                                  hookForm.errors.album?.artist !== undefined
-                                }
-                              />
-                            )}
-                          />
-                        )}
-                      />
-                    )}
+                      )}
+                    />
                   </Flex>
 
                   <Spacing.BetweenComponents />
-
-                  <MuiPickersUtilsProvider
-                    libInstance={moment}
-                    utils={MomentUtils}
-                  >
-                    <Controller
-                      as={
-                        <DatePicker
-                          disableFuture={true}
-                          openTo="year"
-                          format="DD/MM/yyyy"
-                          label="Release Date"
-                          views={['year', 'month', 'date']}
-                          helperText={
-                            hookForm.errors.album?.releaseDate?.message
-                          }
-                          error={
-                            hookForm.errors.album?.releaseDate !== undefined
-                          }
-                          style={{ flex: 1 }}
-                          value={undefined}
-                          onChange={() => null}
-                          placeholder="Release Date"
-                        />
-                      }
-                      rules={{
-                        validate: {
-                          nonEmpty: (value: Date | null) =>
-                            value !== null || 'Please select a release date',
-                        },
-                      }}
-                      control={hookForm.control}
-                      defaultValue="album.releaseDate"
-                      value="album.releaseDate"
-                      name="album.releaseDate"
-                    />
-                  </MuiPickersUtilsProvider>
                 </Flex>
               </Flex>
             </Flex>
@@ -660,7 +580,7 @@ export const CreateAlbumForm = memo((props: CreateAlbumFormProps) => {
                           songData={(songsForUpload ?? [])[index]}
                           index={index}
                         />
-                        <SongUploadForm
+                        <SongForm
                           formData={data}
                           index={index}
                           removeSong={removeSong}
@@ -786,5 +706,5 @@ const DropzoneContainer = styled.div(
   })
 );
 
-CreateAlbumForm.displayName = 'CreateAlbumForm';
-CreateAlbumForm.whyDidYouRender = true;
+AlbumForm.displayName = 'AlbumForm';
+AlbumForm.whyDidYouRender = true;

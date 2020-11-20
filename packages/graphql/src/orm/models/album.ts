@@ -96,8 +96,8 @@ export class Album {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @Field(() => Boolean)
-  @Column()
+  @Field()
+  @Column({ default: true })
   processing: boolean;
 
   @Field(() => UserSubscriptionEntity)

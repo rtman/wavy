@@ -107,7 +107,7 @@ export class Label {
   @Column({ nullable: true })
   connectionCode: string;
 
-  // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm, also need to use insert(). If I move to typeorm migration this may work
+  // TODO: Doesn't work, likely because I'm using sequelize to seed the data and not typeorm, it requires insert(). If I move to typeorm migration this may work
   @BeforeInsert()
   generateConnectionCode() {
     this.connectionCode = uuid();

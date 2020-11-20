@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Container, Typography } from '@material-ui/core';
 import { Query } from 'commonTypes';
-import { CreateAlbumForm, Spacing } from 'components';
+import { AlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -36,11 +36,7 @@ export const ArtistCreateRelease = () => {
 
       <Spacing.section.Minor />
 
-      <CreateAlbumForm
-        creatorId={id}
-        artists={artistData}
-        releaseId={releaseId}
-      />
+      <AlbumForm creatorId={id} artists={artistData} releaseId={releaseId} />
     </Container>
   );
 };
