@@ -1,4 +1,4 @@
-import * as helpers from 'helpers';
+import * as helpers from '../helpers';
 import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
@@ -227,6 +227,7 @@ export class ArtistResolvers {
 
       const artist = artistRepository.create({
         id: artistId,
+        creatorUserId: userId,
         ...rest,
         ...processImageResult.data,
       });

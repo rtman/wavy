@@ -83,10 +83,12 @@ export type Artist = {
   artistConnections: Array<Artist>;
   labelConnections: Array<LabelArtistConnections>;
   connectionCode?: Maybe<Scalars['ID']>;
-  inviteEmail?: Maybe<Scalars['String']>;
+  claimantEmail?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
+  claimed: Scalars['Boolean'];
+  creatorUserId: Scalars['String'];
 };
 
 export type ArtistLabel = {
@@ -104,15 +106,17 @@ export type Base = {
   ok: Scalars['Boolean'];
 };
 
+export type ClaimArtistArgs = {
+  artistId: Scalars['String'];
+  userId: Scalars['String'];
+};
+
 /** Create a new album */
 export type CreateAlbumArgs = {
   albumId: Scalars['String'];
   artistId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   labelId?: Maybe<Scalars['String']>;
-  isNewArtist?: Maybe<Scalars['Boolean']>;
-  newArtistName?: Maybe<Scalars['String']>;
-  newArtistEmail?: Maybe<Scalars['String']>;
   profileImageStoragePath: Scalars['String'];
   releaseDate: Scalars['DateTime'];
   title: Scalars['String'];
@@ -212,6 +216,14 @@ export type LabelArtistConnections = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type LabelCreateUnclaimedArtistArgs = {
+  claimantEmail?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  creatorUserId: Scalars['String'];
+  creatorName: Scalars['String'];
+  labelId: Scalars['String'];
+};
+
 export type ListeningStats = {
   __typename?: 'ListeningStats';
   songId: Scalars['ID'];
@@ -244,6 +256,8 @@ export type Mutation = {
   testProcessAudio: Scalars['Boolean'];
   deleteAlbum: Scalars['Boolean'];
   createArtist: Artist;
+  labelCreateUnclaimedArtist: Scalars['Boolean'];
+  claimArtist: Scalars['Boolean'];
   deleteArtist: Scalars['Boolean'];
   createLabel: Label;
   deleteLabel: Scalars['Boolean'];
@@ -293,6 +307,14 @@ export type MutationDeleteAlbumArgs = {
 
 export type MutationCreateArtistArgs = {
   input: CreateArtistArgs;
+};
+
+export type MutationLabelCreateUnclaimedArtistArgs = {
+  input: LabelCreateUnclaimedArtistArgs;
+};
+
+export type MutationClaimArtistArgs = {
+  input: ClaimArtistArgs;
 };
 
 export type MutationDeleteArtistArgs = {
@@ -413,11 +435,9 @@ export type MutationDeleteUserSubscriptionArgs = {
 
 export type NewSongArgs = {
   artistId?: Maybe<Scalars['String']>;
-  isNewArtist?: Maybe<Scalars['Boolean']>;
-  newArtistEmail?: Maybe<Scalars['String']>;
-  newArtistName?: Maybe<Scalars['String']>;
   storagePath: Scalars['String'];
   supportingArtist?: Maybe<Array<SupportingArtistInput>>;
+  isrc: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -672,6 +692,8 @@ export type Song = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
+  isrc?: Maybe<Scalars['String']>;
+  active: Scalars['Boolean'];
 };
 
 export type SongArtistSupportingArtist = {
@@ -711,10 +733,7 @@ export type Success = {
 };
 
 export type SupportingArtistInput = {
-  isNewArtist?: Maybe<Scalars['Boolean']>;
-  newArtistEmail?: Maybe<Scalars['String']>;
-  newArtistName?: Maybe<Scalars['String']>;
-  artistId?: Maybe<Scalars['String']>;
+  artistId: Scalars['String'];
 };
 
 export type Tag = {
@@ -1123,6 +1142,8 @@ export type ResolversTypes = {
   NewSongArgs: NewSongArgs;
   SupportingArtistInput: SupportingArtistInput;
   CreateArtistArgs: CreateArtistArgs;
+  LabelCreateUnclaimedArtistArgs: LabelCreateUnclaimedArtistArgs;
+  ClaimArtistArgs: ClaimArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
   UserSkippedSongArgs: UserSkippedSongArgs;
@@ -1201,6 +1222,8 @@ export type ResolversParentTypes = {
   NewSongArgs: NewSongArgs;
   SupportingArtistInput: SupportingArtistInput;
   CreateArtistArgs: CreateArtistArgs;
+  LabelCreateUnclaimedArtistArgs: LabelCreateUnclaimedArtistArgs;
+  ClaimArtistArgs: ClaimArtistArgs;
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
   UserSkippedSongArgs: UserSkippedSongArgs;
@@ -1374,7 +1397,7 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
-  inviteEmail?: Resolver<
+  claimantEmail?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
@@ -1386,6 +1409,8 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
+  claimed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  creatorUserId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1577,6 +1602,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateArtistArgs, 'input'>
+  >;
+  labelCreateUnclaimedArtist?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLabelCreateUnclaimedArtistArgs, 'input'>
+  >;
+  claimArtist?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationClaimArtistArgs, 'input'>
   >;
   deleteArtist?: Resolver<
     ResolversTypes['Boolean'],
@@ -2086,6 +2123,8 @@ export type SongResolvers<
     ParentType,
     ContextType
   >;
+  isrc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

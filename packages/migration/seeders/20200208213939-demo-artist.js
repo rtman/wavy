@@ -23,6 +23,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 0,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: '30f65df5-98bb-48cd-83e5-867f707f941d',
@@ -44,6 +45,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 100,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
@@ -65,6 +67,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 200,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
@@ -86,6 +89,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 300,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
@@ -107,6 +111,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 250,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: '2be2c355-497d-40bb-8739-cd07823ab8d0',
@@ -128,6 +133,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 1000,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
       {
         id: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
@@ -149,6 +155,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 225,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
       },
     ]);
   },

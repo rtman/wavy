@@ -5,6 +5,7 @@ import {
   CircularProgress,
   Container,
   FormControlLabel,
+  Grid,
   List,
   Switch,
   TextField,
@@ -425,175 +426,178 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
 
   return (
     <FormProvider {...hookForm}>
-      <Container>
-        {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
-          <>
-            <Flex>
-              {image ? (
-                <img src={image} width={500} height={500} />
-              ) : (
-                <ImageUploader
-                  className={classes.imageUploader}
-                  withIcon={true}
-                  buttonText="Select Image"
-                  onChange={onDrop}
-                  imgExtension={['.jpg', '.png', 'jpeg']}
-                  maxFileSize={5242880}
-                  singleImage={true}
-                  style={{ width: undefined }}
+      {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12} sm={6}>
+            {image ? (
+              <img
+                style={{
+                  minHeight: 50,
+                  minWidth: 50,
+                  maxHeight: 250,
+                  maxWidth: 250,
+                  objectFit: 'contain',
+                  flexShrink: 1,
+                }}
+                src={image}
+              />
+            ) : (
+              <ImageUploader
+                className={classes.imageUploader}
+                withIcon={true}
+                buttonText="Select Image"
+                onChange={onDrop}
+                imgExtension={['.jpg', '.png', 'jpeg']}
+                maxFileSize={5242880}
+                singleImage={true}
+                style={{ width: undefined }}
+              />
+            )}
+          </Grid>
+
+          <Grid item={true} xs={12} sm={6} md={3}>
+            {/* <Flex flexDirection="column" fullWidth={true}> */}
+            <Flex flexDirection="column">
+              <TextField
+                inputRef={hookForm.register({
+                  required: {
+                    value: true,
+                    message: 'Required',
+                  },
+                  minLength: {
+                    value: 2,
+                    message: 'Enter at least 2 characters',
+                  },
+                })}
+                margin="normal"
+                fullWidth={true}
+                name={'album.title'}
+                label="Release Title"
+                id={'release-title'}
+                helperText={hookForm.errors.album?.title?.message}
+                error={hookForm.errors.album?.title !== undefined}
+              />
+              <TextField
+                inputRef={hookForm.register({
+                  required: {
+                    value: true,
+                    message: 'Required',
+                  },
+                  minLength: {
+                    value: 2,
+                    message: 'Enter at least 2 characters',
+                  },
+                })}
+                margin="normal"
+                multiline={true}
+                fullWidth={true}
+                name={'album.description'}
+                label="Description"
+                id={'release-description'}
+                helperText={hookForm.errors.album?.description?.message}
+                error={hookForm.errors.album?.description !== undefined}
+              />
+            </Flex>
+          </Grid>
+          <Grid item={true} xs={12} sm={6}>
+            <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+              <Controller
+                as={
+                  <DatePicker
+                    disableFuture={true}
+                    openTo="year"
+                    format="DD/MM/yyyy"
+                    label="Release Date"
+                    views={['year', 'month', 'date']}
+                    helperText={hookForm.errors.album?.releaseDate?.message}
+                    error={hookForm.errors.album?.releaseDate !== undefined}
+                    style={{ flex: 1 }}
+                    value={undefined}
+                    onChange={() => null}
+                    placeholder="Release Date"
+                  />
+                }
+                rules={{
+                  validate: {
+                    nonEmpty: (value: Date | null) =>
+                      value !== null || 'Please select a release date',
+                  },
+                }}
+                control={hookForm.control}
+                defaultValue="album.releaseDate"
+                value="album.releaseDate"
+                name="album.releaseDate"
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid item={true} xs={12} sm={6}>
+            <Controller
+              name="album.artist"
+              control={hookForm.control}
+              rules={{
+                validate: (value: Artist) =>
+                  hookForm.getValues('album.artist') !== 'Various Artists'
+                    ? value !== null || 'Please select an artist'
+                    : undefined,
+              }}
+              defaultValue={null}
+              render={(controllerProps) => (
+                <Autocomplete
+                  {...controllerProps}
+                  options={
+                    (isLabel ? artistsWithVariousArtists : artists) ?? []
+                  }
+                  getOptionLabel={(option) => option.name}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  onChange={(e: any, values: any) =>
+                    hookForm.setValue('album.artist', values)
+                  }
+                  style={{ width: '100%' }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth={true}
+                      label="Artist"
+                      helperText={hookForm.errors.album?.artist?.message}
+                      error={hookForm.errors.album?.artist !== undefined}
+                    />
+                  )}
                 />
               )}
+            />
+          </Grid>
 
-              <Spacing.section.Minor />
+          <Spacing.section.Major />
 
-              <Flex flexDirection="column">
-                <TextField
-                  inputRef={hookForm.register({
-                    required: {
-                      value: true,
-                      message: 'Required',
-                    },
-                    minLength: {
-                      value: 2,
-                      message: 'Enter at least 2 characters',
-                    },
-                  })}
-                  margin="normal"
-                  fullWidth={true}
-                  name={'album.title'}
-                  label="Release Title"
-                  id={'release-title'}
-                  helperText={hookForm.errors.album?.title?.message}
-                  error={hookForm.errors.album?.title !== undefined}
-                />
-                <TextField
-                  inputRef={hookForm.register({
-                    required: {
-                      value: true,
-                      message: 'Required',
-                    },
-                    minLength: {
-                      value: 2,
-                      message: 'Enter at least 2 characters',
-                    },
-                  })}
-                  margin="normal"
-                  fullWidth={true}
-                  name={'album.description'}
-                  label="Description"
-                  id={'release-description'}
-                  helperText={hookForm.errors.album?.description?.message}
-                  error={hookForm.errors.album?.description !== undefined}
-                />
-
-                <MuiPickersUtilsProvider
-                  libInstance={moment}
-                  utils={MomentUtils}
-                >
-                  <Controller
-                    as={
-                      <DatePicker
-                        disableFuture={true}
-                        openTo="year"
-                        format="DD/MM/yyyy"
-                        label="Release Date"
-                        views={['year', 'month', 'date']}
-                        helperText={hookForm.errors.album?.releaseDate?.message}
-                        error={hookForm.errors.album?.releaseDate !== undefined}
-                        style={{ flex: 1 }}
-                        value={undefined}
-                        onChange={() => null}
-                        placeholder="Release Date"
+          {(songsForUpload ?? []).length > 0 ? (
+            <>
+              <List style={{ width: '100%' }}>
+                {fields.map((data, index) => {
+                  return (
+                    <li key={data.id}>
+                      <Uploader
+                        creatorId={creatorId}
+                        releaseId={releaseId}
+                        songData={(songsForUpload ?? [])[index]}
+                        index={index}
                       />
-                    }
-                    rules={{
-                      validate: {
-                        nonEmpty: (value: Date | null) =>
-                          value !== null || 'Please select a release date',
-                      },
-                    }}
-                    control={hookForm.control}
-                    defaultValue="album.releaseDate"
-                    value="album.releaseDate"
-                    name="album.releaseDate"
-                  />
-                </MuiPickersUtilsProvider>
-                <Flex fullWidth={true}>
-                  <Flex flexDirection="column" fullWidth={true}>
-                    <Controller
-                      name="album.artist"
-                      control={hookForm.control}
-                      rules={{
-                        validate: (value: Artist) =>
-                          hookForm.getValues('album.artist') !==
-                          'Various Artists'
-                            ? value !== null || 'Please select an artist'
-                            : undefined,
-                      }}
-                      defaultValue={null}
-                      render={(controllerProps) => (
-                        <Autocomplete
-                          {...controllerProps}
-                          options={
-                            (isLabel ? artistsWithVariousArtists : artists) ??
-                            []
-                          }
-                          getOptionLabel={(option) => option.name}
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          onChange={(e: any, values: any) =>
-                            hookForm.setValue('album.artist', values)
-                          }
-                          style={{ width: '100%' }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth={true}
-                              label="Artist"
-                              helperText={
-                                hookForm.errors.album?.artist?.message
-                              }
-                              error={
-                                hookForm.errors.album?.artist !== undefined
-                              }
-                            />
-                          )}
-                        />
-                      )}
-                    />
-                  </Flex>
 
-                  <Spacing.BetweenComponents />
-                </Flex>
-              </Flex>
-            </Flex>
+                      <Spacing.section.Minor />
 
-            <Spacing.section.Major />
-            {(songsForUpload ?? []).length > 0 ? (
-              <>
-                <List>
-                  {fields.map((data, index) => {
-                    return (
-                      <li key={data.id}>
-                        <Uploader
-                          creatorId={creatorId}
-                          releaseId={releaseId}
-                          songData={(songsForUpload ?? [])[index]}
-                          index={index}
-                        />
-                        <SongForm
-                          formData={data}
-                          index={index}
-                          removeSong={removeSong}
-                          artists={artists}
-                        />
-                        {fields.length !== index + 1 ? (
-                          <Spacing.section.Minor />
-                        ) : null}
-                      </li>
-                    );
-                  })}
-                </List>
-
+                      <SongForm
+                        formData={data}
+                        index={index}
+                        removeSong={removeSong}
+                        artists={artists}
+                      />
+                      {fields.length !== index + 1 ? (
+                        <Spacing.section.Major />
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </List>
+              <Grid item={true} xs={12}>
                 <FileUploadButton
                   acceptedTypes="audio/*"
                   onDrop={(fileAccepted, fileRejected) =>
@@ -615,36 +619,36 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                     <Typography variant="body2">Submit</Typography>
                   )}
                 </Button>
-              </>
-            ) : null}
-          </>
-        ) : (
-          <DropzoneContainer
-            // borderColor={getColor()}
-            borderColor={theme.palette.grey[500]}
-            {...getRootProps({})}
-          >
-            <input {...getInputProps()} />
-            <Typography variant="h5">Drop audio files here</Typography>
+              </Grid>
+            </>
+          ) : null}
+        </Grid>
+      ) : (
+        <DropzoneContainer
+          // borderColor={getColor()}
+          borderColor={theme.palette.grey[500]}
+          {...getRootProps({})}
+        >
+          <input {...getInputProps()} />
+          <Typography variant="h5">Drop audio files here</Typography>
 
-            {fileRejections.length > 0 ? (
-              <Typography variant="body1">
-                Some files were rejected, please check you are submitting audio
-                files.
-              </Typography>
-            ) : null}
-            <Spacing.BetweenComponents />
+          {fileRejections.length > 0 ? (
+            <Typography variant="body1">
+              Some files were rejected, please check you are submitting audio
+              files.
+            </Typography>
+          ) : null}
+          <Spacing.BetweenComponents />
 
-            <Typography variant="body1">Or</Typography>
+          <Typography variant="body1">Or</Typography>
 
-            <Spacing.BetweenComponents />
+          <Spacing.BetweenComponents />
 
-            <Button variant="contained" color="primary">
-              Select Files
-            </Button>
-          </DropzoneContainer>
-        )}
-      </Container>
+          <Button variant="contained" color="primary">
+            Select Files
+          </Button>
+        </DropzoneContainer>
+      )}
     </FormProvider>
   );
 });

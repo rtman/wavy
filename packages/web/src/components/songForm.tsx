@@ -1,5 +1,6 @@
 import {
   FormControlLabel,
+  Grid,
   IconButton,
   makeStyles,
   Switch,
@@ -42,15 +43,20 @@ export const SongForm = memo((props: SongUploadFormProps) => {
   );
 
   return (
-    <div className={classes.root}>
-      <Spacing.section.Minor />
+    <Grid item={true} container={true} xs={12}>
+      <Grid item={true} xs={1}>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="flex-start"
+          fullHeight={true}
+        >
+          <Typography variant="h4">{index + 1}</Typography>
+        </Flex>
+      </Grid>
 
-      <Flex alignItems="center">
-        <Typography variant="h4">{index + 1}</Typography>
-
-        <Spacing.BetweenComponents />
-
-        <Flex flexDirection="column" alignSelf="flex-start" fullWidth={true}>
+      <Grid item={true} container={true} xs={10} spacing={2}>
+        <Grid item={true} xs={12} sm={6}>
           <Controller
             as={
               <TextField
@@ -76,7 +82,31 @@ export const SongForm = memo((props: SongUploadFormProps) => {
               },
             }}
           />
-
+        </Grid>
+        <Grid item={true} xs={12} sm={6}>
+          <Controller
+            as={
+              <TextField
+                helperText={formContext.errors.songs?.[index]?.isrc?.message}
+                error={formContext.errors.songs?.[index]?.isrc !== undefined}
+              />
+            }
+            margin="normal"
+            fullWidth={true}
+            name={`songs[${index}].isrc`}
+            label="ISRC"
+            id={`isrc-${index}`}
+            control={formContext.control}
+            defaultValue={formData.isrc}
+            rules={{
+              validate: {
+                length: (value: string) =>
+                  value?.length === 12 || 'ISRC codes need to be 12 characters',
+              },
+            }}
+          />
+        </Grid>
+        <Grid item={true} xs={12} sm={6}>
           {watchVariousArtists?.name === 'Various Artists' ? (
             <Controller
               name={`songs[${index}].artist`}
@@ -114,99 +144,70 @@ export const SongForm = memo((props: SongUploadFormProps) => {
               )}
             />
           ) : null}
+        </Grid>
 
+        <Grid item={true} xs={12} sm={6}>
           <Controller
-            as={
-              <TextField
-                helperText={formContext.errors.songs?.[index]?.isrc?.message}
-                error={formContext.errors.songs?.[index]?.isrc !== undefined}
-              />
-            }
-            margin="normal"
-            fullWidth={true}
-            name={`songs[${index}].isrc`}
-            label="ISRC"
-            id={`isrc-${index}`}
+            name={`songs[${index}].supportingArtists`}
             control={formContext.control}
-            defaultValue={formData.isrc}
             rules={{
-              validate: {
-                length: (value: string) =>
-                  value?.length === 12 || 'ISRC codes need to be 12 characters',
-              },
+              validate: (value: Artist[]) =>
+                formContext.getValues(`songs[${index}].hasSupportingArtists`)
+                  ? value.length > 0 || 'Please select an artist'
+                  : undefined,
             }}
-          />
-        </Flex>
-
-        <Flex flexDirection="column" alignSelf="flex-start">
-          <FormControlLabel
-            label="Supporting Artists"
-            control={
-              <Switch
-                inputRef={formContext.register()}
-                name={`songs[${index}].hasSupportingArtists`}
-                id={'various-artists'}
+            defaultValue={formData.supportingArtists}
+            render={(controllerProps) => (
+              <Autocomplete
+                {...controllerProps}
+                multiple={true}
+                options={artists ?? []}
+                getOptionLabel={(option) => option.name}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange={(e: any, values: any) =>
+                  formContext.setValue(
+                    `songs[${index}].supportingArtists`,
+                    values
+                  )
+                }
+                style={{ width: '100%' }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth={true}
+                    label="Supporting Artists"
+                    helperText={
+                      formContext.errors.songs?.[index]?.supportingArtists
+                        ?.message
+                    }
+                    error={
+                      formContext.errors.songs?.[index]?.supportingArtists !==
+                      undefined
+                    }
+                  />
+                )}
               />
-            }
+            )}
           />
-
-          {watchHasSupportingArtists ? (
-            <Controller
-              name={`songs[${index}].supportingArtists`}
-              control={formContext.control}
-              rules={{
-                validate: (value: Artist[]) =>
-                  formContext.getValues(`songs[${index}].hasSupportingArtists`)
-                    ? value.length > 0 || 'Please select an artist'
-                    : undefined,
-              }}
-              defaultValue={formData.supportingArtists}
-              render={(controllerProps) => (
-                <Autocomplete
-                  {...controllerProps}
-                  multiple={true}
-                  options={artists ?? []}
-                  getOptionLabel={(option) => option.name}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onChange={(e: any, values: any) =>
-                    formContext.setValue(
-                      `songs[${index}].supportingArtists`,
-                      values
-                    )
-                  }
-                  style={{ width: '100%' }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth={true}
-                      label="Supporting Artists"
-                      helperText={
-                        formContext.errors.songs?.[index]?.supportingArtists
-                          ?.message
-                      }
-                      error={
-                        formContext.errors.songs?.[index]?.supportingArtists !==
-                        undefined
-                      }
-                    />
-                  )}
-                />
-              )}
-            />
-          ) : null}
-        </Flex>
-
-        <Spacing.BetweenComponents />
-
-        <IconButton
-          type="submit"
-          color="primary"
-          onClick={() => removeSong(index)}
+        </Grid>
+      </Grid>
+      <Grid item={true} xs={1}>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="flex-end"
+          fullHeight={true}
         >
-          <DeleteIcon />
-        </IconButton>
-      </Flex>
-    </div>
+          <IconButton
+            type="submit"
+            color="primary"
+            onClick={() => removeSong(index)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Flex>
+      </Grid>
+    </Grid>
   );
 });
 

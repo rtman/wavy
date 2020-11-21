@@ -176,7 +176,7 @@ export const makeTheme = () => {
 
   const breakpoints = {
     xs: 0,
-    sm: 360 + totalScreenPadding,
+    sm: 400 + totalScreenPadding,
     md: 720 + totalScreenPadding,
     lg: 1024 + totalScreenPadding,
     xl: 1280 + totalScreenPadding,

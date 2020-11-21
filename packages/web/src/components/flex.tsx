@@ -11,45 +11,49 @@ import React, { CSSProperties, PropsWithChildren } from 'react';
 const useStyles = (props: FlexProps) =>
   makeStyles({
     root: {
+      alignItems: props.alignItems,
+      alignSelf: props.alignSelf,
       display: 'flex',
       flexDirection: props.flexDirection,
       flexWrap: props.flexWrap,
+      height: props.fullHeight ? '100%' : undefined,
       justifyContent: props.justifyContent,
-      alignItems: props.alignItems,
-      alignSelf: props.alignSelf,
       width: props.fullWidth ? '100%' : undefined,
     },
   })();
 
 export interface FlexProps {
+  alignItems?: AlignItemsProperty;
+  alignSelf?: AlignSelfProperty;
   className?: string;
   flexDirection?: FlexDirectionProperty;
   flexWrap?: FlexWrapProperty;
-  alignItems?: AlignItemsProperty;
-  alignSelf?: AlignSelfProperty;
-  justifyContent?: JustifyContentProperty;
+  fullHeight?: boolean;
   fullWidth?: boolean;
+  justifyContent?: JustifyContentProperty;
   style?: CSSProperties;
 }
 
 export const Flex = (props: PropsWithChildren<FlexProps>) => {
   const {
+    alignItems = 'flex-start',
+    alignSelf,
     className,
     flexDirection = 'row',
     flexWrap = 'nowrap',
-    justifyContent = 'flex-start',
-    alignItems = 'flex-start',
-    alignSelf,
+    fullHeight,
     fullWidth,
+    justifyContent = 'flex-start',
   } = props;
 
   const classes = useStyles({
-    flexDirection,
-    flexWrap,
-    justifyContent,
     alignItems,
     alignSelf,
+    flexDirection,
+    flexWrap,
+    fullHeight,
     fullWidth,
+    justifyContent,
   });
 
   return (
