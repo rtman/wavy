@@ -5,6 +5,7 @@ import {
   MutationCreateAlbumArgs,
   NewAlbumForm,
   NewSongArgs,
+  SongFields,
   SongForUpload,
   UploadStatus,
 } from 'commonTypes';
@@ -45,11 +46,11 @@ interface CreateAlbumContextProps {
   fileRejections: FileRejection[];
   getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps;
   getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps;
+  initForm: (defaultFormValues: NewAlbumForm) => SongFields[];
   removeSong: (index: number) => void;
   songsForUpload: SongForUpload[];
   submitAlbum: (props: SubmitAlbumProps) => void;
   updateAllUploadStatuses: (newUploadStatuses: UploadStatus[]) => void;
-  updateSongsForUpload: (song: SongForUpload[]) => void;
   uploadStatuses: UploadStatus[];
 }
 
@@ -122,16 +123,39 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
     accept: 'audio/*',
   });
 
-  const updateSongsForUpload = useCallback(
-    (song: SongForUpload[]) => setSongsForUpload(song),
-    []
-  );
-
   const updateAllUploadStatuses = useCallback(
     (newUploadStatuses: UploadStatus[]) => {
       setUploadStatuses([...newUploadStatuses]);
     },
     []
+  );
+
+  const initForm = useCallback(
+    (defaultFormValues: NewAlbumForm) => {
+      const makeFormFromDropzone = () =>
+        acceptedFiles?.map(
+          (file): SongFields => ({
+            ...defaultFormValues.songs[0],
+            artist: null,
+            title:
+              file.name.lastIndexOf('.') !== -1
+                ? file.name.substring(0, file.name.lastIndexOf('.'))
+                : file.name.trim(),
+          })
+        );
+
+      const makeSongsForUpload = () =>
+        (acceptedFiles ?? []).map((file) => {
+          return {
+            title: file.name.trim(),
+            file: file,
+          };
+        });
+
+      setSongsForUpload(makeSongsForUpload());
+      return makeFormFromDropzone();
+    },
+    [acceptedFiles]
   );
 
   const removeSong = useCallback(
@@ -149,7 +173,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
 
         const resolvedSongsForUpload = [...songsForUpload];
         resolvedSongsForUpload.splice(index, 1);
-        updateSongsForUpload(resolvedSongsForUpload);
+        setSongsForUpload(resolvedSongsForUpload);
 
         const resolvedUploadStatuses = [...uploadStatuses];
         resolvedUploadStatuses.splice(index, 1);
@@ -160,13 +184,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         }
       }
     },
-    [
-      acceptedFiles,
-      updateAllUploadStatuses,
-      songsForUpload,
-      uploadStatuses,
-      updateSongsForUpload,
-    ]
+    [acceptedFiles, updateAllUploadStatuses, songsForUpload, uploadStatuses]
   );
 
   const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
@@ -177,7 +195,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
       });
       return;
     }
-    if (fileAccepted.length > 0 && updateSongsForUpload && songsForUpload) {
+    if (fileAccepted.length > 0 && songsForUpload) {
       const newFile = fileAccepted[0];
       const resolvedSongsForUpload = [...songsForUpload];
       let title = newFile.name.trim();
@@ -188,7 +206,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         title: newFile.name.trim(),
         file: newFile,
       });
-      updateSongsForUpload(resolvedSongsForUpload);
+      setSongsForUpload(resolvedSongsForUpload);
       return title;
     }
     return;
@@ -308,11 +326,11 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         fileRejections,
         getInputProps,
         getRootProps,
+        initForm,
         removeSong,
         songsForUpload,
         submitAlbum,
         updateAllUploadStatuses,
-        updateSongsForUpload,
         uploadStatuses,
       }}
     >

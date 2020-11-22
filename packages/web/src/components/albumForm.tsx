@@ -48,19 +48,10 @@ interface CreateAlbumFormProps {
 
 export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   const classes = useStyles();
-  const uploadStatuses = useContextSelector(
-    CreateAlbumContext,
-    (values) => values?.uploadStatuses
-  );
   const songsForUpload = useContextSelector(
     CreateAlbumContext,
     (values) => values?.songsForUpload
   );
-  const updateSongsForUpload = useContextSelector(
-    CreateAlbumContext,
-    (values) => values?.updateSongsForUpload
-  );
-
   const removeSong = useContextSelector(
     CreateAlbumContext,
     (values) => values?.removeSong
@@ -81,12 +72,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     CreateAlbumContext,
     (values) => values?.fileRejections
   );
-
   const addSong = useContextSelector(
     CreateAlbumContext,
     (values) => values?.addSong
   );
-
   const submitAlbum = useContextSelector(
     CreateAlbumContext,
     (values) => values?.submitAlbum
@@ -94,6 +83,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   const busyState = useContextSelector(
     CreateAlbumContext,
     (values) => values?.busyState
+  );
+  const initForm = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.initForm
   );
 
   const theme = useTheme();
@@ -124,46 +117,30 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   const hookForm = useForm<NewAlbumForm>({
     defaultValues: {},
   });
-  const { reset } = hookForm;
-  const { fields, append, remove } = useFieldArray<SongFields>({
+  const { reset: resetHookForm } = hookForm;
+  const {
+    fields: fieldArrayFields,
+    append: appendToFieldArray,
+    remove: removeFromFieldArray,
+  } = useFieldArray<SongFields>({
     control: hookForm.control,
     name: 'songs',
   });
 
   useEffect(() => {
-    if ((acceptedFiles ?? []).length > 0 && updateSongsForUpload) {
+    if ((acceptedFiles ?? []).length > 0) {
       console.log('*debug* albumForm useEffect');
-      const makeFormFromDropzone = () =>
-        acceptedFiles?.map(
-          (file): SongFields => ({
-            ...defaultFormValues.songs[0],
-            artist: null,
-            title:
-              file.name.lastIndexOf('.') !== -1
-                ? file.name.substring(0, file.name.lastIndexOf('.'))
-                : file.name.trim(),
-          })
-        );
-
-      const makeSongsForUpload = () =>
-        (acceptedFiles ?? []).map((file) => {
-          return {
-            title: file.name.trim(),
-            file: file,
-          };
-        });
-
-      updateSongsForUpload(makeSongsForUpload());
-      reset({ songs: makeFormFromDropzone() });
+      const songs = initForm?.(defaultFormValues);
+      resetHookForm({ songs });
     }
-  }, [acceptedFiles, reset, defaultFormValues, updateSongsForUpload]);
+  }, [acceptedFiles, resetHookForm, defaultFormValues, initForm]);
 
   const onClickRemoveSong = useCallback(
     (index: number) => {
       removeSong?.(index);
-      remove(index);
+      removeFromFieldArray(index);
     },
-    [removeSong, remove]
+    [removeFromFieldArray, removeSong]
   );
 
   const onClickAddSong = (
@@ -172,7 +149,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   ) => {
     const result = addSong?.(fileAccepted, fileRejected);
     if (result !== undefined) {
-      append({ title: result });
+      appendToFieldArray({ title: result });
     }
   };
 
@@ -196,13 +173,6 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
       name: 'Various Artists',
     },
   ];
-
-  console.log('*debug* albumForm acceptedFiles', acceptedFiles);
-  console.log('*debug* albumForm releaseId', releaseId);
-  console.log('*debug* albumForm uploadStatuses', uploadStatuses);
-  console.log('*debug* albumForm songsForUpload', songsForUpload);
-
-  // const setUploadStatusCallback = useCallback(() => setUploadStatus, []);
 
   return (
     <FormProvider {...hookForm}>
@@ -236,8 +206,8 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
             )}
           </Grid>
 
-          <Grid item={true} xs={12} sm={6} md={3}>
-            <Flex flexDirection="column">
+          <Grid item={true} xs={12} sm={6}>
+            <Flex flexDirection="column" fullWidth={true}>
               <TextField
                 inputRef={hookForm.register({
                   required: {
@@ -349,10 +319,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
 
           <Spacing.section.Major />
 
-          {(songsForUpload ?? []).length > 0 ? (
+          {fieldArrayFields.length > 0 ? (
             <>
               <List style={{ width: '100%' }}>
-                {fields.map((data, index) => {
+                {fieldArrayFields.map((data, index) => {
                   return (
                     <li key={data.id}>
                       <Uploader
@@ -370,7 +340,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                         removeSong={onClickRemoveSong}
                         artists={artists}
                       />
-                      {fields.length !== index + 1 ? (
+                      {fieldArrayFields.length !== index + 1 ? (
                         <Spacing.section.Major />
                       ) : null}
                     </li>
