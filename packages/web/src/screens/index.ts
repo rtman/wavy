@@ -8,6 +8,7 @@ export * from './createLabel';
 export * from './dashboard';
 export * from './label';
 export * from './labelCreateRelease';
+export * from './labelCreateUnclaimedArtist';
 export * from './labelDashboard';
 export * from './home';
 export * from './following';

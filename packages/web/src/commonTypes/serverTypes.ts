@@ -436,7 +436,7 @@ export type MutationDeleteUserSubscriptionArgs = {
 export type NewSongArgs = {
   artistId?: Maybe<Scalars['String']>;
   storagePath: Scalars['String'];
-  supportingArtist?: Maybe<Array<SupportingArtistInput>>;
+  supportingArtists: Array<SupportingArtistInput>;
   isrc: Scalars['String'];
   title: Scalars['String'];
 };
@@ -733,7 +733,8 @@ export type Success = {
 };
 
 export type SupportingArtistInput = {
-  artistId: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type Tag = {

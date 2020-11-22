@@ -176,7 +176,9 @@ export const LabelDashboard = () => {
             <Button
               variant="outlined"
               color="primary"
-              onClick={() => history.push(consts.routes.LABEL_CREATE_ARTIST)}
+              onClick={() =>
+                history.push(consts.routes.LABEL_CREATE_UNCLAIMED_ARTIST)
+              }
             >
               Add Artist
             </Button>

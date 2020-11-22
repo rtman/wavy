@@ -7,3 +7,9 @@ export const CREATE_ARTIST = gql`
     }
   }
 `;
+
+export const LABEL_CREATE_UNCLAIMED_ARTIST = gql`
+  mutation LabelCreateUnclaimedArtist($input: LabelCreateUnclaimedArtistArgs!) {
+    labelCreateUnclaimedArtist(input: $input)
+  }
+`;
