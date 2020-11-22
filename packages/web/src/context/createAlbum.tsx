@@ -236,12 +236,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
           // data is checked above for undefined in the find
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const uploadData = uploadStatuses[index].data!;
-          const { supportingArtists, ...rest } = data.songs[index];
-          const resolvedSupportingArtists = supportingArtists?.map(
-            (artist) => ({
-              artistId: artist.id,
-            })
-          );
+          const { supportingArtists, title, isrc } = data.songs[index];
 
           const getArtistId = () => {
             if (isLabel && data.album.artist?.name !== 'Various Artists') {
@@ -257,8 +252,9 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
           return {
             artistId: getArtistId(),
             storagePath: uploadData.fullStoragePath,
-            ...rest,
-            supportingArtists: resolvedSupportingArtists,
+            title,
+            isrc,
+            supportingArtists,
           };
         }
       );

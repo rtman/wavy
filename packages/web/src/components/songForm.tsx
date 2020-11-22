@@ -132,6 +132,34 @@ export const SongForm = memo((props: SongUploadFormProps) => {
           <Controller
             name={`songs[${index}].supportingArtists`}
             control={formContext.control}
+            rules={{
+              validate: (value: ArtistAutocomplete[]) => {
+                const songArtist: Artist | null = formContext.getValues(
+                  `songs[${index}].artist`
+                );
+                const albumArtist: Artist | null = formContext.getValues(
+                  'album.artist'
+                );
+                if (albumArtist) {
+                  const supportingArtistEqualsAlbumArtist = value.find(
+                    (supportingArtist) => supportingArtist.id === albumArtist.id
+                  );
+
+                  if (supportingArtistEqualsAlbumArtist) {
+                    return 'The album artist cannot be a supporting artist';
+                  }
+                }
+                if (songArtist) {
+                  const supportingArtistEqualsSongArtist = value.find(
+                    (supportingArtist) => supportingArtist.id === songArtist.id
+                  );
+
+                  if (supportingArtistEqualsSongArtist) {
+                    return 'The song artist cannot be a supporting artist';
+                  }
+                }
+              },
+            }}
             defaultValue={formData.supportingArtists}
             render={(controllerProps) => (
               <Autocomplete
@@ -152,6 +180,14 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                     {...params}
                     fullWidth={true}
                     label="Supporting Artists (optional)"
+                    helperText={
+                      formContext.errors.songs?.[index]?.supportingArtists
+                        ?.message
+                    }
+                    error={
+                      formContext.errors.songs?.[index]?.supportingArtists !==
+                      undefined
+                    }
                   />
                 )}
               />

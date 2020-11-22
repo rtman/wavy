@@ -1,9 +1,9 @@
-import * as helpers from '../helpers';
 import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { uuid } from 'uuidv4';
 
+import * as helpers from '../helpers';
 import { Models } from '../orm';
 import * as services from '../services';
 
@@ -189,7 +189,7 @@ export class ArtistResolvers {
         .leftJoinAndSelect('artist.labels', 'labels')
         .leftJoinAndSelect('labels.label', 'label')
         .where(
-          `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
+          "to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)",
           { query: `${formattedQuery}:*` }
         )
         .getMany();
@@ -338,6 +338,7 @@ export class ArtistResolvers {
 
       const artistUpdate = await artistRepository.update(artistId, {
         claimed: true,
+        creatorUserId: userId,
       });
 
       const userArtist = userArtistRepository.create({

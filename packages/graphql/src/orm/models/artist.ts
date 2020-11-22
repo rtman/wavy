@@ -106,7 +106,7 @@ export class Artist {
   )
   users: UserArtist[];
 
-  // this is a special case, self referencing relation. It requires each entry to be inserted twice, artistId1 => 1, artistId2 => 2 and artistId1 => 2, artistId2 =>2. This is to ensure a bi directional relation.
+  // this is a special case, self referencing relation. It requires each entry to be inserted twice, artistId1 => 1, artistId2 => 2 and artistId1 => 2, artistId2 =>1. This is to ensure a bi directional relation.
   @Field(() => [Artist])
   @ManyToMany(
     () => Artist,

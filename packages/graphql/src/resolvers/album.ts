@@ -10,7 +10,10 @@ import * as services from '../services';
 @InputType()
 class SupportingArtistInput {
   @Field()
-  artistId: string;
+  id: string;
+
+  @Field()
+  name: string;
 }
 
 // TODO: This should really be two types unioned, artistId should not be with the rest. Finding it difficult to figure out union types with type-graphql
@@ -80,7 +83,7 @@ type CreateAlbum = Omit<
   'createdAt' | 'updatedAt' | 'type' | 'label' | 'artist' | 'songs'
 >;
 
-type CreateSupportingAritst = Pick<
+type CreateSupportingArtist = Pick<
   SongArtistSupportingArtist,
   'artistId' | 'songId'
 >;
@@ -294,7 +297,7 @@ export class AlbumResolvers {
           return false;
         }
 
-        const supportingArtistModels: CreateSupportingAritst[] = [];
+        const supportingArtistModels: CreateSupportingArtist[] = [];
 
         const resolvedSongsToAddPromises = songsToAdd.map(
           async (song, index) => {
@@ -312,10 +315,10 @@ export class AlbumResolvers {
             });
 
             if (song.supportingArtists.length > 0) {
-              const supportingArtistModelsForThisSong: CreateSupportingAritst[] = song.supportingArtists.map(
+              const supportingArtistModelsForThisSong = song.supportingArtists.map(
                 (supportingArtist) => ({
                   songId,
-                  artistId: supportingArtist.artistId,
+                  artistId: supportingArtist.id,
                 })
               );
 

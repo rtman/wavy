@@ -12,6 +12,7 @@ export * from './labelDashboard';
 export * from './home';
 export * from './following';
 export * from './favourites';
+export * from './permissions';
 export * from './playlist';
 export * from './playlists';
 export * from './queue';

@@ -153,7 +153,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     }
   };
 
-  const onClickSubmit = async (data: NewAlbumForm) => {
+  const onClickSubmit = (data: NewAlbumForm) => {
     if (imageFile) {
       submitAlbum?.({
         data,

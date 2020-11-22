@@ -146,7 +146,9 @@ export const LabelDashboard = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => history.push(`/labelCreateRelease/${id}`)}
+              onClick={() =>
+                history.push(`${consts.routes.LABEL_CREATE_RELEASE}/${id}`)
+              }
             >
               Create Release
             </Button>
@@ -164,9 +166,29 @@ export const LabelDashboard = () => {
             <Button
               variant="outlined"
               color="primary"
-              onClick={() => history.push(`/Label/${id}`)}
+              onClick={() => history.push(`${consts.routes.LABEL}/${id}`)}
             >
               View Label
+            </Button>
+
+            <Spacing.BetweenComponents />
+
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push(consts.routes.LABEL_CREATE_ARTIST)}
+            >
+              Add Artist
+            </Button>
+
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() =>
+                history.push(consts.routes.LABEL_CREATE_CONNECTION)
+              }
+            >
+              Add Connections
             </Button>
           </Grid>
           <Spacing.section.Major />
