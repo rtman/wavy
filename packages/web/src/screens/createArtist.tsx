@@ -26,7 +26,7 @@ export const CreateArtist = () => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
-  const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
+  const { uploadImage } = helpers.hooks.useUploadImage();
 
   const { user } = userContext ?? {};
   const { id: userId } = user ?? {};
@@ -72,23 +72,26 @@ export const CreateArtist = () => {
     setDescription(event.target.value);
 
   const onSubmit = async () => {
-    const result = await uploadImage({
-      rootDir: artistId,
-      fileName: 'profileImage',
-    });
-
-    if (result && result.id && userId) {
-      await createArtist({
-        variables: {
-          input: {
-            userId,
-            artistId: result.id,
-            name,
-            description,
-            profileImageStoragePath: result.fullStoragePath,
-          },
-        },
+    if (imageFile) {
+      const result = await uploadImage({
+        imageFile,
+        rootDir: artistId,
+        fileName: 'profileImage',
       });
+
+      if (result && result.id && userId) {
+        await createArtist({
+          variables: {
+            input: {
+              userId,
+              artistId: result.id,
+              name,
+              description,
+              profileImageStoragePath: result.fullStoragePath,
+            },
+          },
+        });
+      }
     }
   };
 

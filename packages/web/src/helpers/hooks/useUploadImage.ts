@@ -1,18 +1,19 @@
 import * as firebase from 'firebase';
 import { useSnackbar } from 'notistack';
 
-export const useUploadImage = (imageFile: File | undefined) => {
+export const useUploadImage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const uploadImage = async (data: {
+    imageFile: File;
     rootDir?: string;
     parentDir?: string;
     childDir?: string;
     fileName: string;
   }) => {
-    const { rootDir, parentDir, childDir, fileName } = data;
+    const { imageFile, rootDir, parentDir, childDir, fileName } = data;
 
-    const fileExtension = imageFile?.name.split('.').splice(-1)[0];
+    const fileExtension = imageFile.name.split('.').splice(-1)[0];
 
     if (imageFile) {
       const storageRef = firebase.storage().ref();

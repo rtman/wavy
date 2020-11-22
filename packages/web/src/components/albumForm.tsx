@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/react-hooks';
 import MomentUtils from '@date-io/moment';
 import {
   Button,
@@ -15,11 +14,7 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
   Artist,
   ArtistAutocomplete,
-  Mutation,
-  MutationAddSongsToAlbumArgs,
-  MutationCreateAlbumArgs,
   NewAlbumForm,
-  NewSongArgs,
   SongFields,
 } from 'commonTypes';
 import {
@@ -29,19 +24,11 @@ import {
   Spacing,
   Uploader,
 } from 'components';
-import * as consts from 'consts';
 import { CreateAlbumContext, CreateAlbumProvider, UserContext } from 'context';
 import * as helpers from 'helpers';
 import moment from 'moment';
-import { useSnackbar } from 'notistack';
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-} from 'react';
-import { FileRejection, useDropzone } from 'react-dropzone';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import { FileRejection } from 'react-dropzone';
 import {
   Controller,
   FormProvider,
@@ -49,7 +36,6 @@ import {
   useForm,
 } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
-import { useHistory } from 'react-router-dom';
 import styled, { CSSObject } from 'styled-components';
 import { useContextSelector } from 'use-context-selector';
 
@@ -62,8 +48,6 @@ interface CreateAlbumFormProps {
 
 export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   const classes = useStyles();
-  const history = useHistory();
-  const userContext = useContext(UserContext);
   const uploadStatuses = useContextSelector(
     CreateAlbumContext,
     (values) => values?.uploadStatuses
@@ -77,11 +61,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     (values) => values?.updateSongsForUpload
   );
 
-  const deleteSong = useContextSelector(
+  const removeSong = useContextSelector(
     CreateAlbumContext,
-    (values) => values?.deleteSong
+    (values) => values?.removeSong
   );
-
   const getRootProps = useContextSelector(
     CreateAlbumContext,
     (values) => values?.getRootProps
@@ -104,59 +87,19 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     (values) => values?.addSong
   );
 
-  const { enqueueSnackbar } = useSnackbar();
+  const submitAlbum = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.submitAlbum
+  );
+  const busyState = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.busyState
+  );
+
   const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
-  const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
   const { artists, creatorId, isLabel, releaseId } = props;
-
-  const [createAlbum, { loading, called, error }] = useMutation<
-    Pick<Mutation, 'createAlbum'>,
-    MutationCreateAlbumArgs
-  >(consts.mutations.album.CREATE_ALBUM, {
-    onCompleted(data) {
-      console.log('onCompleted data', data);
-      if (data.createAlbum.id) {
-        enqueueSnackbar('Success! Release Created, songs are processing', {
-          variant: 'success',
-          autoHideDuration: 4000,
-        });
-        history.push(`/album/${data.createAlbum.id}`);
-      } else {
-        enqueueSnackbar('Error! Release Not Created', {
-          variant: 'error',
-          autoHideDuration: 4000,
-        });
-      }
-    },
-  });
-
-  const [addSongsToAlbum] = useMutation<
-    Pick<Mutation, 'addSongsToAlbum'>,
-    MutationAddSongsToAlbumArgs
-  >(consts.mutations.album.ADD_SONGS_ALBUM, {
-    onCompleted(data) {
-      console.log('onCompleted data', data);
-      if (data.addSongsToAlbum) {
-        enqueueSnackbar('Processing complete', {
-          variant: 'success',
-          autoHideDuration: 4000,
-        });
-      } else {
-        enqueueSnackbar('Error! Processing failed', {
-          variant: 'error',
-          autoHideDuration: 4000,
-        });
-      }
-    },
-    onError() {
-      enqueueSnackbar('Error! Processing failed', {
-        variant: 'error',
-        autoHideDuration: 4000,
-      });
-    },
-  });
 
   const defaultFormValues: NewAlbumForm = useMemo(
     () => ({
@@ -215,20 +158,18 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     }
   }, [acceptedFiles, reset, defaultFormValues, updateSongsForUpload]);
 
-  const removeSong = useCallback(
+  const onClickRemoveSong = useCallback(
     (index: number) => {
-      if (deleteSong && songsForUpload) {
-        deleteSong(index);
-        if (songsForUpload.length === 0) {
-          acceptedFiles?.splice(0, acceptedFiles?.length);
-        }
-        remove(index);
-      }
+      removeSong?.(index);
+      remove(index);
     },
-    [acceptedFiles, deleteSong, remove, songsForUpload]
+    [removeSong, remove]
   );
 
-  const appendSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
+  const onClickAddSong = (
+    fileAccepted: File[],
+    fileRejected: FileRejection[]
+  ) => {
     const result = addSong?.(fileAccepted, fileRejected);
     if (result !== undefined) {
       append({ title: result });
@@ -236,102 +177,13 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   };
 
   const onClickSubmit = async (data: NewAlbumForm) => {
-    console.log('*debug* onSubmit data', data);
-
-    if (imageFile === undefined) {
-      enqueueSnackbar('Please select an image to upload', {
-        variant: 'warning',
-        autoHideDuration: 4000,
-      });
-      return;
-    }
-
-    if (
-      uploadStatuses &&
-      songsForUpload &&
-      uploadStatuses.find((upload) => upload.data === undefined) ===
-        undefined &&
-      data.album.artist !== null
-    ) {
-      const resolvedSongsForUpload: NewSongArgs[] = songsForUpload.map(
-        (_song, index) => {
-          // data is checked above for undefined in the find
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const uploadData = uploadStatuses[index].data!;
-          const { supportingArtists, ...rest } = data.songs[index];
-          const resolvedSupportingArtists = supportingArtists?.map(
-            (artist) => ({
-              artistId: artist.id,
-            })
-          );
-
-          const getArtistId = () => {
-            if (isLabel && data.album.artist?.name !== 'Various Artists') {
-              return data.album.artist?.id;
-            }
-            if (isLabel) {
-              return data.songs[index].artist?.id;
-            }
-
-            return creatorId;
-          };
-
-          return {
-            artistId: getArtistId(),
-            storagePath: uploadData.fullStoragePath,
-            ...rest,
-            supportingArtists: resolvedSupportingArtists,
-          };
-        }
-      );
-      console.log(
-        '*debug* onSubmit resolvedSongsForUpload',
-        resolvedSongsForUpload
-      );
-      const result = await uploadImage({
-        rootDir: creatorId,
-        parentDir: 'albums',
-        childDir: releaseId,
-        fileName: 'profile',
-      });
-      console.log('*debug* albumForm uploadImage result', result);
-      const userName = `${userContext?.user?.firstName} ${userContext?.user?.lastName}`;
-      if (result && result.id && resolvedSongsForUpload.length > 0) {
-        const {
-          artist: { id: artistId },
-          ...album
-        } = data.album;
-        await createAlbum({
-          variables: {
-            input: {
-              ...album,
-              // if is is a label the artistId is either various or a selected artist, otherwise it is the creator of the album, the artist
-              artistId: isLabel ? artistId : creatorId,
-              // if isLabel, we use the creatorId which is the label for labelId otherwise we dont apply a labelId
-              labelId: isLabel ? creatorId : undefined,
-              albumId: releaseId,
-              profileImageStoragePath: result.fullStoragePath,
-              userName,
-            },
-          },
-        });
-        // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
-        // the album is tagged as processing and will be viewable but disabled until processing is completed
-        addSongsToAlbum({
-          variables: {
-            input: {
-              userName,
-              albumId: releaseId,
-              labelId: isLabel ? creatorId : undefined,
-              songsToAdd: resolvedSongsForUpload,
-            },
-          },
-        });
-      }
-    } else {
-      enqueueSnackbar("Error! Files aren't done uploading", {
-        variant: 'error',
-        autoHideDuration: 4000,
+    if (imageFile) {
+      submitAlbum?.({
+        data,
+        imageFile,
+        creatorId,
+        releaseId,
+        isLabel: isLabel ?? false,
       });
     }
   };
@@ -515,7 +367,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                       <SongForm
                         formData={data}
                         index={index}
-                        removeSong={removeSong}
+                        removeSong={onClickRemoveSong}
                         artists={artists}
                       />
                       {fields.length !== index + 1 ? (
@@ -529,7 +381,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                 <FileUploadButton
                   acceptedTypes="audio/*"
                   onDrop={(fileAccepted, fileRejected) =>
-                    appendSong(fileAccepted, fileRejected)
+                    onClickAddSong(fileAccepted, fileRejected)
                   }
                 />
 
@@ -541,7 +393,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                   color="primary"
                   onClick={hookForm.handleSubmit(onClickSubmit)}
                 >
-                  {loading ? (
+                  {busyState ? (
                     <CircularProgress />
                   ) : (
                     <Typography variant="body2">Submit</Typography>

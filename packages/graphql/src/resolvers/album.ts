@@ -23,7 +23,7 @@ class NewSongArgs {
   storagePath: string;
 
   @Field(() => [SupportingArtistInput])
-  supportingArtist: SupportingArtistInput[];
+  supportingArtists: SupportingArtistInput[];
 
   @Field()
   isrc: string;
@@ -311,8 +311,8 @@ export class AlbumResolvers {
               id: song.artistId,
             });
 
-            if (song.supportingArtist.length > 0) {
-              const supportingArtistModelsForThisSong: CreateSupportingAritst[] = song.supportingArtist.map(
+            if (song.supportingArtists.length > 0) {
+              const supportingArtistModelsForThisSong: CreateSupportingAritst[] = song.supportingArtists.map(
                 (supportingArtist) => ({
                   songId,
                   artistId: supportingArtist.artistId,
