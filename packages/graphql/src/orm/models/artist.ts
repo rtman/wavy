@@ -4,8 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -14,7 +12,6 @@ import { uuid } from 'uuidv4';
 
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
-import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
 import { SongArtistSupportingArtist } from './songArtistSupportingArtist';
 import { UserArtist } from './userArtist';
