@@ -80,8 +80,6 @@ export type Artist = {
   followers?: Maybe<Scalars['Float']>;
   supportingArtistOn: Array<SongArtistSupportingArtist>;
   users: Array<UserArtist>;
-  artistConnections: Array<Artist>;
-  labelConnections: Array<LabelArtistConnections>;
   permissionCode?: Maybe<Scalars['ID']>;
   claimantEmail?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -198,22 +196,11 @@ export type Label = {
   songs?: Maybe<Array<Song>>;
   users?: Maybe<Array<UserLabel>>;
   usersFollowing?: Maybe<Array<UserLabelFollowing>>;
-  artistConnections?: Maybe<Array<LabelArtistConnections>>;
   followers: Scalars['Float'];
   permissionCode: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
-};
-
-export type LabelArtistConnections = {
-  __typename?: 'LabelArtistConnections';
-  labelId: Scalars['ID'];
-  artistId: Scalars['ID'];
-  label: Label;
-  artist: Artist;
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
 };
 
 export type LabelCreateUnclaimedArtistArgs = {
@@ -447,6 +434,17 @@ export type NewUserSubscriptionArgs = {
   sortBy?: Maybe<UserSubscriptionSortBy>;
   type: UserSubscriptionType;
   payload?: Maybe<Scalars['String']>;
+};
+
+export type Permission = {
+  __typename?: 'Permission';
+  id: Scalars['ID'];
+  requestorId: Scalars['ID'];
+  requesteeId: Scalars['ID'];
+  createMusic: Scalars['Boolean'];
+  createSupportingArtist: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Playlist = {
@@ -1115,7 +1113,6 @@ export type ResolversTypes = {
   UserSubscriptionSortBy: UserSubscriptionSortBy;
   UserSubscriptionType: UserSubscriptionType;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  LabelArtistConnections: ResolverTypeWrapper<LabelArtistConnections>;
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -1168,6 +1165,7 @@ export type ResolversTypes = {
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   NewUserSubscriptionArgs: NewUserSubscriptionArgs;
   UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
+  Permission: ResolverTypeWrapper<Permission>;
   Base: ResolverTypeWrapper<Base>;
   Error: ResolverTypeWrapper<Error>;
   Fail: ResolverTypeWrapper<Fail>;
@@ -1198,7 +1196,6 @@ export type ResolversParentTypes = {
   UserArtist: UserArtist;
   UserSubscription: UserSubscription;
   Boolean: Scalars['Boolean'];
-  LabelArtistConnections: LabelArtistConnections;
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
@@ -1247,6 +1244,7 @@ export type ResolversParentTypes = {
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   NewUserSubscriptionArgs: NewUserSubscriptionArgs;
   UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
+  Permission: Permission;
   Base: Base;
   Error: Error;
   Fail: Fail;
@@ -1383,16 +1381,6 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
-  artistConnections?: Resolver<
-    Array<ResolversTypes['Artist']>,
-    ParentType,
-    ContextType
-  >;
-  labelConnections?: Resolver<
-    Array<ResolversTypes['LabelArtistConnections']>,
-    ParentType,
-    ContextType
-  >;
   permissionCode?: Resolver<
     Maybe<ResolversTypes['ID']>,
     ParentType,
@@ -1520,11 +1508,6 @@ export type LabelResolvers<
     ParentType,
     ContextType
   >;
-  artistConnections?: Resolver<
-    Maybe<Array<ResolversTypes['LabelArtistConnections']>>,
-    ParentType,
-    ContextType
-  >;
   followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   permissionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -1534,19 +1517,6 @@ export type LabelResolvers<
     ParentType,
     ContextType
   >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type LabelArtistConnectionsResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['LabelArtistConnections'] = ResolversParentTypes['LabelArtistConnections']
-> = {
-  labelId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  artistId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
-  artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1790,6 +1760,24 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationDeleteUserSubscriptionArgs, 'subscriptionId'>
   >;
+};
+
+export type PermissionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Permission'] = ResolversParentTypes['Permission']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requestorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requesteeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createMusic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  createSupportingArtist?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type PlaylistResolvers<
@@ -2464,9 +2452,9 @@ export type Resolvers<ContextType = any> = {
   Error?: ErrorResolvers<ContextType>;
   Fail?: FailResolvers<ContextType>;
   Label?: LabelResolvers<ContextType>;
-  LabelArtistConnections?: LabelArtistConnectionsResolvers<ContextType>;
   ListeningStats?: ListeningStatsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Permission?: PermissionResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Search?: SearchResolvers<ContextType>;
