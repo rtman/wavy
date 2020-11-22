@@ -30,28 +30,36 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
     []
   );
 
-  const deleteSong = useCallback((index: number) => {
-    if (uploadStatuses[index]) {
-      const upload = uploadStatuses[index];
+  const deleteSong = useCallback(
+    (index: number) => {
+      if (uploadStatuses[index]) {
+        const upload = uploadStatuses[index];
 
-      if (upload.complete && upload.task) {
-        upload.task.snapshot.ref.delete();
+        if (upload.complete && upload.task) {
+          upload.task.snapshot.ref.delete();
+        }
+
+        if (upload.running && !upload.complete && upload.task) {
+          upload.task.cancel();
+        }
+
+        const resolvedSongsForUpload = [...songsForUpload];
+        resolvedSongsForUpload.splice(index, 1);
+        updateSongsForUpload(resolvedSongsForUpload);
+
+        const resolvedUploadStatuses = [...uploadStatuses];
+        resolvedUploadStatuses.splice(index, 1);
+
+        updateAllUploadStatuses(resolvedUploadStatuses);
       }
-
-      if (upload.running && !upload.complete && upload.task) {
-        upload.task.cancel();
-      }
-
-      const resolvedSongsForUpload = [...songsForUpload];
-      resolvedSongsForUpload.splice(index, 1);
-      updateSongsForUpload(resolvedSongsForUpload);
-
-      const resolvedUploadStatuses = [...uploadStatuses];
-      resolvedUploadStatuses.splice(index, 1);
-
-      updateAllUploadStatuses(resolvedUploadStatuses);
-    }
-  }, []);
+    },
+    [
+      updateAllUploadStatuses,
+      songsForUpload,
+      uploadStatuses,
+      updateSongsForUpload,
+    ]
+  );
 
   console.log('*debug* createAlbumContext');
 

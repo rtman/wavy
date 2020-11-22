@@ -1,12 +1,4 @@
-import {
-  FormControlLabel,
-  Grid,
-  IconButton,
-  makeStyles,
-  Switch,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
 import { Artist, ArtistAutocomplete, SongFields } from 'commonTypes';
@@ -23,21 +15,11 @@ interface SongUploadFormProps {
   removeSong: (index: number) => void;
 }
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-});
-
 export const SongForm = memo((props: SongUploadFormProps) => {
   const { artists, index, formData, removeSong } = props;
 
-  const classes = useStyles();
   const formContext = useFormContext();
 
-  const watchHasSupportingArtists: SongFields['hasSupportingArtists'] = formContext.watch(
-    `songs[${index}].hasSupportingArtists`
-  );
   const watchVariousArtists: SongFields['artist'] = formContext.watch(
     'album.artist'
   );
@@ -150,12 +132,6 @@ export const SongForm = memo((props: SongUploadFormProps) => {
           <Controller
             name={`songs[${index}].supportingArtists`}
             control={formContext.control}
-            rules={{
-              validate: (value: Artist[]) =>
-                formContext.getValues(`songs[${index}].hasSupportingArtists`)
-                  ? value.length > 0 || 'Please select an artist'
-                  : undefined,
-            }}
             defaultValue={formData.supportingArtists}
             render={(controllerProps) => (
               <Autocomplete
@@ -175,15 +151,7 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                   <TextField
                     {...params}
                     fullWidth={true}
-                    label="Supporting Artists"
-                    helperText={
-                      formContext.errors.songs?.[index]?.supportingArtists
-                        ?.message
-                    }
-                    error={
-                      formContext.errors.songs?.[index]?.supportingArtists !==
-                      undefined
-                    }
+                    label="Supporting Artists (optional)"
                   />
                 )}
               />

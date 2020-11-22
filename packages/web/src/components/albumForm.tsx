@@ -3,11 +3,8 @@ import MomentUtils from '@date-io/moment';
 import {
   Button,
   CircularProgress,
-  Container,
-  FormControlLabel,
   Grid,
   List,
-  Switch,
   TextField,
   Typography,
   useTheme,
@@ -16,7 +13,6 @@ import { makeStyles, WithTheme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {
-  AlbumFields,
   Artist,
   ArtistAutocomplete,
   Mutation,
@@ -25,7 +21,6 @@ import {
   NewAlbumForm,
   NewSongArgs,
   SongFields,
-  SongForUpload,
 } from 'commonTypes';
 import {
   FileUploadButton,
@@ -164,7 +159,6 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
       songs: [
         {
           artist: null,
-          hasSupportingArtists: false,
           isrc: '',
           title: '',
           supportingArtists: [],
@@ -211,71 +205,17 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     }
   }, [acceptedFiles, reset, defaultFormValues, updateSongsForUpload]);
 
-  // const removeSong = useCallback(
-  //   (index: number) => {
-  //     if (deleteSong && songsForUpload) {
-  //       deleteSong(index);
-  //       // if (songsForUpload.length === 0) {
-  //       //   acceptedFiles.splice(0, acceptedFiles.length);
-  //       // }
-  //       remove(index);
-  //     }
-  //   },
-  //   [deleteSong, remove]
-  // );
-
   const removeSong = useCallback(
     (index: number) => {
-      console.log('*debug* albumForm acceptedFiles', acceptedFiles);
-      console.log(
-        '*debug* albumForm updateSongsForUpload',
-        updateSongsForUpload
-      );
-      console.log(
-        '*debug* albumForm updateAllUploadStatuses',
-        updateAllUploadStatuses
-      );
-      console.log('*debug* albumForm uploadStatuses', uploadStatuses);
-      console.log(
-        '*debug* albumForm uploadStatuses[index]',
-        (uploadStatuses ?? [])[index]
-      );
-      console.log('*debug* albumForm songsForUpload', songsForUpload);
-
-      if (
-        uploadStatuses &&
-        uploadStatuses[index] &&
-        updateSongsForUpload &&
-        updateAllUploadStatuses &&
-        songsForUpload
-      ) {
-        const upload = uploadStatuses[index];
-        if (upload.complete && upload.task) {
-          upload.task.snapshot.ref.delete();
-        }
-        if (upload.running && !upload.complete && upload.task) {
-          upload.task.cancel();
-        }
-        const resolvedSongsForUpload = [...songsForUpload];
-        resolvedSongsForUpload.splice(index, 1);
-        updateSongsForUpload(resolvedSongsForUpload);
-        if (resolvedSongsForUpload.length === 0) {
+      if (deleteSong && songsForUpload) {
+        deleteSong(index);
+        if (songsForUpload.length === 0) {
           acceptedFiles.splice(0, acceptedFiles.length);
         }
-        const resolvedUploadStatuses = [...uploadStatuses];
-        resolvedUploadStatuses.splice(index, 1);
-        updateAllUploadStatuses(resolvedUploadStatuses);
         remove(index);
       }
     },
-    [
-      acceptedFiles,
-      remove,
-      uploadStatuses,
-      songsForUpload,
-      updateAllUploadStatuses,
-      updateSongsForUpload,
-    ]
+    [acceptedFiles, deleteSong, remove, songsForUpload]
   );
 
   const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
@@ -321,16 +261,11 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
       data.album.artist !== null
     ) {
       const resolvedSongsForUpload: NewSongArgs[] = songsForUpload.map(
-        (song, index) => {
+        (_song, index) => {
           // data is checked above for undefined in the find
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const uploadData = uploadStatuses[index].data!;
-          const {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            hasSupportingArtists,
-            supportingArtists,
-            ...rest
-          } = data.songs[index];
+          const { supportingArtists, ...rest } = data.songs[index];
           const resolvedSupportingArtists = supportingArtists?.map(
             (artist) => ({
               artistId: artist.id,
@@ -456,7 +391,6 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
           </Grid>
 
           <Grid item={true} xs={12} sm={6} md={3}>
-            {/* <Flex flexDirection="column" fullWidth={true}> */}
             <Flex flexDirection="column">
               <TextField
                 inputRef={hookForm.register({
