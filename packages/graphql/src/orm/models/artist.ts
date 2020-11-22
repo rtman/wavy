@@ -106,34 +106,14 @@ export class Artist {
   )
   users: UserArtist[];
 
-  // this is a special case, self referencing relation. It requires each entry to be inserted twice, artistId1 => 1, artistId2 => 2 and artistId1 => 2, artistId2 =>1. This is to ensure a bi directional relation.
-  @Field(() => [Artist])
-  @ManyToMany(
-    () => Artist,
-    (artist) => artist.artistConnections
-  )
-  @JoinTable({
-    name: 'artistArtistConnections',
-    joinColumn: { name: 'primaryArtistId' },
-    inverseJoinColumn: { name: 'connectionArtistId' },
-  })
-  artistConnections: Artist[];
-
-  @Field(() => [LabelArtistConnections])
-  @OneToMany(
-    () => LabelArtistConnections,
-    (labelArtistConnections) => labelArtistConnections.artist
-  )
-  labelConnections: LabelArtistConnections[];
-
   @Field(() => ID, { nullable: true })
   @Column({ nullable: true })
-  connectionCode: string;
+  permissionCode: string;
 
   // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm, also need to use insert(). If I move to typeorm migration this may work
   @BeforeInsert()
-  generateConnectionCode() {
-    this.connectionCode = uuid();
+  generatePermissionCode() {
+    this.permissionCode = uuid();
   }
 
   @Field({ nullable: true })

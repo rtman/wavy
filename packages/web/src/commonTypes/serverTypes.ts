@@ -82,7 +82,7 @@ export type Artist = {
   users: Array<UserArtist>;
   artistConnections: Array<Artist>;
   labelConnections: Array<LabelArtistConnections>;
-  connectionCode?: Maybe<Scalars['ID']>;
+  permissionCode?: Maybe<Scalars['ID']>;
   claimantEmail?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -200,7 +200,7 @@ export type Label = {
   usersFollowing?: Maybe<Array<UserLabelFollowing>>;
   artistConnections?: Maybe<Array<LabelArtistConnections>>;
   followers: Scalars['Float'];
-  connectionCode: Scalars['ID'];
+  permissionCode: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
@@ -1393,7 +1393,7 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
-  connectionCode?: Resolver<
+  permissionCode?: Resolver<
     Maybe<ResolversTypes['ID']>,
     ParentType,
     ContextType
@@ -1526,7 +1526,7 @@ export type LabelResolvers<
     ContextType
   >;
   followers?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  connectionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  permissionCode?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<

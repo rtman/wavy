@@ -177,7 +177,9 @@ export const LabelDashboard = () => {
               variant="outlined"
               color="primary"
               onClick={() =>
-                history.push(consts.routes.LABEL_CREATE_UNCLAIMED_ARTIST)
+                history.push(
+                  `${consts.routes.LABEL_CREATE_UNCLAIMED_ARTIST}/${id}`
+                )
               }
             >
               Add Artist
@@ -186,11 +188,9 @@ export const LabelDashboard = () => {
             <Button
               variant="outlined"
               color="primary"
-              onClick={() =>
-                history.push(consts.routes.LABEL_CREATE_CONNECTION)
-              }
+              onClick={() => history.push(`${consts.routes.PERMISSIONS}/${id}`)}
             >
-              Add Connections
+              Permissions
             </Button>
           </Grid>
           <Spacing.section.Major />

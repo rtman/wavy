@@ -11,12 +11,14 @@ const createOrmConnection = async () => {
     type: 'postgres',
     port: Number(process.env.DATABASE_PORT),
     synchronize: true,
+    // This doesnt work because moels exports types as well as models, would be nice to fix this
+    // entities: Object.values(Models),
     entities: [
       Models.Album,
       Models.Artist,
       Models.ArtistLabel,
       Models.Label,
-      Models.LabelArtistConnections,
+      Models.Permission,
       Models.Playlist,
       Models.Song,
       Models.SongPlaylist,

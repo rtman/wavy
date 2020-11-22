@@ -264,8 +264,8 @@ export class ArtistResolvers {
       const { creatorName, labelId, ...rest } = payload;
 
       const artistRepository = getManager().getRepository(Models.Artist);
-      const labelArtistConnectionsRepository = getManager().getRepository(
-        Models.LabelArtistConnections
+      const permissionRepository = getManager().getRepository(
+        Models.Permission
       );
 
       const artistId = uuid();
@@ -276,12 +276,14 @@ export class ArtistResolvers {
         ...rest,
       });
 
-      const labelArtistConnection = labelArtistConnectionsRepository.create({
-        labelId,
-        artistId,
+      const newPermission = permissionRepository.create({
+        requesteeId: artistId,
+        requestorId: labelId,
+        createMusic: true,
+        createSupportingArtist: true,
       });
 
-      if (artist && labelArtistConnection) {
+      if (artist && newPermission) {
         const transporter = await helpers.makeEmailTransporter();
         const templateEmail = await helpers.makeHtmlTemplate(
           'src/emailTemplates/artistInvite.html'
@@ -303,14 +305,14 @@ export class ArtistResolvers {
         });
 
         const saveArtistPromise = artistRepository.save(artist);
-        const saveLabelArtistConnectionPromise = labelArtistConnectionsRepository.save(
-          labelArtistConnection
+        const saveNewPermissionPromise = permissionRepository.save(
+          newPermission
         );
 
         const result = await Promise.all([
           sendArtistInviteEmailPromise,
           saveArtistPromise,
-          saveLabelArtistConnectionPromise,
+          saveNewPermissionPromise,
         ]);
 
         if (result) {

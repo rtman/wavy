@@ -12,7 +12,6 @@ import { uuid } from 'uuidv4';
 
 import { Album } from './album';
 import { ArtistLabel } from './artistLabel';
-import { LabelArtistConnections } from './labelArtistConnections';
 import { Song } from './song';
 import { UserLabel } from './userLabel';
 import { UserLabelFollowing } from './userLabelFollowing';
@@ -92,25 +91,18 @@ export class Label {
   )
   usersFollowing: UserLabelFollowing[];
 
-  @Field(() => [LabelArtistConnections], { nullable: true })
-  @OneToMany(
-    () => LabelArtistConnections,
-    (labelArtistConnections) => labelArtistConnections.label
-  )
-  artistConnections: LabelArtistConnections[];
-
   @Field(() => Number)
   @Column({ default: 0 })
   followers: number;
 
   @Field(() => ID)
   @Column({ nullable: true })
-  connectionCode: string;
+  permissionCode: string;
 
   // TODO: Doesn't work, likely because I'm using sequelize to seed the data and not typeorm, it requires insert(). If I move to typeorm migration this may work
   @BeforeInsert()
-  generateConnectionCode() {
-    this.connectionCode = uuid();
+  generatepermissionCode() {
+    this.permissionCode = uuid();
   }
 
   @Field(() => Date)
