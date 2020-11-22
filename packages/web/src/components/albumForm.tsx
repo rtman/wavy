@@ -86,17 +86,34 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     (values) => values?.deleteSong
   );
 
+  const getRootProps = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.getRootProps
+  );
+  const getInputProps = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.getInputProps
+  );
+  const acceptedFiles = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.acceptedFiles
+  );
+  const fileRejections = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.fileRejections
+  );
+
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
-  const {
-    getRootProps,
-    getInputProps,
-    acceptedFiles,
-    fileRejections,
-  } = useDropzone({
-    accept: 'audio/*',
-  });
+  // const {
+  //   getRootProps,
+  //   getInputProps,
+  //   acceptedFiles,
+  //   fileRejections,
+  // } = useDropzone({
+  //   accept: 'audio/*',
+  // });
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
   const { artists, creatorId, isLabel, releaseId } = props;
@@ -178,10 +195,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   });
 
   useEffect(() => {
-    if (acceptedFiles.length > 0 && updateSongsForUpload) {
+    if ((acceptedFiles ?? []).length > 0 && updateSongsForUpload) {
       console.log('*debug* albumForm useEffect');
       const makeFormFromDropzone = () =>
-        acceptedFiles.map(
+        acceptedFiles?.map(
           (file): SongFields => ({
             ...defaultFormValues.songs[0],
             artist: null,
@@ -193,7 +210,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
         );
 
       const makeSongsForUpload = () =>
-        acceptedFiles.map((file) => {
+        (acceptedFiles ?? []).map((file) => {
           return {
             title: file.name.trim(),
             file: file,
@@ -210,7 +227,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
       if (deleteSong && songsForUpload) {
         deleteSong(index);
         if (songsForUpload.length === 0) {
-          acceptedFiles.splice(0, acceptedFiles.length);
+          acceptedFiles?.splice(0, acceptedFiles?.length);
         }
         remove(index);
       }
@@ -361,7 +378,8 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
 
   return (
     <FormProvider {...hookForm}>
-      {acceptedFiles.length > 0 && fileRejections.length === 0 ? (
+      {(acceptedFiles ?? []).length > 0 &&
+      (fileRejections ?? []).length === 0 ? (
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12} sm={6}>
             {image ? (
@@ -561,12 +579,12 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
         <DropzoneContainer
           // borderColor={getColor()}
           borderColor={theme.palette.grey[500]}
-          {...getRootProps({})}
+          {...getRootProps?.({})}
         >
-          <input {...getInputProps()} />
+          <input {...getInputProps?.()} />
           <Typography variant="h5">Drop audio files here</Typography>
 
-          {fileRejections.length > 0 ? (
+          {(fileRejections ?? []).length > 0 ? (
             <Typography variant="body1">
               Some files were rejected, please check you are submitting audio
               files.

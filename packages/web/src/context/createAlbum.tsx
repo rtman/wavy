@@ -1,6 +1,12 @@
 import { SongForUpload, UploadStatus } from 'commonTypes';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { createContext } from 'use-context-selector';
+import {
+  DropzoneRootProps,
+  DropzoneInputProps,
+  FileRejection,
+  useDropzone,
+} from 'react-dropzone';
 
 interface CreateAlbumContextProps {
   deleteSong: (index: number) => void;
@@ -8,6 +14,10 @@ interface CreateAlbumContextProps {
   updateSongsForUpload: (song: SongForUpload[]) => void;
   songsForUpload: SongForUpload[];
   uploadStatuses: UploadStatus[];
+  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps;
+  getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps;
+  acceptedFiles: File[];
+  fileRejections: FileRejection[];
 }
 
 export const CreateAlbumContext = createContext<
@@ -17,6 +27,15 @@ export const CreateAlbumContext = createContext<
 export const CreateAlbumProvider: FunctionComponent = (props) => {
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
   const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
+
+  const {
+    getRootProps,
+    getInputProps,
+    acceptedFiles,
+    fileRejections,
+  } = useDropzone({
+    accept: 'audio/*',
+  });
 
   const updateSongsForUpload = useCallback(
     (song: SongForUpload[]) => setSongsForUpload(song),
@@ -71,6 +90,10 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         updateAllUploadStatuses,
         updateSongsForUpload,
         uploadStatuses,
+        getRootProps,
+        getInputProps,
+        acceptedFiles,
+        fileRejections,
       }}
     >
       {props.children}
