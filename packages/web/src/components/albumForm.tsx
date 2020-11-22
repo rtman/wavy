@@ -76,10 +76,6 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     CreateAlbumContext,
     (values) => values?.updateSongsForUpload
   );
-  const updateAllUploadStatuses = useContextSelector(
-    CreateAlbumContext,
-    (values) => values?.updateAllUploadStatuses
-  );
 
   const deleteSong = useContextSelector(
     CreateAlbumContext,
@@ -103,17 +99,14 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     (values) => values?.fileRejections
   );
 
+  const addSong = useContextSelector(
+    CreateAlbumContext,
+    (values) => values?.addSong
+  );
+
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
-  // const {
-  //   getRootProps,
-  //   getInputProps,
-  //   acceptedFiles,
-  //   fileRejections,
-  // } = useDropzone({
-  //   accept: 'audio/*',
-  // });
   const { uploadImage } = helpers.hooks.useUploadImage(imageFile);
 
   const { artists, creatorId, isLabel, releaseId } = props;
@@ -235,27 +228,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     [acceptedFiles, deleteSong, remove, songsForUpload]
   );
 
-  const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
-    if (fileRejected.length > 0) {
-      enqueueSnackbar('Error! Wrong file type please try again', {
-        variant: 'error',
-        autoHideDuration: 4000,
-      });
-      return;
-    }
-    if (fileAccepted.length > 0 && updateSongsForUpload && songsForUpload) {
-      const newFile = fileAccepted[0];
-      const resolvedSongsForUpload = [...songsForUpload];
-      let title = newFile.name.trim();
-      if (newFile.name.lastIndexOf('.') !== -1) {
-        title = newFile.name.substring(0, newFile.name.lastIndexOf('.')).trim();
-      }
-      resolvedSongsForUpload.push({
-        title: newFile.name.trim(),
-        file: newFile,
-      });
-      updateSongsForUpload(resolvedSongsForUpload);
-      append({ title });
+  const appendSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
+    const result = addSong?.(fileAccepted, fileRejected);
+    if (result !== undefined) {
+      append({ title: result });
     }
   };
 
@@ -553,7 +529,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                 <FileUploadButton
                   acceptedTypes="audio/*"
                   onDrop={(fileAccepted, fileRejected) =>
-                    addSong(fileAccepted, fileRejected)
+                    appendSong(fileAccepted, fileRejected)
                   }
                 />
 

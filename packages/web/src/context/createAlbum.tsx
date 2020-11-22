@@ -1,14 +1,19 @@
 import { SongForUpload, UploadStatus } from 'commonTypes';
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import { createContext } from 'use-context-selector';
 import {
-  DropzoneRootProps,
   DropzoneInputProps,
+  DropzoneRootProps,
   FileRejection,
   useDropzone,
 } from 'react-dropzone';
+import { createContext } from 'use-context-selector';
+import { useSnackbar } from 'notistack';
 
 interface CreateAlbumContextProps {
+  addSong: (
+    fileAccepted: File[],
+    fileRejected: FileRejection[]
+  ) => string | undefined;
   deleteSong: (index: number) => void;
   updateAllUploadStatuses: (newUploadStatuses: UploadStatus[]) => void;
   updateSongsForUpload: (song: SongForUpload[]) => void;
@@ -25,6 +30,7 @@ export const CreateAlbumContext = createContext<
 >(undefined);
 
 export const CreateAlbumProvider: FunctionComponent = (props) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
   const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
 
@@ -80,11 +86,37 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
     ]
   );
 
+  const addSong = (fileAccepted: File[], fileRejected: FileRejection[]) => {
+    if (fileRejected.length > 0) {
+      enqueueSnackbar('Error! Wrong file type please try again', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+      return;
+    }
+    if (fileAccepted.length > 0 && updateSongsForUpload && songsForUpload) {
+      const newFile = fileAccepted[0];
+      const resolvedSongsForUpload = [...songsForUpload];
+      let title = newFile.name.trim();
+      if (newFile.name.lastIndexOf('.') !== -1) {
+        title = newFile.name.substring(0, newFile.name.lastIndexOf('.')).trim();
+      }
+      resolvedSongsForUpload.push({
+        title: newFile.name.trim(),
+        file: newFile,
+      });
+      updateSongsForUpload(resolvedSongsForUpload);
+      return title;
+    }
+    return;
+  };
+
   console.log('*debug* createAlbumContext');
 
   return (
     <CreateAlbumContext.Provider
       value={{
+        addSong,
         deleteSong,
         songsForUpload,
         updateAllUploadStatuses,
