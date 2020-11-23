@@ -11,31 +11,34 @@ export const LabelCreateRelease = () => {
   const { id } = useParams<IdParam>();
 
   const {
-    loading: labelByIdLoading,
-    error: labelByIdError,
-    data: labelByIdData,
-  } = useQuery<Pick<Query, 'labelById'>>(consts.queries.label.LABEL_BY_ID, {
-    variables: { labelId: id },
-  });
+    loading: getPermissionsLoading,
+    error: getPermissionsError,
+    data: getPermissionsData,
+  } = useQuery<Pick<Query, 'getPermissions'>>(
+    consts.queries.permission.GET_PERMISSIONS,
+    {
+      variables: { id },
+    }
+  );
 
   const artistData = useMemo(
     () =>
-      (labelByIdData?.labelById.artistConnections ?? []).map(
-        (artistConnectionInstance) => {
-          return {
-            id: artistConnectionInstance.artist.id,
-            name: artistConnectionInstance.artist.name,
-          };
-        }
-      ),
-    [labelByIdData]
+      (getPermissionsData?.getPermissions.requestor ?? []).map((requestor) => {
+        return {
+          id: requestor.entity.id,
+          name: requestor.entity.name,
+        };
+      }),
+    [getPermissionsData]
   );
+
+  console.log('*debug* artistData', artistData);
 
   const releaseId = uuid();
 
   return (
     <Container>
-      {labelByIdLoading ? (
+      {getPermissionsLoading ? (
         <CircularProgress />
       ) : (
         <>

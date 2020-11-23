@@ -1,6 +1,7 @@
 import * as album from './album';
 import * as artist from './artist';
 import * as label from './label';
+import * as permission from './permission';
 import * as playlist from './playlist';
 import * as search from './search';
 import * as song from './song';
@@ -12,6 +13,7 @@ export {
   artist,
   album,
   label,
+  permission,
   playlist,
   search,
   song,

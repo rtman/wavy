@@ -95,8 +95,6 @@ export class LabelResolvers {
             'albums.songs',
             'albums.songs.supportingArtists',
             'albums.songs.supportingArtists.artist',
-            'artistConnections',
-            'artistConnections.artist',
           ],
         });
 

@@ -2,6 +2,7 @@ export * from './album';
 export * from './artist';
 export * from './label';
 export * from './listeningStats';
+export * from './permission';
 export * from './playlist';
 export * from './search';
 export * from './song';

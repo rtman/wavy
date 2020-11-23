@@ -24,12 +24,6 @@ export const LABEL_BY_ID = gql`
       profileImageUrlLarge
       profileImageUrlSmall
       profileImageUrlThumb
-      artistConnections {
-        artist {
-          id
-          name
-        }
-      }
       createdAt
       updatedAt
       artists {

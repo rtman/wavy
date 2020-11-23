@@ -1,30 +1,35 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Container, Typography } from '@material-ui/core';
-import { Query } from 'commonTypes';
+import { IdParam, Query } from 'commonTypes';
 import { AlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 
 export const ArtistCreateRelease = () => {
-  const { id } = useParams();
+  const { id } = useParams<IdParam>();
 
   const {
-    loading: artistByIdLoading,
-    error: artistByIdError,
-    data: artistByIdData,
-  } = useQuery<Pick<Query, 'artistById'>>(consts.queries.artist.ARTIST_BY_ID, {
-    variables: { labelId: id },
-  });
-
-  const artistData = (artistByIdData?.artistById.artistConnections ?? []).map(
-    (artistConnectionInstance) => {
-      return {
-        id: artistConnectionInstance.id,
-        name: artistConnectionInstance.name,
-      };
+    loading: getPermissionsLoading,
+    error: getPermissionsError,
+    data: getPermissionsData,
+  } = useQuery<Pick<Query, 'getPermissions'>>(
+    consts.queries.permission.GET_PERMISSIONS,
+    {
+      variables: { id },
     }
+  );
+
+  const artistData = useMemo(
+    () =>
+      (getPermissionsData?.getPermissions.requestor ?? []).map((requestor) => {
+        return {
+          id: requestor.entity.id,
+          name: requestor.entity.name,
+        };
+      }),
+    [getPermissionsData]
   );
 
   const releaseId = uuid();

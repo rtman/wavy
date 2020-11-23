@@ -1,4 +1,3 @@
-import Mail from 'nodemailer/lib/mailer';
 import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { uuid } from 'uuidv4';
@@ -134,9 +133,6 @@ export class ArtistResolvers {
             'usersFollowing.user',
             'users',
             'users.user',
-            'artistConnections',
-            'labelConnections',
-            'labelConnections.label',
           ],
         });
 
@@ -384,43 +380,3 @@ export class ArtistResolvers {
     }
   }
 }
-
-// Private Functions
-
-const addNewArtist = ({
-  name,
-  claimantEmail,
-  transporter,
-  templateEmail,
-  creatorName,
-}: {
-  name: string;
-  claimantEmail: string;
-  templateEmail: HandlebarsTemplateDelegate;
-  transporter: Mail;
-  creatorName: string;
-}) => {
-  const newArtistId = uuid();
-
-  const templatedArtistInviteEmail = templateEmail({
-    artistName: name,
-    artistEmail: claimantEmail,
-    artistId: newArtistId,
-    userName: creatorName,
-  });
-
-  return {
-    newArtistEmailPromise: transporter.sendMail({
-      // TODO: setup sending email address properly
-      from: '"Team" <team@oursound.io>', // sender address
-      to: claimantEmail, // list of receivers
-      subject: "You've been invited to OurSound!", // Subject line
-      html: templatedArtistInviteEmail, // html body
-    }),
-    localNewArtistModel: {
-      id: newArtistId,
-      name: name,
-      claimantEmail,
-    },
-  };
-};

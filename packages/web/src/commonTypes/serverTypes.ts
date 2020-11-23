@@ -62,6 +62,12 @@ export type Album = {
   type: UserSubscriptionEntity;
 };
 
+export type AllPermissionsReturnType = {
+  __typename?: 'AllPermissionsReturnType';
+  requestor: Array<PermissionReturnType>;
+  requestee: Array<PermissionReturnType>;
+};
+
 export type Artist = {
   __typename?: 'Artist';
   id: Scalars['ID'];
@@ -164,6 +170,11 @@ export type CreateUserArgs = {
   password: Scalars['String'];
 };
 
+export type DeletePermissionArgs = {
+  requestorId: Scalars['String'];
+  requesteeId: Scalars['String'];
+};
+
 export type DeletePlaylistArgs = {
   userId: Scalars['String'];
   playlistId: Scalars['ID'];
@@ -250,6 +261,9 @@ export type Mutation = {
   deleteLabel: Scalars['Boolean'];
   userPlayedSong: Scalars['Boolean'];
   userSkippedSong: Scalars['Boolean'];
+  createPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
   createPlaylist: Playlist;
   updatePlaylistInfo: Scalars['Boolean'];
   testProcessImage: Scalars['Boolean'];
@@ -322,6 +336,18 @@ export type MutationUserPlayedSongArgs = {
 
 export type MutationUserSkippedSongArgs = {
   input: UserSkippedSongArgs;
+};
+
+export type MutationCreatePermissionArgs = {
+  input: UpdatePermissionArgs;
+};
+
+export type MutationUpdatePermissionArgs = {
+  input: UpdatePermissionArgs;
+};
+
+export type MutationDeletePermissionArgs = {
+  input: DeletePermissionArgs;
 };
 
 export type MutationCreatePlaylistArgs = {
@@ -440,11 +466,34 @@ export type Permission = {
   __typename?: 'Permission';
   id: Scalars['ID'];
   requestorId: Scalars['ID'];
+  requestorEntity: PermissionEntityEnum;
   requesteeId: Scalars['ID'];
+  requesteeEntity: PermissionEntityEnum;
   createMusic: Scalars['Boolean'];
   createSupportingArtist: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+export enum PermissionEntityEnum {
+  Artist = 'ARTIST',
+  Label = 'LABEL',
+}
+
+export type PermissionEntityUnion = Artist | Label;
+
+export type PermissionReturnType = {
+  __typename?: 'PermissionReturnType';
+  id: Scalars['ID'];
+  requestorId: Scalars['ID'];
+  requestorEntity: PermissionEntityEnum;
+  requesteeId: Scalars['ID'];
+  requesteeEntity: PermissionEntityEnum;
+  createMusic: Scalars['Boolean'];
+  createSupportingArtist: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  entity: PermissionEntityUnion;
 };
 
 export type Playlist = {
@@ -484,6 +533,9 @@ export type Query = {
   queryStatsByField: Array<ListeningStats>;
   queryStatsByFieldForNumberOfMonths: Array<ListeningStats>;
   queryStatsForCompoundQuery: Array<ListeningStats>;
+  getPermissions: AllPermissionsReturnType;
+  getRequesteePermissions: Array<Permission>;
+  getRequestorPermissions: Array<Permission>;
   playlists: Array<Playlist>;
   playlistById: Playlist;
   playlistsById: Array<Playlist>;
@@ -548,6 +600,18 @@ export type QueryQueryStatsByFieldForNumberOfMonthsArgs = {
 
 export type QueryQueryStatsForCompoundQueryArgs = {
   input: QueryStatsForCompoundQuery;
+};
+
+export type QueryGetPermissionsArgs = {
+  id: Scalars['String'];
+};
+
+export type QueryGetRequesteePermissionsArgs = {
+  requesteeId: Scalars['String'];
+};
+
+export type QueryGetRequestorPermissionsArgs = {
+  requestorId: Scalars['String'];
 };
 
 export type QueryPlaylistByIdArgs = {
@@ -769,6 +833,13 @@ export enum UpdateFollowingType {
 export type UpdateLabelFollowingArgs = {
   userId: Scalars['String'];
   labelId: Scalars['String'];
+};
+
+export type UpdatePermissionArgs = {
+  requestorId: Scalars['String'];
+  requesteeId: Scalars['String'];
+  createMusic?: Maybe<Scalars['Boolean']>;
+  createSupportingArtist?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdatePlayCountArgs = {
@@ -1121,6 +1192,15 @@ export type ResolversTypes = {
   ListeningStats: ResolverTypeWrapper<ListeningStats>;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
+  AllPermissionsReturnType: ResolverTypeWrapper<AllPermissionsReturnType>;
+  PermissionReturnType: ResolverTypeWrapper<
+    Omit<PermissionReturnType, 'entity'> & {
+      entity: ResolversTypes['PermissionEntityUnion'];
+    }
+  >;
+  PermissionEntityEnum: PermissionEntityEnum;
+  PermissionEntityUnion: ResolversTypes['Artist'] | ResolversTypes['Label'];
+  Permission: ResolverTypeWrapper<Permission>;
   Search: ResolverTypeWrapper<Search>;
   UserSubscriptionResult: ResolverTypeWrapper<
     Omit<UserSubscriptionResult, 'data'> & {
@@ -1145,6 +1225,8 @@ export type ResolversTypes = {
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
   UserSkippedSongArgs: UserSkippedSongArgs;
+  UpdatePermissionArgs: UpdatePermissionArgs;
+  DeletePermissionArgs: DeletePermissionArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
   UpdatePlaylistInfoArgs: UpdatePlaylistInfoArgs;
   AddPlaylistSongsArgs: AddPlaylistSongsArgs;
@@ -1165,7 +1247,6 @@ export type ResolversTypes = {
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   NewUserSubscriptionArgs: NewUserSubscriptionArgs;
   UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
-  Permission: ResolverTypeWrapper<Permission>;
   Base: ResolverTypeWrapper<Base>;
   Error: ResolverTypeWrapper<Error>;
   Fail: ResolverTypeWrapper<Fail>;
@@ -1203,6 +1284,14 @@ export type ResolversParentTypes = {
   ListeningStats: ListeningStats;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
   QueryStatsForCompoundQuery: QueryStatsForCompoundQuery;
+  AllPermissionsReturnType: AllPermissionsReturnType;
+  PermissionReturnType: Omit<PermissionReturnType, 'entity'> & {
+    entity: ResolversParentTypes['PermissionEntityUnion'];
+  };
+  PermissionEntityUnion:
+    | ResolversParentTypes['Artist']
+    | ResolversParentTypes['Label'];
+  Permission: Permission;
   Search: Search;
   UserSubscriptionResult: Omit<UserSubscriptionResult, 'data'> & {
     data: Array<ResolversParentTypes['UserSubscriptionData']>;
@@ -1225,6 +1314,8 @@ export type ResolversParentTypes = {
   CreateLabelArgs: CreateLabelArgs;
   UserPlayedSongArgs: UserPlayedSongArgs;
   UserSkippedSongArgs: UserSkippedSongArgs;
+  UpdatePermissionArgs: UpdatePermissionArgs;
+  DeletePermissionArgs: DeletePermissionArgs;
   CreatePlaylistArgs: CreatePlaylistArgs;
   UpdatePlaylistInfoArgs: UpdatePlaylistInfoArgs;
   AddPlaylistSongsArgs: AddPlaylistSongsArgs;
@@ -1244,7 +1335,6 @@ export type ResolversParentTypes = {
   UpdatePlaylistsArgs: UpdatePlaylistsArgs;
   NewUserSubscriptionArgs: NewUserSubscriptionArgs;
   UpdateUserSubscriptionArgs: UpdateUserSubscriptionArgs;
-  Permission: Permission;
   Base: Base;
   Error: Error;
   Fail: Fail;
@@ -1307,6 +1397,23 @@ export type AlbumResolvers<
   processing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<
     ResolversTypes['UserSubscriptionEntity'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type AllPermissionsReturnTypeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AllPermissionsReturnType'] = ResolversParentTypes['AllPermissionsReturnType']
+> = {
+  requestor?: Resolver<
+    Array<ResolversTypes['PermissionReturnType']>,
+    ParentType,
+    ContextType
+  >;
+  requestee?: Resolver<
+    Array<ResolversTypes['PermissionReturnType']>,
     ParentType,
     ContextType
   >;
@@ -1616,6 +1723,24 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUserSkippedSongArgs, 'input'>
   >;
+  createPermission?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreatePermissionArgs, 'input'>
+  >;
+  updatePermission?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdatePermissionArgs, 'input'>
+  >;
+  deletePermission?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeletePermissionArgs, 'input'>
+  >;
   createPlaylist?: Resolver<
     ResolversTypes['Playlist'],
     ParentType,
@@ -1768,7 +1893,17 @@ export type PermissionResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   requestorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requestorEntity?: Resolver<
+    ResolversTypes['PermissionEntityEnum'],
+    ParentType,
+    ContextType
+  >;
   requesteeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requesteeEntity?: Resolver<
+    ResolversTypes['PermissionEntityEnum'],
+    ParentType,
+    ContextType
+  >;
   createMusic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createSupportingArtist?: Resolver<
     ResolversTypes['Boolean'],
@@ -1777,6 +1912,46 @@ export type PermissionResolvers<
   >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type PermissionEntityUnionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['PermissionEntityUnion'] = ResolversParentTypes['PermissionEntityUnion']
+> = {
+  __resolveType: TypeResolveFn<'Artist' | 'Label', ParentType, ContextType>;
+};
+
+export type PermissionReturnTypeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['PermissionReturnType'] = ResolversParentTypes['PermissionReturnType']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requestorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requestorEntity?: Resolver<
+    ResolversTypes['PermissionEntityEnum'],
+    ParentType,
+    ContextType
+  >;
+  requesteeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  requesteeEntity?: Resolver<
+    ResolversTypes['PermissionEntityEnum'],
+    ParentType,
+    ContextType
+  >;
+  createMusic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  createSupportingArtist?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  entity?: Resolver<
+    ResolversTypes['PermissionEntityUnion'],
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1919,6 +2094,24 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryQueryStatsForCompoundQueryArgs, 'input'>
+  >;
+  getPermissions?: Resolver<
+    ResolversTypes['AllPermissionsReturnType'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetPermissionsArgs, 'id'>
+  >;
+  getRequesteePermissions?: Resolver<
+    Array<ResolversTypes['Permission']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetRequesteePermissionsArgs, 'requesteeId'>
+  >;
+  getRequestorPermissions?: Resolver<
+    Array<ResolversTypes['Permission']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetRequestorPermissionsArgs, 'requestorId'>
   >;
   playlists?: Resolver<
     Array<ResolversTypes['Playlist']>,
@@ -2445,6 +2638,7 @@ export type UserSubscriptionResultResolvers<
 
 export type Resolvers<ContextType = any> = {
   Album?: AlbumResolvers<ContextType>;
+  AllPermissionsReturnType?: AllPermissionsReturnTypeResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   ArtistLabel?: ArtistLabelResolvers<ContextType>;
   Base?: BaseResolvers<ContextType>;
@@ -2455,6 +2649,8 @@ export type Resolvers<ContextType = any> = {
   ListeningStats?: ListeningStatsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Permission?: PermissionResolvers<ContextType>;
+  PermissionEntityUnion?: PermissionEntityUnionResolvers;
+  PermissionReturnType?: PermissionReturnTypeResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Search?: SearchResolvers<ContextType>;

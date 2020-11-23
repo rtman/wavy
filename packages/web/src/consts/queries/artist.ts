@@ -32,10 +32,6 @@ export const ARTIST_BY_ID = gql`
       profileImageUrlLarge
       profileImageUrlSmall
       profileImageUrlThumb
-      artistConnections {
-        id
-        name
-      }
       albums {
         id
         title
