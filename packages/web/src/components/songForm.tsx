@@ -88,8 +88,8 @@ export const SongForm = memo((props: SongUploadFormProps) => {
             }}
           />
         </Grid>
-        <Grid item={true} xs={12} sm={6}>
-          {watchVariousArtists?.name === 'Various Artists' ? (
+        {watchVariousArtists?.name === 'Various Artists' ? (
+          <Grid item={true} xs={12} sm={6}>
             <Controller
               name={`songs[${index}].artist`}
               control={formContext.control}
@@ -125,8 +125,8 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                 />
               )}
             />
-          ) : null}
-        </Grid>
+          </Grid>
+        ) : null}
 
         <Grid item={true} xs={12} sm={6}>
           <Controller
@@ -179,7 +179,7 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                   <TextField
                     {...params}
                     fullWidth={true}
-                    label="Supporting Artists (optional)"
+                    label="Supporting Artists"
                     helperText={
                       formContext.errors.songs?.[index]?.supportingArtists
                         ? formContext.errors.songs?.[index]?.supportingArtists

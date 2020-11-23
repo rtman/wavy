@@ -224,7 +224,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                 margin="normal"
                 fullWidth={true}
                 name={'album.title'}
-                label="Release Title"
+                label="Title"
                 id={'release-title'}
                 helperText={hookForm.errors.album?.title?.message}
                 error={hookForm.errors.album?.title !== undefined}
@@ -259,7 +259,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                     disableFuture={true}
                     openTo="year"
                     format="DD/MM/yyyy"
-                    label="Release Date"
+                    label="Date"
                     views={['year', 'month', 'date']}
                     helperText={hookForm.errors.album?.releaseDate?.message}
                     error={hookForm.errors.album?.releaseDate !== undefined}
