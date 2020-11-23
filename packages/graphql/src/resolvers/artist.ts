@@ -274,7 +274,9 @@ export class ArtistResolvers {
 
       const newPermission = permissionRepository.create({
         requesteeId: artistId,
+        requesteeEntity: Models.PermissionEntityEnum.ARTIST,
         requestorId: labelId,
+        requestorEntity: Models.PermissionEntityEnum.LABEL,
         createMusic: true,
         createSupportingArtist: true,
       });

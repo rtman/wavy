@@ -187,6 +187,8 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                   minWidth: 50,
                   maxHeight: 250,
                   maxWidth: 250,
+                  width: '100%',
+                  height: '100%',
                   objectFit: 'contain',
                   flexShrink: 1,
                 }}
