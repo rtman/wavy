@@ -79,7 +79,7 @@ export const CreateArtist = () => {
         fileName: 'profileImage',
       });
 
-      if (result && result.id && userId) {
+      if (result.ok && userId) {
         await createArtist({
           variables: {
             input: {

@@ -276,48 +276,50 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                   },
                 }}
                 control={hookForm.control}
-                defaultValue="album.releaseDate"
+                defaultValue={new Date()}
                 value="album.releaseDate"
                 name="album.releaseDate"
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item={true} xs={12} sm={6}>
-            <Controller
-              name="album.artist"
-              control={hookForm.control}
-              rules={{
-                validate: (value: Artist) =>
-                  hookForm.getValues('album.artist') !== 'Various Artists'
-                    ? value !== null || 'Please select an artist'
-                    : undefined,
-              }}
-              defaultValue={null}
-              render={(controllerProps) => (
-                <Autocomplete
-                  {...controllerProps}
-                  options={
-                    (isLabel ? artistsWithVariousArtists : artists) ?? []
-                  }
-                  getOptionLabel={(option) => option.name}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onChange={(e: any, values: any) =>
-                    hookForm.setValue('album.artist', values)
-                  }
-                  style={{ width: '100%' }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth={true}
-                      label="Artist"
-                      helperText={hookForm.errors.album?.artist?.message}
-                      error={hookForm.errors.album?.artist !== undefined}
-                    />
-                  )}
-                />
-              )}
-            />
-          </Grid>
+          {isLabel ? (
+            <Grid item={true} xs={12} sm={6}>
+              <Controller
+                name="album.artist"
+                control={hookForm.control}
+                rules={{
+                  validate: (value: Artist) =>
+                    hookForm.getValues('album.artist') !== 'Various Artists'
+                      ? value !== null || 'Please select an artist'
+                      : undefined,
+                }}
+                defaultValue={null}
+                render={(controllerProps) => (
+                  <Autocomplete
+                    {...controllerProps}
+                    options={
+                      (isLabel ? artistsWithVariousArtists : artists) ?? []
+                    }
+                    getOptionLabel={(option) => option.name}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    onChange={(e: any, values: any) =>
+                      hookForm.setValue('album.artist', values)
+                    }
+                    style={{ width: '100%' }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth={true}
+                        label="Artist"
+                        helperText={hookForm.errors.album?.artist?.message}
+                        error={hookForm.errors.album?.artist !== undefined}
+                      />
+                    )}
+                  />
+                )}
+              />
+            </Grid>
+          ) : null}
 
           <Spacing.section.Major />
 

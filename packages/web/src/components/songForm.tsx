@@ -182,7 +182,9 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                     label="Supporting Artists (optional)"
                     helperText={
                       formContext.errors.songs?.[index]?.supportingArtists
-                        ?.message
+                        ? formContext.errors.songs?.[index]?.supportingArtists
+                            ?.message
+                        : 'Optional'
                     }
                     error={
                       formContext.errors.songs?.[index]?.supportingArtists !==

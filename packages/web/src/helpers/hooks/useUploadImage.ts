@@ -1,16 +1,27 @@
 import * as firebase from 'firebase';
 import { useSnackbar } from 'notistack';
 
+interface Success {
+  ok: true;
+  id: string;
+  downloadUrl: string;
+  fullStoragePath: string;
+}
+
+interface Fail {
+  ok: false;
+}
+
 export const useUploadImage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const uploadImage = async (data: {
     imageFile: File;
-    rootDir?: string;
+    rootDir: string;
     parentDir?: string;
     childDir?: string;
     fileName: string;
-  }) => {
+  }): Promise<Success | Fail> => {
     const { imageFile, rootDir, parentDir, childDir, fileName } = data;
 
     const fileExtension = imageFile.name.split('.').splice(-1)[0];
@@ -34,18 +45,23 @@ export const useUploadImage = () => {
         const downloadUrl = result;
         const fullStoragePath = creatorImageRef.toString();
 
-        return { id: childDir, downloadUrl, fullStoragePath };
+        return {
+          ok: true,
+          id: childDir ? childDir : parentDir ? parentDir : rootDir,
+          downloadUrl,
+          fullStoragePath,
+        };
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',
           autoHideDuration: 4000,
         });
-        return false;
+        return { ok: false };
       }
     } else {
       console.log('*debug* useUploadImage Error: no file provided');
 
-      return false;
+      return { ok: false };
     }
   };
 

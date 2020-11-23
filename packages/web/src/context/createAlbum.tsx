@@ -258,10 +258,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
           };
         }
       );
-      console.log(
-        '*debug* onSubmit resolvedSongsForUpload',
-        resolvedSongsForUpload
-      );
+
       const result = await uploadImage({
         imageFile,
         rootDir: creatorId,
@@ -269,19 +266,16 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         childDir: releaseId,
         fileName: 'profile',
       });
-      console.log('*debug* albumForm uploadImage result', result);
+
       const userName = `${userContext?.user?.firstName} ${userContext?.user?.lastName}`;
-      if (result && result.id && resolvedSongsForUpload.length > 0) {
-        const {
-          artist: { id: artistId },
-          ...album
-        } = data.album;
+      if (result.ok && resolvedSongsForUpload.length > 0) {
+        const { artist, ...album } = data.album;
         await createAlbum({
           variables: {
             input: {
               ...album,
               // if is is a label the artistId is either various or a selected artist, otherwise it is the creator of the album, the artist
-              artistId: isLabel ? artistId : creatorId,
+              artistId: isLabel ? artist.id : creatorId,
               // if isLabel, we use the creatorId which is the label for labelId otherwise we dont apply a labelId
               labelId: isLabel ? creatorId : undefined,
               albumId: releaseId,
@@ -310,8 +304,6 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
       });
     }
   };
-
-  console.log('*debug* createAlbumContext');
 
   return (
     <CreateAlbumContext.Provider
