@@ -49,8 +49,6 @@ export const Uploader = memo((props: UploaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadStatus, updateAllUploadStatuses, index]);
 
-  console.log('*debug* uploader - releaseId', releaseId);
-
   return (
     <div className={classes.root}>
       <LinearProgress variant="determinate" value={uploadStatus.progress} />

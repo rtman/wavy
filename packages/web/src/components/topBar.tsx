@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: consts.drawer.width,
     },
     content: {
+      // height: '100%',
       flexGrow: 1,
       padding: theme.spacing(3),
     },
@@ -131,7 +132,11 @@ export const TopBar: FunctionComponent<Props> = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      // height: '100%' required fro autosizer in homeFeed.tsx
+      style={{ height: '100%' }}
+    >
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar classes={{ root: classes.root }}>

@@ -33,7 +33,10 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import React, { CSSProperties, memo, useState } from 'react';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { areEqual, FixedSizeList } from 'react-window';
+
+const cardWidth = 150;
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -66,7 +69,11 @@ export const HomeFeed = () => {
   );
 
   return (
-    <Container maxWidth={false}>
+    <Container
+      maxWidth={false}
+      // height: '100%' required for autosizer
+      style={{ height: '100%' }}
+    >
       <Spacing.section.Minor />
       {userSubscriptionsLoading ? (
         <Grid
@@ -82,18 +89,22 @@ export const HomeFeed = () => {
           </Grid>
         </Grid>
       ) : (
-        <FixedSizeList
-          itemSize={400}
-          width={'100%'}
-          // TODO: need to get real dynamic height of app bar/toolbar and padding and remove it from total height
-          // This would fix the second scroll bar issue
-          height={window.screen.height}
-          itemCount={userSubscriptionsData?.getUserSubscriptions.length ?? 0}
-          itemData={userSubscriptionsData?.getUserSubscriptions}
-          overscanCount={2}
-        >
-          {RenderSection}
-        </FixedSizeList>
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              itemSize={cardWidth * 2}
+              width={width}
+              height={height}
+              itemCount={
+                userSubscriptionsData?.getUserSubscriptions.length ?? 0
+              }
+              itemData={userSubscriptionsData?.getUserSubscriptions}
+              overscanCount={2}
+            >
+              {(props) => RenderSection({ ...props, width })}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
       )}
     </Container>
   );
@@ -103,10 +114,12 @@ const RenderSection = ({
   data,
   index,
   style,
+  width,
 }: {
   data: UserSubscriptionResult;
   index: number;
   style: CSSProperties;
+  width: number;
 }) => {
   const listRef = React.createRef<FixedSizeList>();
   const classes = useStyles();
@@ -165,9 +178,9 @@ const RenderSection = ({
         </IconButton>
         <FixedSizeList
           ref={listRef}
-          itemSize={240}
-          width={window.screen.width - consts.drawer.width}
-          height={300}
+          itemSize={cardWidth * 1.25}
+          width={width}
+          height={cardWidth * 1.5}
           layout="horizontal"
           itemCount={data[index].data.length}
           itemData={data[index].data}
@@ -189,27 +202,33 @@ const renderCard = memo(
     data,
     index,
     style,
-  }: {
+  }: // width,
+  {
     data: UserSubscriptionData;
     index: number;
     style: CSSProperties;
+    // width: number;
   }) => {
     return (
       <div key={index} style={style}>
-        {makeCard(data[index])}
+        {makeCard({
+          data: data[index],
+          // width
+        })}
       </div>
     );
-  },
-  areEqual
+  }
 );
 
-const makeCard = (data: UserSubscriptionData) => {
+const makeCard = ({ data }: { data: UserSubscriptionData }) => {
   switch (data.type) {
     case UserSubscriptionEntity.Album: {
       const albumData = data as Album;
 
       return (
         <AlbumCard
+          // width={width * 0.5}
+          // width={cardWidth}
           title={albumData.title}
           subtitle={albumData.artist.name}
           caption={albumData.label?.name ?? undefined}
@@ -223,6 +242,7 @@ const makeCard = (data: UserSubscriptionData) => {
 
       return (
         <ArtistCard
+          width={cardWidth}
           title={artistData.name}
           data={artistData}
           image={artistData.profileImageUrlThumb}
@@ -234,6 +254,7 @@ const makeCard = (data: UserSubscriptionData) => {
 
       return (
         <LabelCard
+          width={cardWidth}
           title={labelData.name}
           data={labelData}
           image={labelData.profileImageUrlThumb}
@@ -245,6 +266,7 @@ const makeCard = (data: UserSubscriptionData) => {
 
       return (
         <PlaylistCard
+          width={cardWidth}
           title={playlistData.title}
           data={playlistData}
           image={playlistData.profileImageUrlThumb}
@@ -257,6 +279,7 @@ const makeCard = (data: UserSubscriptionData) => {
 
       return (
         <SongCard
+          width={cardWidth}
           title={songData.title}
           subtitle={songData.artist.name}
           caption={songData.label?.name ?? undefined}
@@ -268,7 +291,7 @@ const makeCard = (data: UserSubscriptionData) => {
     case UserSubscriptionEntity.User: {
       const userData = data as User;
 
-      return <UserCard data={userData} />;
+      return <UserCard width={cardWidth} data={userData} />;
     }
   }
 };

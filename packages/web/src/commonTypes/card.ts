@@ -7,4 +7,5 @@ export interface BaseCardProps {
   style?: CSSProperties;
   subtitle?: string;
   title?: string;
+  width?: number;
 }

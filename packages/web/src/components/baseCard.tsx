@@ -15,26 +15,26 @@ import { BaseCardProps, MenuPosition } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import React, { memo, useCallback } from 'react';
 
-const width = 200;
+const defaultWidth = 200;
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((props: Theme & { width: number }) =>
   createStyles({
     baseTypography: {
-      maxWidth: `${width * 0.75}px`,
+      maxWidth: `${props.width ?? defaultWidth * 0.75}px`,
     },
     cardActions: {
       paddingLeft: 0,
       paddingRight: 0,
     },
     menuButton: {
-      minWidth: theme.spacing(1),
+      minWidth: props.spacing(1),
       paddingRight: 0,
       paddingLeft: 0,
-      color: theme.palette.text.primary,
+      color: props.palette.text.primary,
     },
     root: {
       padding: '1rem',
-      width: `${width}px`,
+      width: `${props.width ?? defaultWidth}px`,
     },
   })
 );
@@ -51,8 +51,6 @@ export const BaseCard = memo(
       >;
     }
   ) => {
-    const classes = useStyles();
-
     const {
       anchorEl,
       setAnchorEl,
@@ -64,7 +62,10 @@ export const BaseCard = memo(
       style,
       subtitle,
       title,
+      width,
     } = props;
+
+    const classes = useStyles(width);
 
     const onClickOpenMenu = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -79,8 +80,6 @@ export const BaseCard = memo(
     );
 
     const onMenuClose = useCallback(() => setAnchorEl(null), []);
-
-    console.log('*debug* baseCard');
 
     return (
       <Flex>

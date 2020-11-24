@@ -59,7 +59,7 @@ export const useUploadImage = () => {
         return { ok: false };
       }
     } else {
-      console.log('*debug* useUploadImage Error: no file provided');
+      console.log('Error! useUploadImage no file provided');
 
       return { ok: false };
     }
