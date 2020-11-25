@@ -58,6 +58,7 @@ interface BreakpointsConfig {
   sm: BreakpointConfigType;
   md: BreakpointConfigType;
   lg: BreakpointConfigType;
+  xl: BreakpointConfigType;
 }
 
 interface RowBreakpointValues {
@@ -72,7 +73,6 @@ interface ColumnBreakpointValues {
 interface BreakpointConfigType {
   row: RowBreakpointValues;
   column: ColumnBreakpointValues;
-  itemsPerBlock: number;
 }
 
 interface GetCurrentBreakpointProps {
@@ -80,10 +80,15 @@ interface GetCurrentBreakpointProps {
   sm: boolean;
   md: boolean;
   lg: boolean;
+  xl: boolean;
 }
 
 const getBreakpoint = (props: GetCurrentBreakpointProps) => {
-  const { xs, sm, md, lg } = props;
+  const { xs, sm, md, lg, xl } = props;
+
+  if (xl) {
+    return 'xl';
+  }
 
   if (lg) {
     return 'lg';
@@ -104,24 +109,24 @@ const getBreakpoint = (props: GetCurrentBreakpointProps) => {
 
 const FixedSizeListConfig: BreakpointsConfig = {
   xs: {
-    row: { itemSize: 0.53 },
-    column: { itemSize: 0.95 / 3, height: 0.42 },
-    itemsPerBlock: 3,
+    row: { itemSize: 1 },
+    column: { itemSize: 0.95 / 2, height: 0.7 },
   },
   sm: {
-    row: { itemSize: 0.38 },
-    column: { itemSize: 0.95 / 4, height: 0.34 },
-    itemsPerBlock: 4,
+    row: { itemSize: 0.65 },
+    column: { itemSize: 0.95 / 3, height: 0.5 },
   },
   md: {
-    row: { itemSize: 0.29 },
-    column: { itemSize: 0.95 / 5, height: 0.29 },
-    itemsPerBlock: 5,
+    row: { itemSize: 0.5 },
+    column: { itemSize: 0.95 / 4, height: 0.4 },
   },
   lg: {
-    row: { itemSize: 0.23 },
-    column: { itemSize: 0.95 / 6, height: 0.21 },
-    itemsPerBlock: 6,
+    row: { itemSize: 0.37 },
+    column: { itemSize: 0.95 / 5, height: 0.3 },
+  },
+  xl: {
+    row: { itemSize: 0.27 },
+    column: { itemSize: 0.95 / 6, height: 0.2 },
   },
 };
 
@@ -132,8 +137,11 @@ export const HomeFeed = () => {
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const md = useMediaQuery(theme.breakpoints.up('md'));
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const xl = useMediaQuery(theme.breakpoints.up('xl'));
 
-  const currentBreakpoint = getBreakpoint({ xs, sm, md, lg });
+  const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
+
+  console.log('*debug* currentBreakpoint', currentBreakpoint);
 
   const {
     loading: userSubscriptionsLoading,
@@ -183,7 +191,9 @@ export const HomeFeed = () => {
               itemData={userSubscriptionsData?.getUserSubscriptions}
               overscanCount={2}
             >
-              {(props) => RenderSection({ ...props, width, xs, sm, md, lg })}
+              {(props) =>
+                RenderSection({ ...props, width, xs, sm, md, lg, xl })
+              }
             </FixedSizeList>
           )}
         </AutoSizer>
@@ -201,6 +211,7 @@ const RenderSection = ({
   sm,
   md,
   lg,
+  xl,
 }: {
   data: UserSubscriptionResult;
   index: number;
@@ -210,6 +221,7 @@ const RenderSection = ({
   sm: boolean;
   md: boolean;
   lg: boolean;
+  xl: boolean;
 }) => {
   // const listRef = React.createRef<FixedSizeList>();
   const outerRef = useMemo(() => React.createRef<HTMLDivElement>(), []);
@@ -217,15 +229,15 @@ const RenderSection = ({
   const classes = useStyles();
   // const scrollItemsPerBlock = 4;
 
-  const currentBreakpoint = getBreakpoint({ xs, sm, md, lg });
+  const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
 
   const itemSize = Math.round(
     FixedSizeListConfig[currentBreakpoint].column.itemSize * width
   );
   const scrollOffset = width % itemSize;
 
-  console.log('scrollOffest', scrollOffset);
-  console.log('width', width);
+  // console.log('scrollOffest', scrollOffset);
+  // console.log('width', width);
 
   const scrollTo = useCallback((position) => {
     outerRef.current?.scrollTo({
@@ -255,9 +267,24 @@ const RenderSection = ({
   const onClickRight = useCallback(() => {
     let positionToScrollTo = 0;
 
+    // console.log(
+    //   '*debug* outerRef.current?.scrollLeft',
+    //   outerRef.current?.scrollLeft
+    // );
+    // console.log(
+    //   '*debug* outerRef.current?.scrollWidth',
+    //   outerRef.current?.scrollWidth
+    // );
+    // console.log('*debug* width', width);
+    // console.log(
+    //   '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
+    //   (outerRef.current?.scrollWidth ?? 0) - width
+    // );
+
     // Not sure why but scrollWidth is always one widths larger than max scrollLeft
     if (
-      outerRef.current?.scrollLeft ===
+      // scrollLeft is often a few decimals shy of scrollWidth, so rounding helps
+      Math.round(outerRef.current?.scrollLeft ?? 0) ===
       (outerRef.current?.scrollWidth ?? 0) - width
     ) {
       positionToScrollTo = 0;
@@ -278,9 +305,29 @@ const RenderSection = ({
       <Typography variant="h5">{data[index].title}</Typography>
       <Spacing.section.Minor />
       <Flex alignItems="center">
-        <IconButton onClick={onClickLeft}>
-          <ArrowLeft className={classes.arrowButtons} />
-        </IconButton>
+        <Flex
+          style={{
+            position: 'absolute',
+            left: 0,
+            zIndex: 999,
+            backgroundColor: 'white',
+            boxShadow: '2px 2px 15px 0 #f0f4ff',
+          }}
+        >
+          <IconButton
+            // style={{
+            //   position: 'absolute',
+            //   left: 0,
+            //   zIndex: 999,
+            //   color: 'white',
+            // }}
+            size="small"
+            onClick={onClickLeft}
+            edge="start"
+          >
+            <ArrowLeft className={classes.arrowButtons} />
+          </IconButton>
+        </Flex>
         <FixedSizeList
           // ref={listRef}
           outerRef={outerRef}
@@ -294,9 +341,23 @@ const RenderSection = ({
         >
           {renderCard}
         </FixedSizeList>
-        <IconButton onClick={onClickRight}>
-          <ArrowRight className={classes.arrowButtons} />
-        </IconButton>
+        <Flex
+          style={{
+            position: 'absolute',
+            right: 0,
+            backgroundColor: 'white',
+            boxShadow: '2px 2px 15px 0 #f0f4ff',
+          }}
+        >
+          <IconButton
+            // style={{ position: 'absolute', right: 0, color: 'white' }}
+            size="small"
+            onClick={onClickRight}
+            edge="end"
+          >
+            <ArrowRight className={classes.arrowButtons} />
+          </IconButton>
+        </Flex>
       </Flex>
       <Spacing.section.Minor />
     </div>
