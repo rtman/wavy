@@ -43,8 +43,6 @@ import React, {
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
 
-const cardWidth = 150;
-
 const useStyles = makeStyles(() => ({
   gridList: {
     flexWrap: 'nowrap',
@@ -60,27 +58,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface BreakpointsConfig {
-  xs: BreakpointConfigType;
-  sm: BreakpointConfigType;
-  md: BreakpointConfigType;
-  lg: BreakpointConfigType;
-  xl: BreakpointConfigType;
+  xs: ColumnBreakpointValues;
+  sm: ColumnBreakpointValues;
+  md: ColumnBreakpointValues;
+  lg: ColumnBreakpointValues;
+  xl: ColumnBreakpointValues;
 }
-
-interface RowBreakpointValues {
-  itemSize: number;
-}
-
 interface ColumnBreakpointValues {
   itemSize: number;
   height: number;
 }
-
-interface BreakpointConfigType {
-  row: RowBreakpointValues;
-  column: ColumnBreakpointValues;
-}
-
 interface GetCurrentBreakpointProps {
   xs: boolean;
   sm: boolean;
@@ -114,26 +101,11 @@ const getBreakpoint = (props: GetCurrentBreakpointProps) => {
 };
 
 const FixedSizeListConfig: BreakpointsConfig = {
-  xs: {
-    row: { itemSize: 0.85 },
-    column: { itemSize: 0.9 / 2, height: 0.7 },
-  },
-  sm: {
-    row: { itemSize: 0.65 },
-    column: { itemSize: 0.95 / 3, height: 0.5 },
-  },
-  md: {
-    row: { itemSize: 0.5 },
-    column: { itemSize: 0.95 / 4, height: 0.4 },
-  },
-  lg: {
-    row: { itemSize: 0.37 },
-    column: { itemSize: 0.95 / 5, height: 0.3 },
-  },
-  xl: {
-    row: { itemSize: 0.27 },
-    column: { itemSize: 0.95 / 6, height: 0.2 },
-  },
+  xs: { itemSize: 0.9 / 2, height: 0.7 },
+  sm: { itemSize: 0.95 / 3, height: 0.5 },
+  md: { itemSize: 0.95 / 4, height: 0.4 },
+  lg: { itemSize: 0.95 / 5, height: 0.3 },
+  xl: { itemSize: 0.95 / 6, height: 0.2 },
 };
 
 export const HomeFeed = () => {
@@ -146,6 +118,8 @@ export const HomeFeed = () => {
   const xl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
+
+  const rowHeightOffset = 120;
 
   const {
     loading: userSubscriptionsLoading,
@@ -180,9 +154,10 @@ export const HomeFeed = () => {
         <AutoSizer>
           {({ height, width }) => (
             <FixedSizeList
-              itemSize={
-                width * FixedSizeListConfig[currentBreakpoint].row.itemSize
-              }
+              itemSize={Math.round(
+                FixedSizeListConfig[currentBreakpoint].itemSize * width +
+                  rowHeightOffset
+              )}
               width={width}
               height={height}
               itemCount={
@@ -232,7 +207,7 @@ const RenderSection = ({
   const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
 
   const itemSize = Math.round(
-    FixedSizeListConfig[currentBreakpoint].column.itemSize * width
+    FixedSizeListConfig[currentBreakpoint].itemSize * width
   );
   const scrollOffset = width % itemSize;
 
@@ -274,19 +249,19 @@ const RenderSection = ({
   const onClickRight = useCallback(() => {
     let positionToScrollTo = 0;
 
-    console.log(
-      '*debug* outerRef.current?.scrollLeft',
-      outerRef.current?.scrollLeft
-    );
-    console.log(
-      '*debug* outerRef.current?.scrollWidth',
-      outerRef.current?.scrollWidth
-    );
-    console.log('*debug* width', width);
-    console.log(
-      '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
-      (outerRef.current?.scrollWidth ?? 0) - width
-    );
+    // console.log(
+    //   '*debug* outerRef.current?.scrollLeft',
+    //   outerRef.current?.scrollLeft
+    // );
+    // console.log(
+    //   '*debug* outerRef.current?.scrollWidth',
+    //   outerRef.current?.scrollWidth
+    // );
+    // console.log('*debug* width', width);
+    // console.log(
+    //   '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
+    //   (outerRef.current?.scrollWidth ?? 0) - width
+    // );
 
     // Not sure why but scrollWidth is always one widths larger than max scrollLeft
     if (
@@ -332,11 +307,10 @@ const RenderSection = ({
         ) : null}
 
         <FixedSizeList
-          // ref={listRef}
           outerRef={outerRef}
           itemSize={itemSize}
           width={width}
-          height={width * FixedSizeListConfig[currentBreakpoint].column.height}
+          height={width * FixedSizeListConfig[currentBreakpoint].height}
           layout="horizontal"
           itemCount={data[index].data.length}
           itemData={data[index].data}
@@ -392,8 +366,6 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
 
       return (
         <AlbumCard
-          // width={width * 0.5}
-          // width={cardWidth}
           title={albumData.title}
           subtitle={albumData.artist.name}
           caption={albumData.label?.name ?? undefined}
@@ -407,7 +379,6 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
 
       return (
         <ArtistCard
-          width={cardWidth}
           title={artistData.name}
           data={artistData}
           image={artistData.profileImageUrlThumb}
@@ -419,7 +390,6 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
 
       return (
         <LabelCard
-          width={cardWidth}
           title={labelData.name}
           data={labelData}
           image={labelData.profileImageUrlThumb}
@@ -431,7 +401,6 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
 
       return (
         <PlaylistCard
-          width={cardWidth}
           title={playlistData.title}
           data={playlistData}
           image={playlistData.profileImageUrlThumb}
@@ -444,7 +413,6 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
 
       return (
         <SongCard
-          width={cardWidth}
           title={songData.title}
           subtitle={songData.artist.name}
           caption={songData.label?.name ?? undefined}
@@ -456,7 +424,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
     case UserSubscriptionEntity.User: {
       const userData = data as User;
 
-      return <UserCard width={cardWidth} data={userData} />;
+      return <UserCard data={userData} />;
     }
   }
 };

@@ -195,7 +195,7 @@ export const Player = () => {
         <SkipNext />
       </StyledButton>
       <ProgressBar />
-      <Flex flexDirection="column">
+      <Flex flexDirection="column" style={{ maxWidth: '5rem' }}>
         <Typography
           className={classes.clickableText}
           noWrap={true}

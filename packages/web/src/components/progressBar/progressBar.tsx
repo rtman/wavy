@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core';
 import { Flex, useTimer } from 'components';
 import { TrackPositionSlider } from 'components';
 import { PlayerContext } from 'context';
@@ -57,6 +58,11 @@ export const ProgressBar = () => {
 
   //   console.log('isSeeking', isSeeking);
   const getFormattedTime = (value: number) => {
+    console.log('*debug* getFormattedTime value', value);
+    if (isNaN(value)) {
+      return '00:00';
+    }
+
     const duration = moment.duration(value, 'seconds').as('millisecond');
     const formatted = moment.utc(duration).format('mm:ss');
     return formatted;
@@ -66,7 +72,7 @@ export const ProgressBar = () => {
 
   return (
     <Flex alignItems="center" fullWidth={true} style={{ margin: '0px 8px' }}>
-      <TimeText>{getFormattedTime(position)}</TimeText>
+      <Typography variant="caption">{getFormattedTime(position)}</Typography>
       <TrackPositionSlider
         min={0}
         max={duration}
@@ -74,7 +80,7 @@ export const ProgressBar = () => {
         onChange={onSeeking}
         onChangeCommitted={onSeekCommitted}
       />
-      <TimeText>{getFormattedTime(duration)}</TimeText>
+      <Typography variant="caption">{getFormattedTime(duration)}</Typography>
     </Flex>
   );
 };
