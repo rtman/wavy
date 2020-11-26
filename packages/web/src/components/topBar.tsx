@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       // height: '100%',
       flexGrow: 1,
-      padding: theme.spacing(3),
+      // padding: theme.spacing(3),
     },
     search: {
       position: 'relative',

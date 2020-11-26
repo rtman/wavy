@@ -20,7 +20,7 @@ const defaultWidth = 200;
 const useStyles = makeStyles((props: Theme & { width: number }) =>
   createStyles({
     baseTypography: {
-      maxWidth: `${props.width ?? defaultWidth * 0.75}px`,
+      maxWidth: '100%',
     },
     cardActions: {
       paddingLeft: 0,
@@ -52,13 +52,13 @@ export const BaseCard = memo(
     }
   ) => {
     const {
-      anchorEl,
-      setAnchorEl,
+      // anchorEl,
+      // setAnchorEl,
       caption,
       image,
-      menuItems,
+      // menuItems,
       onClick,
-      setMenuPosition,
+      // setMenuPosition,
       style,
       subtitle,
       title,
@@ -67,19 +67,19 @@ export const BaseCard = memo(
 
     const classes = useStyles(width);
 
-    const onClickOpenMenu = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-        event.preventDefault();
-        setMenuPosition({
-          top: event.pageY,
-          left: event.pageX,
-        });
-      },
-      []
-    );
+    // const onClickOpenMenu = useCallback(
+    //   (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     setAnchorEl(event.currentTarget);
+    //     event.preventDefault();
+    //     setMenuPosition({
+    //       top: event.pageY,
+    //       left: event.pageX,
+    //     });
+    //   },
+    //   []
+    // );
 
-    const onMenuClose = useCallback(() => setAnchorEl(null), []);
+    // const onMenuClose = useCallback(() => setAnchorEl(null), []);
 
     return (
       <Flex>
@@ -96,33 +96,41 @@ export const BaseCard = memo(
           </CardActionArea>
           {/* <Spacing.BetweenComponents /> */}
           <CardActions disableSpacing={true} className={classes.cardActions}>
-            <Flex
+            {/* <Flex
               justifyContent="space-between"
               alignItems="center"
               fullWidth={true}
-            >
-              <Flex flexDirection="column">
-                {title ? (
-                  <Typography
-                    className={classes.baseTypography}
-                    noWrap={true}
-                    variant="body2"
-                  >
-                    {title}
-                  </Typography>
-                ) : null}
-                {subtitle ? (
-                  <Typography noWrap={true} variant="caption">
-                    {subtitle}
-                  </Typography>
-                ) : null}
-                {caption ? (
-                  <Typography noWrap={true} variant="overline">
-                    {caption}
-                  </Typography>
-                ) : null}
-              </Flex>
-
+            > */}
+            <Flex flexDirection="column" fullWidth={true}>
+              {title ? (
+                <Typography
+                  className={classes.baseTypography}
+                  noWrap={true}
+                  variant="body2"
+                >
+                  {title}
+                </Typography>
+              ) : null}
+              {subtitle ? (
+                <Typography
+                  className={classes.baseTypography}
+                  noWrap={true}
+                  variant="caption"
+                >
+                  {subtitle}
+                </Typography>
+              ) : null}
+              {caption ? (
+                <Typography
+                  className={classes.baseTypography}
+                  noWrap={true}
+                  variant="overline"
+                >
+                  {caption}
+                </Typography>
+              ) : null}
+            </Flex>
+            {/* 
               <IconButton
                 aria-controls="simple-menu"
                 aria-haspopup="true"
@@ -130,12 +138,11 @@ export const BaseCard = memo(
                 className={classes.menuButton}
               >
                 <MoreVert />
-              </IconButton>
-            </Flex>
+              </IconButton> */}
+            {/* </Flex> */}
           </CardActions>
-          <Spacing.BetweenComponents />
         </Card>
-        <Menu
+        {/* <Menu
           id="simple-menu"
           anchorEl={anchorEl}
           keepMounted
@@ -143,7 +150,7 @@ export const BaseCard = memo(
           onClose={onMenuClose}
         >
           {menuItems}
-        </Menu>
+        </Menu> */}
       </Flex>
     );
   }

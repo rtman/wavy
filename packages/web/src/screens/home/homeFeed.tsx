@@ -33,7 +33,13 @@ import {
   UserCard,
 } from 'components';
 import * as consts from 'consts';
-import React, { CSSProperties, memo, useCallback, useMemo } from 'react';
+import React, {
+  CSSProperties,
+  memo,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
 
@@ -109,8 +115,8 @@ const getBreakpoint = (props: GetCurrentBreakpointProps) => {
 
 const FixedSizeListConfig: BreakpointsConfig = {
   xs: {
-    row: { itemSize: 1 },
-    column: { itemSize: 0.95 / 2, height: 0.7 },
+    row: { itemSize: 0.85 },
+    column: { itemSize: 0.9 / 2, height: 0.7 },
   },
   sm: {
     row: { itemSize: 0.65 },
@@ -141,8 +147,6 @@ export const HomeFeed = () => {
 
   const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
 
-  console.log('*debug* currentBreakpoint', currentBreakpoint);
-
   const {
     loading: userSubscriptionsLoading,
     // error: newArtistsError,
@@ -157,11 +161,7 @@ export const HomeFeed = () => {
   );
 
   return (
-    <Container
-      maxWidth={false}
-      // height: '100%' required for autosizer
-      style={{ height: '100%' }}
-    >
+    <>
       <Spacing.section.Minor />
       {userSubscriptionsLoading ? (
         <Grid
@@ -198,7 +198,7 @@ export const HomeFeed = () => {
           )}
         </AutoSizer>
       )}
-    </Container>
+    </>
   );
 };
 
@@ -225,9 +225,9 @@ const RenderSection = ({
 }) => {
   // const listRef = React.createRef<FixedSizeList>();
   const outerRef = useMemo(() => React.createRef<HTMLDivElement>(), []);
-
+  const theme = useTheme();
   const classes = useStyles();
-  // const scrollItemsPerBlock = 4;
+  const [renderLeftArrow, setRenderLeftArrow] = useState<boolean>(false);
 
   const currentBreakpoint = getBreakpoint({ xs, sm, md, lg, xl });
 
@@ -236,16 +236,23 @@ const RenderSection = ({
   );
   const scrollOffset = width % itemSize;
 
-  // console.log('scrollOffest', scrollOffset);
-  // console.log('width', width);
+  const scrollTo = useCallback(
+    (position) => {
+      outerRef.current?.scrollTo({
+        left: position,
+        top: 0,
+        behavior: 'smooth',
+      });
 
-  const scrollTo = useCallback((position) => {
-    outerRef.current?.scrollTo({
-      left: position,
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, []);
+      if (position > 0) {
+        setRenderLeftArrow(true);
+      }
+      if (position === 0) {
+        setRenderLeftArrow(false);
+      }
+    },
+    [outerRef]
+  );
 
   const onClickLeft = useCallback(() => {
     let positionToScrollTo = 0;
@@ -267,19 +274,19 @@ const RenderSection = ({
   const onClickRight = useCallback(() => {
     let positionToScrollTo = 0;
 
-    // console.log(
-    //   '*debug* outerRef.current?.scrollLeft',
-    //   outerRef.current?.scrollLeft
-    // );
-    // console.log(
-    //   '*debug* outerRef.current?.scrollWidth',
-    //   outerRef.current?.scrollWidth
-    // );
-    // console.log('*debug* width', width);
-    // console.log(
-    //   '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
-    //   (outerRef.current?.scrollWidth ?? 0) - width
-    // );
+    console.log(
+      '*debug* outerRef.current?.scrollLeft',
+      outerRef.current?.scrollLeft
+    );
+    console.log(
+      '*debug* outerRef.current?.scrollWidth',
+      outerRef.current?.scrollWidth
+    );
+    console.log('*debug* width', width);
+    console.log(
+      '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
+      (outerRef.current?.scrollWidth ?? 0) - width
+    );
 
     // Not sure why but scrollWidth is always one widths larger than max scrollLeft
     if (
@@ -302,32 +309,28 @@ const RenderSection = ({
 
   return (
     <div key={index} style={style}>
-      <Typography variant="h5">{data[index].title}</Typography>
-      <Spacing.section.Minor />
+      <Flex>
+        <Spacing.section.Minor />
+        <Typography variant="h5">{data[index].title}</Typography>
+      </Flex>
+
       <Flex alignItems="center">
-        <Flex
-          style={{
-            position: 'absolute',
-            left: 0,
-            zIndex: 999,
-            backgroundColor: 'white',
-            boxShadow: '2px 2px 15px 0 #f0f4ff',
-          }}
-        >
-          <IconButton
-            // style={{
-            //   position: 'absolute',
-            //   left: 0,
-            //   zIndex: 999,
-            //   color: 'white',
-            // }}
-            size="small"
-            onClick={onClickLeft}
-            edge="start"
+        {renderLeftArrow ? (
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              zIndex: 999,
+              backgroundColor: theme.palette.secondary.main,
+              boxShadow: '2px 2px 15px 0 #f0f4ff',
+            }}
           >
-            <ArrowLeft className={classes.arrowButtons} />
-          </IconButton>
-        </Flex>
+            <IconButton size="small" onClick={onClickLeft} edge="start">
+              <ArrowLeft className={classes.arrowButtons} />
+            </IconButton>
+          </div>
+        ) : null}
+
         <FixedSizeList
           // ref={listRef}
           outerRef={outerRef}
@@ -341,23 +344,18 @@ const RenderSection = ({
         >
           {renderCard}
         </FixedSizeList>
-        <Flex
+        <div
           style={{
             position: 'absolute',
             right: 0,
-            backgroundColor: 'white',
+            backgroundColor: theme.palette.secondary.main,
             boxShadow: '2px 2px 15px 0 #f0f4ff',
           }}
         >
-          <IconButton
-            // style={{ position: 'absolute', right: 0, color: 'white' }}
-            size="small"
-            onClick={onClickRight}
-            edge="end"
-          >
+          <IconButton size="small" onClick={onClickRight} edge="end">
             <ArrowRight className={classes.arrowButtons} />
           </IconButton>
-        </Flex>
+        </div>
       </Flex>
       <Spacing.section.Minor />
     </div>
