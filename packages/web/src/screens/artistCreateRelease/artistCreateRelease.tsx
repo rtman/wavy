@@ -35,7 +35,7 @@ export const ArtistCreateRelease = () => {
   const releaseId = uuid();
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
       <Typography variant="h4">New Release</Typography>
 

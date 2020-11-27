@@ -249,7 +249,7 @@ export const Search = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <TextField
         onChange={searchContext?.onChangeSearchText}
         value={searchContext?.searchText}

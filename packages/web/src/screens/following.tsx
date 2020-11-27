@@ -68,7 +68,7 @@ export const Following = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {user ? (
         <Flex flexDirection="column">
           <Spacing.section.Minor />

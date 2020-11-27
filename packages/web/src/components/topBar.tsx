@@ -60,6 +60,8 @@ const useStyles = makeStyles((theme: Theme) =>
       // height: '100%',
       flexGrow: 1,
       // padding: theme.spacing(3),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
     search: {
       position: 'relative',

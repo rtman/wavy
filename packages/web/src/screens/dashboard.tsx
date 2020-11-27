@@ -112,7 +112,7 @@ export const Dashboard = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Flex flexDirection="column">
         <Spacing.section.Major />
 

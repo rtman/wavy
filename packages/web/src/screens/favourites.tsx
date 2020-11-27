@@ -73,7 +73,7 @@ export const Favourites = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {user ? (
         <Flex flexDirection="column">
           <Spacing.section.Minor />

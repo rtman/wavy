@@ -131,7 +131,7 @@ export const CreateLabel = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
       <Typography variant="h4">New Label</Typography>
       <Spacing.section.Minor />

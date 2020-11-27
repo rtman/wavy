@@ -6,7 +6,7 @@ import React from 'react';
 // Manage Contacts ? Connections? Something to justify createing artists here as well? Or should that be seperate
 export const Permissions = () => {
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Typography variant="h3">Manage Permissions</Typography>
 
       <Spacing.section.Major />

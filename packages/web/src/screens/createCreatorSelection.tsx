@@ -9,7 +9,7 @@ export const CreateCreatorSelection = () => {
   const history = useHistory();
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
 
       <Typography variant="h3">Creator Dashboard</Typography>

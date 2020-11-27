@@ -122,7 +122,7 @@ export const ArtistDashboard = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

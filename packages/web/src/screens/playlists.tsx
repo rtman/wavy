@@ -149,7 +149,7 @@ export const Playlists = () => {
   ) => setNewPlaylistDescription(event.target.value);
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

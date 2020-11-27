@@ -37,7 +37,7 @@ export const LabelCreateRelease = () => {
   const releaseId = uuid();
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {getPermissionsLoading ? (
         <CircularProgress />
       ) : (

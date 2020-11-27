@@ -184,7 +184,7 @@ export const Label = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

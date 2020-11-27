@@ -80,7 +80,7 @@ export const LabelCreateUnclaimedArtist = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
       <Typography variant="h3">New Unclaimed Artist</Typography>
 

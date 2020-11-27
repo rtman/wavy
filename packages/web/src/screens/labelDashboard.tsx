@@ -118,7 +118,7 @@ export const LabelDashboard = () => {
     }
   };
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

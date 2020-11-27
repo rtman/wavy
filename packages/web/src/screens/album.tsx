@@ -131,7 +131,7 @@ export const Album = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

@@ -99,7 +99,7 @@ export const SetupHome = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {tagsLoading ? (
         <CircularProgress />
       ) : (

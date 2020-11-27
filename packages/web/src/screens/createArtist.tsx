@@ -96,7 +96,7 @@ export const CreateArtist = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Spacing.section.Minor />
       <Typography variant="h3">New Artist</Typography>
       <Spacing.section.Minor />

@@ -140,7 +140,6 @@ export const HomeFeed = () => {
 
   return (
     <>
-      <Spacing.section.Minor />
       {userSubscriptionsLoading ? (
         <Grid
           container={true}

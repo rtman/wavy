@@ -200,7 +200,7 @@ export const Artist = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (

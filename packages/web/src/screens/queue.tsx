@@ -111,7 +111,7 @@ export const Queue = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (
