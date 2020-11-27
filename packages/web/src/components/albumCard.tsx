@@ -1,7 +1,9 @@
 import { Album, BaseCardProps, MenuPosition } from 'commonTypes';
 import { BaseCard } from 'components';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, memo, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
 
 import { AlbumMenuItems } from './albumMenuItems';
@@ -17,19 +19,39 @@ export const AlbumCard = memo((props: AlbumCardProps) => {
     PlayerContext,
     (values) => values?.replaceQueueWithSongs
   );
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
-
-  const songs = data.songs ?? [];
+  const { id: albumId, artist, label, songs } = data;
 
   const onClickPlay = useCallback(() => {
     if (replaceQueueWithSongs) {
       replaceQueueWithSongs(songs ?? []);
     }
   }, [songs, replaceQueueWithSongs]);
+
+  const onClickNavToItem = useCallback(() => {
+    history.push(`${consts.routes.ALBUM}/${albumId}`);
+  }, [history, albumId]);
+
+  const onClickTitle = useCallback(() => {
+    history.push(`${consts.routes.ALBUM}/${albumId}`);
+  }, [history, albumId]);
+
+  const onClickSubtitle = useCallback(() => {
+    if (artist) {
+      history.push(`${consts.routes.ARTIST}/${artist.id}`);
+    }
+  }, [history, artist]);
+
+  const onClickCaption = useCallback(() => {
+    if (label) {
+      history.push(`${consts.routes.LABEL}/${label.id}`);
+    }
+  }, [history, label]);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
@@ -46,7 +68,11 @@ export const AlbumCard = memo((props: AlbumCardProps) => {
 
   return (
     <BaseCard
-      onClick={onClick ?? onClickPlay}
+      onClick={onClick ?? onClickNavToItem}
+      onClickPlay={onClickPlay}
+      onClickTitle={onClickTitle}
+      onClickSubtitle={onClickSubtitle}
+      onClickCaption={onClickCaption}
       setMenuPosition={setMenuPosition}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}

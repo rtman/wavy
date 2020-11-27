@@ -10,10 +10,10 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
+import { Launch, MoreVert, PlayArrow } from '@material-ui/icons';
 import { BaseCardProps, MenuPosition } from 'commonTypes';
 import { Flex, Spacing } from 'components';
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 
 const defaultWidth = 200;
 
@@ -21,6 +21,10 @@ const useStyles = makeStyles((props: Theme & { width: number }) =>
   createStyles({
     baseTypography: {
       maxWidth: '100%',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
     cardActions: {
       paddingLeft: 0,
@@ -42,7 +46,21 @@ const useStyles = makeStyles((props: Theme & { width: number }) =>
 export const BaseCard = memo(
   (
     props: BaseCardProps & {
-      onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+      onClick?: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      ) => void;
+      onClickCaption?: (
+        event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+      ) => void;
+      onClickPlay?: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      ) => void;
+      onClickSubtitle?: (
+        event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+      ) => void;
+      onClickTitle?: (
+        event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+      ) => void;
       menuItems?: JSX.Element;
       anchorEl: HTMLElement | null;
       setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
@@ -58,6 +76,10 @@ export const BaseCard = memo(
       image,
       // menuItems,
       onClick,
+      onClickCaption,
+      onClickPlay,
+      onClickSubtitle,
+      onClickTitle,
       // setMenuPosition,
       style,
       subtitle,
@@ -66,6 +88,11 @@ export const BaseCard = memo(
     } = props;
 
     const classes = useStyles(width);
+
+    const [isHoveringCard, setIsHoveringCard] = useState<boolean>(false);
+
+    const onMouseEnter = () => setIsHoveringCard(true);
+    const onMouseLeave = () => setIsHoveringCard(false);
 
     // const onClickOpenMenu = useCallback(
     //   (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -84,14 +111,58 @@ export const BaseCard = memo(
     return (
       <Flex>
         <Card className={classes.root} style={style}>
-          <CardActionArea>
+          <CardActionArea
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          >
             {image ? (
-              <CardMedia
-                onClick={onClick}
-                component="img"
-                image={image}
-                alt={title}
-              />
+              <>
+                <CardMedia
+                  onClick={onClick as any}
+                  component="img"
+                  image={image}
+                  alt={title}
+                />
+                {isHoveringCard ? (
+                  <>
+                    <div
+                      style={{
+                        display: 'flex',
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        left: 0,
+                        top: 0,
+                        backgroundColor: 'black',
+                        opacity: 0.5,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 999,
+                      }}
+                    />
+                    <div
+                      style={{
+                        display: 'flex',
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        left: 0,
+                        top: 0,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 999,
+                      }}
+                    >
+                      <IconButton onClick={onClick}>
+                        <Launch fontSize="large" />
+                      </IconButton>
+                      <IconButton onClick={onClickPlay}>
+                        <PlayArrow fontSize="large" />
+                      </IconButton>
+                    </div>
+                  </>
+                ) : null}
+              </>
             ) : null}
           </CardActionArea>
           {/* <Spacing.BetweenComponents /> */}
@@ -104,6 +175,7 @@ export const BaseCard = memo(
             <Flex flexDirection="column" fullWidth={true}>
               {title ? (
                 <Typography
+                  onClick={onClickTitle}
                   className={classes.baseTypography}
                   noWrap={true}
                   variant="body2"
@@ -113,6 +185,7 @@ export const BaseCard = memo(
               ) : null}
               {subtitle ? (
                 <Typography
+                  onClick={onClickSubtitle}
                   className={classes.baseTypography}
                   noWrap={true}
                   variant="caption"
@@ -122,6 +195,7 @@ export const BaseCard = memo(
               ) : null}
               {caption ? (
                 <Typography
+                  onClick={onClickCaption}
                   className={classes.baseTypography}
                   noWrap={true}
                   variant="overline"

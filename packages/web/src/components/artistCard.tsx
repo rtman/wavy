@@ -1,7 +1,8 @@
 import { Artist, BaseCardProps, MenuPosition, Song } from 'commonTypes';
-// import * as consts from 'consts';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
 
 import { ArtistMenuItems } from './artistMenuItems';
@@ -19,16 +20,22 @@ export const ArtistCard = (props: ArtistCardProps) => {
     (values) => values?.replaceQueueWithSongs
   );
 
+  const history = useHistory();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
-  const { albums } = data;
+  const { albums, id: artistId } = data;
 
-  // const onClickGoToArtist = () => {
-  //   history.push(`${consts.routes.ARTIST}/${data.id}`);
-  //   setAnchorEl(null);
-  // };
+  const onClickNavToItem = useCallback(() => {
+    history.push(`${consts.routes.ARTIST}/${artistId}`);
+    setAnchorEl(null);
+  }, [history, artistId]);
+
+  const onClickTitle = useCallback(() => {
+    history.push(`${consts.routes.ARTIST}/${artistId}`);
+  }, [history, artistId]);
 
   const onClickPlay = useCallback(() => {
     if (replaceQueueWithSongs) {
@@ -38,7 +45,7 @@ export const ArtistCard = (props: ArtistCardProps) => {
       });
       replaceQueueWithSongs(songs);
     }
-  }, [albums]);
+  }, [albums, replaceQueueWithSongs]);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
@@ -55,7 +62,9 @@ export const ArtistCard = (props: ArtistCardProps) => {
 
   return (
     <BaseCard
-      onClick={onClick ?? onClickPlay}
+      onClick={onClick ?? onClickNavToItem}
+      onClickPlay={onClickPlay}
+      onClickTitle={onClickTitle}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
       setMenuPosition={setMenuPosition}

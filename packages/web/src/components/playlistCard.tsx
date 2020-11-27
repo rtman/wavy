@@ -4,8 +4,10 @@ import {
   Playlist,
   SongPlaylist,
 } from 'commonTypes';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
 
 import { BaseCard } from './baseCard';
@@ -22,11 +24,13 @@ export const PlaylistCard = (props: PlaylistCardProps) => {
     PlayerContext,
     (values) => values?.replaceQueueWithSongs
   );
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
+  const { id: playlistId } = data;
 
   const onClickPlay = useCallback(() => {
     if (replaceQueueWithSongs) {
@@ -36,6 +40,10 @@ export const PlaylistCard = (props: PlaylistCardProps) => {
       replaceQueueWithSongs(songs);
     }
   }, [data, replaceQueueWithSongs]);
+
+  const onClickNavToItem = useCallback(() => {
+    history.push(`${consts.routes.PLAYLIST}/${playlistId}`);
+  }, [history, playlistId]);
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
@@ -54,7 +62,8 @@ export const PlaylistCard = (props: PlaylistCardProps) => {
     <BaseCard
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
-      onClick={onClick ?? onClickPlay}
+      onClick={onClick ?? onClickNavToItem}
+      onClickPlay={onClickPlay}
       setMenuPosition={setMenuPosition}
       menuItems={menuItems()}
       {...props}

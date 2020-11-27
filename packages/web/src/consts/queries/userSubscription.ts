@@ -92,6 +92,10 @@ export const GET_USER_SUBSCRIPTIONS = gql`
             id
             title
             profileImageUrlThumb
+            label {
+              id
+              name
+            }
           }
           artist {
             id

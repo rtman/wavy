@@ -1,10 +1,10 @@
 import { BaseCardProps, Label, MenuPosition } from 'commonTypes';
-// import * as consts from 'consts';
+import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { BaseCard } from './baseCard';
 import { LabelMenuItems } from './labelMenuItems';
 
@@ -15,7 +15,7 @@ interface LabelCardProps extends Omit<BaseCardProps, 'onClickOpenMenu'> {
 }
 
 export const LabelCard = (props: LabelCardProps) => {
-  // const history = useHistory();
+  const history = useHistory();
   const replaceQueueWithSongs = useContextSelector(
     PlayerContext,
     (values) => values?.replaceQueueWithSongs
@@ -25,12 +25,16 @@ export const LabelCard = (props: LabelCardProps) => {
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const { data, onClick } = props;
-  const { albums } = data;
+  const { id: labelId, albums } = data;
 
-  // const onClickGoToLabel = () => {
-  //   history.push(`${consts.routes.LABEL}/${data.id}`);
-  //   setAnchorEl(null);
-  // };
+  const onClickNavToItem = useCallback(() => {
+    history.push(`${consts.routes.LABEL}/${labelId}`);
+    setAnchorEl(null);
+  }, [history, labelId]);
+
+  const onClickTitle = useCallback(() => {
+    history.push(`${consts.routes.LABEL}/${labelId}`);
+  }, [history, labelId]);
 
   const onClickPlay = useCallback(() => {
     if (replaceQueueWithSongs) {
@@ -58,7 +62,9 @@ export const LabelCard = (props: LabelCardProps) => {
     <BaseCard
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
-      onClick={onClick ?? onClickPlay}
+      onClick={onClick ?? onClickNavToItem}
+      onClickPlay={onClickPlay}
+      onClickTitle={onClickTitle}
       setMenuPosition={setMenuPosition}
       menuItems={menuItems()}
       {...props}

@@ -9,7 +9,11 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ArrowLeft, ArrowRight } from '@material-ui/icons';
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  Navigation,
+} from '@material-ui/icons';
 import {
   Album,
   Artist,
@@ -301,7 +305,7 @@ const RenderSection = ({
             }}
           >
             <IconButton size="small" onClick={onClickLeft} edge="start">
-              <ArrowLeft className={classes.arrowButtons} />
+              <KeyboardArrowLeft className={classes.arrowButtons} />
             </IconButton>
           </div>
         ) : null}
@@ -327,7 +331,7 @@ const RenderSection = ({
           }}
         >
           <IconButton size="small" onClick={onClickRight} edge="end">
-            <ArrowRight className={classes.arrowButtons} />
+            <KeyboardArrowRight className={classes.arrowButtons} />
           </IconButton>
         </div>
       </Flex>
