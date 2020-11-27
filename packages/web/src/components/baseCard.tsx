@@ -10,7 +10,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { Launch, MoreVert, PlayArrow } from '@material-ui/icons';
+import { ArrowUpward, MoreVert, PlayArrow } from '@material-ui/icons';
 import { BaseCardProps, MenuPosition } from 'commonTypes';
 import { Flex, Spacing } from 'components';
 import React, { memo, useCallback, useState } from 'react';
@@ -154,7 +154,7 @@ export const BaseCard = memo(
                       }}
                     >
                       <IconButton onClick={onClick}>
-                        <Launch fontSize="large" />
+                        <ArrowUpward fontSize="large" />
                       </IconButton>
                       <IconButton onClick={onClickPlay}>
                         <PlayArrow fontSize="large" />
