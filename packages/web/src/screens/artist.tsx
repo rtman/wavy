@@ -12,8 +12,10 @@ import {
   makeStyles,
   Theme,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@material-ui/core';
+import { AccountBox } from '@material-ui/icons';
 import {
   Album,
   Artist as ArtistType,
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Artist = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const { id } = useParams<IdParam>();
   const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
@@ -199,79 +202,99 @@ export const Artist = () => {
     playerContext?.replaceQueueWithSongs(artistSongs);
   };
 
+  const renderNameButtonsAndDescription = () => (
+    <Flex flexDirection="column" fullWidth={true}>
+      <Typography variant="h4">{artistName}</Typography>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+          Play Now
+        </Button>
+
+        <Spacing.BetweenComponents />
+
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onClickToggleFollow}
+        >
+          {getFollowTitle()}
+        </Button>
+      </Grid>
+      <Spacing.section.Minor />
+
+      <Grid item={true} xs={12}>
+        <Typography variant="h5">Description</Typography>
+      </Grid>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Typography variant="body1">{artistDescription}</Typography>
+      </Grid>
+    </Flex>
+  );
+
+  const renderProfileImage = () =>
+    artistImageUrl ? (
+      <img
+        style={{
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }}
+        src={artistImageUrl}
+      />
+    ) : (
+      <AccountBox
+        style={{
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+
   return (
     <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
-          <Grid container={true} style={{ flexShrink: 1 }}>
-            <img
-              style={{
-                minHeight: 50,
-                minWidth: 50,
-                maxHeight: 250,
-                maxWidth: 250,
-                objectFit: 'contain',
-              }}
-              src={artistImageUrl}
-            />
-
-            <Spacing.section.Minor />
-
-            <Grid item={true}>
-              <Typography variant="h4">{artistName}</Typography>
-
-              <Spacing.BetweenComponents />
-
+        <Grid container={true} style={{ flexShrink: 1 }} spacing={2}>
+          <Grid item={true} xs={12}>
+            {smSizeAndUp ? (
               <Flex>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickPlayNow}
-                >
-                  Play Now
-                </Button>
-
-                <Spacing.BetweenComponents />
-
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={onClickToggleFollow}
-                >
-                  {getFollowTitle()}
-                </Button>
+                {renderProfileImage()}
+                <Spacing.BetweenParagraphs />
+                {renderNameButtonsAndDescription()}
               </Flex>
-            </Grid>
+            ) : (
+              <Flex flexDirection="column">
+                {renderProfileImage()}
+                <Spacing.section.Minor />
+                {renderNameButtonsAndDescription()}
+              </Flex>
+            )}
           </Grid>
 
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Description</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{artistDescription}</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Top Songs</Typography>
-
-          <Spacing.section.Minor />
-
-          {renderTopSongs()}
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Albums</Typography>
-
-          <Spacing.section.Minor />
-
-          {renderAlbums()}
-
-          <Spacing.section.Minor />
-        </Flex>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Top Songs</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            {renderTopSongs()}
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            {renderAlbums()}
+          </Grid>
+        </Grid>
       )}
     </Container>
   );

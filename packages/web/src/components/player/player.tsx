@@ -195,7 +195,11 @@ export const Player = () => {
         <SkipNext />
       </StyledButton>
       <ProgressBar />
-      <Flex flexDirection="column" style={{ maxWidth: '5rem' }}>
+      <Flex
+        flexDirection="column"
+        // unset makes text truncation happen
+        style={{ alignItems: 'unset', maxWidth: '20%' }}
+      >
         <Typography
           className={classes.clickableText}
           noWrap={true}
