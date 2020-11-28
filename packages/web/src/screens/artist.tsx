@@ -28,7 +28,7 @@ import {
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,32 +55,29 @@ export const Artist = () => {
   const classes = useStyles();
   const theme = useTheme();
   const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
-
   const { id } = useParams<IdParam>();
-  const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
 
-  const [getArtistById, { loading: queryLoading }] = useLazyQuery<
-    Pick<Query, 'artistById'>,
-    QueryArtistByIdArgs
-  >(consts.queries.artist.ARTIST_BY_ID, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      console.log('*debug*  artist data', data);
-      setArtist(data.artistById);
-    },
-  });
+  const [
+    getArtistById,
+    { loading: artistLoading, data: artistData },
+  ] = useLazyQuery<Pick<Query, 'artistById'>, QueryArtistByIdArgs>(
+    consts.queries.artist.ARTIST_BY_ID,
+    {
+      fetchPolicy: 'network-only',
+    }
+  );
 
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
   const artistSongs: Song[] = [];
-  (artist?.albums ?? []).forEach((album) =>
+  (artistData?.artistById.albums ?? []).forEach((album) =>
     (album.songs ?? []).forEach((song) => artistSongs.push(song))
   );
-  const artistAlbums = artist?.albums ?? [];
-  const artistName = artist?.name ?? '';
-  const artistDescription = artist?.description ?? '';
-  const artistImageUrl = artist?.profileImageUrlLarge ?? '';
+  const artistAlbums = artistData?.artistById.albums ?? [];
+  const artistName = artistData?.artistById.name ?? '';
+  const artistDescription = artistData?.artistById.description ?? '';
+  const artistImageUrl = artistData?.artistById.profileImageUrlLarge ?? '';
 
   useEffect(() => {
     if (id) {
@@ -237,6 +234,7 @@ export const Artist = () => {
     artistImageUrl ? (
       <img
         style={{
+          alignSelf: 'center',
           minHeight: 50,
           minWidth: 50,
           maxHeight: 250,
@@ -250,6 +248,7 @@ export const Artist = () => {
     ) : (
       <AccountBox
         style={{
+          alignSelf: 'center',
           minHeight: 50,
           minWidth: 50,
           maxHeight: 250,
@@ -262,10 +261,10 @@ export const Artist = () => {
 
   return (
     <Container maxWidth={false}>
-      {queryLoading ? (
+      {artistLoading ? (
         <CircularProgress />
       ) : (
-        <Grid container={true} style={{ flexShrink: 1 }} spacing={2}>
+        <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
             {smSizeAndUp ? (
               <Flex>

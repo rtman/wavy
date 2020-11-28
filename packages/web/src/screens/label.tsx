@@ -12,8 +12,10 @@ import {
   makeStyles,
   Theme,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@material-ui/core';
+import { AccountBox } from '@material-ui/icons';
 import {
   Album,
   IdParam,
@@ -56,7 +58,9 @@ export const Label = () => {
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
   const theme = useTheme();
-  const [getLabel, { loading: queryLoading, data: queryData }] = useLazyQuery<
+  const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const [getLabel, { loading: labelLoading, data: labelData }] = useLazyQuery<
     Pick<Query, 'labelById'>,
     QueryLabelByIdArgs
   >(consts.queries.label.LABEL_BY_ID, {
@@ -64,11 +68,12 @@ export const Label = () => {
   });
 
   const labelFollows = userContext?.user?.labelFollows ?? [];
-  const labelArtists = queryData?.labelById?.artists ?? [];
-  const labelAlbums = queryData?.labelById?.albums ?? [];
-  const labelImageUrl = queryData?.labelById?.profileImageUrlSmall ?? '';
-  const labelName = queryData?.labelById?.name ?? '';
-  const labelDescription = queryData?.labelById?.description ?? '';
+
+  const labelArtists = labelData?.labelById?.artists ?? [];
+  const labelAlbums = labelData?.labelById?.albums ?? [];
+  const labelImageUrl = labelData?.labelById?.profileImageUrlSmall ?? '';
+  const labelName = labelData?.labelById?.name ?? '';
+  const labelDescription = labelData?.labelById?.description ?? '';
 
   useEffect(() => {
     if (id) {
@@ -183,73 +188,99 @@ export const Label = () => {
     }
   };
 
+  const renderNameButtonsAndDescription = () => (
+    <Flex flexDirection="column" fullWidth={true}>
+      <Typography variant="h4">{labelName}</Typography>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+          Play Now
+        </Button>
+        <Spacing.BetweenComponents />
+
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onClickToggleFollow}
+        >
+          {getFollowTitle()}
+        </Button>
+      </Grid>
+      <Spacing.section.Minor />
+
+      <Grid item={true} xs={12}>
+        <Typography variant="h5">Description</Typography>
+      </Grid>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Typography variant="body1">{labelDescription}</Typography>
+      </Grid>
+    </Flex>
+  );
+
+  const renderProfileImage = () =>
+    labelImageUrl ? (
+      <img
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }}
+        src={labelImageUrl}
+      />
+    ) : (
+      <AccountBox
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+
   return (
     <Container maxWidth={false}>
-      {queryLoading ? (
+      {labelLoading || labelData === undefined ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
-          <Grid container={true} style={{ flexShrink: 1 }}>
-            <img
-              style={{
-                minHeight: 50,
-                minWidth: 50,
-                maxHeight: 250,
-                maxWidth: 250,
-                objectFit: 'contain',
-              }}
-              src={labelImageUrl}
-            />
-
-            <Spacing.section.Minor />
-
-            <Grid item={true}>
-              <Typography variant="h4">{labelName}</Typography>
-
-              <Spacing.BetweenComponents />
-
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            {smSizeAndUp ? (
               <Flex>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickPlayNow}
-                >
-                  Play Now
-                </Button>
-
-                <Spacing.BetweenComponents />
-
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={onClickToggleFollow}
-                >
-                  {getFollowTitle()}
-                </Button>
+                {renderProfileImage()}
+                <Spacing.BetweenParagraphs />
+                {renderNameButtonsAndDescription()}
               </Flex>
-            </Grid>
+            ) : (
+              <Flex flexDirection="column">
+                {renderProfileImage()}
+                <Spacing.section.Minor />
+                {renderNameButtonsAndDescription()}
+              </Flex>
+            )}
           </Grid>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Description</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{labelDescription}</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Artists</Typography>
-
-          {renderArtists()}
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Albums</Typography>
-
-          {renderAlbums()}
-        </Flex>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Artists</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            {renderArtists()}
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            {renderAlbums()}
+          </Grid>
+        </Grid>
       )}
     </Container>
   );

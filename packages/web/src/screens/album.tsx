@@ -5,11 +5,13 @@ import {
   Container,
   Divider,
   Grid,
-  GridList,
   List,
   makeStyles,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
+import { AccountBox } from '@material-ui/icons';
 import {
   Album as AlbumType,
   IdParam,
@@ -17,10 +19,10 @@ import {
   QueryAlbumByIdArgs,
   Song,
 } from 'commonTypes';
-import { AlbumCard, Flex, ItemCard, SongListItem, Spacing } from 'components';
+import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
@@ -34,27 +36,26 @@ const useStyles = makeStyles(() => ({
 export const Album = () => {
   const { id } = useParams<IdParam>();
   const playerContext = useContext(PlayerContext);
-  const [currentAlbum, setCurrentAlbum] = useState<AlbumType | undefined>(
-    undefined
-  );
   const classes = useStyles();
+  const theme = useTheme();
+  const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const [getAlbumById, { loading: queryLoading }] = useLazyQuery<
-    Pick<Query, 'albumById'>,
-    QueryAlbumByIdArgs
-  >(consts.queries.album.ALBUM_BY_ID, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setCurrentAlbum(data.albumById);
-    },
-  });
+  const [
+    getAlbumById,
+    { loading: albumLoading, data: albumData },
+  ] = useLazyQuery<Pick<Query, 'albumById'>, QueryAlbumByIdArgs>(
+    consts.queries.album.ALBUM_BY_ID,
+    {
+      fetchPolicy: 'network-only',
+    }
+  );
 
-  const albumSongs = currentAlbum?.songs ?? [];
-  const albumImageUrl = currentAlbum?.profileImageUrlLarge ?? '';
-  const albumTitle = currentAlbum?.title ?? '';
-  const artistAlbums = currentAlbum?.artist.albums ?? [];
-  const artistName = currentAlbum?.artist.name ?? '';
-  const albumProcessing = currentAlbum?.processing ?? true;
+  const albumSongs = albumData?.albumById.songs ?? [];
+  const albumImageUrl = albumData?.albumById.profileImageUrlLarge ?? '';
+  const albumTitle = albumData?.albumById.title ?? '';
+  const artistAlbums = albumData?.albumById.artist.albums ?? [];
+  const artistName = albumData?.albumById.artist.name ?? '';
+  const albumProcessing = albumData?.albumById.processing ?? true;
 
   useEffect(() => {
     if (id) {
@@ -62,7 +63,7 @@ export const Album = () => {
         variables: { albumId: id },
       });
     } else {
-      console.log('currentAlbum.getAlbumById - no Id');
+      console.log('albumData.albumById.getAlbumById - no Id');
     }
   }, [getAlbumById, id]);
 
@@ -71,7 +72,7 @@ export const Album = () => {
   const renderSongs = () => {
     if (albumProcessing) {
       return (
-        <Typography variant="h3">
+        <Typography variant="h5">
           This album is still processing, please check back later
         </Typography>
       );
@@ -130,66 +131,92 @@ export const Album = () => {
     }
   };
 
+  const renderNameButtonsAndDescription = () => (
+    <Flex flexDirection="column" fullWidth={true}>
+      <Typography variant="h4">{artistName}</Typography>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+          Play Now
+        </Button>
+      </Grid>
+      <Spacing.section.Minor />
+
+      <Grid item={true} xs={12}>
+        <Typography variant="h5">Description</Typography>
+      </Grid>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Typography variant="body1">
+          {albumData?.albumById.description}
+        </Typography>
+      </Grid>
+    </Flex>
+  );
+
+  const renderProfileImage = () =>
+    albumImageUrl ? (
+      <img
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }}
+        src={albumImageUrl}
+      />
+    ) : (
+      <AccountBox
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+
   return (
     <Container maxWidth={false}>
-      {queryLoading ? (
+      {albumLoading || albumData === undefined ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column" fullWidth={true}>
-          <Grid container={true} style={{ flexShrink: 1 }}>
-            <img
-              style={{
-                minHeight: 50,
-                minWidth: 50,
-                maxHeight: 250,
-                maxWidth: 250,
-                objectFit: 'contain',
-              }}
-              src={albumImageUrl}
-            />
-
-            <Spacing.section.Minor />
-
-            <Grid item={true}>
-              <Typography variant="h4">{albumTitle}</Typography>
-              <Typography variant="h6">{artistName}</Typography>
-              <Spacing.BetweenComponents />
-
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            {smSizeAndUp ? (
               <Flex>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={albumProcessing}
-                  onClick={onClickPlayNow}
-                >
-                  Play Now
-                </Button>
+                {renderProfileImage()}
+                <Spacing.BetweenParagraphs />
+                {renderNameButtonsAndDescription()}
               </Flex>
-            </Grid>
+            ) : (
+              <Flex flexDirection="column">
+                {renderProfileImage()}
+                <Spacing.section.Minor />
+                {renderNameButtonsAndDescription()}
+              </Flex>
+            )}
           </Grid>
 
-          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Songs</Typography>
+          </Grid>
 
-          <Typography variant="h5">Description</Typography>
+          <Grid item={true} xs={12}>
+            {albumSongs ? renderSongs() : null}
+          </Grid>
 
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{currentAlbum?.description}</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Songs</Typography>
-
-          <Spacing.section.Minor />
-
-          {albumSongs ? renderSongs() : null}
-
-          <Spacing.section.Minor />
-
-          {renderMoreBy()}
-
-          <Spacing.section.Minor />
-        </Flex>
+          <Grid item={true} xs={12}>
+            {renderMoreBy()}
+          </Grid>
+        </Grid>
       )}
     </Container>
   );

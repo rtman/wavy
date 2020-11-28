@@ -17,14 +17,16 @@ import {
   TextField,
   Theme,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
+import { AccountBox } from '@material-ui/icons';
 import {
   Mutation,
   MutationUpdatePlaylistInfoArgs,
   Query,
   QueryPlaylistByIdArgs,
   SongPlaylist,
-  UpdateFollowingType,
 } from 'commonTypes';
 import { IdParam } from 'commonTypes';
 import { Flex, SongListItem, Spacing } from 'components';
@@ -54,6 +56,8 @@ export const Playlist = () => {
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
+  const theme = useTheme();
+  const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [newPlaylistTitle, setNewPlaylistTitle] = useState<string>('');
@@ -62,7 +66,7 @@ export const Playlist = () => {
   );
   const [
     getPlaylist,
-    { loading: queryLoading, data: queryData },
+    { loading: playlistLoading, data: playlistData },
   ] = useLazyQuery<Pick<Query, 'playlistById'>, QueryPlaylistByIdArgs>(
     consts.queries.playlist.PLAYLIST_BY_ID,
     {
@@ -81,17 +85,18 @@ export const Playlist = () => {
   });
 
   const playlistFollows = userContext?.user?.playlistFollows ?? [];
-  const playlistSongs = queryData?.playlistById?.songs ?? [];
-  const playlistImageUrl = queryData?.playlistById?.profileImageUrlLarge ?? '';
-  const playlistTitle = queryData?.playlistById?.title ?? '';
-  const playlistDescription = queryData?.playlistById?.description ?? '';
-  const playlistUsers = queryData?.playlistById?.users ?? [];
+  const playlistSongs = playlistData?.playlistById?.songs ?? [];
+  const playlistImageUrl =
+    playlistData?.playlistById?.profileImageUrlLarge ?? '';
+  const playlistTitle = playlistData?.playlistById?.title ?? '';
+  const playlistDescription = playlistData?.playlistById?.description ?? '';
+  const playlistUsers = playlistData?.playlistById?.users ?? [];
 
-  const userIsPlaylistOwner = playlistUsers.find(
-    (user) => userContext?.user?.id === user.userId
-  )
-    ? true
-    : false;
+  // const userIsPlaylistOwner = playlistUsers.find(
+  //   (user) => userContext?.user?.id === user.userId
+  // )
+  //   ? true
+  //   : false;
 
   useEffect(() => {
     if (id) {
@@ -99,21 +104,21 @@ export const Playlist = () => {
     }
   }, [getPlaylist, id]);
 
-  const onClickToggleFollow = () => {
-    if (id) {
-      userContext?.updateFollowing({ id, type: UpdateFollowingType.Playlist });
-    }
-  };
+  // const onClickToggleFollow = () => {
+  //   if (id) {
+  //     userContext?.updateFollowing({ id, type: UpdateFollowingType.Playlist });
+  //   }
+  // };
 
-  const getFollowTitle = () => {
-    if (id) {
-      return playlistFollows?.find((f) => f.playlist.id === id)
-        ? 'Unfollow'
-        : 'Follow';
-    } else {
-      return 'Loading';
-    }
-  };
+  // const getFollowTitle = () => {
+  //   if (id) {
+  //     return playlistFollows?.find((f) => f.playlist.id === id)
+  //       ? 'Unfollow'
+  //       : 'Follow';
+  //   } else {
+  //     return 'Loading';
+  //   }
+  // };
 
   const renderSongs = () => {
     if (playlistSongs.length > 0) {
@@ -182,69 +187,93 @@ export const Playlist = () => {
     }
   };
 
+  const renderNameButtonsAndDescription = () => (
+    <Flex flexDirection="column" fullWidth={true}>
+      <Typography variant="h4">{playlistTitle}</Typography>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+          Play Now
+        </Button>
+        {/* <Spacing.BetweenComponents />
+
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onClickToggleFollow}
+        >
+          {getFollowTitle()}
+        </Button> */}
+      </Grid>
+      <Spacing.section.Minor />
+
+      <Grid item={true} xs={12}>
+        <Typography variant="h5">Description</Typography>
+      </Grid>
+      <Spacing.section.Minor />
+      <Grid item={true} xs={12}>
+        <Typography variant="body1">{playlistDescription}</Typography>
+      </Grid>
+    </Flex>
+  );
+
+  const renderProfileImage = () =>
+    playlistImageUrl ? (
+      <img
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
+        }}
+        src={playlistImageUrl}
+      />
+    ) : (
+      <AccountBox
+        style={{
+          alignSelf: 'center',
+          minHeight: 50,
+          minWidth: 50,
+          maxHeight: 250,
+          maxWidth: 250,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+
   return (
     <Container maxWidth={false}>
-      {queryLoading ? (
+      {playlistLoading ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
-          <Grid container={true} style={{ flexShrink: 1 }}>
-            <img
-              style={{
-                minHeight: 50,
-                minWidth: 50,
-                maxHeight: 250,
-                maxWidth: 250,
-                objectFit: 'contain',
-              }}
-              src={playlistImageUrl}
-            />
-
-            <Spacing.section.Minor />
-
-            <Grid item={true}>
-              <Typography variant="h4">{playlistTitle}</Typography>
-
-              <Spacing.BetweenComponents />
-
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            {smSizeAndUp ? (
               <Flex>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickPlayNow}
-                >
-                  Play Now
-                </Button>
-
-                <Spacing.BetweenComponents />
-
-                {/* <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={onClickToggleFollow}
-                >
-                  {getFollowTitle()}
-                </Button> */}
+                {renderProfileImage()}
+                <Spacing.BetweenParagraphs />
+                {renderNameButtonsAndDescription()}
               </Flex>
-            </Grid>
+            ) : (
+              <Flex flexDirection="column">
+                {renderProfileImage()}
+                <Spacing.section.Minor />
+                {renderNameButtonsAndDescription()}
+              </Flex>
+            )}
           </Grid>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Description</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{playlistDescription}</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Songs</Typography>
-
-          <Spacing.section.Minor />
-
-          {renderSongs()}
-        </Flex>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Songs</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            {renderSongs()}
+          </Grid>
+        </Grid>
       )}
       <Dialog
         open={editModalVisible}
