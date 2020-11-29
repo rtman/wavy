@@ -58,6 +58,7 @@ export const ALBUM_BY_ID = gql`
           profileImageUrlLarge
           profileImageUrlSmall
           profileImageUrlThumb
+          active
         }
       }
       label {

@@ -25,6 +25,7 @@ export class SearchResolvers {
           `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
+        .andWhere('album.active = :active', { active: true })
         .getMany();
 
       const artistsPromise = getManager()
@@ -42,6 +43,7 @@ export class SearchResolvers {
           `to_tsvector('simple',artist.name) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
+        .andWhere('artist.claimed = :claimed', { claimed: true })
         .getMany();
 
       const labelsPromise = getManager()
@@ -88,6 +90,7 @@ export class SearchResolvers {
           `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
           { query: `${formattedQuery}:*` }
         )
+        .andWhere('song.active = :active', { active: true })
         .getMany();
 
       const results = await Promise.all([

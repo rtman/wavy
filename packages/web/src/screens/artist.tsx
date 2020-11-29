@@ -70,14 +70,15 @@ export const Artist = () => {
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
-  const artistSongs: Song[] = [];
-  (artistData?.artistById.albums ?? []).forEach((album) =>
-    (album.songs ?? []).forEach((song) => artistSongs.push(song))
+  const artistSongs = (artistData?.artistById.albums ?? [])
+    .map((album) => (album.songs ?? []).reduce((song) => song))
+    .filter((song) => song.active);
+  const artistAlbums = (artistData?.artistById.albums ?? []).filter(
+    (album) => album.active
   );
-  const artistAlbums = artistData?.artistById.albums ?? [];
   const artistName = artistData?.artistById.name ?? '';
-  const artistDescription = artistData?.artistById.description ?? '';
-  const artistImageUrl = artistData?.artistById.profileImageUrlLarge ?? '';
+  const artistDescription = artistData?.artistById.description;
+  const artistImageUrl = artistData?.artistById.profileImageUrlSmall;
 
   useEffect(() => {
     if (id) {

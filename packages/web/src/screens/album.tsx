@@ -21,7 +21,6 @@ import {
 } from 'commonTypes';
 import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
-import { album } from 'consts/mutations';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -53,10 +52,14 @@ export const Album = () => {
     }
   );
 
-  const albumSongs = albumData?.albumById.songs ?? [];
+  const albumSongs = (albumData?.albumById.songs ?? []).filter(
+    (song) => song.active
+  );
   const albumImageUrl = albumData?.albumById.profileImageUrlLarge ?? '';
   const albumTitle = albumData?.albumById.title ?? '';
-  const artistAlbums = albumData?.albumById.artist.albums ?? [];
+  const artistAlbums = (albumData?.albumById.artist.albums ?? []).filter(
+    (album) => album.active
+  );
   const artistName = albumData?.albumById.artist.name ?? '';
   const artistId = albumData?.albumById.artist.id;
   const albumProcessing = albumData?.albumById.processing ?? true;

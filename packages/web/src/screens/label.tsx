@@ -69,11 +69,18 @@ export const Label = () => {
 
   const labelFollows = userContext?.user?.labelFollows ?? [];
 
-  const labelArtists = labelData?.labelById?.artists ?? [];
-  const labelAlbums = labelData?.labelById?.albums ?? [];
-  const labelImageUrl = labelData?.labelById?.profileImageUrlSmall ?? '';
+  const labelArtists = (labelData?.labelById?.artists ?? []).filter(
+    (artist) => artist.claimed
+  );
+  const labelAlbums = (labelData?.labelById?.albums ?? []).filter(
+    (album) => album.active
+  );
+  const labelImageUrl = labelData?.labelById?.profileImageUrlSmall;
   const labelName = labelData?.labelById?.name ?? '';
-  const labelDescription = labelData?.labelById?.description ?? '';
+  const labelDescription = labelData?.labelById?.description;
+  const labelSongs = (labelData?.labelById?.albums ?? [])
+    .map((album) => (album.songs ?? []).reduce((song) => song))
+    .filter((song) => song.active);
 
   useEffect(() => {
     if (id) {
@@ -197,12 +204,8 @@ export const Label = () => {
   };
 
   const onClickPlayNow = () => {
-    if (labelAlbums.length > 0) {
-      const songs: Song[] = [];
-      labelAlbums.forEach((album) =>
-        (album.songs ?? []).forEach((song) => songs.push(song))
-      );
-      playerContext?.replaceQueueWithSongs(songs);
+    if (labelSongs.length > 0) {
+      playerContext?.replaceQueueWithSongs(labelSongs);
     }
   };
 

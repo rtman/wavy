@@ -44,6 +44,7 @@ export const LABEL_BY_ID = gql`
         profileImageUrlSmall
         profileImageUrlThumb
         description
+        active
         songs {
           id
           title

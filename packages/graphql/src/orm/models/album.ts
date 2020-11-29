@@ -103,4 +103,8 @@ export class Album {
   @Field(() => UserSubscriptionEntity)
   @Column({ default: UserSubscriptionEntity.ALBUM, update: false })
   type: UserSubscriptionEntity;
+
+  @Field()
+  @Column({ default: true })
+  active: boolean;
 }

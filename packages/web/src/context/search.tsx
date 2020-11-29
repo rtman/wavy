@@ -28,7 +28,6 @@ export const SearchProvider: FunctionComponent = (props) => {
 
   const searchComplete = () => {
     setIsSearching(false);
-    setSearchText('');
   };
 
   const onKeyDownSearchBar = (event: React.KeyboardEvent<HTMLInputElement>) => {

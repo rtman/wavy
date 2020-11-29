@@ -60,6 +60,7 @@ export type Album = {
   updatedAt: Scalars['DateTime'];
   processing: Scalars['Boolean'];
   type: UserSubscriptionEntity;
+  active: Scalars['Boolean'];
 };
 
 export type AllPermissionsReturnType = {
@@ -1400,6 +1401,7 @@ export type AlbumResolvers<
     ParentType,
     ContextType
   >;
+  active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

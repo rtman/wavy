@@ -190,6 +190,11 @@ export class AlbumResolvers {
 
       const { title, description } = albumPayload;
 
+      if (artistId === undefined) {
+        console.log('artistId is undefined');
+        return;
+      }
+
       console.log('createAlbum payload', payload);
       console.log('albumPayload', albumPayload);
 
@@ -200,6 +205,7 @@ export class AlbumResolvers {
         profileImageStoragePath.length > 0
       ) {
         const albumRepository = getManager().getRepository(Models.Album);
+        const artistRepository = getManager().getRepository(Models.Artist);
 
         const processImageResult = await services.processImage({
           storagePath: profileImageStoragePath,
@@ -211,9 +217,11 @@ export class AlbumResolvers {
           return;
         }
 
-        if (artistId === undefined) {
-          console.log('artistId is undefined');
-          return;
+        let active = true;
+        // Various artists id
+        if (artistId !== '0b600e0a-96d0-4ec0-bc94-2587a6b3507a') {
+          const artist = await artistRepository.findOne(artistId);
+          active = artist?.claimed ?? false;
         }
 
         const newAlbum: CreateAlbum = {
@@ -229,6 +237,7 @@ export class AlbumResolvers {
           profileImageUrlLarge: processImageResult.data.urlLarge,
           profileImageUrlSmall: processImageResult.data.urlSmall,
           profileImageUrlThumb: processImageResult.data.urlThumb,
+          active,
           ...albumPayload,
           processing: true,
         };

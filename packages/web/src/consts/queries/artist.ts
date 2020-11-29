@@ -38,6 +38,7 @@ export const ARTIST_BY_ID = gql`
         profileImageUrlLarge
         profileImageUrlSmall
         profileImageUrlThumb
+        active
         label {
           id
           name
