@@ -110,7 +110,7 @@ export const Label = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={artist.profileImageUrlSmall}
+                    src={artist.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }
@@ -120,7 +120,16 @@ export const Label = () => {
           </Fragment>
         );
       });
-      return <List style={{ width: '100%' }}>{artistsList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Artists</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List style={{ width: '100%' }}>{artistsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
@@ -162,7 +171,7 @@ export const Label = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={album.profileImageUrlSmall}
+                    src={album.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }
@@ -172,7 +181,16 @@ export const Label = () => {
           </Fragment>
         );
       });
-      return <List className={classes.list}>{albumsList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{albumsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
@@ -193,9 +211,15 @@ export const Label = () => {
       <Typography variant="h4">{labelName}</Typography>
       <Spacing.section.Minor />
       <Grid item={true} xs={12}>
-        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+        <Button
+          disabled={labelAlbums.length === 0}
+          variant="contained"
+          color="primary"
+          onClick={onClickPlayNow}
+        >
           Play Now
         </Button>
+
         <Spacing.BetweenComponents />
 
         <Button
@@ -208,13 +232,17 @@ export const Label = () => {
       </Grid>
       <Spacing.section.Minor />
 
-      <Grid item={true} xs={12}>
-        <Typography variant="h5">Description</Typography>
-      </Grid>
-      <Spacing.section.Minor />
-      <Grid item={true} xs={12}>
-        <Typography variant="body1">{labelDescription}</Typography>
-      </Grid>
+      {labelDescription ? (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Description</Typography>
+          </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="body1">{labelDescription}</Typography>
+          </Grid>
+        </>
+      ) : null}
     </Flex>
   );
 
@@ -268,18 +296,8 @@ export const Label = () => {
               </Flex>
             )}
           </Grid>
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Artists</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            {renderArtists()}
-          </Grid>
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Albums</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            {renderAlbums()}
-          </Grid>
+          {renderArtists()}
+          {renderAlbums()}
         </Grid>
       )}
     </Container>

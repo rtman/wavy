@@ -21,15 +21,17 @@ import {
 } from 'commonTypes';
 import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
+import { album } from 'consts/mutations';
 import { PlayerContext } from 'context';
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
-  gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
+  clickableText: {
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
 }));
 
@@ -38,6 +40,7 @@ export const Album = () => {
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
   const smSizeAndUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [
@@ -55,7 +58,10 @@ export const Album = () => {
   const albumTitle = albumData?.albumById.title ?? '';
   const artistAlbums = albumData?.albumById.artist.albums ?? [];
   const artistName = albumData?.albumById.artist.name ?? '';
+  const artistId = albumData?.albumById.artist.id;
   const albumProcessing = albumData?.albumById.processing ?? true;
+  const labelId = albumData?.albumById.label?.id;
+  const labelName = albumData?.albumById.label?.name;
 
   useEffect(() => {
     if (id) {
@@ -68,6 +74,10 @@ export const Album = () => {
   }, [getAlbumById, id]);
 
   const onClickPlayNow = () => playerContext?.replaceQueueWithSongs(albumSongs);
+  const onClickGoToArtist = () =>
+    history.push(`${consts.routes.ARTIST}/${albumData?.albumById.artist.id}`);
+  const onClickGoToLabel = () =>
+    history.push(`${consts.routes.LABEL}/${labelId}`);
 
   const renderSongs = () => {
     if (albumProcessing) {
@@ -97,7 +107,17 @@ export const Album = () => {
           </React.Fragment>
         );
       });
-      return <List style={{ width: '100%' }}>{songsList}</List>;
+      return (
+        <>
+          {' '}
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Songs</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List style={{ width: '100%' }}>{songsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
@@ -116,14 +136,18 @@ export const Album = () => {
           // subtitle={album.artist.name}
           caption={album.label?.name ?? undefined}
           data={album}
-          image={album.profileImageUrlThumb}
+          image={album.profileImageUrlThumb ?? undefined}
         />
       ));
       return (
         <>
-          <Typography variant="h5">More By {artistName}</Typography>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">More By {artistName}</Typography>
+          </Grid>
           <Spacing.section.Minor />
-          <Flex style={{ overflowX: 'auto' }}>{albumsList}</Flex>
+          <Grid item={true} xs={12}>
+            <Flex style={{ overflowX: 'auto' }}>{albumsList}</Flex>
+          </Grid>
         </>
       );
     } else {
@@ -133,24 +157,54 @@ export const Album = () => {
 
   const renderNameButtonsAndDescription = () => (
     <Flex flexDirection="column" fullWidth={true}>
-      <Typography variant="h4">{artistName}</Typography>
-      <Spacing.section.Minor />
-      <Grid item={true} xs={12}>
-        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
-          Play Now
-        </Button>
-      </Grid>
+      <Typography variant="h4">{albumTitle}</Typography>
+      <Typography
+        onClick={onClickGoToArtist}
+        className={classes.clickableText}
+        variant="h6"
+      >
+        {artistName}
+      </Typography>
+      {labelId ? (
+        <Typography
+          onClick={onClickGoToLabel}
+          className={classes.clickableText}
+          variant="body2"
+        >
+          {labelName}
+        </Typography>
+      ) : null}
+
       <Spacing.section.Minor />
 
       <Grid item={true} xs={12}>
-        <Typography variant="h5">Description</Typography>
+        <Button
+          disabled={albumSongs.length === 0}
+          variant="contained"
+          color="primary"
+          onClick={onClickPlayNow}
+        >
+          Play Now
+        </Button>
       </Grid>
+
       <Spacing.section.Minor />
-      <Grid item={true} xs={12}>
-        <Typography variant="body1">
-          {albumData?.albumById.description}
-        </Typography>
-      </Grid>
+
+      {albumData?.albumById.description ? (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Description</Typography>
+          </Grid>
+
+          <Spacing.section.Minor />
+
+          <Grid item={true} xs={12}>
+            <Typography variant="body1">
+              {albumData?.albumById.description}
+            </Typography>
+          </Grid>
+        </>
+      ) : null}
     </Flex>
   );
 
@@ -204,18 +258,8 @@ export const Album = () => {
               </Flex>
             )}
           </Grid>
-
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Songs</Typography>
-          </Grid>
-
-          <Grid item={true} xs={12}>
-            {albumSongs ? renderSongs() : null}
-          </Grid>
-
-          <Grid item={true} xs={12}>
-            {renderMoreBy()}
-          </Grid>
+          {renderSongs()}
+          {renderMoreBy()}
         </Grid>
       )}
     </Container>

@@ -48,12 +48,12 @@ export type Album = {
   songs?: Maybe<Array<Song>>;
   labelId?: Maybe<Scalars['ID']>;
   label?: Maybe<Label>;
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
+  profileImageUrlLarge?: Maybe<Scalars['String']>;
+  profileImageUrlSmall?: Maybe<Scalars['String']>;
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   releaseDate: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
@@ -74,13 +74,13 @@ export type Artist = {
   name: Scalars['String'];
   albums?: Maybe<Array<Album>>;
   songs?: Maybe<Array<Song>>;
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
-  description: Scalars['String'];
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
+  profileImageUrlLarge?: Maybe<Scalars['String']>;
+  profileImageUrlSmall?: Maybe<Scalars['String']>;
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   labels: Array<ArtistLabel>;
   usersFollowing: Array<UserArtistFollowing>;
   followers?: Maybe<Scalars['Float']>;
@@ -195,13 +195,13 @@ export type Label = {
   __typename?: 'Label';
   id: Scalars['ID'];
   name: Scalars['String'];
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
-  description: Scalars['String'];
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
+  profileImageUrlLarge?: Maybe<Scalars['String']>;
+  profileImageUrlSmall?: Maybe<Scalars['String']>;
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   artists?: Maybe<Array<ArtistLabel>>;
   albums?: Maybe<Array<Album>>;
   songs?: Maybe<Array<Song>>;
@@ -501,12 +501,12 @@ export type Playlist = {
   id: Scalars['ID'];
   title: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
+  profileImageUrlLarge?: Maybe<Scalars['String']>;
+  profileImageUrlSmall?: Maybe<Scalars['String']>;
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
   songs?: Maybe<Array<SongPlaylist>>;
   users?: Maybe<Array<UserPlaylist>>;
   usersFollowing?: Maybe<Array<UserPlaylistFollowing>>;
@@ -885,12 +885,12 @@ export type User = {
   artists?: Maybe<Array<UserArtist>>;
   labels?: Maybe<Array<UserLabel>>;
   subscriptions?: Maybe<Array<UserSubscription>>;
-  profileImageStoragePathLarge: Scalars['String'];
-  profileImageStoragePathSmall: Scalars['String'];
-  profileImageStoragePathThumb: Scalars['String'];
-  profileImageUrlLarge: Scalars['String'];
-  profileImageUrlSmall: Scalars['String'];
-  profileImageUrlThumb: Scalars['String'];
+  profileImageStoragePathLarge?: Maybe<Scalars['String']>;
+  profileImageStoragePathSmall?: Maybe<Scalars['String']>;
+  profileImageStoragePathThumb?: Maybe<Scalars['String']>;
+  profileImageUrlLarge?: Maybe<Scalars['String']>;
+  profileImageUrlSmall?: Maybe<Scalars['String']>;
+  profileImageUrlThumb?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
@@ -1357,32 +1357,32 @@ export type AlbumResolvers<
   labelId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
   profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
@@ -1437,36 +1437,40 @@ export type ArtistResolvers<
     ContextType
   >;
   profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   labels?: Resolver<
     Array<ResolversTypes['ArtistLabel']>,
     ParentType,
@@ -1560,36 +1564,40 @@ export type LabelResolvers<
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   artists?: Resolver<
     Maybe<Array<ResolversTypes['ArtistLabel']>>,
     ParentType,
@@ -1967,32 +1975,32 @@ export type PlaylistResolvers<
     ContextType
   >;
   profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
@@ -2428,32 +2436,32 @@ export type UserResolvers<
     ContextType
   >;
   profileImageStoragePathLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageStoragePathThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlLarge?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlSmall?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
   profileImageUrlThumb?: Resolver<
-    ResolversTypes['String'],
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;

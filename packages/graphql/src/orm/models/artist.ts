@@ -43,31 +43,31 @@ export class Artist {
   )
   songs: Song[];
 
-  @Field()
-  @Column()
-  profileImageStoragePathLarge: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathLarge?: string;
 
-  @Field()
-  @Column()
-  profileImageStoragePathSmall: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathSmall?: string;
 
-  @Field()
-  @Column()
-  profileImageStoragePathThumb: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathThumb?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlLarge: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlLarge?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlSmall: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlSmall?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlThumb: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlThumb?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   description?: string;
 
@@ -105,7 +105,7 @@ export class Artist {
 
   @Field(() => ID, { nullable: true })
   @Column({ nullable: true })
-  permissionCode: string;
+  permissionCode?: string;
 
   // TODO: Doesn't work likely because I'm using sequelize to seed the data and not typeorm, also need to use insert(). If I move to typeorm migration this may work
   @BeforeInsert()
@@ -115,7 +115,7 @@ export class Artist {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  claimantEmail: string;
+  claimantEmail?: string;
 
   @Field(() => Date)
   @CreateDateColumn()

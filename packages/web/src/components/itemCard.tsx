@@ -75,7 +75,7 @@ export const ItemCard = (props: ItemCardProps) => {
 
   const getImageUrl = () => {
     if (item.__typename === 'Song') {
-      return item.album.profileImageUrlThumb;
+      return item.album.profileImageUrlThumb ?? undefined;
     }
     if (
       item.__typename === 'Album' ||
@@ -84,7 +84,7 @@ export const ItemCard = (props: ItemCardProps) => {
       item.__typename === 'Playlist'
       // item.__typename === 'User'
     ) {
-      return item.profileImageUrlThumb;
+      return item.profileImageUrlThumb ?? undefined;
     }
     return '';
   };

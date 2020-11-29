@@ -51,7 +51,7 @@ export const Favourites = () => {
                     <Avatar
                       className={classes.avatar}
                       variant="square"
-                      src={song.album.profileImageUrlSmall}
+                      src={song.album.profileImageUrlSmall ?? undefined}
                     />
                   </ListItemAvatar>
                 }

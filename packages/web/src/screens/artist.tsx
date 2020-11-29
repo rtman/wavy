@@ -131,14 +131,23 @@ export const Artist = () => {
           {index < artistSongsDesc.length - 1 ? <Divider /> : null}
         </Fragment>
       ));
-      return <List className={classes.list}>{songsList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Top Songs</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{songsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
   };
 
   const renderAlbums = () => {
-    if (artistAlbums) {
+    if (artistAlbums.length > 0) {
       const albumsList = artistAlbums.map(
         (album: Album, albumIndex: number) => {
           console.log('*debug* artistSongs', artistSongs);
@@ -178,7 +187,7 @@ export const Artist = () => {
                     <Avatar
                       className={classes.avatar}
                       variant="square"
-                      src={album.profileImageUrlSmall}
+                      src={album.profileImageUrlSmall ?? undefined}
                     />
                   </ListItemAvatar>
                 }
@@ -189,7 +198,16 @@ export const Artist = () => {
           );
         }
       );
-      return <List className={classes.list}>{albumsList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{albumsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
@@ -204,7 +222,12 @@ export const Artist = () => {
       <Typography variant="h4">{artistName}</Typography>
       <Spacing.section.Minor />
       <Grid item={true} xs={12}>
-        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+        <Button
+          disabled={artistSongs.length === 0}
+          variant="contained"
+          color="primary"
+          onClick={onClickPlayNow}
+        >
           Play Now
         </Button>
 
@@ -220,13 +243,17 @@ export const Artist = () => {
       </Grid>
       <Spacing.section.Minor />
 
-      <Grid item={true} xs={12}>
-        <Typography variant="h5">Description</Typography>
-      </Grid>
-      <Spacing.section.Minor />
-      <Grid item={true} xs={12}>
-        <Typography variant="body1">{artistDescription}</Typography>
-      </Grid>
+      {artistDescription ? (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Description</Typography>
+          </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="body1">{artistDescription}</Typography>
+          </Grid>
+        </>
+      ) : null}
     </Flex>
   );
 
@@ -280,19 +307,8 @@ export const Artist = () => {
               </Flex>
             )}
           </Grid>
-
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Top Songs</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            {renderTopSongs()}
-          </Grid>
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Albums</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            {renderAlbums()}
-          </Grid>
+          {renderTopSongs()}
+          {renderAlbums()}
         </Grid>
       )}
     </Container>

@@ -2,9 +2,9 @@ import { BaseCardProps, Label, MenuPosition } from 'commonTypes';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
 
-import { useHistory } from 'react-router-dom';
 import { BaseCard } from './baseCard';
 import { LabelMenuItems } from './labelMenuItems';
 

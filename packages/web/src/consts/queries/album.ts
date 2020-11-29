@@ -60,6 +60,13 @@ export const ALBUM_BY_ID = gql`
           profileImageUrlThumb
         }
       }
+      label {
+        id
+        name
+        profileImageUrlLarge
+        profileImageUrlSmall
+        profileImageUrlThumb
+      }
     }
   }
 `;

@@ -50,7 +50,7 @@ export const Following = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={artist.profileImageUrlSmall}
+                    src={artist.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }

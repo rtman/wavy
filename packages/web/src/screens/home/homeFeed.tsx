@@ -373,7 +373,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
           subtitle={albumData.artist.name}
           caption={albumData.label?.name ?? undefined}
           data={albumData}
-          image={albumData.profileImageUrlThumb}
+          image={albumData.profileImageUrlThumb ?? undefined}
         />
       );
     }
@@ -384,7 +384,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         <ArtistCard
           title={artistData.name}
           data={artistData}
-          image={artistData.profileImageUrlThumb}
+          image={artistData.profileImageUrlThumb ?? undefined}
         />
       );
     }
@@ -395,7 +395,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         <LabelCard
           title={labelData.name}
           data={labelData}
-          image={labelData.profileImageUrlThumb}
+          image={labelData.profileImageUrlThumb ?? undefined}
         />
       );
     }
@@ -406,7 +406,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         <PlaylistCard
           title={playlistData.title}
           data={playlistData}
-          image={playlistData.profileImageUrlThumb}
+          image={playlistData.profileImageUrlThumb ?? undefined}
         />
       );
     }
@@ -420,7 +420,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
           subtitle={songData.artist.name}
           caption={songData.label?.name ?? undefined}
           data={songData}
-          image={songData.album.profileImageUrlThumb}
+          image={songData.album.profileImageUrlThumb ?? undefined}
         />
       );
     }

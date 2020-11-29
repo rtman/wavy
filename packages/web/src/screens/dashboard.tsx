@@ -95,7 +95,7 @@ export const Dashboard = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={label.profileImageUrlSmall}
+                    src={label.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }

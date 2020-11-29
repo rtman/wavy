@@ -24,33 +24,33 @@ export class Playlist {
   @Column()
   title: string;
 
-  @Field(() => String, { nullable: true })
+  @Field({ nullable: true })
   @Column({ nullable: true })
-  description: string;
+  description?: string;
 
-  @Field()
-  @Column()
-  profileImageStoragePathLarge: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathLarge?: string;
 
-  @Field()
-  @Column()
-  profileImageStoragePathSmall: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathSmall?: string;
 
-  @Field()
-  @Column()
-  profileImageStoragePathThumb: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageStoragePathThumb?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlLarge: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlLarge?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlSmall: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlSmall?: string;
 
-  @Field()
-  @Column()
-  profileImageUrlThumb: string;
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  profileImageUrlThumb?: string;
 
   @Field(() => [SongPlaylist], { nullable: true })
   @OneToMany(

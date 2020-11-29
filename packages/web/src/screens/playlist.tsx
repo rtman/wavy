@@ -31,6 +31,7 @@ import {
 import { IdParam } from 'commonTypes';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
+import { playlist } from 'consts/mutations';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -137,7 +138,7 @@ export const Playlist = () => {
                     <Avatar
                       className={classes.avatar}
                       variant="square"
-                      src={song.album.profileImageUrlSmall}
+                      src={song.album.profileImageUrlSmall ?? undefined}
                     />
                   </ListItemAvatar>
                 }
@@ -147,7 +148,16 @@ export const Playlist = () => {
           );
         }
       );
-      return <List className={classes.list}>{songsList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Songs</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{songsList}</List>
+          </Grid>
+        </>
+      );
     } else {
       return null;
     }
@@ -192,7 +202,12 @@ export const Playlist = () => {
       <Typography variant="h4">{playlistTitle}</Typography>
       <Spacing.section.Minor />
       <Grid item={true} xs={12}>
-        <Button variant="contained" color="primary" onClick={onClickPlayNow}>
+        <Button
+          disabled={playlistSongs.length === 0}
+          variant="contained"
+          color="primary"
+          onClick={onClickPlayNow}
+        >
           Play Now
         </Button>
         {/* <Spacing.BetweenComponents />
@@ -205,15 +220,20 @@ export const Playlist = () => {
           {getFollowTitle()}
         </Button> */}
       </Grid>
+
       <Spacing.section.Minor />
 
-      <Grid item={true} xs={12}>
-        <Typography variant="h5">Description</Typography>
-      </Grid>
-      <Spacing.section.Minor />
-      <Grid item={true} xs={12}>
-        <Typography variant="body1">{playlistDescription}</Typography>
-      </Grid>
+      {playlistDescription ? (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Description</Typography>
+          </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="body1">{playlistDescription}</Typography>
+          </Grid>
+        </>
+      ) : null}
     </Flex>
   );
 
@@ -267,12 +287,7 @@ export const Playlist = () => {
               </Flex>
             )}
           </Grid>
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Songs</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            {renderSongs()}
-          </Grid>
+          {renderSongs()}
         </Grid>
       )}
       <Dialog

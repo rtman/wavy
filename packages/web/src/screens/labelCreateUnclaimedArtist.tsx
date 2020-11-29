@@ -19,7 +19,7 @@ import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 interface CreateUnclaimedArtistForm {
   email: string;
@@ -33,6 +33,7 @@ export const LabelCreateUnclaimedArtist = () => {
   const userContext = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams<IdParam>();
+  const history = useHistory();
 
   const { user } = userContext ?? {};
 
@@ -53,6 +54,8 @@ export const LabelCreateUnclaimedArtist = () => {
           autoHideDuration: 4000,
         });
       }
+
+      history.goBack();
     },
   });
 
@@ -86,11 +89,12 @@ export const LabelCreateUnclaimedArtist = () => {
 
       <Spacing.section.Minor />
 
-      <Typography variant="h5">
-        If the artist doesn't exist yet, creating an unclaimed artist will allow
-        you to create music by this artist. This music will be inactive until
-        the artist claims the account and agrees to the terms of the created
-        music.
+      <Typography variant="body1">
+        If the artist doesn't exist yet, you can create an unclaimed artist
+        account so that you can create music for them. This music will be
+        inactive until the artist claims the account and agrees to the terms of
+        the created music. We will use the email provided to invite the artist
+        to claim the account.
       </Typography>
 
       <Spacing.section.Major />
@@ -110,13 +114,10 @@ export const LabelCreateUnclaimedArtist = () => {
                 },
               })}
               type="name"
-              label="Name"
+              label="Artist Name"
               name="name"
               helperText={formErrors.name?.message}
               error={formErrors.name !== undefined}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                event.target.value = event.target.value.trim();
-              }}
             />
           </FormControl>
         </Grid>
@@ -133,7 +134,7 @@ export const LabelCreateUnclaimedArtist = () => {
                   message: 'Enter a valid email',
                 },
               })}
-              label="Email"
+              label="Artist Email"
               name="email"
               helperText={formErrors.email?.message}
               error={formErrors.email !== undefined}

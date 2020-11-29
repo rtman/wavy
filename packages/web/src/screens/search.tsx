@@ -96,7 +96,7 @@ export const Search = () => {
                 <Avatar
                   className={classes.avatar}
                   variant="square"
-                  src={song.album.profileImageUrlSmall}
+                  src={song.album.profileImageUrlSmall ?? undefined}
                 />
               </ListItemAvatar>
             }
@@ -124,7 +124,7 @@ export const Search = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={artist.profileImageUrlSmall}
+                    src={artist.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }
@@ -152,7 +152,7 @@ export const Search = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={album.profileImageUrlSmall}
+                    src={album.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }
@@ -211,7 +211,7 @@ export const Search = () => {
                   <Avatar
                     className={classes.avatar}
                     variant="square"
-                    src={label.profileImageUrlSmall}
+                    src={label.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
               }

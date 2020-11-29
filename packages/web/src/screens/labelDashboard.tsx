@@ -106,13 +106,18 @@ export const LabelDashboard = () => {
 
     switch (selected?.__typename) {
       case 'Artist':
-        if (location.pathname !== `/artistDashboard/${selectedId}`) {
-          history.push(`/artistDashboard/${selectedId}`);
+        if (
+          location.pathname !==
+          `${consts.routes.ARTIST_DASHBOARD}/${selectedId}`
+        ) {
+          history.push(`${consts.routes.ARTIST_DASHBOARD}/${selectedId}`);
         }
         break;
       case 'Label':
-        if (location.pathname !== `/labelDashboard/${selectedId}`) {
-          history.push(`/labelDashboard/${selectedId}`);
+        if (
+          location.pathname !== `${consts.routes.LABEL_DASHBOARD}/${selectedId}`
+        ) {
+          history.push(`${consts.routes.LABEL_DASHBOARD}/${selectedId}`);
         }
         break;
     }
@@ -182,7 +187,7 @@ export const LabelDashboard = () => {
                 )
               }
             >
-              Add Artist
+              Create Artist
             </Button>
 
             <Button
