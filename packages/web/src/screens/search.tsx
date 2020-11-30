@@ -48,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
     list: {
       width: '100%',
     },
+    tabLabel: {
+      fontSize: '14px',
+      minWidth: 0,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '12px',
+      },
+    },
   })
 );
 
@@ -266,11 +273,15 @@ export const Search = () => {
           textColor="secondary"
           aria-label="search tabs"
         >
-          <Tab label="Songs" value="songs" />
-          <Tab label="Artists" value="artists" />
-          <Tab label="Albums" value="albums" />
-          <Tab label="Playlists" value="playlists" />
-          <Tab label="Labels" value="labels" />
+          <Tab className={classes.tabLabel} label="Song" value="songs" />
+          <Tab className={classes.tabLabel} label="Artist" value="artists" />
+          <Tab className={classes.tabLabel} label="Album" value="albums" />
+          <Tab
+            className={classes.tabLabel}
+            label="Playlist"
+            value="playlists"
+          />
+          <Tab className={classes.tabLabel} label="Label" value="labels" />
         </Tabs>
       </Paper>
       {searchLoading ? <CircularProgress /> : renderSearchResults()}

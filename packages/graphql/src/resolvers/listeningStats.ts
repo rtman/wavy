@@ -274,6 +274,7 @@ export class ListeningStatsResolvers {
             city,
             country,
             updatedAt: new Date(),
+            active: true,
           });
 
           return true;
@@ -294,6 +295,7 @@ export class ListeningStatsResolvers {
             country,
             createdAt: new Date(),
             updatedAt: new Date(),
+            active: true,
           });
 
           return true;
@@ -334,6 +336,7 @@ export class ListeningStatsResolvers {
           await userStatsRef.update({
             skips: admin.firestore.FieldValue.increment(1),
             updatedAt: new Date(),
+            active: true,
           });
 
           return true;
@@ -348,6 +351,7 @@ export class ListeningStatsResolvers {
             skips: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
+            active: true,
           });
 
           return true;

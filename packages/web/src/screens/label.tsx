@@ -70,7 +70,7 @@ export const Label = () => {
   const labelFollows = userContext?.user?.labelFollows ?? [];
 
   const labelArtists = (labelData?.labelById?.artists ?? []).filter(
-    (artist) => artist.claimed
+    (artistLabel) => artistLabel.artist.claimed
   );
   const labelAlbums = (labelData?.labelById?.albums ?? []).filter(
     (album) => album.active

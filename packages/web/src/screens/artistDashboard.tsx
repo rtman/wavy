@@ -1,33 +1,48 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Grid,
   InputLabel,
+  List,
+  ListItemAvatar,
   MenuItem,
   Select,
   Typography,
 } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  Artist as ArtistType,
-  IdParam,
-  QueryArtistByIdArgs,
-} from 'commonTypes';
-import { Flex, Spacing } from 'components';
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
+import { IdParam, Query, QueryArtistByIdArgs } from 'commonTypes';
+import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-
-interface ArtistByIdData {
-  artistById: ArtistType;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemAvatar: {
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -44,8 +59,8 @@ export const ArtistDashboard = () => {
   const location = useLocation();
   const { id } = useParams<IdParam>();
   const classes = useStyles();
+  const theme = useTheme();
 
-  const [artist, setArtist] = useState<ArtistType | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const artists =
@@ -65,17 +80,18 @@ export const ArtistDashboard = () => {
     return options;
   };
 
-  const [getArtistById, { loading: queryLoading }] = useLazyQuery<
-    ArtistByIdData,
-    QueryArtistByIdArgs
-  >(consts.queries.artist.ARTIST_BY_ID, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setArtist(data.artistById);
-      setSelectedOption(data.artistById.id);
-      console.log('artist', artist);
-    },
-  });
+  const [
+    getArtistById,
+    { loading: queryLoading, data: artistData },
+  ] = useLazyQuery<Pick<Query, 'artistById'>, QueryArtistByIdArgs>(
+    consts.queries.artist.ARTIST_BY_ID,
+    {
+      fetchPolicy: 'network-only',
+      onCompleted: (data) => {
+        setSelectedOption(data.artistById.id);
+      },
+    }
+  );
 
   useEffect(() => {
     if (id) {
@@ -87,7 +103,7 @@ export const ArtistDashboard = () => {
     }
   }, [getArtistById, id]);
 
-  const artistAlbums = artist?.albums ?? [];
+  const artistAlbums = artistData?.artistById.albums ?? [];
 
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
@@ -121,70 +137,129 @@ export const ArtistDashboard = () => {
     }
   };
 
+  const renderAlbums = () => {
+    if (artistAlbums.length > 0) {
+      const albumsList = artistAlbums.map((album, albumIndex) => {
+        const songsList = (album.songs ?? []).map((song, songIndex) => (
+          <Fragment key={song.id}>
+            <SongListItem
+              leftAccessory={
+                <Flex alignItems="center" alignSelf="center">
+                  <Typography variant="body1">{songIndex + 1}</Typography>
+                  <Spacing.BetweenParagraphs />
+                </Flex>
+              }
+              title={song.title}
+              data={song}
+            />
+            {songIndex < (album.songs ?? []).length - 1 ? <Divider /> : null}
+          </Fragment>
+        ));
+
+        return (
+          <Fragment key={album.id}>
+            <AlbumListItem
+              style={{
+                marginBottom: theme.spacing(2),
+                marginTop: theme.spacing(2),
+              }}
+              data={album}
+              title={album.title}
+              leftAccessory={
+                <ListItemAvatar className={classes.listItemAvatar}>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={album.profileImageUrlSmall ?? undefined}
+                  />
+                </ListItemAvatar>
+              }
+            />
+            {songsList}
+            {albumIndex < artistAlbums.length - 1 ? <Divider /> : null}
+          </Fragment>
+        );
+      });
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List>{albumsList}</List>
+          </Grid>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
-          <Spacing.section.Minor />
-          {/* <Typography variant="h1">{artistName}</Typography> */}
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="creatorAccountsSelect">Account</InputLabel>
+              <Select
+                value={selectedOption}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'creatorAccounts',
+                  id: 'creatorAccountsSelect',
+                }}
+              >
+                {generateSelectOptions()}
+              </Select>
+            </FormControl>
 
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="creatorAccountsSelect">Account</InputLabel>
-            <Select
-              value={selectedOption}
-              onChange={handleChange}
-              inputProps={{
-                name: 'creatorAccounts',
-                id: 'creatorAccountsSelect',
-              }}
-            >
-              {generateSelectOptions()}
-            </Select>
-          </FormControl>
+            <Spacing.section.Minor />
 
-          <Spacing.section.Minor />
+            <Grid item={true} container={true}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => history.push(`/artistCreateRelease/${id}`)}
+              >
+                Create Release
+              </Button>
 
-          <Grid container={true}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => history.push(`/artistCreateRelease/${id}`)}
-            >
-              Create Release
-            </Button>
-
-            {/* <Button
+              {/* <Button
             color="primary"
             onClick={() => history.push(`/manageDiscography/${id}`)}
           >
 
             Manage Discography
           </Button> */}
-            <Spacing.BetweenComponents />
+              <Spacing.BetweenComponents />
 
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => history.push(`/artist/${id}`)}
-            >
-              View Artist
-            </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => history.push(`/artist/${id}`)}
+              >
+                View Artist
+              </Button>
+            </Grid>
+            <Spacing.section.Minor />
+            <Grid item={true} xs={12}>
+              <Typography variant="h5">Stats</Typography>
+            </Grid>
+            <Spacing.section.Minor />
+            <Grid item={true} xs={12}>
+              <Typography variant="h5">Plays</Typography>
+            </Grid>
+            <Spacing.section.Minor />
+            <Grid item={true} xs={12}>
+              <Typography variant="body1">{getPlayCount}</Typography>
+            </Grid>
+            <Spacing.section.Major />
+            {renderAlbums()}
           </Grid>
-
-          <Spacing.section.Major />
-
-          <Typography variant="h5">Stats</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Plays</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{getPlayCount}</Typography>
-        </Flex>
+        </Grid>
       )}
     </Container>
   );

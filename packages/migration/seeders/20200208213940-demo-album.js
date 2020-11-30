@@ -25,6 +25,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -48,6 +49,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -71,6 +73,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -94,6 +97,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -117,6 +121,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -140,6 +145,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -163,6 +169,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '8c587e75-58c0-45e0-a87e-538fbf69848f',
@@ -186,6 +193,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -209,6 +217,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -232,6 +241,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -255,6 +265,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -277,6 +288,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -300,6 +312,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -323,6 +336,7 @@ module.exports = {
         processing: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
     ]);
   },

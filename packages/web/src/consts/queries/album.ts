@@ -16,6 +16,7 @@ export const ALBUM_BY_ID = gql`
         urlHigh
         artistId
         albumId
+        active
         label {
           id
           name

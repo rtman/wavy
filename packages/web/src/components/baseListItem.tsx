@@ -8,9 +8,11 @@ import {
   Menu,
   Theme,
   Typography,
+  useTheme,
 } from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
+import { Block, MoreVert } from '@material-ui/icons';
 import { BaseListItemProps, MenuPosition } from 'commonTypes';
+import { Flex, Spacing } from 'components';
 import React, { useCallback } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,21 +26,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const BaseListItem = (
   props: BaseListItemProps & {
-    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    menuItems?: JSX.Element;
     anchorEl: HTMLElement | null;
+    active?: boolean;
+    menuItems?: JSX.Element;
+    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    playCount?: number;
     setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
     setMenuPosition: React.Dispatch<React.SetStateAction<MenuPosition | null>>;
   }
 ) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const {
     anchorEl,
+    active = true,
     caption,
     leftAccessory,
     menuItems,
     onClick,
+    playCount,
     setAnchorEl,
     setMenuPosition,
     style,
@@ -60,6 +67,8 @@ export const BaseListItem = (
 
   const onMenuClose = useCallback(() => setAnchorEl(null), []);
 
+  console.log('*debug* baseListItem active', active);
+
   return (
     <>
       <ListItem
@@ -68,6 +77,7 @@ export const BaseListItem = (
         style={style}
         alignItems="flex-start"
         dense={true}
+        disabled={!active}
       >
         {leftAccessory ? leftAccessory : null}
         <ListItemText
@@ -84,6 +94,34 @@ export const BaseListItem = (
           }
         />
 
+        {playCount ? (
+          <Flex
+            style={{
+              marginTop: '6px',
+              marginBottom: '6px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+            }}
+          >
+            <Typography variant="body2">{playCount ?? 0}</Typography>
+            <Spacing.BetweenComponents />
+          </Flex>
+        ) : null}
+        {active ? null : (
+          <Flex
+            style={{
+              marginTop: '6px',
+              marginBottom: '6px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+            }}
+          >
+            <Block fontSize="small" />
+          </Flex>
+        )}
+        <Spacing.BetweenComponents />
         <ListItemSecondaryAction>
           {menuItems !== undefined ? (
             <IconButton

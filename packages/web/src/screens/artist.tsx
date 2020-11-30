@@ -18,7 +18,6 @@ import {
 import { AccountBox } from '@material-ui/icons';
 import {
   Album,
-  Artist as ArtistType,
   IdParam,
   Query,
   QueryArtistByIdArgs,

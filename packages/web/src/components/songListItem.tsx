@@ -30,6 +30,8 @@ export const SongListItem = (props: SongListItemProps) => {
       setMenuPosition={setMenuPosition}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
+      active={data.active}
+      playCount={data.playCount}
       menuItems={
         <SongMenuItems
           data={data}

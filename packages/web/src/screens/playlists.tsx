@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  Grid,
   List,
   ListItemAvatar,
   makeStyles,
@@ -153,22 +154,25 @@ export const Playlists = () => {
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Playlists</Typography>
+          </Grid>
           <Spacing.section.Minor />
-          <Typography variant="h5">Playlists</Typography>
+          <Grid item={true} xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onClickNew(true)}
+            >
+              New
+            </Button>
+          </Grid>
           <Spacing.section.Minor />
-
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onClickNew(true)}
-          >
-            New
-          </Button>
-
-          <Spacing.section.Minor />
-          {renderPlaylists()}
-        </Flex>
+          <Grid item={true} xs={12}>
+            {renderPlaylists()}
+          </Grid>
+        </Grid>
       )}
       <Dialog
         open={newModalVisible}

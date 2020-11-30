@@ -27,6 +27,7 @@ export default class CreateUsers implements Seeder {
             'https://firebasestorage.googleapis.com/v0/b/groov-development-ddc9d.appspot.com/o/benedek%20-%20coolin.jpg?alt=media&token=fe935ac6-71bf-44db-a4e1-5283914a5fdd',
           createdAt: new Date(),
           updatedAt: new Date(),
+          active: true,
           followers: 0,
         },
       ])

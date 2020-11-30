@@ -5,6 +5,7 @@ import {
   createStyles,
   Divider,
   //   CircularProgress,
+  Grid,
   List,
   ListItemAvatar,
   makeStyles,
@@ -76,7 +77,17 @@ export const Dashboard = () => {
           );
         }
       );
-      return <List className={classes.list}>{artistList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Your Artists</Typography>
+          </Grid>
+
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{artistList}</List>
+          </Grid>
+        </>
+      );
     }
     return null;
   };
@@ -106,56 +117,42 @@ export const Dashboard = () => {
           </Fragment>
         );
       });
-      return <List className={classes.list}>{labelList}</List>;
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Your Labels</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List className={classes.list}>{labelList}</List>
+          </Grid>
+        </>
+      );
     }
     return null;
   };
 
   return (
     <Container maxWidth={false}>
-      <Flex flexDirection="column">
+      <Grid container={true} spacing={2}>
+        <Grid item={true} xs={12}>
+          <Typography variant="h4">Creator Dashboard</Typography>
+        </Grid>
+        <Grid item={true} xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => history.push('/createCreatorSelection')}
+          >
+            New Creator Account
+          </Button>
+        </Grid>
+
         <Spacing.section.Major />
 
-        <Typography variant="h4">Creator Dashboard</Typography>
+        {renderArtists()}
 
-        <Spacing.section.Minor />
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => history.push('/createCreatorSelection')}
-        >
-          New Creator Account
-        </Button>
-
-        {artists.length > 0 ? (
-          <>
-            <Spacing.section.Major />
-
-            <Typography variant="h5">Your Artists</Typography>
-
-            <Spacing.section.Minor />
-
-            {renderArtists()}
-
-            <Spacing.section.Major />
-          </>
-        ) : null}
-
-        {labels.length > 0 ? (
-          <>
-            <Spacing.section.Minor />
-
-            <Typography variant="h5">Your Labels</Typography>
-
-            <Spacing.section.Minor />
-
-            {renderLabels()}
-
-            <Spacing.section.Minor />
-          </>
-        ) : null}
-      </Flex>
+        {renderLabels()}
+      </Grid>
     </Container>
   );
 };

@@ -1,30 +1,44 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import {
+  Avatar,
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   Grid,
   InputLabel,
+  List,
+  ListItemAvatar,
   MenuItem,
   Select,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import {
-  IdParam,
-  Label as LabelType,
-  Query,
-  QueryLabelByIdArgs,
-} from 'commonTypes';
-import { Flex, Spacing } from 'components';
+import { IdParam, Query, QueryLabelByIdArgs, Song } from 'commonTypes';
+import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemAvatar: {
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -41,8 +55,8 @@ export const LabelDashboard = () => {
   const location = useLocation();
   const { id } = useParams<IdParam>();
   const classes = useStyles();
+  const theme = useTheme();
 
-  const [label, setLabel] = useState<LabelType | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const artists =
@@ -62,17 +76,18 @@ export const LabelDashboard = () => {
     return options;
   };
 
-  const [getLabelById, { loading: queryLoading }] = useLazyQuery<
-    Pick<Query, 'labelById'>,
-    QueryLabelByIdArgs
-  >(consts.queries.label.LABEL_BY_ID, {
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      setLabel(data.labelById);
-      setSelectedOption(data.labelById.id);
-      console.log('label', label);
-    },
-  });
+  const [
+    getLabelById,
+    { loading: queryLoading, data: labelData },
+  ] = useLazyQuery<Pick<Query, 'labelById'>, QueryLabelByIdArgs>(
+    consts.queries.label.LABEL_BY_ID,
+    {
+      fetchPolicy: 'network-only',
+      onCompleted: (data) => {
+        setSelectedOption(data.labelById.id);
+      },
+    }
+  );
 
   useEffect(() => {
     if (id) {
@@ -80,11 +95,11 @@ export const LabelDashboard = () => {
         variables: { labelId: id },
       });
     } else {
-      console.log('Label.getLabelById - no Id');
+      console.log('*debug* Label.getLabelById - no Id');
     }
   }, [getLabelById, id]);
 
-  const labelAlbums = label?.albums ?? [];
+  const labelAlbums = labelData?.labelById.albums ?? [];
 
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
@@ -122,32 +137,91 @@ export const LabelDashboard = () => {
         break;
     }
   };
+
+  const renderAlbums = () => {
+    if (labelAlbums.length > 0) {
+      const albumsList = labelAlbums.map((album, albumIndex) => {
+        const songsList = (album.songs ?? []).map((song, songIndex) => (
+          <Fragment key={song.id}>
+            <SongListItem
+              leftAccessory={
+                <Flex alignItems="center" alignSelf="center">
+                  <Typography variant="body1">{songIndex + 1}</Typography>
+                  <Spacing.BetweenParagraphs />
+                </Flex>
+              }
+              title={song.title}
+              data={song}
+            />
+            {songIndex < (album.songs ?? []).length - 1 ? <Divider /> : null}
+          </Fragment>
+        ));
+
+        return (
+          <Fragment key={album.id}>
+            <AlbumListItem
+              style={{
+                marginBottom: theme.spacing(2),
+                marginTop: theme.spacing(2),
+              }}
+              data={album}
+              title={album.title}
+              subtitle={album.artist.name}
+              leftAccessory={
+                <ListItemAvatar className={classes.listItemAvatar}>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={album.profileImageUrlSmall ?? undefined}
+                  />
+                </ListItemAvatar>
+              }
+            />
+            {songsList}
+            {albumIndex < labelAlbums.length - 1 ? <Divider /> : null}
+          </Fragment>
+        );
+      });
+      return (
+        <>
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Albums</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <List>{albumsList}</List>
+          </Grid>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <Container maxWidth={false}>
       {queryLoading ? (
         <CircularProgress />
       ) : (
-        <Flex flexDirection="column">
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="creatorAccountsSelect">Account</InputLabel>
+              <Select
+                value={selectedOption}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'creatorAccounts',
+                  id: 'creatorAccountsSelect',
+                }}
+              >
+                {generateSelectOptions()}
+              </Select>
+            </FormControl>
+          </Grid>
+
           <Spacing.section.Minor />
-          {/* <Typography variant="h1">{LabelName}</Typography> */}
 
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="creatorAccountsSelect">Account</InputLabel>
-            <Select
-              value={selectedOption}
-              onChange={handleChange}
-              inputProps={{
-                name: 'creatorAccounts',
-                id: 'creatorAccountsSelect',
-              }}
-            >
-              {generateSelectOptions()}
-            </Select>
-          </FormControl>
-
-          <Spacing.section.Minor />
-
-          <Grid container={true}>
+          <Grid item={true} container={true}>
             <Button
               variant="contained"
               color="primary"
@@ -198,18 +272,20 @@ export const LabelDashboard = () => {
               Permissions
             </Button>
           </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Stats</Typography>
+          </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} xs={12}>
+            <Typography variant="h5">Plays</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Typography variant="body1">{getPlayCount}</Typography>
+          </Grid>
           <Spacing.section.Major />
-
-          <Typography variant="h5">Stats</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="h5">Plays</Typography>
-
-          <Spacing.section.Minor />
-
-          <Typography variant="body1">{getPlayCount}</Typography>
-        </Flex>
+          {renderAlbums()}
+        </Grid>
       )}
     </Container>
   );

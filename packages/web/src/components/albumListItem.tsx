@@ -1,7 +1,13 @@
 import { Album, BaseListItemProps, MenuPosition } from 'commonTypes';
 import { BaseListItem } from 'components';
 import { PlayerContext } from 'context';
-import React, { CSSProperties, useCallback, useContext, useState } from 'react';
+import React, {
+  CSSProperties,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import { AlbumMenuItems } from './albumMenuItems';
 
@@ -26,12 +32,23 @@ export const AlbumListItem = (props: AlbumListItemProps) => {
 
   const closeMenu = useCallback(() => setAnchorEl(null), []);
 
+  const getPlayCount = useMemo(() => {
+    let playCount = 0;
+
+    (data.songs ?? []).forEach((song) => {
+      playCount += song.playCount;
+    });
+    return playCount;
+  }, [data]);
+
   return (
     <BaseListItem
       onClick={onClick ?? onClickPlay}
       setMenuPosition={setMenuPosition}
       anchorEl={anchorEl}
       setAnchorEl={setAnchorEl}
+      active={data.active}
+      playCount={getPlayCount}
       menuItems={
         <AlbumMenuItems
           data={data}
