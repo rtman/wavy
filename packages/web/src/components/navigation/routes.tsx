@@ -126,6 +126,11 @@ export const Routes = () => {
         path={`${consts.routes.PERMISSIONS}/:id?`}
         component={screens.Permissions}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.NEW_SUBSCRIPTION}
+        component={screens.NewSubscription}
+      />
       {/* <PrivateRoute
       exact={true}
       path={`${consts.routes.LABEL_DASHBOARD}/:id?`}

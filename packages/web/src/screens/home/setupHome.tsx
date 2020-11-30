@@ -49,7 +49,7 @@ export const SetupHome = () => {
     onCompleted(data) {
       console.log('onCompleted data', data);
       if (data.bulkNewUserSubscription) {
-        enqueueSnackbar('Success! Subscriptuibs Created', {
+        enqueueSnackbar('Success! Subscription Created', {
           variant: 'success',
           autoHideDuration: 4000,
         });

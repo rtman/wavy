@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  AddBox,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   Navigation,
@@ -44,6 +45,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
 
@@ -114,6 +116,7 @@ const FixedSizeListConfig: BreakpointsConfig = {
 
 export const HomeFeed = () => {
   const theme = useTheme();
+  const history = useHistory();
 
   const xs = useMediaQuery(theme.breakpoints.up('xs'));
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
@@ -138,6 +141,9 @@ export const HomeFeed = () => {
     }
   );
 
+  const onClickGoToNewSubscription = () =>
+    history.push(consts.routes.NEW_SUBSCRIPTION);
+
   return (
     <>
       {userSubscriptionsLoading ? (
@@ -154,27 +160,37 @@ export const HomeFeed = () => {
           </Grid>
         </Grid>
       ) : (
-        <AutoSizer>
-          {({ height, width }) => (
-            <FixedSizeList
-              itemSize={Math.round(
-                FixedSizeListConfig[currentBreakpoint].itemSize * width +
-                  rowHeightOffset
-              )}
-              width={width}
-              height={height}
-              itemCount={
-                userSubscriptionsData?.getUserSubscriptions.length ?? 0
-              }
-              itemData={userSubscriptionsData?.getUserSubscriptions}
-              overscanCount={2}
+        <>
+          <Flex fullWidth={true} style={{ justifyContent: 'flex-end' }}>
+            <IconButton
+              disableFocusRipple={true}
+              onClick={onClickGoToNewSubscription}
             >
-              {(props) =>
-                RenderSection({ ...props, width, xs, sm, md, lg, xl })
-              }
-            </FixedSizeList>
-          )}
-        </AutoSizer>
+              <AddBox />
+            </IconButton>
+          </Flex>
+          <AutoSizer>
+            {({ height, width }) => (
+              <FixedSizeList
+                itemSize={Math.round(
+                  FixedSizeListConfig[currentBreakpoint].itemSize * width +
+                    rowHeightOffset
+                )}
+                width={width}
+                height={height}
+                itemCount={
+                  userSubscriptionsData?.getUserSubscriptions.length ?? 0
+                }
+                itemData={userSubscriptionsData?.getUserSubscriptions}
+                overscanCount={2}
+              >
+                {(props) =>
+                  RenderSection({ ...props, width, xs, sm, md, lg, xl })
+                }
+              </FixedSizeList>
+            )}
+          </AutoSizer>
+        </>
       )}
     </>
   );
