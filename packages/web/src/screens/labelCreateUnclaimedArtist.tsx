@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import {
   Button,
   CircularProgress,
@@ -90,11 +90,11 @@ export const LabelCreateUnclaimedArtist = () => {
       <Spacing.section.Minor />
 
       <Typography variant="body1">
-        If the artist doesn't exist yet, you can create an unclaimed artist
-        account so that you can create music for them. This music will be
-        inactive until the artist claims the account and agrees to the terms of
-        the created music. We will use the email provided to invite the artist
-        to claim the account.
+        If an artist doesn't exist yet, you can make an unclaimed artist account
+        here, so that you can create releases for them. We will use the email
+        provided, to invite the artist to claim the account, so make sure it is
+        correct. Any music attributed to this artist will be inactive until the
+        artist claims the account and agrees to the terms of the release.
       </Typography>
 
       <Spacing.section.Major />

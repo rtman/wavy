@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import {
   Avatar,
   Button,
@@ -183,9 +183,6 @@ export const ArtistDashboard = () => {
       return (
         <>
           <Grid item={true} xs={12}>
-            <Typography variant="h5">Albums</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
             <List>{albumsList}</List>
           </Grid>
         </>
@@ -215,50 +212,40 @@ export const ArtistDashboard = () => {
                 {generateSelectOptions()}
               </Select>
             </FormControl>
-
-            <Spacing.section.Minor />
-
-            <Grid item={true} container={true}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => history.push(`/artistCreateRelease/${id}`)}
-              >
-                Create Release
-              </Button>
-
-              {/* <Button
-            color="primary"
-            onClick={() => history.push(`/manageDiscography/${id}`)}
-          >
-
-            Manage Discography
-          </Button> */}
-              <Spacing.BetweenComponents />
-
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => history.push(`/artist/${id}`)}
-              >
-                View Artist
-              </Button>
-            </Grid>
-            <Spacing.section.Minor />
-            <Grid item={true} xs={12}>
-              <Typography variant="h5">Stats</Typography>
-            </Grid>
-            <Spacing.section.Minor />
-            <Grid item={true} xs={12}>
-              <Typography variant="h5">Plays</Typography>
-            </Grid>
-            <Spacing.section.Minor />
-            <Grid item={true} xs={12}>
-              <Typography variant="body1">{getPlayCount}</Typography>
-            </Grid>
-            <Spacing.section.Major />
-            {renderAlbums()}
           </Grid>
+          <Spacing.section.Minor />
+
+          <Grid item={true} container={true}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => history.push(`/artistCreateRelease/${id}`)}
+            >
+              Create Release
+            </Button>
+
+            <Spacing.BetweenComponents />
+
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push(`/artist/${id}`)}
+            >
+              View Artist
+            </Button>
+          </Grid>
+          <Spacing.section.Minor />
+          <Grid item={true} container={true} xs={12}>
+            <Grid item={true} xs={6}>
+              <Typography variant="h5">Discography</Typography>
+            </Grid>
+            <Grid item={true} xs={6} alignContent="flex-end">
+              <Typography align="right" variant="h5">
+                {`${getPlayCount} plays`}
+              </Typography>
+            </Grid>
+          </Grid>
+          {renderAlbums()}
         </Grid>
       )}
     </Container>

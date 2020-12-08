@@ -89,6 +89,7 @@ export type Artist = {
   users: Array<UserArtist>;
   permissionCode?: Maybe<Scalars['ID']>;
   claimantEmail?: Maybe<Scalars['String']>;
+  claimCode?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: UserSubscriptionEntity;
@@ -113,6 +114,8 @@ export type Base = {
 
 export type ClaimArtistArgs = {
   artistId: Scalars['String'];
+  claimCode: Scalars['String'];
+  claimantEmail: Scalars['String'];
   userId: Scalars['String'];
 };
 
@@ -192,6 +195,11 @@ export type Fail = {
   error: Error;
 };
 
+export type GetUnclaimedArtistsArgs = {
+  claimantEmail: Scalars['String'];
+  claimCode: Scalars['String'];
+};
+
 export type Label = {
   __typename?: 'Label';
   id: Scalars['ID'];
@@ -256,7 +264,7 @@ export type Mutation = {
   deleteAlbum: Scalars['Boolean'];
   createArtist: Artist;
   labelCreateUnclaimedArtist: Scalars['Boolean'];
-  claimArtist: Scalars['Boolean'];
+  claimArtist: Artist;
   deleteArtist: Scalars['Boolean'];
   createLabel: Label;
   deleteLabel: Scalars['Boolean'];
@@ -527,6 +535,7 @@ export type Query = {
   artistById: Artist;
   artistsById: Array<Artist>;
   searchArtists: Array<Artist>;
+  getUnclaimedArtists: Array<Artist>;
   labels: Array<Label>;
   newLabels: Array<Label>;
   labelById: Label;
@@ -581,6 +590,10 @@ export type QueryArtistsByIdArgs = {
 
 export type QuerySearchArtistsArgs = {
   query: Scalars['String'];
+};
+
+export type QueryGetUnclaimedArtistsArgs = {
+  input: GetUnclaimedArtistsArgs;
 };
 
 export type QueryLabelByIdArgs = {
@@ -1188,6 +1201,7 @@ export type ResolversTypes = {
   SongArtistSupportingArtist: ResolverTypeWrapper<SongArtistSupportingArtist>;
   SongTag: ResolverTypeWrapper<SongTag>;
   Tag: ResolverTypeWrapper<Tag>;
+  GetUnclaimedArtistsArgs: GetUnclaimedArtistsArgs;
   QueryStatsByField: QueryStatsByField;
   ListeningStatsQueryField: ListeningStatsQueryField;
   ListeningStats: ResolverTypeWrapper<ListeningStats>;
@@ -1281,6 +1295,7 @@ export type ResolversParentTypes = {
   SongArtistSupportingArtist: SongArtistSupportingArtist;
   SongTag: SongTag;
   Tag: Tag;
+  GetUnclaimedArtistsArgs: GetUnclaimedArtistsArgs;
   QueryStatsByField: QueryStatsByField;
   ListeningStats: ListeningStats;
   QueryStatsByFieldAndNumberOfMonths: QueryStatsByFieldAndNumberOfMonths;
@@ -1504,6 +1519,11 @@ export type ArtistResolvers<
     ParentType,
     ContextType
   >;
+  claimCode?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   type?: Resolver<
@@ -1698,7 +1718,7 @@ export type MutationResolvers<
     RequireFields<MutationLabelCreateUnclaimedArtistArgs, 'input'>
   >;
   claimArtist?: Resolver<
-    ResolversTypes['Boolean'],
+    ResolversTypes['Artist'],
     ParentType,
     ContextType,
     RequireFields<MutationClaimArtistArgs, 'input'>
@@ -2072,6 +2092,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QuerySearchArtistsArgs, 'query'>
+  >;
+  getUnclaimedArtists?: Resolver<
+    Array<ResolversTypes['Artist']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetUnclaimedArtistsArgs, 'input'>
   >;
   labels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;
   newLabels?: Resolver<Array<ResolversTypes['Label']>, ParentType, ContextType>;

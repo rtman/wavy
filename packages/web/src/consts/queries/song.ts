@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const SONGS_BY_ID_QUERY = gql`
   query SongsById($songIds: [String!]!) {

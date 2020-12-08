@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Typography } from '@material-ui/core';
 import { IdParam, Query } from 'commonTypes';
 import { AlbumForm, Spacing } from 'components';

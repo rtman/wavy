@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { createStyles, makeStyles, Typography } from '@material-ui/core';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import {

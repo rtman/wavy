@@ -1,8 +1,7 @@
 // import './wdyr';
 
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
-import ApolloClient from 'apollo-boost';
 import * as config from 'config';
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
 import { AuthProvider, UserProvider } from 'context';
@@ -31,6 +30,7 @@ if (config.settings.FIREBASE_CONFIG) {
 
 const client = new ApolloClient({
   uri: config.settings.GRAPHQL_URI,
+  cache: new InMemoryCache(),
 });
 
 const sagaGlobalErrorHandler = (error: Error) => {

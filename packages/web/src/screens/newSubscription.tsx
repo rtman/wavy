@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 import {
   Button,
   CircularProgress,
@@ -123,7 +123,7 @@ export const NewSubscription = () => {
       ) : (
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
-            <Typography variant="h5">New Subscription</Typography>
+            <Typography variant="h5">Design your feed</Typography>
           </Grid>
           <Grid item={true} xs={12}>
             <FormControl fullWidth={true}>

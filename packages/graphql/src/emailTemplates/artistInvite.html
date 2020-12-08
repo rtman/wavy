@@ -185,8 +185,9 @@
                     <tr>
                       <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                         <h1 style="color: #222222; font-family: sans-serif; font-weight: 300; line-height: 1.4; margin: 0; Margin-bottom: 30px; font-size: 35px; text-align: center; text-transform: capitalize;">You've been invited to join OurSound!</h1>
-                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Hi, you've been invited to join Our Sound! {{userName}} has created an album that your music as {{artistName}} is a part of, please sign up and claim your artist account so you can get paid!.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Hi, you've been invited to join Our Sound! {{userName}} has created an artist account for {{artistName}} and you are designated as the owner of this account. Please copy the code below and click the link to claim your artist account so you can get paid!.</p>
                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Oursound is an independent music streaming platform built to make artists like you, more money than anywhere else!</p>
+
                         <table border="0" cellpadding="0" cellspacing="0" class="hr" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                           <tbody>
                             <tr>
@@ -200,8 +201,9 @@
                             </tr>
                           </tbody>
                         </table>
-                        <!-- <h2 style="color: #222222; font-family: sans-serif; font-weight: 400; line-height: 1.4; margin: 0; Margin-bottom: 15px; font-size: 28px;">Claim your artist account</h2> -->
-                        <!-- <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">To ensure you're legitimate and not some fake person, please verify your account by clicking the button below.</p> -->
+                        <h2 style="color: #222222; font-family: sans-serif; font-weight: 400; line-height: 1.4; margin: 0; Margin-bottom: 15px; font-size: 28px;">Claim your artist account</h2>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Please use the code below when prompted after clicking button. If you haven't signed up yet you will be directed to do that first before claiming this artist account.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">{{claimCode}}</p>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box; min-width: 100% !important;" width="100%">
                           <tbody>
                             <tr>
@@ -209,7 +211,7 @@
                                 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                                   <tbody>
                                     <tr>
-                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;" valign="top" bgcolor="#3498db" align="center"> <a href="https://github.com/leemunroe/grunt-email-workflow" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 2px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Claim your account</a> </td>
+                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;" valign="top" bgcolor="#3498db" align="center"> <a href="{{buttonUrl}}"" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 2px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Claim your account</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

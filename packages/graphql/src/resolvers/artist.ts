@@ -7,9 +7,24 @@ import { Models } from '../orm';
 import * as services from '../services';
 
 @InputType()
+class GetUnclaimedArtistsArgs implements Partial<Models.Artist> {
+  @Field()
+  claimantEmail: string;
+
+  @Field()
+  claimCode: string;
+}
+
+@InputType()
 class ClaimArtistArgs implements Partial<Models.UserArtist> {
   @Field()
   artistId: string;
+
+  @Field()
+  claimCode: string;
+
+  @Field()
+  claimantEmail: string;
 
   @Field()
   userId: string;
@@ -203,6 +218,31 @@ export class ArtistResolvers {
     }
   }
 
+  @Query(() => [Models.Artist])
+  async getUnclaimedArtists(
+    @Arg('input') payload: GetUnclaimedArtistsArgs
+  ): Promise<Models.Artist[] | undefined> {
+    try {
+      const artists = await getManager()
+        .getRepository(Models.Artist)
+        .find({ where: { payload } });
+
+      if (artists) {
+        return artists;
+      }
+
+      console.log(
+        'getUnclaimedArtistsByEmail query returned nothing - payload',
+        payload
+      );
+      return;
+    } catch (error) {
+      console.log('getUnclaimedArtistsByEmail error', error);
+
+      return;
+    }
+  }
+
   @Mutation(() => Models.Artist)
   async createArtist(
     @Arg('input') payload: CreateArtistArgs
@@ -265,10 +305,12 @@ export class ArtistResolvers {
       );
 
       const artistId = uuid();
+      const claimCode = uuid();
 
       const artist = artistRepository.create({
         id: artistId,
         claimed: false,
+        claimCode,
         ...rest,
       });
 
@@ -292,6 +334,8 @@ export class ArtistResolvers {
           artistEmail: rest.claimantEmail,
           artistId: artistId,
           userName: creatorName,
+          claimCode,
+          buttonUrl: `http://localhost:3000/claimArtist?artistId=${artistId}&email=${rest.claimantEmail}&code=${claimCode}`,
         });
 
         const sendArtistInviteEmailPromise = transporter.sendMail({
@@ -326,37 +370,55 @@ export class ArtistResolvers {
     }
   }
 
-  @Mutation(() => Boolean)
-  async claimArtist(@Arg('input') payload: ClaimArtistArgs): Promise<boolean> {
+  @Mutation(() => Models.Artist)
+  async claimArtist(
+    @Arg('input') payload: ClaimArtistArgs
+  ): Promise<Models.Artist | undefined> {
     try {
-      const { artistId, userId } = payload;
+      const { artistId, claimCode, claimantEmail, userId } = payload;
 
       const artistRepository = getManager().getRepository(Models.Artist);
       const userArtistRepository = getManager().getRepository(
         Models.UserArtist
       );
 
-      const artistUpdate = await artistRepository.update(artistId, {
+      const artist = await artistRepository.findOne({
+        where: { claimCode, id: artistId, claimantEmail },
+      });
+
+      if (artist === undefined) {
+        console.log('ClaimArtist - artist not found', payload);
+        return;
+      }
+
+      if (artist.claimed) {
+        console.log('ClaimArtist - artist already claimed', payload);
+        return;
+      }
+
+      const artistUpdate = await artistRepository.update(claimCode, {
         claimed: true,
         creatorUserId: userId,
       });
 
       const userArtist = userArtistRepository.create({
         userId,
-        artistId,
+        artistId: artist.id,
       });
 
       if (artistUpdate && userArtist) {
         await userArtistRepository.save(userArtist);
 
-        return true;
+        return artist;
       }
 
       console.log('ClaimArtist failed', payload);
-      return false;
+
+      return;
     } catch (error) {
       console.log('ClaimArtist error', error);
-      return false;
+
+      return;
     }
   }
 

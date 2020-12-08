@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const PLAY_HISTORY = gql`
   query playHistory($userId: String!) {

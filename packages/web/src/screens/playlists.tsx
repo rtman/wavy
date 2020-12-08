@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import {
   Avatar,
   Button,

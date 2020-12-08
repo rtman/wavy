@@ -1,8 +1,4 @@
-import {
-  useApolloClient,
-  useLazyQuery,
-  useMutation,
-} from '@apollo/react-hooks';
+import { useApolloClient, useLazyQuery, useMutation } from '@apollo/client';
 import {
   ApiFail,
   ApiSuccess,

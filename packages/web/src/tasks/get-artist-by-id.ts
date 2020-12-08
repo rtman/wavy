@@ -1,29 +1,50 @@
+import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
+import {
+  ApiSuccess,
+  ApiFail,
+  Query,
+  QueryArtistByIdArgs,
+  Artist,
+} from 'commonTypes';
 
-export const ARTISTS = gql`
-  query Artists {
-    artists {
-      id
-      name
+interface Input {
+  artistId: string;
+}
+
+type Output = Artist;
+
+export const useGetArtistById = async (
+  input: Input,
+  apolloClient: ApolloClient<object>
+): Promise<ApiSuccess<Output> | ApiFail> => {
+  try {
+    const result = await apolloClient.query<
+      Pick<Query, 'artistById'>,
+      QueryArtistByIdArgs
+    >({
+      query: ARTIST_BY_ID,
+      variables: input,
+    });
+
+    if (result.errors) {
+      const fail: ApiFail = { ok: false, error: result.errors[0] };
+      return fail;
     }
-  }
-`;
+    const success: ApiSuccess<Output> = {
+      ok: true,
+      data: result.data.artistById,
+    };
 
-export const ARTISTS_BY_ID = gql`
-  query ArtistsByID($artistIds: [ID]!) {
-    artistsById(artistIds: $artistIds) {
-      id
-      name
-      profileImageUrlLarge
-      profileImageUrlSmall
-      profileImageUrlThumb
-      description
-      album_ids
-    }
-  }
-`;
+    return success;
+  } catch (error_) {
+    const fail: ApiFail = { ok: false, error: error_ };
 
-export const ARTIST_BY_ID = gql`
+    return fail;
+  }
+};
+
+const ARTIST_BY_ID = gql`
   query ArtistById($artistId: String!) {
     artistById(artistId: $artistId) {
       id
@@ -102,31 +123,6 @@ export const ARTIST_BY_ID = gql`
           }
         }
       }
-    }
-  }
-`;
-
-export const NEW_ARTISTS = gql`
-  query NewArtists {
-    newArtists {
-      id
-      name
-      description
-      profileImageUrlLarge
-      profileImageUrlSmall
-      profileImageUrlThumb
-    }
-  }
-`;
-
-export const SEARCH_ARTISTS_QUERY = gql`
-  query SearchArtists($query: String!) {
-    searchArtists(query: $query) {
-      id
-      name
-      profileImageUrlLarge
-      profileImageUrlSmall
-      profileImageUrlThumb
     }
   }
 `;

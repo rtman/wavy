@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import {
   Avatar,
   Button,
@@ -185,9 +185,6 @@ export const LabelDashboard = () => {
       return (
         <>
           <Grid item={true} xs={12}>
-            <Typography variant="h5">Albums</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
             <List>{albumsList}</List>
           </Grid>
         </>
@@ -232,24 +229,6 @@ export const LabelDashboard = () => {
               Create Release
             </Button>
 
-            {/* <IconButton
-            color="primary"
-            onClick={() => history.push(`/manageDiscography/${id}`)}
-          >
-            <AlbumIcon />
-            Manage Discography
-          </IconButton> */}
-
-            <Spacing.BetweenComponents />
-
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => history.push(`${consts.routes.LABEL}/${id}`)}
-            >
-              View Label
-            </Button>
-
             <Spacing.BetweenComponents />
 
             <Button
@@ -264,26 +243,39 @@ export const LabelDashboard = () => {
               Create Artist
             </Button>
 
+            <Spacing.BetweenComponents />
+
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push(`${consts.routes.LABEL}/${id}`)}
+            >
+              View Label
+            </Button>
+
+            {/* <Spacing.BetweenComponents />
+
             <Button
               variant="outlined"
               color="primary"
               onClick={() => history.push(`${consts.routes.PERMISSIONS}/${id}`)}
             >
               Permissions
-            </Button>
+            </Button> */}
           </Grid>
+
           <Spacing.section.Minor />
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Stats</Typography>
+          <Grid item={true} container={true} xs={12}>
+            <Grid item={true} xs={6}>
+              <Typography variant="h5">Discography</Typography>
+            </Grid>
+            <Grid item={true} xs={6} alignContent="flex-end">
+              <Typography align="right" variant="h5">
+                {`${getPlayCount} plays`}
+              </Typography>
+            </Grid>
           </Grid>
-          <Spacing.section.Minor />
-          <Grid item={true} xs={12}>
-            <Typography variant="h5">Plays</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            <Typography variant="body1">{getPlayCount}</Typography>
-          </Grid>
-          <Spacing.section.Major />
+
           {renderAlbums()}
         </Grid>
       )}

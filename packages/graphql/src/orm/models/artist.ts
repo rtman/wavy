@@ -117,6 +117,10 @@ export class Artist {
   @Column({ nullable: true })
   claimantEmail?: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  claimCode?: string;
+
   @Field(() => Date)
   @CreateDateColumn()
   createdAt!: Date;

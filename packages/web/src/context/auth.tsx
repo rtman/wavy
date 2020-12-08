@@ -1,7 +1,6 @@
 import 'firebase/auth';
 
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { ApolloError } from 'apollo-boost';
+import { ApolloError, useMutation } from '@apollo/client';
 import { Mutation, MutationCreateUserArgs } from 'commonTypes';
 import * as consts from 'consts';
 import firebase from 'firebase';
@@ -44,7 +43,6 @@ export const AuthProvider: FunctionComponent = (props) => {
   >(undefined);
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [firstSession, setFirstSession] = useState<boolean>(true);
-  const apolloClient = useApolloClient();
 
   const [createUser, { error: createUserError }] = useMutation<
     Pick<Mutation, 'createUser'>,
@@ -136,7 +134,7 @@ export const AuthProvider: FunctionComponent = (props) => {
     }
   };
 
-  // only runs on opening a session that is already has firebaseUser (already loggedin/signednup)
+  // only runs on opening a session that already has firebaseUser (already loggedin/signednup)
   useEffect(() => {
     const getUserData = async () => {
       if (firebaseUser && !signedIn && firstSession) {
@@ -164,14 +162,7 @@ export const AuthProvider: FunctionComponent = (props) => {
       setLoading(false);
     }
     getUserData();
-  }, [
-    firebaseInitialising,
-    firebaseUser,
-    signedIn,
-    apolloClient,
-    firstSession,
-    userContext,
-  ]);
+  }, [firebaseInitialising, firebaseUser, signedIn, firstSession, userContext]);
 
   return (
     <AuthContext.Provider

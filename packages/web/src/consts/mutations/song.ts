@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const UPDATE_SONG_PLAY_COUNT = gql`
   mutation UpdateSongPlayCount($input: UpdatePlayCountArgs!) {

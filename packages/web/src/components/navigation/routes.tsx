@@ -131,6 +131,11 @@ export const Routes = () => {
         path={consts.routes.NEW_SUBSCRIPTION}
         component={screens.NewSubscription}
       />
+      <PrivateRoute
+        exact={true}
+        path={consts.routes.CLAIM_ARTIST}
+        component={screens.ClaimArtist}
+      />
       {/* <PrivateRoute
       exact={true}
       path={`${consts.routes.LABEL_DASHBOARD}/:id?`}
