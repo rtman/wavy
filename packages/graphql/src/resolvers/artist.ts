@@ -396,10 +396,13 @@ export class ArtistResolvers {
         return;
       }
 
-      const artistUpdate = await artistRepository.update(claimCode, {
-        claimed: true,
-        creatorUserId: userId,
-      });
+      const artistUpdate = await artistRepository.update(
+        { claimCode, claimantEmail, id: artistId },
+        {
+          claimed: true,
+          creatorUserId: userId,
+        }
+      );
 
       const userArtist = userArtistRepository.create({
         userId,

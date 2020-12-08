@@ -24,6 +24,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 0,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: '30f65df5-98bb-48cd-83e5-867f707f941d',
@@ -46,6 +47,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 100,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
@@ -68,6 +70,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 200,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
@@ -90,6 +93,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 300,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
@@ -112,6 +116,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 250,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: '2be2c355-497d-40bb-8739-cd07823ab8d0',
@@ -134,6 +139,7 @@ module.exports = {
         updatedAt: new Date(),
         followers: 1000,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
       },
       {
         id: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
@@ -156,6 +162,20 @@ module.exports = {
         updatedAt: new Date(),
         followers: 225,
         creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: true,
+      },
+      {
+        id: '00b699d2-6439-404d-aff3-166a886ccd6a',
+        name: 'Test Unclaimed Artist',
+        description: 'Benedek makes dope funk!',
+        permissionCode: 'd8e7f002-1136-41d6-95cd-8e20134b38a2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        followers: 225,
+        creatorUserId: 'H2qAdR0c81c3xGFk5PmgDXKAjis1',
+        claimed: false,
+        claimantEmail: 'ryanjtrann@gmail.com',
+        claimCode: '7d15a539-c558-412d-a192-e0f26db2a925',
       },
     ]);
   },

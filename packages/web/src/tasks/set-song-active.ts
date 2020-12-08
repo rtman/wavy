@@ -3,38 +3,34 @@ import { gql } from '@apollo/client';
 import {
   ApiSuccess,
   ApiFail,
-  Query,
-  QueryGetUnclaimedArtistsArgs,
-  Artist,
+  Mutation,
+  MutationSetSongActiveArgs,
 } from 'commonTypes';
 
-const GET_UNCLAIMED_ARTSITS = gql`
-  mutation GetUnclaimedArtistsByEmail($email: String!) {
-    getUnclaimedArtistsByEmail(email: $email) {
-      id
-      name
-      claimantEmail
-      claimCode
-    }
+const SET_SONG_ACTIVE = gql`
+  mutation SetSongActive($songId: String!) {
+    setSongActive(songId: $songId)
   }
 `;
 
-type Input = QueryGetUnclaimedArtistsArgs;
+type Input = MutationSetSongActiveArgs;
 
-type Output = Artist[];
+type Output = boolean;
 
-export const getUnclaimedArtists = async (
+export const setSongActive = async (
   input: Input,
   apolloClient: ApolloClient<object>
 ): Promise<ApiSuccess<Output> | ApiFail> => {
   try {
-    const result = await apolloClient.query<
-      Pick<Query, 'getUnclaimedArtists'>,
-      QueryGetUnclaimedArtistsArgs
+    const result = await apolloClient.mutate<
+      Pick<Mutation, 'setSongActive'>,
+      MutationSetSongActiveArgs
     >({
-      query: GET_UNCLAIMED_ARTSITS,
+      mutation: SET_SONG_ACTIVE,
       variables: input,
     });
+
+    console.log('*debug* setSongActive result', result);
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
@@ -42,7 +38,7 @@ export const getUnclaimedArtists = async (
     }
     const success: ApiSuccess<Output> = {
       ok: true,
-      data: result.data.getUnclaimedArtists,
+      data: result.data?.setSongActive ?? false,
     };
 
     return success;

@@ -47,7 +47,10 @@ export const ClaimArtist = () => {
         setBusy(false);
 
         if (result.ok) {
-          setResult(`Artist: ${result.data.name} claimed successfully!`);
+          userContext?.loadUser(userId);
+          setResult(
+            `Artist: ${result.data.name} claimed successfully! Please check your dashboard for this artist, there may be songs that need approving`
+          );
         } else {
           setResult('An error occured, please contact support');
         }

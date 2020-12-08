@@ -42,9 +42,11 @@ export const BaseListItem = (
     anchorEl,
     active = true,
     caption,
+    disabled,
     leftAccessory,
     menuItems,
     onClick,
+    rightAccessory,
     playCount,
     setAnchorEl,
     setMenuPosition,
@@ -67,8 +69,6 @@ export const BaseListItem = (
 
   const onMenuClose = useCallback(() => setAnchorEl(null), []);
 
-  console.log('*debug* baseListItem active', active);
-
   return (
     <>
       <ListItem
@@ -77,7 +77,7 @@ export const BaseListItem = (
         style={style}
         alignItems="flex-start"
         dense={true}
-        disabled={!active}
+        disabled={disabled}
       >
         {leftAccessory ? leftAccessory : null}
         <ListItemText
@@ -93,46 +93,21 @@ export const BaseListItem = (
             </>
           }
         />
-
-        {playCount ? (
-          <Flex
-            style={{
-              marginTop: '6px',
-              marginBottom: '6px',
-              alignItems: 'center',
-              justifyContent: 'center',
-              alignSelf: 'center',
-            }}
-          >
-            <Typography variant="body2">{playCount ?? 0}</Typography>
-            <Spacing.BetweenComponents />
-          </Flex>
-        ) : null}
-        {active ? null : (
-          <Flex
-            style={{
-              marginTop: '6px',
-              marginBottom: '6px',
-              alignItems: 'center',
-              justifyContent: 'center',
-              alignSelf: 'center',
-            }}
-          >
-            <Block fontSize="small" />
-          </Flex>
-        )}
         <Spacing.BetweenComponents />
         <ListItemSecondaryAction>
-          {menuItems !== undefined ? (
-            <IconButton
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={onClickOpenMenu}
-              className={classes.menuButton}
-            >
-              <MoreVert />
-            </IconButton>
-          ) : null}
+          <Flex>
+            {rightAccessory ? rightAccessory : null}
+            {menuItems !== undefined ? (
+              <IconButton
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={onClickOpenMenu}
+                className={classes.menuButton}
+              >
+                <MoreVert />
+              </IconButton>
+            ) : null}
+          </Flex>
         </ListItemSecondaryAction>
       </ListItem>
       <Menu

@@ -283,6 +283,7 @@ export type Mutation = {
   updateSongTitle: Scalars['Boolean'];
   deleteSong: Scalars['Boolean'];
   updateSongPlayCount: Scalars['Boolean'];
+  setSongActive: Scalars['Boolean'];
   createTag: Tag;
   addTagToSong: Scalars['Boolean'];
   removeTagFromSong: Scalars['Boolean'];
@@ -397,6 +398,10 @@ export type MutationDeleteSongArgs = {
 
 export type MutationUpdateSongPlayCountArgs = {
   input: UpdatePlayCountArgs;
+};
+
+export type MutationSetSongActiveArgs = {
+  songId: Scalars['String'];
 };
 
 export type MutationCreateTagArgs = {
@@ -555,6 +560,7 @@ export type Query = {
   songs: Array<Song>;
   songById: Song;
   songsById: Array<Song>;
+  getInactiveSongsByArtistId: Array<Song>;
   searchSongs: Array<Song>;
   topSongs: Array<Song>;
   topSongsByTagId: Array<Song>;
@@ -654,6 +660,10 @@ export type QuerySongByIdArgs = {
 
 export type QuerySongsByIdArgs = {
   songIds: Array<Scalars['String']>;
+};
+
+export type QueryGetInactiveSongsByArtistIdArgs = {
+  artistId: Scalars['String'];
 };
 
 export type QuerySearchSongsArgs = {
@@ -1831,6 +1841,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUpdateSongPlayCountArgs, 'input'>
   >;
+  setSongActive?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSetSongActiveArgs, 'songId'>
+  >;
   createTag?: Resolver<
     ResolversTypes['Tag'],
     ParentType,
@@ -2196,6 +2212,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QuerySongsByIdArgs, 'songIds'>
+  >;
+  getInactiveSongsByArtistId?: Resolver<
+    Array<ResolversTypes['Song']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetInactiveSongsByArtistIdArgs, 'artistId'>
   >;
   searchSongs?: Resolver<
     Array<ResolversTypes['Song']>,

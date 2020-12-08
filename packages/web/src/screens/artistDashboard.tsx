@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/client';
+import { useApolloClient, useLazyQuery } from '@apollo/client';
 import {
   Avatar,
   Button,
@@ -7,6 +7,7 @@ import {
   Divider,
   FormControl,
   Grid,
+  IconButton,
   InputLabel,
   List,
   ListItemAvatar,
@@ -14,6 +15,7 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
+import { Block, Check } from '@material-ui/icons';
 import {
   createStyles,
   makeStyles,
@@ -32,6 +34,8 @@ import React, {
   useState,
 } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import * as tasks from 'tasks';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +64,8 @@ export const ArtistDashboard = () => {
   const { id } = useParams<IdParam>();
   const classes = useStyles();
   const theme = useTheme();
+  const apolloClient = useApolloClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [selectedOption, setSelectedOption] = useState<string>('');
 
@@ -88,6 +94,7 @@ export const ArtistDashboard = () => {
     {
       fetchPolicy: 'network-only',
       onCompleted: (data) => {
+        console.log('*debug*  getArtistById data', data);
         setSelectedOption(data.artistById.id);
       },
     }
@@ -137,17 +144,84 @@ export const ArtistDashboard = () => {
     }
   };
 
+  const onClickActivateSong = async (props: {
+    songId: string;
+    songTitle: string;
+  }) => {
+    const { songId, songTitle } = props;
+    const result = await tasks.setSongActive({ songId }, apolloClient);
+
+    console.log('*debug* setSongActive result', result);
+
+    if (result.ok && result.data) {
+      await getArtistById({ variables: { artistId: id } });
+      enqueueSnackbar(`${songTitle} - Sucessfully activated`, {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
+    } else {
+      enqueueSnackbar(`Error - Activating ${songTitle}`, {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    }
+  };
+
   const renderAlbums = () => {
     if (artistAlbums.length > 0) {
       const albumsList = artistAlbums.map((album, albumIndex) => {
         const songsList = (album.songs ?? []).map((song, songIndex) => (
           <Fragment key={song.id}>
             <SongListItem
+              disabled={!song.active}
               leftAccessory={
                 <Flex alignItems="center" alignSelf="center">
                   <Typography variant="body1">{songIndex + 1}</Typography>
                   <Spacing.BetweenParagraphs />
                 </Flex>
+              }
+              rightAccessory={
+                <>
+                  {song.playCount ? (
+                    <Flex
+                      style={{
+                        marginTop: '6px',
+                        marginBottom: '6px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                      }}
+                    >
+                      <Typography variant="body2">
+                        {song.playCount ?? 0}
+                      </Typography>
+                      <Spacing.BetweenComponents />
+                    </Flex>
+                  ) : null}
+                  {song.active ? null : (
+                    <Flex
+                      style={{
+                        marginTop: '6px',
+                        marginBottom: '6px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                      }}
+                    >
+                      <IconButton
+                        onClick={() =>
+                          onClickActivateSong({
+                            songId: song.id,
+                            songTitle: song.title,
+                          })
+                        }
+                        size="small"
+                      >
+                        <Check fontSize="small" />
+                      </IconButton>
+                    </Flex>
+                  )}
+                </>
               }
               title={song.title}
               data={song}
@@ -156,6 +230,15 @@ export const ArtistDashboard = () => {
           </Fragment>
         ));
 
+        const getAlbumPlayCount = () => {
+          let playCount = 0;
+
+          (album.songs ?? []).forEach((song) => {
+            playCount += song.playCount;
+          });
+          return playCount;
+        };
+
         return (
           <Fragment key={album.id}>
             <AlbumListItem
@@ -163,6 +246,7 @@ export const ArtistDashboard = () => {
                 marginBottom: theme.spacing(2),
                 marginTop: theme.spacing(2),
               }}
+              disabled={!album.active}
               data={album}
               title={album.title}
               leftAccessory={
@@ -173,6 +257,38 @@ export const ArtistDashboard = () => {
                     src={album.profileImageUrlSmall ?? undefined}
                   />
                 </ListItemAvatar>
+              }
+              rightAccessory={
+                <>
+                  <Flex
+                    style={{
+                      marginTop: '6px',
+                      marginBottom: '6px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    <Typography variant="body2">
+                      {getAlbumPlayCount() ?? 0}
+                    </Typography>
+                    <Spacing.BetweenComponents />
+                  </Flex>
+
+                  {album.active ? null : (
+                    <Flex
+                      style={{
+                        marginTop: '6px',
+                        marginBottom: '6px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                      }}
+                    >
+                      <Block fontSize="small" />
+                    </Flex>
+                  )}
+                </>
               }
             />
             {songsList}

@@ -129,6 +129,30 @@ export class SongResolvers {
   }
 
   @Query(() => [Models.Song])
+  async getInactiveSongsByArtistId(
+    @Arg('artistId') artistId: string
+  ): Promise<Models.Song[] | undefined> {
+    try {
+      const songs = await getManager()
+        .getRepository(Models.Song)
+        .find({
+          where: { artistId, active: false },
+        });
+
+      if (songs) {
+        return songs;
+      } else {
+        console.log(`getInactiveSongsByArtistId no songs found`);
+        return;
+      }
+    } catch (error) {
+      console.log(`getInactiveSongsByArtistId - error`, error);
+
+      return;
+    }
+  }
+
+  @Query(() => [Models.Song])
   async searchSongs(
     @Arg('query') query: string
   ): Promise<Models.Song[] | undefined> {
@@ -347,6 +371,7 @@ export class SongResolvers {
       return false;
     }
   }
+
   @Mutation(() => Boolean)
   async updateSongPlayCount(
     @Arg('input') payload: UpdatePlayCountArgs
@@ -376,6 +401,37 @@ export class SongResolvers {
       return result;
     } catch (error) {
       console.log('updateSongPlayCount error', error);
+
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async setSongActive(@Arg('songId') songId: string): Promise<boolean> {
+    try {
+      const result = await getManager().transaction(
+        async (transactionalEntityManager) => {
+          const repository = transactionalEntityManager.getRepository(
+            Models.Song
+          );
+
+          const songToUpdate = await repository.update(
+            { id: songId },
+            { active: true }
+          );
+
+          if (songToUpdate) {
+            return true;
+          } else {
+            console.log('setSongActive - Song not found');
+
+            return false;
+          }
+        }
+      );
+      return result;
+    } catch (error) {
+      console.log('setSongActive error', error);
 
       return false;
     }

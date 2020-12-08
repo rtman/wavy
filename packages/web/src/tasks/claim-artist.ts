@@ -10,7 +10,11 @@ import {
 
 const CLAIM_ARTIST = gql`
   mutation ClaimArtist($input: ClaimArtistArgs!) {
-    claimArtist(input: $input)
+    claimArtist(input: $input) {
+      id
+      name
+      claimed
+    }
   }
 `;
 
@@ -35,6 +39,8 @@ export const claimArtist = async (
       mutation: CLAIM_ARTIST,
       variables: { input: input },
     });
+
+    console.log('*debug* claimArtist result', result);
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
