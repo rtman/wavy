@@ -77,7 +77,7 @@ export const BaseListItem = (
         style={style}
         alignItems="flex-start"
         dense={true}
-        disabled={disabled}
+        disabled={disabled ?? false}
       >
         {leftAccessory ? leftAccessory : null}
         <ListItemText

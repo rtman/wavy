@@ -326,23 +326,20 @@ export class ArtistResolvers {
       if (artist && newPermission) {
         const transporter = await helpers.makeEmailTransporter();
         const templateEmail = await helpers.makeHtmlTemplate(
-          'src/emailTemplates/artistInvite.html'
+          'src/emailTemplates/claimArtist.html'
         );
 
         const templatedArtistInviteEmail = templateEmail({
           artistName: rest.name,
-          artistEmail: rest.claimantEmail,
-          artistId: artistId,
           userName: creatorName,
-          claimCode,
-          buttonUrl: `http://localhost:3000/claimArtist?artistId=${artistId}&email=${rest.claimantEmail}&code=${claimCode}`,
+          claimUrl: `http://localhost:3000/claimArtist?artistId=${artistId}&email=${rest.claimantEmail}&code=${claimCode}`,
+          signupUrl: 'http://localhost:3000/signup',
         });
 
         const sendArtistInviteEmailPromise = transporter.sendMail({
-          // TODO: setup sending email address properly
-          from: '"Team" <team@oursound.io>', // sender address
+          from: '"Oursound" <team.oursound@gmail.com>', // sender address
           to: rest.claimantEmail, // list of receivers
-          subject: "You've been invited to OurSound!", // Subject line
+          subject: 'Claim your artist account on Oursound!', // Subject line
           html: templatedArtistInviteEmail, // html body
         });
 

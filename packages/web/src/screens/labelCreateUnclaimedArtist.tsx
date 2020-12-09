@@ -48,14 +48,13 @@ export const LabelCreateUnclaimedArtist = () => {
           variant: 'success',
           autoHideDuration: 4000,
         });
+        history.goBack();
       } else {
         enqueueSnackbar('Error! Artist Not Created', {
           variant: 'error',
           autoHideDuration: 4000,
         });
       }
-
-      history.goBack();
     },
   });
 
