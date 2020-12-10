@@ -8,13 +8,10 @@ import {
   Artist,
 } from 'commonTypes';
 
-interface Input {
-  artistId: string;
-}
-
+type Input = QueryArtistByIdArgs;
 type Output = Artist;
 
-export const useGetArtistById = async (
+export const getArtistById = async (
   input: Input,
   apolloClient: ApolloClient<object>
 ): Promise<ApiSuccess<Output> | ApiFail> => {

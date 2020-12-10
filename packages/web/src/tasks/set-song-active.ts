@@ -14,7 +14,6 @@ const SET_SONG_ACTIVE = gql`
 `;
 
 type Input = MutationSetSongActiveArgs;
-
 type Output = boolean;
 
 export const setSongActive = async (

@@ -1,54 +1,47 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-  Artist,
   ApiSuccess,
   ApiFail,
   Mutation,
-  MutationClaimArtistArgs,
+  MutationDeleteUserSubscriptionArgs,
 } from 'commonTypes';
 
-const CLAIM_ARTIST = gql`
-  mutation ClaimArtist($input: ClaimArtistArgs!) {
-    claimArtist(input: $input) {
-      id
-      name
-      claimed
-    }
+const DELETE_USER_SUBSCRIPTION = gql`
+  mutation DeleteUserSubscription($subscriptionId: String!) {
+    deleteUserSubscription(subscriptionId: $subscriptionId)
   }
 `;
 
-type Input = MutationClaimArtistArgs['input'];
-type Output = Artist;
+type Input = MutationDeleteUserSubscriptionArgs;
+type Output = boolean;
 
-export const claimArtist = async (
+export const deleteUserSubscription = async (
   input: Input,
   apolloClient: ApolloClient<object>
 ): Promise<ApiSuccess<Output> | ApiFail> => {
   try {
     const result = await apolloClient.mutate<
-      Pick<Mutation, 'claimArtist'>,
-      MutationClaimArtistArgs
+      Pick<Mutation, 'deleteUserSubscription'>,
+      MutationDeleteUserSubscriptionArgs
     >({
-      mutation: CLAIM_ARTIST,
-      variables: { input },
+      mutation: DELETE_USER_SUBSCRIPTION,
+      variables: input,
     });
-
-    console.log('*debug* claimArtist result', result);
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
       return fail;
     }
     // This error is pretty bad, need a way to forward error codes from graphql to here. Most likely will need a union type for the gql return type
-    if (result?.data?.claimArtist === undefined) {
+    if (result?.data?.deleteUserSubscription === undefined) {
       const fail: ApiFail = { ok: false, error: 'An error occurred' };
       return fail;
     }
 
     const success: ApiSuccess<Output> = {
       ok: true,
-      data: result.data.claimArtist,
+      data: result.data.deleteUserSubscription,
     };
 
     return success;

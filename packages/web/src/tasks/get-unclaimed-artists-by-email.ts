@@ -20,7 +20,6 @@ const GET_UNCLAIMED_ARTSITS = gql`
 `;
 
 type Input = QueryGetUnclaimedArtistsArgs;
-
 type Output = Artist[];
 
 export const getUnclaimedArtists = async (

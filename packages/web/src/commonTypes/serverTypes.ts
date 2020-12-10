@@ -474,6 +474,7 @@ export type NewUserSubscriptionArgs = {
   sortBy?: Maybe<UserSubscriptionSortBy>;
   type: UserSubscriptionType;
   payload?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
 };
 
 export type Permission = {

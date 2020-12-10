@@ -1,131 +1,212 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   FormControl,
   FormHelperText,
   Grid,
+  IconButton,
   InputLabel,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import { Close } from '@material-ui/icons';
 import {
-  Mutation,
-  MutationBulkNewUserSubscriptionArgs,
-  Query,
   Tag,
   UserSubscriptionEntity,
+  UserSubscriptionResult,
   UserSubscriptionSortBy,
   UserSubscriptionType,
 } from 'commonTypes';
-import { Spacing } from 'components';
-import * as consts from 'consts';
+import { Flex, Spacing } from 'components';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
-import React, { ChangeEvent, useContext } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import * as tasks from 'tasks';
 
 interface NewSubscriptionForm {
-  entity: UserSubscriptionEntity | '';
+  // entity: UserSubscriptionEntity | '';
   sortBy: UserSubscriptionSortBy | '';
   tag: Tag | null;
-  type: UserSubscriptionType | '';
+  // type: UserSubscriptionType | '';
 }
 
 export const NewSubscription = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
   const { enqueueSnackbar } = useSnackbar();
+  const apolloClient = useApolloClient();
 
-  const { loading: tagsLoading, data: tagsData } = useQuery<
-    Pick<Query, 'tags'>
-  >(consts.queries.tag.TAGS);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [currentSubscriptions, setCurrentSubscriptions] = useState<
+    UserSubscriptionResult[]
+  >([]);
+  const [busy, setBusy] = useState<boolean>(true);
 
-  console.log('*debug* tagsData', tagsData);
-  const [
-    createUserSubscriptions,
-    { loading: createUserSubscriptionsLoading },
-  ] = useMutation<
-    Pick<Mutation, 'bulkNewUserSubscription'>,
-    MutationBulkNewUserSubscriptionArgs
-  >(consts.mutations.userSubscription.BULK_NEW_USER_SUBSCRIPTION, {
-    onCompleted(data) {
-      console.log('onCompleted data', data);
-      if (data.bulkNewUserSubscription) {
+  const loadScreenData = async () => {
+    if (user?.id) {
+      const tagsResult = await tasks.getTags(apolloClient);
+      const subscriptionsResult = await tasks.getUserSubscriptions(
+        { userId: user?.id },
+        apolloClient
+      );
+      setBusy(false);
+
+      if (tagsResult.ok && subscriptionsResult.ok) {
+        setTags(tagsResult.data);
+        setCurrentSubscriptions(subscriptionsResult.data);
+      } else {
+        enqueueSnackbar(`Error loading subscriptions, please try again`, {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      await loadScreenData();
+    })();
+  }, []);
+
+  const hookForm = useForm<NewSubscriptionForm>({
+    defaultValues: {
+      // entity: '',
+      sortBy: '',
+      tag: null,
+      // type: '',
+    },
+  });
+
+  // const watchType: UserSubscriptionType | '' = hookForm.watch('type');
+
+  const onClickSubmit = async (data: NewSubscriptionForm) => {
+    const subscriptionAlreadyExists = currentSubscriptions.find(
+      (subscription) =>
+        data.sortBy === subscription.sortBy &&
+        data.tag?.title === subscription.payload
+    );
+
+    if (subscriptionAlreadyExists) {
+      enqueueSnackbar('Subscription already exists', {
+        variant: 'info',
+        autoHideDuration: 4000,
+      });
+      return;
+    }
+
+    if (data.tag && data.sortBy && user?.id) {
+      const title = toTitleCase(
+        `${data.sortBy} ${data.tag.title.toUpperCase()} ${
+          UserSubscriptionEntity.Song
+        }s`
+      );
+      const resolvedSubscription = {
+        userId: user?.id,
+        entity: UserSubscriptionEntity.Song,
+        sortBy: data.sortBy,
+        type: UserSubscriptionType.Tag,
+        title,
+        payload: data.tag.title,
+      };
+      const result = await tasks.createUserSubscription(
+        resolvedSubscription,
+        apolloClient
+      );
+
+      if (result.ok) {
+        await loadScreenData();
         enqueueSnackbar('Success! Subscription Created', {
           variant: 'success',
           autoHideDuration: 4000,
         });
       } else {
-        enqueueSnackbar('Error! Subscriptions not created', {
+        enqueueSnackbar('Error! Subscription not created', {
           variant: 'error',
           autoHideDuration: 4000,
         });
       }
-    },
-  });
-
-  const hookForm = useForm<NewSubscriptionForm>({
-    defaultValues: {
-      entity: '',
-      type: '',
-      sortBy: '',
-      tag: null,
-    },
-  });
-
-  const watchType: UserSubscriptionType | '' = hookForm.watch('type');
-
-  const tags = tagsData?.tags ?? [];
-
-  const onClickSubmit = (data: NewSubscriptionForm) => {
-    console.log('*debug* newSubscription onClickSubmit data', data);
+    }
   };
-  //   const onClickSubmit = () => {
-  //     console.log('*debug* onClickSubmit', selectedTags);
-  //     // console.log('*debug* onClickSubmit', data);
-  //     // if (!user?.id || data.tags === null) {
-  //     //   return;
-  //     // }
-  //     if (!user?.id) {
-  //       console.log('*debug* !user?.id', user?.id);
-  //       console.log('*debug* user', user);
 
-  //       return;
-  //     }
-  //     const resolvedData = selectedTags.map((tag) => ({
-  //       userId: user?.id,
-  //       entity: UserSubscriptionEntity.Song,
-  //       sortBy: UserSubscriptionSortBy.Top,
-  //       type: UserSubscriptionType.Tag,
-  //       payload: tag.title,
-  //     }));
+  const onClickDeleteSubscription = async (subscriptionId: string) => {
+    const result = await tasks.deleteUserSubscription(
+      { subscriptionId },
+      apolloClient
+    );
+    if (result.ok) {
+      await loadScreenData();
+      enqueueSnackbar('Success! Subscription deleted', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
+    } else {
+      enqueueSnackbar('Error! Subscription not deleted', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    }
+  };
 
-  //     console.log('*debug* resolvedData', resolvedData);
+  const renderCurrentSubscriptions = () => {
+    const items = currentSubscriptions.map((subscription, index) => (
+      <Fragment key={subscription.id}>
+        <ListItem>
+          <Flex alignItems="center" alignSelf="center">
+            <Typography variant="body1">{index + 1}</Typography>
+            <Spacing.BetweenParagraphs />
+          </Flex>
+          <ListItemText
+            // secondary={subscription.title}
+            // primary={`${subscription.sortBy} - ${subscription.payload}`}
+            primary={subscription.payload}
+            secondary={subscription.sortBy}
+          />
+          <ListItemSecondaryAction>
+            <IconButton
+              aria-controls="delete-subscriptoin"
+              aria-haspopup="true"
+              onClick={() => onClickDeleteSubscription(subscription.id)}
+              size="small"
+            >
+              <Close />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        {index < currentSubscriptions.length - 1 ? <Divider /> : null}
+      </Fragment>
+    ));
 
-  //     createUserSubscriptions({
-  //       variables: {
-  //         input: resolvedData,
-  //       },
-  //     });
-  //   };
-
-  console.log('*debug* hookForm.errors', hookForm.errors);
+    return (
+      <>
+        <Typography variant="h6">Current Subscriptions</Typography>
+        <List>{items}</List>
+      </>
+    );
+  };
 
   return (
     <Container maxWidth={false}>
-      {tagsLoading ? (
+      {busy ? (
         <CircularProgress />
       ) : (
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
-            <Typography variant="h5">Design your feed</Typography>
+            <Typography variant="h5">Customize your home page</Typography>
           </Grid>
-          <Grid item={true} xs={12}>
+
+          {/* <Grid item={true} xs={12}>
             <FormControl fullWidth={true}>
               <InputLabel id="select-type-label">Source</InputLabel>
               <Controller
@@ -161,9 +242,9 @@ export const NewSubscription = () => {
                 {hookForm.errors.type?.message}
               </FormHelperText>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
-          <Grid item={true} xs={12}>
+          {/* <Grid item={true} xs={12}>
             <FormControl fullWidth={true}>
               <InputLabel id="select-entity-label">Category</InputLabel>
               <Controller
@@ -201,9 +282,44 @@ export const NewSubscription = () => {
                 {hookForm.errors.entity?.message}
               </FormHelperText>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
-          <Grid item={true} xs={12}>
+          {/* {watchType === UserSubscriptionType.Tag ? ( */}
+          <Grid item={true} xs={12} sm={6}>
+            <Controller
+              name="tag"
+              control={hookForm.control}
+              rules={{
+                validate: (value: Tag | null) =>
+                  value !== null || 'Please select a tag',
+              }}
+              defaultValue={null}
+              render={(controllerProps) => (
+                <Autocomplete
+                  {...controllerProps}
+                  options={tags}
+                  filterSelectedOptions={true}
+                  getOptionLabel={(option: Tag) => option.title}
+                  onChange={(e: any, value: any) =>
+                    controllerProps.onChange(value)
+                  }
+                  style={{ width: '100%' }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth={true}
+                      label="Tag"
+                      helperText={hookForm.errors.tag?.message}
+                      error={hookForm.errors.tag?.message !== undefined}
+                    />
+                  )}
+                />
+              )}
+            />
+          </Grid>
+          {/*} ) : null} */}
+
+          <Grid item={true} xs={12} sm={6}>
             <FormControl fullWidth={true}>
               <InputLabel id="select-entity-label">Sort By</InputLabel>
               <Controller
@@ -234,41 +350,6 @@ export const NewSubscription = () => {
             </FormControl>
           </Grid>
 
-          {watchType === UserSubscriptionType.Tag ? (
-            <Grid item={true} xs={12}>
-              <Controller
-                name="tag"
-                control={hookForm.control}
-                rules={{
-                  validate: (value: Tag | null) =>
-                    value !== null || 'Please select a tag',
-                }}
-                defaultValue={null}
-                render={(controllerProps) => (
-                  <Autocomplete
-                    {...controllerProps}
-                    options={tags}
-                    filterSelectedOptions={true}
-                    getOptionLabel={(option: Tag) => option.title}
-                    onChange={(e: any, value: any) =>
-                      controllerProps.onChange(value)
-                    }
-                    style={{ width: '100%' }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth={true}
-                        label="Tag"
-                        helperText={hookForm.errors.tag?.message}
-                        error={hookForm.errors.tag?.message !== undefined}
-                      />
-                    )}
-                  />
-                )}
-              />
-            </Grid>
-          ) : null}
-          <Spacing.section.Major />
           <Grid item={true} xs={12}>
             <Button
               type="submit"
@@ -276,15 +357,27 @@ export const NewSubscription = () => {
               color="primary"
               onClick={hookForm.handleSubmit(onClickSubmit)}
             >
-              {createUserSubscriptionsLoading ? (
+              {busy ? (
                 <CircularProgress />
               ) : (
                 <Typography variant="body2">Submit</Typography>
               )}
             </Button>
           </Grid>
+
+          <Grid item={true} xs={12}>
+            {renderCurrentSubscriptions()}
+          </Grid>
         </Grid>
       )}
     </Container>
   );
 };
+
+// Helpers
+
+const toTitleCase = (text: string) =>
+  text.replace(
+    /(\w)(\w*)/g,
+    (_, firstChar, rest) => firstChar + rest.toLowerCase()
+  );

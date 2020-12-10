@@ -1,27 +1,25 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import {
   Button,
   CircularProgress,
   Container,
+  Grid,
   TextField,
   Typography,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import {
-  Mutation,
   MutationBulkNewUserSubscriptionArgs,
-  Query,
   Tag,
   UserSubscriptionEntity,
   UserSubscriptionSortBy,
   UserSubscriptionType,
 } from 'commonTypes';
-import { Spacing } from 'components';
-import * as consts from 'consts';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import * as tasks from 'tasks';
 
 interface SetupHomeForm {
   tags: Tag[] | null;
@@ -31,85 +29,100 @@ export const SetupHome = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
   const { enqueueSnackbar } = useSnackbar();
+  const apolloClient = useApolloClient();
 
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [busy, setBusy] = useState<boolean>(true);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
-  const { loading: tagsLoading, data: tagsData } = useQuery<
-    Pick<Query, 'tags'>
-  >(consts.queries.tag.TAGS);
+  useEffect(() => {
+    (async () => {
+      const result = await tasks.getTags(apolloClient);
+      setBusy(false);
 
-  console.log('*debug* tagsData', tagsData);
-  const [
-    createUserSubscriptions,
-    { loading: createUserSubscriptionsLoading },
-  ] = useMutation<
-    Pick<Mutation, 'bulkNewUserSubscription'>,
-    MutationBulkNewUserSubscriptionArgs
-  >(consts.mutations.userSubscription.BULK_NEW_USER_SUBSCRIPTION, {
-    onCompleted(data) {
-      console.log('onCompleted data', data);
-      if (data.bulkNewUserSubscription) {
-        enqueueSnackbar('Success! Subscription Created', {
-          variant: 'success',
-          autoHideDuration: 4000,
-        });
+      if (result.ok) {
+        setTags(result.data);
       } else {
-        enqueueSnackbar('Error! Subscriptions not created', {
+        enqueueSnackbar(`Error loading tags, please try again`, {
           variant: 'error',
           autoHideDuration: 4000,
         });
       }
-    },
-  });
+    })();
+  }, []);
 
   const hookForm = useForm<SetupHomeForm>({
     defaultValues: { tags: null },
   });
 
-  const tags = tagsData?.tags ?? [];
-
   // const onClickSubmit = (data: SetupHomeForm) => {
-  const onClickSubmit = () => {
+  const onClickSubmit = async () => {
     console.log('*debug* onClickSubmit', selectedTags);
-    // console.log('*debug* onClickSubmit', data);
-    // if (!user?.id || data.tags === null) {
-    //   return;
-    // }
-    if (!user?.id) {
-      console.log('*debug* !user?.id', user?.id);
-      console.log('*debug* user', user);
 
+    if (!user?.id) {
       return;
     }
-    const resolvedData = selectedTags.map((tag) => ({
-      userId: user?.id,
-      entity: UserSubscriptionEntity.Song,
-      sortBy: UserSubscriptionSortBy.Top,
-      type: UserSubscriptionType.Tag,
-      payload: tag.title,
-    }));
+    const resolvedSubscriptions: MutationBulkNewUserSubscriptionArgs['input'] = [];
 
-    console.log('*debug* resolvedData', resolvedData);
+    selectedTags.forEach((tag) => {
+      for (let sortBy in UserSubscriptionSortBy) {
+        const title = toTitleCase(
+          `${sortBy} ${tag.title.toUpperCase()} ${UserSubscriptionEntity.Song}s`
+        );
 
-    createUserSubscriptions({
-      variables: {
-        input: resolvedData,
-      },
+        resolvedSubscriptions.push({
+          userId: user?.id,
+          entity: UserSubscriptionEntity.Song,
+          sortBy: UserSubscriptionSortBy.Top,
+          type: UserSubscriptionType.Tag,
+          title,
+          payload: tag.title,
+        });
+      }
     });
+
+    console.log('*debug* resolvedSubscriptions', resolvedSubscriptions);
+
+    if (resolvedSubscriptions.length === 0) {
+      enqueueSnackbar('No tags selected', {
+        variant: 'info',
+        autoHideDuration: 4000,
+      });
+      return;
+    }
+
+    const result = await tasks.bulkCreateUserSubscription(
+      resolvedSubscriptions,
+      apolloClient
+    );
+
+    if (result.ok) {
+      enqueueSnackbar('Success! Subscriptions Created', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
+    } else {
+      enqueueSnackbar('Error! Subscriptions not created', {
+        variant: 'error',
+        autoHideDuration: 4000,
+      });
+    }
   };
 
   return (
     <Container maxWidth={false}>
-      {tagsLoading ? (
+      {busy ? (
         <CircularProgress />
       ) : (
-        <>
-          <Spacing.section.Minor />
-
-          <Typography variant="h3">Lets get you setup!</Typography>
-          <Spacing.BetweenParagraphs />
-          <Typography variant="h6">What kind of music are you into?</Typography>
-          <Spacing.BetweenParagraphs />
+        <Grid container={true} spacing={2}>
+          <Grid item={true} xs={12}>
+            <Typography variant="h3">Lets get your home page setup!</Typography>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Typography variant="h6">
+              What kind of music are you into?
+            </Typography>
+          </Grid>
 
           {/* <Controller
             name="tags"
@@ -120,48 +133,56 @@ export const SetupHome = () => {
             }}
             defaultValue={null}
             render={(controllerProps) => ( */}
-          <Autocomplete
-            // {...controllerProps}
-            multiple={true}
-            options={tags}
-            filterSelectedOptions={true}
-            getOptionLabel={(option: Tag) => option.title}
-            onChange={(e: any, values: any) =>
-              // hookForm.setValue('tags', values)
-              setSelectedTags(values)
-            }
-            value={selectedTags}
-            style={{ width: '100%' }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                fullWidth={true}
-                label="Tags"
-                // helperText={hookForm.errors.tags?.message}
-                // error={hookForm.errors.tags?.message !== undefined}
-              />
-            )}
-          />
-          {/* )}
-          /> */}
+          <Grid item={true} xs={12}>
+            <Autocomplete
+              // {...controllerProps}
+              multiple={true}
+              options={tags}
+              filterSelectedOptions={true}
+              getOptionLabel={(option: Tag) => option.title}
+              onChange={(e: any, values: any) =>
+                // hookForm.setValue('tags', values)
+                setSelectedTags(values)
+              }
+              value={selectedTags}
+              style={{ width: '100%' }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth={true}
+                  label="Tags"
+                  // helperText={hookForm.errors.tags?.message}
+                  // error={hookForm.errors.tags?.message !== undefined}
+                />
+              )}
+            />
+          </Grid>
 
-          <Spacing.section.Major />
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            // onClick={hookForm.handleSubmit(onClickSubmit)}
-            onClick={onClickSubmit}
-          >
-            {createUserSubscriptionsLoading ? (
-              <CircularProgress />
-            ) : (
+          <Grid item={true} xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              // onClick={hookForm.handleSubmit(onClickSubmit)}
+              onClick={onClickSubmit}
+            >
+              {/* {createUserSubscriptionsLoading ? (
+                <CircularProgress />
+              ) : ( */}
               <Typography variant="body2">Submit</Typography>
-            )}
-          </Button>
-        </>
+              {/* )} */}
+            </Button>
+          </Grid>
+        </Grid>
       )}
     </Container>
   );
 };
+
+// Helpers
+
+const toTitleCase = (text: string) =>
+  text.replace(
+    /(\w)(\w*)/g,
+    (_, firstChar, rest) => firstChar + rest.toLowerCase()
+  );

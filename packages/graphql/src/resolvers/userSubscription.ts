@@ -31,6 +31,9 @@ class NewUserSubscriptionArgs implements Partial<Models.UserSubscription> {
 
   @Field({ nullable: true })
   payload?: string;
+
+  @Field()
+  title: string;
 }
 
 @InputType()
@@ -324,7 +327,7 @@ export class UserSubscriptionResolvers {
     try {
       const updateSubscription = await getRepository(
         Models.UserSubscription
-      ).delete(subscriptionId);
+      ).delete({ id: subscriptionId });
 
       if (updateSubscription) {
         return true;
