@@ -121,12 +121,7 @@ export class UserSubscriptionResolvers {
           subscriptions.length
         );
 
-        return {
-          ok: false,
-          error: {
-            message: `User has no subscriptions - subscriptions.length = ${subscriptions.length}`,
-          },
-        };
+        return [];
       }
 
       const activeSubscriptions = subscriptions.filter(
@@ -138,12 +133,7 @@ export class UserSubscriptionResolvers {
           'No active subscriptions - activeSubscriptions.length =',
           activeSubscriptions.length
         );
-        return {
-          ok: false,
-          error: {
-            message: `No active subscriptions - activeSubscriptions.length = ${activeSubscriptions.length}`,
-          },
-        };
+        return [];
       }
 
       const favouritedSubscriptions = activeSubscriptions.filter(

@@ -128,8 +128,8 @@ export const Routes = () => {
       />
       <PrivateRoute
         exact={true}
-        path={consts.routes.NEW_SUBSCRIPTION}
-        component={screens.NewSubscription}
+        path={consts.routes.MANAGE_SUBSCRIPTIONS}
+        component={screens.ManageSubscriptions}
       />
       <PrivateRoute
         exact={true}

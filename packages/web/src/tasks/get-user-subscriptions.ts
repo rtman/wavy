@@ -20,6 +20,7 @@ export const getUserSubscriptions = async (
     >({
       query: GET_USER_SUBSCRIPTIONS,
       variables: input,
+      fetchPolicy: 'network-only',
     });
 
     if (result.errors) {

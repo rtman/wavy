@@ -15,7 +15,7 @@ export * from './labelCreateRelease';
 export * from './labelCreateUnclaimedArtist';
 export * from './labelDashboard';
 export * from './login';
-export * from './newSubscription';
+export * from './manageSubscriptions';
 export * from './permissions';
 export * from './playlist';
 export * from './playlists';

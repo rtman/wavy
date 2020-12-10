@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  AddBox,
+  Edit,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   Navigation,
@@ -142,7 +142,7 @@ export const HomeFeed = () => {
   );
 
   const onClickGoToNewSubscription = () =>
-    history.push(consts.routes.NEW_SUBSCRIPTION);
+    history.push(consts.routes.MANAGE_SUBSCRIPTIONS);
 
   return (
     <>
@@ -166,7 +166,9 @@ export const HomeFeed = () => {
               disableFocusRipple={true}
               onClick={onClickGoToNewSubscription}
             >
-              <AddBox />
+              <Typography variant="body2">Edit</Typography>
+              <Spacing.BetweenComponents />
+              <Edit />
             </IconButton>
           </Flex>
           <AutoSizer>

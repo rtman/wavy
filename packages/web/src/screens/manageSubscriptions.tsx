@@ -14,9 +14,16 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   MenuItem,
+  Paper,
   Select,
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
   TextField,
   Typography,
+  TableBody,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Close } from '@material-ui/icons';
@@ -41,7 +48,7 @@ interface NewSubscriptionForm {
   // type: UserSubscriptionType | '';
 }
 
-export const NewSubscription = () => {
+export const ManageSubscriptions = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
   const { enqueueSnackbar } = useSnackbar();
@@ -62,8 +69,16 @@ export const NewSubscription = () => {
       );
       setBusy(false);
 
-      if (tagsResult.ok && subscriptionsResult.ok) {
+      if (tagsResult.ok) {
         setTags(tagsResult.data);
+      } else {
+        enqueueSnackbar(`Error loading tags, please try again`, {
+          variant: 'error',
+          autoHideDuration: 4000,
+        });
+      }
+
+      if (subscriptionsResult.ok) {
         setCurrentSubscriptions(subscriptionsResult.data);
       } else {
         enqueueSnackbar(`Error loading subscriptions, please try again`, {
@@ -159,39 +174,45 @@ export const NewSubscription = () => {
     }
   };
 
-  const renderCurrentSubscriptions = () => {
-    const items = currentSubscriptions.map((subscription, index) => (
-      <Fragment key={subscription.id}>
-        <ListItem>
-          <Flex alignItems="center" alignSelf="center">
-            <Typography variant="body1">{index + 1}</Typography>
-            <Spacing.BetweenParagraphs />
-          </Flex>
-          <ListItemText
-            // secondary={subscription.title}
-            // primary={`${subscription.sortBy} - ${subscription.payload}`}
-            primary={subscription.payload}
-            secondary={subscription.sortBy}
-          />
-          <ListItemSecondaryAction>
-            <IconButton
-              aria-controls="delete-subscriptoin"
-              aria-haspopup="true"
-              onClick={() => onClickDeleteSubscription(subscription.id)}
-              size="small"
-            >
-              <Close />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        {index < currentSubscriptions.length - 1 ? <Divider /> : null}
-      </Fragment>
+  const renderCurrentSubscriptionsTable = () => {
+    const rows = currentSubscriptions.map((subscription, index) => (
+      <TableRow key={subscription.id}>
+        <TableCell component="th" scope="row">
+          {index + 1}
+        </TableCell>
+        <TableCell>{subscription.title}</TableCell>
+        <TableCell>{subscription.payload}</TableCell>
+        <TableCell>{subscription.sortBy}</TableCell>
+        <TableCell align="right">
+          <IconButton
+            aria-controls="delete-subscriptoin"
+            aria-haspopup="true"
+            onClick={() => onClickDeleteSubscription(subscription.id)}
+            size="small"
+          >
+            <Close />
+          </IconButton>
+        </TableCell>
+      </TableRow>
     ));
 
     return (
       <>
         <Typography variant="h6">Current Subscriptions</Typography>
-        <List>{items}</List>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Tag</TableCell>
+                <TableCell>Sort by</TableCell>
+                <TableCell align="right">Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{rows}</TableBody>
+          </Table>
+        </TableContainer>
       </>
     );
   };
@@ -366,7 +387,7 @@ export const NewSubscription = () => {
           </Grid>
 
           <Grid item={true} xs={12}>
-            {renderCurrentSubscriptions()}
+            {renderCurrentSubscriptionsTable()}
           </Grid>
         </Grid>
       )}
