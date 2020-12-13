@@ -56,7 +56,7 @@ export const PlayerProvider: FunctionComponent = (props) => {
     setLocalStorageQueuePosition,
   ] = helpers.hooks.useLocalStorage('queuePosition', 0);
 
-  const audio = new Audio();
+  let audio = new Audio();
 
   const playAudio = useCallback(
     (currentQueue: SongWithAudio[], position: number) => {
