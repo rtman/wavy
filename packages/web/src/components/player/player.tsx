@@ -20,8 +20,6 @@ import React, {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
-// import { detect as detectBrowser } from 'detect-browser';
-// var ogv = require('ogv');
 
 const useStyles = makeStyles(() =>
   createStyles({

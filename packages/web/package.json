@@ -7,9 +7,7 @@
       "*react*",
       "*react*/**",
       "*react-scripts*",
-      "*react-scripts*/**",
-      "*ogv*",
-      "*ogv*/**"
+      "*react-scripts*/**"
     ]
   },
   "dependencies": {
@@ -34,7 +32,6 @@
     "material-ui-nested-menu-item": "^1.0.2",
     "moment": "^2.29.0",
     "notistack": "^0.9.17",
-    "ogv": "1.7.0",
     "patch-package": "^6.2.0",
     "polished": "3.5.1",
     "react": "^16.12.0",

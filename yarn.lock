@@ -7307,7 +7307,7 @@ es6-iterator@2.0.3, es6-iterator@^2.0.3, es6-iterator@~2.0.3:
     es5-ext "^0.10.35"
     es6-symbol "^3.1.1"
 
-es6-promise@^4.0.3, es6-promise@^4.2.5, es6-promise@^4.2.8:
+es6-promise@^4.0.3, es6-promise@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
@@ -12895,14 +12895,6 @@ obuf@^1.0.0, obuf@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
-
-ogv@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/ogv/-/ogv-1.7.0.tgz#695dc25ad3dd8f1181edefd65e4523404b11366b"
-  integrity sha512-JYD50PA6wL7wZXxOwflY/YVEV/DBfauWxBEztIEK3iNcDj3bSksLctJTcoWZ1UUCDBvSxf6GxCzAfBYZR95HHA==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    es6-promise "^4.2.5"
 
 oidc-token-hash@^3.0.1:
   version "3.0.2"
