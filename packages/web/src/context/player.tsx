@@ -8,6 +8,12 @@ import React, {
   useState,
 } from 'react';
 import { createContext } from 'use-context-selector';
+import { detect as detectBrowser } from 'detect-browser';
+
+// if (detectBrowser()?.name === 'safari') {
+//   var ogv = require('ogv');
+//   ogv.OGVLoader.base = `${process.env.PUBLIC_URL}/ogv`;
+// }
 
 interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;
@@ -34,6 +40,18 @@ export const PlayerContext = createContext<PlayerContextType | undefined>(
 // TODO: add to helpers
 const addAudioElements = (songs: Song[]) => {
   const resolvedSongs: SongWithAudio[] = songs.map((s) => {
+    // let audioEl;
+    // if (detectBrowser()?.name === 'safari') {
+    //   console.log('*debug safari');
+    //   audioEl = new ogv.OGVPlayer();
+    //   audioEl.src = s.urlHigh;
+    // } else {
+    //   audioEl = new Audio(s.urlHigh);
+    // }
+    // return {
+    //   ...s,
+    //   audio: audioEl,
+    // };
     return {
       ...s,
       audio: new Audio(s.urlHigh),
@@ -56,7 +74,14 @@ export const PlayerProvider: FunctionComponent = (props) => {
     setLocalStorageQueuePosition,
   ] = helpers.hooks.useLocalStorage('queuePosition', 0);
 
-  let audio = new Audio();
+  // let audio;
+  // if (detectBrowser()?.name === 'safari') {
+  //   audio = new ogv.OGVPlayer();
+  // } else {
+  //   audio = new Audio();
+  // }
+
+  const audio = new Audio();
 
   const playAudio = useCallback(
     (currentQueue: SongWithAudio[], position: number) => {
@@ -188,8 +213,6 @@ export const PlayerProvider: FunctionComponent = (props) => {
   //   setLocalStorageQueue(newQueue);
   //   playAudio(newQueue[0]);
   // };
-
-  // need to re write useGetStorageHttpUrl to return function so it can be used anywhere
 
   console.log('*debug* playerContext');
 

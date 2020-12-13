@@ -107,6 +107,7 @@ export const ManageSubscriptions = () => {
   // const watchType: UserSubscriptionType | '' = hookForm.watch('type');
 
   const onClickSubmit = async (data: NewSubscriptionForm) => {
+    // console.log('*debug* manageSubscription onSubmit data', data);
     const subscriptionAlreadyExists = currentSubscriptions.find(
       (subscription) =>
         data.sortBy === subscription.sortBy &&

@@ -49,6 +49,7 @@ export const useFilteredMediaState = (audio: HTMLAudioElement) => {
   };
 
   useEffect(() => {
+    console.log('*debug* useFilteredMediaState audio', audio);
     const callback = (event: Event) => {
       const { type } = event;
 

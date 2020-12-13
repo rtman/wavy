@@ -20,6 +20,8 @@ import React, {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useContextSelector } from 'use-context-selector';
+// import { detect as detectBrowser } from 'detect-browser';
+// var ogv = require('ogv');
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -99,14 +101,14 @@ export const Player = () => {
   // time left when a user pauses playback. Take timer start and then when paused
   // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
-    console.log('*debug* mediaState', mediaState);
-    console.log('*debug* userId', userId);
-    console.log('*debug* currentSong?.id', currentSong?.id);
-    console.log('*debug* geoLocation', geoLocation);
+    console.log('*debug* player mediaState', mediaState);
+    console.log('*debug* player userId', userId);
+    console.log('*debug* player currentSong?.id', currentSong?.id);
+    console.log('*debug* player geoLocation', geoLocation);
     if (mediaState === 'playing' && userId && currentSong?.id) {
-      console.log('*debug* playcount timerSet');
+      console.log('*debug* player playcount timerSet');
       playCountTimerRef.current = setTimeout(() => {
-        console.log('*debug* playcount callback');
+        console.log('*debug* player playcount callback');
 
         submitUpdateSongPlayCount({
           variables: { input: { songId: currentSong?.id } },
@@ -127,12 +129,12 @@ export const Player = () => {
       }, minimumPlayLength * 1000);
     } else if (mediaState !== 'playing') {
       console.log(
-        '*debug* playCount - not playing playCountTimerRef',
+        '*debug* player playCount - not playing playCountTimerRef',
         playCountTimerRef
       );
 
       if (playCountTimerRef.current) {
-        console.log('*debug* playCount - reset timer');
+        console.log('*debug* player playCount - reset timer');
         clearTimeout(playCountTimerRef.current);
       }
     }
@@ -178,6 +180,7 @@ export const Player = () => {
   }, [mediaState, playNextSongInQueue]);
 
   console.log('*debug* player');
+  console.log('*debug* player mediaState', mediaState);
 
   return (
     <Flex alignItems="center" fullWidth={true}>

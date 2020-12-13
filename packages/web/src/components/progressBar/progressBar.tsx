@@ -58,7 +58,6 @@ export const ProgressBar = () => {
 
   //   console.log('isSeeking', isSeeking);
   const getFormattedTime = (value: number) => {
-    console.log('*debug* getFormattedTime value', value);
     if (isNaN(value)) {
       return '00:00';
     }

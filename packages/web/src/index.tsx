@@ -1,5 +1,5 @@
 // import './wdyr';
-
+import smoothscroll from 'smoothscroll-polyfill';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
 import * as config from 'config';
@@ -20,6 +20,9 @@ import * as state from 'state';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+
+// safari smooth scroll animation polyfill
+smoothscroll.polyfill();
 
 export const history = createBrowserHistory();
 

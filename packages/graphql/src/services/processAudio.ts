@@ -49,7 +49,9 @@ type Output = ProcessAudioSuccessResponse | ProcessAudioFailResponse;
 // const LOW_SAMPLE_RATE = 44100;
 // const NORMAL_BIT_RATE = 320000;
 // const LOW_BIT_RATE = 96000;
-const FILE_TYPE = 'ogg';
+// TODO: Get ogg working on safari and switch back
+// const FILE_TYPE = 'ogg';
+const FILE_TYPE = 'mp3';
 const CONTENT_TYPE = `audio/${FILE_TYPE}`;
 
 // This sets the audio qualities selected for conversion
@@ -243,6 +245,8 @@ const convertAudio = ({
 
   const ffmpegConvert = ffmpeg(inputTempFilePath)
     .setFfmpegPath(ffmpegStatic)
+    // TODO: temp using libmp3lame until we can use ogg again
+    .audioCodec('libmp3lame')
     // .audioFrequency(NORMAL_SAMPLE_RATE)
     // .audioBitrate(LOW_BIT_RATE)
     .audioQuality(makeAudioQuality())

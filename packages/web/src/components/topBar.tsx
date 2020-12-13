@@ -136,7 +136,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
   return (
     <div
       className={classes.root}
-      // height: '100%' required fro autosizer in homeFeed.tsx
+      // height: '100%' required for autosizer in homeFeed.tsx
       style={{ height: '100%' }}
     >
       <CssBaseline />
