@@ -1,7 +1,7 @@
 import './App.css';
 
 import { CircularProgress, Grid, MuiThemeProvider } from '@material-ui/core';
-import { BottomBar, Navigator, Player, TopBar } from 'components';
+import { BottomBar, Navigator, TopBar } from 'components';
 import {
   AuthContext,
   CreateAlbumProvider,
@@ -49,10 +49,8 @@ export const App = () => {
                   <Navigator />
                 </CreateAlbumProvider>
               </TopBar>
-              <BottomBar>
-                <Player />
-              </BottomBar>
             </SearchProvider>
+            <BottomBar />
           </PlayerProvider>
         </SnackbarProvider>
       </MuiThemeProvider>

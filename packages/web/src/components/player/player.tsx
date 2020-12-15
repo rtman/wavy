@@ -1,10 +1,16 @@
 import { useMutation } from '@apollo/client';
-import { createStyles, makeStyles, Typography } from '@material-ui/core';
+import {
+  createStyles,
+  IconButton,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import {
   Mutation,
   MutationUpdateSongPlayCountArgs,
   MutationUserPlayedSongArgs,
+  Song,
 } from 'commonTypes';
 import { ProgressBar } from 'components';
 import { Flex, StyledButton } from 'components';
@@ -12,6 +18,7 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
 import React, {
+  EventHandler,
   useCallback,
   useContext,
   useEffect,
@@ -32,22 +39,29 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const minimumPlayRatio = 0.2;
+interface PlayerProps {
+  // src?: string;
+  currentSong?: Song;
+}
 
-export const Player = () => {
-  const currentSong = useContextSelector(
-    PlayerContext,
-    (values) => values?.currentSong
-  );
-  const pause = useContextSelector(PlayerContext, (values) => values?.pause);
-  const unPause = useContextSelector(
-    PlayerContext,
-    (values) => values?.unPause
-  );
-  const playQueue = useContextSelector(
-    PlayerContext,
-    (values) => values?.playQueue
-  );
+const minimumPlayRatio = 0.2;
+const timeUpdateInterval = 50;
+
+let audio = new Audio();
+
+export const Player = (props: PlayerProps) => {
+  const { currentSong } = props;
+
+  const [isSeeking, setIsSeeking] = useState<boolean>(false);
+  // const pause = useContextSelector(PlayerContext, (values) => values?.pause);
+  // const unPause = useContextSelector(
+  //   PlayerContext,
+  //   (values) => values?.unPause
+  // );
+  // const playQueue = useContextSelector(
+  //   PlayerContext,
+  //   (values) => values?.playQueue
+  // );
   const playNextSongInQueue = useContextSelector(
     PlayerContext,
     (values) => values?.playNextSongInQueue
@@ -62,6 +76,8 @@ export const Player = () => {
   const playCountTimerRef = useRef<number>(0);
 
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   const { user, geoLocation } = userContext ?? {};
   const { id: userId } = user ?? {};
@@ -84,10 +100,22 @@ export const Player = () => {
     },
   });
 
-  const mediaState = helpers.hooks.useFilteredMediaState(
-    currentSong?.audio ?? new Audio()
-  );
-  const duration = currentSong?.audio?.duration;
+  useEffect(() => {
+    if (currentSong) {
+      console.log('*debug* player currentSong', currentSong);
+      // audio.pause();
+      audio.src = currentSong.urlHigh;
+      audio.play();
+    }
+  }, [currentSong]);
+
+  useEffect(() => {
+    if (currentSong) {
+      console.log('*debug* player currentSong', currentSong);
+    }
+  }, [currentSong]);
+
+  const mediaState = helpers.hooks.useFilteredMediaState(audio);
 
   useEffect(() => {
     if (duration) {
@@ -99,14 +127,14 @@ export const Player = () => {
   // time left when a user pauses playback. Take timer start and then when paused
   // take difference, use that as new timer value. However need to monitor media states for pause -> seek or pause -> next track, pause -> play, becomes complex.
   useEffect(() => {
-    console.log('*debug* player mediaState', mediaState);
-    console.log('*debug* player userId', userId);
-    console.log('*debug* player currentSong?.id', currentSong?.id);
-    console.log('*debug* player geoLocation', geoLocation);
-    if (mediaState === 'playing' && userId && currentSong?.id) {
-      console.log('*debug* player playcount timerSet');
+    // console.log('*debug* player mediaState', mediaState);
+    // console.log('*debug* player userId', userId);
+    // console.log('*debug* player currentSong?.id', currentSong?.id);
+    // console.log('*debug* player geoLocation', geoLocation);
+    if (mediaState === 'playing' && userId && currentSong) {
+      // console.log('*debug* player playcount timerSet');
       playCountTimerRef.current = setTimeout(() => {
-        console.log('*debug* player playcount callback');
+        // console.log('*debug* player playcount callback');
 
         submitUpdateSongPlayCount({
           variables: { input: { songId: currentSong?.id } },
@@ -126,13 +154,13 @@ export const Player = () => {
         });
       }, minimumPlayLength * 1000);
     } else if (mediaState !== 'playing') {
-      console.log(
-        '*debug* player playCount - not playing playCountTimerRef',
-        playCountTimerRef
-      );
+      // console.log(
+      //   '*debug* player playCount - not playing playCountTimerRef',
+      //   playCountTimerRef
+      // );
 
       if (playCountTimerRef.current) {
-        console.log('*debug* player playCount - reset timer');
+        // console.log('*debug* player playCount - reset timer');
         clearTimeout(playCountTimerRef.current);
       }
     }
@@ -159,17 +187,12 @@ export const Player = () => {
   };
 
   const onClickPlay = useCallback(() => {
-    console.log('*debug player onClickPlay - mediaState', mediaState);
-    if (mediaState !== 'pause') {
-      if (playQueue) {
-        playQueue();
-      }
-    } else {
-      if (unPause) {
-        unPause();
-      }
-    }
-  }, [mediaState, playQueue, unPause]);
+    audio.play();
+  }, []);
+
+  const onClickPause = useCallback(() => {
+    audio.pause();
+  }, []);
 
   useEffect(() => {
     if (mediaState === 'ended' && playNextSongInQueue) {
@@ -177,25 +200,56 @@ export const Player = () => {
     }
   }, [mediaState, playNextSongInQueue]);
 
-  console.log('*debug* player');
-  console.log('*debug* player mediaState', mediaState);
+  const setCurrentTimeFromSeek = (value: number) => {
+    audio.currentTime = value;
+  };
+
+  audio.ondurationchange = () => {
+    // const audio = event.target as HTMLAudioElement;
+    // if (audio) {
+    setDuration(audio.duration);
+    // }
+  };
+
+  audio.ontimeupdate = throttle(() => {
+    // const audio = event.target as HTMLAudioElement;
+    // if (audio) {
+    console.log(
+      '*debug* player ontimeupdate timeUpdateInterval',
+      timeUpdateInterval
+    );
+    if (!isSeeking) {
+      setCurrentTime(audio.currentTime);
+    }
+    // }
+  }, timeUpdateInterval);
 
   return (
     <Flex alignItems="center" fullWidth={true}>
-      <StyledButton onClick={playPreviousSongInQueue}>
+      <IconButton size="small" onClick={playPreviousSongInQueue}>
         <SkipPrevious />
-      </StyledButton>
-      <StyledButton>
-        {mediaState === 'playing' ? (
-          <Pause onClick={pause} />
-        ) : (
-          <PlayArrow onClick={onClickPlay} />
-        )}
-      </StyledButton>
-      <StyledButton onClick={playNextSongInQueue}>
+      </IconButton>
+
+      {mediaState === 'playing' ? (
+        <IconButton size="small" onClick={onClickPause}>
+          <Pause />
+        </IconButton>
+      ) : (
+        <IconButton size="small" onClick={onClickPlay}>
+          <PlayArrow />
+        </IconButton>
+      )}
+
+      <IconButton size="small" onClick={playNextSongInQueue}>
         <SkipNext />
-      </StyledButton>
-      <ProgressBar />
+      </IconButton>
+      <ProgressBar
+        duration={duration}
+        currentTime={currentTime}
+        setCurrentTimeFromSeek={setCurrentTimeFromSeek}
+        setIsSeeking={setIsSeeking}
+        isSeeking={isSeeking}
+      />
       <Flex
         flexDirection="column"
         // unset makes text truncation happen
@@ -221,3 +275,21 @@ export const Player = () => {
     </Flex>
   );
 };
+
+// Helpers
+
+type throttleFunction<T> = (arg: T) => void;
+
+function throttle<K>(
+  func: throttleFunction<K>,
+  limit: number
+): throttleFunction<K> {
+  let inThrottle = false;
+  return (arg) => {
+    if (!inThrottle) {
+      func(arg);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}

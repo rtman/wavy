@@ -3,42 +3,41 @@ import { Flex, useTimer } from 'components';
 import { TrackPositionSlider } from 'components';
 import { PlayerContext } from 'context';
 import moment from 'moment';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 
 import { TimeText } from './styles';
 
-export const ProgressBar = () => {
-  // const { audio, duration } = props;
-  const playerContext = useContext(PlayerContext);
-  const audio = playerContext?.currentSong?.audio;
+interface ProgressBarProps {
+  duration?: number;
+  currentTime?: number;
+  setCurrentTimeFromSeek: (value: number) => void;
+  setIsSeeking: (value: boolean) => void;
+  isSeeking: boolean;
+}
+
+export const ProgressBar = (props: ProgressBarProps) => {
+  const {
+    currentTime,
+    duration,
+    isSeeking,
+    setCurrentTimeFromSeek,
+    setIsSeeking,
+  } = props;
 
   const [position, setPosition] = useState<number>(0);
-  const [isSeeking, setIsSeeking] = useState<boolean>(false);
 
-  const updatePosition = () => {
-    if (!isSeeking && audio) {
-      setPosition(audio.currentTime);
+  useEffect(() => {
+    if (!isSeeking) {
+      setPosition(currentTime ?? 0);
     }
-  };
-
-  useTimer(300, updatePosition);
-
-  //   console.log('duration', duration);
-  //   console.log('currentPosition', currentPosition);
-  //   console.log('seekPosition', seekPosition);
-  //   console.log('position', position);
+  });
 
   const onSeeking = (
     _event: React.ChangeEvent<{}>,
     value: number | number[]
   ) => {
     setIsSeeking(true);
-    // setSeekPosition(event.target.value);
-    // console.log('onSeeking - event.target', _event.target);
-
-    //   console.log('onSeeking - value', value);
-
-    // setSeekPosition(value as number);
     setPosition(value as number);
   };
 
@@ -47,16 +46,13 @@ export const ProgressBar = () => {
     value: number | number[]
   ) => {
     setPosition(value as number);
+    setCurrentTimeFromSeek(position);
+    // prevents jumping of seek position when committing
+    setTimeout(() => setIsSeeking(false), 10);
 
-    // console.log('onSeekCommitted - event.target.value', event.target.value);
     console.log('onSeekCommitted - value', value);
-    setIsSeeking(false);
-    if (audio) {
-      audio.currentTime = position;
-    }
   };
 
-  //   console.log('isSeeking', isSeeking);
   const getFormattedTime = (value: number) => {
     if (isNaN(value)) {
       return '00:00';
@@ -66,8 +62,6 @@ export const ProgressBar = () => {
     const formatted = moment.utc(duration).format('mm:ss');
     return formatted;
   };
-
-  const duration = audio?.duration ?? 0;
 
   return (
     <Flex alignItems="center" fullWidth={true} style={{ margin: '0px 8px' }}>
@@ -79,7 +73,9 @@ export const ProgressBar = () => {
         onChange={onSeeking}
         onChangeCommitted={onSeekCommitted}
       />
-      <Typography variant="caption">{getFormattedTime(duration)}</Typography>
+      <Typography variant="caption">
+        {getFormattedTime(duration ?? 0)}
+      </Typography>
     </Flex>
   );
 };

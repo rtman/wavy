@@ -12,19 +12,19 @@ import { createContext } from 'use-context-selector';
 interface PlayerContextType {
   playAudio?: (song: SongWithAudio) => void;
   playQueue: () => void;
-  playSongInQueue(song: SongWithAudio): void;
+  playSongInQueue(song: Song): void;
   playNextSongInQueue: () => void;
   playPreviousSongInQueue: () => void;
   pause: () => void;
   unPause: () => void;
-  currentSong: SongWithAudio | null;
+  currentSong: Song | undefined;
   audio: HTMLAudioElement;
   addSongsToEndOfQueue: (songs: Song[]) => void;
   // addSongsToBeginningOfQueue: (songs: Song[]) => void;
   replaceQueueWithSongs: (songs: Song[]) => void;
   clearQueue: () => void;
   removeSongFromQueue(id: string): void;
-  queue: SongWithAudio[];
+  queue: Song[];
 }
 
 export const PlayerContext = createContext<PlayerContextType | undefined>(
@@ -32,19 +32,19 @@ export const PlayerContext = createContext<PlayerContextType | undefined>(
 );
 
 // TODO: add to helpers
-const addAudioElements = (songs: Song[]) => {
-  const resolvedSongs: SongWithAudio[] = songs.map((s) => {
-    return {
-      ...s,
-      audio: new Audio(s.urlHigh),
-    };
-  });
-  return resolvedSongs;
-};
+// const addAudioElements = (songs: Song[]) => {
+//   const resolvedSongs: SongWithAudio[] = songs.map((s) => {
+//     return {
+//       ...s,
+//       audio: new Audio(s.urlHigh),
+//     };
+//   });
+//   return resolvedSongs;
+// };
 
 export const PlayerProvider: FunctionComponent = (props) => {
-  const [currentSong, setCurrentSong] = useState<SongWithAudio | null>(null);
-  const [queue, setQueue] = useState<SongWithAudio[]>([]);
+  const [currentSong, setCurrentSong] = useState<Song | undefined>(undefined);
+  const [queue, setQueue] = useState<Song[]>([]);
   const [queuePosition, setQueuePosition] = useState<number>(0);
   // const [playerAudio, setPlayerAudio] = useState<HTMLAudioElement | null>(null);
   const [
@@ -58,47 +58,51 @@ export const PlayerProvider: FunctionComponent = (props) => {
 
   let audio = new Audio();
 
-  const playAudio = useCallback(
-    (currentQueue: SongWithAudio[], position: number) => {
-      if (currentSong && currentSong.audio) {
-        currentSong.audio.pause();
-        currentSong.audio.currentTime = 0;
-      }
+  const playAudio = useCallback((currentQueue: Song[], position: number) => {
+    // console.log('*debug* playerContext playAudio - currentSong', currentSong);
+    // console.log('*debug* playerContext playAudio - audio', audio);
 
-      // might want to check if position in queue exists
-      const songToPlay = currentQueue[position];
-      setCurrentSong(songToPlay);
+    // if (audio) {
+    //   audio.pause();
+    //   audio.currentTime = 0;
+    // }
 
-      if (songToPlay && songToPlay.audio) {
-        setQueuePosition(position);
-        setLocalStorageQueuePosition(position);
-        songToPlay.audio.play();
-        audio = songToPlay.audio;
-      }
-    },
-    [currentSong?.audio, audio]
-  );
+    // might want to check if position in queue exists
+    const songToPlay = currentQueue[position];
+    setCurrentSong(songToPlay);
+
+    if (songToPlay && songToPlay) {
+      setQueuePosition(position);
+      setLocalStorageQueuePosition(position);
+      // audio.src = songToPlay.urlHigh;
+      // audio.play();
+      // songToPlay.audio.play();
+      // audio = songToPlay.audio;
+    }
+  }, []);
 
   const unPause = useCallback(() => {
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.play();
+    // console.log('*debug* playerContext unPause audio', audio);
+
+    if (audio) {
+      audio.play();
     }
-  }, [currentSong?.audio]);
+  }, [audio]);
 
   const pause = useCallback(() => {
-    console.log('*debug* pause currentSong', currentSong);
-    if (currentSong && currentSong.audio) {
-      currentSong.audio.pause();
+    // console.log('*debug* playerContext pause audio', audio);
+    if (audio) {
+      audio.pause();
     }
-  }, [currentSong?.audio]);
+  }, [audio]);
 
   useEffect(() => {
     const loadLocalStorageQueue = () => {
-      const resolvedLocalStorageQueue = addAudioElements(localStorageQueue);
+      // const resolvedLocalStorageQueue = addAudioElements(localStorageQueue);
       // console.log('resolvedLocalStorageQueue', resolvedLocalStorageQueue);
-      setQueue(resolvedLocalStorageQueue);
+      setQueue(localStorageQueue);
       setQueuePosition(localStorageQueuePosition);
-      setCurrentSong(resolvedLocalStorageQueue[localStorageQueuePosition]);
+      setCurrentSong(localStorageQueue[localStorageQueuePosition]);
     };
     loadLocalStorageQueue();
     // TODO: Re enable and fix deps, localStorageQueuePosition breaks it
@@ -108,19 +112,19 @@ export const PlayerProvider: FunctionComponent = (props) => {
 
   const addSongsToEndOfQueue = useCallback((songs: Song[]) => {
     if (songs.length > 0) {
-      const resolvedSongs = addAudioElements(songs);
-      const newQueue = [...queue, ...resolvedSongs];
+      // const resolvedSongs = addAudioElements(songs);
+      const newQueue = [...queue, ...songs];
       setQueue(newQueue);
       setLocalStorageQueue(newQueue);
     }
   }, []);
 
   const replaceQueueWithSongs = useCallback((songs: Song[]) => {
-    console.log('replaceQueueWithSongs songs', songs);
+    // console.log('*debug* playerContext replaceQueueWithSongs songs', songs);
     if (songs.length > 0) {
-      const resolvedSongs = addAudioElements(songs);
+      // const resolvedSongs = addAudioElements(songs);
 
-      const newQueue = [...resolvedSongs];
+      const newQueue = [...songs];
       setQueue(newQueue);
       setQueuePosition(0);
       setLocalStorageQueue(newQueue);
@@ -130,7 +134,7 @@ export const PlayerProvider: FunctionComponent = (props) => {
   }, []);
 
   const playSongInQueue = useCallback(
-    (song: SongWithAudio) => {
+    (song: Song) => {
       const index = queue.findIndex((s) => s.id === song.id);
       playAudio(queue, index);
     },
@@ -138,23 +142,25 @@ export const PlayerProvider: FunctionComponent = (props) => {
   );
 
   const playPreviousSongInQueue = useCallback(() => {
-    if (currentSong?.audio?.currentTime && currentSong.audio.currentTime < 5) {
+    if (audio.currentTime < 5) {
       const position = queuePosition - 1;
       if (queue && queue[position]) {
-        playAudio(queue, position);
+        setCurrentSong(queue[position]);
+        setQueuePosition(position);
       }
     } else {
       if (queue && queue[queuePosition]) {
-        playAudio(queue, queuePosition);
+        setCurrentSong(queue[queuePosition]);
       }
     }
-  }, [currentSong?.audio, queuePosition, queue]);
+  }, [queuePosition, queue]);
 
   const playNextSongInQueue = useCallback(() => {
     const position = queuePosition + 1;
 
     if (queue && queue[position]) {
-      playAudio(queue, position);
+      setCurrentSong(queue[position]);
+      setQueuePosition(position);
     }
   }, [queuePosition, queue]);
 
@@ -189,7 +195,7 @@ export const PlayerProvider: FunctionComponent = (props) => {
   //   playAudio(newQueue[0]);
   // };
 
-  console.log('*debug* playerContext');
+  // console.log('*debug* playerContext');
 
   return (
     <PlayerContext.Provider
