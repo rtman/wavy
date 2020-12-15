@@ -1,4 +1,4 @@
-import { Album, BaseListItemProps, MenuPosition } from 'commonTypes';
+import { Album, BaseListItemProps, MenuPosition } from 'types';
 import { BaseListItem } from 'components';
 import { PlayerContext } from 'context';
 import React, {

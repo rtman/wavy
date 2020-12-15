@@ -1,4 +1,4 @@
-import { BaseListItemProps, MenuPosition, User } from 'commonTypes';
+import { BaseListItemProps, MenuPosition, User } from 'types';
 import React, { useCallback, useState } from 'react';
 
 import { BaseListItem } from './baseListItem';

@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
-import { ApiSuccess, ApiFail, Query, Tag } from 'commonTypes';
+import { ApiSuccess, ApiFail, Query, Tag } from 'types';
 
 export const TAGS = gql`
   query Tags {

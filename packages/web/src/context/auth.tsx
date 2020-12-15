@@ -1,7 +1,7 @@
 import 'firebase/auth';
 
 import { ApolloError, useMutation } from '@apollo/client';
-import { Mutation, MutationCreateUserArgs } from 'commonTypes';
+import { Mutation, MutationCreateUserArgs } from 'types';
 import * as consts from 'consts';
 import firebase from 'firebase';
 import { GraphQLError } from 'graphql';

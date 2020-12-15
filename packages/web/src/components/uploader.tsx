@@ -1,5 +1,5 @@
 import { LinearProgress, makeStyles } from '@material-ui/core';
-import { SongForUpload } from 'commonTypes';
+import { SongForUpload } from 'types';
 import { CreateAlbumContext } from 'context';
 import * as helpers from 'helpers';
 import React, { memo, useEffect } from 'react';

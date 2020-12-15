@@ -1,5 +1,5 @@
-import { Artist, MenuPosition } from 'commonTypes';
-import { BaseListItemProps } from 'commonTypes';
+import { Artist, MenuPosition } from 'types';
+import { BaseListItemProps } from 'types';
 import { BaseListItem } from 'components';
 import * as consts from 'consts';
 import React, { CSSProperties, useState } from 'react';

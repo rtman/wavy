@@ -1,5 +1,5 @@
 import { MenuItem } from '@material-ui/core';
-import { MenuPosition, Playlist, SongPlaylist } from 'commonTypes';
+import { MenuPosition, Playlist, SongPlaylist } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext } from 'react';

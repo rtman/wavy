@@ -5,7 +5,7 @@ import {
   ApiFail,
   Mutation,
   MutationSetSongActiveArgs,
-} from 'commonTypes';
+} from 'types';
 
 const SET_SONG_ACTIVE = gql`
   mutation SetSongActive($songId: String!) {

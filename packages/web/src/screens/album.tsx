@@ -18,7 +18,7 @@ import {
   Query,
   QueryAlbumByIdArgs,
   Song,
-} from 'commonTypes';
+} from 'types';
 import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';

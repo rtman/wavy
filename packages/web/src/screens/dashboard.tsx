@@ -12,7 +12,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { UserArtist, UserLabel } from 'commonTypes';
+import { UserArtist, UserLabel } from 'types';
 import { ArtistListItem, LabelListItem, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';

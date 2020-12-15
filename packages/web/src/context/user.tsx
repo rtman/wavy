@@ -12,7 +12,7 @@ import {
   UpdateFollowingArgs,
   User,
   UserPlaylist,
-} from 'commonTypes';
+} from 'types';
 import * as consts from 'consts';
 import React, {
   createContext,

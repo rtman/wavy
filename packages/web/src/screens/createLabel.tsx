@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Mutation, MutationCreateLabelArgs } from 'commonTypes';
+import { Mutation, MutationCreateLabelArgs } from 'types';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';

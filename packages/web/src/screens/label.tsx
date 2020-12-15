@@ -23,7 +23,7 @@ import {
   QueryLabelByIdArgs,
   Song,
   UpdateFollowingType,
-} from 'commonTypes';
+} from 'types';
 import {
   AlbumListItem,
   ArtistListItem,

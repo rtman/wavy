@@ -5,7 +5,7 @@ import {
   ApiFail,
   Query,
   QueryGetUserSubscriptionsArgs,
-} from 'commonTypes';
+} from 'types';
 
 type Input = QueryGetUserSubscriptionsArgs;
 type Output = Pick<Query, 'getUserSubscriptions'>['getUserSubscriptions'];

@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowUpward, MoreVert, PlayArrow } from '@material-ui/icons';
-import { BaseCardProps, MenuPosition } from 'commonTypes';
+import { BaseCardProps, MenuPosition } from 'types';
 import { Flex, Spacing } from 'components';
 import React, { memo, useCallback, useState } from 'react';
 

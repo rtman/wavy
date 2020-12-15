@@ -1,6 +1,6 @@
 schema: http://localhost:3001/graphql
 generates:
-  src/commonTypes/serverTypes.ts:
+  src/types/serverTypes.ts:
     - typescript
     - typescript-resolvers
 hooks:

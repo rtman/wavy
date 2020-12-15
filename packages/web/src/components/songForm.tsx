@@ -1,7 +1,7 @@
 import { Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
-import { Artist, ArtistAutocomplete, SongFields } from 'commonTypes';
+import { Artist, ArtistAutocomplete, SongFields } from 'types';
 import { Flex, Spacing } from 'components';
 import { CreateAlbumContext } from 'context';
 import React, { memo } from 'react';

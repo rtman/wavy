@@ -1,4 +1,4 @@
-import { BaseCardProps, MenuPosition, User } from 'commonTypes';
+import { BaseCardProps, MenuPosition, User } from 'types';
 // import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
 

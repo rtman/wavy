@@ -1,5 +1,5 @@
 import { MenuItem } from '@material-ui/core';
-import { Artist, MenuPosition, UpdateFollowingType } from 'commonTypes';
+import { Artist, MenuPosition, UpdateFollowingType } from 'types';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';

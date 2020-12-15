@@ -6,7 +6,7 @@ import {
   ApiFail,
   Mutation,
   MutationClaimArtistArgs,
-} from 'commonTypes';
+} from 'types';
 
 const CLAIM_ARTIST = gql`
   mutation ClaimArtist($input: ClaimArtistArgs!) {

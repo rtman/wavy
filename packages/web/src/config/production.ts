@@ -1,4 +1,4 @@
-import { EnvVariant } from 'commonTypes';
+import { EnvVariant } from 'types';
 
 import { common } from './common';
 

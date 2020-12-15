@@ -27,8 +27,8 @@ import {
   Query,
   QueryPlaylistByIdArgs,
   SongPlaylist,
-} from 'commonTypes';
-import { IdParam } from 'commonTypes';
+} from 'types';
+import { IdParam } from 'types';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { playlist } from 'consts/mutations';

@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { Block, MoreVert } from '@material-ui/icons';
-import { BaseListItemProps, MenuPosition } from 'commonTypes';
+import { BaseListItemProps, MenuPosition } from 'types';
 import { Flex, Spacing } from 'components';
 import React, { useCallback } from 'react';
 

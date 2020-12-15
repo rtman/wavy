@@ -1,4 +1,4 @@
-import { BaseListItemProps, MenuPosition, Song } from 'commonTypes';
+import { BaseListItemProps, MenuPosition, Song } from 'types';
 import { PlayerContext } from 'context';
 import React, { useCallback, useContext, useState } from 'react';
 

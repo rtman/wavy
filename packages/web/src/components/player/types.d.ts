@@ -1,4 +1,4 @@
-import { SongWithAudio } from 'commonTypes';
+import { SongWithAudio } from 'types';
 
 interface Player {
   audio: HTMLAudioElement;

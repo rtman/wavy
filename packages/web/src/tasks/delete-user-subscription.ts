@@ -5,7 +5,7 @@ import {
   ApiFail,
   Mutation,
   MutationDeleteUserSubscriptionArgs,
-} from 'commonTypes';
+} from 'types';
 
 const DELETE_USER_SUBSCRIPTION = gql`
   mutation DeleteUserSubscription($subscriptionId: String!) {

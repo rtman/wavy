@@ -14,7 +14,7 @@ import {
   UserSubscriptionEntity,
   UserSubscriptionSortBy,
   UserSubscriptionType,
-} from 'commonTypes';
+} from 'types';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';

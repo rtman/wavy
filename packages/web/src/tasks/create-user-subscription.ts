@@ -5,7 +5,7 @@ import {
   ApiFail,
   Mutation,
   MutationNewUserSubscriptionArgs,
-} from 'commonTypes';
+} from 'types';
 
 const NEW_USER_SUBSCRIPTION = gql`
   mutation NewUserSubscription($input: NewUserSubscriptionArgs!) {

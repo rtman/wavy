@@ -8,7 +8,7 @@ import {
   SongFields,
   SongForUpload,
   UploadStatus,
-} from 'commonTypes';
+} from 'types';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import * as helpers from 'helpers';

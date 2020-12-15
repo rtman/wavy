@@ -11,12 +11,7 @@ import {
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import {
-  Artist,
-  ArtistAutocomplete,
-  NewAlbumForm,
-  SongFields,
-} from 'commonTypes';
+import { Artist, ArtistAutocomplete, NewAlbumForm, SongFields } from 'types';
 import {
   FileUploadButton,
   Flex,

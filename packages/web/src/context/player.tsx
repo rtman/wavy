@@ -1,5 +1,5 @@
-import { SongWithAudio } from 'commonTypes';
-import { Song } from 'commonTypes';
+import { SongWithAudio } from 'types';
+import { Song } from 'types';
 import * as helpers from 'helpers';
 import React, {
   FunctionComponent,

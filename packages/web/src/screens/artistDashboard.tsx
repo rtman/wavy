@@ -22,7 +22,7 @@ import {
   Theme,
   useTheme,
 } from '@material-ui/core/styles';
-import { IdParam, Query, QueryArtistByIdArgs } from 'commonTypes';
+import { IdParam, Query, QueryArtistByIdArgs } from 'types';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';

@@ -1,4 +1,4 @@
-import { Album, BaseCardProps, MenuPosition } from 'commonTypes';
+import { Album, BaseCardProps, MenuPosition } from 'types';
 import { BaseCard } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';

@@ -23,7 +23,7 @@ import {
   MutationCreatePlaylistArgs,
   Query,
   QueryPlaylistsByUserIdArgs,
-} from 'commonTypes';
+} from 'types';
 import { Flex, PlaylistListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';

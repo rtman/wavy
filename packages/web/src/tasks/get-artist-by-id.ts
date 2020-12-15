@@ -1,12 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
-import {
-  ApiSuccess,
-  ApiFail,
-  Query,
-  QueryArtistByIdArgs,
-  Artist,
-} from 'commonTypes';
+import { ApiSuccess, ApiFail, Query, QueryArtistByIdArgs, Artist } from 'types';
 
 type Input = QueryArtistByIdArgs;
 type Output = Artist;

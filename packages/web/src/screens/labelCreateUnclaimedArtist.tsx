@@ -12,7 +12,7 @@ import {
   IdParam,
   Mutation,
   MutationLabelCreateUnclaimedArtistArgs,
-} from 'commonTypes';
+} from 'types';
 import { Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';

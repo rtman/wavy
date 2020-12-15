@@ -6,7 +6,7 @@ import {
   Query,
   QueryGetUnclaimedArtistsArgs,
   Artist,
-} from 'commonTypes';
+} from 'types';
 
 const GET_UNCLAIMED_ARTSITS = gql`
   mutation GetUnclaimedArtistsByEmail($email: String!) {

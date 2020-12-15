@@ -1,5 +1,5 @@
 import { MenuItem } from '@material-ui/core';
-import { MenuPosition, User } from 'commonTypes';
+import { MenuPosition, User } from 'types';
 import React from 'react';
 
 interface UserMenuItemsProps {

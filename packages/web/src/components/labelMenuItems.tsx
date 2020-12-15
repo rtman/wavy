@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { Label } from 'commonTypes';
-import { MenuPosition } from 'commonTypes';
+import { Label } from 'types';
+import { MenuPosition } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { memo, useContext } from 'react';

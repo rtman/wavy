@@ -22,7 +22,7 @@ import {
   Query,
   QuerySearchAllArgs,
   Song,
-} from 'commonTypes';
+} from 'types';
 import {
   AlbumListItem,
   ArtistListItem,

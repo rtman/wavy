@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MoreVert } from '@material-ui/icons';
-import { Album, Artist, Label, Playlist, Song, User } from 'commonTypes';
+import { Album, Artist, Label, Playlist, Song, User } from 'types';
 import { Flex, Spacing, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';

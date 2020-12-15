@@ -3,20 +3,16 @@ import smoothscroll from 'smoothscroll-polyfill';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
 import * as config from 'config';
-import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
+// import { ConnectedRouter } from 'connected-react-router';
 import { AuthProvider, UserProvider } from 'context';
 import * as firebase from 'firebase/app';
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
-import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 // import * as helpers from 'helpers';
-import * as redux from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
-import * as sagas from 'sagas';
-import * as state from 'state';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
@@ -36,51 +32,28 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const sagaGlobalErrorHandler = (error: Error) => {
-  //   helpers.sentry.captureExceptionPrefixed('GLOBAL ERROR HANDLER!', error);
-  console.log('GLOBAL ERROR HANDLER!', error);
-};
-
-// const initialize = async () => {
-const sagaMiddleware = createSagaMiddleware({
-  onError: sagaGlobalErrorHandler,
-});
-
-let middleware = redux.applyMiddleware(
-  routerMiddleware(history),
-  sagaMiddleware
-);
-
 if (process.env.NODE_ENV === 'development') {
   const composeEnhancers = composeWithDevTools({});
-
-  middleware = composeEnhancers(middleware);
 }
 
-const store = redux.createStore(state.createReducer(history), middleware);
-
-sagaMiddleware.run(sagas.rootSaga);
-
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <ApolloProvider client={client}>
-        <Helmet>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Helmet>
-        <CssBaseline>
-          <UserProvider>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
-          </UserProvider>
-        </CssBaseline>
-      </ApolloProvider>
-    </ConnectedRouter>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Helmet>
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width"
+      />
+    </Helmet>
+    <CssBaseline>
+      <UserProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
+      </UserProvider>
+    </CssBaseline>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

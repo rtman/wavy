@@ -16,7 +16,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IdParam, Query, QueryLabelByIdArgs, Song } from 'commonTypes';
+import { IdParam, Query, QueryLabelByIdArgs, Song } from 'types';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';

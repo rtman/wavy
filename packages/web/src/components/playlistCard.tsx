@@ -1,9 +1,4 @@
-import {
-  BaseCardProps,
-  MenuPosition,
-  Playlist,
-  SongPlaylist,
-} from 'commonTypes';
+import { BaseCardProps, MenuPosition, Playlist, SongPlaylist } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';

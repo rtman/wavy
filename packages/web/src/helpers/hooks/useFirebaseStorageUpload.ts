@@ -1,4 +1,4 @@
-import { UploadStatus } from 'commonTypes';
+import { UploadStatus } from 'types';
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';

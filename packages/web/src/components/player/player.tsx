@@ -11,7 +11,7 @@ import {
   MutationUpdateSongPlayCountArgs,
   MutationUserPlayedSongArgs,
   Song,
-} from 'commonTypes';
+} from 'types';
 import { ProgressBar } from 'components';
 import { Flex, StyledButton } from 'components';
 import * as consts from 'consts';
@@ -106,6 +106,7 @@ export const Player = (props: PlayerProps) => {
       console.log('*debug* player currentSong', currentSong);
       // audio.pause();
       audio.src = currentSong.urlHigh;
+      // TODO: figure out how to switch songs without auto play
       // audio.play();
     }
   }, [currentSong]);

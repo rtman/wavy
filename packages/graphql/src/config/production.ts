@@ -1,4 +1,4 @@
-import { EnvVariant } from 'commonTypes';
+import { EnvVariant } from 'types';
 
 export const production: EnvVariant = {
   FIREBASE_CONFIG: {

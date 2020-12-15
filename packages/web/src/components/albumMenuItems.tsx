@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { Album, MenuPosition } from 'commonTypes';
+import { Album, MenuPosition } from 'types';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';

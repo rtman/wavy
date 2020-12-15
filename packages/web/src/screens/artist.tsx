@@ -23,7 +23,7 @@ import {
   QueryArtistByIdArgs,
   Song,
   UpdateFollowingType,
-} from 'commonTypes';
+} from 'types';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';

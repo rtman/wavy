@@ -1,4 +1,4 @@
-import { CommonEnv } from 'commonTypes';
+import { CommonEnv } from 'types';
 
 export const common: CommonEnv = {
   IP_IFY_API_KEY: 'at_KxVq8nc9VHdRJ1TFXvLuTwKSK7iGH',

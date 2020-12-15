@@ -26,7 +26,7 @@ import {
   UserSubscriptionData,
   UserSubscriptionEntity,
   UserSubscriptionResult,
-} from 'commonTypes';
+} from 'types';
 import {
   AlbumCard,
   ArtistCard,

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Container, Typography } from '@material-ui/core';
-import { IdParam, Query } from 'commonTypes';
+import { IdParam, Query } from 'types';
 import { AlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import React, { useMemo } from 'react';

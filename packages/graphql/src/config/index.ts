@@ -1,4 +1,4 @@
-import { AllEnvVariants, EnvironmentSettings } from 'commonTypes';
+import { AllEnvVariants, EnvironmentSettings } from 'types';
 
 import { beta } from './beta';
 import { common } from './common';

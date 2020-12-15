@@ -33,7 +33,7 @@ import {
   UserSubscriptionResult,
   UserSubscriptionSortBy,
   UserSubscriptionType,
-} from 'commonTypes';
+} from 'types';
 import { Flex, Spacing } from 'components';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';

@@ -11,7 +11,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { Query, QuerySongsByIdArgs, Song } from 'commonTypes';
+import { Query, QuerySongsByIdArgs, Song } from 'types';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';

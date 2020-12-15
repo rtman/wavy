@@ -11,7 +11,7 @@ import {
 import { createUnionType } from 'type-graphql';
 import { getRepository } from 'typeorm';
 
-import * as commonTypes from '../commonTypes';
+import * as types from '../types';
 import { Models } from '../orm';
 import { PlayHistoryUserDoc } from './listeningStats';
 
@@ -86,7 +86,7 @@ export class UserSubscriptionResult extends Models.UserSubscription {
 }
 
 @ObjectType()
-class Success extends commonTypes.Base {
+class Success extends types.Base {
   @Field(() => [UserSubscriptionResult])
   body: UserSubscriptionResult[];
 }
@@ -98,7 +98,7 @@ export class UserSubscriptionResolvers {
   @Query(() => [UserSubscriptionResult])
   async getUserSubscriptions(
     @Arg('userId') userId: string
-  ): Promise<UserSubscriptionResult[] | commonTypes.Fail> {
+  ): Promise<UserSubscriptionResult[] | types.Fail> {
     try {
       const user = await getRepository(Models.User).findOne({
         where: { id: userId },

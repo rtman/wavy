@@ -1,5 +1,5 @@
-import { Label, MenuPosition } from 'commonTypes';
-import { BaseListItemProps } from 'commonTypes';
+import { Label, MenuPosition } from 'types';
+import { BaseListItemProps } from 'types';
 import { BaseListItem } from 'components';
 import * as consts from 'consts';
 import React, { CSSProperties, useCallback, useState } from 'react';
