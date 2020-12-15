@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
-import { ApiSuccess, ApiFail, Query, QueryArtistByIdArgs, Artist } from 'types';
+import { ApiFail, ApiSuccess, Artist, Query, QueryArtistByIdArgs } from 'types';
 
 type Input = QueryArtistByIdArgs;
 type Output = Artist;
@@ -20,6 +20,7 @@ export const getArtistById = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     const success: ApiSuccess<Output> = {

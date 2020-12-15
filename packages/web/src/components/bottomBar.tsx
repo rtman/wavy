@@ -5,6 +5,7 @@ import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { FunctionComponent } from 'react';
 import { useContextSelector } from 'use-context-selector';
+
 import { Flex } from './flex';
 import { Player } from './player';
 

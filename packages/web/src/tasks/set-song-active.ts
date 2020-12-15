@@ -1,8 +1,8 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-  ApiSuccess,
   ApiFail,
+  ApiSuccess,
   Mutation,
   MutationSetSongActiveArgs,
 } from 'types';
@@ -33,6 +33,7 @@ export const setSongActive = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     const success: ApiSuccess<Output> = {

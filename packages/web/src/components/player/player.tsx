@@ -6,19 +6,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
-import {
-  Mutation,
-  MutationUpdateSongPlayCountArgs,
-  MutationUserPlayedSongArgs,
-  Song,
-} from 'types';
 import { ProgressBar } from 'components';
-import { Flex, StyledButton } from 'components';
+import { Flex } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import * as helpers from 'helpers';
 import React, {
-  EventHandler,
   useCallback,
   useContext,
   useEffect,
@@ -26,6 +19,12 @@ import React, {
   useState,
 } from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  Mutation,
+  MutationUpdateSongPlayCountArgs,
+  MutationUserPlayedSongArgs,
+  Song,
+} from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 const useStyles = makeStyles(() =>
@@ -40,7 +39,6 @@ const useStyles = makeStyles(() =>
 );
 
 interface PlayerProps {
-  // src?: string;
   currentSong?: Song;
 }
 
@@ -48,21 +46,22 @@ const minimumPlayRatio = 0.2;
 const timeUpdateInterval = 100;
 const skipBackThresholdS = 5;
 
-let audio = new Audio();
+const audio = new Audio();
 
 export const Player = (props: PlayerProps) => {
   const { currentSong } = props;
 
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
-  // const pause = useContextSelector(PlayerContext, (values) => values?.pause);
-  // const unPause = useContextSelector(
-  //   PlayerContext,
-  //   (values) => values?.unPause
-  // );
-  // const playQueue = useContextSelector(
-  //   PlayerContext,
-  //   (values) => values?.playQueue
-  // );
+
+  const userInitiatedPlayback = useContextSelector(
+    PlayerContext,
+    (values) => values?.userInitiatedPlayback
+  );
+
+  const setUserInitiatedPlayback = useContextSelector(
+    PlayerContext,
+    (values) => values?.setUserInitiatedPlayback
+  );
   const playNextSongInQueue = useContextSelector(
     PlayerContext,
     (values) => values?.playNextSongInQueue
@@ -101,17 +100,14 @@ export const Player = (props: PlayerProps) => {
     },
   });
 
-  useEffect(() => {
-    if (currentSong) {
-      console.log('*debug* player currentSong', currentSong);
-      // audio.pause();
-      audio.src = currentSong.urlHigh;
-      // TODO: figure out how to switch songs without auto play
-      // audio.play();
-    }
-  }, [currentSong]);
-
   const mediaState = helpers.hooks.useFilteredMediaState(audio);
+
+  useEffect(() => {
+    if (currentSong && userInitiatedPlayback) {
+      audio.src = currentSong.urlHigh;
+      audio.play();
+    }
+  }, [currentSong, userInitiatedPlayback]);
 
   useEffect(() => {
     if (duration) {
@@ -183,6 +179,7 @@ export const Player = (props: PlayerProps) => {
   };
 
   const onClickPlay = useCallback(() => {
+    setUserInitiatedPlayback?.(true);
     audio.play();
   }, []);
 

@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
-import { ApiSuccess, ApiFail, Query, Tag } from 'types';
+import { ApiFail, ApiSuccess, Query, Tag } from 'types';
 
 export const TAGS = gql`
   query Tags {
@@ -23,6 +23,7 @@ export const getTags = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     const success: ApiSuccess<Output> = {

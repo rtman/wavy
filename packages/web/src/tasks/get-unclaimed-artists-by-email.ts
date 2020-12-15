@@ -1,11 +1,11 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-  ApiSuccess,
   ApiFail,
+  ApiSuccess,
+  Artist,
   Query,
   QueryGetUnclaimedArtistsArgs,
-  Artist,
 } from 'types';
 
 const GET_UNCLAIMED_ARTSITS = gql`
@@ -37,6 +37,7 @@ export const getUnclaimedArtists = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     const success: ApiSuccess<Output> = {

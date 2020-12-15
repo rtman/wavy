@@ -3,7 +3,6 @@ import smoothscroll from 'smoothscroll-polyfill';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
 import * as config from 'config';
-// import { ConnectedRouter } from 'connected-react-router';
 import { AuthProvider, UserProvider } from 'context';
 import * as firebase from 'firebase/app';
 import { createBrowserHistory } from 'history';

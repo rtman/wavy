@@ -50,9 +50,11 @@ export const ProgressBar = (props: ProgressBarProps) => {
       return '00:00';
     }
 
-    const duration = moment.duration(value, 'seconds').as('millisecond');
-    const formatted = moment.utc(duration).format('mm:ss');
-    return formatted;
+    const formattedDuration = moment
+      .utc(moment.duration(value, 'seconds').as('millisecond'))
+      .format('mm:ss');
+
+    return formattedDuration;
   };
 
   return (

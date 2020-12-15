@@ -3,30 +3,30 @@ import {
   Button,
   CircularProgress,
   Container,
-  Divider,
   FormControl,
   FormHelperText,
   Grid,
   IconButton,
   InputLabel,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
   MenuItem,
   Paper,
   Select,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
   TextField,
   Typography,
-  TableBody,
 } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
 import { Close } from '@material-ui/icons';
+import { Autocomplete } from '@material-ui/lab';
+import { UserContext } from 'context';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as tasks from 'tasks';
 import {
   Tag,
   UserSubscriptionEntity,
@@ -34,12 +34,6 @@ import {
   UserSubscriptionSortBy,
   UserSubscriptionType,
 } from 'types';
-import { Flex, Spacing } from 'components';
-import { UserContext } from 'context';
-import { useSnackbar } from 'notistack';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import * as tasks from 'tasks';
 
 interface NewSubscriptionForm {
   // entity: UserSubscriptionEntity | '';
@@ -67,6 +61,7 @@ export const ManageSubscriptions = () => {
         { userId: user?.id },
         apolloClient
       );
+
       setBusy(false);
 
       if (tagsResult.ok) {
@@ -119,6 +114,7 @@ export const ManageSubscriptions = () => {
         variant: 'info',
         autoHideDuration: 4000,
       });
+
       return;
     }
 
@@ -161,6 +157,7 @@ export const ManageSubscriptions = () => {
       { subscriptionId },
       apolloClient
     );
+
     if (result.ok) {
       await loadScreenData();
       enqueueSnackbar('Success! Subscription deleted', {

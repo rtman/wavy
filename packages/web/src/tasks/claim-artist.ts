@@ -1,9 +1,9 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-  Artist,
-  ApiSuccess,
   ApiFail,
+  ApiSuccess,
+  Artist,
   Mutation,
   MutationClaimArtistArgs,
 } from 'types';
@@ -38,11 +38,13 @@ export const claimArtist = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     // This error is pretty bad, need a way to forward error codes from graphql to here. Most likely will need a union type for the gql return type
     if (result?.data?.claimArtist === undefined) {
       const fail: ApiFail = { ok: false, error: 'An error occurred' };
+
       return fail;
     }
 

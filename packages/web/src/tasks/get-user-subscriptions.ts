@@ -1,8 +1,8 @@
 import { ApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-  ApiSuccess,
   ApiFail,
+  ApiSuccess,
   Query,
   QueryGetUserSubscriptionsArgs,
 } from 'types';
@@ -25,6 +25,7 @@ export const getUserSubscriptions = async (
 
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
+
       return fail;
     }
     const success: ApiSuccess<Output> = {

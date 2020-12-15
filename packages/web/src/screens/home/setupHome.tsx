@@ -8,6 +8,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import { UserContext } from 'context';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as tasks from 'tasks';
 import {
   MutationBulkNewUserSubscriptionArgs,
   Tag,
@@ -15,11 +20,6 @@ import {
   UserSubscriptionSortBy,
   UserSubscriptionType,
 } from 'types';
-import { UserContext } from 'context';
-import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import * as tasks from 'tasks';
 
 interface SetupHomeForm {
   tags: Tag[] | null;
@@ -38,6 +38,7 @@ export const SetupHome = () => {
   useEffect(() => {
     (async () => {
       const result = await tasks.getTags(apolloClient);
+
       setBusy(false);
 
       if (result.ok) {
@@ -65,7 +66,7 @@ export const SetupHome = () => {
     const resolvedSubscriptions: MutationBulkNewUserSubscriptionArgs['input'] = [];
 
     selectedTags.forEach((tag) => {
-      for (let sortBy in UserSubscriptionSortBy) {
+      for (const sortBy in UserSubscriptionSortBy) {
         const title = toTitleCase(
           `${sortBy} ${tag.title.toUpperCase()} ${UserSubscriptionEntity.Song}s`
         );
@@ -88,6 +89,7 @@ export const SetupHome = () => {
         variant: 'info',
         autoHideDuration: 4000,
       });
+
       return;
     }
 

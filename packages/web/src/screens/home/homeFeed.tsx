@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import {
   CircularProgress,
-  Container,
   Grid,
   IconButton,
   Typography,
@@ -13,20 +12,7 @@ import {
   Edit,
   KeyboardArrowLeft,
   KeyboardArrowRight,
-  Navigation,
 } from '@material-ui/icons';
-import {
-  Album,
-  Artist,
-  Label,
-  Playlist,
-  Query,
-  Song,
-  User,
-  UserSubscriptionData,
-  UserSubscriptionEntity,
-  UserSubscriptionResult,
-} from 'types';
 import {
   AlbumCard,
   ArtistCard,
@@ -48,6 +34,18 @@ import React, {
 import { useHistory } from 'react-router-dom';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
+import {
+  Album,
+  Artist,
+  Label,
+  Playlist,
+  Query,
+  Song,
+  User,
+  UserSubscriptionData,
+  UserSubscriptionEntity,
+  UserSubscriptionResult,
+} from 'types';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -395,6 +393,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         />
       );
     }
+
     case UserSubscriptionEntity.Artist: {
       const artistData = data as Artist;
 
@@ -406,6 +405,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         />
       );
     }
+
     case UserSubscriptionEntity.Label: {
       const labelData = data as Label;
 
@@ -417,6 +417,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         />
       );
     }
+
     case UserSubscriptionEntity.Playlist: {
       const playlistData = data as Playlist;
 
@@ -442,6 +443,7 @@ const makeCard = ({ data }: { data: UserSubscriptionData }) => {
         />
       );
     }
+
     case UserSubscriptionEntity.User: {
       const userData = data as User;
 
