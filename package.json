@@ -28,7 +28,7 @@
     "@react-native-community/eslint-plugin": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
-    "eslint": "7.15.0",
+    "eslint": "^6.8.0",
     "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -50,7 +50,7 @@
     "deleteClusters": "./scripts/deleteClusters.sh",
     "psContainer": "docker exec -it postgresql bash",
     "psTerminal": "psql -U groov -d groov",
-    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_module"
+    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules"
   },
   "dependencies": {
     "patch-package": "^6.2.0",
