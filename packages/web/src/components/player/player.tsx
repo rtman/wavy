@@ -45,7 +45,8 @@ interface PlayerProps {
 }
 
 const minimumPlayRatio = 0.2;
-const timeUpdateInterval = 50;
+const timeUpdateInterval = 100;
+const skipBackThresholdS = 5;
 
 let audio = new Audio();
 
@@ -105,13 +106,7 @@ export const Player = (props: PlayerProps) => {
       console.log('*debug* player currentSong', currentSong);
       // audio.pause();
       audio.src = currentSong.urlHigh;
-      audio.play();
-    }
-  }, [currentSong]);
-
-  useEffect(() => {
-    if (currentSong) {
-      console.log('*debug* player currentSong', currentSong);
+      // audio.play();
     }
   }, [currentSong]);
 
@@ -200,33 +195,40 @@ export const Player = (props: PlayerProps) => {
     }
   }, [mediaState, playNextSongInQueue]);
 
-  const setCurrentTimeFromSeek = (value: number) => {
+  const setCurrentTimeFromSeek = useCallback((value: number) => {
     audio.currentTime = value;
+  }, []);
+
+  const onClickPlayPrevious = () => {
+    if (currentTime < skipBackThresholdS) {
+      playPreviousSongInQueue?.();
+    } else {
+      setCurrentTimeFromSeek(0);
+    }
   };
 
   audio.ondurationchange = () => {
-    // const audio = event.target as HTMLAudioElement;
-    // if (audio) {
     setDuration(audio.duration);
-    // }
   };
 
-  audio.ontimeupdate = throttle(() => {
-    // const audio = event.target as HTMLAudioElement;
-    // if (audio) {
-    console.log(
-      '*debug* player ontimeupdate timeUpdateInterval',
-      timeUpdateInterval
-    );
-    if (!isSeeking) {
-      setCurrentTime(audio.currentTime);
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+
+  audio.ontimeupdate = () => {
+    if (timeout) {
+      return;
     }
-    // }
-  }, timeUpdateInterval);
+
+    timeout = setTimeout(() => {
+      if (!isSeeking) {
+        setCurrentTime(audio.currentTime);
+      }
+      timeout = undefined;
+    }, timeUpdateInterval);
+  };
 
   return (
     <Flex alignItems="center" fullWidth={true}>
-      <IconButton size="small" onClick={playPreviousSongInQueue}>
+      <IconButton size="small" onClick={onClickPlayPrevious}>
         <SkipPrevious />
       </IconButton>
 
@@ -275,21 +277,3 @@ export const Player = (props: PlayerProps) => {
     </Flex>
   );
 };
-
-// Helpers
-
-type throttleFunction<T> = (arg: T) => void;
-
-function throttle<K>(
-  func: throttleFunction<K>,
-  limit: number
-): throttleFunction<K> {
-  let inThrottle = false;
-  return (arg) => {
-    if (!inThrottle) {
-      func(arg);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
-}

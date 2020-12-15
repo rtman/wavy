@@ -1,12 +1,7 @@
-import { Typography } from '@material-ui/core';
-import { Flex, useTimer } from 'components';
-import { TrackPositionSlider } from 'components';
-import { PlayerContext } from 'context';
+import { Slider, Typography } from '@material-ui/core';
+import { Flex, Spacing } from 'components';
 import moment from 'moment';
-import React, { useContext, useEffect, useState } from 'react';
-import { useContextSelector } from 'use-context-selector';
-
-import { TimeText } from './styles';
+import React, { useEffect, useState } from 'react';
 
 interface ProgressBarProps {
   duration?: number;
@@ -31,7 +26,7 @@ export const ProgressBar = (props: ProgressBarProps) => {
     if (!isSeeking) {
       setPosition(currentTime ?? 0);
     }
-  });
+  }, [currentTime]);
 
   const onSeeking = (
     _event: React.ChangeEvent<{}>,
@@ -47,10 +42,7 @@ export const ProgressBar = (props: ProgressBarProps) => {
   ) => {
     setPosition(value as number);
     setCurrentTimeFromSeek(position);
-    // prevents jumping of seek position when committing
-    setTimeout(() => setIsSeeking(false), 10);
-
-    console.log('onSeekCommitted - value', value);
+    setIsSeeking(false);
   };
 
   const getFormattedTime = (value: number) => {
@@ -66,13 +58,15 @@ export const ProgressBar = (props: ProgressBarProps) => {
   return (
     <Flex alignItems="center" fullWidth={true} style={{ margin: '0px 8px' }}>
       <Typography variant="caption">{getFormattedTime(position)}</Typography>
-      <TrackPositionSlider
+      <Spacing.section.Minor />
+      <Slider
         min={0}
         max={duration}
         value={position}
         onChange={onSeeking}
         onChangeCommitted={onSeekCommitted}
       />
+      <Spacing.section.Minor />
       <Typography variant="caption">
         {getFormattedTime(duration ?? 0)}
       </Typography>

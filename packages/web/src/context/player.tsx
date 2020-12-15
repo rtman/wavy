@@ -142,16 +142,10 @@ export const PlayerProvider: FunctionComponent = (props) => {
   );
 
   const playPreviousSongInQueue = useCallback(() => {
-    if (audio.currentTime < 5) {
-      const position = queuePosition - 1;
-      if (queue && queue[position]) {
-        setCurrentSong(queue[position]);
-        setQueuePosition(position);
-      }
-    } else {
-      if (queue && queue[queuePosition]) {
-        setCurrentSong(queue[queuePosition]);
-      }
+    const position = queuePosition - 1;
+    if (queue && queue[position]) {
+      setCurrentSong(queue[position]);
+      setQueuePosition(position);
     }
   }, [queuePosition, queue]);
 

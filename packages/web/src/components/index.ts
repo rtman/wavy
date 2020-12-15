@@ -36,7 +36,6 @@ export * from './styledAvatar';
 export * from './styledButton';
 export * from './textInput';
 export * from './topBar';
-export * from './trackPositionSlider';
 export * from './uploader';
 export * from './useTimer';
 export * from './userCard';
