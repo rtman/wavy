@@ -1,9 +1,9 @@
 import { MenuItem } from '@material-ui/core';
-import { MenuPosition, Playlist, SongPlaylist } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MenuPosition, Playlist, SongPlaylist } from 'types';
 
 interface PlaylistMenuItemsProps {
   data: Playlist;
@@ -21,6 +21,7 @@ export const PlaylistMenuItems = (props: PlaylistMenuItemsProps) => {
     const songs = (data.songs ?? []).map(
       (songPlaylistInstance: SongPlaylist) => songPlaylistInstance.song
     );
+
     playerContext?.replaceQueueWithSongs(songs);
     closeMenu();
   };

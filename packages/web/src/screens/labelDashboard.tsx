@@ -16,7 +16,6 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IdParam, Query, QueryLabelByIdArgs, Song } from 'types';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
@@ -28,6 +27,7 @@ import React, {
   useState,
 } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { IdParam, Query, QueryLabelByIdArgs, Song } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -103,11 +103,13 @@ export const LabelDashboard = () => {
 
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
+
     labelAlbums.forEach((album) =>
       (album.songs ?? []).forEach((song) => {
         totalPlayCount += song.playCount;
       })
     );
+
     return totalPlayCount;
   }, [labelAlbums]);
 
@@ -128,6 +130,7 @@ export const LabelDashboard = () => {
           history.push(`${consts.routes.ARTIST_DASHBOARD}/${selectedId}`);
         }
         break;
+
       case 'Label':
         if (
           location.pathname !== `${consts.routes.LABEL_DASHBOARD}/${selectedId}`
@@ -182,6 +185,7 @@ export const LabelDashboard = () => {
           </Fragment>
         );
       });
+
       return (
         <>
           <Grid item={true} xs={12}>

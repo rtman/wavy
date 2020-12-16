@@ -1,10 +1,10 @@
 import { MenuItem } from '@material-ui/core';
-import { IdParam, MenuPosition, Song } from 'types';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { IdParam, MenuPosition, Song } from 'types';
 
 interface SongMenuItemsProps {
   data: Song;
@@ -82,6 +82,7 @@ export const SongMenuItems = (props: SongMenuItemsProps) => {
   const renderPlaylists = () => {
     const playlistList = userContext?.playlists?.map((playlistInstance) => {
       const playlist = playlistInstance.playlist;
+
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
           {playlist.title}

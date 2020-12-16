@@ -12,11 +12,11 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { UserArtist, UserLabel } from 'types';
 import { ArtistListItem, LabelListItem, Spacing } from 'components';
 import { UserContext } from 'context';
 import React, { Fragment, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { UserArtist, UserLabel } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,6 +77,7 @@ export const Dashboard = () => {
           );
         }
       );
+
       return (
         <>
           <Grid item={true} xs={12}>
@@ -89,6 +90,7 @@ export const Dashboard = () => {
         </>
       );
     }
+
     return null;
   };
 
@@ -117,6 +119,7 @@ export const Dashboard = () => {
           </Fragment>
         );
       });
+
       return (
         <>
           <Grid item={true} xs={12}>
@@ -128,6 +131,7 @@ export const Dashboard = () => {
         </>
       );
     }
+
     return null;
   };
 

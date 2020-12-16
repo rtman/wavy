@@ -11,9 +11,9 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { Block, MoreVert } from '@material-ui/icons';
-import { BaseListItemProps, MenuPosition } from 'types';
 import { Flex, Spacing } from 'components';
 import React, { useCallback } from 'react';
+import { BaseListItemProps, MenuPosition } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

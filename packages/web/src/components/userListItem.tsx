@@ -1,5 +1,5 @@
-import { BaseListItemProps, MenuPosition, User } from 'types';
 import React, { useCallback, useState } from 'react';
+import { BaseListItemProps, MenuPosition, User } from 'types';
 
 import { BaseListItem } from './baseListItem';
 import { UserMenuItems } from './userMenuItems';

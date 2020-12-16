@@ -1,10 +1,10 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { Album, MenuPosition } from 'types';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { memo, useContext, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Album, MenuPosition } from 'types';
 
 interface AlbumMenuItems {
   data: Album;
@@ -36,12 +36,14 @@ export const AlbumMenuItems = memo((props: AlbumMenuItems) => {
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const songIds = (data.songs ?? []).map((s) => s.id);
+
     userContext?.addSongsToPlaylist(playlistId, songIds);
   };
 
   const renderPlaylists = () => {
     const playlistList = userContext?.playlists?.map((playlistInstance) => {
       const playlist = playlistInstance.playlist;
+
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
           {playlist.title}

@@ -1,6 +1,6 @@
-import { BaseListItemProps, MenuPosition, Playlist, SongPlaylist } from 'types';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useContext, useState } from 'react';
+import { BaseListItemProps, MenuPosition, Playlist, SongPlaylist } from 'types';
 
 import { BaseListItem } from './baseListItem';
 import { PlaylistMenuItems } from './playlistMenuItems';
@@ -28,6 +28,7 @@ export const PlaylistListItem = (props: PlaylistListItemProps) => {
     const songs = (data.songs ?? []).map(
       (songPlaylistInstance: SongPlaylist) => songPlaylistInstance.song
     );
+
     playerContext?.replaceQueueWithSongs(songs);
     closeMenu();
   };

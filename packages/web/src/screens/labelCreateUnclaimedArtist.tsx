@@ -8,11 +8,6 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import {
-  IdParam,
-  Mutation,
-  MutationLabelCreateUnclaimedArtistArgs,
-} from 'types';
 import { Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
@@ -20,6 +15,11 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
+import {
+  IdParam,
+  Mutation,
+  MutationLabelCreateUnclaimedArtistArgs,
+} from 'types';
 
 interface CreateUnclaimedArtistForm {
   email: string;

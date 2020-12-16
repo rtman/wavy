@@ -1,9 +1,9 @@
 import { MenuItem } from '@material-ui/core';
-import { Artist, MenuPosition, UpdateFollowingType } from 'types';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Artist, MenuPosition, UpdateFollowingType } from 'types';
 
 interface ArtistMenuItemsProps {
   data: Artist;

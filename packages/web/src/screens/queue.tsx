@@ -11,11 +11,11 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { Query, QuerySongsByIdArgs, Song } from 'types';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Query, QuerySongsByIdArgs, Song } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,6 +50,7 @@ export const Queue = () => {
 
   useEffect(() => {
     const songIds_: string[] = [];
+
     console.log('queue', queue);
 
     if (queue) {
@@ -73,6 +74,7 @@ export const Queue = () => {
   const renderSongs = () => {
     if (songs.length > 0) {
       const sortedSongs: Song[] = [];
+
       songs.forEach((s) => {
         sortedSongs[songIds.indexOf(s.id)] = s;
       });

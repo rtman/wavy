@@ -56,6 +56,7 @@ export const useFilteredMediaState = (audio: HTMLAudioElement) => {
         setCurrentState(event.type);
       }
     };
+
     addListenerMulti(audio, events, callback);
 
     return () => removeListenerMulti(audio, events, callback);

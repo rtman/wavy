@@ -1,9 +1,9 @@
-import { Label, MenuPosition } from 'types';
-import { BaseListItemProps } from 'types';
 import { BaseListItem } from 'components';
 import * as consts from 'consts';
 import React, { CSSProperties, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Label, MenuPosition } from 'types';
+import { BaseListItemProps } from 'types';
 
 import { LabelMenuItems } from './labelMenuItems';
 

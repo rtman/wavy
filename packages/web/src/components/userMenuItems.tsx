@@ -1,6 +1,6 @@
 import { MenuItem } from '@material-ui/core';
-import { MenuPosition, User } from 'types';
 import React from 'react';
+import { MenuPosition, User } from 'types';
 
 interface UserMenuItemsProps {
   data: User;

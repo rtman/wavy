@@ -11,9 +11,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowUpward, MoreVert, PlayArrow } from '@material-ui/icons';
-import { BaseCardProps, MenuPosition } from 'types';
 import { Flex, Spacing } from 'components';
 import React, { memo, useCallback, useState } from 'react';
+import { BaseCardProps, MenuPosition } from 'types';
 
 const defaultWidth = 200;
 
@@ -204,7 +204,7 @@ export const BaseCard = memo(
                 </Typography>
               ) : null}
             </Flex>
-            {/* 
+            {/*
               <IconButton
                 aria-controls="simple-menu"
                 aria-haspopup="true"

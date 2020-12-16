@@ -1,5 +1,4 @@
 // import './wdyr';
-import smoothscroll from 'smoothscroll-polyfill';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
 import * as config from 'config';
@@ -12,6 +11,7 @@ import Helmet from 'react-helmet';
 import { BrowserRouter } from 'react-router-dom';
 // import * as helpers from 'helpers';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import smoothscroll from 'smoothscroll-polyfill';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';

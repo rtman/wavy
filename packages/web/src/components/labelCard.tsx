@@ -1,8 +1,8 @@
-import { BaseCardProps, Label, MenuPosition } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { BaseCardProps, Label, MenuPosition } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 import { BaseCard } from './baseCard';
@@ -41,6 +41,7 @@ export const LabelCard = (props: LabelCardProps) => {
       const songs = (albums ?? []).map((album) =>
         (album.songs ?? []).reduce((song) => song)
       );
+
       replaceQueueWithSongs(songs);
     }
   }, [albums, replaceQueueWithSongs]);

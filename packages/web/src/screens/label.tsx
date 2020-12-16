@@ -17,14 +17,6 @@ import {
 } from '@material-ui/core';
 import { AccountBox } from '@material-ui/icons';
 import {
-  Album,
-  IdParam,
-  Query,
-  QueryLabelByIdArgs,
-  Song,
-  UpdateFollowingType,
-} from 'types';
-import {
   AlbumListItem,
   ArtistListItem,
   Flex,
@@ -35,6 +27,14 @@ import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  Album,
+  IdParam,
+  Query,
+  QueryLabelByIdArgs,
+  Song,
+  UpdateFollowingType,
+} from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -108,6 +108,7 @@ export const Label = () => {
     if (labelArtists.length > 0) {
       const artistsList = labelArtists.map((artistInstance, index: number) => {
         const artist = artistInstance.artist;
+
         return (
           <Fragment key={artist.id}>
             <ArtistListItem
@@ -127,6 +128,7 @@ export const Label = () => {
           </Fragment>
         );
       });
+
       return (
         <>
           <Grid item={true} xs={12}>
@@ -188,6 +190,7 @@ export const Label = () => {
           </Fragment>
         );
       });
+
       return (
         <>
           <Grid item={true} xs={12}>

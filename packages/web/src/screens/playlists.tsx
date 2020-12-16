@@ -18,17 +18,17 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
+import { Flex, PlaylistListItem, Spacing } from 'components';
+import * as consts from 'consts';
+import { UserContext } from 'context';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Mutation,
   MutationCreatePlaylistArgs,
   Query,
   QueryPlaylistsByUserIdArgs,
 } from 'types';
-import { Flex, PlaylistListItem, Spacing } from 'components';
-import * as consts from 'consts';
-import { UserContext } from 'context';
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -117,6 +117,7 @@ export const Playlists = () => {
           </React.Fragment>
         );
       });
+
       return <List className={classes.list}>{playlistsList}</List>;
     } else {
       return null;

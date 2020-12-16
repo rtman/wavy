@@ -15,15 +15,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import {
-  Album,
-  Artist,
-  Label,
-  Playlist,
-  Query,
-  QuerySearchAllArgs,
-  Song,
-} from 'types';
-import {
   AlbumListItem,
   ArtistListItem,
   LabelListItem,
@@ -34,6 +25,15 @@ import * as consts from 'consts';
 import { SearchContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  Album,
+  Artist,
+  Label,
+  Playlist,
+  Query,
+  QuerySearchAllArgs,
+  Song,
+} from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,8 +115,10 @@ export const Search = () => {
           {index < searchResults.songs.length - 1 ? <Divider /> : null}
         </Fragment>
       ));
+
       return <List className={classes.list}>{songsList}</List>;
     }
+
     return null;
   };
 
@@ -142,8 +144,10 @@ export const Search = () => {
           </Fragment>
         )
       );
+
       return <List className={classes.list}>{artistList}</List>;
     }
+
     return null;
   };
 
@@ -172,8 +176,10 @@ export const Search = () => {
           </Fragment>
         )
       );
+
       return <List className={classes.list}>{albumList}</List>;
     }
+
     return null;
   };
 
@@ -202,8 +208,10 @@ export const Search = () => {
           </Fragment>
         )
       );
+
       return <List className={classes.list}>{playlistList}</List>;
     }
+
     return null;
   };
 
@@ -229,8 +237,10 @@ export const Search = () => {
           </Fragment>
         )
       );
+
       return <List className={classes.list}>{labelList}</List>;
     }
+
     return null;
   };
 
@@ -242,14 +252,19 @@ export const Search = () => {
     switch (currentTab) {
       case 'songs':
         return renderSongResults();
+
       case 'artists':
         return renderArtistResults();
+
       case 'albums':
         return renderAlbumResults();
+
       case 'playlists':
         return renderPlaylistResults();
+
       case 'labels':
         return renderLabelsResults();
+
       default:
         return renderSongResults();
     }

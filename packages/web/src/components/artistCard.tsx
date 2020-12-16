@@ -1,8 +1,8 @@
-import { Artist, BaseCardProps, MenuPosition, Song } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Artist, BaseCardProps, MenuPosition, Song } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 import { ArtistMenuItems } from './artistMenuItems';
@@ -40,6 +40,7 @@ export const ArtistCard = (props: ArtistCardProps) => {
   const onClickPlay = useCallback(() => {
     if (replaceQueueWithSongs) {
       const songs: Song[] = [];
+
       (albums ?? []).forEach((album) => {
         (album.songs ?? []).forEach((song) => songs.push(song));
       });

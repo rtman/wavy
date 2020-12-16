@@ -43,6 +43,7 @@ export const Favourites = () => {
       const songsList = songFavourites.map(
         (favouriteInstance, index: number) => {
           const song = favouriteInstance.song;
+
           return (
             <Fragment key={song.id}>
               <SongListItem
@@ -66,6 +67,7 @@ export const Favourites = () => {
           );
         }
       );
+
       return <List className={classes.list}>{songsList}</List>;
     } else {
       return null;

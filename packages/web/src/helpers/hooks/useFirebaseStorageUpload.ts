@@ -1,7 +1,7 @@
-import { UploadStatus } from 'types';
 import * as firebase from 'firebase';
 // import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
+import { UploadStatus } from 'types';
 
 export interface UseFirebaseStorageUploadInputProps {
   rootDir?: string;
@@ -42,6 +42,7 @@ export const useFirebaseStorageUpload = (
         const storageRef = firebase.storage().ref();
 
         let storagePath = '';
+
         rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
         parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
         childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
@@ -129,11 +130,13 @@ export const useFirebaseStorageUpload = (
                 task: uploadTask,
               });
             };
+
             uploadComplete();
           }
         );
       }
     };
+
     if (file) {
       uploadFile();
     }

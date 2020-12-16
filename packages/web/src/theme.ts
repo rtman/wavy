@@ -197,6 +197,7 @@ export const makeTheme = () => {
     main: '#3e5aae',
     light: '#3e5aae',
   };
+
   output.palette.emphasizedAction = darkBlue;
   output.palette.heroText = darkBlue;
   output.palette.positiveAction = {

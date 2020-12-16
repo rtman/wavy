@@ -52,6 +52,7 @@ export const useMediaState = (audio: HTMLAudioElement) => {
     const callback = (event: Event) => {
       setCurrentState(event.type);
     };
+
     addListenerMulti(audio, events, callback);
 
     return () => removeListenerMulti(audio, events, callback);

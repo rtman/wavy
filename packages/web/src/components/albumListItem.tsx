@@ -1,4 +1,3 @@
-import { Album, BaseListItemProps, MenuPosition } from 'types';
 import { BaseListItem } from 'components';
 import { PlayerContext } from 'context';
 import React, {
@@ -8,6 +7,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { Album, BaseListItemProps, MenuPosition } from 'types';
 
 import { AlbumMenuItems } from './albumMenuItems';
 

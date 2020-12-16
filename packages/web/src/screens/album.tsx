@@ -12,6 +12,11 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { AccountBox } from '@material-ui/icons';
+import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
+import * as consts from 'consts';
+import { PlayerContext } from 'context';
+import React, { useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import {
   Album as AlbumType,
   IdParam,
@@ -19,11 +24,6 @@ import {
   QueryAlbumByIdArgs,
   Song,
 } from 'types';
-import { AlbumCard, Flex, SongListItem, Spacing } from 'components';
-import * as consts from 'consts';
-import { PlayerContext } from 'context';
-import React, { useContext, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   clickableText: {
@@ -110,6 +110,7 @@ export const Album = () => {
           </React.Fragment>
         );
       });
+
       return (
         <>
           {' '}
@@ -142,6 +143,7 @@ export const Album = () => {
           image={album.profileImageUrlThumb ?? undefined}
         />
       ));
+
       return (
         <>
           <Grid item={true} xs={12}>

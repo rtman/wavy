@@ -1,9 +1,9 @@
-import { Album, BaseCardProps, MenuPosition } from 'types';
 import { BaseCard } from 'components';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, memo, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Album, BaseCardProps, MenuPosition } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 import { AlbumMenuItems } from './albumMenuItems';

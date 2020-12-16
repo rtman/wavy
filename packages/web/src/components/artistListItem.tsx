@@ -1,9 +1,9 @@
-import { Artist, MenuPosition } from 'types';
-import { BaseListItemProps } from 'types';
 import { BaseListItem } from 'components';
 import * as consts from 'consts';
 import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Artist, MenuPosition } from 'types';
+import { BaseListItemProps } from 'types';
 
 import { ArtistMenuItems } from './artistMenuItems';
 

@@ -21,6 +21,12 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { AccountBox } from '@material-ui/icons';
+import { Flex, SongListItem, Spacing } from 'components';
+import * as consts from 'consts';
+import { playlist } from 'consts/mutations';
+import { PlayerContext, UserContext } from 'context';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Mutation,
   MutationUpdatePlaylistInfoArgs,
@@ -29,12 +35,6 @@ import {
   SongPlaylist,
 } from 'types';
 import { IdParam } from 'types';
-import { Flex, SongListItem, Spacing } from 'components';
-import * as consts from 'consts';
-import { playlist } from 'consts/mutations';
-import { PlayerContext, UserContext } from 'context';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,6 +126,7 @@ export const Playlist = () => {
       const songsList = playlistSongs.map(
         (songInstance: SongPlaylist, index: number) => {
           const song = songInstance.song;
+
           return (
             <Fragment key={song.id}>
               <SongListItem
@@ -148,6 +149,7 @@ export const Playlist = () => {
           );
         }
       );
+
       return (
         <>
           <Grid item={true} xs={12}>

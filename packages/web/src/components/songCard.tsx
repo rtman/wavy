@@ -1,8 +1,8 @@
-import { BaseCardProps, MenuPosition, Song } from 'types';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { CSSProperties, memo, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { BaseCardProps, MenuPosition, Song } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 import { BaseCard } from './baseCard';

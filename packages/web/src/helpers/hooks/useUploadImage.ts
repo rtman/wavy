@@ -30,6 +30,7 @@ export const useUploadImage = () => {
       const storageRef = firebase.storage().ref();
 
       let storagePath = '';
+
       rootDir ? (storagePath += `${rootDir}/`) : (storagePath += '');
       parentDir ? (storagePath += `${parentDir}/`) : (storagePath += '');
       childDir ? (storagePath += `${childDir}/`) : (storagePath += '');
@@ -56,6 +57,7 @@ export const useUploadImage = () => {
           variant: 'error',
           autoHideDuration: 4000,
         });
+
         return { ok: false };
       }
     } else {

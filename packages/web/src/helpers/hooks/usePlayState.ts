@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export const usePlayState = (audio: HTMLAudioElement) => {
   const [latchedState, setLatchedState] = useState<string | null>(null);
+
   console.log('usePlayState start');
 
   const events: string[] = [
@@ -97,6 +98,7 @@ export const usePlayState = (audio: HTMLAudioElement) => {
     const callback = (event: Event) => {
       setLatchedState(filterStates(event.type));
     };
+
     addListenerMulti(audio, events, callback);
 
     return () => removeListenerMulti(audio, events, callback);

@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Typography } from '@material-ui/core';
-import { IdParam, Query } from 'types';
 import { AlbumForm, Spacing } from 'components';
 import * as consts from 'consts';
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { IdParam, Query } from 'types';
 import { uuid } from 'uuidv4';
 
 export const LabelCreateRelease = () => {

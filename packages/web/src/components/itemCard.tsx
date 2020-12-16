@@ -11,13 +11,13 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MoreVert } from '@material-ui/icons';
-import { Album, Artist, Label, Playlist, Song, User } from 'types';
 import { Flex, Spacing, StyledButton } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Album, Artist, Label, Playlist, Song, User } from 'types';
 
 type Item = Album | Artist | Label | Playlist | Song;
 interface ItemCardProps {
@@ -86,6 +86,7 @@ export const ItemCard = (props: ItemCardProps) => {
     ) {
       return item.profileImageUrlThumb ?? undefined;
     }
+
     return '';
   };
 
@@ -103,6 +104,7 @@ export const ItemCard = (props: ItemCardProps) => {
     if (item.__typename === 'Song') {
       return [item];
     }
+
     return [];
   };
 
@@ -143,12 +145,14 @@ export const ItemCard = (props: ItemCardProps) => {
 
   const onClickAddToPlaylist = (playlistId: string) => () => {
     const ids = getSongs().map((s) => s.id);
+
     userContext?.addSongsToPlaylist(playlistId, ids);
   };
 
   const renderPlaylists = () => {
     const playlistList = userContext?.playlists?.map((playlistInstance) => {
       const playlist = playlistInstance.playlist;
+
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
           {playlist.title}

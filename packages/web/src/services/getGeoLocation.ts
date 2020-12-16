@@ -26,10 +26,12 @@ export const getGeoLocation = async (ipAddress: string) => {
 
     if (response) {
       const body: IpIfyGeoLocationResponse = await response.json();
+
       if (body.location) {
         return { ok: true, data: body.location };
       }
     }
+
     return { ok: false, data: undefined };
   } catch (error) {
     return { ok: false, data: undefined, error };

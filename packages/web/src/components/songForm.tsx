@@ -1,11 +1,11 @@
 import { Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
-import { Artist, ArtistAutocomplete, SongFields } from 'types';
 import { Flex, Spacing } from 'components';
 import { CreateAlbumContext } from 'context';
 import React, { memo } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
+import { Artist, ArtistAutocomplete, SongFields } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 interface SongUploadFormProps {
@@ -140,6 +140,7 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                 const albumArtist: Artist | null = formContext.getValues(
                   'album.artist'
                 );
+
                 if (albumArtist) {
                   const supportingArtistEqualsAlbumArtist = value.find(
                     (supportingArtist) => supportingArtist.id === albumArtist.id

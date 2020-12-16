@@ -1,6 +1,6 @@
-import { BaseCardProps, MenuPosition, User } from 'types';
 // import { PlayerContext } from 'context';
 import React, { CSSProperties, useCallback, useState } from 'react';
+import { BaseCardProps, MenuPosition, User } from 'types';
 
 import { BaseCard } from './baseCard';
 import { UserMenuItems } from './userMenuItems';

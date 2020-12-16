@@ -35,6 +35,7 @@ export const Following = () => {
   const classes = useStyles();
 
   const user = userContext?.user;
+
   console.log('user', user);
   const following = userContext?.user?.artistFollows ?? [];
 
@@ -42,6 +43,7 @@ export const Following = () => {
     if (following.length > 0) {
       const artistList = following.map((followingInstance, index: number) => {
         const artist = followingInstance.artist;
+
         return (
           <Fragment key={artist.id}>
             <ArtistListItem
@@ -61,6 +63,7 @@ export const Following = () => {
           </Fragment>
         );
       });
+
       return <List className={classes.list}>{artistList}</List>;
     } else {
       return null;
