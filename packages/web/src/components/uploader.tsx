@@ -1,8 +1,8 @@
 import { LinearProgress, makeStyles } from '@material-ui/core';
-import { SongForUpload } from 'types';
 import { CreateAlbumContext } from 'context';
 import * as helpers from 'helpers';
 import React, { memo, useEffect } from 'react';
+import { SongForUpload } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 interface UploaderProps {
@@ -42,6 +42,7 @@ export const Uploader = memo((props: UploaderProps) => {
   useEffect(() => {
     if (updateAllUploadStatuses && uploadStatuses) {
       const clonedUploadStatuses = [...uploadStatuses];
+
       clonedUploadStatuses[index] = uploadStatus;
       updateAllUploadStatuses(clonedUploadStatuses);
     }

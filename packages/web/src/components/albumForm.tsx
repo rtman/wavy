@@ -11,7 +11,6 @@ import {
 import { makeStyles, WithTheme } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { Artist, ArtistAutocomplete, NewAlbumForm, SongFields } from 'types';
 import {
   FileUploadButton,
   Flex,
@@ -19,7 +18,8 @@ import {
   Spacing,
   Uploader,
 } from 'components';
-import { CreateAlbumContext, CreateAlbumProvider, UserContext } from 'context';
+import * as consts from 'consts';
+import { CreateAlbumContext } from 'context';
 import * as helpers from 'helpers';
 import moment from 'moment';
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
@@ -32,6 +32,7 @@ import {
 } from 'react-hook-form';
 import ImageUploader from 'react-images-upload';
 import styled, { CSSObject } from 'styled-components';
+import { Artist, ArtistAutocomplete, NewAlbumForm, SongFields } from 'types';
 import { useContextSelector } from 'use-context-selector';
 
 interface CreateAlbumFormProps {
@@ -85,7 +86,10 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
   );
 
   const theme = useTheme();
-  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage({
+    minHeight: consts.image.minHeight,
+    minWidth: consts.image.minWidth,
+  });
 
   const { artists, creatorId, isLabel, releaseId } = props;
 
@@ -126,6 +130,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     if ((acceptedFiles ?? []).length > 0) {
       console.log('*debug* albumForm useEffect');
       const songs = initForm?.(defaultFormValues);
+
       resetHookForm({ songs });
     }
   }, [acceptedFiles, resetHookForm, defaultFormValues, initForm]);
@@ -143,6 +148,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
     fileRejected: FileRejection[]
   ) => {
     const result = addSong?.(fileAccepted, fileRejected);
+
     if (result !== undefined) {
       appendToFieldArray({ title: result });
     }
@@ -195,10 +201,11 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                 withIcon={true}
                 buttonText="Select Image"
                 onChange={onDrop}
-                imgExtension={['.jpg', '.png', 'jpeg']}
-                maxFileSize={5242880}
+                imgExtension={consts.image.allowedFormats}
+                maxFileSize={consts.image.maxFileSize}
                 singleImage={true}
                 style={{ width: undefined }}
+                label={consts.image.uploadRequirementsLabel}
               />
             )}
           </Grid>

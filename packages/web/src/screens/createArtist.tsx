@@ -6,7 +6,6 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Mutation, MutationCreateArtistArgs } from 'types';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
@@ -15,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
+import { Mutation, MutationCreateArtistArgs } from 'types';
 import { uuid } from 'uuidv4';
 
 export const CreateArtist = () => {
@@ -25,7 +25,10 @@ export const CreateArtist = () => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
-  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage();
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage({
+    minHeight: consts.image.minHeight,
+    minWidth: consts.image.minWidth,
+  });
   const { uploadImage } = helpers.hooks.useUploadImage();
 
   const { user } = userContext ?? {};
@@ -107,9 +110,10 @@ export const CreateArtist = () => {
           withIcon={true}
           buttonText="Select Image"
           onChange={onDrop}
-          imgExtension={['.jpg', '.png', 'jpeg']}
-          maxFileSize={5242880}
+          imgExtension={consts.image.allowedFormats}
+          maxFileSize={consts.image.maxFileSize}
           singleImage={true}
+          label={consts.image.uploadRequirementsLabel}
         />
       )}
       <TextField

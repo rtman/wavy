@@ -1,14 +1,4 @@
 import { useMutation } from '@apollo/client';
-import {
-  Mutation,
-  MutationAddSongsToAlbumArgs,
-  MutationCreateAlbumArgs,
-  NewAlbumForm,
-  NewSongArgs,
-  SongFields,
-  SongForUpload,
-  UploadStatus,
-} from 'types';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import * as helpers from 'helpers';
@@ -26,6 +16,16 @@ import {
   useDropzone,
 } from 'react-dropzone';
 import { useHistory } from 'react-router-dom';
+import {
+  Mutation,
+  MutationAddSongsToAlbumArgs,
+  MutationCreateAlbumArgs,
+  NewAlbumForm,
+  NewSongArgs,
+  SongFields,
+  SongForUpload,
+  UploadStatus,
+} from 'types';
 import { createContext } from 'use-context-selector';
 
 interface SubmitAlbumProps {
@@ -153,6 +153,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         });
 
       setSongsForUpload(makeSongsForUpload());
+
       return makeFormFromDropzone();
     },
     [acceptedFiles]
@@ -172,10 +173,12 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         }
 
         const resolvedSongsForUpload = [...songsForUpload];
+
         resolvedSongsForUpload.splice(index, 1);
         setSongsForUpload(resolvedSongsForUpload);
 
         const resolvedUploadStatuses = [...uploadStatuses];
+
         resolvedUploadStatuses.splice(index, 1);
 
         updateAllUploadStatuses(resolvedUploadStatuses);
@@ -193,12 +196,14 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         variant: 'error',
         autoHideDuration: 4000,
       });
+
       return;
     }
     if (fileAccepted.length > 0 && songsForUpload) {
       const newFile = fileAccepted[0];
       const resolvedSongsForUpload = [...songsForUpload];
       let title = newFile.name.trim();
+
       if (newFile.name.lastIndexOf('.') !== -1) {
         title = newFile.name.substring(0, newFile.name.lastIndexOf('.')).trim();
       }
@@ -207,8 +212,10 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         file: newFile,
       });
       setSongsForUpload(resolvedSongsForUpload);
+
       return title;
     }
+
     return;
   };
 
@@ -221,6 +228,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         variant: 'warning',
         autoHideDuration: 4000,
       });
+
       return;
     }
 
@@ -268,8 +276,10 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
       });
 
       const userName = `${userContext?.user?.firstName} ${userContext?.user?.lastName}`;
+
       if (result.ok && resolvedSongsForUpload.length > 0) {
         const { artist, ...album } = data.album;
+
         await createAlbum({
           variables: {
             input: {

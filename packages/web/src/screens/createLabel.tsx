@@ -6,22 +6,21 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { Mutation, MutationCreateLabelArgs } from 'types';
 import { Flex, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
 import * as firebase from 'firebase';
+import * as helpers from 'helpers';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import { useHistory } from 'react-router-dom';
+import { Mutation, MutationCreateLabelArgs } from 'types';
 import { uuid } from 'uuidv4';
 
 export const CreateLabel = () => {
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [image, setImage] = useState<string>('');
-  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
 
   const userContext = useContext(UserContext);
   const history = useHistory();
@@ -29,6 +28,11 @@ export const CreateLabel = () => {
 
   const { user } = userContext ?? {};
   const { id: userId } = user ?? {};
+
+  const { onDrop, image, imageFile } = helpers.hooks.useOnDropImage({
+    minHeight: consts.image.minHeight,
+    minWidth: consts.image.minWidth,
+  });
 
   const [createLabel, { loading, called, error }] = useMutation<
     Pick<Mutation, 'createLabel'>,
@@ -70,7 +74,6 @@ export const CreateLabel = () => {
     const labelId = uuid();
 
     let fullStoragePath = '';
-    let downloadUrl = '';
     const fileExtension = imageFile?.name.split('.').splice(-1)[0];
 
     if (imageFile) {
@@ -81,13 +84,14 @@ export const CreateLabel = () => {
       const snapshot = await labelImageRef.put(imageFile);
 
       if (snapshot) {
-        downloadUrl = await labelImageRef.getDownloadURL();
+        await labelImageRef.getDownloadURL();
         fullStoragePath = labelImageRef.toString();
       } else {
         enqueueSnackbar('Error! Image upload failed', {
           variant: 'error',
           autoHideDuration: 4000,
         });
+
         return;
       }
     }
@@ -107,29 +111,6 @@ export const CreateLabel = () => {
     }
   };
 
-  const onDrop = (files: File[], images: string[]) => {
-    const imageForUpload = images[0];
-    const fileForUpload = files[0];
-
-    const img = new Image();
-    img.src = imageForUpload;
-
-    img.onload = () => {
-      const width = img.naturalWidth;
-      const height = img.naturalHeight;
-
-      if (width > 500 && height > 500) {
-        setImage(imageForUpload);
-        setImageFile(fileForUpload);
-      } else {
-        enqueueSnackbar('Error! Image is too small', {
-          variant: 'error',
-          autoHideDuration: 4000,
-        });
-      }
-    };
-  };
-
   return (
     <Container maxWidth={false}>
       <Spacing.section.Minor />
@@ -142,9 +123,10 @@ export const CreateLabel = () => {
           withIcon={true}
           buttonText="Select Image"
           onChange={onDrop}
-          imgExtension={['.jpg', '.png', 'jpeg']}
-          maxFileSize={5242880}
+          imgExtension={consts.image.allowedFormats}
+          maxFileSize={consts.image.maxFileSize}
           singleImage={true}
+          label={consts.image.uploadRequirementsLabel}
         />
       )}
       <TextField
