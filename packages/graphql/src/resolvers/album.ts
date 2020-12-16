@@ -101,10 +101,12 @@ export class AlbumResolvers {
         return albums;
       } else {
         console.log('No albums found');
+
         return;
       }
     } catch (error) {
       console.log('Find albums error', error);
+
       return;
     }
   }
@@ -135,11 +137,14 @@ export class AlbumResolvers {
 
       if (album === undefined) {
         console.log('Album not found', albumId);
+
         return;
       }
+
       return album;
     } catch (error) {
       console.log('albumById error', error);
+
       return;
     }
   }
@@ -167,6 +172,7 @@ export class AlbumResolvers {
       }
 
       console.log('searchAlbums query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchAlbums error', error);
@@ -192,6 +198,7 @@ export class AlbumResolvers {
 
       if (artistId === undefined) {
         console.log('artistId is undefined');
+
         return;
       }
 
@@ -214,13 +221,16 @@ export class AlbumResolvers {
 
         if (!processImageResult.ok) {
           console.log('processing Image failed', processImageResult);
+
           return;
         }
 
         let active = true;
+
         // Various artists id
         if (artistId !== '0b600e0a-96d0-4ec0-bc94-2587a6b3507a') {
           const artist = await artistRepository.findOne(artistId);
+
           active = artist?.claimed ?? false;
         }
 
@@ -260,6 +270,7 @@ export class AlbumResolvers {
       }
     } catch (error) {
       console.log('createAlbum error', error);
+
       return;
     }
   }
@@ -303,6 +314,7 @@ export class AlbumResolvers {
 
         if (failures) {
           console.log('There was a failure in the audio processing', failures);
+
           return false;
         }
 
@@ -350,6 +362,7 @@ export class AlbumResolvers {
         const resolvedSongsToAdd = await Promise.all(
           resolvedSongsToAddPromises
         );
+
         console.log('resolvedSongsToAdd', resolvedSongsToAdd);
 
         await songRepository.insert(resolvedSongsToAdd);
@@ -369,6 +382,7 @@ export class AlbumResolvers {
       return false;
     } catch (error) {
       console.log('addSongsToAlbum error', error);
+
       return false;
     }
   }
@@ -385,6 +399,7 @@ export class AlbumResolvers {
       return true;
     } catch (error) {
       console.log('createAlbum error', error);
+
       return false;
     }
   }
@@ -398,15 +413,19 @@ export class AlbumResolvers {
       const albumToDelete = await repository.findOne({
         where: { id: albumId },
       });
+
       if (albumToDelete) {
         await repository.remove(albumToDelete);
+
         return true;
       } else {
         console.log('deleteAlbum - User not found');
+
         return false;
       }
     } catch (error) {
       console.log('deleteAlbum error', error);
+
       return false;
     }
   }

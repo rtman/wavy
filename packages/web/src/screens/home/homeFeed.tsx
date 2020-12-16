@@ -268,20 +268,6 @@ const RenderSection = ({
   const onClickRight = useCallback(() => {
     let positionToScrollTo = 0;
 
-    // console.log(
-    //   '*debug* outerRef.current?.scrollLeft',
-    //   outerRef.current?.scrollLeft
-    // );
-    // console.log(
-    //   '*debug* outerRef.current?.scrollWidth',
-    //   outerRef.current?.scrollWidth
-    // );
-    // console.log('*debug* width', width);
-    // console.log(
-    //   '*debug* (outerRef.current?.scrollWidth ?? 0) - width',
-    //   (outerRef.current?.scrollWidth ?? 0) - width
-    // );
-
     // Not sure why but scrollWidth is always one widths larger than max scrollLeft
     if (
       // scrollLeft is often a few decimals shy of scrollWidth, so rounding helps

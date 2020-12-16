@@ -107,11 +107,14 @@ export class UserResolvers {
 
       if (user === undefined) {
         console.log('userId does not exist', userId);
+
         return false;
       }
+
       return true;
     } catch (error) {
       console.log('userIdExists error', error);
+
       return false;
     }
   }
@@ -125,11 +128,14 @@ export class UserResolvers {
 
       if (users === undefined) {
         console.log('users does not exist');
+
         return;
       }
+
       return users;
     } catch (error) {
       console.log('users error', error);
+
       return;
     }
   }
@@ -140,7 +146,7 @@ export class UserResolvers {
     @Ctx() ctx: Context
   ): Promise<Models.User | undefined> {
     try {
-      console.log('*debug* ctx.req.ip', ctx.req.ip);
+      // console.log('*debug* ctx.req.ip', ctx.req.ip);
 
       const user = await getManager()
         .getRepository(Models.User)
@@ -181,11 +187,14 @@ export class UserResolvers {
 
       if (user === undefined) {
         console.log('User not found', userId);
+
         return;
       }
+
       return user;
     } catch (error) {
       console.log('userById error', error);
+
       return;
     }
   }
@@ -255,6 +264,7 @@ export class UserResolvers {
         const songIds = result.docs.map((snapshot) => {
           // We know what the firestore data shape is so this is ok
           const data = (snapshot.data() as unknown) as Models.ListeningStats;
+
           return data.songId;
         });
 
@@ -291,6 +301,7 @@ export class UserResolvers {
 
       const userRepository = getManager().getRepository(Models.User);
       const user = await userRepository.findOne({ where: { userId } });
+
       if (user) {
         const result = await bcrypt.compare(password, user?.password);
 
@@ -299,6 +310,7 @@ export class UserResolvers {
         }
 
         console.log('login - passwordHash didnt match');
+
         return;
       }
       console.log('login - userId not found', userId);
@@ -330,13 +342,16 @@ export class UserResolvers {
 
       if (user) {
         await repository.save(user);
+
         return user;
       }
 
       console.log('CreateUser failed', payload);
+
       return;
     } catch (error) {
       console.log('createUser error', error);
+
       return;
     }
   }
@@ -371,18 +386,21 @@ export class UserResolvers {
               'followers',
               1
             );
+
             return artistToUpdate ? true : false;
           } else {
             const created = userArtistFollowingRepository.create({
               userId,
               artistId,
             });
+
             await userArtistFollowingRepository.save(created);
             const artistToUpdate = await repository.increment(
               { id: payload.artistId },
               'followers',
               1
             );
+
             return artistToUpdate ? true : false;
           }
         }
@@ -391,6 +409,7 @@ export class UserResolvers {
       return result;
     } catch (error) {
       console.log('UpdateArtistFollowing error', error);
+
       return false;
     }
   }
@@ -425,18 +444,21 @@ export class UserResolvers {
               'followers',
               1
             );
+
             return labelToUpdate ? true : false;
           } else {
             const created = userLabelFollowingRepository.create({
               userId,
               labelId,
             });
+
             await userLabelFollowingRepository.save(created);
             const labelToUpdate = await repository.increment(
               { id: payload.labelId },
               'followers',
               1
             );
+
             return labelToUpdate ? true : false;
           }
         }
@@ -445,6 +467,7 @@ export class UserResolvers {
       return result;
     } catch (error) {
       console.log('UpdateLabelFollowing error', error);
+
       return false;
     }
   }
@@ -495,18 +518,21 @@ export class UserResolvers {
               'followers',
               1
             );
+
             return entityToUpdate ? true : false;
           } else {
             const entityCreated = followingRepository.create({
               userId,
               [idField]: id,
             });
+
             await followingRepository.save(entityCreated);
             const entityToUpdate = await repository.increment(
               { id },
               'followers',
               1
             );
+
             return entityToUpdate ? true : false;
           }
         }
@@ -515,6 +541,7 @@ export class UserResolvers {
       return result;
     } catch (error) {
       console.log(`UpdateFollowing id - ${id} - type ${type} - error`, error);
+
       return false;
     }
   }
@@ -541,12 +568,15 @@ export class UserResolvers {
         await userSongFavouritesRepository.remove(favourited);
       } else {
         const created = userSongFavouritesRepository.create({ userId, songId });
+
         await userSongFavouritesRepository.save(created);
       }
+
       // TODO: Improve return type to show succesful creation or removal
       return true;
     } catch (error) {
       console.log('updateFavourites error', error);
+
       return false;
     }
   }
@@ -573,12 +603,15 @@ export class UserResolvers {
         await userPlaylistRepository.remove(playlist);
       } else {
         const created = userPlaylistRepository.create({ userId, playlistId });
+
         await userPlaylistRepository.save(created);
       }
+
       // TODO: Improve return type to show succesful creation or removal
       return true;
     } catch (error) {
       console.log('updatePlaylists error', error);
+
       return false;
     }
   }
@@ -590,15 +623,19 @@ export class UserResolvers {
     try {
       const repository = getManager().getRepository(Models.User);
       const userToDelete = await repository.findOne({ where: { id: userId } });
+
       if (userToDelete) {
         await repository.remove(userToDelete);
+
         return true;
       } else {
         console.log('deleteUser - User not found');
+
         return false;
       }
     } catch (error) {
       console.log('deleteUser error', error);
+
       return false;
     }
   }

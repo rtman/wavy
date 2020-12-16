@@ -11,7 +11,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { UserContext } from 'context';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+// import { Controller, useForm } from 'react-hook-form';
 import * as tasks from 'tasks';
 import {
   MutationBulkNewUserSubscriptionArgs,
@@ -44,7 +44,7 @@ export const SetupHome = () => {
       if (result.ok) {
         setTags(result.data);
       } else {
-        enqueueSnackbar(`Error loading tags, please try again`, {
+        enqueueSnackbar('Error loading tags, please try again', {
           variant: 'error',
           autoHideDuration: 4000,
         });
@@ -52,14 +52,12 @@ export const SetupHome = () => {
     })();
   }, []);
 
-  const hookForm = useForm<SetupHomeForm>({
-    defaultValues: { tags: null },
-  });
+  // const hookForm = useForm<SetupHomeForm>({
+  //   defaultValues: { tags: null },
+  // });
 
   // const onClickSubmit = (data: SetupHomeForm) => {
   const onClickSubmit = async () => {
-    console.log('*debug* onClickSubmit', selectedTags);
-
     if (!user?.id) {
       return;
     }
@@ -74,15 +72,13 @@ export const SetupHome = () => {
         resolvedSubscriptions.push({
           userId: user?.id,
           entity: UserSubscriptionEntity.Song,
-          sortBy: UserSubscriptionSortBy.Top,
+          sortBy: UserSubscriptionSortBy[sortBy],
           type: UserSubscriptionType.Tag,
           title,
           payload: tag.title,
         });
       }
     });
-
-    console.log('*debug* resolvedSubscriptions', resolvedSubscriptions);
 
     if (resolvedSubscriptions.length === 0) {
       enqueueSnackbar('No tags selected', {
@@ -99,6 +95,7 @@ export const SetupHome = () => {
     );
 
     if (result.ok) {
+      userContext?.loadUser();
       enqueueSnackbar('Success! Subscriptions Created', {
         variant: 'success',
         autoHideDuration: 4000,

@@ -168,6 +168,7 @@ export class PlaylistResolvers {
 
       if (!userPlaylists) {
         console.log('playlistsByUserId no playlists found - userId', userId);
+
         return;
       }
 
@@ -227,6 +228,7 @@ export class PlaylistResolvers {
       }
 
       console.log('searchPlaylists query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchPlaylists error', error);
@@ -254,6 +256,7 @@ export class PlaylistResolvers {
 
       if (processImageResult && !processImageResult.ok) {
         console.log('processing Image failed', processImageResult);
+
         return;
       }
 
@@ -315,6 +318,7 @@ export class PlaylistResolvers {
 
           if (processImageResult && !processImageResult.ok) {
             console.log('processing Image failed', processImageResult);
+
             return false;
           }
 
@@ -347,10 +351,12 @@ export class PlaylistResolvers {
   ): Promise<boolean> {
     try {
       const { profileImageStoragePath } = payload;
+
       console.log('*debug* testProcessImage payload', payload);
 
       if (profileImageStoragePath === undefined) {
         console.log('profileImageStoragePath is undefined');
+
         return false;
       }
 
@@ -427,6 +433,7 @@ export class PlaylistResolvers {
 
           if (removedSongs) {
             await repository.remove(removedSongs);
+
             return true;
           }
 

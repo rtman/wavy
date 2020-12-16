@@ -16,6 +16,11 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { AccountBox } from '@material-ui/icons';
+import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
+import * as consts from 'consts';
+import { PlayerContext, UserContext } from 'context';
+import React, { Fragment, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Album,
   IdParam,
@@ -24,11 +29,6 @@ import {
   Song,
   UpdateFollowingType,
 } from 'types';
-import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
-import * as consts from 'consts';
-import { PlayerContext, UserContext } from 'context';
-import React, { Fragment, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -131,6 +131,7 @@ export const Artist = () => {
           {index < artistSongsDesc.length - 1 ? <Divider /> : null}
         </Fragment>
       ));
+
       return (
         <>
           <Grid item={true} xs={12}>
@@ -150,7 +151,6 @@ export const Artist = () => {
     if (artistAlbums.length > 0) {
       const albumsList = artistAlbums.map(
         (album: Album, albumIndex: number) => {
-          console.log('*debug* artistSongs', artistSongs);
           const songsList = (album.songs ?? []).map(
             (song: Song, songIndex: number) => (
               <Fragment key={song.id}>
@@ -198,6 +198,7 @@ export const Artist = () => {
           );
         }
       );
+
       return (
         <>
           <Grid item={true} xs={12}>

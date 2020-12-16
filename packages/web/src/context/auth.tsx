@@ -1,7 +1,6 @@
 import 'firebase/auth';
 
 import { ApolloError, useMutation } from '@apollo/client';
-import { Mutation, MutationCreateUserArgs } from 'types';
 import * as consts from 'consts';
 import firebase from 'firebase';
 import { GraphQLError } from 'graphql';
@@ -15,6 +14,7 @@ import React, {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginForm } from 'screens/login';
 import { SignUpForm } from 'screens/signup';
+import { Mutation, MutationCreateUserArgs } from 'types';
 
 import { UserContext } from './user';
 
@@ -51,6 +51,7 @@ export const AuthProvider: FunctionComponent = (props) => {
 
   const signup = async (data: SignUpForm) => {
     const { firstName, lastName, email, password } = data;
+
     setLoading(true);
     setError(undefined);
 
@@ -75,6 +76,7 @@ export const AuthProvider: FunctionComponent = (props) => {
         if (result.errors) {
           setError(createUserError);
           logout();
+
           return;
         }
 
@@ -92,6 +94,7 @@ export const AuthProvider: FunctionComponent = (props) => {
 
   const login = async (data: LoginForm) => {
     const { email, password } = data;
+
     try {
       setLoading(true);
       setError(undefined);
@@ -104,6 +107,7 @@ export const AuthProvider: FunctionComponent = (props) => {
         const result = await userContext?.loadUserById(
           firebaseSignInResult.user?.uid
         );
+
         console.log('*debug* authContext -  loadUserById', result);
 
         setSignedIn(result.ok);
@@ -113,6 +117,7 @@ export const AuthProvider: FunctionComponent = (props) => {
       }
     } catch (error_) {
       const loginError = error_ as firebase.auth.Error;
+
       setError(loginError);
     } finally {
       setLoading(false);
@@ -128,6 +133,7 @@ export const AuthProvider: FunctionComponent = (props) => {
       setSignedIn(false);
     } catch (error_) {
       const logoutError = error_ as firebase.auth.Error;
+
       setError(logoutError);
     } finally {
       setLoading(false);
@@ -145,6 +151,7 @@ export const AuthProvider: FunctionComponent = (props) => {
         console.log('*debug* authContext -  userContext', userContext);
         if (userContext) {
           const result = await userContext?.loadUserById(firebaseUser.uid);
+
           console.log('*debug* authContext -  loadUserById', result);
 
           setSignedIn(result.ok);

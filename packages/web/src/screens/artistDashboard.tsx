@@ -15,17 +15,17 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
-import { Block, Check } from '@material-ui/icons';
 import {
   createStyles,
   makeStyles,
   Theme,
   useTheme,
 } from '@material-ui/core/styles';
-import { IdParam, Query, QueryArtistByIdArgs } from 'types';
+import { Block, Check } from '@material-ui/icons';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { UserContext } from 'context';
+import { useSnackbar } from 'notistack';
 import React, {
   Fragment,
   useContext,
@@ -35,7 +35,7 @@ import React, {
 } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import * as tasks from 'tasks';
-import { useSnackbar } from 'notistack';
+import { IdParam, Query, QueryArtistByIdArgs } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,7 +94,6 @@ export const ArtistDashboard = () => {
     {
       fetchPolicy: 'network-only',
       onCompleted: (data) => {
-        console.log('*debug*  getArtistById data', data);
         setSelectedOption(data.artistById.id);
       },
     }
@@ -114,11 +113,13 @@ export const ArtistDashboard = () => {
 
   const getPlayCount = useMemo(() => {
     let totalPlayCount = 0;
+
     artistAlbums.forEach((album) =>
       (album.songs ?? []).forEach((song) => {
         totalPlayCount += song.playCount;
       })
     );
+
     return totalPlayCount;
   }, [artistAlbums]);
 
@@ -136,6 +137,7 @@ export const ArtistDashboard = () => {
           history.push(`/artistDashboard/${selectedId}`);
         }
         break;
+
       case 'Label':
         if (location.pathname !== `/artistDashboard/${selectedId}`) {
           history.push(`/labelDashboard/${selectedId}`);
@@ -150,8 +152,6 @@ export const ArtistDashboard = () => {
   }) => {
     const { songId, songTitle } = props;
     const result = await tasks.setSongActive({ songId }, apolloClient);
-
-    console.log('*debug* setSongActive result', result);
 
     if (result.ok && result.data) {
       await getArtistById({ variables: { artistId: id } });
@@ -236,6 +236,7 @@ export const ArtistDashboard = () => {
           (album.songs ?? []).forEach((song) => {
             playCount += song.playCount;
           });
+
           return playCount;
         };
 
@@ -296,6 +297,7 @@ export const ArtistDashboard = () => {
           </Fragment>
         );
       });
+
       return (
         <>
           <Grid item={true} xs={12}>

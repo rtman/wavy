@@ -5,11 +5,11 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import * as tasks from 'tasks';
 import { Spacing } from 'components';
+import { UserContext } from 'context';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { UserContext } from 'context';
+import * as tasks from 'tasks';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -19,7 +19,7 @@ export const ClaimArtist = () => {
   const query = useQuery();
 
   const [busy, setBusy] = useState(true);
-  const [result, setResult] = useState<string>('');
+  const [resultMessage, setResultMessage] = useState<string>('');
 
   const claimCode = query.get('code');
   const artistId = query.get('artistId');
@@ -44,19 +44,22 @@ export const ClaimArtist = () => {
           },
           apolloClient
         );
+
         setBusy(false);
 
         if (result.ok) {
-          userContext?.loadUser(userId);
-          setResult(
+          userContext?.loadUser();
+          setResultMessage(
             `Artist: ${result.data.name} claimed successfully! Please check your dashboard for this artist, there may be songs that need approving`
           );
         } else {
-          setResult('An error occured, please contact support');
+          setResultMessage('An error occured, please contact support');
         }
       } else {
         setBusy(false);
-        setResult('Missing information, please click the email link again');
+        setResultMessage(
+          'Missing information, please click the email link again'
+        );
       }
     })();
   }, []);
@@ -72,7 +75,7 @@ export const ClaimArtist = () => {
           {busy ? (
             <CircularProgress />
           ) : (
-            <Typography variant="h5">{result}</Typography>
+            <Typography variant="h5">{resultMessage}</Typography>
           )}
         </Grid>
       </Grid>

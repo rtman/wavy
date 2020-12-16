@@ -67,7 +67,7 @@ export const ManageSubscriptions = () => {
       if (tagsResult.ok) {
         setTags(tagsResult.data);
       } else {
-        enqueueSnackbar(`Error loading tags, please try again`, {
+        enqueueSnackbar('Error loading tags, please try again', {
           variant: 'error',
           autoHideDuration: 4000,
         });
@@ -76,7 +76,7 @@ export const ManageSubscriptions = () => {
       if (subscriptionsResult.ok) {
         setCurrentSubscriptions(subscriptionsResult.data);
       } else {
-        enqueueSnackbar(`Error loading subscriptions, please try again`, {
+        enqueueSnackbar('Error loading subscriptions, please try again', {
           variant: 'error',
           autoHideDuration: 4000,
         });
@@ -102,7 +102,6 @@ export const ManageSubscriptions = () => {
   // const watchType: UserSubscriptionType | '' = hookForm.watch('type');
 
   const onClickSubmit = async (data: NewSubscriptionForm) => {
-    // console.log('*debug* manageSubscription onSubmit data', data);
     const subscriptionAlreadyExists = currentSubscriptions.find(
       (subscription) =>
         data.sortBy === subscription.sortBy &&
@@ -172,6 +171,13 @@ export const ManageSubscriptions = () => {
     }
   };
 
+  useEffect(() => {
+    // Reload user so that the conditional on home shows setupHome correctly
+    if (currentSubscriptions.length === 0) {
+      userContext?.loadUser();
+    }
+  }, [userContext, currentSubscriptions]);
+
   const renderCurrentSubscriptionsTable = () => {
     const rows = currentSubscriptions.map((subscription, index) => (
       <TableRow key={subscription.id}>
@@ -183,7 +189,7 @@ export const ManageSubscriptions = () => {
         <TableCell>{subscription.sortBy}</TableCell>
         <TableCell align="right">
           <IconButton
-            aria-controls="delete-subscriptoin"
+            aria-controls="delete-subscription"
             aria-haspopup="true"
             onClick={() => onClickDeleteSubscription(subscription.id)}
             size="small"

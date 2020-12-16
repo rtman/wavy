@@ -34,8 +34,6 @@ export const claimArtist = async (
       variables: { input },
     });
 
-    console.log('*debug* claimArtist result', result);
-
     if (result.errors) {
       const fail: ApiFail = { ok: false, error: result.errors[0] };
 

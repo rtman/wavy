@@ -1,18 +1,4 @@
-import { useApolloClient, useLazyQuery, useMutation } from '@apollo/client';
-import {
-  ApiFail,
-  ApiSuccess,
-  Mutation,
-  MutationAddPlaylistSongsArgs,
-  MutationRemovePlaylistSongsArgs,
-  MutationUpdateFavouritesArgs,
-  MutationUpdateFollowingArgs,
-  Query,
-  QueryUserByIdArgs,
-  UpdateFollowingArgs,
-  User,
-  UserPlaylist,
-} from 'types';
+import { useApolloClient, useMutation } from '@apollo/client';
 import * as consts from 'consts';
 import React, {
   createContext,
@@ -23,19 +9,31 @@ import React, {
   useState,
 } from 'react';
 import * as services from 'services';
+import * as tasks from 'tasks';
+import {
+  ApiFail,
+  ApiSuccess,
+  Mutation,
+  MutationAddPlaylistSongsArgs,
+  MutationRemovePlaylistSongsArgs,
+  MutationUpdateFavouritesArgs,
+  MutationUpdateFollowingArgs,
+  UpdateFollowingArgs,
+  User,
+  UserPlaylist,
+} from 'types';
 
 // import { AuthContext } from './auth';
 
 interface UserContextProps {
   user?: User;
-  loadUser(userId: string): void;
+  loadUser(): void;
   loadUserById(userId: string): Promise<ApiSuccess<User> | ApiFail>;
   updateFollowing(args: Omit<UpdateFollowingArgs, 'userId'>): void;
   updateFavourites(songId: string): void;
   addSongsToPlaylist(playlistId: string, songIds: string[]): void;
   removeSongsFromPlaylist(playlistId: string, songIds: string[]): void;
   playlists?: UserPlaylist[] | null;
-  loading: boolean;
   ipAddress?: string;
   geoLocation?: services.IpifyLocation;
 }
@@ -56,48 +54,40 @@ export const UserProvider: FunctionComponent = (props) => {
   const [geoLocation, setGeoLocation] = useState<
     services.IpifyLocation | undefined
   >(undefined);
-  const [getUserById, { loading: queryLoading }] = useLazyQuery<
-    Pick<Query, 'userById'>,
-    QueryUserByIdArgs
-  >(consts.queries.user.USER_BY_ID, {
-    fetchPolicy: 'no-cache',
-    onCompleted: (data) => {
-      console.log('*debug* getUserById data.userById', data.userById);
-      setUser(data.userById);
-      setPlaylists(data.userById.playlists);
-    },
-  });
 
-  const loadUser = useCallback(
-    (userId: string) => {
-      getUserById({ variables: { userId } });
-    },
-    [getUserById]
-  );
+  const loadUser = useCallback(async () => {
+    try {
+      if (user && user.id) {
+        const result = await tasks.getUserById(
+          { userId: user.id },
+          apolloClient
+        );
+
+        console.log('*debug* loadUser result', result);
+        if (result.ok) {
+          setUser(result.data);
+          setPlaylists(result.data.playlists);
+        }
+      }
+    } catch (error_) {
+      // TODO: Log error
+    }
+  }, [user, apolloClient]);
 
   const loadUserById = useCallback(
     async (userId: string) => {
       try {
-        const result = await apolloClient.query<
-          Pick<Query, 'userById'>,
-          QueryUserByIdArgs
-        >({
-          query: consts.queries.user.USER_BY_ID,
-          variables: { userId },
-        });
+        const result = await tasks.getUserById({ userId }, apolloClient);
 
-        if (result.errors) {
-          const fail: ApiFail = { ok: false, error: result.errors[0] };
-          return fail;
+        if (result.ok) {
+          setUser(result.data);
+          setPlaylists(result.data.playlists);
         }
-        const success: ApiSuccess<User> = {
-          ok: true,
-          data: result.data.userById,
-        };
-        setUser(success.data);
-        return success;
+
+        return result;
       } catch (error_) {
         const fail: ApiFail = { ok: false, error: error_ };
+
         return fail;
       }
     },
@@ -109,9 +99,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationUpdateFollowingArgs
   >(consts.mutations.user.UPDATE_FOLLOWING, {
     onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
-      }
+      loadUser();
     },
   });
   const [submitUpdateFavourites] = useMutation<
@@ -119,9 +107,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationUpdateFavouritesArgs
   >(consts.mutations.user.UPDATE_FAVOURITES, {
     onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
-      }
+      loadUser();
     },
   });
   const [submitAddSongsToPlaylists] = useMutation<
@@ -129,9 +115,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationAddPlaylistSongsArgs
   >(consts.mutations.playlist.ADD_PLAYLIST_SONGS, {
     onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
-      }
+      loadUser();
     },
   });
 
@@ -140,9 +124,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationRemovePlaylistSongsArgs
   >(consts.mutations.playlist.REMOVE_PLAYLIST_SONGS, {
     onCompleted: () => {
-      if (user?.id) {
-        loadUser(user?.id);
-      }
+      loadUser();
     },
   });
 
@@ -223,7 +205,6 @@ export const UserProvider: FunctionComponent = (props) => {
         addSongsToPlaylist,
         removeSongsFromPlaylist,
         playlists,
-        loading: queryLoading,
         ipAddress,
         geoLocation,
       }}
