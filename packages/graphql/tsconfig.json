@@ -13,7 +13,7 @@
     "baseUrl": "./src",
     "noUnusedLocals": false,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./build",
