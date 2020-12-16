@@ -145,6 +145,7 @@ export class TagResolvers {
       }
 
       console.log('searchtags query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchtags error', error);
@@ -278,6 +279,7 @@ export class TagResolvers {
                 tagSearchString: removeTagFromTagSearchString(tagSearchString),
               });
             }
+
             return true;
           }
 

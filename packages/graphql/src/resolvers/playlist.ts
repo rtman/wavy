@@ -218,7 +218,7 @@ export class PlaylistResolvers {
         .leftJoinAndSelect('playlist.users', 'users')
         .leftJoinAndSelect('users.user', 'user')
         .where(
-          `to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)`,
+          "to_tsvector('simple',playlist.title) @@ to_tsquery('simple', :query)",
           { query: `${formattedQuery}:*` }
         )
         .getMany();

@@ -162,7 +162,7 @@ export class AlbumResolvers {
         .leftJoinAndSelect('album.artist', 'artist')
         .leftJoinAndSelect('album.label', 'label')
         .where(
-          `to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)`,
+          "to_tsvector('simple',album.title) @@ to_tsquery('simple', :query)",
           { query: `${formattedQuery}:*` }
         )
         .getMany();

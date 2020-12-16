@@ -99,6 +99,7 @@ export const processImage = async (props: Input): Promise<Output> => {
 
     if (!contentType.startsWith('image/')) {
       console.log('This is not an image.');
+
       return { ok: false, error: 'This is not an image' };
     }
 
@@ -205,6 +206,7 @@ const prepFileForConversion = ({
     path.dirname(inputStoragePath),
     outputFileName
   );
+
   return {
     outputFileName,
     outputTempFilePath,

@@ -11,8 +11,8 @@ import {
 import { createUnionType } from 'type-graphql';
 import { getRepository } from 'typeorm';
 
-import * as types from '../types';
 import { Models } from '../orm';
+import * as types from '../types';
 import { PlayHistoryUserDoc } from './listeningStats';
 
 @InputType()
@@ -65,14 +65,19 @@ const UserSubscriptionData = createUnionType({
     switch (value.type) {
       case Models.UserSubscriptionEntity.ALBUM:
         return Models.Album;
+
       case Models.UserSubscriptionEntity.ARTIST:
         return Models.Artist;
+
       case Models.UserSubscriptionEntity.LABEL:
         return Models.Label;
+
       case Models.UserSubscriptionEntity.PLAYLIST:
         return Models.Playlist;
+
       case Models.UserSubscriptionEntity.SONG:
         return Models.Song;
+
       case Models.UserSubscriptionEntity.USER:
         return Models.User;
     }
@@ -107,6 +112,7 @@ export class UserSubscriptionResolvers {
 
       if (!user) {
         console.log('No user found for userId', userId);
+
         return {
           ok: false,
           error: { message: `No user found for userId ${userId}` },
@@ -133,6 +139,7 @@ export class UserSubscriptionResolvers {
           'No active subscriptions - activeSubscriptions.length =',
           activeSubscriptions.length
         );
+
         return [];
       }
 
@@ -173,6 +180,7 @@ export class UserSubscriptionResolvers {
               })
             );
             break;
+
           case Models.UserSubscriptionType.FOLLOWING:
             // Top is not done yet for Following
             if (sortBy === Models.UserSubscriptionSortBy.TOP) {
@@ -209,6 +217,7 @@ export class UserSubscriptionResolvers {
 
       if (subscriptionPromises.length === 0) {
         console.log('No subscription queries created');
+
         return {
           ok: false,
           error: { message: 'No subscription queries created' },
@@ -227,6 +236,7 @@ export class UserSubscriptionResolvers {
       return subscriptionResults;
     } catch (error) {
       console.log('Get UserSubscriptions error', error);
+
       return {
         ok: false,
         error: { message: error },
@@ -252,6 +262,7 @@ export class UserSubscriptionResolvers {
       return false;
     } catch (error) {
       console.log('ERROR: newUserSubscription', error);
+
       return false;
     }
   }
@@ -275,6 +286,7 @@ export class UserSubscriptionResolvers {
       return false;
     } catch (error) {
       console.log('ERROR: bulkNewUserSubscription', error);
+
       return false;
     }
   }
@@ -295,6 +307,7 @@ export class UserSubscriptionResolvers {
           return true;
         }
         console.log('ERROR: failed to update subscription ');
+
         return false;
       }
 
@@ -306,6 +319,7 @@ export class UserSubscriptionResolvers {
       return false;
     } catch (error) {
       console.log('ERROR: updateUserSubscription', error);
+
       return false;
     }
   }
@@ -328,6 +342,7 @@ export class UserSubscriptionResolvers {
       return false;
     } catch (error) {
       console.log('ERROR: deleteUserSubscription', error);
+
       return false;
     }
   }
@@ -397,6 +412,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
             const songIds = result.docs.map((snapshot) => {
               // We know what the firestore data shape is so this is ok
               const data = (snapshot.data() as unknown) as Models.ListeningStats;
+
               return data.songId;
             });
 
@@ -439,6 +455,7 @@ const makeTagPromise = (props: {
         );
 
       const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+
       leftJoinAndSelectConfig.forEach((params) => {
         if (params.relation.length > 0 && params.alias.length > 0) {
           query = query.leftJoinAndSelect(params.relation, params.alias);
@@ -460,6 +477,7 @@ const makeTagPromise = (props: {
         );
 
       const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+
       leftJoinAndSelectConfig.forEach((params) => {
         if (params.relation.length > 0 && params.alias.length > 0) {
           query = query.leftJoinAndSelect(params.relation, params.alias);
@@ -484,6 +502,7 @@ const makeTagPromise = (props: {
         );
 
       const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+
       leftJoinAndSelectConfig.forEach((params) => {
         if (params.relation.length > 0 && params.alias.length > 0) {
           query = query.leftJoinAndSelect(params.relation, params.alias);
@@ -549,6 +568,7 @@ const makeFollowerPromise = (props: {
         }
       });
     }
+
     // TODO: Need way of determining playCount for album
     // case Models.UserSubscriptionSortBy.TOP:
     //   return getRepository(model)
@@ -629,6 +649,7 @@ const makeDefaultPromise = (props: {
       let query = getRepository(model).createQueryBuilder(entity.toLowerCase());
 
       const leftJoinAndSelectConfig = makeLeftJoinAndSelectConfig(entity);
+
       leftJoinAndSelectConfig.forEach((params) => {
         if (params.relation.length > 0 && params.alias.length > 0) {
           query = query.leftJoinAndSelect(params.relation, params.alias);
@@ -650,14 +671,19 @@ const makeRelations = (entity: Models.UserSubscriptionEntity) => {
   switch (entity) {
     case Models.UserSubscriptionEntity.ALBUM:
       return ['songs', 'label', 'artist', 'songs.artist'];
+
     case Models.UserSubscriptionEntity.ARTIST:
       return ['albums', 'albums.songs', 'albums.songs.artist'];
+
     case Models.UserSubscriptionEntity.LABEL:
       return ['albums', 'albums.songs', 'albums.songs.artist'];
+
     case Models.UserSubscriptionEntity.PLAYLIST:
       return ['songs', 'songs.song', 'songs.song.album', 'songs.song.artist'];
+
     case Models.UserSubscriptionEntity.SONG:
       return ['album', 'album.label', 'artist'];
+
     case Models.UserSubscriptionEntity.USER:
       return undefined;
   }
@@ -672,18 +698,21 @@ const makeLeftJoinAndSelectConfig = (entity: Models.UserSubscriptionEntity) => {
         { relation: 'album.label', alias: 'label' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
+
     case Models.UserSubscriptionEntity.ARTIST:
       return [
         { relation: 'artist.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
+
     case Models.UserSubscriptionEntity.LABEL:
       return [
         { relation: 'label.albums', alias: 'albums' },
         { relation: 'albums.songs', alias: 'songs' },
         { relation: 'songs.artist', alias: 'songs.artist' },
       ];
+
     case Models.UserSubscriptionEntity.PLAYLIST:
       return [
         { relation: 'playlist.songs', alias: 'songs' },
@@ -692,12 +721,14 @@ const makeLeftJoinAndSelectConfig = (entity: Models.UserSubscriptionEntity) => {
         { relation: 'song.artist', alias: 'artist' },
         // { relation: 'playlist.user', alias: 'user'}
       ];
+
     case Models.UserSubscriptionEntity.SONG:
       return [
         { relation: 'song.album', alias: 'album' },
         { relation: 'song.label', alias: 'label' },
         { relation: 'song.artist', alias: 'artist' },
       ];
+
     case Models.UserSubscriptionEntity.USER:
       // TODO: add user leftJoins when ready
       return [{ relation: '', alias: '' }];
@@ -725,6 +756,7 @@ const mergeUniqueSortAlbums = (result: [Models.Artist[], Models.Label[]]) => {
         artist = album.artist;
       }
       const resolvedAlbum = { ...album, artist, label };
+
       albums.push(resolvedAlbum);
     });
   });
@@ -747,14 +779,19 @@ const getMetricForTopQuery = (entity: Models.UserSubscriptionEntity) => {
     case Models.UserSubscriptionEntity.ALBUM:
       // TODO: this is incorrect, need a real metric
       return 'createdAt';
+
     case Models.UserSubscriptionEntity.ARTIST:
       return 'followers';
+
     case Models.UserSubscriptionEntity.LABEL:
       return 'followers';
+
     case Models.UserSubscriptionEntity.PLAYLIST:
       return 'followers';
+
     case Models.UserSubscriptionEntity.SONG:
       return 'playCount';
+
     default:
       return 'followers';
   }
@@ -762,9 +799,12 @@ const getMetricForTopQuery = (entity: Models.UserSubscriptionEntity) => {
 
 const shuffleArray = <T>(array: T[]): T[] => {
   const clonedArray = [...array];
+
   for (let i = clonedArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
+
     [clonedArray[i], clonedArray[j]] = [clonedArray[j], clonedArray[i]];
   }
+
   return clonedArray;
 };

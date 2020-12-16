@@ -79,6 +79,7 @@ const runServer = async () => {
     });
 
     const server = initApolloServer(schema);
+
     server.applyMiddleware({ app, path: '/graphql' });
 
     app.get('/', (_req, res) => {

@@ -100,8 +100,10 @@ export class SearchResolvers {
         playlistsPromise,
         songsPromise,
       ]);
+
       if (results) {
         const [albums, artists, labels, playlists, songs] = results;
+
         return {
           albums,
           artists,
@@ -111,9 +113,11 @@ export class SearchResolvers {
         };
       }
       console.log('searchAll query failed - query', query);
+
       return;
     } catch (error) {
       console.log('searchAll error', error);
+
       return;
     }
   }

@@ -47,6 +47,7 @@ export class SongResolvers {
         return songs;
       } else {
         console.log('No songs found');
+
         return;
       }
     } catch (error) {
@@ -115,10 +116,12 @@ export class SongResolvers {
             // 'usersRecentlyPlayed.user',
           ],
         });
+
       if (songs) {
         return songs;
       } else {
         console.log(`songsById songIds ${songIds} not found`);
+
         return;
       }
     } catch (error) {
@@ -142,11 +145,12 @@ export class SongResolvers {
       if (songs) {
         return songs;
       } else {
-        console.log(`getInactiveSongsByArtistId no songs found`);
+        console.log('getInactiveSongsByArtistId no songs found');
+
         return;
       }
     } catch (error) {
-      console.log(`getInactiveSongsByArtistId - error`, error);
+      console.log('getInactiveSongsByArtistId - error', error);
 
       return;
     }
@@ -170,7 +174,7 @@ export class SongResolvers {
         .leftJoinAndSelect('usersFavourited.user', 'user')
         .leftJoinAndSelect('song.label', 'label')
         .where(
-          `to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)`,
+          "to_tsvector('simple',song.title) @@ to_tsquery('simple', :query)",
           { query: `${formattedQuery}:*` }
         )
         .getMany();
@@ -180,6 +184,7 @@ export class SongResolvers {
       }
 
       console.log('searchSongs query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchSongs error', error);
@@ -203,6 +208,7 @@ export class SongResolvers {
         const songIds = result.docs.map((snapshot) => {
           // We know what the firestore data shape is so this is ok
           const data = (snapshot.data() as unknown) as Models.ListeningStats;
+
           return data.songId;
         });
 
@@ -263,6 +269,7 @@ export class SongResolvers {
         return songs;
       } else {
         console.log(`No songs for tagId - ${tagId}`);
+
         return;
       }
     } catch (error) {
@@ -294,6 +301,7 @@ export class SongResolvers {
         return songs;
       } else {
         console.log(`No songs for tagId - ${tagName}`);
+
         return;
       }
     } catch (error) {
@@ -313,6 +321,7 @@ export class SongResolvers {
 
       if (song) {
         await repository.save(song);
+
         return song;
       }
 
@@ -356,6 +365,7 @@ export class SongResolvers {
     try {
       const repository = getManager().getRepository(Models.Song);
       const songToDelete = await repository.findOne({ where: { id: songId } });
+
       if (songToDelete) {
         await repository.remove(songToDelete);
 
@@ -398,6 +408,7 @@ export class SongResolvers {
           }
         }
       );
+
       return result;
     } catch (error) {
       console.log('updateSongPlayCount error', error);
@@ -429,6 +440,7 @@ export class SongResolvers {
           }
         }
       );
+
       return result;
     } catch (error) {
       console.log('setSongActive error', error);

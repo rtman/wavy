@@ -172,6 +172,7 @@ export class ArtistResolvers {
       const artists = await getManager()
         .getRepository(Models.Artist)
         .findByIds(artistIds);
+
       if (artists) {
         return artists;
       } else {
@@ -181,6 +182,7 @@ export class ArtistResolvers {
       }
     } catch (error) {
       console.log('artistsById error', error);
+
       return;
     }
   }
@@ -210,6 +212,7 @@ export class ArtistResolvers {
       }
 
       console.log('searchArtists query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchArtists error', error);
@@ -235,6 +238,7 @@ export class ArtistResolvers {
         'getUnclaimedArtistsByEmail query returned nothing - payload',
         payload
       );
+
       return;
     } catch (error) {
       console.log('getUnclaimedArtistsByEmail error', error);
@@ -258,6 +262,7 @@ export class ArtistResolvers {
 
       if (!processImageResult.ok) {
         console.log('processing Image failed', processImageResult);
+
         return;
       }
 
@@ -285,9 +290,11 @@ export class ArtistResolvers {
       }
 
       console.log('CreateArtist failed', payload);
+
       return;
     } catch (error) {
       console.log('createArtist error', error);
+
       return;
     }
   }
@@ -360,9 +367,11 @@ export class ArtistResolvers {
       }
 
       console.log('labelCreateUnclaimedArtist failed', payload);
+
       return false;
     } catch (error) {
       console.log('labelCreateUnclaimedArtist error', error);
+
       return false;
     }
   }
@@ -385,11 +394,13 @@ export class ArtistResolvers {
 
       if (artist === undefined) {
         console.log('ClaimArtist - artist not found', payload);
+
         return;
       }
 
       if (artist.claimed) {
         console.log('ClaimArtist - artist already claimed', payload);
+
         return;
       }
 
@@ -431,15 +442,19 @@ export class ArtistResolvers {
       const artistToDelete = await repository.findOne({
         where: { id: artistId },
       });
+
       if (artistToDelete) {
         await repository.remove(artistToDelete);
+
         return true;
       } else {
         console.log('deleteArtist - User not found');
+
         return false;
       }
     } catch (error) {
       console.log('deleteArtist error', error);
+
       return false;
     }
   }

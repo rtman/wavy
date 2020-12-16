@@ -4,6 +4,7 @@ export function pick(object: object, keys: string[]) {
     if (object && object.hasOwnProperty(key)) {
       obj[key] = object[key];
     }
+
     return obj;
   }, {});
 }

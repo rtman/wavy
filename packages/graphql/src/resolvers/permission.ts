@@ -20,11 +20,13 @@ const PermissionEntityUnion = createUnionType({
     switch (value.type) {
       case Models.UserSubscriptionEntity.ARTIST:
         return Models.Artist;
+
       case Models.UserSubscriptionEntity.LABEL:
         return Models.Label;
     }
   },
 });
+
 @ObjectType()
 export class PermissionReturnType extends Models.Permission {
   @Field(() => PermissionEntityUnion)
@@ -234,6 +236,7 @@ export class PermissionResolvers {
 
       if (!payload.createMusic && !payload.createSupportingArtist) {
         console.log('CreatePermission submitted with no permissions', payload);
+
         return false;
       }
 
@@ -241,13 +244,16 @@ export class PermissionResolvers {
 
       if (newPermission) {
         await permissionRepository.save(newPermission);
+
         return true;
       }
 
       console.log('CreatePermission failed', payload);
+
       return false;
     } catch (error) {
       console.log('CreatePermission error', error);
+
       return false;
     }
   }
@@ -265,6 +271,7 @@ export class PermissionResolvers {
 
       if (!rest.createMusic && !rest.createSupportingArtist) {
         console.log('UpdatePermission submitted with no permissions', payload);
+
         return false;
       }
 
@@ -274,13 +281,16 @@ export class PermissionResolvers {
 
       if (permissionToUpdate) {
         await permissionRepository.update(permissionToUpdate.id, { ...rest });
+
         return true;
       }
 
       console.log('UpdatePermission failed', payload);
+
       return false;
     } catch (error) {
       console.log('UpdatePermission error', error);
+
       return false;
     }
   }
@@ -302,13 +312,16 @@ export class PermissionResolvers {
 
       if (permissionToDelete) {
         await permissionRepository.delete(permissionToDelete?.id);
+
         return true;
       }
 
       console.log('DeletePermission failed', payload);
+
       return false;
     } catch (error) {
       console.log('DeletePermission error', error);
+
       return false;
     }
   }

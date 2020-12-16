@@ -133,6 +133,7 @@ export class LabelResolvers {
       }
 
       console.log('searchLabels query returned nothing - query', query);
+
       return;
     } catch (error) {
       console.log('searchLabels error', error);
@@ -156,6 +157,7 @@ export class LabelResolvers {
 
       if (!processImageResult.ok) {
         console.log('processing Image failed', processImageResult);
+
         return;
       }
 
@@ -176,9 +178,11 @@ export class LabelResolvers {
       }
 
       console.log('CreateLabel failed', payload);
+
       return;
     } catch (error) {
       console.log('CreateLabel error', error);
+
       return;
     }
   }
@@ -191,15 +195,19 @@ export class LabelResolvers {
       const labelToDelete = await repository.findOne({
         where: { id: labelId },
       });
+
       if (labelToDelete) {
         await repository.remove(labelToDelete);
+
         return true;
       } else {
         console.log('deleteLabel - User not found');
+
         return false;
       }
     } catch (error) {
       console.log('deleteLabel error', error);
+
       return false;
     }
   }

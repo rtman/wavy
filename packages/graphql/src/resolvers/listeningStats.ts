@@ -120,6 +120,7 @@ export class ListeningStatsResolvers {
         const data = result.docs.map(
           (snapshot) => (snapshot.data() as unknown) as Models.ListeningStats
         );
+
         return data;
       } else {
         console.log(`No queryStatsByField found for ${field} == ${value}`);
@@ -147,11 +148,13 @@ export class ListeningStatsResolvers {
         .where('updatedAt', '>=', moment().subtract(numberOfMonths, 'months'));
 
       const result = await userListeningStatsRef.get();
+
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
         const data = result.docs.map(
           (snapshot) => (snapshot.data() as unknown) as Models.ListeningStats
         );
+
         return data;
       } else {
         console.log(
@@ -184,9 +187,11 @@ export class ListeningStatsResolvers {
         .where(field2, '==', value2);
 
       const result = await userListeningStatsRef.get();
+
       if (!result.empty) {
         // not safe, but so long as I match it exactly to the schema in the doc it should work
         const data = (result.docs as unknown) as Models.ListeningStats[];
+
         return data;
       } else {
         console.log(
@@ -303,6 +308,7 @@ export class ListeningStatsResolvers {
       }
 
       console.log(`userPlayedSong failed ${songId} doesnt exist`, payload);
+
       return false;
     } catch (error) {
       console.log('userPlayedSong error', error);
@@ -359,6 +365,7 @@ export class ListeningStatsResolvers {
       }
 
       console.log(`userSkippedSong failed ${songId} doesnt exist`, payload);
+
       return false;
     } catch (error) {
       console.log('userSkippedSong error', error);

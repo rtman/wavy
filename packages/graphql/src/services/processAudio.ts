@@ -95,6 +95,7 @@ export const processAudio = async (props: Input): Promise<Output> => {
     // Exit if this is triggered on a file that is not an audio.
     if (!contentType.startsWith('audio/')) {
       console.log('Not an audio file.');
+
       return { ok: false, error: 'Not an audio file' };
     }
 
@@ -104,6 +105,7 @@ export const processAudio = async (props: Input): Promise<Output> => {
     // Exit if the audio is already converted.
     if (inputFileName.includes('__output__')) {
       console.log('Already a converted audio file.');
+
       return { ok: false, error: 'File is already converted' };
     }
 
@@ -234,10 +236,13 @@ const convertAudio = ({
     switch (qualityLevel) {
       case 'high':
         return 7;
+
       case 'medium':
         return 4;
+
       case 'low':
         return 2;
+
       default:
         return 4;
     }
