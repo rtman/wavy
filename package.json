@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts"
+      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && lerna version --amend"
     }
   },
   "devDependencies": {
@@ -37,6 +37,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-simple-import-sort": "^5.0.3",
+    "husky": "^4.0.10",
     "lerna": "^3.19.0",
     "prettier": "^1.19.1",
     "typescript-styled-plugin": "^0.15.0"

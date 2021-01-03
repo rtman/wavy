@@ -99,7 +99,6 @@
     "@types/styled-components": "^5.1.0",
     "@welldone-software/why-did-you-render": "6.0.0-rc.1",
     "babel-plugin-styled-components": "^1.10.6",
-    "husky": "^4.0.10",
     "jest": "^24.9.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga-test-plan": "^4.0.0-rc.3",
