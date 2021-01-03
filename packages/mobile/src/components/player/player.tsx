@@ -66,6 +66,7 @@ export const Player: React.FunctionComponent<PlayerProps> = (props) => {
     () => async (event: any) => {
       if (event.type === Event.PlaybackTrackChanged) {
         const track = await TrackPlayer.getTrack(event.nextTrack);
+
         setTrackTitle(track.title);
         setTrackArtist(track.artist_name);
         setTrackArtwork(track.artwork);

@@ -39,6 +39,7 @@ export const Home: React.FunctionComponent = () => {
       const getHttpUrl = async (googleStorageUri: string) => {
         const fileRef = storage().refFromURL(googleStorageUri);
         const url = await fileRef.getDownloadURL();
+
         return url;
       };
 
@@ -57,8 +58,10 @@ export const Home: React.FunctionComponent = () => {
       const artworkUrls = await Promise.all(artworkUrlPromises);
 
       const resolvedSongs = [];
+
       for (let i = 0; i < songs.length; i++) {
         const { ...song } = songs[i];
+
         song.id = `${song.artist}-${song.title}`;
         song.url = trackUrls[i];
         song.artwork = artworkUrls[i];
@@ -69,6 +72,7 @@ export const Home: React.FunctionComponent = () => {
 
       await TrackPlayer.add(resolvedSongs);
       const queue = await TrackPlayer.getQueue();
+
       // TODO: fix type
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setQueue(queue as any);
@@ -92,6 +96,7 @@ export const Home: React.FunctionComponent = () => {
         await TrackPlayer.skip(track.id);
         TrackPlayer.play();
       };
+
       return (
         <TouchableOpacity onPress={handleOnPress}>
           <Text>
@@ -123,6 +128,7 @@ export const Home: React.FunctionComponent = () => {
 
   const togglePlayBack = async () => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
+
     if (currentTrack == null) {
       await TrackPlayer.reset();
       //   await TrackPlayer.add(playlistData);

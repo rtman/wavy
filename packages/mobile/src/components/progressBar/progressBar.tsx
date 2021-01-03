@@ -19,6 +19,7 @@ export const ProgressBar: React.FunctionComponent<any> = (props) => {
     const interval = setInterval(
       () => async () => {
         const position_ = await TrackPlayer.getPosition();
+
         setPosition(position_);
       },
       1000
