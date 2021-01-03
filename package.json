@@ -21,7 +21,13 @@
     }
   },
   "scripts": {
-    "start:all": "docker-compose down && docker-compose build && docker-compose up",
+    "clean": "lerna clean",
+    "bootstrap": "lerna bootstrap",
+    "deps:check": "yarn manypkg check",
+    "deps:fix": "yarn manypkg fix",
+    "compose": "docker-compose down && docker-compose build && docker-compose up",
+    "prune": "docker system prune",
+    "prune:volumes": "docker system prune --volumes",
     "buildImages": "./scripts/build_images.sh",
     "pushImages": "./scripts/push_images.sh",
     "createClusters": "./scripts/createClusters.sh",
@@ -29,12 +35,7 @@
     "buildPushApplyImages": "yarn buildImages && yarn pushImages && yarn apply",
     "fullDeploy": "./scripts/deploy-k8s.sh",
     "deleteClusters": "./scripts/deleteClusters.sh",
-    "psContainer": "docker exec -it postgresql bash exec < /dev/tty && psql -U groov -d groov || true",
-    "psTerminal": "psql -U groov -d groov",
-    "clean": "lerna clean",
-    "bootstrap": "lerna bootstrap",
-    "deps:check": "yarn manypkg check",
-    "deps:fix": "yarn manypkg fix"
+    "psTerminal": "docker exec -it postgresql bash -c 'psql -U groov -d groov; exec bash'"
   },
   "dependencies": {
     "@manypkg/cli": "^0.17.0",

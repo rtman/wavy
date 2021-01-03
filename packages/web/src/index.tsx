@@ -10,7 +10,6 @@ import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 import { BrowserRouter } from 'react-router-dom';
 // import * as helpers from 'helpers';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import smoothscroll from 'smoothscroll-polyfill';
 
 import { App } from './App';
@@ -30,10 +29,6 @@ const client = new ApolloClient({
   uri: config.settings.GRAPHQL_URI,
   cache: new InMemoryCache(),
 });
-
-if (process.env.NODE_ENV === 'development') {
-  const composeEnhancers = composeWithDevTools({});
-}
 
 ReactDOM.render(
   <ApolloProvider client={client}>
