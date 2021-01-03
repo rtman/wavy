@@ -8,6 +8,5 @@ export const Home = () => {
   const userContext = useContext(UserContext);
   const user = userContext?.user;
 
-  // return (user?.subscriptions?.length ?? 0) > 0 ? <HomeFeed /> : <SetupHome />;
-  return <HomeFeed />;
+  return (user?.subscriptions?.length ?? 0) > 0 ? <HomeFeed /> : <SetupHome />;
 };
