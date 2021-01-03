@@ -331,7 +331,7 @@ export class ArtistResolvers {
       });
 
       if (artist && newPermission) {
-        const transporter = await helpers.makeEmailTransporter();
+        const transporter = helpers.makeEmailTransporter();
         const templateEmail = await helpers.makeHtmlTemplate(
           'src/emailTemplates/claimArtist.html'
         );
