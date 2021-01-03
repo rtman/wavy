@@ -20,10 +20,24 @@
       "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && exec < /dev/tty && lerna version --amend || true"
     }
   },
-  "devDependencies": {
-    "@graphql-codegen/cli": "^1.10.0",
-    "@graphql-codegen/typescript": "^1.10.0",
-    "@graphql-codegen/typescript-resolvers": "^1.11.0",
+  "scripts": {
+    "start:all": "docker-compose down && docker-compose build && docker-compose up",
+    "buildImages": "./scripts/build_images.sh",
+    "pushImages": "./scripts/push_images.sh",
+    "createClusters": "./scripts/createClusters.sh",
+    "apply": "./scripts/apply.sh",
+    "buildPushApplyImages": "yarn buildImages && yarn pushImages && yarn apply",
+    "fullDeploy": "./scripts/deploy-k8s.sh",
+    "deleteClusters": "./scripts/deleteClusters.sh",
+    "psContainer": "docker exec -it postgresql bash exec < /dev/tty && psql -U groov -d groov || true",
+    "psTerminal": "psql -U groov -d groov",
+    "clean": "lerna clean",
+    "bootstrap": "lerna bootstrap",
+    "deps:check": "yarn manypkg check",
+    "deps:fix": "yarn manypkg fix"
+  },
+  "dependencies": {
+    "@manypkg/cli": "^0.17.0",
     "@react-native-community/eslint-config": "^0.0.6",
     "@react-native-community/eslint-plugin": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
@@ -39,26 +53,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "husky": "^4.0.10",
     "lerna": "^3.19.0",
-    "prettier": "^1.19.1",
-    "typescript-styled-plugin": "^0.15.0"
-  },
-  "scripts": {
-    "buildImages": "./scripts/build_images.sh",
-    "pushImages": "./scripts/push_images.sh",
-    "createClusters": "./scripts/createClusters.sh",
-    "apply": "./scripts/apply.sh",
-    "buildPushApplyImages": "yarn buildImages && yarn pushImages && yarn apply",
-    "fullDeploy": "./scripts/deploy-k8s.sh",
-    "deleteClusters": "./scripts/deleteClusters.sh",
-    "psContainer": "docker exec -it postgresql bash exec < /dev/tty && psql -U groov -d groov || true",
-    "psTerminal": "psql -U groov -d groov",
-    "clean": "lerna clean",
-    "deps:check": "yarn manypkg check",
-    "deps:fix": "yarn manypkg fix"
-  },
-  "dependencies": {
-    "@manypkg/cli": "^0.17.0",
     "patch-package": "^6.2.0",
-    "typescript": "^3.7.4"
+    "prettier": "^1.19.1"
   }
 }
