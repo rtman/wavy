@@ -263,6 +263,8 @@ const RenderSection = ({
     }
 
     scrollTo(positionToScrollTo);
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickRight = useCallback(() => {
@@ -285,6 +287,8 @@ const RenderSection = ({
     }
 
     scrollTo(positionToScrollTo);
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

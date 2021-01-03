@@ -181,6 +181,8 @@ export const Player = (props: PlayerProps) => {
   const onClickPlay = useCallback(() => {
     setUserInitiatedPlayback?.(true);
     audio.play();
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickPause = useCallback(() => {

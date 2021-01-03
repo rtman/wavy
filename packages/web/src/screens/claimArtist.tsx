@@ -62,6 +62,8 @@ export const ClaimArtist = () => {
         );
       }
     })();
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

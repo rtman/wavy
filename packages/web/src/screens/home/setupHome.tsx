@@ -50,6 +50,8 @@ export const SetupHome = () => {
         });
       }
     })();
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const hookForm = useForm<SetupHomeForm>({

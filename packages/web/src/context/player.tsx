@@ -56,6 +56,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
         setUserInitiatedPlayback(true);
       }
     },
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -80,6 +82,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
       setQueue(newQueue);
       setLocalStorageQueue(newQueue);
     }
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const replaceQueueWithSongs = useCallback((songs: Song[]) => {
@@ -92,6 +96,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
       setLocalStorageQueuePosition(0);
       prepCurrentSong(newQueue, 0);
     }
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const playSongInQueue = useCallback(
@@ -100,6 +106,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
 
       prepCurrentSong(queue, index);
     },
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [queue]
   );
 
@@ -124,6 +132,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
   const clearQueue = useCallback(() => {
     setQueue([]);
     setLocalStorageQueue([]);
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const removeSongFromQueue = useCallback((id: string) => {
@@ -133,6 +143,8 @@ export const PlayerProvider: FunctionComponent = (props) => {
     newQueue.splice(index, 1);
     setQueue(newQueue);
     setLocalStorageQueue(newQueue);
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const addSongsToBeginningOfQueue = async (songs: Song[]) => {

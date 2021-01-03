@@ -88,6 +88,8 @@ export const ManageSubscriptions = () => {
     (async () => {
       await loadScreenData();
     })();
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const hookForm = useForm<NewSubscriptionForm>({

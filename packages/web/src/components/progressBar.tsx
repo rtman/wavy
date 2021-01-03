@@ -26,6 +26,8 @@ export const ProgressBar = (props: ProgressBarProps) => {
     if (!isSeeking) {
       setPosition(currentTime ?? 0);
     }
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTime]);
 
   const onSeeking = (

@@ -64,6 +64,8 @@ export const BaseListItem = (
         left: event.pageX,
       });
     },
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

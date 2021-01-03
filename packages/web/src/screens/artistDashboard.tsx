@@ -154,7 +154,7 @@ export const ArtistDashboard = () => {
     const result = await tasks.setSongActive({ songId }, apolloClient);
 
     if (result.ok && result.data) {
-      await getArtistById({ variables: { artistId: id } });
+      getArtistById({ variables: { artistId: id } });
       enqueueSnackbar(`${songTitle} - Sucessfully activated`, {
         variant: 'success',
         autoHideDuration: 4000,
