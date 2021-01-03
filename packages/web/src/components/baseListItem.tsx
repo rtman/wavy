@@ -69,7 +69,12 @@ export const BaseListItem = (
     []
   );
 
-  const onMenuClose = useCallback(() => setAnchorEl(null), []);
+  const onMenuClose = useCallback(
+    () => setAnchorEl(null),
+    // TODO: test fixing this
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <>
