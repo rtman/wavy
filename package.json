@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && lerna version --amend"
+      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && exec < /dev/tty && lerna version --amend || true"
     }
   },
   "devDependencies": {
