@@ -50,11 +50,14 @@
     "buildPushApplyImages": "yarn buildImages && yarn pushImages && yarn apply",
     "fullDeploy": "./scripts/deploy-k8s.sh",
     "deleteClusters": "./scripts/deleteClusters.sh",
-    "psContainer": "docker exec -it postgresql bash",
+    "psContainer": "docker exec -it postgresql bash exec < /dev/tty && psql -U groov -d groov || true",
     "psTerminal": "psql -U groov -d groov",
-    "rmNodeModules:all": "rm -rf node_modules && rm -rf packages/*/node_modules"
+    "clean": "lerna clean",
+    "deps:check": "yarn manypkg check",
+    "deps:fix": "yarn manypkg fix"
   },
   "dependencies": {
+    "@manypkg/cli": "^0.17.0",
     "patch-package": "^6.2.0",
     "typescript": "^3.7.4"
   }
