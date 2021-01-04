@@ -57,7 +57,7 @@
     "eslint": "eslint 'src/**/*.ts?(x)'",
     "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
     "postinstall": "patch-package",
-    "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",
+    "lint": "eslint 'src/**/*.ts?(x)' && yarn prettier:check",
     "prettier": "prettier --write 'src/**/*.ts?(x)'",
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
     "setBackendLoadBalancerIp": "node ./scripts/setBackendLoadBalancerIp.js",
@@ -91,6 +91,7 @@
     "@types/styled-components": "^5.1.0",
     "@welldone-software/why-did-you-render": "6.0.0-rc.1",
     "babel-plugin-styled-components": "^1.10.6",
+    "eslint": "^7.17.0",
     "jest": "^24.9.0",
     "typescript": "4.1.2",
     "typescript-styled-plugin": "^0.15.0"

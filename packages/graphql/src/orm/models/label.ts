@@ -57,31 +57,19 @@ export class Label {
   description?: string;
 
   @Field(() => [ArtistLabel], { nullable: true })
-  @OneToMany(
-    () => ArtistLabel,
-    (artistLabel) => artistLabel.label
-  )
+  @OneToMany(() => ArtistLabel, (artistLabel) => artistLabel.label)
   artists: ArtistLabel[];
 
   @Field(() => [Album], { nullable: true })
-  @OneToMany(
-    () => Album,
-    (album) => album.label
-  )
+  @OneToMany(() => Album, (album) => album.label)
   albums: Album[];
 
   @Field(() => [Song], { nullable: true })
-  @OneToMany(
-    () => Song,
-    (song) => song.label
-  )
+  @OneToMany(() => Song, (song) => song.label)
   songs: Song[];
 
   @Field(() => [UserLabel], { nullable: true })
-  @OneToMany(
-    () => UserLabel,
-    (userLabel) => userLabel.label
-  )
+  @OneToMany(() => UserLabel, (userLabel) => userLabel.label)
   users: UserLabel[];
 
   @Field(() => [UserLabelFollowing], { nullable: true })

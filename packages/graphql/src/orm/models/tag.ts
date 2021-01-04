@@ -22,10 +22,7 @@ export class Tag {
   title: string;
 
   @Field(() => [SongTag], { nullable: true })
-  @OneToMany(
-    () => SongTag,
-    (songTag) => songTag.tag
-  )
+  @OneToMany(() => SongTag, (songTag) => songTag.tag)
   songs: SongTag[];
 
   @Field(() => Date)

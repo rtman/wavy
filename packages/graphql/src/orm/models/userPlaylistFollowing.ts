@@ -21,17 +21,11 @@ export class UserPlaylistFollowing {
   @PrimaryColumn()
   playlistId: string;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.labelFollows
-  )
+  @ManyToOne(() => User, (user) => user.labelFollows)
   @Field(() => User)
   user!: User;
 
-  @ManyToOne(
-    () => Playlist,
-    (playlist) => playlist.usersFollowing
-  )
+  @ManyToOne(() => Playlist, (playlist) => playlist.usersFollowing)
   @Field(() => Playlist)
   playlist!: Playlist;
 

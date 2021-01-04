@@ -93,8 +93,12 @@ export const processImage = async (props: Input): Promise<Output> => {
       return { ok: false, error: 'File not found' };
     }
 
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const [metaData] = metaDataResponse;
 
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
     const contentType = metaData.contentType;
 
     if (!contentType.startsWith('image/')) {
@@ -173,6 +177,8 @@ export const processImage = async (props: Input): Promise<Output> => {
   } catch (error) {
     return {
       ok: false,
+      // FIXME: no-unsafe-assignment
+      //eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       error,
     };
   } finally {

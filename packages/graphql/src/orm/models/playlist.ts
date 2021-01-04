@@ -53,17 +53,11 @@ export class Playlist {
   profileImageUrlThumb?: string;
 
   @Field(() => [SongPlaylist], { nullable: true })
-  @OneToMany(
-    () => SongPlaylist,
-    (songPlaylist) => songPlaylist.playlist
-  )
+  @OneToMany(() => SongPlaylist, (songPlaylist) => songPlaylist.playlist)
   songs: SongPlaylist[];
 
   @Field(() => [UserPlaylist], { nullable: true })
-  @OneToMany(
-    () => UserPlaylist,
-    (userPlaylist) => userPlaylist.playlist
-  )
+  @OneToMany(() => UserPlaylist, (userPlaylist) => userPlaylist.playlist)
   users: UserPlaylist[];
 
   @Field(() => [UserPlaylistFollowing], { nullable: true })

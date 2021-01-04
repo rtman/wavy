@@ -21,17 +21,11 @@ export class UserArtist {
   @PrimaryColumn()
   artistId: string;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.artists
-  )
+  @ManyToOne(() => User, (user) => user.artists)
   @Field(() => User)
   user!: User;
 
-  @ManyToOne(
-    () => Artist,
-    (artist) => artist.users
-  )
+  @ManyToOne(() => Artist, (artist) => artist.users)
   @Field(() => Artist)
   artist!: Artist;
 

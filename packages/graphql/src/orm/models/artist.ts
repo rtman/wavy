@@ -30,17 +30,11 @@ export class Artist {
   name: string;
 
   @Field(() => [Album], { nullable: true })
-  @OneToMany(
-    () => Album,
-    (album) => album.artist
-  )
+  @OneToMany(() => Album, (album) => album.artist)
   albums: Album[];
 
   @Field(() => [Song], { nullable: true })
-  @OneToMany(
-    () => Song,
-    (song) => song.artist
-  )
+  @OneToMany(() => Song, (song) => song.artist)
   songs: Song[];
 
   @Field({ nullable: true })
@@ -72,10 +66,7 @@ export class Artist {
   description?: string;
 
   @Field(() => [ArtistLabel])
-  @OneToMany(
-    () => ArtistLabel,
-    (artistLabel) => artistLabel.artist
-  )
+  @OneToMany(() => ArtistLabel, (artistLabel) => artistLabel.artist)
   labels: ArtistLabel[];
 
   @Field(() => [UserArtistFollowing])
@@ -97,10 +88,7 @@ export class Artist {
   supportingArtistOn: SongArtistSupportingArtist[];
 
   @Field(() => [UserArtist])
-  @OneToMany(
-    () => UserArtist,
-    (userArtist) => userArtist.artist
-  )
+  @OneToMany(() => UserArtist, (userArtist) => userArtist.artist)
   users: UserArtist[];
 
   @Field(() => ID, { nullable: true })

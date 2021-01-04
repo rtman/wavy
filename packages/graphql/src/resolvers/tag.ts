@@ -47,9 +47,7 @@ export class TagResolvers {
   @Query(() => [Models.Tag])
   async tags(): Promise<Models.Tag[] | undefined> {
     try {
-      const tags = await getManager()
-        .getRepository(Models.Tag)
-        .find();
+      const tags = await getManager().getRepository(Models.Tag).find();
 
       if (tags) {
         return tags;
@@ -275,7 +273,7 @@ export class TagResolvers {
             const { tagSearchString } = songToUpdate;
 
             if (tagSearchString.length > 0 && tagSearchString.includes(title)) {
-              songRepository.update(songToUpdate, {
+              await songRepository.update(songToUpdate, {
                 tagSearchString: removeTagFromTagSearchString(tagSearchString),
               });
             }

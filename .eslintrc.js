@@ -15,7 +15,22 @@ module.exports = {
         'react-native/no-inline-styles': 'off',
         'simple-import-sort/sort': 'error',
         'no-use-before-define': 'off',
-        'no-unused-vars': 'warn',
+        'no-unused-vars': 'off',
+        'no-shadow': 'off',
+        'no-void': ['error', { allowAsStatement: true }],
+        '@typescript-eslint/no-shadow': ['error'],
+        '@typescript-eslint/no-unused-vars': ['warn'],
+        '@typescript-eslint/no-unsafe-member-access': ['warn'],
+        '@typescript-eslint/no-unsafe-call': ['warn'],
+        '@typescript-eslint/restrict-template-expressions': [
+          'error',
+          {
+            allowNumber: true,
+            allowBoolean: true,
+            allowAny: true,
+            allowNullish: true,
+          },
+        ],
         '@typescript-eslint/no-use-before-define': [
           'error',
           { functions: false, variables: false },

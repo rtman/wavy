@@ -7,10 +7,7 @@ import path from 'path';
 
 const promisifyCommand = (command: any) => {
   return new Promise((resolve, reject) => {
-    command
-      .on('end', resolve)
-      .on('error', reject)
-      .run();
+    command.on('end', resolve).on('error', reject).run();
   });
 };
 
@@ -88,8 +85,12 @@ export const processAudio = async (props: Input): Promise<Output> => {
       .file(inputStoragePathWithoutBucketPrefix)
       .getMetadata();
 
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const [metaData] = metaDataResponse;
 
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
     const contentType = metaData.contentType; // File content type.
 
     // Exit if this is triggered on a file that is not an audio.
@@ -180,6 +181,8 @@ export const processAudio = async (props: Input): Promise<Output> => {
   } catch (error) {
     return {
       ok: false,
+      // FIXME: disabled eslint
+      //eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       error,
     };
   } finally {

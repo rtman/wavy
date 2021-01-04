@@ -34,7 +34,7 @@ const initApolloServer = (schema: GraphQLSchema) =>
     // typeDefs: schema,
     schema: schema,
     // TODO: fix with proper type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
     resolvers: Resolvers as any,
     formatError: (error): GraphQLError => {
       // remove the internal sequelize error message
@@ -96,4 +96,4 @@ const runServer = async () => {
   }
 };
 
-runServer();
+void runServer();

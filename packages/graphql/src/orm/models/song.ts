@@ -30,10 +30,7 @@ export class Song {
   artistId: string;
 
   @Field(() => Artist)
-  @ManyToOne(
-    () => Artist,
-    (artist) => artist.songs
-  )
+  @ManyToOne(() => Artist, (artist) => artist.songs)
   artist: Artist;
 
   @Field(() => ID)
@@ -41,10 +38,7 @@ export class Song {
   albumId: string;
 
   @Field(() => Album)
-  @ManyToOne(
-    () => Album,
-    (album) => album.songs
-  )
+  @ManyToOne(() => Album, (album) => album.songs)
   album: Album;
 
   @Field(() => ID, { nullable: true })
@@ -52,10 +46,7 @@ export class Song {
   labelId: string;
 
   @Field(() => Label, { nullable: true })
-  @ManyToOne(
-    () => Label,
-    (label) => label.songs
-  )
+  @ManyToOne(() => Label, (label) => label.songs)
   label: Label;
 
   @Field(() => String)
@@ -98,10 +89,7 @@ export class Song {
   supportingArtists: SongArtistSupportingArtist[];
 
   @Field(() => [SongPlaylist], { nullable: true })
-  @OneToMany(
-    () => SongPlaylist,
-    (songPlaylist) => songPlaylist.song
-  )
+  @OneToMany(() => SongPlaylist, (songPlaylist) => songPlaylist.song)
   playlists: SongPlaylist[];
 
   @Field(() => [UserSongFavourites], { nullable: true })
@@ -112,10 +100,7 @@ export class Song {
   usersFavourited: UserSongFavourites[];
 
   @Field(() => [SongTag], { nullable: true })
-  @OneToMany(
-    () => SongTag,
-    (songTag) => songTag.song
-  )
+  @OneToMany(() => SongTag, (songTag) => songTag.song)
   tags: SongTag[];
 
   @Field(() => String)

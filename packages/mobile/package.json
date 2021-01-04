@@ -19,7 +19,7 @@
     ]
   },
   "scripts": {
-    "lint": "eslint 'src/**/*.ts?(x)' && npm run prettier:check",
+    "lint": "eslint 'src/**/*.ts?(x)' && yarn prettier:check",
     "prettier": "prettier --write 'src/**/*.ts?(x)'",
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
     "eslint": "eslint 'src/**/*.ts?(x)'",
@@ -83,6 +83,7 @@
     "@types/styled-components": "^5.1.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^7.17.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "react-test-renderer": "16.9.0",
     "typescript-styled-plugin": "^0.15.0"

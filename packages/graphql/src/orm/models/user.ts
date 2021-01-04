@@ -70,24 +70,15 @@ export class User {
   playlistFollows: UserPlaylistFollowing[];
 
   @Field(() => [UserPlaylist], { nullable: true })
-  @OneToMany(
-    () => UserPlaylist,
-    (userPlaylist) => userPlaylist.user
-  )
+  @OneToMany(() => UserPlaylist, (userPlaylist) => userPlaylist.user)
   playlists: UserPlaylist[];
 
   @Field(() => [UserArtist], { nullable: true })
-  @OneToMany(
-    () => UserArtist,
-    (userArtist) => userArtist.user
-  )
+  @OneToMany(() => UserArtist, (userArtist) => userArtist.user)
   artists: UserArtist[];
 
   @Field(() => [UserLabel], { nullable: true })
-  @OneToMany(
-    () => UserLabel,
-    (userLabel) => userLabel.user
-  )
+  @OneToMany(() => UserLabel, (userLabel) => userLabel.user)
   labels: UserLabel[];
 
   @Field(() => [UserSubscription], { nullable: true })

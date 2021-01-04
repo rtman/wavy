@@ -26,10 +26,7 @@ export class Album {
   artistId: string;
 
   @Field(() => Artist)
-  @ManyToOne(
-    () => Artist,
-    (artist) => artist.albums
-  )
+  @ManyToOne(() => Artist, (artist) => artist.albums)
   artist: Artist;
 
   @Field()
@@ -37,10 +34,7 @@ export class Album {
   title: string;
 
   @Field(() => [Song], { nullable: true })
-  @OneToMany(
-    () => Song,
-    (song) => song.album
-  )
+  @OneToMany(() => Song, (song) => song.album)
   songs: Song[];
 
   @Field(() => ID, { nullable: true })
@@ -48,10 +42,7 @@ export class Album {
   labelId?: string;
 
   @Field(() => Label, { nullable: true })
-  @ManyToOne(
-    () => Label,
-    (label) => label.albums
-  )
+  @ManyToOne(() => Label, (label) => label.albums)
   label?: Label;
 
   @Field({ nullable: true })

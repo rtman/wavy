@@ -21,17 +21,11 @@ export class UserLabel {
   @PrimaryColumn()
   labelId: string;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.labels
-  )
+  @ManyToOne(() => User, (user) => user.labels)
   @Field(() => User)
   user!: User;
 
-  @ManyToOne(
-    () => Label,
-    (label) => label.users
-  )
+  @ManyToOne(() => Label, (label) => label.users)
   @Field(() => Label)
   label!: Label;
 

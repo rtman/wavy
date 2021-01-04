@@ -21,17 +21,11 @@ export class UserLabelFollowing {
   @PrimaryColumn()
   labelId: string;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.labelFollows
-  )
+  @ManyToOne(() => User, (user) => user.labelFollows)
   @Field(() => User)
   user!: User;
 
-  @ManyToOne(
-    () => Label,
-    (label) => label.usersFollowing
-  )
+  @ManyToOne(() => Label, (label) => label.usersFollowing)
   @Field(() => Label)
   label!: Label;
 

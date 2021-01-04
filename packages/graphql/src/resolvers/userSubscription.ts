@@ -239,6 +239,8 @@ export class UserSubscriptionResolvers {
 
       return {
         ok: false,
+        // FIXME: get correct type
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         error: { message: error },
       };
     }
@@ -355,7 +357,7 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
 
   return new Promise<Models.Song[]>((resolve, reject) => {
     try {
-      admin
+      void admin
         .firestore()
         .collection(Models.UserSubscriptionType.PLAY_HISTORY)
         .doc(userId)
@@ -400,7 +402,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
 
   return new Promise<Models.Song[]>((resolve, reject) => {
     try {
-      admin
+      void admin
         .firestore()
         .collectionGroup(Models.UserSubscriptionType.USER_STATS)
         .where('userId', '==', userId)
@@ -510,10 +512,7 @@ const makeTagPromise = (props: {
       });
 
       // NOTE: for orderBy('RANDOM()'), take doesnt work, limit seems to though. Even though the doc says it may not work correctly
-      return query
-        .orderBy('RANDOM()')
-        .limit(numberOfResults)
-        .getMany();
+      return query.orderBy('RANDOM()').limit(numberOfResults).getMany();
     }
   }
 };
@@ -560,7 +559,7 @@ const makeFollowerPromise = (props: {
             .limit(numberOfResults / 2)
             .getMany();
 
-          Promise.all([artistAlbums, labelAlbums]).then((result) => {
+          void Promise.all([artistAlbums, labelAlbums]).then((result) => {
             resolve(mergeUniqueSortAlbums(result));
           });
         } catch (error) {
@@ -607,7 +606,7 @@ const makeFollowerPromise = (props: {
             .limit(numberOfResults / 2)
             .getMany();
 
-          Promise.all([artistAlbums, labelAlbums]).then((result) => {
+          void Promise.all([artistAlbums, labelAlbums]).then((result) => {
             resolve(mergeUniqueSortAlbums(result));
           });
         } catch (error) {
@@ -657,10 +656,7 @@ const makeDefaultPromise = (props: {
       });
 
       // NOTE: for orderBy('RANDOM()'), take doesnt work, limit seems to though. Even though the doc says it may not work correctly
-      return query
-        .orderBy('RANDOM()')
-        .limit(numberOfResults)
-        .getMany();
+      return query.orderBy('RANDOM()').limit(numberOfResults).getMany();
     }
   }
 };

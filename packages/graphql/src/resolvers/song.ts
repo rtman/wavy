@@ -39,9 +39,7 @@ export class SongResolvers {
   @Query(() => [Models.Song])
   async songs(): Promise<Models.Song[] | undefined> {
     try {
-      const songs = await getManager()
-        .getRepository(Models.Song)
-        .find();
+      const songs = await getManager().getRepository(Models.Song).find();
 
       if (songs) {
         return songs;
@@ -120,12 +118,12 @@ export class SongResolvers {
       if (songs) {
         return songs;
       } else {
-        console.log(`songsById songIds ${songIds} not found`);
+        console.log('songsById songIds not found', songIds);
 
         return;
       }
     } catch (error) {
-      console.log(`songsById songIds ${songIds} - error`, error);
+      console.log('songsById songIds - error', songIds, error);
 
       return;
     }

@@ -85,10 +85,7 @@ export class UserSubscription {
   @Column({ default: false })
   favourited: boolean;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.subscriptions
-  )
+  @ManyToOne(() => User, (user) => user.subscriptions)
   @Field(() => User)
   user!: User;
 

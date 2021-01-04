@@ -27,17 +27,11 @@ export class SongPlaylist {
   // @Column()
   // order: number;
 
-  @ManyToOne(
-    () => Song,
-    (song) => song.playlists
-  )
+  @ManyToOne(() => Song, (song) => song.playlists)
   @Field(() => Song)
   song!: Song;
 
-  @ManyToOne(
-    () => Playlist,
-    (playlist) => playlist.songs
-  )
+  @ManyToOne(() => Playlist, (playlist) => playlist.songs)
   @Field(() => Playlist)
   playlist!: Playlist;
 

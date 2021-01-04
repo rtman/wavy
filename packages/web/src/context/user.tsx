@@ -86,6 +86,8 @@ export const UserProvider: FunctionComponent = (props) => {
 
         return result;
       } catch (error_) {
+        // FIXME: no unsafe assigment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const fail: ApiFail = { ok: false, error: error_ };
 
         return fail;
@@ -99,7 +101,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationUpdateFollowingArgs
   >(consts.mutations.user.UPDATE_FOLLOWING, {
     onCompleted: () => {
-      loadUser();
+      void loadUser();
     },
   });
   const [submitUpdateFavourites] = useMutation<
@@ -107,7 +109,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationUpdateFavouritesArgs
   >(consts.mutations.user.UPDATE_FAVOURITES, {
     onCompleted: () => {
-      loadUser();
+      void loadUser();
     },
   });
   const [submitAddSongsToPlaylists] = useMutation<
@@ -115,7 +117,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationAddPlaylistSongsArgs
   >(consts.mutations.playlist.ADD_PLAYLIST_SONGS, {
     onCompleted: () => {
-      loadUser();
+      void loadUser();
     },
   });
 
@@ -124,7 +126,7 @@ export const UserProvider: FunctionComponent = (props) => {
     MutationRemovePlaylistSongsArgs
   >(consts.mutations.playlist.REMOVE_PLAYLIST_SONGS, {
     onCompleted: () => {
-      loadUser();
+      void loadUser();
     },
   });
 
@@ -146,7 +148,7 @@ export const UserProvider: FunctionComponent = (props) => {
     type: UpdateFollowingArgs['type'];
   }) => {
     if (user?.id) {
-      submitUpdateFollowing({
+      void submitUpdateFollowing({
         variables: { input: { userId: user?.id, id, type } },
       });
     }
@@ -154,20 +156,20 @@ export const UserProvider: FunctionComponent = (props) => {
 
   const updateFavourites = (songId: string) => {
     if (user?.id) {
-      submitUpdateFavourites({
+      void submitUpdateFavourites({
         variables: { input: { userId: user?.id, songId } },
       });
     }
   };
 
   const addSongsToPlaylist = (playlistId: string, songIds: string[]) => {
-    submitAddSongsToPlaylists({
+    void submitAddSongsToPlaylists({
       variables: { input: { playlistId, songIds } },
     });
   };
 
   const removeSongsFromPlaylist = (playlistId: string, songIds: string[]) => {
-    submitRemoveSongsFromPlaylist({
+    void submitRemoveSongsFromPlaylist({
       variables: { input: { playlistId, songIds } },
     });
   };

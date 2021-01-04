@@ -122,9 +122,7 @@ export class UserResolvers {
   @Query(() => Boolean)
   async users(): Promise<Models.User[] | undefined> {
     try {
-      const users = await getManager()
-        .getRepository(Models.User)
-        .find();
+      const users = await getManager().getRepository(Models.User).find();
 
       if (users === undefined) {
         console.log('users does not exist');

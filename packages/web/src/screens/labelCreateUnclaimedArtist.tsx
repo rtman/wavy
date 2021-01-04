@@ -27,9 +27,11 @@ interface CreateUnclaimedArtistForm {
 }
 
 export const LabelCreateUnclaimedArtist = () => {
-  const { register, handleSubmit, errors: formErrors } = useForm<
-    CreateUnclaimedArtistForm
-  >();
+  const {
+    register,
+    handleSubmit,
+    errors: formErrors,
+  } = useForm<CreateUnclaimedArtistForm>();
   const userContext = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams<IdParam>();

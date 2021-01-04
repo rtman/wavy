@@ -29,6 +29,8 @@ export const Home: React.FunctionComponent = () => {
   const [trackQueue, setQueue] = useState<Track[]>([]);
   // const [loading, setLoading] = useState(false);
   const playbackState = usePlaybackState();
+  // FIXME: no-unsafe-assignment
+  //eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { loading, error, data } = useQuery(SONGS);
 
   useEffect(() => {
@@ -46,11 +48,17 @@ export const Home: React.FunctionComponent = () => {
       if (!data) {
         return;
       }
+      // FIXME: ndisabled eslint
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { songs } = data;
 
+      // FIXME: disabled eslint
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
       const trackUrlPromises = songs.map((track: Track) =>
         getHttpUrl(track.url)
       );
+      // FIXME: disabled eslint
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
       const artworkUrlPromises = songs.map((track: Track) =>
         getHttpUrl(track.artwork)
       );
@@ -59,7 +67,11 @@ export const Home: React.FunctionComponent = () => {
 
       const resolvedSongs = [];
 
+      // FIXME: disabled eslint
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       for (let i = 0; i < songs.length; i++) {
+        // FIXME: disabled eslint
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         const { ...song } = songs[i];
 
         song.id = `${song.artist}-${song.title}`;
@@ -79,12 +91,12 @@ export const Home: React.FunctionComponent = () => {
     };
 
     // if (!loading) {
-    loadTrackQueue();
+    void loadTrackQueue();
     // }
 
     return () => {
       // seems necessary to stop from loading duplicate info in the queue on remount (save + fast refresh)
-      TrackPlayer.reset();
+      void TrackPlayer.reset();
       setQueue([]);
     };
   }, [data]);
@@ -94,7 +106,7 @@ export const Home: React.FunctionComponent = () => {
       const handleOnPress = async () => {
         await TrackPlayer.pause();
         await TrackPlayer.skip(track.id);
-        TrackPlayer.play();
+        void TrackPlayer.play();
       };
 
       return (

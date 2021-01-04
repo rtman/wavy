@@ -69,9 +69,7 @@ export class ArtistResolvers {
   @Query(() => [Models.Artist])
   async artists(): Promise<Models.Artist[] | undefined> {
     try {
-      const artists = await getManager()
-        .getRepository(Models.Artist)
-        .find();
+      const artists = await getManager().getRepository(Models.Artist).find();
 
       if (artists) {
         return artists;

@@ -21,17 +21,11 @@ export class ArtistLabel {
   @PrimaryColumn()
   labelId: string;
 
-  @ManyToOne(
-    () => Artist,
-    (artist) => artist.labels
-  )
+  @ManyToOne(() => Artist, (artist) => artist.labels)
   @Field(() => Artist)
   artist!: Artist;
 
-  @ManyToOne(
-    () => Label,
-    (label) => label.artists
-  )
+  @ManyToOne(() => Label, (label) => label.artists)
   @Field(() => Label)
   label!: Label;
 

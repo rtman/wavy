@@ -21,17 +21,11 @@ export class UserSongFavourites {
   @PrimaryColumn()
   songId: string;
 
-  @ManyToOne(
-    () => User,
-    (user) => user.songFavourites
-  )
+  @ManyToOne(() => User, (user) => user.songFavourites)
   @Field(() => User)
   user!: User;
 
-  @ManyToOne(
-    () => Song,
-    (song) => song.usersFavourited
-  )
+  @ManyToOne(() => Song, (song) => song.usersFavourited)
   @Field(() => Song)
   song!: Song;
 

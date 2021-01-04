@@ -229,9 +229,7 @@ export class ListeningStatsResolvers {
         .collection('playHistory')
         .doc(userId);
 
-      const song = await getManager()
-        .getRepository(Models.Song)
-        .findOne();
+      const song = await getManager().getRepository(Models.Song).findOne();
 
       const userStatsPromise = userStatsRef.get();
       const userPlayHistoryPromise = userPlayHistoryRef.get();
@@ -331,9 +329,7 @@ export class ListeningStatsResolvers {
         .collection('userStats')
         .doc(userId);
 
-      const song = await getManager()
-        .getRepository(Models.Song)
-        .findOne();
+      const song = await getManager().getRepository(Models.Song).findOne();
 
       const userStats = await userStatsRef.get();
 

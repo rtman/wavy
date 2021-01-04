@@ -22,17 +22,11 @@ export class SongTag {
   @PrimaryColumn()
   tagId: string;
 
-  @ManyToOne(
-    () => Song,
-    (song) => song.tags
-  )
+  @ManyToOne(() => Song, (song) => song.tags)
   @Field(() => Song)
   song!: Song;
 
-  @ManyToOne(
-    () => Tag,
-    (tag) => tag.songs
-  )
+  @ManyToOne(() => Tag, (tag) => tag.songs)
   @Field(() => Tag)
   tag!: Tag;
 
