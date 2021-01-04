@@ -23,8 +23,12 @@
   "scripts": {
     "clean": "lerna clean",
     "bootstrap": "lerna bootstrap",
+    "changed": "lerna changed --all",
+    "ls": "lerna ls --all",
     "deps:check": "yarn manypkg check",
     "deps:fix": "yarn manypkg fix",
+    "lint": "yarn workspaces run lint",
+    "build:ts": "yarn workspaces run build:ts",
     "compose": "docker-compose down && docker-compose build && docker-compose up",
     "prune": "docker system prune",
     "prune:volumes": "docker system prune --volumes",

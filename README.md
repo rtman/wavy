@@ -1,8 +1,9 @@
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 # groov (Temp name)
 
-Groov is a monorepo, in order to run it you have to have `docker desktop`, `node` and `npm`/`yarn` installed.
+Groov is a monorepo that is managed using `lerna`, in order to run it you have to have `lerna`, `docker desktop`, `node` and `npm`/`yarn` installed.
 
-After cloning the repo just run `yarn` in the root dir, start docker desktop and run `docker-compose up` (still in the root). That should start up the backend.
+After cloning the repo run `lerna bootstrap` in the root dir, start docker desktop and run `docker-compose up` (still in the root). That should start up the backend.
 
 To Run the web front end, in another terminal go to `/packages/web` and run `yarn start`
 
