@@ -17,11 +17,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && exec < /dev/tty && lerna version --amend || true"
+      "pre-push": "yarn workspaces run lint && yarn workspaces run build:ts && exec < /dev/tty && lerna version --amend"
     }
   },
   "scripts": {
     "clean": "lerna clean",
+    "addDep": "lerna add",
     "bootstrap": "lerna bootstrap",
     "changed": "lerna changed --all",
     "ls": "lerna ls --all",
