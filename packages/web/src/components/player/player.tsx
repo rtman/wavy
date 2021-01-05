@@ -105,7 +105,8 @@ export const Player = (props: PlayerProps) => {
   useEffect(() => {
     if (currentSong && userInitiatedPlayback) {
       audio.src = currentSong.urlHigh;
-      audio.play();
+      // TODO: This may need an await to function properly
+      void audio.play();
     }
   }, [currentSong, userInitiatedPlayback]);
 
@@ -128,11 +129,13 @@ export const Player = (props: PlayerProps) => {
       playCountTimerRef.current = setTimeout(() => {
         // console.log('*debug* player playcount callback');
 
-        submitUpdateSongPlayCount({
+        // TODO: This may need an await to function properly
+        void submitUpdateSongPlayCount({
           variables: { input: { songId: currentSong?.id } },
         });
 
-        userPlayedSong({
+        // TODO: This may need an await to function properly
+        void userPlayedSong({
           variables: {
             input: {
               userId,
@@ -178,9 +181,9 @@ export const Player = (props: PlayerProps) => {
     history.push(`${consts.routes.ALBUM}/${currentSong?.albumId}`);
   };
 
-  const onClickPlay = useCallback(() => {
+  const onClickPlay = useCallback(async () => {
     setUserInitiatedPlayback?.(true);
-    audio.play();
+    await audio.play();
     // TODO: test fixing this
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

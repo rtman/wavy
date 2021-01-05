@@ -85,7 +85,7 @@ export const ManageSubscriptions = () => {
   };
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       await loadScreenData();
     })();
     // TODO: test fixing this
@@ -406,5 +406,5 @@ export const ManageSubscriptions = () => {
 const toTitleCase = (text: string) =>
   text.replace(
     /(\w)(\w*)/g,
-    (_, firstChar, rest) => firstChar + rest.toLowerCase()
+    (_, firstChar: string, rest: string) => firstChar + rest.toLowerCase()
   );

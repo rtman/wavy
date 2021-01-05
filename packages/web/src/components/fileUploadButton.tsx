@@ -14,6 +14,7 @@ export const FileUploadButton = (props: FileUploadProps) => {
   const { acceptedTypes, onDrop, noClick, noKeyboard, multiple } = props;
   //   const classes = useStyles;
 
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const {
     getRootProps,
     getInputProps,

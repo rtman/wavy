@@ -36,7 +36,7 @@ export const SetupHome = () => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const result = await tasks.getTags(apolloClient);
 
       setBusy(false);
@@ -50,7 +50,7 @@ export const SetupHome = () => {
         });
       }
     })();
-    // TODO: test fixing this
+    // FIXME: test fixing this
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,7 +66,7 @@ export const SetupHome = () => {
     const resolvedSubscriptions: MutationBulkNewUserSubscriptionArgs['input'] = [];
 
     selectedTags.forEach((tag) => {
-      for (const sortBy in UserSubscriptionSortBy) {
+      Object.values(UserSubscriptionSortBy).forEach((sortBy) => {
         const title = toTitleCase(
           `${sortBy} ${tag.title.toUpperCase()} ${UserSubscriptionEntity.Song}s`
         );
@@ -74,12 +74,12 @@ export const SetupHome = () => {
         resolvedSubscriptions.push({
           userId: user?.id,
           entity: UserSubscriptionEntity.Song,
-          sortBy: UserSubscriptionSortBy[sortBy],
+          sortBy,
           type: UserSubscriptionType.Tag,
           title,
           payload: tag.title,
         });
-      }
+      });
     });
 
     if (resolvedSubscriptions.length === 0) {
@@ -185,5 +185,5 @@ export const SetupHome = () => {
 const toTitleCase = (text: string) =>
   text.replace(
     /(\w)(\w*)/g,
-    (_, firstChar, rest) => firstChar + rest.toLowerCase()
+    (_, firstChar: string, rest: string) => firstChar + rest.toLowerCase()
   );

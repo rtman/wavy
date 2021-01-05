@@ -7,12 +7,12 @@ export const useGetStorageHttpUrl = (googleStorageUri: string) => {
   useEffect(() => {
     const getStorageHttpUrl = async () => {
       const fileRef = firebase.storage().refFromURL(googleStorageUri);
-      const resolvedUrl = await fileRef.getDownloadURL();
+      const resolvedUrl = (await fileRef.getDownloadURL()) as string;
 
       setUrl(resolvedUrl);
     };
 
-    getStorageHttpUrl();
+    void getStorageHttpUrl();
   });
 
   return url;

@@ -114,6 +114,8 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
   const [songsForUpload, setSongsForUpload] = useState<SongForUpload[]>([]);
   const [uploadStatuses, setUploadStatuses] = useState<UploadStatus[]>([]);
 
+  // FIXME: fix type
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const {
     getRootProps,
     getInputProps,
@@ -160,12 +162,12 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
   );
 
   const removeSong = useCallback(
-    (index: number) => {
+    async (index: number) => {
       if (uploadStatuses[index]) {
         const upload = uploadStatuses[index];
 
         if (upload.complete && upload.task) {
-          upload.task.snapshot.ref.delete();
+          await upload.task.snapshot.ref.delete();
         }
 
         if (upload.running && !upload.complete && upload.task) {
@@ -296,7 +298,7 @@ export const CreateAlbumProvider: FunctionComponent = (props) => {
         });
         // we add the songs seperately, and don't await this mutation, after creating the album because we want the audio processing to be done in the background
         // the album is tagged as processing and will be viewable but disabled until processing is completed
-        addSongsToAlbum({
+        void addSongsToAlbum({
           variables: {
             input: {
               userName,

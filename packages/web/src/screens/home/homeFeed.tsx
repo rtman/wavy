@@ -207,7 +207,7 @@ const RenderSection = ({
   lg,
   xl,
 }: {
-  data: UserSubscriptionResult;
+  data: UserSubscriptionResult[];
   index: number;
   style: CSSProperties;
   width: number;
@@ -231,7 +231,7 @@ const RenderSection = ({
   const scrollOffset = width % itemSize;
 
   const scrollTo = useCallback(
-    (position) => {
+    (position: number) => {
       outerRef.current?.scrollTo({
         left: position,
         top: 0,
@@ -352,7 +352,7 @@ const renderCard = memo(
     style,
   }: // width,
   {
-    data: UserSubscriptionData;
+    data: UserSubscriptionData[];
     index: number;
     style: CSSProperties;
     // width: number;

@@ -244,7 +244,10 @@ export const Search = () => {
     return null;
   };
 
-  const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
+  const handleChange = (
+    _event: React.ChangeEvent<Record<string, never>>,
+    newValue: string
+  ) => {
     setCurrentTab(newValue);
   };
 

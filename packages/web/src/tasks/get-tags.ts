@@ -33,6 +33,8 @@ export const getTags = async (
 
     return success;
   } catch (error_) {
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const fail: ApiFail = { ok: false, error: error_ };
 
     return fail;

@@ -1,12 +1,10 @@
 import { Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Autocomplete } from '@material-ui/lab';
-import { Flex, Spacing } from 'components';
-import { CreateAlbumContext } from 'context';
+import { Flex } from 'components';
 import React, { memo } from 'react';
 import { ArrayField, Controller, useFormContext } from 'react-hook-form';
 import { Artist, ArtistAutocomplete, SongFields } from 'types';
-import { useContextSelector } from 'use-context-selector';
 
 interface SongUploadFormProps {
   artists?: ArtistAutocomplete[];
@@ -20,6 +18,8 @@ export const SongForm = memo((props: SongUploadFormProps) => {
 
   const formContext = useFormContext();
 
+  // FIXME: fix type
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const watchVariousArtists: SongFields['artist'] = formContext.watch(
     'album.artist'
   );
@@ -42,7 +42,11 @@ export const SongForm = memo((props: SongUploadFormProps) => {
           <Controller
             as={
               <TextField
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                 helperText={formContext.errors.songs?.[index]?.title?.message}
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 error={formContext.errors.songs?.[index]?.title !== undefined}
               />
             }
@@ -69,7 +73,11 @@ export const SongForm = memo((props: SongUploadFormProps) => {
           <Controller
             as={
               <TextField
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                 helperText={formContext.errors.songs?.[index]?.isrc?.message}
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 error={formContext.errors.songs?.[index]?.isrc !== undefined}
               />
             }
@@ -104,7 +112,7 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                 <Autocomplete
                   {...controllerProps}
                   options={artists ?? []}
-                  getOptionLabel={(option) => option.name}
+                  getOptionLabel={(option: ArtistAutocomplete) => option.name}
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(e: any, values: any) =>
                     formContext.setValue(`songs[${index}].artist`, values)
@@ -115,9 +123,13 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                       fullWidth={true}
                       label="Artist"
                       helperText={
+                        // FIXME: fix type
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                         formContext.errors.songs?.[index]?.artist?.message
                       }
                       error={
+                        // FIXME: fix type
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                         formContext.errors.songs?.[index]?.artist !== undefined
                       }
                     />
@@ -134,9 +146,13 @@ export const SongForm = memo((props: SongUploadFormProps) => {
             control={formContext.control}
             rules={{
               validate: (value: ArtistAutocomplete[]) => {
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 const songArtist: Artist | null = formContext.getValues(
                   `songs[${index}].artist`
                 );
+                // FIXME: fix type
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 const albumArtist: Artist | null = formContext.getValues(
                   'album.artist'
                 );
@@ -167,7 +183,7 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                 {...controllerProps}
                 multiple={true}
                 options={artists ?? []}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option: ArtistAutocomplete) => option.name}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onChange={(e: any, values: any) =>
                   formContext.setValue(
@@ -182,12 +198,18 @@ export const SongForm = memo((props: SongUploadFormProps) => {
                     fullWidth={true}
                     label="Supporting Artists"
                     helperText={
+                      // FIXME: fix type
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                       formContext.errors.songs?.[index]?.supportingArtists
-                        ? formContext.errors.songs?.[index]?.supportingArtists
+                        ? // FIXME: fix type
+                          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                          formContext.errors.songs?.[index]?.supportingArtists
                             ?.message
                         : 'Optional'
                     }
                     error={
+                      // FIXME: fix type
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                       formContext.errors.songs?.[index]?.supportingArtists !==
                       undefined
                     }

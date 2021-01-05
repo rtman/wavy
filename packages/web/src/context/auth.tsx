@@ -75,7 +75,7 @@ export const AuthProvider: FunctionComponent = (props) => {
 
         if (result.errors) {
           setError(createUserError);
-          logout();
+          await logout();
 
           return;
         }
@@ -85,7 +85,7 @@ export const AuthProvider: FunctionComponent = (props) => {
     } catch (error_) {
       setError(error_);
       if (firebaseUser) {
-        logout();
+        await logout();
       }
     } finally {
       setLoading(false);
@@ -168,7 +168,7 @@ export const AuthProvider: FunctionComponent = (props) => {
     if (!firebaseInitialising && firebaseUser === null && !signedIn) {
       setLoading(false);
     }
-    getUserData();
+    void getUserData();
   }, [firebaseInitialising, firebaseUser, signedIn, firstSession, userContext]);
 
   return (

@@ -28,7 +28,7 @@ export const ClaimArtist = () => {
   const userId = userContext?.user?.id;
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       if (userId && artistId && claimCode && claimantEmail) {
         console.log('*debug* claimCode', claimCode);
         console.log('*debug* artistId', artistId);

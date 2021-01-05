@@ -118,6 +118,8 @@ export const BaseCard = memo(
             {image ? (
               <>
                 <CardMedia
+                  // FIXME: fix type
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,  @typescript-eslint/no-explicit-any
                   onClick={onClick as any}
                   component="img"
                   image={image}

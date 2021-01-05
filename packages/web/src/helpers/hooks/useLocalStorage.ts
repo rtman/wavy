@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-export const useLocalStorage = (key: string, initialValue: unknown) => {
+export const useLocalStorage = <T>(key: string, initialValue: T) => {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       // Get from local storage by key
       const item = window.localStorage.getItem(key);
 
       // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue;
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
       // If error also return initialValue
       console.log(error);
@@ -20,9 +20,11 @@ export const useLocalStorage = (key: string, initialValue: unknown) => {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value: unknown) => {
+  const setValue = (value: T) => {
     try {
       // Allow value to be a function so we have same API as useState
+      // FIXME: fix type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
 
@@ -36,5 +38,5 @@ export const useLocalStorage = (key: string, initialValue: unknown) => {
     }
   };
 
-  return [storedValue, setValue];
+  return { storedValue, setValue };
 };

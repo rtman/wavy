@@ -170,7 +170,7 @@ export const Playlist = () => {
   };
 
   const onClickSave = () => {
-    submitPlaylistInfo({
+    void submitPlaylistInfo({
       variables: {
         input: {
           title: playlistTitle,

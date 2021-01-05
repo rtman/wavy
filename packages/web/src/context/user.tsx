@@ -88,6 +88,8 @@ export const UserProvider: FunctionComponent = (props) => {
       } catch (error_) {
         // FIXME: no unsafe assigment
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // FIXME: disabled eslint
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const fail: ApiFail = { ok: false, error: error_ };
 
         return fail;

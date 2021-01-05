@@ -25,6 +25,8 @@ export const getGeoLocation = async (ipAddress: string) => {
     );
 
     if (response) {
+      // FIXME: fix type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const body: IpIfyGeoLocationResponse = await response.json();
 
       if (body.location) {
@@ -34,6 +36,8 @@ export const getGeoLocation = async (ipAddress: string) => {
 
     return { ok: false, data: undefined };
   } catch (error) {
+    // FIXME: fix type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { ok: false, data: undefined, error };
   }
 };

@@ -23,6 +23,7 @@ export interface SignUpForm {
 }
 
 export const Signup = () => {
+  //eslint-disable-next-line @typescript-eslint/unbound-method
   const {
     register,
     handleSubmit,

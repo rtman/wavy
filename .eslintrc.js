@@ -35,6 +35,7 @@ module.exports = {
           'error',
           { functions: false, variables: false },
         ],
+        '@typescript-eslint/ban-types': ['warn'],
         'padding-line-between-statements': [
           'error',
           { blankLine: 'always', prev: '*', next: 'return' },

@@ -117,7 +117,7 @@ export const useFirebaseStorageUpload = (
           () => {
             // Upload completed successfully, now we can get the download URL
             const uploadComplete = async () => {
-              const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+              const downloadUrl = (await uploadTask.snapshot.ref.getDownloadURL()) as string;
               const fullStoragePath = uploadTask.snapshot.ref.toString();
 
               setUploadStatus({
@@ -131,7 +131,7 @@ export const useFirebaseStorageUpload = (
               });
             };
 
-            uploadComplete();
+            void uploadComplete();
           }
         );
       }

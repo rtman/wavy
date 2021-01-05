@@ -18,6 +18,7 @@ type Output = boolean;
 
 export const bulkCreateUserSubscription = async (
   input: Input,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   apolloClient: ApolloClient<object>
 ): Promise<ApiSuccess<Output> | ApiFail> => {
   try {
@@ -48,6 +49,8 @@ export const bulkCreateUserSubscription = async (
 
     return success;
   } catch (error_) {
+    // FIXME: disabled eslint
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const fail: ApiFail = { ok: false, error: error_ };
 
     return fail;

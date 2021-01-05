@@ -42,7 +42,7 @@ export const useUploadImage = () => {
       const snapshot = await creatorImageRef.put(imageFile);
 
       if (snapshot) {
-        const result = await creatorImageRef.getDownloadURL();
+        const result = (await creatorImageRef.getDownloadURL()) as string;
         const downloadUrl = result;
         const fullStoragePath = creatorImageRef.toString();
 

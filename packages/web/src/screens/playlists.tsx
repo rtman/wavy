@@ -130,7 +130,7 @@ export const Playlists = () => {
 
   const onClickSave = () => {
     if (userId) {
-      createPlaylist({
+      void createPlaylist({
         variables: {
           input: {
             userId,

@@ -302,7 +302,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
                     options={
                       (isLabel ? artistsWithVariousArtists : artists) ?? []
                     }
-                    getOptionLabel={(option) => option.name}
+                    getOptionLabel={(option: ArtistAutocomplete) => option.name}
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     onChange={(e: any, values: any) =>
                       hookForm.setValue('album.artist', values)

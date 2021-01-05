@@ -6,6 +6,8 @@ export const getIpAddress = async () => {
     const response = await fetch('https://api.ipify.org?format=json');
 
     if (response) {
+      // FIXME: fix type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const body: IpIfyGetIp = await response.json();
 
       if (body.ip) {
@@ -15,6 +17,8 @@ export const getIpAddress = async () => {
 
     return { ok: false, data: undefined };
   } catch (error) {
+    // FIXME: fix type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { ok: false, data: undefined, error };
   }
 };

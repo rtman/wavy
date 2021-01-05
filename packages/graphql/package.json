@@ -43,8 +43,7 @@
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
     "eslint": "eslint 'src/**/*.ts?(x)'",
     "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
-    "gae:deploy": "gcloud app deploy",
-    "deploy": "yarn build:ts && yarn gae:deploy"
+    "deploy": "yarn build:ts && gcloud app deploy"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

@@ -27,6 +27,7 @@ interface CreateUnclaimedArtistForm {
 }
 
 export const LabelCreateUnclaimedArtist = () => {
+  //eslint-disable-next-line @typescript-eslint/unbound-method
   const {
     register,
     handleSubmit,

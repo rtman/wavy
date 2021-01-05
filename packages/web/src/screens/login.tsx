@@ -20,6 +20,7 @@ export interface LoginForm {
 }
 
 export const Login = () => {
+  //eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit, errors: formErrors } = useForm<LoginForm>();
   const history = useHistory();
 

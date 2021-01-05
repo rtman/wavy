@@ -36,14 +36,14 @@ export const PlayerProvider: FunctionComponent = (props) => {
   const [userInitiatedPlayback, setUserInitiatedPlayback] = useState<boolean>(
     false
   );
-  const [
-    localStorageQueue,
-    setLocalStorageQueue,
-  ] = helpers.hooks.useLocalStorage('queue', []);
-  const [
-    localStorageQueuePosition,
-    setLocalStorageQueuePosition,
-  ] = helpers.hooks.useLocalStorage('queuePosition', 0);
+  const {
+    storedValue: localStorageQueue,
+    setValue: setLocalStorageQueue,
+  } = helpers.hooks.useLocalStorage<Song[]>('queue', []);
+  const {
+    storedValue: localStorageQueuePosition,
+    setValue: setLocalStorageQueuePosition,
+  } = helpers.hooks.useLocalStorage<number>('queuePosition', 0);
 
   const prepCurrentSong = useCallback(
     (currentQueue: Song[], position: number) => {
