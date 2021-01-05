@@ -1,12 +1,6 @@
 import { makeStyles } from '@material-ui/core';
-import {
-  AlignItemsProperty,
-  AlignSelfProperty,
-  FlexDirectionProperty,
-  FlexWrapProperty,
-  JustifyContentProperty,
-} from 'csstype';
-import React, { CSSProperties, PropsWithChildren } from 'react';
+import * as CSS from 'csstype';
+import React, { PropsWithChildren } from 'react';
 
 const useStyles = (props: FlexProps) =>
   makeStyles({
@@ -23,15 +17,15 @@ const useStyles = (props: FlexProps) =>
   })();
 
 export interface FlexProps {
-  alignItems?: AlignItemsProperty;
-  alignSelf?: AlignSelfProperty;
+  alignItems?: CSS.Property.AlignItems;
+  alignSelf?: CSS.Property.AlignSelf;
   className?: string;
-  flexDirection?: FlexDirectionProperty;
-  flexWrap?: FlexWrapProperty;
+  flexDirection?: CSS.Property.FlexDirection;
+  flexWrap?: CSS.Property.FlexWrap;
   fullHeight?: boolean;
   fullWidth?: boolean;
-  justifyContent?: JustifyContentProperty;
-  style?: CSSProperties;
+  justifyContent?: CSS.Property.JustifyContent;
+  style?: CSS.Properties;
 }
 
 export const Flex = (props: PropsWithChildren<FlexProps>) => {

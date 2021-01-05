@@ -73,7 +73,7 @@ export const Player = (props: PlayerProps) => {
 
   const userContext = useContext(UserContext);
   const classes = useStyles();
-  const playCountTimerRef = useRef<number>(0);
+  const playCountTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [minimumPlayLength, setMinimumPlayLength] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);

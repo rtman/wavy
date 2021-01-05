@@ -4,6 +4,10 @@
   "private": true,
   "workspaces": {
     "nohoist": [
+      "*react*",
+      "*react*/**",
+      "*@types/react*",
+      "*@types/react*/**",
       "*react-native*",
       "*react-native*/**",
       "@react-native*/**",
