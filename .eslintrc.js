@@ -12,6 +12,7 @@ module.exports = {
       // for mobile specifically, can remove later when coding mobile
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
         'react-native/no-inline-styles': 'off',
         'simple-import-sort/sort': 'error',
         'no-use-before-define': 'off',
