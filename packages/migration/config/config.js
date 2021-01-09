@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   development: {
     username: process.env.DATABASE_USER,
@@ -7,6 +9,12 @@ module.exports = {
     port: process.env.DATABASE_PORT,
     dialect: 'postgres',
     operatorsAliases: '0',
+    // ssl: true,
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //   },
+    // },
   },
   test: {
     username: process.env.DATABASE_USER,

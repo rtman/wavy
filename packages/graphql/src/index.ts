@@ -10,7 +10,6 @@ import { GraphQLError, GraphQLSchema } from 'graphql';
 import depthLimit from 'graphql-depth-limit';
 import { buildSchema } from 'type-graphql';
 
-import * as config from './config';
 import { createOrmConnection, Models } from './orm';
 import * as Resolvers from './resolvers';
 
@@ -18,11 +17,20 @@ export interface Context extends ExpressContext {
   models: typeof Models;
 }
 
+if (
+  process.env.FIREBASE_DATABASE_URL === undefined ||
+  process.env.FIREBASE_STORAGE_BUCKET === undefined
+) {
+  throw new Error(
+    'Firebase admin initialisation failed - env vars not set correctly'
+  );
+}
+
 admin.initializeApp({
   // TODO: Credential needs to be env aware
   credential: admin.credential.applicationDefault(),
-  databaseURL: config.settings.FIREBASE_CONFIG.databaseURL,
-  storageBucket: config.settings.FIREBASE_CONFIG.storageBucket,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 });
 
 const port = process.env.PORT || 3001;

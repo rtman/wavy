@@ -61,11 +61,12 @@ packages/mobile/ios/Pods/
 #Secrets
 secrets/
 environments/
+env_variables.yaml
 
 firebase-debug.log
 
 #App Engine
-packages/*/app.yaml
+generated_gae_env.yaml
 
 #Env
-.env
+.env*

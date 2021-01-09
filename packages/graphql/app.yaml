@@ -6,11 +6,5 @@ instance_class: F4
 
 service: server
 
-env_variables:
-    DATABASE_DB: "oursound"
-    DATABASE_USER: "oursound"
-    DATABASE_PASSWORD: "oursound"
-    DATABASE_HOST: "/cloudsql/groov-development-ddc9d:us-west1:development"
-    DATABASE_PORT: "5432"
-    GOOGLE_APPLICATION_CREDENTIALS: "secrets/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json"
-    BUILD_VARIANT: 'development'
+includes:
+  - generated_gae_env.yaml

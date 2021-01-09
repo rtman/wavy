@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.8"
 
 services:
   postgresql:
@@ -6,9 +6,9 @@ services:
     restart: always
     build: ./packages/postgresql
     environment:
-      - POSTGRES_USER=groov
-      - POSTGRES_PASSWORD=groov
-      - POSTGRES_DB=groov
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
     ports:
       - "5432:5432"
 
@@ -20,13 +20,12 @@ services:
     links:
       - postgresql
     environment:
-      - DATABASE_USER=groov
-      - DATABASE_PASSWORD=groov
-      - DATABASE_DB=groov
-      - DATABASE_HOST=postgresql
-      - ELASTICSEARCH_HOST=es01
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - DATABASE_DB
+      - DATABASE_HOST
+      - DATABASE_PORT
     depends_on:
-      # - es01
       - postgresql
       - graphql
 
@@ -37,14 +36,21 @@ services:
       context: ./packages/graphql
       dockerfile: Dockerfile.dev
     environment:
-      - BUILD_VARIANT=development
-      - DATABASE_URL=postgresql
-      - DATABASE_USER=groov
-      - DATABASE_PASSWORD=groov
-      - DATABASE_DB=groov
-      - DATABASE_HOST=postgresql
-      - DATABASE_PORT=5432"
-      - GOOGLE_APPLICATION_CREDENTIALS=secrets/dev/groov-development-ddc9d-firebase-adminsdk-9rr20-ced53ec6f8.json
+      - DATABASE_URL
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - DATABASE_DB
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - GOOGLE_APPLICATION_CREDENTIALS
+      - FIREBASE_API_KEY
+      - FIREBASE_AUTH_DOMAIN
+      - FIREBASE_DATABASE_URL
+      - FIREBASE_PROJECT_ID
+      - FIREBASE_STORAGE_BUCKET
+      - FIREBASE_MESSAGING_SENDER_ID
+      - FIREBASE_APP_ID
+      - FIREBASE_MEASUREMENT_ID
     ports:
       - "3001:3001"
     depends_on:
@@ -66,56 +72,22 @@ services:
       - postgresql
       - graphql
       - migration
-      # - es01
     volumes:
       - "./packages/web:/web"
       - "/web/node_modules"
     environment:
       - CHOKIDAR_USEPOLLING=true
-
-  # https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html
-  # es01:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
-  #   container_name: es01
-  #   environment:
-  #     - node.name=es01
-  #     - cluster.name=es-docker-cluster
-  #     # - discovery.seed_hosts=es02,es03
-  #     # - cluster.initial_master_nodes=es01,es02,es03
-  #     #  es 7+ setting below
-  #     # - cluster.initial_master_nodes=es01
-  #     - bootstrap.memory_lock=true
-  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #   volumes:
-  #     - data01:/usr/share/elasticsearch/data
-  #   ports:
-  #     - 9200:9200
-  #   command: ["elasticsearch", "-Elogger.level=ERROR"]
-  #   # networks:
-  #   #   - elastic
-
-  # es02:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
-  #   container_name: es02
-  #   environment:
-  #     - node.name=es02
-  #     - cluster.name=es-docker-cluster
-  #     - discovery.seed_hosts=es01,es03
-  #     - cluster.initial_master_nodes=es01,es02,es03
-  #     - bootstrap.memory_lock=true
-  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #   volumes:
-  #     - data02:/usr/share/elasticsearch/data
-  #   networks:
-  #     - elastic
+      - REACT_APP_FIREBASE_API_KEY
+      - REACT_APP_FIREBASE_AUTH_DOMAIN
+      - REACT_APP_FIREBASE_DATABASE_URL
+      - REACT_APP_FIREBASE_PROJECT_ID
+      - REACT_APP_FIREBASE_STORAGE_BUCKET
+      - REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+      - REACT_APP_FIREBASE_APP_ID
+      - REACT_APP_FIREBASE_MEASUREMENT_ID
+      - REACT_APP_GRAPHQL_URI
+      - REACT_APP_IP_IFY_API_KEY
+      - SKIP_PREFLIGHT_CHECK
 
 volumes:
   front:
@@ -124,10 +96,3 @@ volumes:
     driver: local
   server:
     driver: local
-  # data02:
-  #   driver: local
-  # data03:
-  #   driver: local
-# networks:
-#   elastic:
-#     driver: bridge

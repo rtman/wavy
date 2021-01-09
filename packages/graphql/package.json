@@ -9,6 +9,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv-config": "^0.1.1",
+    "env-cmd": "^10.1.0",
     "esm": "^3.2.25",
     "express": "4.17.1",
     "ffmpeg-static": "^4.2.7",
@@ -35,15 +36,15 @@
   },
   "scripts": {
     "start": "node build/index.js",
-    "start:local": "ts-node src/index.ts",
-    "build:ts": "tsc --build tsconfig.json",
+    "start:compose": "ts-node src/index.ts",
+    "ts:build": "tsc --build tsconfig.json",
+    "deploy:dev": "yarn ts:build && node ./scripts/make_gae_env.js dev,sharedDev && gcloud app deploy app.yaml",
     "generate-types": "yarn graphql-codegen",
     "lint": "eslint 'src/**/*.ts?(x)' && yarn prettier:check",
     "prettier": "prettier --write 'src/**/*.ts?(x)'",
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
     "eslint": "eslint 'src/**/*.ts?(x)'",
-    "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
-    "deploy": "yarn build:ts && gcloud app deploy"
+    "eslintfix": "eslint 'src/**/*.ts?(x)' --fix"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

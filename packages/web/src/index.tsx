@@ -1,7 +1,6 @@
 // import './wdyr';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
-import * as config from 'config';
 import { AuthProvider, UserProvider } from 'context';
 import * as firebase from 'firebase/app';
 import { createBrowserHistory } from 'history';
@@ -9,8 +8,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 import { BrowserRouter } from 'react-router-dom';
-// import * as helpers from 'helpers';
 import smoothscroll from 'smoothscroll-polyfill';
+import { FirebaseConfig } from 'types';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
@@ -20,13 +19,40 @@ smoothscroll.polyfill();
 
 export const history = createBrowserHistory();
 
-console.log('config', config);
-if (config.settings.FIREBASE_CONFIG) {
-  firebase.initializeApp(config.settings.FIREBASE_CONFIG);
+if (
+  process.env.REACT_APP_FIREBASE_API_KEY === undefined ||
+  process.env.REACT_APP_FIREBASE_AUTH_DOMAIN === undefined ||
+  process.env.REACT_APP_FIREBASE_DATABASE_URL === undefined ||
+  process.env.REACT_APP_FIREBASE_PROJECT_ID === undefined ||
+  process.env.REACT_APP_FIREBASE_STORAGE_BUCKET === undefined ||
+  process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID === undefined ||
+  process.env.REACT_APP_FIREBASE_APP_ID === undefined ||
+  process.env.REACT_APP_FIREBASE_MEASUREMENT_ID === undefined
+) {
+  throw new Error('Firebase not initialized - env variables not set correctly');
+}
+
+const firebaseConfig: FirebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+};
+
+firebase.initializeApp(firebaseConfig);
+
+if (process.env.REACT_APP_GRAPHQL_URI === undefined) {
+  throw new Error(
+    'ApolloClient not initialised - REACT_APP_GRAPHQL_URI not set'
+  );
 }
 
 const client = new ApolloClient({
-  uri: config.settings.GRAPHQL_URI,
+  uri: process.env.REACT_APP_GRAPHQL_URI,
   cache: new InMemoryCache(),
 });
 

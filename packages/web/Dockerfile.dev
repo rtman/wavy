@@ -6,4 +6,4 @@ RUN yarn install
 
 COPY . .
 
-CMD ["yarn", "start:local"]
+CMD ["yarn", "start:compose"]

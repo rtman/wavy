@@ -11,12 +11,20 @@
     ]
   },
   "scripts": {
-    "start": "echo 'Starting migration' && yarn seed && yarn migrate",
-    "build:ts": "echo 'Skipping due to JS'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
-    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "start:compose": "echo 'Starting migration' && yarn seed && yarn migrate",
+    "ts:build": "echo 'Skipping due to JS'",
+    "set:dev:local": "env-cmd -r ../../.env-cmdrc.json -e common,dev,local",
+    "set:dev:shared": "env-cmd -r ../../.env-cmdrc.json -e common,dev,sharedDev",
+    "set:qa:local": "env-cmd -r ../../.env-cmdrc.json -e common,qa,local",
+    "set:qa:shared": "env-cmd -r ../../.env-cmdrc.json -e common,qa,sharedQa",
+    "seed:dev:local": "yarn set:dev:local sequelize db:seed:all",
+    "seed:dev:shared": "yarn set:dev:shared sequelize db:seed:all",
+    "seed:qa:local": "yarn set:qa:local sequelize db:seed:all",
+    "seed:qa:shared": "yarn set:qa:shared sequelize db:seed:all",
+    "typeormSeed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "typeoOrmSeed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "lint": "eslint '**/*.js' && yarn prettier:check",
     "prettier": "prettier --write '**/*.js'",
     "prettier:check": "prettier -c '**/*.js'"
@@ -27,6 +35,8 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "pg": "^7.16.0",
     "sequelize": "5.21.5",
     "sequelize-cli": "^5.5.1",

@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { createConnection } from 'typeorm';
 
 import * as Models from './models';
@@ -11,6 +12,10 @@ const createOrmConnection = async () => {
     type: 'postgres',
     port: Number(process.env.DATABASE_PORT),
     synchronize: true,
+    // ssl: {
+    //   ca: process.env.DATABASE_SSL_CERT,
+    //   rejectUnauthorized: true,
+    // },
     // This doesnt work because moels exports types as well as models, would be nice to fix this
     // entities: Object.values(Models),
     entities: [

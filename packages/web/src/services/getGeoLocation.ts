@@ -1,5 +1,3 @@
-import { settings } from 'config';
-
 export interface IpifyLocation {
   country: string;
   region: string;
@@ -17,8 +15,11 @@ interface IpIfyGeoLocationResponse {
 
 export const getGeoLocation = async (ipAddress: string) => {
   try {
+    if (process.env.REACT_APP_IP_IFY_API_KEY === undefined) {
+      throw new Error('getGeoLocation - REACT_APP_IP_IFY_API_KEY not set');
+    }
     const response = await fetch(
-      `https://geo.ipify.org/api/v1?apiKey=${settings.IP_IFY_API_KEY}&ipAddress=${ipAddress}`,
+      `https://geo.ipify.org/api/v1?apiKey=${process.env.REACT_APP_IP_IFY_API_KEY}&ipAddress=${ipAddress}`,
       {
         method: 'get',
       }
