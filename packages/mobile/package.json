@@ -1,6 +1,6 @@
 {
   "name": "@groov/mobile",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "workspaces": {
     "nohoist": [
@@ -28,7 +28,7 @@
     "prettier:check": "prettier -c 'src/**/*.ts?(x)'",
     "eslint": "eslint 'src/**/*.ts?(x)'",
     "eslintfix": "eslint 'src/**/*.ts?(x)' --fix",
-    "build:ts": "yarn tsc --build tsconfig.json",
+    "ts:build": "yarn tsc --build tsconfig.json",
     "build:env": "sh ./scripts/build-env.sh",
     "install:gems": "(cd ios; bundle check || bundle install; cd -)",
     "install:hacks": "yarn patch-package",

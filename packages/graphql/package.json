@@ -1,6 +1,6 @@
 {
   "name": "@groov/graphql",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "dependencies": {
     "apollo-server": "2.18.2",
