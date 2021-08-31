@@ -1,6 +1,6 @@
 {
-  "name": "@groov/migration",
-  "version": "0.0.4",
+  "name": "@wavy/migration",
+  "version": "0.0.5",
   "private": true,
   "workspaces": {
     "nohoist": [

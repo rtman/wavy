@@ -121,7 +121,7 @@ export class Song {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  isrc: string;
+  isrc?: string;
 
   @Field()
   @Column({ default: true })

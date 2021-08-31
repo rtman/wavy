@@ -464,7 +464,7 @@ export type NewSongArgs = {
   artistId?: Maybe<Scalars['String']>;
   storagePath: Scalars['String'];
   supportingArtists: Array<SupportingArtistInput>;
-  isrc: Scalars['String'];
+  isrc?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
 

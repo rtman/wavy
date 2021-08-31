@@ -1,7 +1,7 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-# groov (Temp name)
+# Wavy
 
-Groov is a monorepo that is managed using `lerna`, in order to run it you have to have `lerna`, `docker desktop`, `node` and `npm`/`yarn` installed.
+Wavy is a monorepo that is managed using `lerna`, in order to run it you have to have `lerna`, `docker desktop`, `node` and `npm`/`yarn` installed.
 
 After cloning the repo run `lerna bootstrap` in the root dir, start docker desktop and run `docker-compose up` (still in the root). That should start up the backend.
 

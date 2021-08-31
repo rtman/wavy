@@ -28,8 +28,8 @@ class NewSongArgs {
   @Field(() => [SupportingArtistInput])
   supportingArtists: SupportingArtistInput[];
 
-  @Field()
-  isrc: string;
+  @Field({ nullable: true })
+  isrc?: string;
 
   @Field()
   title: string;

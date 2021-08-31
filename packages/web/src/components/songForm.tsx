@@ -91,7 +91,9 @@ export const SongForm = memo((props: SongUploadFormProps) => {
             rules={{
               validate: {
                 length: (value: string) =>
-                  value?.length === 12 || 'ISRC codes need to be 12 characters',
+                  value?.length === 0 ||
+                  value?.length === 12 ||
+                  'ISRC codes need to be 12 characters',
               },
             }}
           />

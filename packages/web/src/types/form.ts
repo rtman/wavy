@@ -7,7 +7,7 @@ export interface ArtistAutocomplete {
 /** React-hook-form doesnt like undefined fields, use null instead */
 export interface SongFields {
   artist: ArtistAutocomplete | null;
-  isrc: string;
+  isrc?: string;
   supportingArtists: ArtistAutocomplete[];
   title: string;
 }
