@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t "gcr.io/groov-development-ddc9d/groov-web" ./packages/web
+docker build -t "gcr.io/wavy-development/wavy-web" ./packages/web

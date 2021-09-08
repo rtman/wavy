@@ -19,5 +19,5 @@ roleRef:
   name: read-services
 subjects:
   - kind: ServiceAccount
-    name: groov-frontend-service-account
+    name: wavy-frontend-service-account
     namespace: default

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker push "gcr.io/groov-development-ddc9d/groov-web"
+docker push "gcr.io/wavy-development/wavy-web"

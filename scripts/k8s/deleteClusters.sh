@@ -1,3 +1,3 @@
 #!/bin/sh
 
-gcloud container clusters delete groov
+gcloud container clusters delete wavy

@@ -2,18 +2,18 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: groov-backend
+  name: wavy-backend
   labels:
-    app: groov-backend
+    app: wavy-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: groov-backend
+      app: wavy-backend
   template:
     metadata:
       labels:
-        app: groov-backend
+        app: wavy-backend
     spec:
       securityContext:
         fsGroup: 1000
@@ -31,7 +31,7 @@ spec:
           command: ["sysctl", "-w", "vm.max_map_count=262144"]
       containers:
         - name: postgresql
-          image: gcr.io/groov-development-ddc9d/groov-postgresql:latest
+          image: gcr.io/wavy-development/wavy-postgresql:latest
           resources:
             limits:
               cpu: "200m"
@@ -42,13 +42,13 @@ spec:
               name: postgresql
           env:
             - name: POSTGRES_USER
-              value: groov
+              value: wavy
             - name: POSTGRES_PASSWORD
-              value: groov
+              value: wavy
             - name: POSTGRES_DB
-              value: groov
+              value: wavy
         - name: graphql
-          image: gcr.io/groov-development-ddc9d/groov-graphql:latest
+          image: gcr.io/wavy-development/wavy-graphql:latest
           resources:
             limits:
               cpu: "200m"
@@ -61,11 +61,11 @@ spec:
             - name: DATABASE_URL
               value: postgresql
             - name: DATABASE_USER
-              value: groov
+              value: wavy
             - name: DATABASE_PASSWORD
-              value: groov
+              value: wavy
             - name: DATABASE_DB
-              value: groov
+              value: wavy
             - name: DATABASE_HOST
               value: "127.0.0.1"
         - name: es01
@@ -126,9 +126,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: groov-backend-private
+  name: wavy-backend-private
   labels:
-    app: groov-backend
+    app: wavy-backend
 spec:
   type: ClusterIP
   ports:
@@ -145,15 +145,15 @@ spec:
       port: 5432
       targetPort: 5432
   selector:
-    app: groov-backend
+    app: wavy-backend
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: groov-backend-public
+  name: wavy-backend-public
   labels:
-    app: groov-backend
+    app: wavy-backend
 spec:
   type: LoadBalancer
   ports:
@@ -162,4 +162,4 @@ spec:
       port: 3001
       targetPort: 3001
   selector:
-    app: groov-backend
+    app: wavy-backend

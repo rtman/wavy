@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: groov-frontend
+  name: wavy-frontend
   labels:
-    app: groov
+    app: wavy
     role: leader
     tier: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: groov
+      app: wavy
       tier: frontend
   template:
     metadata:
       labels:
-        app: groov
+        app: wavy
         role: leader
         tier: frontend
     spec:
@@ -26,11 +26,11 @@ spec:
             [
               "sh",
               "-c",
-              "until nslookup groov-backend-public; do echo waiting for groov-backend-public; sleep 2; done;",
+              "until nslookup wavy-backend-public; do echo waiting for wavy-backend-public; sleep 2; done;",
             ]
       containers:
         - name: web-app
-          image: gcr.io/groov-development-ddc9d/groov-web:latest
+          image: gcr.io/wavy-development/wavy-web:latest
           env:
             # determines how this service gets the hostnames of other services
             - name: GET_HOSTS_FROM
@@ -43,9 +43,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: groov-frontend
+  name: wavy-frontend
   labels:
-    app: groov
+    app: wavy
     role: leader
     tier: frontend
 spec:
@@ -54,6 +54,6 @@ spec:
     # the port that this service should serve on, shoudl this be 3000? targetPort: 3000 as well?
     - port: 80
   selector:
-    app: groov
+    app: wavy
     role: leader
     tier: frontend

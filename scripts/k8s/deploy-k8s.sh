@@ -25,9 +25,9 @@ while true; do
 done
 
 echo "Getting backend external ip"
-EXTERNAL_IP=$(kubectl get svc groov-backend-public --output jsonpath='{.status.loadBalancer.ingress[0].ip}') 
+EXTERNAL_IP=$(kubectl get svc wavy-backend-public --output jsonpath='{.status.loadBalancer.ingress[0].ip}') 
 
-echo "groov-backend-public external ip = $EXTERNAL_IP"
+echo "wavy-backend-public external ip = $EXTERNAL_IP"
 
 echo "Updating REACT_APP_GRAPHQL_IP env variable with current external ip"
 
