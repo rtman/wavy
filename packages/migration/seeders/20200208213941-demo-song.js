@@ -24,11 +24,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/albums/6960fd68-732e-4c3c-8995-8d72989f53db/András - B1. Gold Coast (House Mix).mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=39c4fbe2-6190-4f24-bc5a-f93638380adc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=b48dd00e-1cfd-467d-af48-988f835d4253',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=39c4fbe2-6190-4f24-bc5a-f93638380adc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=b48dd00e-1cfd-467d-af48-988f835d4253',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=39c4fbe2-6190-4f24-bc5a-f93638380adc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/30f65df5-98bb-48cd-83e5-867f707f941d%2Falbums%2F6960fd68-732e-4c3c-8995-8d72989f53db%2FAndra%CC%81s%20-%20B1.%20Gold%20Coast%20(House%20Mix).mp3?alt=media&token=b48dd00e-1cfd-467d-af48-988f835d4253',
         title: 'Gold Coast (House Mix)',
         artistId: '30f65df5-98bb-48cd-83e5-867f707f941d',
         albumId: '6960fd68-732e-4c3c-8995-8d72989f53db',
@@ -60,11 +60,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/B2_Exit_Point_Mastered_16.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=179b3ee3-11c2-4c25-9213-797d8b30922f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=617707bc-fe8c-4444-97a6-08bad63b02a7',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=179b3ee3-11c2-4c25-9213-797d8b30922f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=617707bc-fe8c-4444-97a6-08bad63b02a7',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=179b3ee3-11c2-4c25-9213-797d8b30922f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FB2_Exit_Point_Mastered_16.mp3?alt=media&token=617707bc-fe8c-4444-97a6-08bad63b02a7',
         title: 'Exit Point',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -96,11 +96,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/Raf Reza - A1_C_Quenz_Mastered_16.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=d10aa728-aec9-4c16-b92c-0d3431ce1421',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=9b82ea1a-dc9b-4fa3-bf06-c9477ce36f36',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=d10aa728-aec9-4c16-b92c-0d3431ce1421',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=9b82ea1a-dc9b-4fa3-bf06-c9477ce36f36',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=d10aa728-aec9-4c16-b92c-0d3431ce1421',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A1_C_Quenz_Mastered_16.mp3?alt=media&token=9b82ea1a-dc9b-4fa3-bf06-c9477ce36f36',
         title: 'C Quenz',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -132,11 +132,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - A2_Cruising_Speed_Mastered_16.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=8d4b4dc2-cffb-466e-8df3-57aace7ce550',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=23c8db36-9b01-4ea2-8372-32b3d196b97b',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=8d4b4dc2-cffb-466e-8df3-57aace7ce550',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=23c8db36-9b01-4ea2-8372-32b3d196b97b',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=8d4b4dc2-cffb-466e-8df3-57aace7ce550',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20A2_Cruising_Speed_Mastered_16.mp3?alt=media&token=23c8db36-9b01-4ea2-8372-32b3d196b97b',
         title: 'Cruising Speed',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -168,11 +168,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/89c2d3fd-c9c0-45c4-98c2-74386449ae2b/Raf Reza - B1_Rogue_Mastered_16.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=f35cb7b4-fec8-499f-95b4-5797598f58e5',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=a7df5258-087d-43b2-ba0c-ee2d7a0ce962',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=f35cb7b4-fec8-499f-95b4-5797598f58e5',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=a7df5258-087d-43b2-ba0c-ee2d7a0ce962',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=f35cb7b4-fec8-499f-95b4-5797598f58e5',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2F89c2d3fd-c9c0-45c4-98c2-74386449ae2b%2FRaf%20Reza%20-%20B1_Rogue_Mastered_16.mp3?alt=media&token=a7df5258-087d-43b2-ba0c-ee2d7a0ce962',
         title: 'Rogue',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: '89c2d3fd-c9c0-45c4-98c2-74386449ae2b',
@@ -204,11 +204,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Pineapple Island.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=8ddffe16-a5ce-4976-b690-511ed71f067b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=0819a7c3-e0b4-40df-b0cf-08ac85a03982',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=8ddffe16-a5ce-4976-b690-511ed71f067b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=0819a7c3-e0b4-40df-b0cf-08ac85a03982',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=8ddffe16-a5ce-4976-b690-511ed71f067b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Pineapple%20Island.mp3?alt=media&token=0819a7c3-e0b4-40df-b0cf-08ac85a03982',
         title: 'Pineapple Island',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -240,11 +240,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Space Strut.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=718c0388-46b8-4c60-90d2-834b17730a6e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=270ad61e-3a5d-4ad4-bf94-e1108fd2bf1a',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=718c0388-46b8-4c60-90d2-834b17730a6e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=270ad61e-3a5d-4ad4-bf94-e1108fd2bf1a',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=718c0388-46b8-4c60-90d2-834b17730a6e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Space%20Strut.mp3?alt=media&token=270ad61e-3a5d-4ad4-bf94-e1108fd2bf1a',
         title: 'Space Strut',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -276,11 +276,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91/f2028bf3-ed1c-4057-b430-c3374116a959/Raf Reza - Why You Gotta_.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=6aa74c0f-8102-4d87-aaa7-add5a3b08435',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=b9d3dbe7-e643-4b63-896b-94d4447fa0b6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=6aa74c0f-8102-4d87-aaa7-add5a3b08435',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=b9d3dbe7-e643-4b63-896b-94d4447fa0b6',
         urlLow:
-          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=6aa74c0f-8102-4d87-aaa7-add5a3b08435',
+          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91%2Ff2028bf3-ed1c-4057-b430-c3374116a959%2FRaf%20Reza%20-%20Why%20You%20Gotta_.mp3?alt=media&token=b9d3dbe7-e643-4b63-896b-94d4447fa0b6',
         title: 'Why You Gotta',
         artistId: 'cc0b75c3-4b65-4c9e-b2bc-0eccbf46bb91',
         albumId: 'f2028bf3-ed1c-4057-b430-c3374116a959',
@@ -312,11 +312,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=3f6c0dd9-b643-4a51-8c54-69fb07311a8d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=b5da5035-0b1a-463c-bc8c-061e40671e15',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=3f6c0dd9-b643-4a51-8c54-69fb07311a8d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=b5da5035-0b1a-463c-bc8c-061e40671e15',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=3f6c0dd9-b643-4a51-8c54-69fb07311a8d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue.mp3?alt=media&token=b5da5035-0b1a-463c-bc8c-061e40671e15',
         title: 'On Cue',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -348,11 +348,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - On Cue (Vakula Remix).mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=ab5bbb80-9092-4c12-ae2c-aadf77e2efb0',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=75289114-b282-44d5-9469-c5f18146839a',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=ab5bbb80-9092-4c12-ae2c-aadf77e2efb0',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=75289114-b282-44d5-9469-c5f18146839a',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=ab5bbb80-9092-4c12-ae2c-aadf77e2efb0',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20On%20Cue%20(Vakula%20Remix).mp3?alt=media&token=75289114-b282-44d5-9469-c5f18146839a',
         title: 'On Cue (Vakula Remix)',
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -374,9 +374,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - time won't forget.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=64a6783d-ed39-48ed-a36b-0ea10a48bae9`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=64a6783d-ed39-48ed-a36b-0ea10a48bae9`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=64a6783d-ed39-48ed-a36b-0ea10a48bae9`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=73e5f5de-0688-401f-b79b-d4724c5fb16d`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=73e5f5de-0688-401f-b79b-d4724c5fb16d`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20time%20won't%20forget.mp3?alt=media&token=73e5f5de-0688-401f-b79b-d4724c5fb16d`,
         title: `Time Won't Forget`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -406,11 +406,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/b8fc8b71-509c-400a-831a-25ef04a9ec3b/ESB - terrium.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=8f9162dc-a72a-4373-8c64-d28fc6e15ddc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=4a89b181-26b2-4f57-b711-e228181999d3',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=8f9162dc-a72a-4373-8c64-d28fc6e15ddc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=4a89b181-26b2-4f57-b711-e228181999d3',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=8f9162dc-a72a-4373-8c64-d28fc6e15ddc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2Fb8fc8b71-509c-400a-831a-25ef04a9ec3b%2FESB%20-%20terrium.mp3?alt=media&token=4a89b181-26b2-4f57-b711-e228181999d3',
         title: `Terrium`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: 'b8fc8b71-509c-400a-831a-25ef04a9ec3b',
@@ -440,11 +440,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Q1.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=334ce15b-32db-4781-9a31-bc207bd205d8',
+          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=11f2cb1c-1856-48ac-9b20-9efb1d9f2bda',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=334ce15b-32db-4781-9a31-bc207bd205d8',
+          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=11f2cb1c-1856-48ac-9b20-9efb1d9f2bda',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=334ce15b-32db-4781-9a31-bc207bd205d8',
+          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Q1.mp3?alt=media&token=11f2cb1c-1856-48ac-9b20-9efb1d9f2bda',
         title: `Q1`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -474,11 +474,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Spaneaur.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=dc4ae140-4591-4b3a-b791-e53bc403480f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=0e119066-854a-49f4-83bf-a1931d13e582',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=dc4ae140-4591-4b3a-b791-e53bc403480f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=0e119066-854a-49f4-83bf-a1931d13e582',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=dc4ae140-4591-4b3a-b791-e53bc403480f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Spaneaur.mp3?alt=media&token=0e119066-854a-49f4-83bf-a1931d13e582',
         title: `Spaneaur`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -508,11 +508,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - Whisper Theme.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=9442b569-b339-4e33-b63c-4ed8194db904',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=f6dd2354-da68-4e98-bd7c-1166878f71f2',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=9442b569-b339-4e33-b63c-4ed8194db904',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=f6dd2354-da68-4e98-bd7c-1166878f71f2',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=9442b569-b339-4e33-b63c-4ed8194db904',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%20Whisper%20Theme.mp3?alt=media&token=f6dd2354-da68-4e98-bd7c-1166878f71f2',
         title: `Whisper Theme`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -542,11 +542,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/911684b3-c073-4b33-ae2a-014346df4bc8/ESB - 20% Deeper.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=7f8c8197-315a-47ea-a994-5b7c5e609e72',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=8127a5e5-400d-476d-973c-58d20bfd63e4',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=7f8c8197-315a-47ea-a994-5b7c5e609e72',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=8127a5e5-400d-476d-973c-58d20bfd63e4',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=7f8c8197-315a-47ea-a994-5b7c5e609e72',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F911684b3-c073-4b33-ae2a-014346df4bc8%2FESB%20-%2020%25%20Deeper.mp3?alt=media&token=8127a5e5-400d-476d-973c-58d20bfd63e4',
         title: `20% Deeper`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '911684b3-c073-4b33-ae2a-014346df4bc8',
@@ -576,11 +576,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Fixation.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=180c0f5b-8132-4710-919c-9d6b6617011a',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=c23668e1-6b7f-4b3d-b642-15badb987157',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=180c0f5b-8132-4710-919c-9d6b6617011a',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=c23668e1-6b7f-4b3d-b642-15badb987157',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=180c0f5b-8132-4710-919c-9d6b6617011a',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Fixation.mp3?alt=media&token=c23668e1-6b7f-4b3d-b642-15badb987157',
         title: `Fixation`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -610,11 +610,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - GLWL.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=c797aeb8-d38c-4227-a1a6-f14dccd3f632',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=145e54c4-0001-4f3e-a5e7-f1cd2c3c8206',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=c797aeb8-d38c-4227-a1a6-f14dccd3f632',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=145e54c4-0001-4f3e-a5e7-f1cd2c3c8206',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=c797aeb8-d38c-4227-a1a6-f14dccd3f632',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20GLWL.mp3?alt=media&token=145e54c4-0001-4f3e-a5e7-f1cd2c3c8206',
         title: `GLWL`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -644,11 +644,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Make It Thru.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=4b612b93-551b-45f6-a232-455051e6926d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=c281094a-861e-4096-ba57-738d7e996b76',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=4b612b93-551b-45f6-a232-455051e6926d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=c281094a-861e-4096-ba57-738d7e996b76',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=4b612b93-551b-45f6-a232-455051e6926d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Make%20It%20Thru.mp3?alt=media&token=c281094a-861e-4096-ba57-738d7e996b76',
         title: `Make It Thru`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -678,11 +678,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac/2d3adf1-59de-4d3c-91ef-3530ed77ea59/ESB - Mist Outro.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=9429e1e9-f433-49fc-8b02-8e7bc52c90dd',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=b2afffe9-e4d6-4c47-b488-e8add8b20afe',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=9429e1e9-f433-49fc-8b02-8e7bc52c90dd',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=b2afffe9-e4d6-4c47-b488-e8add8b20afe',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=9429e1e9-f433-49fc-8b02-8e7bc52c90dd',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/a4dbf9ca-9c33-41f3-b1b1-b61355f82aac%2F2d3adf1-59de-4d3c-91ef-3530ed77ea59%2FESB%20-%20Mist%20Outro.mp3?alt=media&token=b2afffe9-e4d6-4c47-b488-e8add8b20afe',
         title: `Mist Outro`,
         artistId: 'a4dbf9ca-9c33-41f3-b1b1-b61355f82aac',
         albumId: '92d3adf1-59de-4d3c-91ef-3530ed77ea59',
@@ -712,11 +712,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 01 Foreign Parts.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=d002d6d6-34d3-41b6-b24a-a2d5536c43bc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=7b17bafd-1993-4236-aac7-95b6db8083c3',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=d002d6d6-34d3-41b6-b24a-a2d5536c43bc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=7b17bafd-1993-4236-aac7-95b6db8083c3',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=d002d6d6-34d3-41b6-b24a-a2d5536c43bc',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2001%20Foreign%20Parts.mp3?alt=media&token=7b17bafd-1993-4236-aac7-95b6db8083c3',
         title: `Foreign Parts`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -746,11 +746,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 02 Sondag.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=a3650674-607b-46e3-9863-ba90e32fdd9e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=ccdfeec1-cbed-4180-a595-17dae37e4838',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=a3650674-607b-46e3-9863-ba90e32fdd9e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=ccdfeec1-cbed-4180-a595-17dae37e4838',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=a3650674-607b-46e3-9863-ba90e32fdd9e',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2002%20Sondag.mp3?alt=media&token=ccdfeec1-cbed-4180-a595-17dae37e4838',
         title: `Sondag`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -780,11 +780,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 03 Gunvor.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=1ef23089-5d83-42ef-89c4-4576f4b995c4',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=c42ac854-a036-4fdf-bce2-e3b6c5fee1c6',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=1ef23089-5d83-42ef-89c4-4576f4b995c4',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=c42ac854-a036-4fdf-bce2-e3b6c5fee1c6',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=1ef23089-5d83-42ef-89c4-4576f4b995c4',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2003%20Gunvor.mp3?alt=media&token=c42ac854-a036-4fdf-bce2-e3b6c5fee1c6',
         title: `Gunvor`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -814,11 +814,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 04 Moodlight.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=70a2ee32-048d-45f6-b69a-6a00d61caef8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=48abbbb5-7423-4f90-be88-a19cecddf03f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=70a2ee32-048d-45f6-b69a-6a00d61caef8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=48abbbb5-7423-4f90-be88-a19cecddf03f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=70a2ee32-048d-45f6-b69a-6a00d61caef8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2004%20Moodlight.mp3?alt=media&token=48abbbb5-7423-4f90-be88-a19cecddf03f',
         title: `Moodlight`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -848,11 +848,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 05 Brodir.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=b5f05280-f1e3-4abf-a77f-0879dd95fb8b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=737e76ce-25f8-4fa9-9043-c06cac8f3d4d',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=b5f05280-f1e3-4abf-a77f-0879dd95fb8b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=737e76ce-25f8-4fa9-9043-c06cac8f3d4d',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=b5f05280-f1e3-4abf-a77f-0879dd95fb8b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2005%20Brodir.mp3?alt=media&token=737e76ce-25f8-4fa9-9043-c06cac8f3d4d',
         title: `Brodir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -882,11 +882,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 06 Systir.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=52746653-a6ab-46d6-9c04-8b53fd411824',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=255f12c7-e171-48ae-8df1-fbd6e0d2ad8f',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=52746653-a6ab-46d6-9c04-8b53fd411824',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=255f12c7-e171-48ae-8df1-fbd6e0d2ad8f',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=52746653-a6ab-46d6-9c04-8b53fd411824',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2006%20Systir.mp3?alt=media&token=255f12c7-e171-48ae-8df1-fbd6e0d2ad8f',
         title: `Systir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -916,11 +916,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a4074c89-741d-409d-9b4e-e933c7311e2b/Seb Wildblood - Foreign Parts - 07 Modir.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=182df518-99f6-49b7-b07f-00be879a8537',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=9d62b71d-0cce-497e-a4c7-1d3fe9345dab',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=182df518-99f6-49b7-b07f-00be879a8537',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=9d62b71d-0cce-497e-a4c7-1d3fe9345dab',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=182df518-99f6-49b7-b07f-00be879a8537',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa4074c89-741d-409d-9b4e-e933c7311e2b%2FSeb%20Wildblood%20-%20Foreign%20Parts%20-%2007%20Modir.mp3?alt=media&token=9d62b71d-0cce-497e-a4c7-1d3fe9345dab',
         title: `Modir`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a4074c89-741d-409d-9b4e-e933c7311e2b',
@@ -950,11 +950,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 01 MT01.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=38596ef8-8fa5-40cf-b9aa-3077101b7fe7',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=cfe59088-581a-4205-8a7f-79465797e8d7',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=38596ef8-8fa5-40cf-b9aa-3077101b7fe7',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=cfe59088-581a-4205-8a7f-79465797e8d7',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=38596ef8-8fa5-40cf-b9aa-3077101b7fe7',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2001%20MT01.mp3?alt=media&token=cfe59088-581a-4205-8a7f-79465797e8d7',
         title: `MT01`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
@@ -984,11 +984,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/8c587e75-58c0-45e0-a87e-538fbf69848f/Seb Wildblood - Melodic Tools - 02 MT02.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=feb03ac7-077c-4ce8-8450-84140781facd',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=159304ab-0011-4cf5-976e-03da9e6ec7ef',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=feb03ac7-077c-4ce8-8450-84140781facd',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=159304ab-0011-4cf5-976e-03da9e6ec7ef',
         urlLow:
-          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=feb03ac7-077c-4ce8-8450-84140781facd',
+          'hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F8c587e75-58c0-45e0-a87e-538fbf69848f%2FSeb%20Wildblood%20-%20Melodic%20Tools%20-%2002%20MT02.mp3?alt=media&token=159304ab-0011-4cf5-976e-03da9e6ec7ef',
         title: `MT02`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '8c587e75-58c0-45e0-a87e-538fbf69848f',
@@ -1018,11 +1018,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 01 Everybody Looks Good At The Restaurant.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=d919108f-360a-4970-a771-3514af9ed3aa',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=9f307ffe-fb07-43f2-b2e0-8093b318059c',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=d919108f-360a-4970-a771-3514af9ed3aa',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=9f307ffe-fb07-43f2-b2e0-8093b318059c',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=d919108f-360a-4970-a771-3514af9ed3aa',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2001%20Everybody%20Looks%20Good%20At%20The%20Restaurant.mp3?alt=media&token=9f307ffe-fb07-43f2-b2e0-8093b318059c',
         title: `Everybody Looks Good At The Restaurant`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -1052,11 +1052,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 02 I Will.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=5d70ae87-70d8-4a2e-a9c2-2529b3e3c85b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=db0ae19f-b77c-41f3-b967-fab10058d767',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=5d70ae87-70d8-4a2e-a9c2-2529b3e3c85b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=db0ae19f-b77c-41f3-b967-fab10058d767',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=5d70ae87-70d8-4a2e-a9c2-2529b3e3c85b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2002%20I%20Will.mp3?alt=media&token=db0ae19f-b77c-41f3-b967-fab10058d767',
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -1086,11 +1086,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 03 Lifestyle w- James Booth.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=4eac5d11-0240-475c-9b55-d96e4a03ac52',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=47ba3940-5938-478e-b1b4-9e629b58b0f9',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=4eac5d11-0240-475c-9b55-d96e4a03ac52',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=47ba3940-5938-478e-b1b4-9e629b58b0f9',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=4eac5d11-0240-475c-9b55-d96e4a03ac52',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=47ba3940-5938-478e-b1b4-9e629b58b0f9',
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -1112,9 +1112,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/9d84ba1c-a7f2-438a-9252-4fd1f1ede68b/Seb Wildblood - SW004 - 04 I Won't.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=4206ef46-76d1-478d-be36-730bcb476ada`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=4206ef46-76d1-478d-be36-730bcb476ada`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=4206ef46-76d1-478d-be36-730bcb476ada`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=0a45d49b-70d4-4f66-a860-b5aa8e8d82d5`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=0a45d49b-70d4-4f66-a860-b5aa8e8d82d5`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F9d84ba1c-a7f2-438a-9252-4fd1f1ede68b%2FSeb%20Wildblood%20-%20SW004%20-%2004%20I%20Won't.mp3?alt=media&token=0a45d49b-70d4-4f66-a860-b5aa8e8d82d5`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '9d84ba1c-a7f2-438a-9252-4fd1f1ede68b',
@@ -1144,11 +1144,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 01 Swimmers.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=385b1c6a-b6fc-4be4-928f-e394b76adcaf',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=557b6f36-333d-4896-82a4-b65d5d1e12c3',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=385b1c6a-b6fc-4be4-928f-e394b76adcaf',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=557b6f36-333d-4896-82a4-b65d5d1e12c3',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=385b1c6a-b6fc-4be4-928f-e394b76adcaf',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2001%20Swimmers.mp3?alt=media&token=557b6f36-333d-4896-82a4-b65d5d1e12c3',
         title: `Swimmers`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -1178,11 +1178,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 02 Mariana Dub.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a28bb1e3-f704-443d-b8a3-72c3e9a4219c',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a0c7695e-ff11-4e31-8881-63afba72f9f3',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a28bb1e3-f704-443d-b8a3-72c3e9a4219c',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a0c7695e-ff11-4e31-8881-63afba72f9f3',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a28bb1e3-f704-443d-b8a3-72c3e9a4219c',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2002%20Mariana%20Dub.mp3?alt=media&token=a0c7695e-ff11-4e31-8881-63afba72f9f3',
         title: `Mariana Dub`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -1212,11 +1212,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 03 Submarine.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=495836be-88ec-4c3e-818e-22528c68ec0d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=a955d74b-8359-4d94-90d9-bb471e266f94',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=495836be-88ec-4c3e-818e-22528c68ec0d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=a955d74b-8359-4d94-90d9-bb471e266f94',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=495836be-88ec-4c3e-818e-22528c68ec0d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2003%20Submarine.mp3?alt=media&token=a955d74b-8359-4d94-90d9-bb471e266f94',
         title: `Submarine`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -1246,11 +1246,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4/Seb Wildblood - Submarine - 04 Submarine (Project Pablo Remix).mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=fb8ac827-d441-4e63-8c5a-14d7ef4d7fba',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=de9f5869-02b1-44c5-bfae-4e017a0f2ca8',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=fb8ac827-d441-4e63-8c5a-14d7ef4d7fba',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=de9f5869-02b1-44c5-bfae-4e017a0f2ca8',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=fb8ac827-d441-4e63-8c5a-14d7ef4d7fba',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2F2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4%2FSeb%20Wildblood%20-%20Submarine%20-%2004%20Submarine%20(Project%20Pablo%20Remix).mp3?alt=media&token=de9f5869-02b1-44c5-bfae-4e017a0f2ca8',
         title: `Submarine (Project Pablo Remix)`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: '2bf20d2f-5847-4c0a-ad64-8ad1fc64e9b4',
@@ -1280,11 +1280,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 01 I Will.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=b5cdb17b-7918-40be-8144-0cc2d030bdb8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=09c9013d-16b4-41c7-b56c-9ec8f9b6be03',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=b5cdb17b-7918-40be-8144-0cc2d030bdb8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=09c9013d-16b4-41c7-b56c-9ec8f9b6be03',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=b5cdb17b-7918-40be-8144-0cc2d030bdb8',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2001%20I%20Will.mp3?alt=media&token=09c9013d-16b4-41c7-b56c-9ec8f9b6be03',
         title: `I Will`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1314,11 +1314,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 02 U.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=050c93ba-d2d1-4acc-bc38-94cf8c7542ac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=f80b7bf7-61b1-486e-a85b-83b00eb9e891',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=050c93ba-d2d1-4acc-bc38-94cf8c7542ac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=f80b7bf7-61b1-486e-a85b-83b00eb9e891',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=050c93ba-d2d1-4acc-bc38-94cf8c7542ac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2002%20U.mp3?alt=media&token=f80b7bf7-61b1-486e-a85b-83b00eb9e891',
         title: `U`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1348,11 +1348,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 03 Lifestyle w- James Booth.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=24eec081-5b6d-4c28-8f7d-cb187968fb70',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=049bd5a5-c6d2-45c9-89ce-a5cba8a3c1ca',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=24eec081-5b6d-4c28-8f7d-cb187968fb70',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=049bd5a5-c6d2-45c9-89ce-a5cba8a3c1ca',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=24eec081-5b6d-4c28-8f7d-cb187968fb70',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2003%20Lifestyle%20w-%20James%20Booth.mp3?alt=media&token=049bd5a5-c6d2-45c9-89ce-a5cba8a3c1ca',
         title: `Lifestyle w- James Booth`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1374,9 +1374,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 04 I Won't.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=be7ce83d-5a56-4a0f-8d5f-61c351008d16`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=be7ce83d-5a56-4a0f-8d5f-61c351008d16`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=be7ce83d-5a56-4a0f-8d5f-61c351008d16`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=2d967ce8-f3ee-4737-ae7f-8c6a6c72b73c`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=2d967ce8-f3ee-4737-ae7f-8c6a6c72b73c`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2004%20I%20Won't.mp3?alt=media&token=2d967ce8-f3ee-4737-ae7f-8c6a6c72b73c`,
         title: `I Won't`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1406,11 +1406,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 05 Bonsai Care.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=71c7f790-eb40-438b-bd3b-cdc83d7ab3c3',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=5e428cc1-8229-4337-a670-f324d052c2fa',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=71c7f790-eb40-438b-bd3b-cdc83d7ab3c3',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=5e428cc1-8229-4337-a670-f324d052c2fa',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=71c7f790-eb40-438b-bd3b-cdc83d7ab3c3',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2005%20Bonsai%20Care.mp3?alt=media&token=5e428cc1-8229-4337-a670-f324d052c2fa',
         title: `Bonsai Care`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1440,11 +1440,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/19c31f4a-d0a6-48d8-b99c-433bf3155a86/a5d7286c-0bc9-452b-8401-3dab864860ee/Seb Wildblood - U - 06 Crazy Eyes, Eric.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=e1a0bea1-a533-4694-b481-65dae8162e61',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=9b946a92-c1a7-4e68-820b-a720c226b13c',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=e1a0bea1-a533-4694-b481-65dae8162e61',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=9b946a92-c1a7-4e68-820b-a720c226b13c',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=e1a0bea1-a533-4694-b481-65dae8162e61',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/19c31f4a-d0a6-48d8-b99c-433bf3155a86%2Fa5d7286c-0bc9-452b-8401-3dab864860ee%2FSeb%20Wildblood%20-%20U%20-%2006%20Crazy%20Eyes%2C%20Eric.mp3?alt=media&token=9b946a92-c1a7-4e68-820b-a720c226b13c',
         title: `Crazy Eyes, Eric`,
         artistId: '19c31f4a-d0a6-48d8-b99c-433bf3155a86',
         albumId: 'a5d7286c-0bc9-452b-8401-3dab864860ee',
@@ -1474,11 +1474,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 01 Based Is How You Feel Inside.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=7e528ffc-547c-45af-b8c5-cf6184439d1b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=ae420a87-a9d4-4cbc-86aa-78684618082a',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=7e528ffc-547c-45af-b8c5-cf6184439d1b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=ae420a87-a9d4-4cbc-86aa-78684618082a',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=7e528ffc-547c-45af-b8c5-cf6184439d1b',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2001%20Based%20Is%20How%20You%20Feel%20Inside.mp3?alt=media&token=ae420a87-a9d4-4cbc-86aa-78684618082a',
         title: `Based Is How You Feel Inside`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1507,11 +1507,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 02 Fall In Love.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=7aa21a3e-358f-4999-bfdf-0efe537ccef1',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=f118475b-4bcf-437a-a96c-220d5575c14e',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=7aa21a3e-358f-4999-bfdf-0efe537ccef1',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=f118475b-4bcf-437a-a96c-220d5575c14e',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=7aa21a3e-358f-4999-bfdf-0efe537ccef1',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2002%20Fall%20In%20Love.mp3?alt=media&token=f118475b-4bcf-437a-a96c-220d5575c14e',
         title: `Fall In Love`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1540,11 +1540,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 03 Improvised Jam.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=2548f91e-498a-48f7-9b36-72463b016336',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=be39e9f2-55fa-4400-ad57-5c9a7281bedb',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=2548f91e-498a-48f7-9b36-72463b016336',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=be39e9f2-55fa-4400-ad57-5c9a7281bedb',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=2548f91e-498a-48f7-9b36-72463b016336',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2003%20Improvised%20Jam.mp3?alt=media&token=be39e9f2-55fa-4400-ad57-5c9a7281bedb',
         title: `Improvised Jam`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1573,11 +1573,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 04 Mass Appeal - Transmission.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=3085306d-9230-4499-b2d9-e3b5fb5e1aac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=af754591-2a2b-45f0-8dfe-4787a434b14e',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=3085306d-9230-4499-b2d9-e3b5fb5e1aac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=af754591-2a2b-45f0-8dfe-4787a434b14e',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=3085306d-9230-4499-b2d9-e3b5fb5e1aac',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2004%20Mass%20Appeal%20-%20Transmission.mp3?alt=media&token=af754591-2a2b-45f0-8dfe-4787a434b14e',
         title: `Mass Appeal - Transmission`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1606,11 +1606,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 05 I Got A Bad Feeling About This.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=a5e5b4d0-5d5c-4175-a04e-ad6c61571626',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=b36446a9-8e6a-4175-a979-b1e7d7d0dff7',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=a5e5b4d0-5d5c-4175-a04e-ad6c61571626',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=b36446a9-8e6a-4175-a979-b1e7d7d0dff7',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=a5e5b4d0-5d5c-4175-a04e-ad6c61571626',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2005%20I%20Got%20A%20Bad%20Feeling%20About%20This.mp3?alt=media&token=b36446a9-8e6a-4175-a979-b1e7d7d0dff7',
         title: `I Got A Bad Feeling About This`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1639,11 +1639,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 06 Salmonella.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=2b2ed5cf-aabc-4abe-b022-19f6d000653d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=e362be77-aad0-47de-ae25-57c9eee4c944',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=2b2ed5cf-aabc-4abe-b022-19f6d000653d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=e362be77-aad0-47de-ae25-57c9eee4c944',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=2b2ed5cf-aabc-4abe-b022-19f6d000653d',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2006%20Salmonella.mp3?alt=media&token=e362be77-aad0-47de-ae25-57c9eee4c944',
         title: `Salmonella`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1672,11 +1672,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 07 Freedom - Billium Evans (Prod. Seeds of Yaris).mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=659e2030-a9bf-4fbe-84ce-48d3a5c95f54',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=49686ca9-0381-4c77-87bd-fdaffb19ab3e',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=659e2030-a9bf-4fbe-84ce-48d3a5c95f54',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=49686ca9-0381-4c77-87bd-fdaffb19ab3e',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=659e2030-a9bf-4fbe-84ce-48d3a5c95f54',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2007%20Freedom%20-%20Billium%20Evans%20(Prod.%20Seeds%20of%20Yaris).mp3?alt=media&token=49686ca9-0381-4c77-87bd-fdaffb19ab3e',
         title: `Freedom - Billium Evans (Prod. Seeds of Yaris)`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1705,11 +1705,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 08 The World Is Yours - Brooklyn Zoo.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b8235587-08d5-45b8-8d67-d9c00c4c8f2f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b708eef7-aa7b-4433-ae30-2cf7249ef082',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b8235587-08d5-45b8-8d67-d9c00c4c8f2f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b708eef7-aa7b-4433-ae30-2cf7249ef082',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b8235587-08d5-45b8-8d67-d9c00c4c8f2f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2008%20The%20World%20Is%20Yours%20-%20Brooklyn%20Zoo.mp3?alt=media&token=b708eef7-aa7b-4433-ae30-2cf7249ef082',
         title: `The World Is Yours - Brooklyn Zoo`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1738,11 +1738,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 09 Listeriosis.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=148fc217-c2df-4c41-a497-71c0cfdd1650',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=0fc180de-2cf5-4d54-a8c1-dd4058e900fb',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=148fc217-c2df-4c41-a497-71c0cfdd1650',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=0fc180de-2cf5-4d54-a8c1-dd4058e900fb',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=148fc217-c2df-4c41-a497-71c0cfdd1650',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2009%20Listeriosis.mp3?alt=media&token=0fc180de-2cf5-4d54-a8c1-dd4058e900fb',
         title: `Listeriosis`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1771,11 +1771,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 10 Camel.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=6ab6ac63-c1cd-4c20-aa94-cf8e9cf2ee37',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=0bb45b09-0109-4324-94be-744aa3f24e50',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=6ab6ac63-c1cd-4c20-aa94-cf8e9cf2ee37',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=0bb45b09-0109-4324-94be-744aa3f24e50',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=6ab6ac63-c1cd-4c20-aa94-cf8e9cf2ee37',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2010%20Camel.mp3?alt=media&token=0bb45b09-0109-4324-94be-744aa3f24e50',
         title: `Camel`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1796,9 +1796,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 11 Title Theme - Saria's Song - Song Of Storms.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=c78bb523-0026-4f7d-815f-869672c64ac3`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=c78bb523-0026-4f7d-815f-869672c64ac3`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=c78bb523-0026-4f7d-815f-869672c64ac3`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=ba72ed95-4f4f-46f4-ba42-89db21e4f3d0`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=ba72ed95-4f4f-46f4-ba42-89db21e4f3d0`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2011%20Title%20Theme%20-%20Saria's%20Song%20-%20Song%20Of%20Storms.mp3?alt=media&token=ba72ed95-4f4f-46f4-ba42-89db21e4f3d0`,
         title: `Saria's Song - Song Of Storms`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1827,11 +1827,11 @@ module.exports = {
         storagePathLow:
           'gs://wavy-development.appspot.com/2be2c355-497d-40bb-8739-cd07823ab8d0/68f831e8-e9be-494a-8133-37b6ee12d9ae/BADBADNOTGOOD - BBNG - 12 Outro - Glasper.mp3',
         urlHigh:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=7151b67e-a1e9-4540-82d8-4a20a6a57c1f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=eceeddaf-5669-48ee-8de1-9624e40eb268',
         urlMedium:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=7151b67e-a1e9-4540-82d8-4a20a6a57c1f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=eceeddaf-5669-48ee-8de1-9624e40eb268',
         urlLow:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=7151b67e-a1e9-4540-82d8-4a20a6a57c1f',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2F68f831e8-e9be-494a-8133-37b6ee12d9ae%2FBADBADNOTGOOD%20-%20BBNG%20-%2012%20Outro%20-%20Glasper.mp3?alt=media&token=eceeddaf-5669-48ee-8de1-9624e40eb268',
         title: `Outro - Glasper`,
         artistId: '2be2c355-497d-40bb-8739-cd07823ab8d0',
         albumId: '68f831e8-e9be-494a-8133-37b6ee12d9ae',
@@ -1852,9 +1852,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 01 On My Way.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=50c1c92e-4f29-42b8-a444-67d6da3858de`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=50c1c92e-4f29-42b8-a444-67d6da3858de`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=50c1c92e-4f29-42b8-a444-67d6da3858de`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=12695bcd-0f9a-4f9e-91ad-0346e1aee433`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=12695bcd-0f9a-4f9e-91ad-0346e1aee433`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2001%20On%20My%20Way.mp3?alt=media&token=12695bcd-0f9a-4f9e-91ad-0346e1aee433`,
         title: `On My Way`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1876,9 +1876,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 02 Westin.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=ee722ae5-a9e8-4a99-ba64-6790d0bbda6d`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=ee722ae5-a9e8-4a99-ba64-6790d0bbda6d`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=ee722ae5-a9e8-4a99-ba64-6790d0bbda6d`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=1a7ef922-12f4-406b-a454-2ee77da23d03`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=1a7ef922-12f4-406b-a454-2ee77da23d03`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2002%20Westin.mp3?alt=media&token=1a7ef922-12f4-406b-a454-2ee77da23d03`,
         title: `Westin`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1900,9 +1900,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 03 Big Nite City (Sax Mix).mp3`,
-        urlHigh: `hhttps://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=3579205d-3086-4ada-86ba-2f7592dc41c1`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=3579205d-3086-4ada-86ba-2f7592dc41c1`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=3579205d-3086-4ada-86ba-2f7592dc41c1`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=22ba3f96-8fb3-48f6-9ecc-db258d8e5796`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=22ba3f96-8fb3-48f6-9ecc-db258d8e5796`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2003%20Big%20Nite%20City%20(Sax%20Mix).mp3?alt=media&token=22ba3f96-8fb3-48f6-9ecc-db258d8e5796`,
         title: `Big Nite City (Sax Mix)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1924,9 +1924,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 04 Castle 2 Castle.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=90d97ed6-cc59-4f71-a803-6f0183c21915`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=90d97ed6-cc59-4f71-a803-6f0183c21915`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=90d97ed6-cc59-4f71-a803-6f0183c21915`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=b47dea60-149b-4fc4-835a-7398368e8bd1`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=b47dea60-149b-4fc4-835a-7398368e8bd1`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2004%20Castle%202%20Castle.mp3?alt=media&token=b47dea60-149b-4fc4-835a-7398368e8bd1`,
         title: `Castle 2 Castle`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1948,9 +1948,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 05 Ocean Park (feat. Just Tony).mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=1f750b70-d0a0-415e-8016-d5bb12bae3cb`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=1f750b70-d0a0-415e-8016-d5bb12bae3cb`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=1f750b70-d0a0-415e-8016-d5bb12bae3cb`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=8599f597-62b7-45fa-bd62-3323952f553e`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=8599f597-62b7-45fa-bd62-3323952f553e`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2005%20Ocean%20Park%20(feat.%20Just%20Tony).mp3?alt=media&token=8599f597-62b7-45fa-bd62-3323952f553e`,
         title: `Ocean Park (feat. Just Tony)`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1972,9 +1972,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 06 Tuff Luv.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=62820477-0646-4e8e-b775-d5b83810a4dc`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=62820477-0646-4e8e-b775-d5b83810a4dc`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=62820477-0646-4e8e-b775-d5b83810a4dc`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=9e928e6a-5678-48ed-a2b8-1429ee31d54d`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=9e928e6a-5678-48ed-a2b8-1429ee31d54d`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2006%20Tuff%20Luv.mp3?alt=media&token=9e928e6a-5678-48ed-a2b8-1429ee31d54d`,
         title: `Tuff Luv`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -1996,9 +1996,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 07 Afterglo.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=f40a7e02-c1a7-41b3-b6fd-dac2f5dd3349`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=f40a7e02-c1a7-41b3-b6fd-dac2f5dd3349`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=f40a7e02-c1a7-41b3-b6fd-dac2f5dd3349`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=5d419af2-cf69-4c83-acd8-a10b4d767104`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=5d419af2-cf69-4c83-acd8-a10b4d767104`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2007%20Afterglo.mp3?alt=media&token=5d419af2-cf69-4c83-acd8-a10b4d767104`,
         title: `Afterglo`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -2020,9 +2020,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/4c8e2a06-23a0-4434-bc84-181222c4f4e3/Benedek - Bene's World - 08 Sonatine.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=f53f1a41-009f-40fb-8674-2cc16326a7c4`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=f53f1a41-009f-40fb-8674-2cc16326a7c4`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=f53f1a41-009f-40fb-8674-2cc16326a7c4`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=4b948b96-c275-491c-969d-2ccccb995bc2`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=4b948b96-c275-491c-969d-2ccccb995bc2`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F4c8e2a06-23a0-4434-bc84-181222c4f4e3%2FBenedek%20-%20Bene's%20World%20-%2008%20Sonatine.mp3?alt=media&token=4b948b96-c275-491c-969d-2ccccb995bc2`,
         title: `Sonantine`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '4c8e2a06-23a0-4434-bc84-181222c4f4e3',
@@ -2044,9 +2044,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 01 Coolin'.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=fd4160d0-dfbb-46d2-aa5c-1464ab7f2b79`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=fd4160d0-dfbb-46d2-aa5c-1464ab7f2b79`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=fd4160d0-dfbb-46d2-aa5c-1464ab7f2b79`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=da856f29-9db5-462d-b7c2-d600a30fc3a0`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=da856f29-9db5-462d-b7c2-d600a30fc3a0`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2001%20Coolin'.mp3?alt=media&token=da856f29-9db5-462d-b7c2-d600a30fc3a0`,
         title: `Coolin'`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -2068,9 +2068,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 02 Ryukyu.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=99dc4dba-c850-46ac-8e5d-a1f3df068ad3`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=99dc4dba-c850-46ac-8e5d-a1f3df068ad3`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=99dc4dba-c850-46ac-8e5d-a1f3df068ad3`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=097e39de-2010-42f1-9d02-c51ea172e780`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=097e39de-2010-42f1-9d02-c51ea172e780`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2002%20Ryukyu.mp3?alt=media&token=097e39de-2010-42f1-9d02-c51ea172e780`,
         title: `Ryukyu`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -2092,9 +2092,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 03 Voices.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=63b30527-e64f-403b-9a7e-2f11d90a0662`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=63b30527-e64f-403b-9a7e-2f11d90a0662`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=63b30527-e64f-403b-9a7e-2f11d90a0662`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=8f96ecfa-b7af-4c07-86f4-6370cb74fca7`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=8f96ecfa-b7af-4c07-86f4-6370cb74fca7`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2003%20Voices.mp3?alt=media&token=8f96ecfa-b7af-4c07-86f4-6370cb74fca7`,
         title: `Voices`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
@@ -2116,9 +2116,9 @@ module.exports = {
         storagePathHigh: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.mp3`,
         storagePathMedium: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.mp3`,
         storagePathLow: `gs://wavy-development.appspot.com/81a033ac-7431-4a42-a3db-3eb19b3158ae/868965d4-a3e1-4434-ab86-7c7d8522d09e/Benedek - Coolin' - EP - 04 Angeles Vista.mp3`,
-        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=17b7d881-58a2-4de0-a23e-f953cf1732ba`,
-        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=17b7d881-58a2-4de0-a23e-f953cf1732ba`,
-        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=17b7d881-58a2-4de0-a23e-f953cf1732ba`,
+        urlHigh: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=b677d287-afa2-4796-81d4-b31efba2a6ba`,
+        urlMedium: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=b677d287-afa2-4796-81d4-b31efba2a6ba`,
+        urlLow: `https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/81a033ac-7431-4a42-a3db-3eb19b3158ae%2F868965d4-a3e1-4434-ab86-7c7d8522d09e%2FBenedek%20-%20Coolin'%20-%20EP%20-%2004%20Angeles%20Vista.mp3?alt=media&token=b677d287-afa2-4796-81d4-b31efba2a6ba`,
         title: `Angeles Vista`,
         artistId: '81a033ac-7431-4a42-a3db-3eb19b3158ae',
         albumId: '868965d4-a3e1-4434-ab86-7c7d8522d09e',
