@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:12
 
 WORKDIR /migration
 COPY ./package.json ./
@@ -10,7 +10,7 @@ RUN chmod +x /migration/wait-for-it.sh
 # also need to make sure the zombodb extension and the table are created (created in graphql), then seeded, then the index is created
 # CMD ["sh","-c", "./wait-for-it.sh -t 30 es01:9200 && ./wait-for-it.sh postgresql:5432 && ./wait-for-it.sh graphql:3001 && yarn seed:run "]
 # CMD ["sh","-c", "./wait-for-it.sh -t 30 es01:9200 && ./wait-for-it.sh postgresql:5432 && ./wait-for-it.sh graphql:3001 && yarn seed && yarn migrate"]
-CMD ["sh","-c", "./wait-for-it.sh postgresql:5432 && ./wait-for-it.sh graphql:3001 && yarn start"]
+CMD ["sh","-c", "./wait-for-it.sh postgresql:5432 && ./wait-for-it.sh graphql:3001 && yarn start:compose"]
 
 
 
