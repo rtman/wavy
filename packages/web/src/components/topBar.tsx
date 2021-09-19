@@ -156,7 +156,7 @@ export const TopBar: FunctionComponent<Props> = (props) => {
             noWrap={true}
             classes={{ root: classes.appBarTitle }}
           >
-            Oursound
+            Wavy
           </Typography>
           <Flex alignItems="center">
             {location.pathname.includes(consts.routes.SEARCH) ? null : (
