@@ -133,7 +133,7 @@ export const HomeFeed = () => {
   } = useQuery<Pick<Query, 'getUserSubscriptions'>>(
     consts.queries.userSubscription.GET_USER_SUBSCRIPTIONS,
     {
-      variables: { userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3' },
+      variables: { userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13' },
       // couldnt get this to work without no-cache, something to do with the union types in the query
       fetchPolicy: 'no-cache',
     }

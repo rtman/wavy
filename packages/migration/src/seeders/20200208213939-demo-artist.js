@@ -23,7 +23,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 0,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -46,7 +46,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 100,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -69,7 +69,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 200,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -92,7 +92,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 300,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -115,7 +115,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 250,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -138,7 +138,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 1000,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -161,7 +161,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 225,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: true,
       },
       {
@@ -172,7 +172,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         followers: 225,
-        creatorUserId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
+        creatorUserId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
         claimed: false,
         claimantEmail: 'ryanjtrann@gmail.com',
         claimCode: '7d15a539-c558-412d-a192-e0f26db2a925',

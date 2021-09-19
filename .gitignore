@@ -67,3 +67,6 @@ generated_gae_env.yaml
 
 #Env
 .env*
+
+# lerna
+lerna-debug.log

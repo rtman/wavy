@@ -4,10 +4,10 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('user', [
       {
-        id: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
-        firstName: 'Ryan',
-        lastName: 'Trann',
-        email: 'ryanjtrann@gmail.com',
+        id: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        firstName: 'Test',
+        lastName: 'Person',
+        email: 'test@test.com',
         password: 'testtest',
         profileImageStoragePathLarge:
           'gs://wavy-development.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_large.jpg',
@@ -25,10 +25,10 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 'F2qAdR0c81c3xGFk5PmgDXKAjis2',
+        id: 'UF2VJMo4W7MGAcP03HNFtviiG3x2',
         firstName: 'Test',
-        lastName: 'Person',
-        email: 'test@gmail.com',
+        lastName: 'Person 2',
+        email: 'test2@test.com',
         password: 'testtest',
         profileImageStoragePathLarge:
           'gs://wavy-development.appspot.com/30f65df5-98bb-48cd-83e5-867f707f941d/profile_large.jpg',

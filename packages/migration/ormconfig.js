@@ -14,6 +14,6 @@ module.exports = {
   // "subscribers": [
   //    "src/subscriber/**/*.ts"
   // ]
-  seeds: ['src/seeds/*{.ts,.js}'],
+  seeds: ['./src/seeds/*{.ts,.js}'],
   // "factories": ['src/factories/**/*{.ts,.js}'],
 };
