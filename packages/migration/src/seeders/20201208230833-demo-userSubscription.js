@@ -5,7 +5,7 @@ module.exports = {
     return await queryInterface.bulkInsert('userSubscription', [
       {
         id: 'a615ffe3-6449-49fb-82dc-dc50779c9ad8',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Artist',
         sortBy: 'top',
         type: 'default',
@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         id: '58a8c6d7-72ff-454e-84b8-93618b3df154',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Album',
         sortBy: 'new',
         type: 'default',
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         id: '8bcb6e28-3dea-439c-8583-031b253bdd58',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Label',
         sortBy: 'random',
         title: 'Selection of Albums',
@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         id: '9ee31c5e-e98b-4d36-9815-bcf0b5d78b7e',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Song',
         sortBy: 'top',
         type: 'tag',
@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         id: 'ef671fd6-f242-4d53-a012-fd05cdf2f7be',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Song',
         sortBy: 'new',
         type: 'tag',
@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         id: 'e18cf435-4864-46e2-8565-5ffe8914729d',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         entity: 'Song',
         sortBy: 'random',
         type: 'tag',
@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         id: '8ca02427-02e5-4b30-bc2d-3551f4b1d5f4',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         sortBy: 'new',
         type: 'following',
         title: 'New Albums from Your Follows',
@@ -91,7 +91,7 @@ module.exports = {
       },
       {
         id: '35a7ab04-3bd4-448f-870a-b7115c1ec1fe',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         sortBy: 'random',
         type: 'following',
         title: 'Albums from Your Follows',
@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         id: 'b1d935f3-456c-4b46-9d08-e2c093df3b70',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         type: 'userStats',
         active: true,
         title: 'Your Top Played Songs',
@@ -112,7 +112,7 @@ module.exports = {
       },
       {
         id: 'cee459ce-26f8-46e2-a874-d5bdd72034e1',
-        userId: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        userId: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         type: 'playHistory',
         title: 'Your Recent Plays',
         active: true,

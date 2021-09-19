@@ -227,10 +227,12 @@ export class UserSubscriptionResolvers {
       const subscriptionResults: UserSubscriptionResult[] = [];
 
       for (const [index, subscription] of sortedSubscriptions.entries()) {
-        subscriptionResults.push({
-          ...subscription,
-          data: subscriptionQueryResults[index],
-        });
+        if (subscriptionQueryResults[index].length > 0) {
+          subscriptionResults.push({
+            ...subscription,
+            data: subscriptionQueryResults[index],
+          });
+        }
       }
 
       return subscriptionResults;
@@ -378,16 +380,10 @@ const makePlayHistoryPromise = (props: { userId: string }) => {
                 })
               );
             }
-            reject({
-              ok: false,
-              error: `No songs found for userId - ${userId}`,
-            });
+            resolve([]);
           }
 
-          reject({
-            ok: false,
-            error: `No user stats found for userId - ${userId}`,
-          });
+          resolve([]);
         });
     } catch (error) {
       reject(error);
@@ -425,10 +421,7 @@ const makeUserStatsPromise = (props: { userId: string }) => {
             );
           }
 
-          reject({
-            ok: false,
-            error: `No userStats found for userId - ${userId}`,
-          });
+          resolve([]);
         });
     } catch (error) {
       reject(error);

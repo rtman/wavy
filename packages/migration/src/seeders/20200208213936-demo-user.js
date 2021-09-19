@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface.bulkInsert('user', [
       {
-        id: 'IhoEK55AxJU4QsTftSoV0uQdnz13',
+        id: '3WkOZ9SdaZOu6grNQPPd8dhV4vC3',
         firstName: 'Test',
         lastName: 'Person',
         email: 'test@test.com',
@@ -25,7 +25,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 'UF2VJMo4W7MGAcP03HNFtviiG3x2',
+        id: '4sQjPUevFgOcQyPjCrHNerNPZmi1',
         firstName: 'Test',
         lastName: 'Person 2',
         email: 'test2@test.com',

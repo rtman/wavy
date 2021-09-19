@@ -12,7 +12,7 @@ export const makeEmailTransporter = () => {
     // },
     service: 'gmail',
     auth: {
-      user: 'team.oursound@gmail.com',
+      user: 'admin.oursound@gmail.com',
       pass: 'mQSWtvLn97M9648',
     },
   });

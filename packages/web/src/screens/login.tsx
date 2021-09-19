@@ -47,7 +47,7 @@ export const Login = () => {
       style={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
-        <Typography variant="h3">Welcome to Our Sound</Typography>
+        <Typography variant="h3">Welcome to Wavy</Typography>
 
         <Spacing.BetweenParagraphs />
 

@@ -28,6 +28,8 @@ if (
 
 admin.initializeApp({
   // TODO: Credential needs to be env aware
+  // NOTE: Set in service account json location set in
+  // GOOGLE_APPLICATION_CREDENTIALS env var
   credential: admin.credential.applicationDefault(),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
