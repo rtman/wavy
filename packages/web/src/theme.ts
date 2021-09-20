@@ -11,7 +11,7 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { darken, desaturate, lighten, opacify, transparentize } from 'polished';
 
-const PRIMARY_COLOR = (_darkMode: boolean) => '#af52d5';
+const PRIMARY_COLOR = (_darkMode: boolean) => '#FF4500';
 const PRIMARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const PRIMARY_BLACK = (_darkMode: boolean) => '#000';
 const PRIMARY_BACKGROUND_COLOR = (_darkMode: boolean) => '#fff';
