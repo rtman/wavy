@@ -342,7 +342,7 @@ export class ArtistResolvers {
         });
 
         const sendArtistInviteEmailPromise = transporter.sendMail({
-          from: '"Wavy" <team.oursound@gmail.com>', // sender address
+          from: '"Wavy" <team@wavy.stream>', // sender address
           to: rest.claimantEmail, // list of receivers
           subject: 'Claim your artist account on Wavy!', // Subject line
           html: templatedArtistInviteEmail, // html body

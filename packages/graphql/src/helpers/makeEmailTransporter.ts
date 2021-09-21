@@ -1,19 +1,22 @@
 import nodemailer from 'nodemailer';
 
+import * as WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT from '../../secrets/dev/wavy-team-communication-7eb6e4f1891c.json';
+
 export const makeEmailTransporter = () => {
-  // const testAccount = await nodemailer.createTestAccount();
   return nodemailer.createTransport({
-    // host: 'smtp.ethereal.email',
-    // port: 587,
-    // secure: false, // true for 465, false for other ports
+    // service: 'gmail',
     // auth: {
-    //   user: testAccount.user, // generated ethereal user
-    //   pass: testAccount.pass, // generated ethereal password
+    //   user: process.env.WAVY_TEAM_EMAIL_ADDRESS,
+    //   pass: process.env.WAVY_TEAM_EMAIL_PASSWORD,
     // },
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: 'admin.oursound@gmail.com',
-      pass: 'mQSWtvLn97M9648',
+      type: 'OAuth2',
+      user: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_email,
+      serviceClient: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_id,
+      privateKey: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.private_key,
     },
   });
 };

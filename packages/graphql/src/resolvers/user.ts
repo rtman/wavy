@@ -300,8 +300,8 @@ export class UserResolvers {
       const userRepository = getManager().getRepository(Models.User);
       const user = await userRepository.findOne({ where: { userId } });
 
-      if (user) {
-        const result = await bcrypt.compare(password, user?.password);
+      if (user !== undefined) {
+        const result = await bcrypt.compare(password, user.password);
 
         if (result) {
           return user;
