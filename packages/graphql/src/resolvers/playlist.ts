@@ -186,12 +186,14 @@ export class PlaylistResolvers {
             'users.user',
             'songs',
             'songs.song',
-            'songs.song.artist',
+            // 'songs.song.artist',
             'songs.song.album',
-            'songs.song.album.label',
-            'songs.song.label',
+            // 'songs.song.album.label',
+            // 'songs.song.label',
           ],
         });
+
+      console.log('*debug* playlistsByUserId playlists', playlists);
 
       if (playlists) {
         return playlists;

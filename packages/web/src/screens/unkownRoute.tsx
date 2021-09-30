@@ -8,7 +8,7 @@ export const UnknownRoute = () => {
       spacing={0}
       direction="column"
       alignItems="center"
-      justify="center"
+      justifyContent="center"
     >
       <Grid item={true} xs={3}>
         <Typography variant="h3">404</Typography>

@@ -1,4 +1,4 @@
-import { createMuiTheme, Theme } from '@material-ui/core';
+import { createTheme, Theme } from '@material-ui/core';
 import { BreakpointValues } from '@material-ui/core/styles/createBreakpoints';
 import {
   Palette,
@@ -16,13 +16,13 @@ const PRIMARY_CONTRAST = (_darkMode: boolean) => '#fff';
 const PRIMARY_BLACK = (_darkMode: boolean) => '#000';
 const PRIMARY_BACKGROUND_COLOR = (_darkMode: boolean) => '#fff';
 const PRIMARY_WHITE = (_darkMode: boolean) => '#fff';
-const SECONDARY_COLOR = (_darkMode: boolean) => '#ffc1e3';
-const SECONDARY_CONTRAST = (_darkMode: boolean) => '#fff';
+const SECONDARY_COLOR = (_darkMode: boolean) => '#FFEE00';
+const SECONDARY_CONTRAST = (_darkMode: boolean) => '#000';
 const ERROR_COLOR = (_darkMode: boolean) => 'rgb(253, 136, 114)';
 const ERROR_CONTRAST = (_darkMode: boolean) => '#fff';
 const DIVIDER_COLOR = (_useDarkMode: boolean) => 'rgba(0, 0, 0, 0.05)';
 
-const defaultTheme = createMuiTheme();
+const defaultTheme = createTheme();
 
 export interface CustomTheme extends Theme {
   palette: CustomPalette;
@@ -182,7 +182,7 @@ export const makeTheme = () => {
     xl: 1280 + totalScreenPadding,
   };
 
-  const output = createMuiTheme({
+  const output = createTheme({
     ...basicTheme,
     breakpoints: {
       values: breakpoints,

@@ -145,7 +145,7 @@ export class UserResolvers {
   ): Promise<Models.User | undefined> {
     try {
       // console.log('*debug* ctx.req.ip', ctx.req.ip);
-
+      // FIXME: Return type doesnt match what is being returned in the findOne, makes debugging hard
       const user = await getManager()
         .getRepository(Models.User)
         .findOne({
