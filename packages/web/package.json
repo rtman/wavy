@@ -24,7 +24,7 @@
     "email-validator": "^2.0.4",
     "env-cmd": "^10.1.0",
     "firebase": "^7.7.0",
-    "graphql": "^14.5.8",
+    "graphql": "14.5.8",
     "http-status-codes": "^1.4.0",
     "immutability-helper": "^3.0.1",
     "material-ui-nested-menu-item": "^1.0.2",
@@ -47,7 +47,7 @@
     "smoothscroll-polyfill": "0.4.4",
     "styled-components": "^5.0.0",
     "use-context-selector": "1.1.4",
-    "uuidv4": "^6.2.3"
+    "uuidv4": "6.2.3"
   },
   "scripts": {
     "generate-types": "yarn graphql-codegen",
