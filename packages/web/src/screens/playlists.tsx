@@ -77,6 +77,7 @@ export const Playlists = () => {
   >(consts.mutations.playlist.CREATE_PLAYLIST, {
     onCompleted() {
       if (userId) {
+        userContext?.loadUser();
         getPlaylists({ variables: { userId } });
       }
     },

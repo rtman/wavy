@@ -61,7 +61,11 @@ export const AuthProvider: FunctionComponent = (props) => {
         .createUserWithEmailAndPassword(email, password);
 
       if (firebaseCredential?.user) {
-        const result = await createUser({
+        console.log(
+          'signup firebaseCredential?.user',
+          firebaseCredential?.user
+        );
+        const createUserResult = await createUser({
           variables: {
             input: {
               firstName,
@@ -73,14 +77,29 @@ export const AuthProvider: FunctionComponent = (props) => {
           },
         });
 
-        if (result.errors) {
+        if (createUserResult.errors) {
           setError(createUserError);
           await logout();
 
           return;
         }
 
-        setSignedIn(true);
+        if (firebaseCredential.user.uid && userContext) {
+          const loadUserByIdResult = await userContext?.loadUserById(
+            firebaseCredential.user.uid
+          );
+
+          console.log(
+            '*debug* authContext -  loadUserById',
+            loadUserByIdResult
+          );
+
+          if (!loadUserByIdResult.ok) {
+            setError(loadUserByIdResult.error);
+          }
+
+          setSignedIn(loadUserByIdResult.ok);
+        }
       }
     } catch (error_) {
       setError(error_);

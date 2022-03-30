@@ -287,8 +287,8 @@ export const Search = () => {
           value={currentTab}
           onChange={handleChange}
           variant="fullWidth"
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor="primary"
+          textColor="primary"
           aria-label="search tabs"
         >
           <Tab className={classes.tabLabel} label="Song" value="songs" />
