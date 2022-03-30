@@ -3,11 +3,10 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { CssBaseline } from '@material-ui/core';
 import { AuthProvider, UserProvider } from 'context';
 import * as firebase from 'firebase/app';
-import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useHistory } from 'react-router-dom';
 import smoothscroll from 'smoothscroll-polyfill';
 import { FirebaseConfig } from 'types';
 
@@ -16,8 +15,6 @@ import * as serviceWorker from './serviceWorker';
 
 // safari smooth scroll animation polyfill
 smoothscroll.polyfill();
-
-export const history = createBrowserHistory();
 
 if (
   process.env.REACT_APP_FIREBASE_API_KEY === undefined ||

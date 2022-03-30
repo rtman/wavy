@@ -4,7 +4,8 @@ runtime: nodejs12
 
 instance_class: F4
 
-service: server
+# service: server
+service: default
 
 includes:
   - generated_gae_env.yaml
