@@ -183,6 +183,7 @@ export const AlbumForm = memo((props: CreateAlbumFormProps) => {
           <Grid item={true} xs={12} sm={6}>
             {image ? (
               <img
+                alt="Album Profile"
                 style={{
                   minHeight: 50,
                   minWidth: 50,

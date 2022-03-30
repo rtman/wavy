@@ -8,9 +8,8 @@ import {
   Menu,
   Theme,
   Typography,
-  useTheme,
 } from '@material-ui/core';
-import { Block, MoreVert } from '@material-ui/icons';
+import { MoreVert } from '@material-ui/icons';
 import { Flex, Spacing } from 'components';
 import React, { useCallback } from 'react';
 import { BaseListItemProps, MenuPosition } from 'types';
@@ -36,18 +35,17 @@ export const BaseListItem = (
   }
 ) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const {
     anchorEl,
-    active = true,
+    // active = true,
     caption,
     disabled,
     leftAccessory,
     menuItems,
     onClick,
     rightAccessory,
-    playCount,
+    // playCount,
     setAnchorEl,
     setMenuPosition,
     style,

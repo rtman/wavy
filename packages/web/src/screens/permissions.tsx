@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import { Button, Container, Typography } from '@material-ui/core';
 import { Spacing } from 'components';
 import React from 'react';

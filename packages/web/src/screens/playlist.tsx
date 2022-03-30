@@ -23,8 +23,7 @@ import {
 import { AccountBox } from '@material-ui/icons';
 import { Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
-import { playlist } from 'consts/mutations';
-import { PlayerContext, UserContext } from 'context';
+import { PlayerContext } from 'context';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -54,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Playlist = () => {
   const { id } = useParams<IdParam>();
-  const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const classes = useStyles();
   const theme = useTheme();
@@ -85,13 +83,11 @@ export const Playlist = () => {
     },
   });
 
-  const playlistFollows = userContext?.user?.playlistFollows ?? [];
   const playlistSongs = playlistData?.playlistById?.songs ?? [];
   const playlistImageUrl =
     playlistData?.playlistById?.profileImageUrlLarge ?? '';
   const playlistTitle = playlistData?.playlistById?.title ?? '';
   const playlistDescription = playlistData?.playlistById?.description ?? '';
-  const playlistUsers = playlistData?.playlistById?.users ?? [];
 
   // const userIsPlaylistOwner = playlistUsers.find(
   //   (user) => userContext?.user?.id === user.userId
@@ -242,6 +238,7 @@ export const Playlist = () => {
   const renderProfileImage = () =>
     playlistImageUrl ? (
       <img
+        alt="Playlist Profile"
         style={{
           alignSelf: 'center',
           minHeight: 50,

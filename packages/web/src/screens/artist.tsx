@@ -261,6 +261,7 @@ export const Artist = () => {
   const renderProfileImage = () =>
     artistImageUrl ? (
       <img
+        alt="Artist Profile"
         style={{
           alignSelf: 'center',
           minHeight: 50,

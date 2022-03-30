@@ -1,12 +1,6 @@
 import { BaseListItem } from 'components';
 import { PlayerContext } from 'context';
-import React, {
-  CSSProperties,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import React, { CSSProperties, useCallback, useContext, useState } from 'react';
 import { Album, BaseListItemProps, MenuPosition } from 'types';
 
 import { AlbumMenuItems } from './albumMenuItems';

@@ -61,7 +61,6 @@ export const Album = () => {
     (album) => album.active
   );
   const artistName = albumData?.albumById.artist.name ?? '';
-  const artistId = albumData?.albumById.artist.id;
   const albumProcessing = albumData?.albumById.processing ?? true;
   const labelId = albumData?.albumById.label?.id;
   const labelName = albumData?.albumById.label?.name;
@@ -216,6 +215,7 @@ export const Album = () => {
   const renderProfileImage = () =>
     albumImageUrl ? (
       <img
+        alt="Album Profile"
         style={{
           alignSelf: 'center',
           minHeight: 50,

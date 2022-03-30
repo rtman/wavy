@@ -104,7 +104,7 @@ export const CreateArtist = () => {
       <Typography variant="h3">New Artist</Typography>
       <Spacing.section.Minor />
       {image ? (
-        <img src={image} width={500} height={500} />
+        <img alt="Artist Profile" src={image} width={500} height={500} />
       ) : (
         <ImageUploader
           withIcon={true}

@@ -1,6 +1,5 @@
 import * as consts from 'consts';
-import { AuthContext } from 'context';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import * as screens from 'screens';
 import { UnknownRoute } from 'screens';

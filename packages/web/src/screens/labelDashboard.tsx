@@ -27,7 +27,7 @@ import React, {
   useState,
 } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { IdParam, Query, QueryLabelByIdArgs, Song } from 'types';
+import { IdParam, Query, QueryLabelByIdArgs } from 'types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

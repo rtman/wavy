@@ -6,13 +6,12 @@ import {
   createStyles,
   IconButton,
   makeStyles,
-  Menu,
   Theme,
   Typography,
 } from '@material-ui/core';
-import { ArrowUpward, MoreVert, PlayArrow } from '@material-ui/icons';
-import { Flex, Spacing } from 'components';
-import React, { memo, useCallback, useState } from 'react';
+import { ArrowUpward, PlayArrow } from '@material-ui/icons';
+import { Flex } from 'components';
+import React, { useState, memo } from 'react';
 import { BaseCardProps, MenuPosition } from 'types';
 
 const defaultWidth = 200;

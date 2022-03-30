@@ -10,11 +10,7 @@ import { uuid } from 'uuidv4';
 export const ArtistCreateRelease = () => {
   const { id } = useParams<IdParam>();
 
-  const {
-    loading: getPermissionsLoading,
-    error: getPermissionsError,
-    data: getPermissionsData,
-  } = useQuery<Pick<Query, 'getPermissions'>>(
+  const { data: getPermissionsData } = useQuery<Pick<Query, 'getPermissions'>>(
     consts.queries.permission.GET_PERMISSIONS,
     {
       variables: { id },

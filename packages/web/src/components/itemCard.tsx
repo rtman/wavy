@@ -17,7 +17,7 @@ import { PlayerContext, UserContext } from 'context';
 import NestedMenuItem from 'material-ui-nested-menu-item';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Album, Artist, Label, Playlist, Song, User } from 'types';
+import { Album, Artist, Label, Playlist, Song } from 'types';
 
 type Item = Album | Artist | Label | Playlist | Song;
 interface ItemCardProps {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const ItemCard = (props: ItemCardProps) => {
-  const { item, passedOnClick } = props;
+  const { item } = props;
   const playerContext = useContext(PlayerContext);
   const userContext = useContext(UserContext);
   const classes = useStyles();

@@ -10,16 +10,11 @@ import { uuid } from 'uuidv4';
 export const LabelCreateRelease = () => {
   const { id } = useParams<IdParam>();
 
-  const {
-    loading: getPermissionsLoading,
-    error: getPermissionsError,
-    data: getPermissionsData,
-  } = useQuery<Pick<Query, 'getPermissions'>>(
-    consts.queries.permission.GET_PERMISSIONS,
-    {
-      variables: { id },
-    }
-  );
+  const { loading: getPermissionsLoading, data: getPermissionsData } = useQuery<
+    Pick<Query, 'getPermissions'>
+  >(consts.queries.permission.GET_PERMISSIONS, {
+    variables: { id },
+  });
 
   const artistData = useMemo(
     () =>

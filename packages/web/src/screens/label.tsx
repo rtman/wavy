@@ -255,6 +255,7 @@ export const Label = () => {
   const renderProfileImage = () =>
     labelImageUrl ? (
       <img
+        alt="Label Profile"
         style={{
           alignSelf: 'center',
           minHeight: 50,

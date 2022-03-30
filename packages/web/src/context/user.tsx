@@ -4,8 +4,6 @@ import React, {
   createContext,
   FunctionComponent,
   useCallback,
-  // useContext,
-  // useEffect,
   useState,
 } from 'react';
 import * as services from 'services';
@@ -22,8 +20,6 @@ import {
   User,
   UserPlaylist,
 } from 'types';
-
-// import { AuthContext } from './auth';
 
 interface UserContextProps {
   user?: User;
@@ -50,10 +46,11 @@ export const UserProvider: FunctionComponent = (props) => {
     []
   );
   const [user, setUser] = useState<User | undefined>(undefined);
-  const [ipAddress, setIpAddress] = useState<string | undefined>(undefined);
-  const [geoLocation, setGeoLocation] = useState<
-    services.IpifyLocation | undefined
-  >(undefined);
+  // TODO: re enable when ip address credits are reinstated
+  // const [ipAddress, setIpAddress] = useState<string | undefined>(undefined);
+  // const [geoLocation, setGeoLocation] = useState<
+  //   services.IpifyLocation | undefined
+  // >(undefined);
 
   const loadUser = useCallback(async () => {
     try {
@@ -209,8 +206,8 @@ export const UserProvider: FunctionComponent = (props) => {
         addSongsToPlaylist,
         removeSongsFromPlaylist,
         playlists,
-        ipAddress,
-        geoLocation,
+        // ipAddress,
+        // geoLocation,
       }}
     >
       {props.children}

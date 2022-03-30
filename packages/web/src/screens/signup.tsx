@@ -206,7 +206,7 @@ export const Signup = () => {
 
             <Spacing.section.Major />
 
-            <Button variant="text" color="secondary" onClick={onClickLogin}>
+            <Button variant="text" color="primary" onClick={onClickLogin}>
               Already have an Account? Log in
             </Button>
           </Grid>

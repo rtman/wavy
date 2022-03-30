@@ -59,7 +59,7 @@ export const CreateAlbumContext = createContext<
 >(undefined);
 
 export const CreateAlbumProvider: FunctionComponent = (props) => {
-  const [createAlbum, { loading, called, error }] = useMutation<
+  const [createAlbum, { loading }] = useMutation<
     Pick<Mutation, 'createAlbum'>,
     MutationCreateAlbumArgs
   >(consts.mutations.album.CREATE_ALBUM, {

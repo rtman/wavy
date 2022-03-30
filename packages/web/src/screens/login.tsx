@@ -118,7 +118,7 @@ export const Login = () => {
 
             <Spacing.BetweenComponents />
 
-            <Button variant="text" color="secondary" onClick={onClickSignup}>
+            <Button variant="text" color="primary" onClick={onClickSignup}>
               Don't have an account? Sign up
             </Button>
           </Grid>

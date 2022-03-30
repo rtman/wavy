@@ -117,7 +117,7 @@ export const CreateLabel = () => {
       <Typography variant="h4">New Label</Typography>
       <Spacing.section.Minor />
       {image ? (
-        <img src={image} width={500} height={500} />
+        <img alt="Label Profile" src={image} width={500} height={500} />
       ) : (
         <ImageUploader
           withIcon={true}

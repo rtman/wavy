@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 import * as consts from 'consts';
 import { PlayerContext } from 'context';
 import React, { memo, useContext } from 'react';
