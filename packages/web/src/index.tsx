@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import smoothscroll from 'smoothscroll-polyfill';
 import { FirebaseConfig } from 'types';
 
