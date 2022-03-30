@@ -23,6 +23,7 @@
     "seed:dev:shared": "yarn set:dev:shared sequelize db:seed:all",
     "seed:qa:local": "yarn set:qa:local sequelize db:seed:all",
     "seed:qa:shared": "yarn set:qa:shared sequelize db:seed:all",
+    "migrate:dev:shared": "yarn set:dev:shared sequelize db:migrate",
     "typeormSeed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "typeoOrmSeed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "lint": "eslint '**/*.js' && yarn prettier:check",
@@ -39,7 +40,7 @@
     "env-cmd": "^10.1.0",
     "pg": "^7.16.0",
     "sequelize": "5.21.5",
-    "sequelize-cli": "^5.5.1",
+    "sequelize-cli": "5.5.1",
     "ts-node": "^9.0.0",
     "typeorm": "0.2.26",
     "typeorm-seeding": "^1.6.1"

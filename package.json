@@ -36,8 +36,6 @@
     "compose:qa:local": "docker-compose down && docker-compose build && yarn set:qa:local docker-compose up",
     "prune": "docker system prune",
     "prune:volumes": "docker system prune --volumes",
-    "gae:deploy:server": "cd packages/graphql && gcloud app deploy && cd ..",
-    "gae:deploy:web": "cd packages/web && gcloud app deploy && cd ..",
     "buildImages": "./scripts/build_images.sh",
     "pushImages": "./scripts/push_images.sh",
     "createClusters": "./scripts/createClusters.sh",

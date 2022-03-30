@@ -1,7 +1,7 @@
 const env = require('../../../.env-cmdrc.json');
 const fs = require('fs');
 
-const inputArgs = process.argv.slice(2);
+const inputArgs = process.argv.slice(2)[0].split(',');
 
 let parsedJson = {};
 inputArgs.forEach((arg) => {
@@ -18,7 +18,7 @@ Object.entries(parsedJson).forEach((e) => {
   }
 });
 
-fs.writeFileSync('../generated_gae_env.yaml', outputData);
+fs.writeFileSync('./generated_gae_env.yaml', outputData);
 
 console.log(
   `generated_gae_env.yaml generated sucessfully - ${new Date().toLocaleTimeString()}`

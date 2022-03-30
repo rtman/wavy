@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import * as WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT from '../../secrets/dev/wavy-team-communication-7eb6e4f1891c.json';
+// import * as WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT from '../../secrets/dev/wavy-team-communication-7eb6e4f1891c.json';
 
 export const makeEmailTransporter = () => {
   return nodemailer.createTransport({
@@ -14,9 +14,9 @@ export const makeEmailTransporter = () => {
     secure: true,
     auth: {
       type: 'OAuth2',
-      user: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_email,
-      serviceClient: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_id,
-      privateKey: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.private_key,
+      // user: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_email,
+      // serviceClient: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.client_id,
+      // privateKey: WAVY_TEAM_COMMUNICATION_SERVICE_ACCOUNT.private_key,
     },
   });
 };

@@ -4,8 +4,11 @@ runtime: nodejs12
 
 instance_class: F4
 
-# service: server
-service: default
+service: server
+# service: default
+
+beta_settings:
+  cloud_sql_instances: wavy-development:us-central1:main
 
 includes:
   - generated_gae_env.yaml
