@@ -3,9 +3,11 @@
 
 Wavy is a monorepo that is managed using `lerna`, in order to run it you have to have `lerna`, `docker desktop`, `node` and `npm`/`yarn` installed.
 
-After cloning the repo run `lerna bootstrap` in the root dir, start docker desktop and run `docker-compose up` (still in the root). That should start up the backend.
-
-To Run the web front end, in another terminal go to `/packages/web` and run `yarn start`
+## Running
+1. Clone the repo
+2. Acquire the `.env-cmdrc.json` from the project owner and place in the root dir. 
+3. Run `lerna bootstrap` in the root dir
+4. Start docker desktop and run `yarn compose:dev:local` from root. This will spin up the backend (localhost:3001/graphql) and the frontend (localhost:3000),
 
 # Troubleshooting
 
