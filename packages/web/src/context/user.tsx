@@ -1,5 +1,6 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import * as consts from 'consts';
+import { useSnackbar } from 'notistack';
 import React, {
   createContext,
   FunctionComponent,
@@ -41,6 +42,7 @@ export const UserContext = createContext<UserContextProps | undefined>(
 export const UserProvider: FunctionComponent = (props) => {
   // const authContext = useContext(AuthContext);
   const apolloClient = useApolloClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
     []
@@ -77,6 +79,7 @@ export const UserProvider: FunctionComponent = (props) => {
         const result = await tasks.getUserById({ userId }, apolloClient);
 
         if (result.ok) {
+          console.log('*debug* loadUserById result', result);
           setUser(result.data);
           setPlaylists(result.data.playlists);
         }
@@ -101,6 +104,10 @@ export const UserProvider: FunctionComponent = (props) => {
   >(consts.mutations.user.UPDATE_FOLLOWING, {
     onCompleted: () => {
       void loadUser();
+      enqueueSnackbar('Follows updated', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
     },
   });
   const [submitUpdateFavourites] = useMutation<
@@ -109,6 +116,10 @@ export const UserProvider: FunctionComponent = (props) => {
   >(consts.mutations.user.UPDATE_FAVOURITES, {
     onCompleted: () => {
       void loadUser();
+      enqueueSnackbar('Favourites updated', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
     },
   });
   const [submitAddSongsToPlaylists] = useMutation<
@@ -117,6 +128,10 @@ export const UserProvider: FunctionComponent = (props) => {
   >(consts.mutations.playlist.ADD_PLAYLIST_SONGS, {
     onCompleted: () => {
       void loadUser();
+      enqueueSnackbar('Playlist updated', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
     },
   });
 
@@ -126,6 +141,10 @@ export const UserProvider: FunctionComponent = (props) => {
   >(consts.mutations.playlist.REMOVE_PLAYLIST_SONGS, {
     onCompleted: () => {
       void loadUser();
+      enqueueSnackbar('Playlist updated', {
+        variant: 'success',
+        autoHideDuration: 4000,
+      });
     },
   });
 

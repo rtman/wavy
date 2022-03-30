@@ -8,7 +8,6 @@ import {
   PlayerProvider,
   SearchProvider,
 } from 'context';
-import { SnackbarProvider } from 'notistack';
 import React, { useContext } from 'react';
 
 import { makeTheme } from './theme';
@@ -41,27 +40,23 @@ export const App = () => {
   if (signedIn) {
     return (
       <MuiThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={3}>
-          <PlayerProvider>
-            <SearchProvider>
-              <TopBar>
-                <CreateAlbumProvider>
-                  <Navigator />
-                </CreateAlbumProvider>
-              </TopBar>
-            </SearchProvider>
-            <BottomBar />
-          </PlayerProvider>
-        </SnackbarProvider>
+        <PlayerProvider>
+          <SearchProvider>
+            <TopBar>
+              <CreateAlbumProvider>
+                <Navigator />
+              </CreateAlbumProvider>
+            </TopBar>
+          </SearchProvider>
+          <BottomBar />
+        </PlayerProvider>
       </MuiThemeProvider>
     );
   } else {
     // Sign up / log in
     return (
       <MuiThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={3}>
-          <Navigator />
-        </SnackbarProvider>
+        <Navigator />
       </MuiThemeProvider>
     );
   }

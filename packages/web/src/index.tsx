@@ -9,6 +9,7 @@ import Helmet from 'react-helmet';
 import { BrowserRouter } from 'react-router-dom';
 import smoothscroll from 'smoothscroll-polyfill';
 import { FirebaseConfig } from 'types';
+import { SnackbarProvider } from 'notistack';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
@@ -62,13 +63,15 @@ ReactDOM.render(
       />
     </Helmet>
     <CssBaseline>
-      <UserProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </AuthProvider>
-      </UserProvider>
+      <SnackbarProvider maxSnack={3}>
+        <UserProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AuthProvider>
+        </UserProvider>
+      </SnackbarProvider>
     </CssBaseline>
   </ApolloProvider>,
   document.getElementById('root')
