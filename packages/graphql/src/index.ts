@@ -3,7 +3,6 @@ import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
 import compression from 'compression';
-import cors from 'cors';
 import express from 'express';
 import * as admin from 'firebase-admin';
 import { GraphQLError, GraphQLSchema } from 'graphql';
@@ -75,7 +74,6 @@ const initApolloServer = (schema: GraphQLSchema) =>
 
 const app = express();
 
-app.use('*', cors());
 app.use(compression());
 
 app.set('trust proxy', true);
@@ -90,7 +88,13 @@ const runServer = async () => {
 
     const server = initApolloServer(schema);
 
-    server.applyMiddleware({ app, path: '/graphql' });
+    server.applyMiddleware({
+      app,
+      path: '/graphql',
+      cors: {
+        origin: '*',
+      },
+    });
 
     app.get('/', (_req, res) => {
       res.send('Hello world!');

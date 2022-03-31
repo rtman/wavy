@@ -4,6 +4,7 @@ export * from './create-user-subscription';
 export * from './delete-user-subscription';
 export * from './get-artist-by-id';
 export * from './get-unclaimed-artists-by-email';
+export * from './get-playlists-by-user-id';
 export * from './set-song-active';
 export * from './get-tags';
 export * from './get-user-by-id';

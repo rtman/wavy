@@ -19,7 +19,7 @@ import { AccountBox } from '@material-ui/icons';
 import { AlbumListItem, Flex, SongListItem, Spacing } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Album,
@@ -63,18 +63,39 @@ export const Artist = () => {
     consts.queries.artist.ARTIST_BY_ID,
     {
       fetchPolicy: 'network-only',
+      onCompleted: (res) => {
+        console.log('getArtistById res', res.artistById);
+      },
     }
   );
 
   const userContext = useContext(UserContext);
   const playerContext = useContext(PlayerContext);
   const artistFollows = userContext?.user?.artistFollows ?? [];
-  const artistSongs = (artistData?.artistById.albums ?? [])
-    .map((album) => (album.songs ?? []).reduce((song) => song))
-    .filter((song) => song.active);
+
   const artistAlbums = (artistData?.artistById.albums ?? []).filter(
     (album) => album.active
   );
+
+  const artistSongs = useMemo(() => {
+    let songs: Song[] = [];
+
+    artistAlbums.forEach((album) => {
+      (album.songs ?? []).forEach((song) => {
+        if (song.active && artistData?.artistById !== undefined) {
+          songs.push({
+            ...song,
+            artistId: artistData?.artistById?.id ?? '',
+            albumId: album.id,
+            artist: { ...artistData?.artistById },
+          });
+        }
+      });
+    });
+
+    return songs;
+  }, [artistAlbums]);
+
   const artistName = artistData?.artistById.name ?? '';
   const artistDescription = artistData?.artistById.description;
   const artistImageUrl = artistData?.artistById.profileImageUrlSmall;
@@ -106,7 +127,6 @@ export const Artist = () => {
   };
 
   const renderTopSongs = () => {
-    console.log('*debug artistSongs', artistSongs);
     const artistSongsDesc = artistSongs
       .sort((a, b) => b.playCount - a.playCount)
       .slice(0, 5);

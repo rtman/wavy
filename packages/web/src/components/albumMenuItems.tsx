@@ -41,9 +41,7 @@ export const AlbumMenuItems = memo((props: AlbumMenuItems) => {
   };
 
   const renderPlaylists = () => {
-    const playlistList = userContext?.playlists?.map((playlistInstance) => {
-      const playlist = playlistInstance.playlist;
-
+    const playlistList = userContext?.playlists?.map((playlist) => {
       return (
         <MenuItem key={playlist.id} onClick={onClickAddToPlaylist(playlist.id)}>
           {playlist.title}

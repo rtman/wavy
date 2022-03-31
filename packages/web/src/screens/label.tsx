@@ -25,7 +25,7 @@ import {
 } from 'components';
 import * as consts from 'consts';
 import { PlayerContext, UserContext } from 'context';
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Album,
@@ -75,12 +75,23 @@ export const Label = () => {
   const labelAlbums = (labelData?.labelById?.albums ?? []).filter(
     (album) => album.active
   );
+
   const labelImageUrl = labelData?.labelById?.profileImageUrlSmall;
   const labelName = labelData?.labelById?.name ?? '';
   const labelDescription = labelData?.labelById?.description;
-  const labelSongs = (labelData?.labelById?.albums ?? [])
-    .map((album) => (album.songs ?? []).reduce((song) => song))
-    .filter((song) => song.active);
+
+  const labelSongs = useMemo(() => {
+    let songs: Song[] = [];
+    labelAlbums.forEach((album) => {
+      (album.songs ?? []).forEach((song) => {
+        if (song.active) {
+          songs.push({ ...song });
+        }
+      });
+    });
+
+    return songs;
+  }, [labelAlbums]);
 
   useEffect(() => {
     if (id) {

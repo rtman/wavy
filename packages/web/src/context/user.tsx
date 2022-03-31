@@ -17,9 +17,9 @@ import {
   MutationRemovePlaylistSongsArgs,
   MutationUpdateFavouritesArgs,
   MutationUpdateFollowingArgs,
+  Playlist,
   UpdateFollowingArgs,
   User,
-  UserPlaylist,
 } from 'types';
 
 interface UserContextProps {
@@ -30,7 +30,7 @@ interface UserContextProps {
   updateFavourites(songId: string): void;
   addSongsToPlaylist(playlistId: string, songIds: string[]): void;
   removeSongsFromPlaylist(playlistId: string, songIds: string[]): void;
-  playlists?: UserPlaylist[] | null;
+  playlists?: Playlist[] | null;
   ipAddress?: string;
   geoLocation?: services.IpifyLocation;
 }
@@ -44,9 +44,7 @@ export const UserProvider: FunctionComponent = (props) => {
   const apolloClient = useApolloClient();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [playlists, setPlaylists] = useState<UserPlaylist[] | null | undefined>(
-    []
-  );
+  const [playlists, setPlaylists] = useState<Playlist[] | null | undefined>([]);
   const [user, setUser] = useState<User | undefined>(undefined);
   // TODO: re enable when ip address credits are reinstated
   // const [ipAddress, setIpAddress] = useState<string | undefined>(undefined);
@@ -57,15 +55,20 @@ export const UserProvider: FunctionComponent = (props) => {
   const loadUser = useCallback(async () => {
     try {
       if (user && user.id) {
-        const result = await tasks.getUserById(
+        const userResult = await tasks.getUserById(
           { userId: user.id },
           apolloClient
         );
 
-        console.log('*debug* loadUser result', result);
-        if (result.ok) {
-          setUser(result.data);
-          setPlaylists(result.data.playlists);
+        const playlistsResult = await tasks.getPlaylistsByUserId(
+          { userId: user.id },
+          apolloClient
+        );
+
+        console.log('*debug* loadUser userResult', userResult);
+        if (userResult.ok && playlistsResult.ok) {
+          setUser(userResult.data);
+          setPlaylists(playlistsResult.data);
         }
       }
     } catch (error_) {
@@ -76,15 +79,20 @@ export const UserProvider: FunctionComponent = (props) => {
   const loadUserById = useCallback(
     async (userId: string) => {
       try {
-        const result = await tasks.getUserById({ userId }, apolloClient);
+        const userResult = await tasks.getUserById({ userId }, apolloClient);
 
-        if (result.ok) {
-          console.log('*debug* loadUserById result', result);
-          setUser(result.data);
-          setPlaylists(result.data.playlists);
+        const playlistsResult = await tasks.getPlaylistsByUserId(
+          { userId },
+          apolloClient
+        );
+
+        console.log('*debug* loadUser userResult', userResult);
+        if (userResult.ok && playlistsResult.ok) {
+          setUser(userResult.data);
+          setPlaylists(playlistsResult.data);
         }
 
-        return result;
+        return userResult;
       } catch (error_) {
         // FIXME: no unsafe assigment
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -110,6 +118,7 @@ export const UserProvider: FunctionComponent = (props) => {
       });
     },
   });
+
   const [submitUpdateFavourites] = useMutation<
     Pick<Mutation, 'updateFavourites'>,
     MutationUpdateFavouritesArgs
