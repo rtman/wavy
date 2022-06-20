@@ -131,7 +131,7 @@ module.exports = {
         profileImageUrlLarge:
           'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_large.jpg?alt=media&token=3a581ee1-cc75-4cb0-96ef-108f51afaaa0',
         profileImageUrlSmall:
-          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_small.jpg?alt=media&token=a2d2b18c-99d4-40ef-a80c-ce337532eddb1',
+          'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_small.jpg?alt=media&token=a2d2b18c-99d4-40ef-a80c-ce337532eddb',
         profileImageUrlThumb:
           'https://firebasestorage.googleapis.com/v0/b/wavy-development.appspot.com/o/2be2c355-497d-40bb-8739-cd07823ab8d0%2Fprofile_thumb.jpg?alt=media&token=b2ea4a81-a107-47f1-acd6-31ae978aefd0',
         permissionCode: 'b83e915c-8d94-4857-a63e-87fa150f2a48',
